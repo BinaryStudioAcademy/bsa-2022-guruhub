@@ -1,0 +1,46 @@
+{
+	"name": "bsa-2022-guruhub",
+	"private": "true",
+	"engines": {
+		"node": ">=16 <17",
+		"npm": ">=8 <9"
+	},
+	"scripts": {
+		"lint:editorconfig": "editorconfig-checker",
+		"lint:fs": "ls-lint",
+		"lint:shared:js": "cd shared && npm run lint:js",
+		"lint:shared": "cd shared && npm run lint",
+		"lint:frontend:css": "cd frontend && npm run lint:css",
+		"lint:frontend:js": "cd frontend && npm run lint:js",
+		"lint:frontend": "cd frontend && npm run lint",
+		"lint:backend:js": "cd backend && npm run lint:js",
+		"lint:backend": "cd backend && npm run lint",
+		"lint:css": "npm run lint:frontend:css",
+		"lint:js": "npm run lint:shared:js && npm run lint:backend:js && npm run lint:frontend:js",
+		"lint": "npm run lint:editorconfig && npm run lint:fs && npm run lint:frontend && npm run lint:backend",
+		"install:shared": "cd shared && npm install",
+		"install:frontend": "cd frontend && npm install",
+		"install:backend": "cd backend && npm install",
+		"install:all": "npm install && npm run install:shared && npm run build:shared && npm run install:frontend && npm run install:backend",
+		"build:shared": "cd shared && npm run build",
+		"build:frontend": "cd frontend && npm run build",
+		"build:backend": "cd backend && npm run build",
+		"build": "npm run build:shared && npm run build:frontend && npm run build:backend"
+	},
+	"devDependencies": {
+		"@ls-lint/ls-lint": "1.11.2",
+		"@typescript-eslint/eslint-plugin": "5.30.6",
+		"editorconfig-checker": "4.0.2",
+		"eslint": "8.19.0",
+		"eslint-plugin-import": "2.26.0",
+		"lint-staged": "13.0.3",
+		"simple-git-hooks": "2.8.0",
+		"stylelint": "14.9.1",
+		"stylelint-config-standard": "26.0.0",
+		"stylelint-order": "5.0.0",
+		"typescript": "4.7.4"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "npx lint-staged"
+	}
+}
