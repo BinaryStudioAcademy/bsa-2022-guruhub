@@ -1,21 +1,20 @@
 import { Model } from 'objection';
-import { AbstractDbEntityKey } from '~/common/enums/enums';
 
 class Abstract extends Model {
-	[AbstractDbEntityKey.ID]!: number;
+  'id': number;
 
-	[AbstractDbEntityKey.CREATED_AT]!: string;
+  'createdAt': string;
 
-	[AbstractDbEntityKey.UPDATED_AT]!: string;
+  'updatedAt': string;
 
-	override $beforeInsert(): void {
-		this.createdAt = new Date().toISOString();
-		this.updatedAt = new Date().toISOString();
-	}
+  override $beforeInsert(): void {
+    this.createdAt = new Date().toISOString();
+    this.updatedAt = new Date().toISOString();
+  }
 
-	override $beforeUpdate(): void {
-		this.updatedAt = new Date().toISOString();
-	}
+  override $beforeUpdate(): void {
+    this.updatedAt = new Date().toISOString();
+  }
 }
 
 export { Abstract };

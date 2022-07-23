@@ -1,16 +1,16 @@
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
-	min-width: 320px;
-	min-height: 100vh;
-	margin: 0;
-	font-size: 14px;
-	line-height: 1.5;
-	font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
 }
 
 img {
@@ -23,7 +23,7 @@ input,
 button,
 textarea,
 select {
-	font: inherit;
+  font: inherit;
 }
 
 #root {

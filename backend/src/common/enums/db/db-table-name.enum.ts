@@ -1,6 +1,6 @@
 enum DbTableName {
-	USERS = 'users',
-	MIGRATIONS = 'migrations'
+  USERS = 'users',
+  MIGRATIONS = 'migrations',
 }
 
 export { DbTableName };

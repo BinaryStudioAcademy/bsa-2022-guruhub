@@ -1,16 +1,18 @@
-import Joi from 'joi';
-import { UserPayloadKey, UserValidationMessage } from '~/common/enums/enums';
-import { CreateUserPayload } from '~/common/types/types';
+import * as Joi from 'joi';
+import { getNameOf } from '~/helpers/helpers';
+import { UserSignUpRequestDto } from '~/common/types/types';
+import { UserValidationMessage } from '~/common/enums/enums';
 
-const userSignUpValidationSchema = Joi.object<CreateUserPayload>({
-	[UserPayloadKey.EMAIL]: Joi.string()
-		.trim()
-		.email({ tlds: { allow: false } })
-		.required()
-		.messages({
-			'string.email': UserValidationMessage.EMAIL_INCORRECT,
-			'string.empty': UserValidationMessage.EMAIL_REQUIRED
-		})
+const userSignUp = Joi.object({
+  [getNameOf<UserSignUpRequestDto>('email')]: Joi.string()
+    .trim()
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      'string.email': UserValidationMessage.EMAIL_WRONG,
+      'string.empty': UserValidationMessage.EMAIL_REQUIRE,
+    }),
+  [getNameOf<UserSignUpRequestDto>('password')]: Joi.string().trim().required(),
 });
 
-export { userSignUpValidationSchema };
+export { userSignUp };

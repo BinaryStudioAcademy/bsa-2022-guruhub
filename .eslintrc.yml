@@ -45,7 +45,7 @@ rules:
     - always
   '@typescript-eslint/comma-dangle':
     - error
-    - never
+    - always-multiline
   '@typescript-eslint/no-unused-vars':
     - error
     - vars: all

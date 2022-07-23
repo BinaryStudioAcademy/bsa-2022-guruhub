@@ -1,13 +1,13 @@
-import { user as userRepositoryInstance } from '~/data/repositories/repositories';
+import { user as userRepository } from '~/data/repositories/repositories';
 import { Auth } from './auth/auth.service';
 import { User } from './user/user.service';
 
-const auth = new Auth({
-	userRepositoryInstance
+const user = new User({
+  userRepository,
 });
 
-const user = new User({
-	userRepositoryInstance
+const auth = new Auth({
+  userService: user,
 });
 
 export { auth, user };

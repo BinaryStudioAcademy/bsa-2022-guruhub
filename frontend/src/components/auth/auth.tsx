@@ -1,27 +1,38 @@
 import { AppRoute } from 'common/enums/enums';
-import { CreateUserPayload } from 'common/types/types';
-import { Link } from 'components/common/common';
-import { useAppDispatch, useNavigate } from 'hooks/hooks';
+import { UserSignUpRequestDto, FC } from 'common/types/types';
+import { useAppDispatch, useNavigate, useLocation } from 'hooks/hooks';
 import { authActions } from 'store/actions';
-import { SignUpForm } from './components/components';
+import { SignUpForm, SignInForm } from './components/components';
 
-const Auth: React.FC = () => {
-	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
+const Auth: FC = () => {
+  const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-	const handleSignUpSubmit = (payload: CreateUserPayload): void => {
-		dispatch(authActions.signUp(payload))
-			.then(() => {
-				navigate(AppRoute.ROOT, { replace: true });
-			});
-	};
+  const handleSignInSubmit = (): void => {
+    // handle sign in
+  };
 
-	return (
-		<>
-			<SignUpForm onSubmit={handleSignUpSubmit} />
-			<Link to={AppRoute.ROOT}>Back to Users</Link>
-		</>
-	);
+  const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {
+    dispatch(authActions.signUp(payload)).then(() => {
+      navigate(AppRoute.ROOT, { replace: true });
+    });
+  };
+
+  const getScreen = (screen: string): React.ReactElement | null => {
+    switch (screen) {
+      case AppRoute.SIGN_IN: {
+        return <SignInForm onSubmit={handleSignInSubmit} />;
+      }
+      case AppRoute.SIGN_UP: {
+        return <SignUpForm onSubmit={handleSignUpSubmit} />;
+      }
+    }
+
+    return null;
+  };
+
+  return <>{getScreen(pathname)}</>;
 };
 
 export { Auth };

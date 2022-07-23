@@ -1,8 +1,8 @@
-import { UserPayloadKey } from 'common/enums/enums';
-import { CreateUserPayload } from 'common/types/types';
+import { UserSignUpRequestDto } from 'common/types/types';
 
-const DEFAULT_SIGN_UP_PAYLOAD: CreateUserPayload = {
-	[UserPayloadKey.EMAIL]: ''
+const DEFAULT_SIGN_UP_PAYLOAD: UserSignUpRequestDto = {
+  email: '',
+  password: '',
 };
 
 export { DEFAULT_SIGN_UP_PAYLOAD };

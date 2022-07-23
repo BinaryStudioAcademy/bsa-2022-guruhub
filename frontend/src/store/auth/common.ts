@@ -1,5 +1,5 @@
 enum ActionType {
-	SIGN_UP = 'auth/sign-up'
+  SIGN_UP = 'auth/sign-up',
 }
 
 export { ActionType };

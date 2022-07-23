@@ -1,20 +1,46 @@
-import { User as TUser } from '~/common/types/types';
-import { user as userRepository } from '~/data/repositories/repositories';
+import {
+  UserSignUpRequestDto,
+  UserSignUpResponseDto,
+} from '~/common/types/types';
+import { user as userRep } from '~/data/repositories/repositories';
 
 type Constructor = {
-	userRepositoryInstance: typeof userRepository;
+  userRepository: typeof userRep;
 };
 
 class User {
-	#userRepository: typeof userRepository;
+  #userRepository: typeof userRep;
 
-	constructor({ userRepositoryInstance }: Constructor) {
-		this.#userRepository = userRepositoryInstance;
-	}
+  constructor({ userRepository }: Constructor) {
+    this.#userRepository = userRepository;
+  }
 
-	getAll(): Promise<TUser[]> {
-		return this.#userRepository.getAll();
-	}
+  async getAll(): Promise<UserSignUpResponseDto[]> {
+    const users = await this.#userRepository.getAll();
+
+    return users.map((user) => ({
+      id: user.id,
+      email: user.email,
+    }));
+  }
+
+  async create(
+    createUserDto: UserSignUpRequestDto,
+  ): Promise<UserSignUpResponseDto> {
+    const passwordSalt = 'SALT'; // TODO
+    const passwordHash = 'HASH'; // TODO
+
+    const user = await this.#userRepository.create({
+      email: createUserDto.email,
+      passwordSalt,
+      passwordHash,
+    });
+
+    return {
+      id: user.id,
+      email: user.email,
+    };
+  }
 }
 
 export { User };

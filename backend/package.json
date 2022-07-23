@@ -1,37 +1,37 @@
 {
-	"name": "backend",
-	"private": "true",
-	"engines": {
-		"node": ">=16 <17",
-		"npm": ">=8 <9"
-	},
-	"scripts": {
-		"migrate": "knex migrate:latest",
-		"migrate:dev": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:latest",
-		"migrate:dev:make": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:make -x ts",
-		"migrate:dev:down": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:down",
-		"migrate:dev:rollback": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:rollback --all",
-		"lint:js": "npx eslint \"src/**/*.ts\"",
-		"lint": "npm run lint:js",
-		"start:dev": "nodemon --exec ts-node --files -r tsconfig-paths/register ./src/server.ts",
-		"prestart": "npm run migrate",
-		"start": "node ./src/server.js",
-		"build:ts": "tsc && tsc-alias -p tsconfig.json",
-		"build:copy": "cp -r package.json package-lock.json build",
-		"build": "npm run build:ts && npm run build:copy"
-	},
-	"devDependencies": {
-		"nodemon": "2.0.19",
-		"pino-pretty": "8.1.0",
-		"ts-node": "10.8.2",
-		"tsc-alias": "1.6.11"
-	},
-	"dependencies": {
-		"guruhub-shared": "file:../shared/build",
-		"dotenv": "16.0.1",
-		"fastify": "4.2.1",
-		"knex": "2.1.0",
-		"objection": "3.0.1",
-		"pg": "8.7.3"
-	}
+  "name": "backend",
+  "private": "true",
+  "engines": {
+    "node": ">=16 <17",
+    "npm": ">=8 <9"
+  },
+  "scripts": {
+    "migrate": "knex migrate:latest",
+    "migrate:dev": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:latest",
+    "migrate:dev:make": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:make -x ts",
+    "migrate:dev:down": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:down",
+    "migrate:dev:rollback": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:rollback --all",
+    "lint:js": "npx eslint \"src/**/*.ts\"",
+    "lint": "npm run lint:js",
+    "start:dev": "nodemon --exec ts-node --files -r tsconfig-paths/register ./src/server.ts",
+    "prestart": "npm run migrate",
+    "start": "node ./src/server.js",
+    "build:ts": "tsc && tsc-alias -p tsconfig.json",
+    "build:copy": "cp -r package.json package-lock.json build",
+    "build": "npm run build:ts && npm run build:copy"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.19",
+    "pino-pretty": "8.1.0",
+    "ts-node": "10.8.2",
+    "tsc-alias": "1.6.11"
+  },
+  "dependencies": {
+    "guruhub-shared": "file:../shared/build",
+    "dotenv": "16.0.1",
+    "fastify": "4.2.1",
+    "knex": "2.1.0",
+    "objection": "3.0.1",
+    "pg": "8.7.3"
+  }
 }

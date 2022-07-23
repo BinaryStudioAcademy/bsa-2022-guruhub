@@ -6,5 +6,9 @@ export {
   type FormControlValues,
 } from './form/form';
 export { type HttpOptions } from './http/http';
-export { type CreateUserPayload, User } from './user/user';
+export { type FC } from './react/react';
+export {
+  type UserSignUpRequestDto,
+  type UserSignUpResponseDto,
+} from './user/user';
 export { type ValidationSchema } from './validation/validation';

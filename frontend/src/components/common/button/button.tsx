@@ -1,12 +1,12 @@
-import { ButtonType } from 'common/enums/enums';
+import { FC } from 'common/types/types';
 
 type Props = {
-	label: string;
-	type?: ButtonType;
+  label: string;
+  type?: 'button' | 'submit';
 };
 
-const Button: React.FC<Props> = ({ type = ButtonType.BUTTON, label }) => (
-	<button type={type}>{label}</button>
+const Button: FC<Props> = ({ type = 'button', label }) => (
+  <button type={type}>{label}</button>
 );
 
 export { Button };

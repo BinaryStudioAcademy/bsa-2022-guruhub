@@ -1,24 +1,33 @@
-import { User as UserType, CreateUserPayload } from '~/common/types/types';
-import { UserModel } from '~/data/models/models';
+import { User as UserM } from '~/data/models/models';
 
 type Constructor = {
-	UserModelInstance: typeof UserModel;
+  UserModel: typeof UserM;
 };
 
 class User {
-	#UserModel: typeof UserModel;
+  #UserModel: typeof UserM;
 
-	constructor({ UserModelInstance }: Constructor) {
-		this.#UserModel = UserModelInstance;
-	}
+  constructor({ UserModel }: Constructor) {
+    this.#UserModel = UserModel;
+  }
 
-	async getAll(): Promise<UserType[]> {
-		return this.#UserModel.query();
-	}
+  async getAll(): Promise<UserM[]> {
+    return this.#UserModel.query();
+  }
 
-	async create(payload: CreateUserPayload): Promise<UserType> {
-		return this.#UserModel.query().insert(payload);
-	}
+  async create(user: {
+    email: string;
+    passwordSalt: string;
+    passwordHash: string;
+  }): Promise<UserM> {
+    const { email, passwordSalt, passwordHash } = user;
+
+    return this.#UserModel.query().insert({
+      email,
+      passwordSalt,
+      passwordHash,
+    });
+  }
 }
 
 export { User };

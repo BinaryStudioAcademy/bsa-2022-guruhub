@@ -1,4 +1,4 @@
 export {
-  type CreateUserPayload,
-  type User,
-} from 'guruhub-shared/common/types/user/user';
+  type UserSignUpRequestDto,
+  type UserSignUpResponseDto,
+} from 'guruhub-shared/common/types/types';

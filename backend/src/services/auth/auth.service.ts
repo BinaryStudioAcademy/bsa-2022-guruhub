@@ -1,20 +1,23 @@
-import { CreateUserPayload, User } from '~/common/types/types';
-import { user as userRepository } from '~/data/repositories/repositories';
+import {
+  UserSignUpRequestDto,
+  UserSignUpResponseDto,
+} from '~/common/types/types';
+import { user as userServ } from '~/services/services';
 
 type Constructor = {
-	userRepositoryInstance: typeof userRepository;
+  userService: typeof userServ;
 };
 
 class Auth {
-	#userRepository: typeof userRepository;
+  #userService: typeof userServ;
 
-	constructor({ userRepositoryInstance }: Constructor) {
-		this.#userRepository = userRepositoryInstance;
-	}
+  constructor({ userService }: Constructor) {
+    this.#userService = userService;
+  }
 
-	signUp(payload: CreateUserPayload): Promise<User> {
-		return this.#userRepository.create(payload);
-	}
+  signUp(userRequestDto: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+    return this.#userService.create(userRequestDto);
+  }
 }
 
 export { Auth };
