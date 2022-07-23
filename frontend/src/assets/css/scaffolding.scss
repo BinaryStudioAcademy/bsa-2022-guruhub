@@ -1,0 +1,21 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	margin: 0;
+	font-size: 14px;
+	font-family: Arial, sans-serif;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}

@@ -1,0 +1,19 @@
+{
+	"name": "shared",
+	"private": "true",
+	"engines": {
+		"node": ">=16 <17",
+		"npm": ">=8 <9"
+	},
+	"scripts": {
+		"lint:js": "npx eslint \"src/**/*.ts\"",
+		"lint": "npm run lint:js",
+		"build": "tsc && tsc-alias -p tsconfig.json"
+	},
+	"devDependencies": {
+		"tsc-alias": "1.6.11"
+	},
+	"dependencies": {
+		"joi": "17.6.0"
+	}
+}
