@@ -16,3 +16,6 @@ ignore:
   - frontend/node_modules
   - backend/build
   - backend/node_modules
+  - mobile/ios
+  - mobile/android
+  - mobile/node_modules
