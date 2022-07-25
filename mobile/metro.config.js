@@ -1,9 +1,9 @@
 const path = require('path');
 
-const guruhubSharedPath = path.resolve(__dirname, '../shared/build');
+const PATH_TO_SHARED = path.join(__dirname, '/../shared/build');
 
 const extraNodeModules = {
-  'guruhub-shared': guruhubSharedPath,
+  'guruhub-shared': path.resolve(PATH_TO_SHARED),
 };
 
 module.exports = {
@@ -18,13 +18,12 @@ module.exports = {
   resolver: {
     extraNodeModules: new Proxy(extraNodeModules, {
       get: (target, name) => {
-        if (name in target) {
-          return target[name];
-        }
-
-        return path.join(process.cwd(), `node_modules/${String(name)}`);
+        return target[name] ?? path.resolve(__dirname, `node_modules/${name}`);
       },
     }),
   },
-  watchFolders: [guruhubSharedPath],
+  watchFolders: [
+    path.resolve(__dirname, './node_modules'),
+    path.resolve(PATH_TO_SHARED),
+  ],
 };

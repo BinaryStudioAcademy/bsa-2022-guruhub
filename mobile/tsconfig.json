@@ -5,8 +5,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"],
-      "guruhub-shared/*": ["../shared/build/*"]
+      "~/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,

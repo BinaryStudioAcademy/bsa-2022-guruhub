@@ -8,7 +8,8 @@
   "scripts": {
     "lint:js": "npx eslint \"src/**/*.ts\"",
     "lint": "npm run lint:js",
-    "build": "tsc && tsc-alias -p tsconfig.json"
+    "build:ts": "tsc && tsc-alias -p tsconfig.json",
+    "build": "npm run build:ts && cp package.json build"
   },
   "devDependencies": {
     "tsc-alias": "1.6.11"
