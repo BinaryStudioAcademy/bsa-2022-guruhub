@@ -2,11 +2,11 @@ import { Knex } from 'knex';
 
 enum ColumnName {
   ID = 'id',
-  CREATED_AT = 'created_at',
+  EMAIL = 'email',
   PASSWORD_HASH = 'password_hash',
   PASSWORD_SALT = 'password_salt',
+  CREATED_AT = 'created_at',
   UPDATED_AT = 'updated_at',
-  EMAIL = 'email',
 }
 const TABLE_NAME = 'users';
 

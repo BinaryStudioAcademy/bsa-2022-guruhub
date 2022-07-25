@@ -44,6 +44,8 @@ erDiagram
   users {
       int id
       string email
+      text  password_hash
+      text password_salt
       dateTime created_at
       dateTime updated_at
   }
