@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"],
+      "guruhub-shared/*": ["../shared/build/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true
+  }
+}

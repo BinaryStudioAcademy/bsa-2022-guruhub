@@ -3,3 +3,4 @@
 'backend/**/*.ts': npm run lint:backend:js
 'frontend/**/*.scss': npm run lint:frontend:css
 'frontend/**/*.{ts,tsx}': npm run lint:frontend:js
+'mobile/**/*.{ts,tsx}': npm run lint:mobile:js
