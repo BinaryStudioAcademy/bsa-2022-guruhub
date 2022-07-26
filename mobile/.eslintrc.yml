@@ -5,6 +5,9 @@ settings:
   import/ignore:
     - "node_modules/react-native/index\\.js$"
 
-rules:
-  import/no-named-as-default:
-    - off
+overrides:
+  - files:
+      - env.enum.ts
+    rules:
+      import/no-named-as-default:
+        - off
