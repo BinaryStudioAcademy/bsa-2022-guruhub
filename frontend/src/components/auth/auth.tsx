@@ -1,22 +1,19 @@
 import { AppRoute } from 'common/enums/enums';
 import { UserSignUpRequestDto, FC } from 'common/types/types';
-import { useAppDispatch, useNavigate, useLocation } from 'hooks/hooks';
+import { useAppDispatch, useLocation } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
 
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   const handleSignInSubmit = (): void => {
     // handle sign in
   };
 
   const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {
-    dispatch(authActions.signUp(payload)).then(() => {
-      navigate(AppRoute.ROOT, { replace: true });
-    });
+    dispatch(authActions.signUp(payload));
   };
 
   const getScreen = (screen: string): React.ReactElement | null => {
