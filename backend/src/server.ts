@@ -2,7 +2,7 @@ import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import Knex from 'knex';
 import { Model } from 'objection';
-import path from 'path';
+import path from 'node:path';
 
 import { initApi } from '~/api/api';
 import { ENV } from '~/common/enums/enums';
