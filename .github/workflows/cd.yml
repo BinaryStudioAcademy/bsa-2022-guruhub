@@ -1,0 +1,62 @@
+name: Continuous Delivery
+
+env:
+  AWS_REGION: eu-central-1
+  EBS_APPLICATION_NAME: guru-hub
+
+on:
+  push:
+    branches:
+      - development
+      - production
+    paths:
+      - frontend/**/*.*
+      - backend/**/*.*
+      - shared/**/*.*
+      - .github/workflows/cd.yml
+  workflow_dispatch:
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup variables
+        uses: kanga333/variable-mapper@master
+        with:
+          key: ${{ github.ref_name }}
+          map: |
+            {
+              "development": {
+                "EBS_ENV_NAME": "development"
+              },
+              "production": {
+                "EBS_ENV_NAME": "production"
+              }
+            }
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: Prepare build
+        env:
+          REACT_APP_API_ORIGIN_URL: ${{ secrets.REACT_APP_API_ORIGIN_URL }}
+        run: |
+          npm run build
+          npm run prepare-deploy
+
+      - name: Deploy to EBS
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ env.AWS_REGION }}
+          application_name: ${{ env.EBS_APPLICATION_NAME }}
+          environment_name: ${{ env.EBS_ENV_NAME }}
+          version_label: ${{ github.sha }}
+          deployment_package: ./build/build.zip

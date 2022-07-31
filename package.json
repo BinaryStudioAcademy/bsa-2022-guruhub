@@ -25,10 +25,15 @@
     "install:backend": "cd backend && npm install",
     "install:mobile": "cd mobile && npm install",
     "install:all": "npm install && npm run install:shared && npm run build:shared && npm run install:frontend && npm run install:backend && npm run install:mobile",
+    "install:build": "cd ./shared/build && npm ci && cd ../../backend && npm ci",
     "build:shared": "cd shared && npm run build",
     "build:frontend": "cd frontend && npm run build",
     "build:backend": "cd backend && npm run build",
-    "build": "npm run build:shared && npm run build:frontend && npm run build:backend"
+    "build": "npm run build:shared && npm run build:frontend && npm run build:backend",
+    "prebuild": "npm run install:all",
+    "prepare-deploy": "sh ./prepare-deploy.sh",
+    "prestart": "npm run install:build",
+    "start": "cd ./backend && npm start"
   },
   "devDependencies": {
     "@ls-lint/ls-lint": "1.11.2",
