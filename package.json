@@ -31,7 +31,7 @@
     "build:backend": "cd backend && npm run build",
     "build": "npm run build:shared && npm run build:frontend && npm run build:backend && npm run prepare-build",
     "prebuild": "npm run install:all",
-    "prepare-deploy": "sh ./prepare-deploy.sh",
+    "prepare-build": "sh ./prepare-build.sh",
     "prestart": "npm run build && npm run install:build",
     "start": "cd ./build/backend && npm start"
   },
