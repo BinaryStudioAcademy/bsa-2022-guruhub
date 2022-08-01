@@ -28,7 +28,7 @@ This is the repository responsible for GuruHub's apps.
 1. **`npm run install:all`** at the root
 2. Fill ENVs
 3. **`npx simple-git-hooks`** at the root
-4. **`npm run start:dev`** at the root
+4. **`cd frontend && npm run start`** then **`cd backend && npm run start:dev`**
 5. Enjoy <3
 
 ## Architecture

@@ -19,7 +19,7 @@
     "lint:mobile": "cd mobile && npm run lint",
     "lint:css": "npm run lint:frontend:css",
     "lint:js": "npm run lint:shared:js && npm run lint:backend:js && npm run lint:frontend:js && npm run lint:mobile:js",
-    "lint": "npm run lint:editorconfig && npm run lint:fs && npm run lint:frontend && npm run lint:backend && npm run lint:mobile",
+    "lint": "npm run lint:editorconfig && npm run lint:fs && npm run lint:shared && npm run lint:backend && npm run lint:mobile",
     "install:shared": "cd shared && npm install",
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
