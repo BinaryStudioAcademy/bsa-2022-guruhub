@@ -1,3 +1,4 @@
+'*.{ts,tsx,html,json,md}': prettier --write
 '*': npm run lint:editorconfig && npm run lint:fs
 'shared/**/*.ts': npm run lint:shared:js
 'backend/**/*.ts': npm run lint:backend:js
