@@ -1,7 +1,7 @@
 scripts:
   - &install_npm_dependencies
     name: Install npm dependencies
-    script: pm install && npm run install:shared && npm run build:shared && npm run install:mobile
+    script: npm install && npm run install:shared && npm run build:shared && npm run install:mobile
   - &set_android_sdk
     name: Set Android SDK location
     script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/android/local.properties"
