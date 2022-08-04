@@ -1,15 +1,16 @@
 scripts:
   - &install_npm_dependencies
     name: Install npm dependencies
-    script: npm install && npm run install:shared && npm run build:shared && npm run install:mobile
+    script: cd .. && npm install && npm run install:shared && npm run build:shared && npm run install:mobile
   - &set_android_sdk
     name: Set Android SDK location
-    script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/android/local.properties"
+    script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/mobile/android/local.properties"
   - &set_up_keys
     name: Set up keystore
     script: |
-      echo $CM_KEYSTORE | base64 --decode > "$FCI_BUILD_DIR/android/app/$CM_KEYSTORE_PATH"
-      cat >> "$FCI_BUILD_DIR/android/keystore.properties" << EOF
+      echo $FCI_BUILD_DIR
+      echo $CM_KEYSTORE | base64 --decode > "$FCI_BUILD_DIR/mobile/android/app/$CM_KEYSTORE_PATH"
+      cat >> "$FCI_BUILD_DIR/mobile/android/keystore.properties" << EOF
       storePassword=$CM_KEYSTORE_PASSWORD
       keyPassword=$CM_KEY_ALIAS_PASSWORD
       keyAlias=$CM_KEY_ALIAS
@@ -22,6 +23,7 @@ scripts:
 workflows:
   react-native-android:
     name: React Native Android App
+    working_directory: mobile
     max_build_duration: 120
     instance_type: mac_mini
     environment:
