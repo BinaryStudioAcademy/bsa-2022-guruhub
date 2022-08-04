@@ -129,6 +129,12 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -138,8 +144,8 @@ android {
         applicationId "com.guruhub"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode getMyVersionCode()
+        versionName getMyVersionName()
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -225,6 +231,19 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        file(rootProject.file('keystore.properties')).with { propFile ->
+            if (propFile.canRead()) {
+                release {
+                    storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                    keyAlias keystoreProperties['keyAlias']
+                    keyPassword keystoreProperties['keyPassword']
+                    storePassword keystoreProperties['storePassword']
+                }
+            }
+            else {
+                print('Not signed')
+            }
+        }
     }
     buildTypes {
         debug {
@@ -233,9 +252,18 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            file(rootProject.file('key.properties')).with { propFile ->
+                if (propFile.canRead()) {
+                    // because we can read the keystore
+                    // we are building locally
+                    // so sign locally
+                    // otherwise build an unsigned apk for later signing by the CI/CD provider
+                    signingConfig signingConfigs.release
+                    minifyEnabled enableProguardInReleaseBuilds
+                    proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+                }
+            }
         }
     }
 
@@ -308,6 +336,14 @@ if (isNewArchitectureEnabled()) {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.implementation
     into 'libs'
+}
+
+int getMyVersionCode() {
+    return project.hasProperty('versionCode') ? versionCode.toInteger() : -1
+}
+
+def getMyVersionName() {
+    return project.hasProperty('versionName') ? versionName : "1.0.0"
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
