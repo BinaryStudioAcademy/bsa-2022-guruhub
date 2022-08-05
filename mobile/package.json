@@ -8,7 +8,7 @@
   "scripts": {
     "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
     "lint": "npm run lint:js",
-    "android": "react-native run-android",
+    "android": "react-native run-android --variant=debug",
     "ios": "react-native run-ios",
     "start": "react-native start"
   },
