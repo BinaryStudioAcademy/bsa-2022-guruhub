@@ -13,11 +13,11 @@ const AppColor = {
     YELLOW_100: '#FEEAAA',
   },
   HOVER: {
-    BLUE: '#1747AE',
+    BLUE_100: '#1747AE',
   },
   SUPPORT: {
-    INFO_BLUE: '#41C6FF',
-    ERROR_RED: '#F76519',
+    INFO_BLUE_100: '#41C6FF',
+    ERROR_RED_100: '#F76519',
   },
   TEXT: {
     GRAY_400: '#1E1E2C',
