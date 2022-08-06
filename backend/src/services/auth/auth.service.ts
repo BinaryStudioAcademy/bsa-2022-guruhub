@@ -3,8 +3,8 @@ import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
-import { user as userServ } from '~/services/services';
 import { ExceptionMessage } from '~/common/enums/enums';
+import { user as userServ } from '~/services/services';
 
 type Constructor = {
   userService: typeof userServ;

@@ -25,7 +25,7 @@ const initAuthApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       try {
         const user = await authService.signUp(req.body);
 
-        return rep.send(user).status(HttpCode.CREATED);
+        return rep.status(HttpCode.CREATED).send(user);
       } catch (error) {
         return rep.status(getErrorStatusCode(error as Error)).send(error);
       }
