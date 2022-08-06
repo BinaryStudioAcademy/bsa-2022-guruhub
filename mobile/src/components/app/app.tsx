@@ -6,7 +6,7 @@ import 'fast-text-encoding';
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 import { styles } from './styles';
 
-const App: FC = (): JSX.Element => {
+const App: FC = () => {
   return (
     <GestureHandlerRootView style={styles.rootView}>
       <NavigationContainer
