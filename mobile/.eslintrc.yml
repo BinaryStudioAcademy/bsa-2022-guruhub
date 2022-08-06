@@ -3,7 +3,7 @@ extends:
 
 settings:
   import/ignore:
-    - "node_modules/react-native/index\\.js$"
+    - 'react-native'
 
 overrides:
   - files:
