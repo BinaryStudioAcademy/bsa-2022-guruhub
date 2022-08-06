@@ -1,11 +1,11 @@
 const vendorsSeed = [
   {
     name: 'Udemy',
-    key: 'Key1',
+    key: 'udemy',
   },
   {
     name: 'Coursera',
-    key: 'Key2',
+    key: 'coursera',
   },
 ];
 

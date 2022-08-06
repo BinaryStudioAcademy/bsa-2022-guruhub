@@ -1,4 +1,5 @@
 import { Knex } from 'knex';
+import { vendorsSeed } from '../seed-data/vendors-seed';
 
 enum ColumnName {
   ID = 'id',
@@ -10,7 +11,7 @@ enum ColumnName {
 const TABLE_NAME = 'vendors';
 
 async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable(TABLE_NAME, (table) => {
+  await knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
     table.string(ColumnName.NAME).unique().notNullable();
     table.text(ColumnName.KEY).unique().notNullable();
@@ -23,6 +24,7 @@ async function up(knex: Knex): Promise<void> {
       .notNullable()
       .defaultTo(knex.fn.now());
   });
+  await knex(TABLE_NAME).insert(vendorsSeed);
 }
 
 async function down(knex: Knex): Promise<void> {

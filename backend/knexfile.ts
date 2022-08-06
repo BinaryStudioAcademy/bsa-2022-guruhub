@@ -16,9 +16,6 @@ const DEFAULT_ENV_CONFIG: Knex.Config<ConfigPropType> = {
     directory: './src/data/migrations',
     tableName: DbTableName.MIGRATIONS,
   },
-  seeds: {
-    directory: './src/data/seeds',
-  },
   debug: false,
   ...knexSnakeCaseMappers({ underscoreBetweenUppercaseLetters: true }),
 };
