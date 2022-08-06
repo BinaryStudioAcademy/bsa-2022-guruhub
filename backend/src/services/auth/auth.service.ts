@@ -5,7 +5,8 @@ import {
   UserSignUpResponseDto,
 } from '~/common/types/types';
 import { user as userServ } from '~/services/services';
-import { CustomExceptionDesc } from 'guruhub-shared/common/enums/exceptions/custom-exception-desc.enum';
+import { ValidationMessage } from '~/common/enums/validation/validation-message.enum';
+import { BadCredentials } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -28,7 +29,7 @@ class Auth {
     const user = await this.#userService.verifySignIn(userRequestDto);
 
     if (!user) {
-      throw new Error(CustomExceptionDesc.BAD_CREDENTIALS);
+      throw new BadCredentials(ValidationMessage.BAD_CREDENTIALS);
     }
 
     return user;

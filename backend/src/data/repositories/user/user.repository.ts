@@ -15,8 +15,18 @@ class User {
     return this.#UserModel.query();
   }
 
-  async getByEmail(email: string): Promise<UserM | undefined> {
-    return this.#UserModel.query().select().where({ email }).first();
+  async getByEmail(email: string): Promise<UserM | null> {
+    const user = this.#UserModel
+      .query()
+      .select()
+      .where({ email })
+      .first() as unknown as UserM | null;
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
   }
 
   async create(user: {

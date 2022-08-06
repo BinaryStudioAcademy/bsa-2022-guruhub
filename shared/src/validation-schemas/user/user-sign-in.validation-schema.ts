@@ -2,12 +2,13 @@ import * as Joi from 'joi';
 import { getNameOf } from '~/helpers/helpers';
 import { UserSignInRequestDto } from '~/common/types/types';
 import { UserValidationMessage } from '~/common/enums/enums';
+import { UserSignInValidationRules } from '~/common/enums/enums';
 
 const userSignIn = Joi.object({
   [getNameOf<UserSignInRequestDto>('email')]: Joi.string()
     .trim()
-    .min(5)
-    .max(60)
+    .min(UserSignInValidationRules.EMAIL_MIN_LENGTH)
+    .max(UserSignInValidationRules.EMAIL_MAX_LENGTH)
     .email({ tlds: { allow: false } })
     .required()
     .messages({
@@ -16,8 +17,8 @@ const userSignIn = Joi.object({
     }),
   [getNameOf<UserSignInRequestDto>('password')]: Joi.string()
     .trim()
-    .min(8)
-    .max(32)
+    .min(UserSignInValidationRules.PASSWORD_MIN_LENGTH)
+    .max(UserSignInValidationRules.PASSWORD_MAX_LENGTH)
     .required(),
 });
 

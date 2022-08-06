@@ -6,7 +6,7 @@ import {
   UserSignInRequestDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
-import bcrypt from 'bcrypt';
+import { encrypt } from '../services';
 
 type Constructor = {
   userRepository: typeof userRep;
@@ -84,21 +84,12 @@ class User {
       return null;
     }
 
-    let res: UserSignInResponseDto | null = null;
-
-    bcrypt.compare(
-      signInUserDto.password,
+    const isPasswordValid = await encrypt.comparePasswords(
       user.password_hash,
-      (_err, result) => {
-        if (result) {
-          res = {
-            id: user.id,
-            email: user.email,
-          };
-        }
-      },
+      signInUserDto.password,
     );
-    return res;
+
+    return isPasswordValid ? { id: user.id, email: user.email } : null;
   }
 }
 

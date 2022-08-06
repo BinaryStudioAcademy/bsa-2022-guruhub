@@ -1,5 +1,6 @@
-declare type UserSignInResponseDto = {
+type UserSignInResponseDto = {
   id: number;
   email: string;
 };
+
 export { type UserSignInResponseDto };
