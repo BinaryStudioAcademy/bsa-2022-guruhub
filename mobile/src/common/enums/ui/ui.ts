@@ -1,1 +1,1 @@
-export { AppColor } from './app-colors.enum';
+export { AppColor } from './app-color.enum';
