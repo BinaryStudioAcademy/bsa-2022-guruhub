@@ -231,18 +231,11 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        file(rootProject.file('keystore.properties')).with { propFile ->
-            if (propFile.canRead()) {
-                release {
-                    storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-                    keyAlias keystoreProperties['keyAlias']
-                    keyPassword keystoreProperties['keyPassword']
-                    storePassword keystoreProperties['storePassword']
-                }
-            }
-            else {
-                print('Not signed')
-            }
+        release {
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storePassword keystoreProperties['storePassword']
         }
     }
     buildTypes {
@@ -254,7 +247,6 @@ android {
             // see https://reactnative.dev/docs/signed-apk-android.
 
             signingConfig signingConfigs.release
-            debuggable = false
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
