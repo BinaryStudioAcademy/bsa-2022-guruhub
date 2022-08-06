@@ -2,6 +2,7 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { HttpCode, HttpMethod, AuthApiPath } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
+import { getErrorStatusCode } from '~/helpers/helpers';
 import { auth as authService } from '~/services/services';
 import { userSignUp as userSignUpValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -21,9 +22,13 @@ const initAuthApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: userSignUpValidationSchema,
     },
     async handler(req: FastifyRequest<{ Body: UserSignUpRequestDto }>, rep) {
-      const user = await authService.signUp(req.body);
+      try {
+        const user = await authService.signUp(req.body);
 
-      return rep.send(user).status(HttpCode.CREATED);
+        return rep.send(user).status(HttpCode.CREATED);
+      } catch (error) {
+        return rep.status(getErrorStatusCode(error as Error)).send(error);
+      }
     },
   });
 };

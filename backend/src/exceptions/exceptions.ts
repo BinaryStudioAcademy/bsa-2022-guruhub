@@ -1,1 +1,4 @@
-export { HttpError } from 'guruhub-shared/exceptions/exceptions';
+export {
+  HttpError,
+  InvalidCredentials,
+} from 'guruhub-shared/exceptions/exceptions';

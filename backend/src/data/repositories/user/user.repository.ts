@@ -15,6 +15,10 @@ class User {
     return this.#UserModel.query();
   }
 
+  async getByEmail(email: string): Promise<UserM | undefined> {
+    return this.#UserModel.query().select().where({ email }).first();
+  }
+
   async create(user: {
     email: string;
     passwordSalt: string;

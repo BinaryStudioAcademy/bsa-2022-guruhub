@@ -3,6 +3,7 @@ import {
   UserSignUpResponseDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
+import { encrypt, generateSalt } from '~/helpers/helpers';
 
 type Constructor = {
   userRepository: typeof userRep;
@@ -24,11 +25,25 @@ class User {
     }));
   }
 
+  async getByEmail(email: string): Promise<UserSignUpResponseDto | undefined> {
+    const user = await this.#userRepository.getByEmail(email);
+
+    if (!user) {
+      return undefined;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+    };
+  }
+
   async create(
     createUserDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
-    const passwordSalt = 'SALT'; // TODO
-    const passwordHash = 'HASH'; // TODO
+    const { password } = createUserDto;
+    const passwordSalt = await generateSalt();
+    const passwordHash = await encrypt(password, passwordSalt);
 
     const user = await this.#userRepository.create({
       email: createUserDto.email,
