@@ -22,7 +22,7 @@ class User {
       .where({ email })
       .first();
 
-    return user || null;
+    return user ?? null;
   }
 
   async create(user: {
