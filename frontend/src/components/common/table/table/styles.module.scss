@@ -1,11 +1,10 @@
+@import './constants.scss';
+
 .table {
-  position: absolute;
-  top: 181px;
-  left: 305px;
   width: 1074px;
   height: 452px;
   padding: 15px;
-  background: #242636;
+  background: $table-background-color;
   border-radius: 10px;
   border-spacing: 0;
 }
@@ -18,14 +17,14 @@
 .table-head-row-header {
   width: 52px;
   height: 21px;
-  color: #ffffff;
+  color: $table-head-text-color;
   font-weight: 500;
   font-size: 18px;
-  font-family: Roboto, sans-serif;
+  font-family: $table-head-font;
   font-style: normal;
   line-height: 21px;
   text-align: left;
-  border-bottom: 1px solid #393b4d;
+  border-bottom: 1px solid $line-under-head-color;
 }
 
 .table-body-row {
@@ -34,10 +33,15 @@
 }
 
 .table-body-row-data {
-  color: #6b6d7f;
+  color: $table-rows-text-color;
   font-weight: 600;
   font-size: 14px;
-  font-family: Inter, sans-serif;
+  font-family: $table-body-font;
   font-style: normal;
   line-height: 24px;
+}
+
+.table-head-row-header,
+.table-body-row-data {
+  padding: 20px;
 }
