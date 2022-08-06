@@ -1,0 +1,43 @@
+.table {
+  position: absolute;
+  top: 181px;
+  left: 305px;
+  width: 1074px;
+  height: 452px;
+  padding: 15px;
+  background: #242636;
+  border-radius: 10px;
+  border-spacing: 0;
+}
+
+.table-head-row {
+  width: 902px;
+  height: 21px;
+}
+
+.table-head-row-header {
+  width: 52px;
+  height: 21px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 18px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  line-height: 21px;
+  text-align: left;
+  border-bottom: 1px solid #393b4d;
+}
+
+.table-body-row {
+  width: 986px;
+  height: 25px;
+}
+
+.table-body-row-data {
+  color: #6b6d7f;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  line-height: 24px;
+}

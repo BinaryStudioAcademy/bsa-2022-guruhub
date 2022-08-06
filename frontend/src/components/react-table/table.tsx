@@ -1,27 +1,38 @@
-import { ReactTableProps } from 'common/types/react-table/react-table-props';
-import { useTable } from 'react-table';
-import { ReactTableRenderEntitiesNames } from 'components/common/react-table/react-table-render-entities-names';
 import { ReactElement } from 'react';
+import { ReactTableProps } from 'common/types/react-table/react-table-props';
+import { useTable } from '../../hooks/use-table/use-table';
+import { ReactTableRenderEntitiesNames } from 'components/common/react-table/react-table-render-entities-names';
+import { ClassNames } from './common/class-names';
 
 const Table = ({
   tableId,
   columnsData,
   rowsData,
 }: ReactTableProps): ReactElement => {
+  const cellPaddingValueInPixels = 20;
+
   const tableInstance = useTable({ columns: columnsData, data: rowsData });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
   return (
-    <table {...getTableProps()} id={tableId}>
-      <thead className="table-head">
+    <table
+      {...getTableProps()}
+      id={tableId}
+      className={ClassNames.TABLE}
+      cellPadding={cellPaddingValueInPixels}
+    >
+      <thead className={ClassNames.TABLE_HEAD}>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()} className="table-head-row">
+          <tr
+            {...headerGroup.getHeaderGroupProps()}
+            className={ClassNames.TABLE_HEAD_ROW}
+          >
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps()}
-                className="table-head-row-header"
+                className={ClassNames.TABLE_HEAD_ROW_HEADER}
               >
                 {column.render(ReactTableRenderEntitiesNames.HEADER)}
               </th>
@@ -29,14 +40,17 @@ const Table = ({
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()} className="table-body">
+      <tbody {...getTableBodyProps()} className={ClassNames.TABLE_BODY}>
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} className="table-body-row">
+            <tr {...row.getRowProps()} className={ClassNames.TABLE_BODY_ROW}>
               {row.cells.map((cell) => {
                 return (
-                  <td {...cell.getCellProps()} className="table-body-row-data">
+                  <td
+                    {...cell.getCellProps()}
+                    className={ClassNames.TABLE_BODY_ROW_DATA}
+                  >
                     {cell.render(ReactTableRenderEntitiesNames.CELL)}
                   </td>
                 );
