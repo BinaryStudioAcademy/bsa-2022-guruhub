@@ -27,13 +27,15 @@ class User {
 
   async create(user: {
     email: string;
+    fullName: string;
     passwordSalt: string;
     passwordHash: string;
   }): Promise<UserM> {
-    const { email, passwordSalt, passwordHash } = user;
+    const { email, fullName, passwordSalt, passwordHash } = user;
 
     return this.#UserModel.query().insert({
       email,
+      fullName,
       passwordSalt,
       passwordHash,
     });

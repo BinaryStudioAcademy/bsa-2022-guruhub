@@ -22,7 +22,18 @@ class Auth {
     this.#encryptService = encryptService;
   }
 
-  signUp(userRequestDto: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+  async signUp(
+    userRequestDto: UserSignUpRequestDto,
+  ): Promise<UserSignUpResponseDto> {
+    const { email } = userRequestDto;
+    const userByEmail = await this.#userService.getByEmail(email);
+
+    if (userByEmail) {
+      throw new AuthError({
+        message: ValidationMessage.EMAIL_ALREADY_EXISTS,
+        status: HttpCode.UNAUTHORIZED,
+      });
+    }
     return this.#userService.create(userRequestDto);
   }
 
@@ -55,7 +66,7 @@ class Auth {
 
     if (!user) {
       throw new AuthError({
-        code: HttpCode.BAD_REQUEST,
+        status: HttpCode.BAD_REQUEST,
         message: ValidationMessage.BAD_CREDENTIALS,
       });
     }

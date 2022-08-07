@@ -1,5 +1,5 @@
-enum ValidationMessage {
-  BAD_CREDENTIALS = 'Bad credentials',
-}
+// enum ValidationMessage {
+//   BAD_CREDENTIALS = 'Bad credentials',
+// }
 
-export { ValidationMessage };
+// export { ValidationMessage };
