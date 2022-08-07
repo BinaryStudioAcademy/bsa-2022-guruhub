@@ -1,7 +1,7 @@
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import logo from 'assets/img/logo.svg';
-import defaultUserAvatar from 'assets/img/avatar-default.png';
+import defaultUserAvatar from 'assets/img/avatar-default.svg';
 
 import styles from './styles.module.scss';
 
