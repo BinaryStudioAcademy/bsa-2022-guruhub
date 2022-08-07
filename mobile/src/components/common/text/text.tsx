@@ -8,7 +8,7 @@ interface FontStyle extends TextStyle {
 }
 
 type Props = {
-  children: JSX.Element;
+  children: ReactElement
   style: Omit<FontStyle, 'fontWeight' | 'fontStyle'>;
 };
 
