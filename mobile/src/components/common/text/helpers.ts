@@ -2,6 +2,7 @@ import { styles } from './style';
 
 export const selectFontColor = (color: string): object => {
   let fontColor = {};
+
   switch (color) {
     case 'gray_400':
       fontColor = styles.textGray_400;
@@ -16,11 +17,13 @@ export const selectFontColor = (color: string): object => {
       fontColor = styles.textGray_400;
       break;
   }
+
   return fontColor;
 };
 
 export const selectFontUsage = (usage: string): object => {
   let fontUsage = {};
+
   switch (usage) {
     case 'heading_1':
       fontUsage = styles.heading_1;
@@ -71,5 +74,6 @@ export const selectFontUsage = (usage: string): object => {
       fontUsage = styles.input_label;
       break;
   }
+
   return fontUsage;
 };
