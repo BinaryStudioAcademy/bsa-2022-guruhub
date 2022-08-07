@@ -1,8 +1,7 @@
-import { useTable } from 'react-table';
-import { ReactTableRenderEntitiesNames } from 'components/common/table/common/react-table-render-entities-names';
-import styles from './table/styles.module.scss';
-import { Column } from 'react-table';
+import { Column, useTable } from 'react-table';
 import { FC } from 'common/types/types';
+import { ReactTableRenderEntitiesNames } from './common/react-table-render-entities-names';
+import styles from './table/styles.module.scss';
 
 type Props = {
   columns: Column[];
