@@ -5,6 +5,9 @@ import { UserValidationMessage } from '~/common/enums/enums';
 import {
   EMAIL_MAX_LENGTH,
   EMAIL_MIN_LENGTH,
+  NAME_MAX_LENGTH,
+  NAME_MIN_LENGTH,
+  NAME_PATTERN,
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
 } from '~/common/constants/constants';
@@ -25,6 +28,12 @@ const userSignUp = Joi.object({
     .min(PASSWORD_MIN_LENGTH)
     .max(PASSWORD_MAX_LENGTH)
     .required(),
+  [getNameOf<UserSignUpRequestDto>('full_name')]: Joi.string()
+    .trim()
+    .pattern(NAME_PATTERN)
+    .required()
+    .min(NAME_MIN_LENGTH)
+    .max(NAME_MAX_LENGTH),
 });
 
 export { userSignUp };

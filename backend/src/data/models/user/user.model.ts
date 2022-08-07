@@ -4,6 +4,8 @@ import { Abstract } from '../abstract/abstract.model';
 class User extends Abstract {
   'email': string;
 
+  'full_name': string;
+
   'passwordHash': string;
 
   'passwordSalt': string;

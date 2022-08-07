@@ -47,6 +47,7 @@ class User {
 
     const user = await this.#userRepository.create({
       email: createUserDto.email,
+      full_name: createUserDto.full_name,
       passwordSalt,
       passwordHash,
     });
