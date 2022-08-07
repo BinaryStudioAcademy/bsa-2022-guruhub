@@ -7,10 +7,11 @@ const user = new User({
   userRepository,
 });
 
+const encrypt = new Encrypt();
+
 const auth = new Auth({
   userService: user,
+  encryptService: encrypt,
 });
-
-const encrypt = new Encrypt();
 
 export { auth, user, encrypt };

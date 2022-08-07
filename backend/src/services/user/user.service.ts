@@ -1,12 +1,9 @@
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-  UserSignInResponseDto,
-  UserPasswordHashDto,
-  UserSignInRequestDto,
+  UserByEmailDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
-import { encrypt } from '../services';
 
 type Constructor = {
   userRepository: typeof userRep;
@@ -46,22 +43,7 @@ class User {
     };
   }
 
-  async getByEmail(email: string): Promise<UserSignUpResponseDto | null> {
-    const user = await this.#userRepository.getByEmail(email);
-
-    if (!user) {
-      return null;
-    }
-
-    return {
-      id: user.id,
-      email: user.email,
-    };
-  }
-
-  async getPasswordHashByEmail(
-    email: string,
-  ): Promise<UserPasswordHashDto | null> {
+  async getByEmail(email: string): Promise<UserByEmailDto | null> {
     const user = await this.#userRepository.getByEmail(email);
 
     if (!user) {
@@ -73,23 +55,6 @@ class User {
       email: user.email,
       passwordHash: user.passwordHash,
     };
-  }
-
-  async verifySignIn(
-    signInUserDto: UserSignInRequestDto,
-  ): Promise<UserSignInResponseDto | null> {
-    const user = await this.getPasswordHashByEmail(signInUserDto.email);
-
-    if (!user) {
-      return null;
-    }
-
-    const isPasswordValid = await encrypt.comparePasswords(
-      user.passwordHash,
-      signInUserDto.password,
-    );
-
-    return isPasswordValid ? { id: user.id, email: user.email } : null;
   }
 }
 

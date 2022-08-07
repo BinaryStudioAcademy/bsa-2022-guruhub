@@ -3,6 +3,6 @@ export {
   type UserSignUpResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserPasswordHashDto,
+  type UserByEmailDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';
