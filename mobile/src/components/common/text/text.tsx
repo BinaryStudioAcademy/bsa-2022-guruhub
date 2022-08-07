@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Text, TextStyle } from 'react-native';
 
 import { AppFontFamily } from '~/common/enums/ui/app-font.enum';
@@ -9,12 +9,12 @@ interface FontStyle extends TextStyle {
 }
 
 type Props = {
-  children: JSX.Element;
+  children: ReactElement;
   style: Omit<FontStyle, 'fontWeight' | 'fontStyle'>;
 };
 
 const TextComponent: FC<Props> = ({ style, children }) => {
-  return <Text style={[{ ...styles.default }, style]}>{children}</Text>;
+  return <Text style={{ ...styles.text, ...style }}>{children}</Text>;
 };
 
 export { TextComponent };
