@@ -19,8 +19,8 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
 
   return (
     <>
-      <div className={styles['form-wrapper']}>
-        <div className={styles['form-header']}>
+      <div className={styles.formWrapper}>
+        <div className={styles.formHeader}>
           <h2>Create an account</h2>
           <p>
             Already registered?{' '}
@@ -30,8 +30,8 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
           </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles['form-content']}>
-            <p className={styles['form-input-wrapper']}>
+          <div className={styles.formContent}>
+            <p className={styles.formInputWrapper}>
               <Input
                 type="text"
                 label="Full Name"
@@ -40,7 +40,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
                 errors={errors}
               />
             </p>
-            <p className={styles['form-input-wrapper']}>
+            <p className={styles.formInputWrapper}>
               <Input
                 type="text"
                 label="Email"
@@ -49,7 +49,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
                 errors={errors}
               />
             </p>
-            <p className={styles['form-input-wrapper']}>
+            <p className={styles.formInputWrapper}>
               <Input
                 type="password"
                 label="Password"
@@ -59,9 +59,9 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               />
             </p>
           </div>
-          <div className={styles['button-wrapper']}>
+          <div className={styles.buttonWrapper}>
             <Button
-              className={styles['form-button']}
+              className={styles.formButton}
               type="submit"
               label="Sign up"
             />

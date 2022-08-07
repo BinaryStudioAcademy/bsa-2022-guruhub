@@ -1,6 +1,6 @@
 @import 'https://rsms.me/inter/inter.css';
 
-.form-wrapper {
+.formWrapper {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -12,41 +12,41 @@
   border: 1px solid black;
 }
 
-.form-header {
+.formHeader {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.form-header h2 {
+.formHeader h2 {
   font-weight: 600;
   font-size: 30px;
 }
 
-.form-header a {
+.formHeader a {
   color: #41c6ff;
   text-decoration: none;
 }
 
-.form-header h2,
+.formHeader h2,
 p {
   margin: 0;
 }
 
-.form-content {
+.formContent {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 24px 0;
 }
 
-.form-input-wrapper label {
+.formInputWrapper label {
   display: flex;
   flex-direction: column;
   gap: 9px;
 }
 
-.form-input-wrapper label input {
+.formInputWrapper label input {
   padding: 6px 15px;
   color: white;
   font-weight: 600;
@@ -58,33 +58,33 @@ p {
   outline: none;
 }
 
-.form-input-wrapper label input:not([value='']) {
+.formInputWrapper label input:not([value='']) {
   border: 1px solid #2563eb;
 }
 
-.form-input-wrapper label input:focus {
+.formInputWrapper label input:focus {
   border: 1px solid #2563eb;
 }
 
-.form-input-wrapper label span:first-child {
+.formInputWrapper label span:first-child {
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
 }
 
-.form-input-wrapper label span:last-child {
+.formInputWrapper label span:last-child {
   color: #f76519;
   font-weight: 600;
   font-size: 12px;
   line-height: 16px;
 }
 
-.form-input-wrapper label input[type='password'] {
+.formInputWrapper label input[type='password'] {
   color: #6b6d7f;
   letter-spacing: 4px;
 }
 
-.form-button {
+.formButton {
   display: flex;
   padding: 16px;
   color: white;
@@ -98,12 +98,12 @@ p {
   outline: none;
 }
 
-.form-button:hover {
+.formButton:hover {
   background: #1747ae;
   cursor: pointer;
 }
 
-.button-wrapper {
+.buttonWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
