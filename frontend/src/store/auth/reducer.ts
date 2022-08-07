@@ -13,7 +13,7 @@ type AuthPayload = {
 
 type State = {
   dataStatus: DataStatus;
-  user: UserSignUpResponseDto | UserSignInResponseDto;
+  user: UserSignUpResponseDto | UserSignInResponseDto | null;
 };
 
 const initialState: State = {
