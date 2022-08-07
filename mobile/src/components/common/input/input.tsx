@@ -1,13 +1,11 @@
 import React, { ReactElement } from 'react';
-import { TextInput } from 'react-native';
-
 import {
   FormControl,
   FormControlPath,
   FormControlErrors,
   FormControlValues,
 } from '~/common/types/types';
-import { Text, View } from '~/components/common/common';
+import { Text, View, TextInput } from '~/components/common/common';
 import { useFormControl } from '~/hooks/hooks';
 import { styles } from './styles';
 
