@@ -1,8 +1,12 @@
 import { Knex } from 'knex';
 
+enum ColumnName {
+  FULL_NAME = 'full_name',
+}
+
 async function up(knex: Knex): Promise<void> {
   return knex.schema.table('users', (table) => {
-    table.string('fullName').notNullable();
+    table.string(ColumnName.FULL_NAME).notNullable();
   });
 }
 

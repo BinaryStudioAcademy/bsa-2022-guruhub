@@ -1,9 +1,12 @@
 import { genSalt, hash } from 'bcrypt';
-import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/constants';
 
 class Encrypt {
+  #salt: number;
+  constructor(saltRounds: number) {
+    this.#salt = saltRounds;
+  }
   generateSalt(): Promise<string> {
-    return genSalt(USER_PASSWORD_SALT_ROUNDS);
+    return genSalt(this.#salt);
   }
 
   encrypt(password: string, salt: string): Promise<string> {

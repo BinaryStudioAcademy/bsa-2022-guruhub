@@ -6,8 +6,6 @@ import {
   UserValidationRule,
 } from '~/common/enums/enums';
 
-const NAME_PATTERN = /^[ A-Za-z0-9-'`]*$/;
-
 const userSignUp = Joi.object({
   [getNameOf<UserSignUpRequestDto>('email')]: Joi.string()
     .trim()
@@ -26,7 +24,7 @@ const userSignUp = Joi.object({
     .required(),
   [getNameOf<UserSignUpRequestDto>('fullName')]: Joi.string()
     .trim()
-    .pattern(NAME_PATTERN)
+    .pattern(UserValidationRule.NAME_PATTERN)
     .required()
     .min(UserValidationRule.NAME_MIN_LENGTH)
     .max(UserValidationRule.NAME_MAX_LENGTH),
