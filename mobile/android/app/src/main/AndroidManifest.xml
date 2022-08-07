@@ -22,7 +22,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         <intent-filter>
-            <data android:scheme="${SCHEME}" />
+            <data android:scheme="@string/APP_SCHEME" />
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
@@ -34,7 +34,7 @@
 
           <data android:scheme="http" />
           <data android:scheme="https" />
-          <data android:host="${HOST}" />
+          <data android:host="@string/APP_HOST" />
         </intent-filter>
       </activity>
     </application>
