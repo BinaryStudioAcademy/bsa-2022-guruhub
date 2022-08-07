@@ -28,6 +28,7 @@ function Overview(): JSX.Element {
     </View>
   );
 }
+
 function Courses(): JSX.Element {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -35,6 +36,7 @@ function Courses(): JSX.Element {
     </View>
   );
 }
+
 function Mentors(): JSX.Element {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -42,6 +44,7 @@ function Mentors(): JSX.Element {
     </View>
   );
 }
+
 function MyEducation(): JSX.Element {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -49,6 +52,7 @@ function MyEducation(): JSX.Element {
     </View>
   );
 }
+
 function Billing(): JSX.Element {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -56,6 +60,7 @@ function Billing(): JSX.Element {
     </View>
   );
 }
+
 function Settings(): JSX.Element {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
