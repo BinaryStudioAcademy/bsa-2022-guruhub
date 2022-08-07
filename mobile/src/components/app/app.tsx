@@ -7,13 +7,13 @@ import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 import { styles } from './styles';
 
 const App: FC = () => {
-  const hadnleBootSplashScreen = (): void => {
+  const handleNavigationReady = (): void => {
     RNBootSplash.hide({ fade: true });
   };
 
   return (
     <GestureHandlerRootView style={styles.rootView}>
-      <NavigationContainer onReady={hadnleBootSplashScreen}>
+      <NavigationContainer onReady={handleNavigationReady}>
         <RootNavigation />
       </NavigationContainer>
     </GestureHandlerRootView>
