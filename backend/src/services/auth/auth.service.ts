@@ -1,20 +1,25 @@
-import { AuthError } from '~/exceptions/exceptions';
 import {
+  UserSignInRequestDto,
+  UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
-import { ValidationMessage, HttpCode } from '~/common/enums/enums';
-import { user as userServ } from '~/services/services';
+import { user as userServ, encrypt as encryptServ } from '~/services/services';
+import { HttpCode, ValidationMessage } from '~/common/enums/enums';
+import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
+  encryptService: typeof encryptServ;
 };
 
 class Auth {
   #userService: typeof userServ;
+  #encryptService: typeof encryptServ;
 
-  constructor({ userService }: Constructor) {
+  constructor({ userService, encryptService }: Constructor) {
     this.#userService = userService;
+    this.#encryptService = encryptService;
   }
 
   async signUp(
@@ -31,6 +36,44 @@ class Auth {
     }
 
     return this.#userService.create(userRequestDto);
+  }
+
+  async verifySignIn(
+    signInUserDto: UserSignInRequestDto,
+  ): Promise<UserSignInResponseDto> {
+    const user = await this.#userService.getByEmail(signInUserDto.email);
+
+    if (!user) {
+      throw new AuthError({
+        status: HttpCode.BAD_REQUEST,
+        message: ValidationMessage.BAD_CREDENTIALS,
+      });
+    }
+
+    const encryptionData = {
+      data: signInUserDto.password,
+      salt: user.passwordSalt,
+      passwordHash: user.passwordHash,
+    };
+
+    const isPasswordValid = await this.#encryptService.compare(encryptionData);
+
+    if (!isPasswordValid) {
+      throw new AuthError({
+        status: HttpCode.BAD_REQUEST,
+        message: ValidationMessage.BAD_CREDENTIALS,
+      });
+    }
+
+    return { id: user.id, email: user.email };
+  }
+
+  async signIn(
+    userRequestDto: UserSignInRequestDto,
+  ): Promise<UserSignInResponseDto> {
+    const user = await this.verifySignIn(userRequestDto);
+
+    return user;
   }
 }
 
