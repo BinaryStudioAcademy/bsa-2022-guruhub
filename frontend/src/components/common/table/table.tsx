@@ -1,6 +1,5 @@
 import { Column, useTable } from 'react-table';
 import { FC } from 'common/types/types';
-import { ReactTableRenderEntitiesNames } from './common/react-table-render-entities-names';
 import styles from './table/styles.module.scss';
 
 type Props = {
@@ -19,35 +18,35 @@ const Table: FC<Props> = ({ columns, data }) => {
 
   return (
     <table {...getTableProps()} className={styles.table}>
-      <thead className={styles['table-head']}>
+      <thead>
         {headerGroups.map((headerGroup) => (
           <tr
             {...headerGroup.getHeaderGroupProps()}
-            className={styles['table-head-row']}
+            className={styles.tableHeadRow}
           >
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps()}
-                className={styles['table-head-row-header']}
+                className={styles.tableHeadRowHeader}
               >
-                {column.render(ReactTableRenderEntitiesNames.HEADER)}
+                {column.render('Header')}
               </th>
             ))}
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()} className={styles['table-body']}>
+      <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} className={styles['table-body-row']}>
+            <tr {...row.getRowProps()} className={styles.tableBodyRow}>
               {row.cells.map((cell) => {
                 return (
                   <td
                     {...cell.getCellProps()}
-                    className={styles['table-body-row-data']}
+                    className={styles.tableBodyRowData}
                   >
-                    {cell.render(ReactTableRenderEntitiesNames.CELL)}
+                    {cell.render('Cell')}
                   </td>
                 );
               })}

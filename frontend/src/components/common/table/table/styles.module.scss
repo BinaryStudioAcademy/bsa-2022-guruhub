@@ -1,47 +1,54 @@
-@import 'assets/css/variables.scss';
+:root {
+  --rectangle-5638-background: #242636;
+  --group-1000004448-color: #ffffff;
+  --rectangle-5639-color: #393b4d;
+  --group-1000004450-color: #6b6d7f;
+  --group-1000004448-font-family: roboto, sans-serif;
+  --group-1000004450-font-family: inter, sans-serif;
+}
 
 .table {
   width: 1074px;
   height: 452px;
   padding: 15px;
-  background: $table-background-color;
+  background: var(--rectangle-5638-background);
   border-radius: 10px;
   border-spacing: 0;
 }
 
-.table-head-row {
+.tableHeadRow {
   width: 902px;
   height: 21px;
 }
 
-.table-head-row-header {
+.tableHeadRowHeader {
   width: 52px;
   height: 21px;
-  color: $table-head-text-color;
+  color: var(--group-1000004448-color);
   font-weight: 500;
   font-size: 18px;
-  font-family: $table-head-font;
+  font-family: var(--group-1000004448-font-family);
   font-style: normal;
   line-height: 21px;
   text-align: left;
-  border-bottom: 1px solid $line-under-head-color;
+  border-bottom: 1px solid var(--rectangle-5639-color);
 }
 
-.table-body-row {
+.tableBodyRow {
   width: 986px;
   height: 25px;
 }
 
-.table-body-row-data {
-  color: $table-rows-text-color;
+.tableBodyRowData {
+  color: var(--group-1000004450-color);
   font-weight: 600;
   font-size: 14px;
-  font-family: $table-body-font;
+  font-family: var(--group-1000004450-font-family);
   font-style: normal;
   line-height: 24px;
 }
 
-.table-head-row-header,
-.table-body-row-data {
+.tableHeadRowHeader,
+.tableBodyRowData {
   padding: 20px;
 }
