@@ -1,0 +1,8 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  email:
+    type: string
+    example: arthur.dent@gmail.com

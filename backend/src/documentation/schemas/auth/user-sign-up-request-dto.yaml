@@ -1,0 +1,11 @@
+type: object
+properties:
+  fullName:
+    type: string
+    example: Arthur Dent
+  email:
+    type: string
+    example: arthur.dent@mail.com
+  password:
+    type: string
+    example: pa$Sword
