@@ -147,7 +147,10 @@ android {
         versionCode getMyVersionCode()
         versionName getMyVersionName()
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-
+        manifestPlaceholders=[
+          HOST:project.env.get("HOST"),
+          SCHEME:project.env.get("SCHEME")
+        ]
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
             externalNativeBuild {
