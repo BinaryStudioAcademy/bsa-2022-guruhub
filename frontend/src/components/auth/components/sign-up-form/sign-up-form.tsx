@@ -35,7 +35,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               <Input
                 type="text"
                 label="Full Name"
-                name={getNameOf<UserSignUpRequestDto>('fullname')}
+                name={getNameOf<UserSignUpRequestDto>('fullName')}
                 control={control}
                 errors={errors}
               />
