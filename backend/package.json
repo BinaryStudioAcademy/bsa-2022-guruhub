@@ -21,7 +21,7 @@
     "build": "npm run build:ts && npm run build:copy"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
+    "@types/bcrypt": "5.0.0",
     "nodemon": "2.0.19",
     "pino-pretty": "8.1.0",
     "ts-node": "10.8.2",
