@@ -13,7 +13,7 @@ type Props = {
 };
 
 const TextComponent: React.FC<Props> = ({ style, children }) => {
-  return <Text style={[{ ...styles.default }, style]}>{children}</Text>;
+  return <Text style={{...styles.default, ...style}}>{children}</Text>;
 };
 
 export { TextComponent };
