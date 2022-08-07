@@ -3,14 +3,16 @@ import { FC } from 'common/types/types';
 import { Routes, Route, Link } from 'components/common/common';
 import { useLocation } from 'hooks/hooks';
 import { Auth } from 'components/auth/auth';
-import logo from 'assets/img/logo.svg';
+import { Header } from 'components/common/header/header';
 
 const App: FC = () => {
   const { pathname } = useLocation();
 
   return (
     <>
-      <img src={logo} className="App-logo" width="30" alt="logo" />
+      <header>
+        <Header />
+      </header>
 
       <ul className="App-navigation-list">
         <li>
