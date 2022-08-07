@@ -12,6 +12,7 @@ type UseAppFormArgs = {
   defaultValues: Record<string, unknown>;
   validationSchema?: ValidationSchema;
 };
+
 type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   control: FormControl;
   errors: FormControlErrors;

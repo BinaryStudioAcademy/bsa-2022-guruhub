@@ -62,3 +62,18 @@ rules:
     - off
   import/no-default-export:
     - error
+  padding-line-between-statements:
+    - off
+  '@typescript-eslint/padding-line-between-statements':
+    - error
+    - blankLine: always
+      prev: '*'
+      next:
+        - switch
+        - class
+        - function
+        - if
+        - return
+        - try
+        - interface
+        - type
