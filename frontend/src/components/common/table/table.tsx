@@ -1,15 +1,18 @@
+import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
-import { FC } from 'common/types/types';
 import styles from './table/styles.module.scss';
 
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
 };
-const Table: FC<Props<Record<string, unknown>>> = ({ columns, data }) => {
+const Table = <Data extends Record<string, unknown>>({
+  columns,
+  data,
+}: Props<Data>): ReactElement => {
   const tableInstance = useTable({
-    columns: columns as Column<Record<string, string>>[],
-    data: data as Record<string, string>[],
+    columns: columns as Column<Record<string, unknown>>[],
+    data: data as Record<string, unknown>[],
   });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
