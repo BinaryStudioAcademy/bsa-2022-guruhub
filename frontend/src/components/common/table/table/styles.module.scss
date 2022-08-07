@@ -1,49 +1,29 @@
-:root {
-  --rectangle-5638-background: #242636;
-  --group-1000004448-color: #ffffff;
-  --rectangle-5639-color: #393b4d;
-  --group-1000004450-color: #6b6d7f;
-  --group-1000004448-font-family: roboto, sans-serif;
-  --group-1000004450-font-family: inter, sans-serif;
-}
+@import 'assets/css/variables.scss';
 
 .table {
-  width: 1074px;
-  height: 452px;
+  width: 100%;
   padding: 15px;
-  background: var(--rectangle-5638-background);
+  background: var(--background-gray-300);
   border-radius: 10px;
   border-spacing: 0;
-}
-
-.tableHeadRow {
-  width: 902px;
-  height: 21px;
 }
 
 .tableHeadRowHeader {
   width: 52px;
   height: 21px;
-  color: var(--group-1000004448-color);
+  color: var(--typography-text-100-inverse);
   font-weight: 500;
   font-size: 18px;
-  font-family: var(--group-1000004448-font-family);
   font-style: normal;
   line-height: 21px;
   text-align: left;
-  border-bottom: 1px solid var(--rectangle-5639-color);
-}
-
-.tableBodyRow {
-  width: 986px;
-  height: 25px;
+  border-bottom: 1px solid #393b4d;
 }
 
 .tableBodyRowData {
-  color: var(--group-1000004450-color);
+  color: var(--typography-text-gray-200);
   font-weight: 600;
   font-size: 14px;
-  font-family: var(--group-1000004450-font-family);
   font-style: normal;
   line-height: 24px;
 }

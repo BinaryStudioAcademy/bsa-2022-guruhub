@@ -20,10 +20,7 @@ const Table: FC<Props> = ({ columns, data }) => {
     <table {...getTableProps()} className={styles.table}>
       <thead>
         {headerGroups.map((headerGroup) => (
-          <tr
-            {...headerGroup.getHeaderGroupProps()}
-            className={styles.tableHeadRow}
-          >
+          <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps()}
@@ -39,7 +36,7 @@ const Table: FC<Props> = ({ columns, data }) => {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} className={styles.tableBodyRow}>
+            <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
                 return (
                   <td
