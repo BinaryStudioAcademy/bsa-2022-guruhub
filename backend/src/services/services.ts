@@ -15,6 +15,7 @@ const user = new User({
 
 const auth = new Auth({
   userService: user,
+  encryptService: encrypt,
 });
 
-export { auth, user };
+export { auth, user, encrypt };

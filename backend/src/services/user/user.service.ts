@@ -1,6 +1,7 @@
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserByEmailDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -28,19 +29,6 @@ class User {
     }));
   }
 
-  async getByEmail(email: string): Promise<UserSignUpResponseDto | null> {
-    const user = await this.#userRepository.getByEmail(email);
-
-    if (!user) {
-      return null;
-    }
-
-    return {
-      id: user.id,
-      email: user.email,
-    };
-  }
-
   async create({
     email,
     fullName,
@@ -62,6 +50,21 @@ class User {
     return {
       id: user.id,
       email: user.email,
+    };
+  }
+
+  async getByEmail(email: string): Promise<UserByEmailDto | null> {
+    const user = await this.#userRepository.getByEmail(email);
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
     };
   }
 }
