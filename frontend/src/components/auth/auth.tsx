@@ -3,9 +3,6 @@ import { UserSignUpRequestDto, FC } from 'common/types/types';
 import { useAppDispatch, useLocation } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
-import styles from './auth.module.scss';
-import appLogo from 'assets/img/appLogo.svg';
-import salyImage from 'assets/img/Saly-10.png';
 
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
@@ -32,21 +29,7 @@ const Auth: FC = () => {
     return null;
   };
 
-  return (
-    <>
-      <main className={styles.authWrapper}>
-        <section className={styles.imageSection}>
-          <div className={styles.logoContainer}>
-            <img src={appLogo}></img>
-          </div>
-          <div className={styles.imageContainer}>
-            <img src={salyImage}></img>
-          </div>
-        </section>
-        <section>{getScreen(pathname)}</section>
-      </main>
-    </>
-  );
+  return <>{getScreen(pathname)}</>;
 };
 
 export { Auth };

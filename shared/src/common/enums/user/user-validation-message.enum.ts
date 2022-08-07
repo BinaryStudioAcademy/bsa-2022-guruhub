@@ -1,9 +1,9 @@
 import { UserValidationRule } from '../validation/validation.enum';
 
 const UserValidationMessage = {
-  USERNAME_REQUIRE: 'Username is required',
-  USERNAME_MIN_LENGTH: `Username must be at least ${UserValidationRule.NAME_MIN_LENGTH} characters long`,
-  USERNAME_MAX_LENGTH: `Username must be at most ${UserValidationRule.NAME_MAX_LENGTH} characters long`,
+  NAME_REQUIRE: 'Username is required',
+  NAME_MIN_LENGTH: `Username must be at least ${UserValidationRule.NAME_MIN_LENGTH} characters long`,
+  NAME_MAX_LENGTH: `Username must be at most ${UserValidationRule.NAME_MAX_LENGTH} characters long`,
   EMAIL_REQUIRE: 'Email is required',
   EMAIL_WRONG: 'Email is wrong',
   EMAIL_MIN_LENGTH: `Email must be at least ${UserValidationRule.EMAIL_MIN_LENGTH} characters long`,

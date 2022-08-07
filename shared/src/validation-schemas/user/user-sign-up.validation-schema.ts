@@ -38,10 +38,9 @@ const userSignUp = Joi.object({
     .max(UserValidationRule.NAME_MAX_LENGTH)
     .required()
     .messages({
-      'string.empty': UserValidationMessage.USERNAME_REQUIRE,
-      'string.min': UserValidationMessage.USERNAME_MIN_LENGTH,
-      'string.max': UserValidationMessage.USERNAME_MAX_LENGTH,
-      'string.pattern': UserValidationMessage.USERNAME_WRONG,
+      'string.empty': UserValidationMessage.NAME_REQUIRE,
+      'string.min': UserValidationMessage.NAME_MIN_LENGTH,
+      'string.max': UserValidationMessage.NAME_MAX_LENGTH,
     }),
 });
 
