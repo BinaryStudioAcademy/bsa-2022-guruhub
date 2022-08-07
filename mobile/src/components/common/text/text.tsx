@@ -1,34 +1,19 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { selectFontColor, selectFontUsage } from './helpers';
+import { Text, TextStyle } from 'react-native';
+import { AppFontFamily } from '~/common/enums/ui/app-font.enum';
+import { styles } from './styles';
+
+interface FontStyle extends TextStyle {
+  fontFamily: AppFontFamily;
+}
 
 type Props = {
-  innerText: string;
-  style: {
-    fontColor: 'gray_400' | 'gray_200' | 'gray_100';
-    fontUsage:
-      | 'heading_1'
-      | 'heading_2'
-      | 'heading_3'
-      | 'heading_4'
-      | 'heading_5'
-      | 'heading_6'
-      | 'subheading'
-      | 'body'
-      | 'body_sm'
-      | 'body_sm_bold'
-      | 'caption'
-      | 'quotation'
-      | 'button_sm'
-      | 'button'
-      | 'input'
-      | 'input_label';
-  };
+  children: JSX.Element;
+  style: Omit<FontStyle, 'fontWeight' | 'fontStyle'>;
 };
 
-export const TextCustom: React.FC<Props> = ({ innerText, style }) => {
-  const textFontUsage = selectFontUsage(style.fontUsage);
-  const textFontColor = selectFontColor(style.fontColor);
-
-  return <Text style={[textFontUsage, textFontColor]}>{innerText}</Text>;
+const TextComponent: React.FC<Props> = ({ style, children }) => {
+  return <Text style={[{ ...styles.default }, style]}>{children}</Text>;
 };
+
+export { TextComponent };
