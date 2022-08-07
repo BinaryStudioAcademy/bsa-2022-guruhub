@@ -1,7 +1,7 @@
-import { CustomExceptionName, ExceptionMessage } from '~/common/enums/enums';
+import { CustomExceptionName, ValidationMessage } from '~/common/enums/enums';
 
 class InvalidCredentials extends Error {
-  constructor({ message = ExceptionMessage.EMAIL_ALREADY_EXISTS } = {}) {
+  constructor({ message = ValidationMessage.EMAIL_ALREADY_EXISTS } = {}) {
     super(message);
     this.name = CustomExceptionName.INVALID_CREDENTIALS;
   }

@@ -3,7 +3,7 @@ import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
-import { ExceptionMessage } from '~/common/enums/enums';
+import { ValidationMessage } from '~/common/enums/enums';
 import { user as userServ } from '~/services/services';
 
 type Constructor = {
@@ -25,7 +25,7 @@ class Auth {
 
     if (userByEmail) {
       throw new InvalidCredentials({
-        message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
+        message: ValidationMessage.EMAIL_ALREADY_EXISTS,
       });
     }
     return this.#userService.create(userRequestDto);

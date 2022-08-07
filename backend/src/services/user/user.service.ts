@@ -3,17 +3,20 @@ import {
   UserSignUpResponseDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
-import { encrypt as encryptService } from '~/services/services';
+import { Encrypt } from '../encrypt/encrypt.service';
 
 type Constructor = {
   userRepository: typeof userRep;
+  encryptService: Encrypt;
 };
 
 class User {
   #userRepository: typeof userRep;
+  #encryptService: Encrypt;
 
-  constructor({ userRepository }: Constructor) {
+  constructor({ userRepository, encryptService }: Constructor) {
     this.#userRepository = userRepository;
+    this.#encryptService = encryptService;
   }
 
   async getAll(): Promise<UserSignUpResponseDto[]> {
@@ -42,8 +45,11 @@ class User {
     createUserDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
     const { password } = createUserDto;
-    const passwordSalt = await encryptService.generateSalt();
-    const passwordHash = await encryptService.encrypt(password, passwordSalt);
+    const passwordSalt = await this.#encryptService.generateSalt();
+    const passwordHash = await this.#encryptService.encrypt(
+      password,
+      passwordSalt,
+    );
 
     const user = await this.#userRepository.create({
       email: createUserDto.email,
