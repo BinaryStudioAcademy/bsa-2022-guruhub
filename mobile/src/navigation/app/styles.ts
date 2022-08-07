@@ -29,19 +29,18 @@ const styles = StyleSheet.create({
     minWidth: 225,
     marginBottom: 10,
     paddingHorizontal: 25,
-    // backgroundColor: is focused '#2563EB',
     borderRadius: 27,
   },
   listItemText: {
     color: AppColor.TEXT.GRAY_200,
-    // color: is focused '#fff',
     fontSize: 16,
     fontWeight: '500',
   },
   listBorder: {
     width: '62.5%',
     height: 2,
-    marginVertical: 30,
+    marginTop: 30,
+    marginBottom: 45,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   footer: {
