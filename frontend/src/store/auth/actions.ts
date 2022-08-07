@@ -3,13 +3,13 @@ import { StorageKey } from 'common/enums/enums';
 
 import {
   UserSignUpRequestDto,
-  UserSignUpResponseDto,
+  UserByIdResponse,
   AsyncThunkConfig,
 } from 'common/types/types';
 import { ActionType } from './common';
 
 const signUp = createAsyncThunk<
-  UserSignUpResponseDto,
+  UserByIdResponse,
   UserSignUpRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_UP, async (registerPayload, { extra }) => {

@@ -6,7 +6,7 @@ import {
 } from 'common/enums/enums';
 import {
   UserSignUpRequestDto,
-  UserSignUpTokenResponseDto,
+  UserSignUpResponseDto,
 } from 'common/types/user/user';
 import { Http } from '../http/http.service';
 
@@ -24,9 +24,7 @@ class AuthApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public signUp(
-    payload: UserSignUpRequestDto,
-  ): Promise<UserSignUpTokenResponseDto> {
+  public signUp(payload: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
       {

@@ -1,7 +1,4 @@
-import {
-  UserSignUpRequestDto,
-  UserSignUpResponseDto,
-} from '~/common/types/types';
+import { UserSignUpRequestDto, UserByIdResponse } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 
 type Constructor = {
@@ -15,7 +12,7 @@ class User {
     this.#userRepository = userRepository;
   }
 
-  async getAll(): Promise<UserSignUpResponseDto[]> {
+  async getAll(): Promise<UserByIdResponse[]> {
     const users = await this.#userRepository.getAll();
 
     return users.map((user) => ({
@@ -24,9 +21,7 @@ class User {
     }));
   }
 
-  async create(
-    createUserDto: UserSignUpRequestDto,
-  ): Promise<UserSignUpResponseDto> {
+  async create(createUserDto: UserSignUpRequestDto): Promise<UserByIdResponse> {
     const passwordSalt = 'SALT'; // TODO
     const passwordHash = 'HASH'; // TODO
 

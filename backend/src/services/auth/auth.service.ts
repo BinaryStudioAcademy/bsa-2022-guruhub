@@ -1,26 +1,28 @@
 import {
   UserSignUpRequestDto,
-  UserSignUpTokenResponseDto,
+  UserSignUpResponseDto,
 } from '~/common/types/types';
-import { createToken } from '~/helpers/helpers';
-import { user as userServ } from '~/services/services';
+import { user as userServ, token as tokenServ } from '~/services/services';
 
 type Constructor = {
   userService: typeof userServ;
+  tokenService: typeof tokenServ;
 };
 
 class Auth {
   #userService: typeof userServ;
+  #tokenService: typeof tokenServ;
 
-  constructor({ userService }: Constructor) {
+  constructor({ userService, tokenService }: Constructor) {
     this.#userService = userService;
+    this.#tokenService = tokenService;
   }
 
   async signUp(
     userRequestDto: UserSignUpRequestDto,
-  ): Promise<UserSignUpTokenResponseDto> {
+  ): Promise<UserSignUpResponseDto> {
     return {
-      token: createToken({ data: userRequestDto }),
+      token: await this.#tokenService.create({ data: userRequestDto }),
       user: await this.#userService.create(userRequestDto),
     };
   }

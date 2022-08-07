@@ -1,3 +1,5 @@
+import { StorageKey } from 'common/enums/enums';
+
 type Constructor = {
   storage: globalThis.Storage;
 };
@@ -9,15 +11,15 @@ class Storage {
     this.#storage = storage;
   }
 
-  public getItem(key: string): string | null {
+  public getItem(key: StorageKey): string | null {
     return this.#storage.getItem(key);
   }
 
-  public setItem(key: string, value: string): void {
+  public setItem(key: StorageKey, value: string): void {
     return this.#storage.setItem(key, value);
   }
 
-  public removeItem(key: string): void {
+  public removeItem(key: StorageKey): void {
     return this.#storage.removeItem(key);
   }
 

@@ -30,6 +30,7 @@ const ENV = {
   JWT: {
     SECRET: SECRET_KEY,
     EXPIRES_IN: '24h',
+    ALG: 'HS256',
   },
 };
 

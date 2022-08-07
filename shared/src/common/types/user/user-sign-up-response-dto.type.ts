@@ -1,11 +1,10 @@
-type UserSignUpResponseDto = {
+type UserByIdResponse = {
   id: number;
   email: string;
 };
-
-type UserSignUpTokenResponseDto = {
+type UserSignUpResponseDto = {
   token: string;
-  user: UserSignUpResponseDto;
+  user: UserByIdResponse;
 };
 
-export { type UserSignUpResponseDto, type UserSignUpTokenResponseDto };
+export { type UserByIdResponse, type UserSignUpResponseDto };

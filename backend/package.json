@@ -21,7 +21,6 @@
     "build": "npm run build:ts && npm run build:copy"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "8.5.8",
     "nodemon": "2.0.19",
     "pino-pretty": "8.1.0",
     "ts-node": "10.8.2",
@@ -32,7 +31,7 @@
     "dotenv": "16.0.1",
     "fastify": "4.2.1",
     "guruhub-shared": "file:../shared/build",
-    "jsonwebtoken": "8.5.1",
+    "jose": "4.8.3",
     "knex": "2.1.0",
     "objection": "3.0.1",
     "pg": "8.7.3"
