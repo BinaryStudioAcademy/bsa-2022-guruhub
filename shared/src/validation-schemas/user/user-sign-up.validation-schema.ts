@@ -41,6 +41,7 @@ const userSignUp = Joi.object({
       'string.empty': UserValidationMessage.NAME_REQUIRE,
       'string.min': UserValidationMessage.NAME_MIN_LENGTH,
       'string.max': UserValidationMessage.NAME_MAX_LENGTH,
+      'string.pattern.base': UserValidationMessage.NAME_WRONG,
     }),
 });
 
