@@ -231,18 +231,11 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        file(rootProject.file('keystore.properties')).with { propFile ->
-            if (propFile.canRead()) {
-                release {
-                    storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-                    keyAlias keystoreProperties['keyAlias']
-                    keyPassword keystoreProperties['keyPassword']
-                    storePassword keystoreProperties['storePassword']
-                }
-            }
-            else {
-                print('Not signed')
-            }
+        release {
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storePassword keystoreProperties['storePassword']
         }
     }
     buildTypes {
@@ -252,17 +245,10 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            file(rootProject.file('key.properties')).with { propFile ->
-                if (propFile.canRead()) {
-                    // because we can read the keystore
-                    // we are building locally
-                    // so sign locally
-                    // otherwise build an unsigned apk for later signing by the CI/CD provider
-                    signingConfig signingConfigs.release
-                    minifyEnabled enableProguardInReleaseBuilds
-                    proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-                }
-            }
+
+            signingConfig signingConfigs.release
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
 

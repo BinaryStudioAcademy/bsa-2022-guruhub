@@ -93,7 +93,7 @@ erDiagram
   }
 
   courses ||--|| vendors : vendor_id
-  courses ||--|| course_categories : course_category_id
+  courses }|--|| course_categories : course_category_id
   courses {
       int id PK
       dateTime created_at
@@ -155,7 +155,7 @@ erDiagram
     enum status
   }
 
-  interviews }|--|| users : interviewer_user_id
+  interviews }|--o| users : interviewer_user_id
   interviews }|--|| users : interviewee_user_id
   interviews }|--|| course_categories : course_categories_id
   interviews {
@@ -163,7 +163,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     dateTime interview_date
-    int interviewer_user_id FK "nullable"
+    int interviewer_user_id FK
     int interviewee_user_id FK
     int category_id FK
     enum status
