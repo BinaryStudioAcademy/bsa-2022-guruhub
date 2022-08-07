@@ -34,6 +34,7 @@ class Auth {
         status: HttpCode.UNAUTHORIZED,
       });
     }
+
     return this.#userService.create(userRequestDto);
   }
 
