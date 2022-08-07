@@ -3,7 +3,7 @@ import { UserSignUpRequestDto, FC } from 'common/types/types';
 import { useAppDispatch, useLocation } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
-import styles from './Auth.module.scss';
+import styles from './auth.module.scss';
 import appLogo from 'assets/img/appLogo.svg';
 import salyImage from 'assets/img/Saly-10.png';
 

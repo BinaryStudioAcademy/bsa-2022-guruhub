@@ -4,7 +4,7 @@ import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common';
-import styles from '../../Auth.module.scss';
+import styles from '../../auth.module.scss';
 import { AppRoute } from 'common/enums/enums';
 
 type Props = {
