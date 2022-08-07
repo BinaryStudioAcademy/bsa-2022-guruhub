@@ -5,15 +5,7 @@ class Encrypt {
     passwordHash: string,
     password: string,
   ): Promise<boolean> {
-    let res = false;
-
-    bcrypt.compare(password, passwordHash, (_err, result) => {
-      if (result) {
-        res = true;
-      }
-    });
-
-    return res;
+    return bcrypt.compare(password, passwordHash);
   }
 }
 

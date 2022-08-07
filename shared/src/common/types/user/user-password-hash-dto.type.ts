@@ -1,7 +1,7 @@
 type UserPasswordHashDto = {
   id: number;
   email: string;
-  password_hash: string;
+  passwordHash: string;
 };
 
 export { type UserPasswordHashDto };

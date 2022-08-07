@@ -71,7 +71,7 @@ class User {
     return {
       id: user.id,
       email: user.email,
-      password_hash: user.passwordHash,
+      passwordHash: user.passwordHash,
     };
   }
 
@@ -85,7 +85,7 @@ class User {
     }
 
     const isPasswordValid = await encrypt.comparePasswords(
-      user.password_hash,
+      user.passwordHash,
       signInUserDto.password,
     );
 

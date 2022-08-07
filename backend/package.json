@@ -21,16 +21,16 @@
     "build": "npm run build:ts && npm run build:copy"
   },
   "devDependencies": {
+    "@types/bcrypt": "5.0.0",
     "nodemon": "2.0.19",
     "pino-pretty": "8.1.0",
     "ts-node": "10.8.2",
-    "tsc-alias": "1.6.11",
-    "@types/bcrypt": "5.0.0"
+    "tsc-alias": "1.6.11"
   },
   "dependencies": {
     "@fastify/static": "6.5.0",
+    "bcrypt": "5.0.1",
     "dotenv": "16.0.1",
-    "bcrypt": "5.0.0",
     "fastify": "4.2.1",
     "guruhub-shared": "file:../shared/build",
     "knex": "2.1.0",
