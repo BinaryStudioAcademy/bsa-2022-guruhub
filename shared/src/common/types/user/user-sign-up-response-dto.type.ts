@@ -3,4 +3,9 @@ type UserSignUpResponseDto = {
   email: string;
 };
 
-export { type UserSignUpResponseDto };
+type UserSignUpTokenResponseDto = {
+  token: string;
+  user: UserSignUpResponseDto;
+};
+
+export { type UserSignUpResponseDto, type UserSignUpTokenResponseDto };

@@ -1,7 +1,8 @@
 import {
   UserSignUpRequestDto,
-  UserSignUpResponseDto,
+  UserSignUpTokenResponseDto,
 } from '~/common/types/types';
+import { createToken } from '~/helpers/helpers';
 import { user as userServ } from '~/services/services';
 
 type Constructor = {
@@ -15,8 +16,13 @@ class Auth {
     this.#userService = userService;
   }
 
-  signUp(userRequestDto: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
-    return this.#userService.create(userRequestDto);
+  async signUp(
+    userRequestDto: UserSignUpRequestDto,
+  ): Promise<UserSignUpTokenResponseDto> {
+    return {
+      token: createToken({ data: userRequestDto }),
+      user: await this.#userService.create(userRequestDto),
+    };
   }
 }
 
