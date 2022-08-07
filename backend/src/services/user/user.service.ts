@@ -1,18 +1,23 @@
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserByEmailDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
+import { Encrypt } from '~/services/encrypt/encrypt.service';
 
 type Constructor = {
   userRepository: typeof userRep;
+  encryptService: Encrypt;
 };
 
 class User {
   #userRepository: typeof userRep;
+  #encryptService: Encrypt;
 
-  constructor({ userRepository }: Constructor) {
+  constructor({ userRepository, encryptService }: Constructor) {
     this.#userRepository = userRepository;
+    this.#encryptService = encryptService;
   }
 
   async getAll(): Promise<UserSignUpResponseDto[]> {
@@ -24,14 +29,20 @@ class User {
     }));
   }
 
-  async create(
-    createUserDto: UserSignUpRequestDto,
-  ): Promise<UserSignUpResponseDto> {
-    const passwordSalt = 'SALT'; // TODO
-    const passwordHash = 'HASH'; // TODO
+  async create({
+    email,
+    fullName,
+    password,
+  }: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+    const passwordSalt = await this.#encryptService.generateSalt();
+    const passwordHash = await this.#encryptService.encrypt(
+      password,
+      passwordSalt,
+    );
 
     const user = await this.#userRepository.create({
-      email: createUserDto.email,
+      email,
+      fullName,
       passwordSalt,
       passwordHash,
     });
@@ -39,6 +50,21 @@ class User {
     return {
       id: user.id,
       email: user.email,
+    };
+  }
+
+  async getByEmail(email: string): Promise<UserByEmailDto | null> {
+    const user = await this.#userRepository.getByEmail(email);
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
     };
   }
 }
