@@ -18,7 +18,7 @@
     "prestart": "npm run migrate",
     "start": "node ./src/server.js",
     "build:ts": "tsc && tsc-alias -p tsconfig.json",
-    "build:copy": "cp -r package.json package-lock.json build",
+    "build:copy": "cp -r package.json package-lock.json build && cp -r src/documentation build/src",
     "build": "npm run build:ts && npm run build:copy"
   },
   "devDependencies": {
