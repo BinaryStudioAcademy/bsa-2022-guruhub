@@ -11,8 +11,8 @@ const Table = <Data extends Record<string, unknown>>({
   data,
 }: Props<Data>): ReactElement => {
   const tableInstance = useTable({
-    columns: columns as Column<Record<string, unknown>>[],
-    data: data as Record<string, unknown>[],
+    columns,
+    data,
   });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
