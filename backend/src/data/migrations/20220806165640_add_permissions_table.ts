@@ -25,7 +25,7 @@ export async function up(knex: Knex): Promise<void> {
   });
 
   await knex(TABLE_NAME).insert([
-    { id: 1, name: 'Manage UAM', key: 'manage_uam' },
+    { name: 'Manage UAM', key: 'manage_uam' },
   ]);
 }
 
