@@ -2,12 +2,11 @@ import { Column, useTable } from 'react-table';
 import { FC } from 'common/types/types';
 import styles from './table/styles.module.scss';
 
-type Props = {
-  columns: Column[];
-  data: unknown[];
+type Props<Data extends Record<string, unknown>> = {
+  columns: Column<Data>[];
+  data: readonly Data[];
 };
-
-const Table: FC<Props> = ({ columns, data }) => {
+const Table: FC<Props<Record<string, unknown>>> = ({ columns, data }) => {
   const tableInstance = useTable({
     columns: columns as Column<Record<string, string>>[],
     data: data as Record<string, string>[],
