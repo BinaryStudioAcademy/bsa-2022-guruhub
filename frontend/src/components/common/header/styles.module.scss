@@ -1,13 +1,13 @@
-.header-wrapper {
+.headerWrapper {
   display: flex;
   flex-grow: 1;
   justify-content: space-between;
   min-height: 96px;
-  background-color: #242636;
+  background-color: var(--background-gray-300);
   box-shadow: inset 1px #2c2b3e;
 }
 
-.logo-wrapper {
+.logoWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,7 +16,7 @@
   border-right: 1px solid;
 }
 
-.user-wrapper {
+.userWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;

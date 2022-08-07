@@ -7,11 +7,11 @@ import styles from './styles.module.scss';
 
 const Header: FC = () => (
   <header>
-    <div className={styles['header-wrapper']}>
-      <div className={styles['logo-wrapper']}>
+    <div className={styles.headerWrapper}>
+      <div className={styles.logoWrapper}>
         <Image width="150" height="94" src={logo} alt="logo" />
       </div>
-      <div className={styles['user-wrapper']}>
+      <div className={styles.userWrapper}>
         <Image
           width="50"
           height="50"
