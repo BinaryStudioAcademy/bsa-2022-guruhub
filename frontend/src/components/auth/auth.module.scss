@@ -1,17 +1,21 @@
 @import 'https://rsms.me/inter/inter.css';
 
 .formWrapper {
-  position: absolute;
-  top: 50%;
-  right: 57px;
   display: flex;
   flex-direction: column;
   width: 600px;
+  margin-right: 60px;
   padding: 40px;
-  color: white;
+  color: var(--typography-text-100-inverse);
   font-family: inter, sans-serif;
-  background-color: #1e1e2c;
-  transform: translateY(-50%);
+  background-color: var(--background-gray-400);
+}
+
+.main {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 100vh;
 }
 
 .formHeader {
@@ -26,7 +30,7 @@
 }
 
 .formHeader a {
-  color: #41c6ff;
+  color: var(--support-info-blue-100);
   text-decoration: none;
 }
 
@@ -50,22 +54,22 @@ p {
 
 .formInputWrapper label input {
   padding: 6px 15px;
-  color: white;
+  color: var(--typography-text-100-inverse);
   font-weight: 600;
   font-size: 15px;
   line-height: 24px;
-  background: #242636;
+  background: var(--background-gray-300);
   border: 1px solid transparent;
   border-radius: 6px;
   outline: none;
 }
 
 .formInputWrapper label input.error {
-  border: 1px solid var(--support-error);
+  border: 1px solid var(--support-error-red-100);
 }
 
 .formInputWrapper label input:not([value='']):focus {
-  border: 1px solid #2563eb;
+  border: 1px solid var(--brand-blue-100);
 }
 
 .formInputWrapper label span:first-child {
@@ -75,33 +79,33 @@ p {
 }
 
 .formInputWrapper label span:last-child {
-  color: #f76519;
+  color: var(--support-error-red-100);
   font-weight: 600;
   font-size: 12px;
   line-height: 16px;
 }
 
 .formInputWrapper label input[type='password'] {
-  color: #6b6d7f;
+  color: var(--text-gray-200);
   letter-spacing: 4px;
 }
 
 .formButton {
   display: flex;
   padding: 16px;
-  color: white;
+  color: var(--typography-text-100-inverse);
   font-weight: 600;
   font-size: 16px;
   line-height: 16px;
   letter-spacing: 0.5px;
-  background: #2563eb;
+  background: var(--brand-blue-100);
   border: none;
   border-radius: 28px;
   outline: none;
 }
 
 .formButton:hover {
-  background: #1747ae;
+  background: var(--hover-blue-100);
   cursor: pointer;
 }
 
@@ -119,12 +123,12 @@ p {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #242636;
+  background-color: var(--background-gray-300);
 }
 
 .circle {
   position: absolute;
-  background-color: #2563eb;
+  background-color: var(--brand-blue-100);
   border-radius: 50%;
 }
 
