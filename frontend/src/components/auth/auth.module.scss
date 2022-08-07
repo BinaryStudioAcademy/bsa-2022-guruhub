@@ -147,6 +147,7 @@ p {
 .circleSecond {
   top: 60%;
   left: 33.3%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
