@@ -13,7 +13,7 @@ type Props = {
   label: string;
   name: FormControlPath;
   placeholder?: string;
-  type?: 'text' | 'email' | 'date';
+  type?: 'text' | 'email' | 'date' | 'password';
 };
 
 const Input: FC<Props> = ({

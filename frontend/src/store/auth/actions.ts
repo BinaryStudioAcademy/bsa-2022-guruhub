@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserSignInResponseDto,
+  UserSignInRequestDto,
   AsyncThunkConfig,
 } from 'common/types/types';
 import { ActionType } from './common';
@@ -17,4 +19,14 @@ const signUp = createAsyncThunk<
   return authApi.signUp(registerPayload);
 });
 
-export { signUp };
+const signIn = createAsyncThunk<
+  UserSignInResponseDto,
+  UserSignInRequestDto,
+  AsyncThunkConfig
+>(ActionType.SIGN_IN, async (loginPayload, { extra }) => {
+  const { authApi } = extra;
+
+  return authApi.signIn(loginPayload);
+});
+
+export { signUp, signIn };

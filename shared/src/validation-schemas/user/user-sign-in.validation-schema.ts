@@ -1,0 +1,27 @@
+import * as Joi from 'joi';
+import { getNameOf } from '~/helpers/helpers';
+import { UserSignInRequestDto } from '~/common/types/types';
+import {
+  UserValidationMessage,
+  UserValidationRule,
+} from '~/common/enums/enums';
+
+const userSignIn = Joi.object({
+  [getNameOf<UserSignInRequestDto>('email')]: Joi.string()
+    .trim()
+    .email({ tlds: { allow: false } })
+    .min(UserValidationRule.EMAIL_MIN_LENGTH)
+    .max(UserValidationRule.EMAIL_MAX_LENGTH)
+    .required()
+    .messages({
+      'string.email': UserValidationMessage.EMAIL_WRONG,
+      'string.empty': UserValidationMessage.EMAIL_REQUIRE,
+    }),
+  [getNameOf<UserSignInRequestDto>('password')]: Joi.string()
+    .trim()
+    .min(UserValidationRule.PASSWORD_MIN_LENGTH)
+    .max(UserValidationRule.PASSWORD_MAX_LENGTH)
+    .required(),
+});
+
+export { userSignIn };

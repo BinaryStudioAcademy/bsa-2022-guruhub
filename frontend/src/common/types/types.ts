@@ -10,5 +10,7 @@ export { type FC } from './react/react';
 export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserSignInRequestDto,
+  type UserSignInResponseDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';
