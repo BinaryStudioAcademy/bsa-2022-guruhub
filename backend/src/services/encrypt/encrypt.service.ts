@@ -6,6 +6,7 @@ type Constructor = {
 
 class Encrypt {
   #salt: number;
+
   constructor({ salt }: Constructor) {
     this.#salt = salt;
   }

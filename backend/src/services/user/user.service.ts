@@ -41,10 +41,11 @@ class User {
     };
   }
 
-  async create(
-    createUserDto: UserSignUpRequestDto,
-  ): Promise<UserSignUpResponseDto> {
-    const { password } = createUserDto;
+  async create({
+    email,
+    fullName,
+    password,
+  }: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
     const passwordSalt = await this.#encryptService.generateSalt();
     const passwordHash = await this.#encryptService.encrypt(
       password,
@@ -52,8 +53,8 @@ class User {
     );
 
     const user = await this.#userRepository.create({
-      email: createUserDto.email,
-      fullName: createUserDto.fullName,
+      email,
+      fullName,
       passwordSalt,
       passwordHash,
     });
