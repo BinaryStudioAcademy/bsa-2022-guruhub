@@ -16,17 +16,13 @@ class User {
   }
 
   async getByEmail(email: string): Promise<UserM | null> {
-    const user = this.#UserModel
+    const user = await this.#UserModel
       .query()
       .select()
       .where({ email })
-      .first() as unknown as UserM | null;
+      .first();
 
-    if (!user) {
-      return null;
-    }
-
-    return user;
+    return user ?? null;
   }
 
   async create(user: {

@@ -54,6 +54,7 @@ class User {
       id: user.id,
       email: user.email,
       passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
     };
   }
 }

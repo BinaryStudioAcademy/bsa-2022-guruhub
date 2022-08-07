@@ -5,8 +5,8 @@ import {
   UserSignUpResponseDto,
 } from '~/common/types/types';
 import { user as userServ, encrypt as encryptServ } from '~/services/services';
-import { ValidationMessage } from '~/common/enums/enums';
-import { UserError } from '~/exceptions/exceptions';
+import { HttpCode, ValidationMessage } from '~/common/enums/enums';
+import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -35,9 +35,14 @@ class Auth {
       return null;
     }
 
-    const isPasswordValid = await this.#encryptService.comparePasswords(
-      user.passwordHash,
+    const encryptionData = {
+      salt: user.passwordSalt,
+      passwordHash: user.passwordHash,
+    };
+
+    const isPasswordValid = await this.#encryptService.compare(
       signInUserDto.password,
+      encryptionData,
     );
 
     return isPasswordValid ? { id: user.id, email: user.email } : null;
@@ -49,7 +54,10 @@ class Auth {
     const user = await this.verifySignIn(userRequestDto);
 
     if (!user) {
-      throw new UserError(ValidationMessage.BAD_CREDENTIALS);
+      throw new AuthError({
+        code: HttpCode.BAD_REQUEST,
+        message: ValidationMessage.BAD_CREDENTIALS,
+      });
     }
 
     return user;
