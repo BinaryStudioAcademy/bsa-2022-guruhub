@@ -3,6 +3,7 @@ import { Abstract } from '../abstract/abstract.model';
 
 class CourseCategory extends Abstract {
   'name': string;
+
   'key': string;
 
   static override get tableName(): string {
