@@ -3,11 +3,11 @@ import { Auth } from './auth/auth.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { User } from './user/user.service';
 
-const encryptService = new Encrypt();
+const encrypt = new Encrypt();
 
 const user = new User({
   userRepository,
-  encryptService,
+  encryptService: encrypt,
 });
 
 const auth = new Auth({

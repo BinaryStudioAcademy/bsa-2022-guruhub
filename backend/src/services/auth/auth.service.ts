@@ -1,9 +1,9 @@
-import { InvalidCredentials } from '~/exceptions/exceptions';
+import { AuthError } from '~/exceptions/exceptions';
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
-import { ValidationMessage } from '~/common/enums/enums';
+import { ValidationMessage, HttpCode } from '~/common/enums/enums';
 import { user as userServ } from '~/services/services';
 
 type Constructor = {
@@ -24,8 +24,9 @@ class Auth {
     const userByEmail = await this.#userService.getByEmail(email);
 
     if (userByEmail) {
-      throw new InvalidCredentials({
+      throw new AuthError({
         message: ValidationMessage.EMAIL_ALREADY_EXISTS,
+        status: HttpCode.UNAUTHORIZED,
       });
     }
     return this.#userService.create(userRequestDto);

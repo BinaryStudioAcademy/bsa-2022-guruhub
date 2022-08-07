@@ -3,7 +3,7 @@ import {
   UserSignUpResponseDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
-import { Encrypt } from '../encrypt/encrypt.service';
+import { Encrypt } from '~/services/encrypt/encrypt.service';
 
 type Constructor = {
   userRepository: typeof userRep;
@@ -53,7 +53,7 @@ class User {
 
     const user = await this.#userRepository.create({
       email: createUserDto.email,
-      full_name: createUserDto.full_name,
+      fullName: createUserDto.fullName,
       passwordSalt,
       passwordHash,
     });

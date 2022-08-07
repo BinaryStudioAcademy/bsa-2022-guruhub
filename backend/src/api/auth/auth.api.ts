@@ -21,13 +21,9 @@ const initAuthApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: userSignUpValidationSchema,
     },
     async handler(req: FastifyRequest<{ Body: UserSignUpRequestDto }>, rep) {
-      try {
-        const user = await authService.signUp(req.body);
+      const user = await authService.signUp(req.body);
 
-        return rep.status(HttpCode.CREATED).send(user);
-      } catch (error) {
-        return rep.status(500).send(error);
-      }
+      return rep.status(HttpCode.CREATED).send(user);
     },
   });
 };

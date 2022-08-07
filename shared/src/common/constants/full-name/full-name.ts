@@ -1,5 +1,0 @@
-const NAME_MIN_LENGTH = 3;
-const NAME_MAX_LENGTH = 60;
-const NAME_PATTERN = /^[ A-Za-z0-9-'`]*$/;
-
-export { NAME_MAX_LENGTH, NAME_MIN_LENGTH, NAME_PATTERN };

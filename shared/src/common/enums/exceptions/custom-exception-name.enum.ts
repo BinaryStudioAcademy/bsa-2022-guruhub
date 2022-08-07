@@ -1,6 +1,6 @@
 enum CustomExceptionName {
   HTTP_ERROR = 'HttpError',
-  INVALID_CREDENTIALS = 'InvalidCredentials',
+  AUTH_ERROR = 'AuthError',
 }
 
 export { CustomExceptionName };

@@ -3,7 +3,6 @@ import { Knex } from 'knex';
 enum ColumnName {
   ID = 'id',
   EMAIL = 'email',
-  FULL_NAME = 'full_name',
   PASSWORD_HASH = 'password_hash',
   PASSWORD_SALT = 'password_salt',
   CREATED_AT = 'created_at',
@@ -15,7 +14,6 @@ async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
     table.string(ColumnName.EMAIL).unique().notNullable();
-    table.string(ColumnName.FULL_NAME).notNullable();
     table.text(ColumnName.PASSWORD_HASH).notNullable();
     table.text(ColumnName.PASSWORD_SALT).notNullable();
     table
