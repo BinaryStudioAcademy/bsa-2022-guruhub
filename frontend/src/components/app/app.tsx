@@ -1,18 +1,15 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Routes, Route, Link } from 'components/common/common';
+import { Routes, Route, Link, Header } from 'components/common/common';
 import { useLocation } from 'hooks/hooks';
 import { Auth } from 'components/auth/auth';
-import { Header } from 'components/common/header/header';
 
 const App: FC = () => {
   const { pathname } = useLocation();
 
   return (
     <>
-      <header>
-        <Header />
-      </header>
+      <Header />
 
       <ul className="App-navigation-list">
         <li>
