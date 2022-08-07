@@ -4,8 +4,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RNBootSplash from 'react-native-bootsplash';
 import 'fast-text-encoding';
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
-import { styles } from './styles';
 import { ENV } from '~/common/enums/enums';
+import { styles } from './styles';
 
 const App: FC = () => {
   const handleNavigationReady = (): void => {
