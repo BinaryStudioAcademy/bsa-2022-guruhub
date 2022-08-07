@@ -13,7 +13,7 @@ async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
     table.string(ColumnName.NAME).unique().notNullable();
-    table.text(ColumnName.KEY).unique().notNullable();
+    table.string(ColumnName.KEY).unique().notNullable();
     table
       .dateTime(ColumnName.CREATED_AT)
       .notNullable()
