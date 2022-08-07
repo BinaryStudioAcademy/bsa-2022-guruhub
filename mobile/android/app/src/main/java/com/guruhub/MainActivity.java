@@ -29,15 +29,8 @@ public class MainActivity extends ReactActivity {
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
-     @Override
-    protected void loadApp(String appKey) {
-      RNBootSplash.init(getPlainActivity()); // <- initialize the splash screen
-      super.loadApp(appKey);
-    }
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
       super(activity, mainComponentName);
-
-
     }
 
     @Override
@@ -57,8 +50,8 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+      RNBootSplash.init(getPlainActivity());
       super.onCreate(null);
-
     }
   }
 }
