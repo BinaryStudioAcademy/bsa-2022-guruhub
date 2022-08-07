@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
+import fastifySwagger from '@fastify/swagger';
 import Knex from 'knex';
 import { Model } from 'objection';
 import path from 'node:path';
@@ -26,6 +27,16 @@ const staticPath = path.join(__dirname, '../public');
 app.register(fastifyStatic, {
   root: staticPath,
   prefix: '/',
+});
+
+app.register(fastifySwagger, {
+  mode: 'static',
+  prefix: '/documentation',
+  exposeRoute: true,
+  specification: {
+    path: path.resolve(__dirname, './documentation/documentation.yaml'),
+    baseDir: path.resolve(__dirname, './documentation'),
+  },
 });
 
 app.listen({ port: ENV.APP.SERVER_PORT }, (err, address) => {

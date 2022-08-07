@@ -1,0 +1,30 @@
+.table {
+  width: 100%;
+  padding: 15px;
+  background: var(--background-gray-300);
+  border-radius: 10px;
+  border-spacing: 0;
+}
+
+.tableHeadRowHeader {
+  color: var(--typography-text-100-inverse);
+  font-weight: 500;
+  font-size: 18px;
+  font-style: normal;
+  line-height: 21px;
+  text-align: left;
+  border-bottom: 1px solid #393b4d;
+}
+
+.tableBodyRowData {
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.tableHeadRowHeader,
+.tableBodyRowData {
+  padding: 20px;
+}
