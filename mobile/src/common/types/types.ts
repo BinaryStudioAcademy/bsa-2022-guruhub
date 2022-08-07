@@ -9,6 +9,7 @@ export {
   type UserSignUpResponseDto,
 } from './user/user';
 export {
+  type ParamListBase,
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
