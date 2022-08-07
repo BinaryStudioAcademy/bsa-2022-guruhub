@@ -4,8 +4,8 @@ import { getNameOf } from 'helpers/helpers';
 import { useAppForm, useAppSelector, useNavigate } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common';
-import styles from '../../auth.module.scss';
-import { AppRoute, AuthApiPath, DataStatus } from 'common/enums/enums';
+import styles from 'components/auth/auth.module.scss';
+import { AppRoute, DataStatus } from 'common/enums/enums';
 import logo from 'assets/img/logo.svg';
 import authImage from 'assets/img/auth.png';
 
@@ -22,7 +22,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
   const { dataStatus } = useAppSelector((state) => state.auth);
 
   if (dataStatus === DataStatus.FULFILLED) {
-    navigate(AuthApiPath.ROOT);
+    navigate(AppRoute.ROOT);
   }
 
   return (
