@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from '~/components/common/common';
-import { RootScreenName } from '~/common/enums/enums';
+import { RootScreenName, AppColor } from '~/common/enums/enums';
 import { ParamListBase } from '~/common/types/types';
 import { styles } from './styles';
 
@@ -63,13 +63,12 @@ const CustomDrawerContent = (): JSX.Element => {
   );
 };
 
-// TODO: take colors from color palette, add icons
 const screenOptions: DrawerNavigationOptions = {
   swipeEdgeWidth: 100,
   headerStyle: {
-    backgroundColor: '#242636',
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
-  headerTintColor: '#fff',
+  headerTintColor: AppColor.TEXT.GRAY_100,
   headerTitleStyle: {
     fontSize: 20,
     fontWeight: '500',
@@ -77,7 +76,7 @@ const screenOptions: DrawerNavigationOptions = {
   },
   drawerStyle: {
     width: '90%',
-    backgroundColor: '#242636',
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
 };
 

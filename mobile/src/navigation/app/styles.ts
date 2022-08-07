@@ -1,4 +1,5 @@
 import { StyleSheet } from '~/components/common/common';
+import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   listTitle: {
-    color: '#6B6D7F',
+    color: AppColor.TEXT.GRAY_200,
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 10,
@@ -28,12 +29,12 @@ const styles = StyleSheet.create({
     minWidth: 225,
     marginBottom: 10,
     paddingHorizontal: 25,
-    // backgroundColor: '#2563EB',
+    // backgroundColor: is focused '#2563EB',
     borderRadius: 27,
   },
   listItemText: {
-    color: '#6B6D7F',
-    // color: '#fff',
+    color: AppColor.TEXT.GRAY_200,
+    // color: is focused '#fff',
     fontSize: 16,
     fontWeight: '500',
   },
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     width: '62.5%',
     height: 2,
     marginVertical: 30,
-    backgroundColor: '#1E1E2C',
+    backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   footer: {
     alignItems: 'flex-start',
@@ -52,18 +53,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     paddingHorizontal: 20,
     paddingBottom: 20,
-    backgroundColor: '#1E1E2C',
+    backgroundColor: AppColor.BACKGROUND.GRAY_400,
     borderRadius: 14,
   },
   button: {
     justifyContent: 'center',
     height: 40,
     paddingHorizontal: 20,
-    backgroundColor: '#2563EB',
+    backgroundColor: AppColor.BRAND.BLUE_100,
     borderRadius: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: AppColor.TEXT.GRAY_100,
     fontSize: 16,
     fontWeight: '500',
     textTransform: 'capitalize',
