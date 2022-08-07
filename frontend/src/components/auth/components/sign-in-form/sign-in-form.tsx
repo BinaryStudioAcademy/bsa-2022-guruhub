@@ -1,6 +1,11 @@
 import { FC, UserSignInRequestDto } from 'common/types/types';
-import { AppRoute } from 'common/enums/enums';
-import { useAppForm } from 'hooks/hooks';
+import { AppRoute, DataStatus } from 'common/enums/enums';
+import {
+  useAppForm,
+  useNavigate,
+  useAppSelector,
+  useEffect,
+} from 'hooks/hooks';
 import { getNameOf } from 'helpers/helpers';
 import { userSignIn as userSignInValidationSchema } from 'validation-schemas/validation-schemas';
 import { Button, Input, Link } from 'components/common/common';
@@ -18,6 +23,15 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
     defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
     validationSchema: userSignInValidationSchema,
   });
+
+  const { dataStatus } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (dataStatus === DataStatus.FULFILLED) {
+      navigate(AppRoute.ROOT);
+    }
+  }, [dataStatus]);
 
   return (
     <div>
