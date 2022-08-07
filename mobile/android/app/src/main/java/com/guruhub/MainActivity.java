@@ -50,8 +50,13 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-      RNBootSplash.init(getPlainActivity());
       super.onCreate(null);
+    }
+
+    @Override
+    protected void loadApp(String appKey) {
+      RNBootSplash.init(getPlainActivity());
+      super.loadApp(appKey);
     }
   }
 }
