@@ -1,5 +1,4 @@
 import { Knex } from 'knex';
-import { vendorsSeed } from '../seed-data/vendors-seed';
 
 enum ColumnName {
   ID = 'id',
@@ -24,7 +23,16 @@ async function up(knex: Knex): Promise<void> {
       .notNullable()
       .defaultTo(knex.fn.now());
   });
-  await knex(TABLE_NAME).insert(vendorsSeed);
+  await knex(TABLE_NAME).insert([
+    {
+      name: 'Udemy',
+      key: 'udemy',
+    },
+    {
+      name: 'Coursera',
+      key: 'coursera',
+    },
+  ]);
 }
 
 async function down(knex: Knex): Promise<void> {
