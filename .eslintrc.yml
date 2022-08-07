@@ -62,6 +62,9 @@ rules:
     - off
   import/no-default-export:
     - error
+  import/newline-after-import:
+    - error
+    - count: 1
   padding-line-between-statements:
     - off
   '@typescript-eslint/padding-line-between-statements':
