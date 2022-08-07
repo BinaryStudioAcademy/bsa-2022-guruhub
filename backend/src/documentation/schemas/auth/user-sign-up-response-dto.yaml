@@ -5,4 +5,4 @@ properties:
     example: 1
   email:
     type: string
-    example: arthur.dent@gmail.com
+    example: john.doe@gmail.com

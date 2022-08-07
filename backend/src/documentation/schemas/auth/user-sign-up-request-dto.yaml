@@ -2,10 +2,10 @@ type: object
 properties:
   fullName:
     type: string
-    example: Arthur Dent
+    example: John Doe
   email:
     type: string
-    example: arthur.dent@mail.com
+    example: john.doe@mail.com
   password:
     type: string
     example: pa$Sword
