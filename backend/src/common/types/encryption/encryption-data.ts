@@ -1,4 +1,5 @@
 type EncryptionData = {
+  data: string;
   salt: string;
   passwordHash: string;
 };

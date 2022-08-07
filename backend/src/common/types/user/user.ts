@@ -3,5 +3,5 @@ export {
   type UserSignUpResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserByEmailDto,
 } from 'guruhub-shared/common/types/user/user';
+export { type UserByEmailDto } from './user-by-email-dto.type';

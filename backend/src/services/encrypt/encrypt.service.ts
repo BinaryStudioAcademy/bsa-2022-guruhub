@@ -20,11 +20,8 @@ class Encrypt {
     return hash(password, salt);
   }
 
-  public async compare(
-    data: string,
-    encryptionData: EncryptionData,
-  ): Promise<boolean> {
-    const hash = await this.encrypt(data, encryptionData.salt);
+  public async compare(encryptionData: EncryptionData): Promise<boolean> {
+    const hash = await this.encrypt(encryptionData.data, encryptionData.salt);
 
     return hash === encryptionData.passwordHash;
   }

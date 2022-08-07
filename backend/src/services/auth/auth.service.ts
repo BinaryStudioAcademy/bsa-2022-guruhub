@@ -39,30 +39,8 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UserSignInResponseDto | null> {
-    const user = await this.#userService.getByEmail(signInUserDto.email);
-
-    if (!user) {
-      return null;
-    }
-
-    const encryptionData = {
-      salt: user.passwordSalt,
-      passwordHash: user.passwordHash,
-    };
-
-    const isPasswordValid = await this.#encryptService.compare(
-      signInUserDto.password,
-      encryptionData,
-    );
-
-    return isPasswordValid ? { id: user.id, email: user.email } : null;
-  }
-
-  async signIn(
-    userRequestDto: UserSignInRequestDto,
   ): Promise<UserSignInResponseDto> {
-    const user = await this.verifySignIn(userRequestDto);
+    const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {
       throw new AuthError({
@@ -70,6 +48,29 @@ class Auth {
         message: ValidationMessage.BAD_CREDENTIALS,
       });
     }
+
+    const encryptionData = {
+      data: signInUserDto.password,
+      salt: user.passwordSalt,
+      passwordHash: user.passwordHash,
+    };
+
+    const isPasswordValid = await this.#encryptService.compare(encryptionData);
+
+    if (!isPasswordValid) {
+      throw new AuthError({
+        status: HttpCode.BAD_REQUEST,
+        message: ValidationMessage.BAD_CREDENTIALS,
+      });
+    }
+
+    return { id: user.id, email: user.email };
+  }
+
+  async signIn(
+    userRequestDto: UserSignInRequestDto,
+  ): Promise<UserSignInResponseDto> {
+    const user = await this.verifySignIn(userRequestDto);
 
     return user;
   }
