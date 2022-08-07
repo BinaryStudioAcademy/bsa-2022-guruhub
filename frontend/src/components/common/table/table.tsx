@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
-import styles from './table/styles.module.scss';
+import styles from './styles.module.scss';
 
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
 };
+
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
