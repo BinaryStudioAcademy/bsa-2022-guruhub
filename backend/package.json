@@ -7,10 +7,8 @@
   },
   "scripts": {
     "migrate": "knex migrate:latest",
-    "seed": "knex seed:run",
     "migrate:dev": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:latest",
     "migrate:dev:make": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:make -x ts",
-    "seed:dev:make": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js seed:make -x ts",
     "migrate:dev:down": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:down",
     "migrate:dev:rollback": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:rollback --all",
     "lint:js": "npx eslint \"src/**/*.ts\"",

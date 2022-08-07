@@ -10,7 +10,7 @@ enum ColumnName {
 const TABLE_NAME = 'permissions';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable(TABLE_NAME, (table) => {
+  await knex.schema.createTable(TABLE_NAME, (table) => {
     table.increments(ColumnName.ID).primary();
     table.string(ColumnName.NAME).unique().notNullable();
     table.string(ColumnName.KEY).unique().notNullable();
@@ -23,6 +23,10 @@ export async function up(knex: Knex): Promise<void> {
       .notNullable()
       .defaultTo(knex.fn.now());
   });
+
+  await knex(TABLE_NAME).insert([
+    { id: 1, name: 'Manage UAM', key: 'manage_uam' },
+  ]);
 }
 
 export async function down(knex: Knex): Promise<void> {
