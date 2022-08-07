@@ -22,10 +22,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
   return (
     <div>
       <div className={styles.background}>
-        {/* circle 1 */}
         <div className={`${styles.circle} ${styles.circleFirst}`} />
-        {/* <div className={styles.logo}>
-        </div> */}
         <div className={`${styles.circle} ${styles.circleSecond}`}>
           <img src={logo} className={styles.logo} />
           <img src={authImage} />

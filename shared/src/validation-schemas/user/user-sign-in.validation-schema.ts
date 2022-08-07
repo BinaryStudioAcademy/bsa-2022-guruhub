@@ -16,6 +16,8 @@ const userSignIn = Joi.object({
     .messages({
       'string.email': UserValidationMessage.EMAIL_WRONG,
       'string.empty': UserValidationMessage.EMAIL_REQUIRE,
+      'string.min': UserValidationMessage.EMAIL_MIN_LENGTH,
+      'string.max': UserValidationMessage.EMAIL_MAX_LENGTH,
     }),
   [getNameOf<UserSignInRequestDto>('password')]: Joi.string()
     .trim()
