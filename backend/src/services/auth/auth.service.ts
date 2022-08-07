@@ -42,9 +42,11 @@ class Auth {
       });
     }
 
+    const user = await this.#userService.create(userRequestDto);
+
     return {
-      token: await this.#tokenService.create({ data: userRequestDto }),
-      user: await this.#userService.create(userRequestDto),
+      user,
+      token: await this.#tokenService.create({ userId: user.id }),
     };
   }
 

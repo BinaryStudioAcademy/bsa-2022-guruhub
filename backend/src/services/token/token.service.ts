@@ -1,18 +1,34 @@
 import * as jose from 'jose';
-import { ENV } from '~/common/enums/enums';
+import { SignJWT, generateSecret, JWTVerifyResult } from 'jose';
+import { TokenPayload } from '~/common/types/types';
+
+type Constructor = {
+  alg: string;
+  expiresIn: string;
+};
 
 class Token {
-  #secretkey = new TextEncoder().encode(ENV.JWT.SECRET);
+  #alg: string;
+  #expiresIn: string;
 
-  create(data: jose.JWTPayload): Promise<string> {
-    return new jose.SignJWT(data)
-      .setProtectedHeader({ alg: ENV.JWT.ALG })
-      .setExpirationTime(ENV.JWT.EXPIRES_IN)
-      .sign(this.#secretkey);
+  constructor({ alg, expiresIn }: Constructor) {
+    this.#alg = alg;
+    this.#expiresIn = expiresIn;
   }
 
-  verify(token: string): Promise<jose.JWTVerifyResult> {
-    return jose.jwtVerify(token, this.#secretkey);
+  async create(data: TokenPayload): Promise<string> {
+    const secretKey = await generateSecret(this.#alg);
+
+    return new SignJWT(data)
+      .setProtectedHeader({ alg: this.#alg })
+      .setExpirationTime(this.#expiresIn)
+      .sign(secretKey);
+  }
+
+  async verify(token: string): Promise<JWTVerifyResult> {
+    const secretKey = await generateSecret(this.#alg);
+
+    return jose.jwtVerify(token, secretKey);
   }
 }
 
