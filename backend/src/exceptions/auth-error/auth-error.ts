@@ -1,15 +1,16 @@
 import { HttpError } from '~/exceptions/exceptions';
-import {
-  CustomExceptionName,
-  ValidationMessage,
-  HttpCode,
-} from '~/common/enums/enums';
+import { CustomExceptionName, HttpCode } from '~/common/enums/enums';
+
+type Constructor = {
+  message?: string;
+  status?: number;
+};
 
 class AuthError extends HttpError {
   constructor({
-    message = ValidationMessage.EMAIL_ALREADY_EXISTS,
+    message,
     status = HttpCode.INTERNAL_SERVER_ERROR,
-  } = {}) {
+  }: Constructor = {}) {
     super({ message, status });
     this.name = CustomExceptionName.AUTH_ERROR;
   }
