@@ -1,9 +1,13 @@
 import { genSalt, hash } from 'bcrypt';
 
+type Constructor = {
+  salt: number;
+};
+
 class Encrypt {
   #salt: number;
-  constructor(saltRounds: number) {
-    this.#salt = saltRounds;
+  constructor({ salt }: Constructor) {
+    this.#salt = salt;
   }
   generateSalt(): Promise<string> {
     return genSalt(this.#salt);

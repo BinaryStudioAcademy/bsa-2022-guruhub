@@ -4,7 +4,9 @@ import { Auth } from './auth/auth.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { User } from './user/user.service';
 
-const encrypt = new Encrypt(USER_PASSWORD_SALT_ROUNDS);
+const encrypt = new Encrypt({
+  salt: USER_PASSWORD_SALT_ROUNDS,
+});
 
 const user = new User({
   userRepository,
