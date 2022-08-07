@@ -7,8 +7,9 @@
   },
   "scripts": {
     "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
-    "lint": "npm run lint:js",
-    "android": "react-native run-android --variant=debug",
+    "lint:type": "npx tsc --noEmit",
+    "lint": "npm run lint:js && npm run lint:type",
+    "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start"
   },
@@ -23,6 +24,7 @@
     "react": "18.0.0",
     "react-hook-form": "7.33.1",
     "react-native": "0.69.1",
+    "react-native-bootsplash": "4.2.3",
     "react-native-config": "1.4.6",
     "react-native-gesture-handler": "2.5.0",
     "react-native-mmkv": "2.4.3",
