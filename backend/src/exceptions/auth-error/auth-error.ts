@@ -1,5 +1,5 @@
 import { HttpError } from '~/exceptions/exceptions';
-import { CustomExceptionName, HttpCode } from '~/common/enums/enums';
+import { CustomExceptionName } from '~/common/enums/enums';
 
 type Constructor = {
   message?: string;
@@ -7,10 +7,7 @@ type Constructor = {
 };
 
 class AuthError extends HttpError {
-  constructor({
-    message,
-    status = HttpCode.INTERNAL_SERVER_ERROR,
-  }: Constructor = {}) {
+  constructor({ message, status }: Constructor = {}) {
     super({ message, status });
     this.name = CustomExceptionName.AUTH_ERROR;
   }
