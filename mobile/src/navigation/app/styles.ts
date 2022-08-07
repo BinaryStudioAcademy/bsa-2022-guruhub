@@ -12,36 +12,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(255,255,255, .12)',
   },
   list: {
-    alignItems: 'flex-start',
     padding: 30,
-  },
-  listTitle: {
-    color: AppColor.TEXT.GRAY_200,
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-  listItem: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    height: 54,
-    minWidth: 225,
-    marginBottom: 10,
-    paddingHorizontal: 25,
-    borderRadius: 27,
-  },
-  listItemText: {
-    color: AppColor.TEXT.GRAY_200,
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  listBorder: {
-    width: '62.5%',
-    height: 2,
-    marginTop: 30,
-    marginBottom: 45,
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   footer: {
     alignItems: 'flex-start',

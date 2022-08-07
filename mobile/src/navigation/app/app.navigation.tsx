@@ -3,6 +3,7 @@ import {
   createDrawerNavigator,
   DrawerNavigationOptions,
   DrawerContentScrollView,
+  DrawerItemList,
 } from '@react-navigation/drawer';
 import {
   View,
@@ -13,6 +14,11 @@ import {
 import { RootScreenName, AppColor } from '~/common/enums/enums';
 import { ParamListBase } from '~/common/types/types';
 import { styles } from './styles';
+import {
+  DrawerNavigationHelpers,
+  DrawerDescriptorMap,
+} from '@react-navigation/drawer/lib/typescript/src/types';
+import { DrawerNavigationState } from '@react-navigation/native';
 
 // TODO: replace example components
 function Overview(): JSX.Element {
@@ -22,18 +28,51 @@ function Overview(): JSX.Element {
     </View>
   );
 }
+function Courses(): JSX.Element {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Courses Screen</Text>
+    </View>
+  );
+}
+function Mentors(): JSX.Element {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Mentors Screen</Text>
+    </View>
+  );
+}
+function MyEducation(): JSX.Element {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>My Education Screen</Text>
+    </View>
+  );
+}
+function Billing(): JSX.Element {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Billing Screen</Text>
+    </View>
+  );
+}
+function Settings(): JSX.Element {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings Screen</Text>
+    </View>
+  );
+}
 
 const Drawer = createDrawerNavigator<ParamListBase>();
 
-const CustomDrawerItem = ({ label }: any): JSX.Element => {
-  return (
-    <TouchableOpacity style={styles.listItem}>
-      <Text style={styles.listItemText}>{label}</Text>
-    </TouchableOpacity>
-  );
-};
-
-const CustomDrawerContent = (): JSX.Element => {
+const CustomDrawerContent = (
+  props: JSX.IntrinsicAttributes & {
+    state: DrawerNavigationState<ParamListBase>;
+    navigation: DrawerNavigationHelpers;
+    descriptors: DrawerDescriptorMap;
+  },
+): JSX.Element => {
   return (
     <ScrollView style={styles.container}>
       <DrawerContentScrollView contentContainerStyle={{ paddingTop: 0 }}>
@@ -42,15 +81,7 @@ const CustomDrawerContent = (): JSX.Element => {
             <Text style={{ color: '#fff' }}>GuruHub</Text>
           </View>
           <View style={styles.list}>
-            <Text style={styles.listTitle}>Menu</Text>
-            <CustomDrawerItem label={RootScreenName.OVERVIEW} />
-            <CustomDrawerItem label={RootScreenName.COURSES} />
-            <CustomDrawerItem label={RootScreenName.MENTORS} />
-            <CustomDrawerItem label={RootScreenName.MY_EDUCATION} />
-            <View style={styles.listBorder} />
-            <Text style={styles.listTitle}>Account</Text>
-            <CustomDrawerItem label={RootScreenName.BILLING} />
-            <CustomDrawerItem label={RootScreenName.SETTINGS} />
+            <DrawerItemList {...props} />
           </View>
           <View style={styles.footer}>
             <TouchableOpacity style={styles.button}>
@@ -78,6 +109,19 @@ const screenOptions: DrawerNavigationOptions = {
     width: '90%',
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
+  drawerInactiveTintColor: AppColor.TEXT.GRAY_200,
+  drawerActiveBackgroundColor: AppColor.BRAND.BLUE_100,
+  drawerActiveTintColor: AppColor.TEXT.GRAY_100,
+  drawerItemStyle: {
+    justifyContent: 'center',
+    height: 54,
+    paddingHorizontal: 25,
+    borderRadius: 27,
+  },
+  drawerLabelStyle: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
 };
 
 const App: FC = () => {
@@ -85,11 +129,17 @@ const App: FC = () => {
     <Drawer.Navigator
       initialRouteName={RootScreenName.OVERVIEW}
       screenOptions={screenOptions}
-      drawerContent={(): JSX.Element => <CustomDrawerContent />}
+      drawerContent={(props): JSX.Element => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Overlay">
-        {(props): JSX.Element => <Overview {...props} />}
-      </Drawer.Screen>
+      <Drawer.Screen name={RootScreenName.OVERVIEW} component={Overview} />
+      <Drawer.Screen name={RootScreenName.COURSES} component={Courses} />
+      <Drawer.Screen name={RootScreenName.MENTORS} component={Mentors} />
+      <Drawer.Screen
+        name={RootScreenName.MY_EDUCATION}
+        component={MyEducation}
+      />
+      <Drawer.Screen name={RootScreenName.BILLING} component={Billing} />
+      <Drawer.Screen name={RootScreenName.SETTINGS} component={Settings} />
     </Drawer.Navigator>
   );
 };
