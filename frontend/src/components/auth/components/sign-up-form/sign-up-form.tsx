@@ -1,11 +1,11 @@
 import { FC, UserSignUpRequestDto } from 'common/types/types';
 import { Button, Input, Link } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
-import { useAppForm } from 'hooks/hooks';
+import { useAppForm, useAppSelector, useNavigate } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common';
 import styles from '../../auth.module.scss';
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, AuthApiPath, DataStatus } from 'common/enums/enums';
 import logo from 'assets/img/logo.svg';
 import authImage from 'assets/img/auth.png';
 
@@ -18,6 +18,12 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
     defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
     validationSchema: userSignUpValidationSchema,
   });
+  const navigate = useNavigate();
+  const { dataStatus } = useAppSelector((state) => state.auth);
+
+  if (dataStatus === DataStatus.FULFILLED) {
+    navigate(AuthApiPath.ROOT);
+  }
 
   return (
     <>
