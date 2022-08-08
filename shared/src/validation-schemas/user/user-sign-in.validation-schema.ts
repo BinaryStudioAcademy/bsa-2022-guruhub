@@ -9,9 +9,9 @@ import {
 const userSignIn = Joi.object({
   [getNameOf<UserSignInRequestDto>('email')]: Joi.string()
     .trim()
-    .email({ tlds: { allow: false } })
     .min(UserValidationRule.EMAIL_MIN_LENGTH)
     .max(UserValidationRule.EMAIL_MAX_LENGTH)
+    .email({ tlds: { allow: false } })
     .required()
     .messages({
       'string.email': UserValidationMessage.EMAIL_WRONG,

@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: GuruHub API
+servers:
+  - url: /api/v1
+schemes:
+  - https
+paths:
+  # Auth
+  /auth/sign-up:
+    $ref: './endpoints/auth/user-sign-up.yaml'
+components:
+  schemas:
+    UserSignUpRequestDto:
+      $ref: './schemas/auth/user-sign-up-request-dto.yaml'
+    UserSignUpResponseDto:
+      $ref: './schemas/auth/user-sign-up-response-dto.yaml'
