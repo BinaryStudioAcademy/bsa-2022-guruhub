@@ -3,8 +3,15 @@ import { AppEnvironment } from './app-environment.enum';
 
 config();
 
-const { NODE_ENV, PORT, DATABASE_URL, DB_POOL_MIN, DB_POOL_MAX, DB_DIALECT } =
-  process.env;
+const {
+  NODE_ENV,
+  PORT,
+  DATABASE_URL,
+  DB_POOL_MIN,
+  DB_POOL_MAX,
+  DB_DIALECT,
+  SECRET_KEY,
+} = process.env;
 
 const ENV = {
   APP: {
@@ -19,6 +26,11 @@ const ENV = {
   },
   API: {
     V1_PREFIX: '/api/v1/',
+  },
+  JWT: {
+    SECRET: SECRET_KEY,
+    EXPIRES_IN: '24h',
+    ALG: 'HS256',
   },
 };
 
