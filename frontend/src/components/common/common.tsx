@@ -5,4 +5,6 @@ export { Button } from './button/button';
 export { Input } from './input/input';
 export { Link } from './link/link';
 export { Table } from './table/table';
+export { Header } from './header/header';
+export { Image } from './image/image';
 export { Toast } from './toast/toast';
