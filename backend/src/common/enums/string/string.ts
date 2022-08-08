@@ -1,1 +1,1 @@
-export { StringCase } from 'guruhub-shared/common/enums/case/case';
+export { StringCase } from 'guruhub-shared/common/enums/enums';
