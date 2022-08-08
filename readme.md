@@ -213,6 +213,16 @@ erDiagram
 - **`production`** - production source code.
 - **`development`** - staging source code.
 
+#### 👍👎 Pull Request flow
+
+```
+<project-prefix>-<ticket-number>: <ticket-title>
+```
+
+##### Example:
+
+`blog-5: Add form component`
+
 #### 🌳 Branch flow
 
 ```
