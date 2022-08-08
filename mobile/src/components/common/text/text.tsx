@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Text, TextStyle } from 'react-native';
 
-import { AppFontFamily } from '~/common/enums/ui/app-font.enum';
+import { AppFontFamily } from '~/common/enums/ui/ui';
 import { styles } from './styles';
 
 interface FontStyle extends TextStyle {
