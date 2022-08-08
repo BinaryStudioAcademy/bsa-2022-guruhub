@@ -1,4 +1,4 @@
-import { UserValidationRule } from '../validation/validation.enum';
+import { UserValidationRule } from '../validation/user-validation-rule.enum';
 
 const UserValidationMessage = {
   EMAIL_REQUIRE: 'Email is required',
