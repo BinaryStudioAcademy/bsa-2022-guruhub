@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-import { authApi } from '~/services/services';
+import { authApi, notificationApi } from '~/services/services';
+import { notifyLogger } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
 const extraArgument = {
   authApi,
+  notificationApi,
 };
 
 const store = configureStore({
@@ -14,7 +15,7 @@ const store = configureStore({
       thunk: {
         extraArgument,
       },
-    });
+    }).concat(notifyLogger);
   },
 });
 
