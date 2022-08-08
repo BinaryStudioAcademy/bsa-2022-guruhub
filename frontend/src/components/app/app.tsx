@@ -8,13 +8,11 @@ const App: FC = () => {
     <>
       <Header />
 
-      <div>
-        <Routes>
-          <Route path={AppRoute.ROOT} element="Root" />
-          <Route path={AppRoute.SIGN_UP} element={<Auth />} />
-          <Route path={AppRoute.SIGN_IN} element={<Auth />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path={AppRoute.ROOT} element="Root" />
+        <Route path={AppRoute.SIGN_UP} element={<Auth />} />
+        <Route path={AppRoute.SIGN_IN} element={<Auth />} />
+      </Routes>
     </>
   );
 };

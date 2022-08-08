@@ -7,7 +7,7 @@ import { Button, Input, Link } from 'components/common/common';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './common';
 import authImage from 'assets/img/auth.png';
 import logo from 'assets/img/logo.svg';
-import styles from 'components/auth/styles.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   onSubmit: (payload: UserSignInRequestDto) => void;
@@ -42,24 +42,20 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.formContent}>
-            <p className={styles.formInputWrapper}>
-              <Input
-                type="text"
-                label="Email"
-                name={getNameOf<UserSignInRequestDto>('email')}
-                control={control}
-                errors={errors}
-              />
-            </p>
-            <p className={styles.formInputWrapper}>
-              <Input
-                type="password"
-                label="Password"
-                name={getNameOf<UserSignInRequestDto>('password')}
-                control={control}
-                errors={errors}
-              />
-            </p>
+            <Input
+              type="text"
+              label="Email"
+              name={getNameOf<UserSignInRequestDto>('email')}
+              control={control}
+              errors={errors}
+            />
+            <Input
+              type="password"
+              label="Password"
+              name={getNameOf<UserSignInRequestDto>('password')}
+              control={control}
+              errors={errors}
+            />
           </div>
           <div className={styles.buttonWrapper}>
             <Button type="submit" label="Sign In" />
