@@ -1,19 +1,12 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from 'common/enums/enums';
-import {
-  UserSignUpResponseDto,
-  UserSignInResponseDto,
-} from 'common/types/types';
+import { UserByIdResponse } from 'common/types/types';
 import { signUp, signIn } from './actions';
-
-type AuthPayload = {
-  payload: UserSignUpResponseDto | UserSignInResponseDto;
-};
 
 type State = {
   dataStatus: DataStatus;
-  user: UserSignUpResponseDto | UserSignInResponseDto | null;
+  user: UserByIdResponse | null;
 };
 
 const initialState: State = {
@@ -27,9 +20,9 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addMatcher(
     isAnyOf(signUp.fulfilled, signIn.fulfilled),
-    (state, { payload }: AuthPayload) => {
+    (state, action) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.user = payload;
+      state.user = action.payload;
     },
   );
   builder.addMatcher(isAnyOf(signUp.rejected, signIn.rejected), (state) => {
