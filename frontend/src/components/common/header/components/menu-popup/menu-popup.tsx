@@ -1,6 +1,12 @@
 import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
-import { useHandleClickOutside, useRef } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useHandleClickOutside,
+  useNavigate,
+  useRef,
+} from 'hooks/hooks';
+import { authActions } from 'store/actions';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -8,15 +14,23 @@ type Props = {
 };
 
 const Popup: FC<Props> = ({ onClose }) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
   useHandleClickOutside(popupRef, onClose);
+
+  const handleLogout = (): void => {
+    dispatch(authActions.logout()).then(() => {
+      navigate('/sign-in');
+    });
+  };
 
   return (
     <div className={styles.popup} ref={popupRef}>
       <ul className={styles.ul}>
         <li>
           <div>
-            <Button label="Logout" />
+            <Button label="Logout" onClick={handleLogout} />
           </div>
         </li>
       </ul>
