@@ -1,18 +1,19 @@
 .formWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 600px;
   margin-right: 60px;
   padding: 40px;
-  color: var(--typography-text-100-inverse);
+  color: white;
   background-color: var(--background-gray-400);
 }
 
 .main {
   display: flex;
+  flex-grow: 1;
   justify-content: right;
   align-items: center;
-  height: 100vh;
 }
 
 .formHeader {
@@ -21,18 +22,13 @@
   gap: 5px;
 }
 
-.formHeader h2 {
+.formTitle {
   font-weight: 600;
   font-size: 30px;
 }
 
-.formHeader a {
-  color: var(--support-info-blue-100);
-  text-decoration: none;
-}
-
-.formHeader h2,
-p {
+.formTitle,
+.formLink {
   margin: 0;
 }
 
@@ -77,6 +73,7 @@ p {
 .circleSecond {
   top: 60%;
   left: 33.3%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

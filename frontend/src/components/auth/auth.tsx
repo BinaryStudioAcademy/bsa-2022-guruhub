@@ -36,16 +36,6 @@ const Auth: FC = () => {
     dispatch(authActions.signUp(payload));
   };
 
-  const { user } = useAppSelector(({ auth }) => ({
-    user: auth.user,
-  }));
-
-  const hasUser = Boolean(user);
-
-  if (hasUser) {
-    navigate(AppRoute.ROOT);
-  }
-
   const getScreen = (screen: string): React.ReactElement | null => {
     switch (screen) {
       case AppRoute.SIGN_IN: {

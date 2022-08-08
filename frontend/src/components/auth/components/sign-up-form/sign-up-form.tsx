@@ -4,7 +4,7 @@ import { getNameOf, getValidClasses } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common';
-import styles from 'components/auth/auth.module.scss';
+import styles from './styles.module.scss';
 import { AppRoute } from 'common/enums/enums';
 import logo from 'assets/img/logo.svg';
 import authImage from 'assets/img/auth.png';
@@ -35,8 +35,8 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
         </div>
         <div className={styles.formWrapper}>
           <div className={styles.formHeader}>
-            <h2>Create an account</h2>
-            <p>
+            <h2 className={styles.formTitle}>Create an account</h2>
+            <p className={styles.formLink}>
               Already registered?{' '}
               <Link to={AppRoute.SIGN_IN}>
                 <span>Log in</span>
