@@ -3,6 +3,7 @@ import { StorageKey } from 'common/enums/enums';
 
 import {
   UserSignUpRequestDto,
+  UserSignInRequestDto,
   UserByIdResponse,
   AsyncThunkConfig,
 } from 'common/types/types';
@@ -21,6 +22,19 @@ const signUp = createAsyncThunk<
   return user;
 });
 
+const signIn = createAsyncThunk<
+  UserByIdResponse,
+  UserSignInRequestDto,
+  AsyncThunkConfig
+>(ActionType.SIGN_IN, async (loginPayload, { extra }) => {
+  const { authApi, storage } = extra;
+  const { token, user } = await authApi.signIn(loginPayload);
+
+  storage.setItem(StorageKey.TOKEN, token);
+
+  return user;
+});
+
 const getCurrentUser = createAsyncThunk<
   UserByIdResponse,
   void,
@@ -32,4 +46,4 @@ const getCurrentUser = createAsyncThunk<
   return user;
 });
 
-export { signUp, getCurrentUser };
+export { signUp, signIn, getCurrentUser };

@@ -1,8 +1,8 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from 'common/enums/enums';
 import { UserByIdResponse } from 'common/types/types';
-import { signUp, getCurrentUser } from './actions';
+import { signUp, signIn, getCurrentUser } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -15,26 +15,26 @@ const initialState: State = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(signUp.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(signUp.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.user = action.payload;
-  });
-  builder.addCase(signUp.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-  builder.addCase(getCurrentUser.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.user = action.payload;
-  });
-  builder.addCase(getCurrentUser.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(getCurrentUser.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
+  builder.addMatcher(
+    isAnyOf(signUp.pending, signIn.pending, getCurrentUser.pending),
+    (state) => {
+      state.dataStatus = DataStatus.PENDING;
+    },
+  );
+  builder.addMatcher(
+    isAnyOf(signUp.fulfilled, signIn.fulfilled, getCurrentUser.fulfilled),
+    (state, action) => {
+      state.dataStatus = DataStatus.FULFILLED;
+      state.user = action.payload;
+    },
+  );
+  builder.addMatcher(
+    isAnyOf(signUp.rejected, signIn.rejected, getCurrentUser.rejected),
+    (state) => {
+      state.dataStatus = DataStatus.REJECTED;
+      state.user = null;
+    },
+  );
 });
 
 export { reducer };

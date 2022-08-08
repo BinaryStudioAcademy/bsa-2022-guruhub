@@ -19,7 +19,7 @@ class Http {
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
-    const { method = HttpMethod.GET, payload = null, hasAuth } = options;
+    const { method = HttpMethod.GET, payload = null, hasAuth = true } = options;
     const headers = this.getHeaders(hasAuth);
 
     return fetch(url, {

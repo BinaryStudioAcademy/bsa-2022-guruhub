@@ -101,7 +101,7 @@ const courseCategories = [
   { name: 'SEO', key: 'seo' },
   { name: 'Shopify', key: 'shopify' },
   { name: 'Silex', key: 'silex' },
-  { name: 'single-spa', key: 'single-spa' },
+  { name: 'single-spa', key: 'single_spa' },
   { name: 'Sketch', key: 'sketch' },
   { name: 'Slim', key: 'slim' },
   { name: 'Socket.IO', key: 'socket_io' },
