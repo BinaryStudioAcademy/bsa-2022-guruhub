@@ -1,6 +1,7 @@
 import {
   UserSignUpRequestDto,
-  UserSignUpResponseDto,
+  UserByEmailDto,
+  UserByIdResponse,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -19,7 +20,7 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  async getAll(): Promise<UserSignUpResponseDto[]> {
+  async getAll(): Promise<UserByIdResponse[]> {
     const users = await this.#userRepository.getAll();
 
     return users.map((user) => ({
@@ -28,24 +29,11 @@ class User {
     }));
   }
 
-  async getByEmail(email: string): Promise<UserSignUpResponseDto | null> {
-    const user = await this.#userRepository.getByEmail(email);
-
-    if (!user) {
-      return null;
-    }
-
-    return {
-      id: user.id,
-      email: user.email,
-    };
-  }
-
   async create({
     email,
     fullName,
     password,
-  }: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+  }: UserSignUpRequestDto): Promise<UserByIdResponse> {
     const passwordSalt = await this.#encryptService.generateSalt();
     const passwordHash = await this.#encryptService.encrypt(
       password,
@@ -62,6 +50,21 @@ class User {
     return {
       id: user.id,
       email: user.email,
+    };
+  }
+
+  async getByEmail(email: string): Promise<UserByEmailDto | null> {
+    const user = await this.#userRepository.getByEmail(email);
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      passwordHash: user.passwordHash,
+      passwordSalt: user.passwordSalt,
     };
   }
 }
