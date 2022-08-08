@@ -1,4 +1,5 @@
 import { FC } from 'common/types/types';
+import styles from './styles.module.scss';
 
 type Props = {
   label: string;
@@ -6,7 +7,9 @@ type Props = {
 };
 
 const Button: FC<Props> = ({ type = 'button', label }) => (
-  <button type={type}>{label}</button>
+  <button type={type} className={styles.button}>
+    {label}
+  </button>
 );
 
 export { Button };

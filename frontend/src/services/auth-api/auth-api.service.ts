@@ -7,7 +7,9 @@ import {
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-} from 'common/types/user/user';
+  UserSignInRequestDto,
+  UserSignInResponseDto,
+} from 'common/types/types';
 import { Http } from '../http/http.service';
 
 type Constructor = {
@@ -27,6 +29,17 @@ class AuthApi {
   public signUp(payload: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public signIn(payload: UserSignInRequestDto): Promise<UserSignInResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
       {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
