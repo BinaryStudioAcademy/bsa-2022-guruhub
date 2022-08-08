@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { App } from 'components/app/app';
+import { Toast } from 'components/common/common';
 import { store } from 'store/store';
 
 import 'assets/css/styles.scss';
@@ -15,6 +16,7 @@ root.render(
     <Provider store={store}>
       <Router>
         <App />
+        <Toast />
       </Router>
     </Provider>
   </StrictMode>,
