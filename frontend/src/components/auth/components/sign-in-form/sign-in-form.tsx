@@ -32,8 +32,8 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
       </div>
       <div className={styles.formWrapper}>
         <div className={styles.formHeader}>
-          <h2>Sign In</h2>
-          <p>
+          <h2 className={styles.formTitle}>Sign In</h2>
+          <p className={styles.formLink}>
             Not registered yet?{' '}
             <Link to={AppRoute.SIGN_UP}>
               <span>Sign Up</span>
@@ -62,11 +62,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
             </p>
           </div>
           <div className={styles.buttonWrapper}>
-            <Button
-              type="submit"
-              label="Sign In"
-              isDisabled={!!Object.keys(errors).length}
-            />
+            <Button type="submit" label="Sign In" />
           </div>
         </form>
       </div>

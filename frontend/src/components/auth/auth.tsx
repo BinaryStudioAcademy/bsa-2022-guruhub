@@ -7,6 +7,7 @@ import {
 import {
   useAppDispatch,
   useAppSelector,
+  useEffect,
   useLocation,
   useNavigate,
 } from 'hooks/hooks';
@@ -21,9 +22,11 @@ const Auth: FC = () => {
 
   const hasUser = Boolean(user);
 
-  if (hasUser) {
-    navigate(AppRoute.ROOT);
-  }
+  useEffect(() => {
+    if (hasUser) {
+      navigate(AppRoute.ROOT);
+    }
+  }, [hasUser, navigate]);
 
   const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
     dispatch(authActions.signIn(payload));
