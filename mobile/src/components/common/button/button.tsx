@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { Text, Pressable } from '~/components/common/common';
+import { Pressable } from 'react-native';
+
+import { Text } from '~/components/common/common';
 import { styles } from './styles';
 
 type Props = {

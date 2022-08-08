@@ -1,4 +1,4 @@
-import { StyleSheet } from '~/components/common/common';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   rootView: {
