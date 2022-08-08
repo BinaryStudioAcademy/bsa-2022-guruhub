@@ -6,7 +6,7 @@ import {
 } from 'common/types/types';
 import { useFormControl } from 'hooks/hooks';
 import { ErrorMessage } from 'components/common/common';
-import styles from './input.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   control: FormControl;

@@ -7,7 +7,7 @@ import { Button, Input, Link } from 'components/common/common';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './common';
 import authImage from 'assets/img/auth.png';
 import logo from 'assets/img/logo.svg';
-import styles from 'components/auth/auth.module.scss';
+import styles from 'components/auth/styles.module.scss';
 
 type Props = {
   onSubmit: (payload: UserSignInRequestDto) => void;
