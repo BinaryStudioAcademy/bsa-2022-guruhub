@@ -40,6 +40,7 @@ const Input = <T extends FormControlValues>({
         onChangeText={onChange}
         onBlur={onBlur}
         style={styles.input}
+        secureTextEntry={true && name === 'password'}
       />
       {Boolean(error) && <Text>{error}</Text>}
     </View>
