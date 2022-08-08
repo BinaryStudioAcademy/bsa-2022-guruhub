@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import styles from './button.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   label: string;
@@ -7,8 +7,8 @@ type Props = {
   isDisabled?: boolean;
 };
 
-const Button: FC<Props> = ({ type = 'button', label, isDisabled = false }) => (
-  <button className={styles.button} type={type} disabled={isDisabled}>
+const Button: FC<Props> = ({ type = 'button', label }) => (
+  <button type={type} className={styles.button}>
     {label}
   </button>
 );

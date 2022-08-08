@@ -6,7 +6,7 @@ import {
 } from 'common/types/types';
 import { useFormControl } from 'hooks/hooks';
 import { ErrorMessage } from 'components/common/common';
-import styles from './input.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   control: FormControl;
@@ -31,10 +31,10 @@ const Input: FC<Props> = ({
     <label className={styles.label}>
       <span className={styles.title}>{label}</span>
       <input
-        className={styles.input}
         {...field}
         type={type}
         placeholder={placeholder}
+        className={styles.input}
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
