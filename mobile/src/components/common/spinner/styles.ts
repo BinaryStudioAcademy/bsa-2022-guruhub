@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
-import { ZIndexes } from '~/common/enums/ui/ui';
 
 const styles = StyleSheet.create({
   overflowContainer: {
@@ -10,7 +9,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     elevation: 1,
-    zIndex: ZIndexes.SPINNER_LAYER,
+    zIndex: 100,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
 });
