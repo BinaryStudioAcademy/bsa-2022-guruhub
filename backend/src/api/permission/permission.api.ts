@@ -20,6 +20,7 @@ const initPermissionApi: FastifyPluginAsync<Options> = async (
     url: PermissionApiPath.ROOT,
     async handler(req, rep) {
       const permissions = await permissionService.getPermissions();
+
       return rep.status(HttpCode.OK).send(permissions);
     },
   });

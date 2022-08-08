@@ -21,6 +21,7 @@ class GroupsToPermissions {
     const model = await this.#groupsToPermissionsRepository.create(
       groupsToPermissions,
     );
+
     return groupsPermissionsModelToDto(model);
   }
 }

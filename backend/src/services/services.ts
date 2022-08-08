@@ -23,6 +23,7 @@ const user = new User({
 
 const auth = new Auth({
   userService: user,
+  encryptService: encrypt,
 });
 
 const permission = new Permission({
@@ -39,4 +40,4 @@ const groups = new Groups({
   groupsToPermissionsService: groupsToPermissions,
 });
 
-export { auth, user, permission, groups, groupsToPermissions };
+export { auth, user, encrypt, permission, groups, groupsToPermissions };

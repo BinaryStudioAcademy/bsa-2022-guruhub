@@ -1,4 +1,5 @@
 import { Knex } from 'knex';
+
 enum ColumnName {
   ID = 'id',
   CREATED_AT = 'created_at',

@@ -161,6 +161,7 @@ const courseCategoriesSeed = courseCategories.map((category) => {
     .toLowerCase()
     .replace(/ *\([^)]*\) */g, '')
     .replace(/\s+|\./g, '-');
+
   return {
     name: category,
     key: key,
