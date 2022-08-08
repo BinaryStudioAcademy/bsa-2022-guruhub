@@ -26,6 +26,8 @@ class User {
     return users.map((user) => ({
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
     }));
   }
 
@@ -50,6 +52,8 @@ class User {
     return {
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
     };
   }
 
@@ -63,8 +67,10 @@ class User {
     return {
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
       passwordHash: user.passwordHash,
       passwordSalt: user.passwordSalt,
+      createdAt: user.createdAt,
     };
   }
 }

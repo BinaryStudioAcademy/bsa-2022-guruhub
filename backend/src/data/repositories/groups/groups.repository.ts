@@ -1,6 +1,6 @@
 import { Groups as GroupsM } from '~/data/models/models';
-import { changeStringCase } from '~/helpers';
-import { Case } from '~/common/enums/case/case.enum';
+import { changeStringCase } from '~/helpers/string-case/string-case';
+import { StringCase } from '~/common/enums/string-case/string-case';
 
 type Constructor = {
   GroupsModel: typeof GroupsM;
@@ -18,7 +18,10 @@ class Groups {
 
     return this.#GroupsModel.query().insert({
       name,
-      key: changeStringCase(name, Case.KEBAB),
+      key: changeStringCase({
+        stringToChange: name,
+        caseType: StringCase.KEBAB_CASE,
+      }),
     });
   }
 }

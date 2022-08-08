@@ -31,14 +31,13 @@ class Groups {
   ): Promise<GroupsResponseDto> {
     const { permissionIds } = groupsRequestDto;
     const group = await this.#groupsRepository.create(groupsRequestDto);
-    await Promise.all(
-      permissionIds.map(async (id) => {
-        await this.#groupsToPermissionsService.createGroupsToPermissions({
-          groupId: group.id,
-          permissionId: id,
-        });
-      }),
-    );
+
+    for (const id of permissionIds) {
+      await this.#groupsToPermissionsService.createGroupsToPermissions({
+        groupId: group.id,
+        permissionId: id,
+      });
+    }
 
     return { ...group };
   }

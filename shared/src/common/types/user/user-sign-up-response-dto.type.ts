@@ -1,6 +1,8 @@
 type UserByIdResponse = {
   id: number;
   email: string;
+  fullName: string;
+  createdAt: string;
 };
 
 type UserSignUpResponseDto = {
