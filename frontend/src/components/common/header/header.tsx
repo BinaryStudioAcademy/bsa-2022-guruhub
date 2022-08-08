@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
-import { Popup } from './components/menu-popup/menu-popup';
+import { Popup } from './components/components';
 import logo from 'assets/img/logo.svg';
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
-  const [isMenuPopupVisible, setIsMenuPopupVisible] = useState(false);
+  const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
 
   const handleOpenMenuPopup = (): void => setIsMenuPopupVisible(true);
 
