@@ -1,15 +1,7 @@
-import clsx from 'clsx';
 import { FC, UserSignInRequestDto } from 'common/types/types';
-import { AppRoute, DataStatus } from 'common/enums/enums';
-import {
-  useAppForm,
-  useNavigate,
-  useAppSelector,
-  useEffect,
-  useState,
-  useMemo,
-} from 'hooks/hooks';
-import { getNameOf } from 'helpers/helpers';
+import { AppRoute } from 'common/enums/enums';
+import { useAppForm } from 'hooks/hooks';
+import { getNameOf, getValidClasses } from 'helpers/helpers';
 import { userSignIn as userSignInValidationSchema } from 'validation-schemas/validation-schemas';
 import { Button, Input, Link } from 'components/common/common';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './common';
@@ -27,33 +19,16 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
     validationSchema: userSignInValidationSchema,
   });
 
-  const [hasErrors, setHasErrors] = useState(false);
-
-  const handleErrorFlag = (): void => {
-    Object.keys(errors).length ? setHasErrors(true) : setHasErrors(false);
-  };
-
-  useMemo(handleErrorFlag, [errors]);
-
-  const { dataStatus } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (dataStatus === DataStatus.FULFILLED) {
-      navigate(AppRoute.ROOT);
-    }
-  }, [dataStatus]);
-
   return (
     <div className={styles.main}>
       <div className={styles.background}>
-        <div className={clsx(styles.circle, styles.circleFirst)} />
-        <div className={clsx(styles.circle, styles.circleSecond)}>
+        <div className={getValidClasses(styles.circle, styles.circleFirst)} />
+        <div className={getValidClasses(styles.circle, styles.circleSecond)}>
           <img src={logo} className={styles.logo} />
           <img src={authImage} />
         </div>
-        <div className={clsx(styles.circle, styles.circleThird)} />
-        <div className={clsx(styles.circle, styles.circleFourth)} />
+        <div className={getValidClasses(styles.circle, styles.circleThird)} />
+        <div className={getValidClasses(styles.circle, styles.circleFourth)} />
       </div>
       <div className={styles.formWrapper}>
         <div className={styles.formHeader}>
@@ -74,7 +49,6 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
                 name={getNameOf<UserSignInRequestDto>('email')}
                 control={control}
                 errors={errors}
-                className={errors.email && styles.error}
               />
             </p>
             <p className={styles.formInputWrapper}>
@@ -84,16 +58,14 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
                 name={getNameOf<UserSignInRequestDto>('password')}
                 control={control}
                 errors={errors}
-                className={errors.password && styles.error}
               />
             </p>
           </div>
           <div className={styles.buttonWrapper}>
             <Button
-              className={styles.formButton}
               type="submit"
               label="Sign In"
-              disabled={hasErrors}
+              isDisabled={!!Object.keys(errors).length}
             />
           </div>
         </form>

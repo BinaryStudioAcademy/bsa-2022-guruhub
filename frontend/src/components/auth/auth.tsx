@@ -4,13 +4,26 @@ import {
   FC,
   UserSignInRequestDto,
 } from 'common/types/types';
-import { useAppDispatch, useLocation } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLocation,
+  useNavigate,
+} from 'hooks/hooks';
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
 
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.auth);
+
+  const hasUser = Boolean(user);
+
+  if (hasUser) {
+    navigate(AppRoute.ROOT);
+  }
 
   const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
     dispatch(authActions.signIn(payload));
