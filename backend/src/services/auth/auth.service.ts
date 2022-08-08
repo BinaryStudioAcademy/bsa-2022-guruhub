@@ -1,4 +1,5 @@
 import {
+  UserByIdResponse,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
@@ -52,7 +53,7 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UserSignInResponseDto> {
+  ): Promise<UserByIdResponse> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {
@@ -85,7 +86,10 @@ class Auth {
   ): Promise<UserSignInResponseDto> {
     const user = await this.verifySignIn(userRequestDto);
 
-    return user;
+    return {
+      user,
+      token: await this.#tokenService.create({ userId: user.id }),
+    };
   }
 }
 

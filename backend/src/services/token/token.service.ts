@@ -1,5 +1,4 @@
-import * as jose from 'jose';
-import { SignJWT, generateSecret, JWTVerifyResult } from 'jose';
+import { SignJWT, generateSecret, JWTVerifyResult, jwtVerify } from 'jose';
 import { TokenPayload } from '~/common/types/types';
 
 type Constructor = {
@@ -28,7 +27,7 @@ class Token {
   async verify(token: string): Promise<JWTVerifyResult> {
     const secretKey = await generateSecret(this.#alg);
 
-    return jose.jwtVerify(token, secretKey);
+    return jwtVerify(token, secretKey);
   }
 }
 
