@@ -9,17 +9,15 @@ type Props = {
   src: string;
   alt: string;
   isCircular?: boolean;
-  onClick?: () => void;
 };
 
-const Image: FC<Props> = ({ width, height, src, alt, isCircular, onClick }) => (
+const Image: FC<Props> = ({ width, height, src, alt, isCircular }) => (
   <img
     className={getValidClasses(isCircular && styles.circular, styles.image)}
     width={width}
     height={height}
     src={src}
     alt={alt}
-    onClick={onClick}
   />
 );
 

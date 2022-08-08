@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'hooks/hooks';
 
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
@@ -21,14 +21,15 @@ const Header: FC = () => {
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
         <div className={styles.userWrapper}>
-          <Image
-            width="50"
-            height="50"
-            src={defaultUserAvatar}
-            alt="user avatar"
-            isCircular
-            onClick={handleOpenMenuPopup}
-          />
+          <button onClick={handleOpenMenuPopup} className={styles.button}>
+            <Image
+              width="50"
+              height="50"
+              src={defaultUserAvatar}
+              alt="user avatar"
+              isCircular
+            />
+          </button>
           <div className={styles.popup}>
             {isMenuPopupVisible && <Popup onClose={handleCloseMenuPopup} />}
           </div>

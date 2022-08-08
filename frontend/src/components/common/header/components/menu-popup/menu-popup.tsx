@@ -1,6 +1,6 @@
 import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
-import { useEffect, useRef } from 'react';
+import { useHandleClickOutside, useRef } from 'hooks/hooks';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -11,18 +11,7 @@ const Popup: FC<Props> = ({ onClose }) => {
   const popupRef = useRef<HTMLDivElement>(null);
 
   // Close popup when user clicks outside of it
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent): void => {
-      if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [popupRef, onClose]);
+  useHandleClickOutside(popupRef, onClose);
 
   return (
     <div className={styles.popup} ref={popupRef}>
