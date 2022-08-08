@@ -31,33 +31,27 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.formContent}>
-            <p className={styles.formInputWrapper}>
-              <Input
-                type="text"
-                label="Full Name"
-                name={getNameOf<UserSignUpRequestDto>('fullName')}
-                control={control}
-                errors={errors}
-              />
-            </p>
-            <p className={styles.formInputWrapper}>
-              <Input
-                type="text"
-                label="Email"
-                name={getNameOf<UserSignUpRequestDto>('email')}
-                control={control}
-                errors={errors}
-              />
-            </p>
-            <p className={styles.formInputWrapper}>
-              <Input
-                type="password"
-                label="Password"
-                name={getNameOf<UserSignUpRequestDto>('password')}
-                control={control}
-                errors={errors}
-              />
-            </p>
+            <Input
+              type="text"
+              label="Full Name"
+              name={getNameOf<UserSignUpRequestDto>('fullName')}
+              control={control}
+              errors={errors}
+            />
+            <Input
+              type="text"
+              label="Email"
+              name={getNameOf<UserSignUpRequestDto>('email')}
+              control={control}
+              errors={errors}
+            />
+            <Input
+              type="password"
+              label="Password"
+              name={getNameOf<UserSignUpRequestDto>('password')}
+              control={control}
+              errors={errors}
+            />
           </div>
           <div className={styles.buttonWrapper}>
             <Button type="submit" label="Sign up" />
