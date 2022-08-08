@@ -1,0 +1,16 @@
+post:
+  summary: User Sign Up
+  tags:
+    - auth
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/auth/user-sign-up-request-dto.yaml'
+  responses:
+    '201':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/auth/user-sign-up-response-dto.yaml'
