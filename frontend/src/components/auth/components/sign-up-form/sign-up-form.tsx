@@ -60,11 +60,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
             </p>
           </div>
           <div className={styles.buttonWrapper}>
-            <Button
-              type="submit"
-              label="Sign up"
-              isDisabled={Boolean(Object.keys(errors).length)}
-            />
+            <Button type="submit" label="Sign up" />
           </div>
         </form>
       </div>

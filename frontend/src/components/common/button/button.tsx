@@ -4,7 +4,6 @@ import styles from './styles.module.scss';
 type Props = {
   label: string;
   type?: 'button' | 'submit';
-  isDisabled?: boolean;
 };
 
 const Button: FC<Props> = ({ type = 'button', label }) => (
