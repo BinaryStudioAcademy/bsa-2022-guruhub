@@ -1,0 +1,17 @@
+.usersTable {
+  background: var(--background-gray-300);
+  border-radius: 10px;
+}
+
+.usersTableHeading {
+  padding-left: 15px;
+  color: var(--typography-text-100-inverse);
+}
+
+.usersTable > table th {
+  border-right: 1px solid #393b4d;
+}
+
+.usersTable > table th:last-child {
+  border-right: none;
+}
