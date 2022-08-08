@@ -1,6 +1,5 @@
-import { StorageKey } from 'common/enums/app/storage-key.enum';
+import { StorageKey, HttpMethod } from 'common/enums/enums';
 import { HttpError } from 'exceptions/exceptions';
-import { HttpMethod } from 'common/enums/enums';
 import { HttpOptions } from 'common/types/types';
 import { Storage } from 'services/storage/storage.service';
 

@@ -2,7 +2,7 @@ enum AuthApiPath {
   ROOT = '/',
   SIGN_UP = '/sign-up',
   SIGN_IN = '/sign-in',
-  VALIDATE = '/validate',
+  CURRENT_USER = '/current-user',
 }
 
 export { AuthApiPath };
