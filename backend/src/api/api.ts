@@ -1,9 +1,10 @@
 import { FastifyPluginAsync } from 'fastify';
-
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
-import { auth } from '~/services/services';
+import { auth, permission, groups } from '~/services/services';
 import { initAuthApi } from './auth/auth.api';
+import { initPermissionApi } from './permission/permission.api';
+import { initGroupsApi } from './groups/groups.api';
 
 const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.setValidatorCompiler<ValidationSchema>(({ schema }) => {
@@ -17,6 +18,20 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       auth,
     },
     prefix: ApiPath.AUTH,
+  });
+
+  fastify.register(initPermissionApi, {
+    services: {
+      permission,
+    },
+    prefix: ApiPath.PERMISSIONS,
+  });
+
+  fastify.register(initGroupsApi, {
+    services: {
+      groups,
+    },
+    prefix: ApiPath.GROUPS,
   });
 };
 
