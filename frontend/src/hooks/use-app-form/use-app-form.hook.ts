@@ -32,6 +32,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     resolver: validationSchema
       ? getFormValidationResolver(validationSchema)
       : undefined,
+    mode: 'onBlur',
   });
 
   return {
