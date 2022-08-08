@@ -15,8 +15,8 @@ async function up(knex: Knex): Promise<void> {
 async function down(knex: Knex): Promise<void> {
   await knex(TABLE_NAME)
     .whereIn(
-      'name',
-      permissions.map((permission) => permission.name),
+      'key',
+      permissions.map((permission) => permission.key),
     )
     .del();
 }
