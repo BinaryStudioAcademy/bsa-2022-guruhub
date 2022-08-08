@@ -1,9 +1,7 @@
 import { ENV } from 'common/enums/enums';
 import { Http } from './http/http.service';
 import { AuthApi } from './auth-api/auth-api.service';
-import { Storage } from './storage/storage.service';
-
-const storage = new Storage({ storage: localStorage });
+import { Notification } from './notification/notification.service';
 
 const http = new Http();
 
@@ -12,4 +10,6 @@ const authApi = new AuthApi({
   http,
 });
 
-export { authApi, storage };
+const notification = new Notification();
+
+export { authApi, notification };
