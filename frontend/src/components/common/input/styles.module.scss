@@ -35,6 +35,7 @@
 }
 
 .errorMessage {
+  min-height: 16px;
   color: var(--support-error-red-100);
   font-weight: 600;
   font-size: 12px;
