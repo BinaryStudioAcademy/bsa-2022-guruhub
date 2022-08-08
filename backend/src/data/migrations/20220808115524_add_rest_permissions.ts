@@ -4,6 +4,7 @@ const TABLE_NAME = 'permissions';
 
 const permissions = [
   { name: 'Manage Interviews', key: 'manage_interviews' },
+  { name: 'Manage Interviews', key: 'manage_interview' },
   { name: 'Manage Categories', key: 'manage_categories' },
   { name: 'Manage Mentoring', key: 'manage_mentoring' },
 ];
