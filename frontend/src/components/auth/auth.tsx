@@ -13,6 +13,10 @@ import {
 } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
+import { getValidClasses } from 'helpers/helpers';
+import styles from 'components/auth/styles.module.scss';
+import authImage from 'assets/img/auth.png';
+import logo from 'assets/img/logo.svg';
 
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +53,24 @@ const Auth: FC = () => {
     return null;
   };
 
-  return <>{getScreen(pathname)}</>;
+  return (
+    <>
+      <div className={styles.main}>
+        <div className={styles.background}>
+          <div className={getValidClasses(styles.circle, styles.circleFirst)} />
+          <div className={getValidClasses(styles.circle, styles.circleSecond)}>
+            <img src={logo} className={styles.logo} />
+            <img src={authImage} />
+          </div>
+          <div className={getValidClasses(styles.circle, styles.circleThird)} />
+          <div
+            className={getValidClasses(styles.circle, styles.circleFourth)}
+          />
+        </div>
+        {getScreen(pathname)}
+      </div>
+    </>
+  );
 };
 
 export { Auth };
