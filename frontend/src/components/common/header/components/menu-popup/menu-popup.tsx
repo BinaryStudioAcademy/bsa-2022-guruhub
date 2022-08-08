@@ -9,8 +9,6 @@ type Props = {
 
 const Popup: FC<Props> = ({ onClose }) => {
   const popupRef = useRef<HTMLDivElement>(null);
-
-  // Close popup when user clicks outside of it
   useHandleClickOutside(popupRef, onClose);
 
   return (
