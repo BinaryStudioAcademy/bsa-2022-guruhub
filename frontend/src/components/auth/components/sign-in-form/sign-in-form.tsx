@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { FC, UserSignInRequestDto } from 'common/types/types';
 import { AppRoute, DataStatus } from 'common/enums/enums';
 import {
@@ -5,6 +6,8 @@ import {
   useNavigate,
   useAppSelector,
   useEffect,
+  useState,
+  useMemo,
 } from 'hooks/hooks';
 import { getNameOf } from 'helpers/helpers';
 import { userSignIn as userSignInValidationSchema } from 'validation-schemas/validation-schemas';
@@ -24,6 +27,14 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
     validationSchema: userSignInValidationSchema,
   });
 
+  const [hasErrors, setHasErrors] = useState(false);
+
+  const handleErrorFlag = (): void => {
+    Object.keys(errors).length ? setHasErrors(true) : setHasErrors(false);
+  };
+
+  useMemo(handleErrorFlag, [errors]);
+
   const { dataStatus } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -34,15 +45,15 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
   }, [dataStatus]);
 
   return (
-    <div>
+    <div className={styles.main}>
       <div className={styles.background}>
-        <div className={`${styles.circle} ${styles.circleFirst}`} />
-        <div className={`${styles.circle} ${styles.circleSecond}`}>
+        <div className={clsx(styles.circle, styles.circleFirst)} />
+        <div className={clsx(styles.circle, styles.circleSecond)}>
           <img src={logo} className={styles.logo} />
           <img src={authImage} />
         </div>
-        <div className={`${styles.circle} ${styles.circleThird}`} />
-        <div className={`${styles.circle} ${styles.circleFourth}`} />
+        <div className={clsx(styles.circle, styles.circleThird)} />
+        <div className={clsx(styles.circle, styles.circleFourth)} />
       </div>
       <div className={styles.formWrapper}>
         <div className={styles.formHeader}>
@@ -82,7 +93,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
               className={styles.formButton}
               type="submit"
               label="Sign In"
-              disabled={Object.keys(errors).length > 0}
+              disabled={hasErrors}
             />
           </div>
         </form>

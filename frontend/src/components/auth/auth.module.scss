@@ -1,17 +1,22 @@
 @import 'https://rsms.me/inter/inter.css';
 
 .formWrapper {
-  position: absolute;
-  top: 50%;
-  right: 57px;
   display: flex;
   flex-direction: column;
   width: 600px;
+  margin-right: 60px;
   padding: 40px;
   color: white;
   font-family: inter, sans-serif;
-  background-color: #1e1e2c;
+  background-color: var(--background-gray-400);
   transform: translateY(-50%);
+}
+
+.main {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 100vh;
 }
 
 .formHeader {
@@ -26,7 +31,7 @@
 }
 
 .formHeader a {
-  color: #41c6ff;
+  color: var(--support-info-blue-100);
   text-decoration: none;
 }
 
@@ -61,15 +66,15 @@ p {
 }
 
 .formInputWrapper label input.error {
-  border: 1px solid var(--support-error);
+  border: 1px solid var(--support-error-red-100);
 }
 
 .formInputWrapper label input:focus {
-  border: 1px solid var(--primary);
+  border: 1px solid var(--brand-blue-100);
 }
 
 .formInputWrapper label input:not([value='']):focus {
-  border: 1px solid var(--primary);
+  border: 1px solid var(--brand-blue-100);
 }
 
 .formInputWrapper label span:first-child {
@@ -86,7 +91,7 @@ p {
 }
 
 .formInputWrapper label input[type='password'] {
-  color: #6b6d7f;
+  color: var(--text-gray-200);
   letter-spacing: 4px;
 }
 
@@ -98,14 +103,14 @@ p {
   font-size: 16px;
   line-height: 16px;
   letter-spacing: 0.5px;
-  background: var(--primary);
+  background: var(--brand-blue-100);
   border: none;
   border-radius: 28px;
   outline: none;
 }
 
 .formButton:hover {
-  background: #1747ae;
+  background: var(--hover-blue-100);
   cursor: pointer;
 }
 
@@ -132,7 +137,7 @@ p {
 
 .circle {
   position: absolute;
-  background-color: var(--primary);
+  background-color: var(--brand-blue-100);
   border-radius: 50%;
 }
 
