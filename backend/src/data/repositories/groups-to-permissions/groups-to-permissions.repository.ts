@@ -14,14 +14,12 @@ class GroupsToPermissions {
   async create(groupsToPermissions: {
     groupId: number;
     permissionId: number;
-    isAllowed: boolean;
   }): Promise<GroupsToPermissionsM> {
-    const { groupId, permissionId, isAllowed } = groupsToPermissions;
+    const { groupId, permissionId } = groupsToPermissions;
 
     return this.#GroupsToPermissionsModel.query().insert({
-      group_id: groupId,
-      permission_id: permissionId,
-      is_allowed: isAllowed,
+      groupId,
+      permissionId,
     });
   }
 }

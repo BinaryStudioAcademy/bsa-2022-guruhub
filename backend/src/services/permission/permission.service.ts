@@ -1,6 +1,5 @@
 import { permission as permissionRep } from '~/data/repositories/repositories';
 import { PermissionResponseDto } from '~/common/types/types';
-import { permissionModelToDto } from '~/mapper/permission/permission.mapper';
 
 type Constructor = {
   permissionRepository: typeof permissionRep;
@@ -15,13 +14,14 @@ class Permission {
 
   async getPermissions(): Promise<PermissionResponseDto[]> {
     const permissions = await this.#permissionRepository.getAll();
-    const resultArr: PermissionResponseDto[] = [];
-    permissions.forEach((permission) => {
-      const dtoPermission = permissionModelToDto(permission);
-      resultArr.push(dtoPermission);
-    });
 
-    return resultArr;
+    return permissions.map((permission) => {
+      return {
+        id: permission.id,
+        key: permission.key,
+        name: permission.name,
+      };
+    });
   }
 }
 

@@ -4,9 +4,8 @@ enum ColumnName {
   ID = 'id',
   CREATED_AT = 'created_at',
   UPDATED_AT = 'updated_at',
-  IS_ALLOWED = 'is_allowed',
-  PERMISSION_ID = 'permission_id',
 }
+
 const TABLE_NAME = 'groups_to_permissions';
 
 async function up(knex: Knex): Promise<void> {
@@ -20,7 +19,6 @@ async function up(knex: Knex): Promise<void> {
       .dateTime(ColumnName.UPDATED_AT)
       .notNullable()
       .defaultTo(knex.fn.now());
-    table.boolean(ColumnName.IS_ALLOWED).notNullable();
   });
 }
 

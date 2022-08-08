@@ -76,7 +76,6 @@ erDiagram
       dateTime updated_at
       int permission_id FK "unique (permission_id group_id)"
       int group_id FK "unique (permission_id group_id)"
-      boolean is_allowed
   }
 
   user_details ||--|| users : user_id

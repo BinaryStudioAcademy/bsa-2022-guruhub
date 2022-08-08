@@ -1,6 +1,5 @@
 import { GroupsToPermissionsResponseDto } from '~/common/types/types';
 import { groupsToPermissions as groupsToPermissionsRep } from '~/data/repositories/repositories';
-import { groupsPermissionsModelToDto } from '~/mapper/groups-to-permissions/groups-to-permissions.mapper';
 
 type Constructor = {
   groupsToPermissionsRepository: typeof groupsToPermissionsRep;
@@ -16,13 +15,16 @@ class GroupsToPermissions {
   async createGroupsToPermissions(groupsToPermissions: {
     groupId: number;
     permissionId: number;
-    isAllowed: boolean;
   }): Promise<GroupsToPermissionsResponseDto> {
     const model = await this.#groupsToPermissionsRepository.create(
       groupsToPermissions,
     );
 
-    return groupsPermissionsModelToDto(model);
+    return {
+      id: model.id,
+      groupId: model.groupId,
+      permissionId: model.permissionId,
+    };
   }
 }
 

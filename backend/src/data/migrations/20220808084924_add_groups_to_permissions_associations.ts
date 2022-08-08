@@ -5,41 +5,30 @@ const TableName = {
   PERMISSIONS: 'permissions',
   GROUPS: 'groups',
   USERS: 'users',
-};
+} as const;
 
 const ColumnName = {
   ID: 'id',
   PERMISSION_ID: 'permission_id',
   GROUP_ID: 'group_id',
-};
-
-const RelationRule = {
-  CASCADE: 'CASCADE',
-  SET_NULL: 'SET NULL',
-};
+} as const;
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.GROUPS_TO_PERMISSIONS, (table) => {
     table
       .integer(ColumnName.PERMISSION_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.PERMISSIONS)
-      .onUpdate(RelationRule.CASCADE)
-      .onDelete(RelationRule.SET_NULL);
+      .inTable(TableName.PERMISSIONS);
     table
       .integer(ColumnName.GROUP_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.GROUPS)
-      .onUpdate(RelationRule.CASCADE)
-      .onDelete(RelationRule.SET_NULL);
+      .inTable(TableName.GROUPS);
   });
   await knex.schema.alterTable(TableName.USERS, (table) => {
     table
       .integer(ColumnName.GROUP_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.GROUPS)
-      .onUpdate(RelationRule.CASCADE)
-      .onDelete(RelationRule.SET_NULL);
+      .inTable(TableName.GROUPS);
   });
 }
 

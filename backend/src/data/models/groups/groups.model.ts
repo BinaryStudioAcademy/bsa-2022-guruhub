@@ -3,6 +3,7 @@ import { Abstract } from '../abstract/abstract.model';
 
 class Groups extends Abstract {
   'name': string;
+
   'key': string;
 
   static override get tableName(): string {

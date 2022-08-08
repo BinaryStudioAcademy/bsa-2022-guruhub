@@ -1,6 +1,5 @@
 type GroupsRequestDto = {
   name: string;
-  key: string;
   permissionIds: number[];
 };
 

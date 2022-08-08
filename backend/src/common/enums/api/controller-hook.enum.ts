@@ -9,6 +9,6 @@ const ControllerHook = {
   ON_SEND: 'onSend',
   ON_RESPONSE: 'onResponse',
   ON_TIMEOUT: 'onTimeout',
-};
+} as const;
 
 export { ControllerHook };
