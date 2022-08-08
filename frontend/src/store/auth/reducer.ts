@@ -5,10 +5,12 @@ import { signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;
+  user: null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
