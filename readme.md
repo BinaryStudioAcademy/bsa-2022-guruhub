@@ -38,19 +38,19 @@ This is the repository responsible for GuruHub's apps.
 ```mermaid
 %%{ init: { 'theme': 'neutral' } }%%
 graph LR
-  cloud-watch(<img src='./docs/assets/imgs/cloud-watch.svg' width='48' height='48' alt='application load balancer' /><br />CloudWatch)
+  cloud-watch(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/cloud-watch.svg' width='48' height='48' alt='application load balancer' /><br />CloudWatch)
 
-  elb(<img src='./docs/assets/imgs/aws-load-balancer.svg' width='48' height='48' alt='application load balancer' /><br />ELB)
+  elb(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/aws-load-balancer.svg' width='48' height='48' alt='application load balancer' /><br />ELB)
 
-  ec2(<img src='./docs/assets/imgs/aws-ec-2.svg' width='48' height='48' alt='application load balancer' /><br />EC2)
+  ec2(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/aws-ec-2.svg' width='48' height='48' alt='application load balancer' /><br />EC2)
 
-  route53(<img src='./docs/assets/imgs/aws-route-53.svg' width='48' height='48' alt='application load balancer' /><br />Route 53)
+  route53(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/aws-route-53.svg' width='48' height='48' alt='application load balancer' /><br />Route 53)
 
-  postgres(<img src='./docs/assets/imgs/postgresql-icon.svg' width='48' height='48' alt='application load balancer' /><br />Postgres)
+  postgres(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/postgresql-icon.svg' width='48' height='48' alt='application load balancer' /><br />Postgres)
 
-  web-mobile(<img src='./docs/assets/imgs/mobile-phone.svg' width='48' height='48'><br />Mobile)
+  web-mobile(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/mobile-phone.svg' width='48' height='48'><br />Mobile)
 
-  web-laptop(<img src='./docs/assets/imgs/laptop.svg' width='48' height='48'><br />Desktop)
+  web-laptop(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/laptop.svg' width='48' height='48'><br />Desktop)
 
   web-mobile-->route53
   web-laptop-->route53
