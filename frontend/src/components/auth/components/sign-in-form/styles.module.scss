@@ -1,0 +1,105 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600px;
+  margin-right: 60px;
+  padding: 40px;
+  color: white;
+  background-color: var(--background-gray-400);
+}
+
+.main {
+  display: flex;
+  flex-grow: 1;
+  justify-content: right;
+  align-items: center;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formTitle {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.formTitle,
+.formLink {
+  margin: 0;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 0;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--background-gray-300);
+}
+
+.circle {
+  position: absolute;
+  background-color: var(--brand-blue-100);
+  border-radius: 50%;
+}
+
+.circleFirst {
+  top: 40%;
+  left: -53px;
+  width: 152px;
+  height: 152px;
+  transform: translateY(-40%);
+}
+
+.circleSecond {
+  top: 60%;
+  left: 33.3%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 542px;
+  height: 542px;
+  transform: translate(-33.3%, -60%);
+}
+
+.circleThird {
+  top: 20%;
+  left: 66.7%;
+  width: 214px;
+  height: 214px;
+  transform: translate(-66.7%, -20%);
+}
+
+.circleFourth {
+  top: -20%;
+  left: 100%;
+  width: 554px;
+  height: 554px;
+  transform: translate(-75%, 20%);
+}
+
+.logo {
+  width: 390px;
+  margin-bottom: 45px;
+}
