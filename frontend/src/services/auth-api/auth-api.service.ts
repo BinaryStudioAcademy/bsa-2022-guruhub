@@ -7,6 +7,7 @@ import {
 import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserSignInResponseDto,
 } from 'common/types/user/user';
 import { Http } from '../http/http.service';
 
@@ -31,6 +32,16 @@ class AuthApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public getCurrentUser(): Promise<UserSignInResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
       },
     );
   }

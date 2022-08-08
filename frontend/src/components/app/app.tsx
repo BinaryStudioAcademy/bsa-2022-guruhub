@@ -1,12 +1,19 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Routes, Route, Link } from 'components/common/common';
-import { useLocation } from 'hooks/hooks';
+import { useEffect, useLocation } from 'hooks/hooks';
+import { storage } from 'services/services';
 import { Auth } from 'components/auth/auth';
 import logo from 'assets/img/logo.svg';
 
 const App: FC = () => {
   const { pathname } = useLocation();
+
+  const token = Boolean(storage.getItem(StorageKey.TOKEN));
+
+  useEffect(() => {
+    alert(token);
+  });
 
   return (
     <>

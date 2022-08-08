@@ -1,14 +1,26 @@
+import { StorageKey } from 'common/enums/app/storage-key.enum';
 import { HttpError } from 'exceptions/exceptions';
 import { HttpHeader, HttpMethod } from 'common/enums/enums';
 import { HttpOptions } from 'common/types/types';
+import { Storage } from 'services/storage/storage.service';
+
+type Constructor = {
+  storage: Storage;
+};
 
 class Http {
+  #storage: Storage;
+
+  constructor({ storage }: Constructor) {
+    this.#storage = storage;
+  }
+
   async load<T = unknown>(
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
-    const { method = HttpMethod.GET, payload = null } = options;
-    const headers = this.getHeaders();
+    const { method = HttpMethod.GET, payload = null, hasAuth = true } = options;
+    const headers = this.getHeaders(hasAuth);
 
     return fetch(url, {
       method,
@@ -20,10 +32,13 @@ class Http {
       .catch(this.throwError);
   }
 
-  private getHeaders(): Headers {
+  private getHeaders(hasAuth?: boolean): Headers {
     const headers = new Headers();
 
-    headers.append(HttpHeader.CONTENT_TYPE, 'application/json');
+    if (hasAuth) {
+      const token = this.#storage.getItem(StorageKey.TOKEN);
+      headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token}`);
+    }
 
     return headers;
   }
