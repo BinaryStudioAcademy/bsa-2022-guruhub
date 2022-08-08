@@ -11,3 +11,4 @@ export { DbTableName } from './db/db';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { ValidationMessage } from './validation/validation';
 export { CustomExceptionName } from './exceptions/exceptions';
+export { StringCase } from './string/string';

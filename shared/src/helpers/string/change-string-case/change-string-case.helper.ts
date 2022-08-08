@@ -2,7 +2,7 @@ import { paramCase, Options } from 'change-case';
 import { StringCase } from '~/common/enums/case/case.enum';
 
 const caseTypeToFn: Record<StringCase, typeof paramCase> = {
-  'kebab': paramCase,
+  [StringCase.KEBAB_CASE]: paramCase,
 };
 
 type Args = {

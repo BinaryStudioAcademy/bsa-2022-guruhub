@@ -32,14 +32,16 @@ class Groups {
     const { permissionIds } = groupsRequestDto;
     const group = await this.#groupsRepository.create(groupsRequestDto);
 
-    for (const id of permissionIds) {
-      await this.#groupsToPermissionsService.createGroupsToPermissions({
-        groupId: group.id,
-        permissionId: id,
-      });
-    }
+    await Promise.all(
+      permissionIds.map((it) => {
+        this.#groupsToPermissionsService.createGroupsToPermissions({
+          groupId: group.id,
+          permissionId: it,
+        });
+      }),
+    );
 
-    return { ...group };
+    return group;
   }
 }
 

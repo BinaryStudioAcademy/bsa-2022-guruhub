@@ -1,6 +1,6 @@
 import { Groups as GroupsM } from '~/data/models/models';
-import { changeStringCase } from '~/helpers/string-case/string-case';
-import { StringCase } from '~/common/enums/string-case/string-case';
+import { changeStringCase } from '~/helpers/helpers';
+import { StringCase } from '~/common/enums/enums';
 
 type Constructor = {
   GroupsModel: typeof GroupsM;
