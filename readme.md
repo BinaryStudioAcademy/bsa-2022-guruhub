@@ -35,7 +35,32 @@ This is the repository responsible for GuruHub's apps.
 
 ### 🏗 Application Schema
 
-**TODO**
+```mermaid
+%%{ init: { 'theme': 'neutral' } }%%
+graph LR
+  web-mobile(<img src='./docs/assets/imgs/mobile-phone.svg' width='48' height='48'><br />Mobile)-->route53
+
+  web-laptop(<img src='./docs/assets/imgs/laptop.svg' width='48' height='48'><br />Desktop)-->route53
+  route53-->elb
+
+  elb-->ec2
+  ec2-->cloud-watch
+  ec2-->postgres
+
+  subgraph AWS
+    route53(<img src='./docs/assets/imgs/aws-route-53.svg' width='48' height='48' alt='application load balancer' /><br />Route 53)
+
+    elb(<img src='./docs/assets/imgs/aws-load-balancer.svg' width='48' height='48' alt='application load balancer' /><br />ELB)
+
+    subgraph AutoScaling
+      ec2(<img src='./docs/assets/imgs/aws-ec-2.svg' width='48' height='48' alt='application load balancer' /><br />EC2)
+    end
+
+    cloud-watch(<img src='./docs/assets/imgs/cloud-watch.svg' width='48' height='48' alt='application load balancer' /><br />CloudWatch)
+
+    postgres(<img src='./docs/assets/imgs/postgresql-icon.svg' width='48' height='48' alt='application load balancer' /><br />Postgres)
+  end
+```
 
 ### 💽 DB Schema
 
