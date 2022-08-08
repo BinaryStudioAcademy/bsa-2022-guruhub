@@ -6,3 +6,4 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Header } from './header/header';
 export { Image } from './image/image';
+export { Toast } from './toast/toast';
