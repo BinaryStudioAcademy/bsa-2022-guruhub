@@ -1,0 +1,12 @@
+.popup {
+  position: relative;
+}
+
+.ul {
+  position: absolute;
+  right: 0;
+  padding: 20px;
+  list-style: none;
+  background-color: var(--background-gray-300);
+  border-radius: 6px;
+}
