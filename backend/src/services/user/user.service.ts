@@ -1,7 +1,7 @@
 import {
   UserSignUpRequestDto,
-  UserSignUpResponseDto,
   UserByEmailDto,
+  UserByIdResponse,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -20,7 +20,7 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  async getAll(): Promise<UserSignUpResponseDto[]> {
+  async getAll(): Promise<UserByIdResponse[]> {
     const users = await this.#userRepository.getAll();
 
     return users.map((user) => ({
@@ -33,7 +33,7 @@ class User {
     email,
     fullName,
     password,
-  }: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+  }: UserSignUpRequestDto): Promise<UserByIdResponse> {
     const passwordSalt = await this.#encryptService.generateSalt();
     const passwordHash = await this.#encryptService.encrypt(
       password,
