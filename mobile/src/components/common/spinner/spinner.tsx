@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { ColorValue } from 'react-native';
+import { ActivityIndicator, ColorValue } from 'react-native';
 
-import { ActivityIndicator, View } from '~/components/common/common';
+import { View } from '~/components/common/common';
 import { styles } from './styles';
 
 type Props = {

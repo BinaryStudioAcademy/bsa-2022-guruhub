@@ -1,4 +1,4 @@
-export { View, ActivityIndicator } from 'react-native';
+export { View } from 'react-native';
 
 export { Button } from './button/button';
 export { Input } from './input/input';
