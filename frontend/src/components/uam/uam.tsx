@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
 import { Column } from 'react-table';
-import { Table } from '../common/common';
+import { FC } from 'common/types/types';
+import { UsersTable } from './users-table/users-table';
 import styles from './styles.module.scss';
 
-const UsersTable = (): ReactElement => {
+const Uam: FC = () => {
   const mockedData = [
     {
       col1: 'Hello',
@@ -22,7 +22,7 @@ const UsersTable = (): ReactElement => {
   const mockedColumns = [
     {
       Header: 'Column 1',
-      accessor: 'col1', // accessor is the "key" in the data
+      accessor: 'col1',
     },
     {
       Header: 'Column 2',
@@ -31,11 +31,10 @@ const UsersTable = (): ReactElement => {
   ];
 
   return (
-    <div className={styles.usersTable}>
-      <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={mockedData} columns={mockedColumns as Column[]} />
+    <div className={styles.uam}>
+      <UsersTable data={mockedData} columns={mockedColumns as Column[]} />
     </div>
   );
 };
 
-export { UsersTable };
+export { Uam };
