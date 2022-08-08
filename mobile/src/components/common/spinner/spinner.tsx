@@ -1,32 +1,25 @@
 import React, { FC } from 'react';
 import { ActivityIndicator, ColorValue } from 'react-native';
 
-import { View } from '~/components/common/common';
+import { AppColor } from '~/common/enums/enums';
 import { styles } from './styles';
 
 type Props = {
-  isOverflow: boolean;
-  size?: number;
+  isOverflow?: boolean;
   color?: ColorValue;
 };
 
-const makeActivityIndicator = (
-  size: number | 'small' | 'large',
-  color?: ColorValue,
-): React.ReactElement => {
-  return <ActivityIndicator size={size} color={color} />;
-};
-
-const Spinner: FC<Props> = ({ size, color, isOverflow }) => {
-  if (isOverflow) {
-    return (
-      <View style={styles.overflowContainer}>
-        {makeActivityIndicator(size ?? 'large', color)}
-      </View>
-    );
-  }
-
-  return makeActivityIndicator(size ?? 'small', color);
+const Spinner: FC<Props> = ({
+  isOverflow = false,
+  color = AppColor.BRAND.BLUE_100,
+}) => {
+  return (
+    <ActivityIndicator
+      size={isOverflow ? 'large' : 'small'}
+      style={isOverflow ? styles.overflowContainer : null}
+      color={color}
+    />
+  );
 };
 
 export { Spinner };
