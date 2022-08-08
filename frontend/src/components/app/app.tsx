@@ -3,6 +3,9 @@ import { FC } from 'common/types/types';
 import { Routes, Route, AuthorizedWrapper } from 'components/common/common';
 import { Auth } from 'components/auth/auth';
 import { authActions } from 'store/actions';
+import { useEffect } from 'react';
+import { useAppDispatch } from 'hooks/hooks';
+import { storage } from 'services/services';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
