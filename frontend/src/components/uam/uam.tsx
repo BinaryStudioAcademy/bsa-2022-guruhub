@@ -1,38 +1,32 @@
 import { Column } from 'react-table';
+import { useEffect, useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { FC } from 'common/types/types';
 import { UsersTable } from './users-table/users-table';
+import { usersActions } from 'store/actions';
+import { usersColumns } from './common/users-columns';
 import styles from './styles.module.scss';
 
 const Uam: FC = () => {
-  const mockedData = [
-    {
-      col1: 'Hello',
-      col2: 'World',
-    },
-    {
-      col1: 'react-table',
-      col2: 'rocks',
-    },
-    {
-      col1: 'whatever',
-      col2: 'you want',
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const { users } = useAppSelector((state) => state.users);
 
-  const mockedColumns = [
-    {
-      Header: 'Column 1',
-      accessor: 'col1',
-    },
-    {
-      Header: 'Column 2',
-      accessor: 'col2',
-    },
-  ];
+  useEffect(() => {
+    dispatch(usersActions.getUsers());
+  }, []);
 
   return (
     <div className={styles.uam}>
-      <UsersTable data={mockedData} columns={mockedColumns as Column[]} />
+      <UsersTable
+        data={
+          users
+            ? users.map((user) => ({
+                id: user.id,
+                email: user.email,
+              }))
+            : []
+        }
+        columns={usersColumns as Column[]}
+      />
     </div>
   );
 };
