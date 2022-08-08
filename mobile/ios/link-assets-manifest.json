@@ -2,19 +2,19 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/Inter-400-Italic.ttf",
+      "path": "src/assets/fonts/inter-400-italic.ttf",
       "sha1": "b48507b350aa0c4c1177b7b271227d6214bb4702"
     },
     {
-      "path": "src/assets/fonts/Inter-400.ttf",
+      "path": "src/assets/fonts/inter-400.ttf",
       "sha1": "0dab44b5d9ffc328060d172c3ac7551333a6796f"
     },
     {
-      "path": "src/assets/fonts/Inter-500.ttf",
+      "path": "src/assets/fonts/inter-500.ttf",
       "sha1": "7000ed61ea63db7fea9914161e1afa1840a2c129"
     },
     {
-      "path": "src/assets/fonts/Inter-600.ttf",
+      "path": "src/assets/fonts/inter-600.ttf",
       "sha1": "482739754f55044c203e6343288a98dd65affd86"
     }
   ]
