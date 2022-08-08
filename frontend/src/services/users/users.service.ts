@@ -1,6 +1,6 @@
-import { HttpMethod, UserByIdResponse } from 'guruhub-shared';
+import { HttpMethod, UsersApiPath } from 'common/enums/enums';
+import { UserResponse } from 'common/types/types';
 import { Http } from 'services/http/http.service';
-import { ApiPath } from './common';
 
 type Constructor = {
   http: Http;
@@ -16,8 +16,8 @@ class UsersApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getUsers(): Promise<UserByIdResponse[]> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.USERS}`, {
+  public getUsers(): Promise<UserResponse[]> {
+    return this.#http.load(`${this.#apiPrefix}${UsersApiPath.USERS}`, {
       method: HttpMethod.GET,
     });
   }

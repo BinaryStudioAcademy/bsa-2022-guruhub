@@ -11,7 +11,7 @@
 }
 
 .usersTable > table th {
-  border-right: 1px solid #393b4d;
+  border-right: 1px solid var(--black-shadow-color);
 }
 
 .usersTable > table th:last-child {

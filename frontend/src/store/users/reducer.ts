@@ -1,17 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from 'common/enums/enums';
-import { UserByIdResponse } from 'common/types/types';
+import { UserResponse } from 'common/types/types';
 import { getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  users: UserByIdResponse[] | null;
+  users: UserResponse[] | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  users: null,
+  users: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {

@@ -1,3 +1,4 @@
+import { UserResponse } from 'guruhub-shared';
 import {
   UserSignUpRequestDto,
   UserByEmailDto,
@@ -20,11 +21,12 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  async getAll(): Promise<UserByIdResponse[]> {
+  async getAll(): Promise<UserResponse[]> {
     const users = await this.#userRepository.getAll();
 
     return users.map((user) => ({
       id: user.id,
+      fullname: user.fullName,
       email: user.email,
     }));
   }
