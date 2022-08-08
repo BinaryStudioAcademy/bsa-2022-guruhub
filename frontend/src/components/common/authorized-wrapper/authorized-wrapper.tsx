@@ -1,13 +1,13 @@
 import { FC } from 'common/types/types';
 import { Header } from '../common';
 
-const Wrapper: FC = (props) => {
+const AuthorizedWrapper: FC = ({ children }) => {
   return (
     <>
       <Header />
-      {props.children}
+      {children}
     </>
   );
 };
 
-export { Wrapper };
+export { AuthorizedWrapper };
