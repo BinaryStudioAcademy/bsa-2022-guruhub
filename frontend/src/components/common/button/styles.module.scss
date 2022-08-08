@@ -1,0 +1,22 @@
+.button {
+  display: flex;
+  padding: 16px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  background: var(--brand-blue-100);
+  border: none;
+  border-radius: 28px;
+  outline: none;
+}
+
+.button:hover {
+  background: var(--hover-blue-100);
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.7;
+}

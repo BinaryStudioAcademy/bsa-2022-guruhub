@@ -11,6 +11,7 @@ const notifyLogger: Middleware =
         notify({ type: NotificationType.ERROR, message: action.error.message }),
       );
     }
+
     return next(action);
   };
 

@@ -14,6 +14,7 @@ const notify = createAsyncThunk<
 >(ActionType.NOTIFY, (payload, { extra }) => {
   const { notificationApi } = extra;
   const { type, message } = payload;
+
   return notificationApi[`${type}`](message);
 });
 
@@ -23,6 +24,7 @@ const signUp = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.SIGN_UP, async (payload, { extra }) => {
   const { authApi } = extra;
+
   return authApi.signUp(payload);
 });
 

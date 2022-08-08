@@ -18,8 +18,12 @@ scripts:
       EOF
   - &set-env-vars
     name: Create .env file and set variables
-    script: echo $API_ORIGIN_URL > .env
-
+    script: |
+      cat >> .env << EOF
+      API_ORIGIN_URL = $API_ORIGIN_URL
+      APP_HOST = $APP_HOST
+      APP_SCHEME = $APP_SCHEME
+      EOF
 workflows:
   react-native-android:
     name: React Native Android App

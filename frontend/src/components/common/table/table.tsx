@@ -38,6 +38,7 @@ const Table = <Data extends Record<string, unknown>>({
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
+
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
