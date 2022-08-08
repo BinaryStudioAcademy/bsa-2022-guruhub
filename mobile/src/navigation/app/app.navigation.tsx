@@ -1,103 +1,20 @@
 import React, { FC } from 'react';
+import { ParamListBase } from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerNavigationOptions,
-  DrawerContentScrollView,
-  DrawerItemList,
 } from '@react-navigation/drawer';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from '~/components/common/common';
-import { RootScreenName, AppColor } from '~/common/enums/enums';
-import { ParamListBase } from '~/common/types/types';
-import { styles } from './styles';
-import {
-  DrawerNavigationHelpers,
-  DrawerDescriptorMap,
-} from '@react-navigation/drawer/lib/typescript/src/types';
-import { DrawerNavigationState } from '@react-navigation/native';
 
-// TODO: replace example components
-function Overview(): JSX.Element {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Overview Screen</Text>
-    </View>
-  );
-}
-
-function Courses(): JSX.Element {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Courses Screen</Text>
-    </View>
-  );
-}
-
-function Mentors(): JSX.Element {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Mentors Screen</Text>
-    </View>
-  );
-}
-
-function MyEducation(): JSX.Element {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>My Education Screen</Text>
-    </View>
-  );
-}
-
-function Billing(): JSX.Element {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Billing Screen</Text>
-    </View>
-  );
-}
-
-function Settings(): JSX.Element {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings Screen</Text>
-    </View>
-  );
-}
+import { Overview } from '~/components/overview/overview';
+import { Courses } from '~/components/courses/courses';
+import { Mentors } from '~/components/mentors/mentors';
+import { MyEducation } from '~/components/my-education/my-education';
+import { Billing } from '~/components/billing/billing';
+import { Settings } from '~/components/setting/setting';
+import { CustomDrawerContent } from './components/drawer-content/drawer-content';
+import { AppScreenName, AppColor } from '~/common/enums/enums';
 
 const Drawer = createDrawerNavigator<ParamListBase>();
-
-const CustomDrawerContent = (
-  props: JSX.IntrinsicAttributes & {
-    state: DrawerNavigationState<ParamListBase>;
-    navigation: DrawerNavigationHelpers;
-    descriptors: DrawerDescriptorMap;
-  },
-): JSX.Element => {
-  return (
-    <ScrollView style={styles.container}>
-      <DrawerContentScrollView contentContainerStyle={{ paddingTop: 0 }}>
-        <View>
-          <View style={styles.header}>
-            <Text style={{ color: '#fff' }}>GuruHub</Text>
-          </View>
-          <View style={styles.list}>
-            <DrawerItemList {...props} />
-          </View>
-          <View style={styles.footer}>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>become a mentor</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </DrawerContentScrollView>
-    </ScrollView>
-  );
-};
 
 const screenOptions: DrawerNavigationOptions = {
   swipeEdgeWidth: 100,
@@ -132,19 +49,19 @@ const screenOptions: DrawerNavigationOptions = {
 const App: FC = () => {
   return (
     <Drawer.Navigator
-      initialRouteName={RootScreenName.OVERVIEW}
+      initialRouteName={AppScreenName.OVERVIEW}
       screenOptions={screenOptions}
       drawerContent={(props): JSX.Element => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name={RootScreenName.OVERVIEW} component={Overview} />
-      <Drawer.Screen name={RootScreenName.COURSES} component={Courses} />
-      <Drawer.Screen name={RootScreenName.MENTORS} component={Mentors} />
+      <Drawer.Screen name={AppScreenName.OVERVIEW} component={Overview} />
+      <Drawer.Screen name={AppScreenName.COURSES} component={Courses} />
+      <Drawer.Screen name={AppScreenName.MENTORS} component={Mentors} />
       <Drawer.Screen
-        name={RootScreenName.MY_EDUCATION}
+        name={AppScreenName.MY_EDUCATION}
         component={MyEducation}
       />
-      <Drawer.Screen name={RootScreenName.BILLING} component={Billing} />
-      <Drawer.Screen name={RootScreenName.SETTINGS} component={Settings} />
+      <Drawer.Screen name={AppScreenName.BILLING} component={Billing} />
+      <Drawer.Screen name={AppScreenName.SETTINGS} component={Settings} />
     </Drawer.Navigator>
   );
 };

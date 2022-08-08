@@ -1,9 +1,12 @@
-import { StyleSheet } from '~/components/common/common';
+import { StyleSheet } from 'react-native';
 import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  drawerContainer: {
+    paddingTop: 0,
   },
   header: {
     paddingVertical: 30,
