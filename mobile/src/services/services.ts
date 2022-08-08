@@ -10,6 +10,6 @@ const authApi = new AuthApi({
   apiPrefix: ENV.APP.API_PATH,
 });
 
-const notificationApi = new Notification();
+const notification = new Notification();
 
-export { authApi, notificationApi };
+export { authApi, notification };

@@ -7,7 +7,7 @@ import 'fast-text-encoding';
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 import { linking } from '~/config/config';
 import { styles } from './styles';
-import Toast from 'react-native-toast-message';
+import { CustomToast } from '../common/toast/toast';
 
 const App: FC = () => {
   const handleNavigationReady = (): void => {
@@ -19,7 +19,7 @@ const App: FC = () => {
       <NavigationContainer linking={linking} onReady={handleNavigationReady}>
         <RootNavigation />
       </NavigationContainer>
-      <Toast visibilityTime={1500} topOffset={20} />
+      <CustomToast />
     </GestureHandlerRootView>
   );
 };
