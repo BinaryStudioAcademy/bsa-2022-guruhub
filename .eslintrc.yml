@@ -12,6 +12,8 @@ extends:
   - plugin:@typescript-eslint/recommended
 
 rules:
+  padding-line-between-statements:
+    - off
   no-tabs:
     - error
     - allowIndentationTabs: true
@@ -58,7 +60,23 @@ rules:
   '@typescript-eslint/no-empty-interface':
     - error
     - allowSingleExtends: true
+  '@typescript-eslint/padding-line-between-statements':
+    - error
+    - blankLine: always
+      prev: '*'
+      next:
+        - switch
+        - class
+        - function
+        - if
+        - return
+        - try
+        - interface
+        - type
   import/no-unresolved:
     - off
   import/no-default-export:
     - error
+  import/newline-after-import:
+    - error
+    - count: 1
