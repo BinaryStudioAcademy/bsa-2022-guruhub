@@ -1,15 +1,16 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Routes, Route, Header } from 'components/common/common';
+import { Routes, Route, AuthorizedWrapper } from 'components/common/common';
 import { Auth } from 'components/auth/auth';
 
 const App: FC = () => {
   return (
     <>
-      <Header />
-
       <Routes>
-        <Route path={AppRoute.ROOT} element="Root" />
+        <Route
+          path={AppRoute.ROOT}
+          element={<AuthorizedWrapper>Root</AuthorizedWrapper>}
+        />
         <Route path={AppRoute.SIGN_UP} element={<Auth />} />
         <Route path={AppRoute.SIGN_IN} element={<Auth />} />
       </Routes>
