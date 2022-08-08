@@ -5,7 +5,8 @@ import { getNameOf } from 'helpers/helpers';
 import { userSignIn as userSignInValidationSchema } from 'validation-schemas/validation-schemas';
 import { Button, Input, Link } from 'components/common/common';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './common';
-import styles from 'components/auth/components/styles.module.scss';
+
+import styles from './styles.module.scss';
 
 type Props = {
   onSubmit: (payload: UserSignInRequestDto) => void;

@@ -14,7 +14,7 @@ import {
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
 import { getValidClasses } from 'helpers/helpers';
-import styles from 'components/auth/styles.module.scss';
+import styles from './styles.module.scss';
 import authImage from 'assets/img/auth.png';
 import logo from 'assets/img/logo.svg';
 

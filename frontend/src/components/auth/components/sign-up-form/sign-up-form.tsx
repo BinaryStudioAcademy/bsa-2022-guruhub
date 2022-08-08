@@ -5,7 +5,7 @@ import { useAppForm } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common';
 import { AppRoute } from 'common/enums/enums';
-import styles from 'components/auth/components/styles.module.scss';
+import styles from './styles.module.scss';
 
 type Props = {
   onSubmit: (payload: UserSignUpRequestDto) => void;
