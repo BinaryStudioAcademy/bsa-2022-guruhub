@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { authApi, notification } from 'services/services';
-import { errorHandler } from './middlewares/error-handler';
+import { authApi, storage, notification } from 'services/services';
+import { handleError } from './middlewares/middlewares';
+
 import { rootReducer } from './root-reducer';
 
 const extraArgument = {
   authApi,
+  storage,
   notification,
 };
 
@@ -14,7 +16,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       thunk: { extraArgument },
-    }).concat(errorHandler);
+    }).concat(handleError);
   },
 });
 

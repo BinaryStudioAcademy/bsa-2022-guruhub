@@ -1,7 +1,7 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { notification } from 'services/services';
 
-const errorHandler: Middleware =
+const handleError: Middleware =
   () =>
   (next) =>
   (action): void => {
@@ -13,4 +13,4 @@ const errorHandler: Middleware =
     return next(action);
   };
 
-export { errorHandler };
+export { handleError };

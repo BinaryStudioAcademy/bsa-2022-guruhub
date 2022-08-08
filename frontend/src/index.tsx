@@ -4,10 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { App } from 'components/app/app';
+import { Toast } from 'components/common/common';
 import { store } from 'store/store';
-
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import 'assets/css/styles.scss';
 
@@ -18,7 +16,7 @@ root.render(
     <Provider store={store}>
       <Router>
         <App />
-        <ToastContainer />
+        <Toast />
       </Router>
     </Provider>
   </StrictMode>,
