@@ -44,10 +44,11 @@ class Auth {
     }
 
     const user = await this.#userService.create(userRequestDto);
+    const token = await this.#tokenService.create({ userId: user.id });
 
     return {
       user,
-      token: await this.#tokenService.create({ userId: user.id }),
+      token,
     };
   }
 
@@ -85,10 +86,11 @@ class Auth {
     userRequestDto: UserSignInRequestDto,
   ): Promise<UserSignInResponseDto> {
     const user = await this.verifySignIn(userRequestDto);
+    const token = await this.#tokenService.create({ userId: user.id });
 
     return {
       user,
-      token: await this.#tokenService.create({ userId: user.id }),
+      token,
     };
   }
 }
