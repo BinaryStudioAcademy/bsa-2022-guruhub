@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { FC } from 'common/types/types';
+import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -13,7 +13,7 @@ type Props = {
 
 const Image: FC<Props> = ({ width, height, src, alt, isCircular }) => (
   <img
-    className={clsx(isCircular && styles.circular)}
+    className={getValidClasses(isCircular && styles.circular)}
     width={width}
     height={height}
     src={src}
