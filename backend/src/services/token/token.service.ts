@@ -1,4 +1,10 @@
-import { SignJWT, generateSecret, JWTVerifyResult, jwtVerify } from 'jose';
+import {
+  SignJWT,
+  generateSecret,
+  JWTVerifyResult,
+  jwtVerify,
+  KeyLike,
+} from 'jose';
 import { TokenPayload } from '~/common/types/types';
 
 type Constructor = {
@@ -9,25 +15,27 @@ type Constructor = {
 class Token {
   #alg: string;
   #expiresIn: string;
+  #secretKey: Promise<KeyLike | Uint8Array>;
 
   constructor({ alg, expiresIn }: Constructor) {
     this.#alg = alg;
     this.#expiresIn = expiresIn;
+    this.#secretKey = generateSecret(this.#alg);
   }
 
   async create(data: TokenPayload): Promise<string> {
-    const secretKey = await generateSecret(this.#alg);
+    const secret = await this.#secretKey;
 
     return new SignJWT(data)
       .setProtectedHeader({ alg: this.#alg })
       .setExpirationTime(this.#expiresIn)
-      .sign(secretKey);
+      .sign(secret);
   }
 
   async verify(token: string): Promise<JWTVerifyResult> {
-    const secretKey = await generateSecret(this.#alg);
+    const secret = await this.#secretKey;
 
-    return jwtVerify(token, secretKey);
+    return jwtVerify(token, secret);
   }
 }
 
