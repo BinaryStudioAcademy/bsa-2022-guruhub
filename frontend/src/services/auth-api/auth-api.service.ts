@@ -38,7 +38,7 @@ class AuthApi {
 
   public getCurrentUser(): Promise<UserSignInResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.VALIDATE}`,
       {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,

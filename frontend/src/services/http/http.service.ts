@@ -1,6 +1,6 @@
 import { StorageKey } from 'common/enums/app/storage-key.enum';
 import { HttpError } from 'exceptions/exceptions';
-import { HttpHeader, HttpMethod } from 'common/enums/enums';
+import { HttpMethod } from 'common/enums/enums';
 import { HttpOptions } from 'common/types/types';
 import { Storage } from 'services/storage/storage.service';
 
@@ -19,7 +19,7 @@ class Http {
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
-    const { method = HttpMethod.GET, payload = null, hasAuth = true } = options;
+    const { method = HttpMethod.GET, payload = null, hasAuth } = options;
     const headers = this.getHeaders(hasAuth);
 
     return fetch(url, {
@@ -37,7 +37,7 @@ class Http {
 
     if (hasAuth) {
       const token = this.#storage.getItem(StorageKey.TOKEN);
-      headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token}`);
+      headers.append('authorization', `Bearer ${token}`);
     }
 
     return headers;

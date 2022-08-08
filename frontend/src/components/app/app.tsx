@@ -1,19 +1,24 @@
 import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Routes, Route, Link } from 'components/common/common';
-import { useEffect, useLocation } from 'hooks/hooks';
+import { useAppDispatch, useEffect, useLocation } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { Auth } from 'components/auth/auth';
 import logo from 'assets/img/logo.svg';
+import { authActions } from 'store/actions';
 
 const App: FC = () => {
   const { pathname } = useLocation();
 
+  const dispatch = useAppDispatch();
+
   const token = Boolean(storage.getItem(StorageKey.TOKEN));
 
   useEffect(() => {
-    alert(token);
-  });
+    if (token) {
+      dispatch(authActions.getCurrentUser());
+    }
+  }, [dispatch]);
 
   return (
     <>
