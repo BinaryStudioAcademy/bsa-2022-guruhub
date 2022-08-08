@@ -22,7 +22,7 @@ const Popup: FC<Props> = ({ onClose }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  });
+  }, [popupRef, onClose]);
 
   return (
     <div className={styles.popup} ref={popupRef}>
