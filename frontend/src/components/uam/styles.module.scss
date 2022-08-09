@@ -1,0 +1,15 @@
+.uam {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background: var(--background-gray-400);
+}
+
+.pageTitle {
+  width: 100%;
+  color: var(--typography-text-100-inverse);
+  text-align: start;
+}

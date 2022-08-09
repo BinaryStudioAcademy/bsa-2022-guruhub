@@ -14,6 +14,8 @@ export { type FC, type SVGProps } from './react/react';
 export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
+  type UsersGetAllItemResponseDto,
+  type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

@@ -7,6 +7,7 @@ enum AppRoute {
   EDUCATION = '/education',
   BILLING = '/billing',
   SETTINGS = '/settings',
+  UAM = '/uam',
 }
 
 export { AppRoute };
