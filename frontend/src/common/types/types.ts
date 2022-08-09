@@ -9,6 +9,8 @@ export { type HttpOptions } from './http/http';
 export { type FC } from './react/react';
 export {
   type UsersByIdResponseDto,
+  type UsersGetAllItemResponseDto,
+  type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

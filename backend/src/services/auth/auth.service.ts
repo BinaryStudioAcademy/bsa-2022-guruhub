@@ -1,5 +1,4 @@
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
-import { exceptionMessage } from '~/common/enums/exceptions/exception-message.enum';
+import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
   UsersByIdResponseDto,
   UserSignInRequestDto,
@@ -39,7 +38,7 @@ class Auth {
 
     if (userByEmail) {
       throw new AuthError({
-        message: ValidationMessage.EMAIL_ALREADY_EXISTS,
+        message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
         status: HttpCode.UNAUTHORIZED,
       });
     }
@@ -61,7 +60,7 @@ class Auth {
     if (!user) {
       throw new AuthError({
         status: HttpCode.BAD_REQUEST,
-        message: ValidationMessage.BAD_CREDENTIALS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
       });
     }
 
@@ -76,7 +75,7 @@ class Auth {
     if (!isPasswordValid) {
       throw new AuthError({
         status: HttpCode.BAD_REQUEST,
-        message: ValidationMessage.BAD_CREDENTIALS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
       });
     }
 
