@@ -1,6 +1,6 @@
-enum UserTableAccesson {
+enum UserTableAccessor {
   ID = 'id',
   EMAIL = 'email',
 }
 
-export { UserTableAccesson };
+export { UserTableAccessor };

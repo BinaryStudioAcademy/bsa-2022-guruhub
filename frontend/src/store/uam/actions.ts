@@ -9,9 +9,9 @@ const getUsers = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_USERS, async (_, { extra }) => {
   const { usersApi } = extra;
-  const dto = await usersApi.getAll();
+  const usersDto = await usersApi.getAll();
 
-  return dto;
+  return usersDto;
 });
 
 export { getUsers };
