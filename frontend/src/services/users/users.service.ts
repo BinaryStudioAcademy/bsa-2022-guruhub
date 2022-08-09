@@ -1,5 +1,5 @@
 import { HttpMethod, ApiPath, UsersApiPath } from 'common/enums/enums';
-import { UserGetAllResponse } from 'common/types/types';
+import { UsersGetAllResponseDto } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -16,7 +16,7 @@ class UsersApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<UserGetAllResponse> {
+  public getAll(): Promise<UsersGetAllResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {

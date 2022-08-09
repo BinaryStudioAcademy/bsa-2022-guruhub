@@ -1,7 +1,5 @@
-import { UserResponse } from './user-response-dto.type';
+import { UsersGetAllItemResponseDto } from './users-get-all-item-response-dto.type';
 
-type UserGetAllResponse = {
-  items: UserResponse[];
-};
+type UsersGetAllResponseDto = UsersGetAllItemResponseDto[];
 
-export { type UserGetAllResponse };
+export { type UsersGetAllResponseDto };

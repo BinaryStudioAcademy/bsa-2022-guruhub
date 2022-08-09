@@ -1,9 +1,9 @@
 import {
-  UserByIdResponse,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UsersByIdResponseDto,
 } from '~/common/types/types';
 import {
   user as userServ,
@@ -54,7 +54,7 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UserByIdResponse> {
+  ): Promise<UsersByIdResponseDto> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {

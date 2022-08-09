@@ -1,1 +1,1 @@
-export { HttpHeader, HttpMethod } from 'guruhub-shared/common/enums/http/http';
+export { HttpHeader, HttpMethod } from 'guruhub-shared/common/enums/enums';

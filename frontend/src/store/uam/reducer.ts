@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from 'common/enums/enums';
-import { UserResponse } from 'common/types/types';
+import { UsersGetAllResponseDto } from 'common/types/types';
 import { getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  users: UserResponse[];
+  users: UsersGetAllResponseDto;
 };
 
 const initialState: State = {
@@ -20,7 +20,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getUsers.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.users = action.payload.items;
+    state.users = action.payload;
   });
   builder.addCase(getUsers.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
