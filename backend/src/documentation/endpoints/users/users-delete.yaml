@@ -1,0 +1,15 @@
+post:
+  summary: User Delete
+  tags:
+    - users
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/users/users-delete-request-dto.yaml'
+  responses:
+    '200':
+      description: User successfully deleted
+    '404':
+      description: User to delete not found

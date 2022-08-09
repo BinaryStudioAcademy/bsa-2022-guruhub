@@ -42,8 +42,8 @@ const Auth: FC = () => {
     return null;
   };
 
-  if (!hasUser) {
-    <Navigate to={AppRoute.ROOT} />;
+  if (hasUser) {
+    return <Navigate to={AppRoute.ROOT} />;
   }
 
   return (

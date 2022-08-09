@@ -91,6 +91,12 @@ class User {
       createdAt: user.createdAt,
     };
   }
+
+  async delete(id: number): Promise<boolean> {
+    const deletedUsersCount = await this.#userRepository.delete(id);
+
+    return Boolean(deletedUsersCount);
+  }
 }
 
 export { User };

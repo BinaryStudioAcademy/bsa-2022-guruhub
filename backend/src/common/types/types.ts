@@ -9,6 +9,7 @@ export { type TokenPayload } from './token/token';
 export {
   type UsersByEmailResponseDto,
   type UsersByIdResponseDto,
+  type UsersDeleteRequestParamsDto,
   type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
