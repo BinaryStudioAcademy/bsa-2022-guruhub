@@ -1,6 +1,6 @@
-import { StorageKey, HttpMethod, HttpHeader } from 'common/enums/enums';
-import { HttpError } from 'exceptions/exceptions';
+import { HttpHeader, HttpMethod, StorageKey } from 'common/enums/enums';
 import { HttpOptions } from 'common/types/types';
+import { HttpError } from 'exceptions/exceptions';
 import { Storage } from 'services/storage/storage.service';
 
 type Constructor = {
