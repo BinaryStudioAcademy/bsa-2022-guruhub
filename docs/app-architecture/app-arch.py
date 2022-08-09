@@ -32,6 +32,7 @@ with Diagram('Guruhub', direction='LR', filename='app-arch', curvestyle='curved'
 
     route53 >> elb
     elb >> ec2
+
     ec2 >> cloud_watch
     ec2 >> rds
 
