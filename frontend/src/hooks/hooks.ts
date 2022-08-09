@@ -1,5 +1,11 @@
 export { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-export { useLocation, useNavigate, useParams } from 'react-router-dom';
+export {
+  useLocation,
+  useNavigate,
+  useParams,
+  useMatch,
+  useResolvedPath,
+} from 'react-router-dom';
 
 export { useAppDispatch } from './use-app-dispatch/use-app-dispatch.hook';
 export { useAppForm } from './use-app-form/use-app-form.hook';

@@ -1,11 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import {
-  Routes,
-  Route,
-  AuthorizedWrapper,
-  AuthedMenu,
-} from 'components/common/common';
+import { Routes, Route, AuthorizedWrapper } from 'components/common/common';
 import { Auth } from 'components/auth/auth';
 
 const App: FC = () => {
@@ -14,11 +9,7 @@ const App: FC = () => {
       <Routes>
         <Route
           path={AppRoute.ROOT}
-          element={
-            <AuthorizedWrapper>
-              <AuthedMenu />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedWrapper>Root</AuthorizedWrapper>}
         />
         <Route path={AppRoute.SIGN_UP} element={<Auth />} />
         <Route path={AppRoute.SIGN_IN} element={<Auth />} />

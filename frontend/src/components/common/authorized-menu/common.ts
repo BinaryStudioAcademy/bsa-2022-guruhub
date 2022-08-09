@@ -1,10 +1,4 @@
 import { AppRoute } from 'common/enums/enums';
-import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
-import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
-import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
-import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
-import { ReactComponent as BillingIcon } from 'assets/icons/billing.svg';
-import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
 
 const routes = [
   {
@@ -12,22 +6,22 @@ const routes = [
     subroutes: [
       {
         name: 'Overview',
-        Icon: HomeIcon,
+        iconName: 'home',
         href: AppRoute.ROOT,
       },
       {
         name: 'Courses',
-        Icon: CourseIcon,
+        iconName: 'course',
         href: AppRoute.COURSES,
       },
       {
         name: 'Mentors',
-        Icon: MentorsIcon,
+        iconName: 'mentors',
         href: AppRoute.MENTORS,
       },
       {
         name: 'Education',
-        Icon: EducationIcon,
+        iconName: 'education',
         href: AppRoute.EDUCATION,
       },
     ],
@@ -37,16 +31,16 @@ const routes = [
     subroutes: [
       {
         name: 'Billing',
-        Icon: BillingIcon,
+        iconName: 'billing',
         href: AppRoute.BILLING,
       },
       {
         name: 'Settings',
-        Icon: SettingsIcon,
+        iconName: 'settings',
         href: AppRoute.SETTINGS,
       },
     ],
   },
-];
+] as const;
 
 export { routes };

@@ -1,21 +1,24 @@
 import { FC } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
-import { useLocation } from 'hooks/hooks';
+import { useMatch, useResolvedPath } from 'hooks/hooks';
 import { Link } from 'components/common/common';
 import { routes } from './common';
 import styles from './styles.module.scss';
+import { Icon } from '../icon/icon';
 
-const AuthedMenu: FC = () => {
-  const { pathname } = useLocation();
-
+const AuthorizedMenu: FC = () => {
   return (
     <div className={styles.menu}>
       {routes.map(({ name, subroutes }) => (
         <div key={name}>
           <h4 className={styles.title}>{name}</h4>
           <div className={getValidClasses(styles.links, styles.bottomLine)}>
-            {subroutes.map(({ name: routeName, Icon, href }) => {
-              const isCurrentRoute = pathname === href;
+            {subroutes.map(({ name: routeName, iconName, href }) => {
+              const resolvedPath = useResolvedPath(href);
+              const isCurrentRoute = useMatch({
+                path: resolvedPath.pathname,
+                end: true,
+              });
 
               return (
                 <Link to={href} key={href}>
@@ -30,6 +33,7 @@ const AuthedMenu: FC = () => {
                         styles.icon,
                         isCurrentRoute && styles.iconSelected,
                       )}
+                      name={iconName}
                     />{' '}
                     {routeName}
                   </span>
@@ -43,4 +47,4 @@ const AuthedMenu: FC = () => {
   );
 };
 
-export { AuthedMenu };
+export { AuthorizedMenu };

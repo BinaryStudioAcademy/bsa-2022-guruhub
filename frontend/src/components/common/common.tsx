@@ -8,4 +8,5 @@ export { Header } from './header/header';
 export { Image } from './image/image';
 export { Toast } from './toast/toast';
 export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
-export { AuthedMenu } from './authed-menu/authed-menu';
+export { AuthorizedMenu } from './authorized-menu/authorized-menu';
+export { Icon } from './icon/icon';
