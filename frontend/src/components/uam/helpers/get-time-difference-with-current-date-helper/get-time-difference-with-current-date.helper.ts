@@ -1,4 +1,4 @@
-import { TIME_CONSTANTS } from '../common/constants/constants';
+import { TIME_CONSTANTS } from '../../common/constants/constants';
 
 const convertTimeDifferenceIntoSecondsDifference = (time: number): number => {
   return Math.floor(time / TIME_CONSTANTS.MILLISECONDS_IN_SECOND);
