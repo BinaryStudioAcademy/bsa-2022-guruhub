@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { NotificationPayload } from '~/common/types/notification/notification-payload.type';
-import { AsyncThunkConfig } from '~/common/types/types';
+import { AsyncThunkConfig, NotificationPayload } from '~/common/types/types';
 import { ActionType } from '../app/common';
 
 const notify = createAsyncThunk<void, NotificationPayload, AsyncThunkConfig>(

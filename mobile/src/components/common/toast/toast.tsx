@@ -1,14 +1,17 @@
 import React, { FC } from 'react';
-import Toast, {
+import {
+  default as UIToast,
   BaseToast,
   InfoToast,
   ErrorToast,
-  BaseToastProps,
+  ToastConfig,
 } from 'react-native-toast-message';
+
+import { NotificationType } from '~/common/enums/enums';
 import { styles } from './styles';
 
-const toastConfig = {
-  success: (props: JSX.IntrinsicAttributes & BaseToastProps): JSX.Element => (
+const toastConfig: ToastConfig = {
+  [NotificationType.SUCCESS]: (props) => (
     <BaseToast
       {...props}
       style={styles.success}
@@ -17,7 +20,7 @@ const toastConfig = {
     />
   ),
 
-  error: (props: JSX.IntrinsicAttributes & BaseToastProps): JSX.Element => (
+  [NotificationType.ERROR]: (props) => (
     <ErrorToast
       {...props}
       style={styles.error}
@@ -26,7 +29,7 @@ const toastConfig = {
     />
   ),
 
-  info: (props: JSX.IntrinsicAttributes & BaseToastProps): JSX.Element => (
+  [NotificationType.INFO]: (props) => (
     <InfoToast
       {...props}
       style={styles.info}
@@ -36,8 +39,8 @@ const toastConfig = {
   ),
 };
 
-const CustomToast: FC = () => {
-  return <Toast config={toastConfig} />;
+const Toast: FC = () => {
+  return <UIToast config={toastConfig} />;
 };
 
-export { CustomToast };
+export { Toast };

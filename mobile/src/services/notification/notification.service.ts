@@ -1,29 +1,26 @@
 import Toast from 'react-native-toast-message';
+
 import { NotificationType } from '~/common/enums/enums';
 
 class Notification {
-  private [NotificationType.ERROR](message: string): void {
+  private showNotification(type: NotificationType, message: string): void {
     Toast.show({
-      type: NotificationType.ERROR,
+      type: type,
       text1: 'Error',
       text2: message,
     });
   }
 
-  private [NotificationType.INFO](message: string): void {
-    Toast.show({
-      type: NotificationType.INFO,
-      text1: 'Information',
-      text2: message,
-    });
+  public [NotificationType.ERROR](message: string): void {
+    this.showNotification(NotificationType.ERROR, message);
   }
 
-  private [NotificationType.SUCCESS](message: string): void {
-    Toast.show({
-      type: NotificationType.SUCCESS,
-      text1: 'Success!',
-      text2: message,
-    });
+  public [NotificationType.INFO](message: string): void {
+    this.showNotification(NotificationType.INFO, message);
+  }
+
+  public [NotificationType.SUCCESS](message: string): void {
+    this.showNotification(NotificationType.INFO, message);
   }
 }
 

@@ -20,3 +20,4 @@ export {
   type FormControlValues,
   type FormControlPath,
 } from './form/form';
+export { type NotificationPayload } from './notification/notification-payload.type';

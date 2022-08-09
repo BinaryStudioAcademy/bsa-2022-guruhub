@@ -3,11 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RNBootSplash from 'react-native-bootsplash';
 import 'fast-text-encoding';
+import { Toast } from '../common/common';
 
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 import { linking } from '~/config/config';
+
 import { styles } from './styles';
-import { CustomToast } from '../common/toast/toast';
 
 const App: FC = () => {
   const handleNavigationReady = (): void => {
@@ -19,7 +20,7 @@ const App: FC = () => {
       <NavigationContainer linking={linking} onReady={handleNavigationReady}>
         <RootNavigation />
       </NavigationContainer>
-      <CustomToast />
+      <Toast />
     </GestureHandlerRootView>
   );
 };
