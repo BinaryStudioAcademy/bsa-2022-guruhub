@@ -16,9 +16,7 @@ const useHandleClickOutside = ({
       if (
         ref.current &&
         !ref.current.contains(e.target as Node) &&
-        (!ignoredElement ||
-          !ignoredElement.current ||
-          !ignoredElement.current.contains(e.target as Node))
+        !ignoredElement?.current?.contains(e.target as Node)
       ) {
         onClick();
       }

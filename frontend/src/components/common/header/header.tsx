@@ -11,10 +11,8 @@ const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleToggleMenuPopup = (): void =>
+  const handlePopupOper = (): void =>
     setIsMenuPopupVisible(!isMenuPopupVisible);
-
-  const handleCloseMenuPopup = (): void => setIsMenuPopupVisible(false);
 
   return (
     <header>
@@ -24,7 +22,7 @@ const Header: FC = () => {
         </div>
         <div className={styles.userWrapper}>
           <button
-            onClick={handleToggleMenuPopup}
+            onClick={handlePopupOper}
             className={styles.button}
             ref={buttonRef}
           >
@@ -38,7 +36,7 @@ const Header: FC = () => {
           </button>
           <div className={styles.popup}>
             {isMenuPopupVisible && (
-              <Popup onClose={handleCloseMenuPopup} initiator={buttonRef} />
+              <Popup onClose={handlePopupOper} initiator={buttonRef} />
             )}
           </div>
         </div>
