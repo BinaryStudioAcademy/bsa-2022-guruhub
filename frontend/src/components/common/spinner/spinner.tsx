@@ -1,4 +1,5 @@
 import { FC } from 'common/types/types';
+
 import styles from './styles.module.scss';
 
 type Props = {

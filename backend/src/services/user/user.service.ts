@@ -1,8 +1,8 @@
 import {
-  UserSignUpRequestDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetAllResponseDto,
+  UserSignUpRequestDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';

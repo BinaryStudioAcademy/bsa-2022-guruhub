@@ -22,4 +22,4 @@ async function down(knex: Knex): Promise<void> {
     .del();
 }
 
-export { up, down };
+export { down, up };
