@@ -1,13 +1,14 @@
 import Toast from 'react-native-toast-message';
 
-import { NotificationTitle, NotificationType } from '~/common/enums/enums';
-import { ShowNotificationType } from '~/common/types/types';
+import { NotificationType } from '~/common/enums/enums';
+
+import { ShowNotificationType } from './common/types/types';
 
 class Notification {
   public [NotificationType.ERROR](message: string): void {
     this.showNotification({
       type: NotificationType.ERROR,
-      title: NotificationTitle.ERROR,
+      title: 'Error',
       message,
     });
   }
@@ -15,7 +16,7 @@ class Notification {
   public [NotificationType.INFO](message: string): void {
     this.showNotification({
       type: NotificationType.INFO,
-      title: NotificationTitle.INFO,
+      title: 'Information',
       message,
     });
   }
@@ -23,7 +24,7 @@ class Notification {
   public [NotificationType.SUCCESS](message: string): void {
     this.showNotification({
       type: NotificationType.SUCCESS,
-      title: NotificationTitle.SUCCESS,
+      title: 'Success',
       message,
     });
   }
