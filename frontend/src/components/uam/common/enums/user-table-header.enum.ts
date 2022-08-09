@@ -1,8 +1,8 @@
 enum UserTableHeader {
-  ID = 'id',
-  EMAIL = 'email',
-  FULL_NAME = 'fullName',
-  CREATED_AT = 'createdAt',
+  ID = 'ID',
+  EMAIL = 'Email',
+  FULL_NAME = 'Full name',
+  CREATED_AT = 'Created',
 }
 
 export { UserTableHeader };
