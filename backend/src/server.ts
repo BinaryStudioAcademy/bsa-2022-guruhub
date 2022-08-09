@@ -1,12 +1,13 @@
-import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
+import Fastify from 'fastify';
 import Knex from 'knex';
-import { Model } from 'objection';
 import path from 'node:path';
+import { Model } from 'objection';
 
 import { initApi } from '~/api/api';
 import { ENV } from '~/common/enums/enums';
+
 import knexConfig from '../knexfile';
 
 const app = Fastify({

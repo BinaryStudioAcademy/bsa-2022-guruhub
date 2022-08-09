@@ -1,10 +1,11 @@
 import * as Joi from 'joi';
-import { getNameOf } from '~/helpers/helpers';
-import { UserSignInRequestDto } from '~/common/types/types';
+
 import {
   UserValidationMessage,
   UserValidationRule,
 } from '~/common/enums/enums';
+import { UserSignInRequestDto } from '~/common/types/types';
+import { getNameOf } from '~/helpers/helpers';
 
 const userSignIn = Joi.object({
   [getNameOf<UserSignInRequestDto>('email')]: Joi.string()

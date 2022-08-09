@@ -1,10 +1,10 @@
-import { useState } from 'hooks/hooks';
-
+import defaultUserAvatar from 'assets/img/avatar-default.svg';
+import logo from 'assets/img/logo.svg';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
+import { useState } from 'hooks/hooks';
+
 import { Popup } from './components/components';
-import logo from 'assets/img/logo.svg';
-import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {

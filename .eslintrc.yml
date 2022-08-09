@@ -11,6 +11,9 @@ extends:
   - plugin:import/typescript
   - plugin:@typescript-eslint/recommended
 
+plugins:
+  - simple-import-sort
+
 rules:
   padding-line-between-statements:
     - off
@@ -22,8 +25,8 @@ rules:
     - max: 1
   no-var:
     - error
-  # no-console:
-  #   - error
+  no-console:
+    - error
   arrow-parens:
     - error
     - always
@@ -80,3 +83,11 @@ rules:
   import/newline-after-import:
     - error
     - count: 1
+  import/first:
+    - error
+  import/no-duplicates:
+    - error
+  simple-import-sort/imports:
+    - error
+  simple-import-sort/exports:
+    - error

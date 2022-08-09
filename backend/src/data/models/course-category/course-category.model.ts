@@ -1,4 +1,5 @@
 import { DbTableName } from '~/common/enums/enums';
+
 import { Abstract } from '../abstract/abstract.model';
 
 class CourseCategory extends Abstract {
