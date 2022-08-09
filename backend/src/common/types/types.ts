@@ -5,6 +5,7 @@ export {
   type UserSignInResponseDto,
   type UserByEmailDto,
   type UserByIdResponse,
+  type UserDeleteRequestDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';
 export { type EncryptionData } from './encryption/encryption';

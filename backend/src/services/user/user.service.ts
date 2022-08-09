@@ -67,6 +67,14 @@ class User {
       passwordSalt: user.passwordSalt,
     };
   }
+
+  async delete(id: string): Promise<void> {
+    const user = await this.#userRepository.getById(id);
+
+    if (user) {
+      await this.#userRepository.delete(String(user.id));
+    }
+  }
 }
 
 export { User };
