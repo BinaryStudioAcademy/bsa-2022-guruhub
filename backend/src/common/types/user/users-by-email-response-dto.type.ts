@@ -1,4 +1,4 @@
-type UserByEmailDto = {
+type UsersByEmailResponseDto = {
   id: number;
   email: string;
   fullName: string;
@@ -7,4 +7,4 @@ type UserByEmailDto = {
   createdAt: string;
 };
 
-export { type UserByEmailDto };
+export { type UsersByEmailResponseDto };

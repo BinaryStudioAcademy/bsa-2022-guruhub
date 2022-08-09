@@ -1,13 +1,8 @@
-type UserByIdResponse = {
-  id: number;
-  email: string;
-  fullName: string;
-  createdAt: string;
-};
+import { UsersByIdResponseDto } from './users-by-id-response-dto.type';
 
 type UserSignUpResponseDto = {
   token: string;
-  user: UserByIdResponse;
+  user: UsersByIdResponseDto;
 };
 
-export { type UserByIdResponse, type UserSignUpResponseDto };
+export { type UserSignUpResponseDto };

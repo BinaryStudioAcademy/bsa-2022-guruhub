@@ -28,6 +28,9 @@ app.register(fastifyStatic, {
   root: staticPath,
   prefix: '/',
 });
+app.setNotFoundHandler((_req, res) => {
+  res.sendFile('index.html', staticPath);
+});
 
 app.register(fastifySwagger, {
   mode: 'static',

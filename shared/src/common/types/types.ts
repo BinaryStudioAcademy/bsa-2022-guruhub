@@ -3,7 +3,9 @@ export {
   type UserSignUpResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserByIdResponse,
+  type UsersByIdResponseDto,
+  type UsersGetAllItemResponseDto,
+  type UsersGetAllResponseDto,
 } from './user/user';
 export { type GroupsRequestDto, type GroupsResponseDto } from './groups/groups';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
