@@ -1,15 +1,17 @@
 import React, { ReactElement } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, ViewStyle as UIViewStyle } from 'react-native';
 import { AppColor } from '~/common/enums/enums';
 
 import {
   FormControl,
-  FormControlPath,
   FormControlErrors,
+  FormControlPath,
   FormControlValues,
+  TextStyle,
 } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
 import { useFormControl } from '~/hooks/hooks';
+
 import { styles } from './styles';
 
 type Props<T extends FormControlValues> = {
@@ -18,6 +20,8 @@ type Props<T extends FormControlValues> = {
   control: FormControl<T>;
   errors: FormControlErrors<T>;
   placeholder?: string;
+  labelStyle?: TextStyle;
+  inputStyle?: UIViewStyle;
 };
 
 const Input = <T extends FormControlValues>({
@@ -26,6 +30,8 @@ const Input = <T extends FormControlValues>({
   control,
   errors,
   placeholder,
+  labelStyle,
+  inputStyle,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
@@ -34,14 +40,14 @@ const Input = <T extends FormControlValues>({
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={{ ...styles.label, ...labelStyle }}>{label}</Text>
       <TextInput
         value={value}
         placeholder={placeholder}
-        placeholderTextColor={AppColor.TEXT.GRAY_100}
+        placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
         onBlur={onBlur}
-        style={styles.input}
+        style={{ ...styles.input, ...inputStyle }}
         secureTextEntry={true && name === 'password'}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}

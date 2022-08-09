@@ -18,6 +18,29 @@ const styles = StyleSheet.create({
   inputWrapper: {
     marginBottom: 15,
   },
+  buttonWrapper: {
+    width: 215,
+    alignSelf: 'center',
+    marginTop: 10,
+  },
+  circle_1: {
+    position: 'absolute',
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    backgroundColor: AppColor.BRAND.BLUE_100,
+    bottom: 147,
+    left: -34,
+  },
+  circle_2: {
+    position: 'absolute',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: AppColor.BRAND.BLUE_100,
+    top: -65,
+    right: -43,
+  },
 });
 
 export { styles };

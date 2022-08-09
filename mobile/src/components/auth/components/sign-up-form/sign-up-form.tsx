@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 
-import { useAppForm } from '~/hooks/hooks';
 import { RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
-import { Text, View, Button, Input, Link } from '~/components/common/common';
+import { Button, Input, Link, Text, View } from '~/components/common/common';
+import { useAppForm } from '~/hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from '~/validation-schemas/validation-schemas';
+
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common/constants';
 import { Image } from 'react-native';
 import { styles } from './styles';
@@ -22,6 +23,8 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/images/logo.png')} />
+      <View style={styles.circle_1} />
+      <View style={styles.circle_2} />
       <Text style={styles.title}>Create an account</Text>
       <View>
         <View style={styles.inputWrapper}>
@@ -51,7 +54,9 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
             errors={errors}
           />
         </View>
-        <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
+        <View style={styles.buttonWrapper}>
+          <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
+        </View>
         <Link label="Go to Sign In" to={{ screen: RootScreenName.SIGN_IN }} />
       </View>
     </View>
