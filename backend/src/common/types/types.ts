@@ -7,9 +7,9 @@ export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/gro
 export { type PermissionsGetAllResponseDto } from './permission/permission';
 export { type TokenPayload } from './token/token';
 export {
-  type UserDeleteRequestParamsDto,
   type UsersByEmailResponseDto,
   type UsersByIdResponseDto,
+  type UsersDeleteRequestParamsDto,
   type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
