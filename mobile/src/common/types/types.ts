@@ -20,3 +20,4 @@ export {
   type FormControlValues,
   type FormControlPath,
 } from './form/form';
+export { type TextStyle } from './text/text';
