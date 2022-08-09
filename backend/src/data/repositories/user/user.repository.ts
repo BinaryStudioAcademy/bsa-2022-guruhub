@@ -40,6 +40,10 @@ class User {
       passwordHash,
     });
   }
+
+  async delete(userId: number): Promise<number> {
+    return this.#UserModel.query().delete().where({ id: userId });
+  }
 }
 
 export { User };
