@@ -23,30 +23,22 @@ const AuthedMenu: FC = () => {
               const isCurrentRoute = pathname === href;
 
               return (
-                <button
-                  key={href}
-                  className={getValidClasses(
-                    styles.button,
-                    isCurrentRoute && styles.currentRoute,
-                  )}
-                >
-                  <Link to={href}>
-                    <span
+                <Link to={href} key={href}>
+                  <span
+                    className={getValidClasses(
+                      styles.link,
+                      isCurrentRoute && styles.linkSelected,
+                    )}
+                  >
+                    <Icon
                       className={getValidClasses(
-                        styles.link,
-                        isCurrentRoute && styles.linkSelected,
+                        styles.icon,
+                        isCurrentRoute && styles.iconSelected,
                       )}
-                    >
-                      <Icon
-                        className={getValidClasses(
-                          styles.icon,
-                          isCurrentRoute && styles.iconSelected,
-                        )}
-                      />{' '}
-                      {routeName}
-                    </span>
-                  </Link>
-                </button>
+                    />{' '}
+                    {routeName}
+                  </span>
+                </Link>
               );
             })}
           </div>
