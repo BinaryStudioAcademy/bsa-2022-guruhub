@@ -7,12 +7,17 @@ import styles from './styles.module.scss';
 
 type Props = {
   onClose: () => void;
+  initiator: React.RefObject<HTMLButtonElement>;
 };
 
-const Popup: FC<Props> = ({ onClose }) => {
+const Popup: FC<Props> = ({ onClose, initiator }) => {
   const dispatch = useAppDispatch();
   const popupRef = useRef<HTMLDivElement>(null);
-  useHandleClickOutside(popupRef, onClose);
+  useHandleClickOutside({
+    ref: popupRef,
+    onClick: onClose,
+    ignoredElement: initiator,
+  });
 
   const handleLogout = (): void => {
     dispatch(authActions.logout());

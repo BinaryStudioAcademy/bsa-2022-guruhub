@@ -2,15 +2,17 @@ import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
-import { useState } from 'hooks/hooks';
+import { useRef, useState } from 'hooks/hooks';
 
 import { Popup } from './components/components';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleOpenMenuPopup = (): void => setIsMenuPopupVisible(true);
+  const handleToggleMenuPopup = (): void =>
+    setIsMenuPopupVisible(!isMenuPopupVisible);
 
   const handleCloseMenuPopup = (): void => setIsMenuPopupVisible(false);
 
@@ -21,7 +23,11 @@ const Header: FC = () => {
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
         <div className={styles.userWrapper}>
-          <button onClick={handleOpenMenuPopup} className={styles.button}>
+          <button
+            onClick={handleToggleMenuPopup}
+            className={styles.button}
+            ref={buttonRef}
+          >
             <Image
               width="50"
               height="50"
@@ -31,7 +37,9 @@ const Header: FC = () => {
             />
           </button>
           <div className={styles.popup}>
-            {isMenuPopupVisible && <Popup onClose={handleCloseMenuPopup} />}
+            {isMenuPopupVisible && (
+              <Popup onClose={handleCloseMenuPopup} initiator={buttonRef} />
+            )}
           </div>
         </div>
       </div>
