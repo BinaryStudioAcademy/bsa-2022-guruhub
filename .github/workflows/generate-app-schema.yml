@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - docs/app-architecture/**/*.*
+  workflow_dispatch:
 
 jobs:
   generate-schema:
