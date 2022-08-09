@@ -1,0 +1,15 @@
+get:
+  summary: Get Current User
+  tags:
+    - auth
+  responses:
+    '200':
+      description: Authorized user
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/auth/current-user-response-dto.yaml'
+    '401':
+      description: Unauthorized user
+  security:
+    - bearerAuth: []

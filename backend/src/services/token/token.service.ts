@@ -1,4 +1,11 @@
-import { generateSecret, jwtVerify, JWTVerifyResult, SignJWT } from 'jose';
+import {
+  decodeJwt,
+  generateSecret,
+  JWTPayload,
+  jwtVerify,
+  JWTVerifyResult,
+  SignJWT,
+} from 'jose';
 
 import { TokenPayload } from '~/common/types/types';
 
@@ -30,6 +37,11 @@ class Token {
 
     return jwtVerify(token, secretKey);
   }
-}
 
+  async decode<T>(token: string): Promise<JWTPayload & T> {
+    const data = decodeJwt(token);
+
+    return data as JWTPayload & T;
+  }
+}
 export { Token };

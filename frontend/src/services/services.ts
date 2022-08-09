@@ -8,7 +8,7 @@ import { UsersApi } from './users/users.service';
 
 const storage = new Storage({ storage: localStorage });
 
-const http = new Http();
+const http = new Http({ storage });
 
 const authApi = new AuthApi({
   apiPrefix: ENV.API_PATH,

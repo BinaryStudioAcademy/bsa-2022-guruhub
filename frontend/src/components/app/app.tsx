@@ -1,10 +1,24 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import { AuthorizedWrapper, Route, Routes } from 'components/common/common';
 import { UAM } from 'components/uam/uam';
+import { useAppDispatch } from 'hooks/hooks';
+import { useEffect } from 'react';
+import { storage } from 'services/services';
+import { authActions } from 'store/actions';
 
 const App: FC = () => {
+  const dispatch = useAppDispatch();
+
+  const token = Boolean(storage.getItem(StorageKey.TOKEN));
+
+  useEffect(() => {
+    if (token) {
+      dispatch(authActions.getCurrentUser());
+    }
+  }, [dispatch, token]);
+
   return (
     <>
       <Routes>
