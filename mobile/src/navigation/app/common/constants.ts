@@ -1,4 +1,5 @@
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
+
 import { AppColor } from '~/common/enums/enums';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {

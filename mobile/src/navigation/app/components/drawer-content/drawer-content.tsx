@@ -1,11 +1,13 @@
-import React, { FC } from 'react';
-import { ScrollView, Button, Image } from 'react-native';
 import {
   DrawerContentComponentProps,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { View, Text } from '~/components/common/common';
-import { AppScreenName, AppColor, AppIcon } from '~/common/enums/enums';
+import React, { FC } from 'react';
+import { Button, Image, ScrollView } from 'react-native';
+
+import { AppColor, AppIcon, AppScreenName } from '~/common/enums/enums';
+import { Text, View } from '~/components/common/common';
+
 import { styles } from './styles';
 
 const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {

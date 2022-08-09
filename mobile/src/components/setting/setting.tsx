@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 const Settings: FC = () => {
   return (

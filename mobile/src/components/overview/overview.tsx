@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { View, Text } from 'react-native';
+
+import { Text, View } from '~/components/common/common';
 
 const Overview: FC = () => {
   return (

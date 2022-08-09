@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import React, { FC } from 'react';
 
-import { CustomDrawerContent } from './components/drawer-content/drawer-content';
 import { AppScreenName } from '~/common/enums/enums';
-import { Overview } from '~/components/overview/overview';
+import { AppNavigationParamList } from '~/common/types/navigation/app-navigation-param-list.type';
+import { Billing } from '~/components/billing/billing';
 import { Courses } from '~/components/courses/courses';
 import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
-import { Billing } from '~/components/billing/billing';
+import { Overview } from '~/components/overview/overview';
 import { Settings } from '~/components/setting/setting';
+
 import { SCREEN_OPTIONS } from './common/constants';
-import { AppNavigationParamList } from '~/common/types/navigation/app-navigation-param-list.type';
+import { CustomDrawerContent } from './components/drawer-content/drawer-content';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
