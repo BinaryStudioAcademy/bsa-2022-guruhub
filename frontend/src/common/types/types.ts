@@ -6,7 +6,9 @@ export {
   type FormControlValues,
 } from './form/form';
 export { type HttpOptions } from './http/http';
-export { type FC } from './react/react';
+export { type IconName } from './icon-name/icon-name.type';
+export { type FC, type SVGProps } from './react/react';
+export { type Route } from './routes/routes.type';
 export {
   type UsersByIdResponseDto,
   type UserSignInRequestDto,

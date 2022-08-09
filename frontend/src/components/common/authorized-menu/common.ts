@@ -1,6 +1,7 @@
 import { AppRoute } from 'common/enums/enums';
+import { Route } from 'common/types/types';
 
-const routes = [
+const routes: Route[] = [
   {
     name: 'Menu',
     subroutes: [
@@ -41,6 +42,6 @@ const routes = [
       },
     ],
   },
-] as const;
+];
 
 export { routes };

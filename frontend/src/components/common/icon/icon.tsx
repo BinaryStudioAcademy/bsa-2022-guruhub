@@ -4,9 +4,19 @@ import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
 import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
-import { FC } from 'common/types/types';
+import { FC, IconName, SVGProps } from 'common/types/types';
+import { getValidClasses } from 'helpers/helpers';
 
-const icons = {
+import styles from './styles.module.scss';
+
+const icons: Record<
+  IconName,
+  FC<
+    SVGProps<SVGSVGElement> & {
+      title?: string | undefined;
+    }
+  >
+> = {
   home: HomeIcon,
   course: CourseIcon,
   mentors: MentorsIcon,
@@ -16,14 +26,14 @@ const icons = {
 };
 
 type Props = {
-  name: 'home' | 'course' | 'mentors' | 'education' | 'billing' | 'settings';
+  name: IconName;
   className?: string;
 };
 
 const Icon: FC<Props> = ({ name, className }) => {
   const SelectedIcon = icons[name];
 
-  return <SelectedIcon className={className} />;
+  return <SelectedIcon className={getValidClasses(styles.icon, className)} />;
 };
 
 export { Icon };
