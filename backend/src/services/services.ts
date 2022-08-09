@@ -22,6 +22,7 @@ const encrypt = new Encrypt({
 
 const user = new User({
   userRepository,
+  usersToGroupsRepository,
   encryptService: encrypt,
 });
 
