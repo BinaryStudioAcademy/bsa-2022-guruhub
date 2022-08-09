@@ -1,5 +1,5 @@
 import { permission as permissionRep } from '~/data/repositories/repositories';
-import { PermissionResponseDto } from '~/common/types/types';
+import { PermissionsGetAllResponseDto } from '~/common/types/types';
 
 type Constructor = {
   permissionRepository: typeof permissionRep;
@@ -12,16 +12,20 @@ class Permission {
     this.#permissionRepository = permissionRepository;
   }
 
-  async getPermissions(): Promise<PermissionResponseDto[]> {
+  async getAll(): Promise<PermissionsGetAllResponseDto> {
     const permissions = await this.#permissionRepository.getAll();
 
-    return permissions.map((permission) => {
+    const items = permissions.map((permission) => {
       return {
         id: permission.id,
         key: permission.key,
         name: permission.name,
       };
     });
+
+    return {
+      items,
+    };
   }
 }
 

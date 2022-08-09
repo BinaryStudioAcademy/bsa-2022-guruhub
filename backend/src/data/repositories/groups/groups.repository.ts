@@ -1,6 +1,4 @@
 import { Groups as GroupsM } from '~/data/models/models';
-import { changeStringCase } from '~/helpers/helpers';
-import { StringCase } from '~/common/enums/enums';
 
 type Constructor = {
   GroupsModel: typeof GroupsM;
@@ -13,15 +11,12 @@ class Groups {
     this.#GroupsModel = GroupsModel;
   }
 
-  async create(group: { name: string }): Promise<GroupsM> {
-    const { name } = group;
+  async create(group: { name: string; key: string }): Promise<GroupsM> {
+    const { name, key } = group;
 
     return this.#GroupsModel.query().insert({
       name,
-      key: changeStringCase({
-        stringToChange: name,
-        caseType: StringCase.KEBAB_CASE,
-      }),
+      key,
     });
   }
 }

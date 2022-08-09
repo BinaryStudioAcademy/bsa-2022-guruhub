@@ -1,2 +1,2 @@
-export { GroupValidationRule } from './group-validation-rule.enum';
-export { UserValidationRule } from './user-validation-rule.enum';
+export { GroupValidationRule } from '../group/group-validation-rule.enum';
+export { UserValidationRule } from '../user/user-validation-rule.enum';

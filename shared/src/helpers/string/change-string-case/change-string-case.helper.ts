@@ -1,8 +1,9 @@
-import { paramCase, Options } from 'change-case';
+import { paramCase, Options, snakeCase } from 'change-case';
 import { StringCase } from '~/common/enums/case/case.enum';
 
 const caseTypeToFn: Record<StringCase, typeof paramCase> = {
   [StringCase.KEBAB_CASE]: paramCase,
+  [StringCase.SNAKE_CASE]: snakeCase,
 };
 
 type Args = {

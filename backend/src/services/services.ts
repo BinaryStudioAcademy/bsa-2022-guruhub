@@ -5,6 +5,7 @@ import {
   groups as groupsRepository,
   permission as permissionRepository,
   groupsToPermissions as groupsToPermissionsRepository,
+  usersToGroups as usersToGroupsRepository,
 } from '~/data/repositories/repositories';
 import { Auth } from './auth/auth.service';
 import { Encrypt } from './encrypt/encrypt.service';
@@ -13,6 +14,7 @@ import { User } from './user/user.service';
 import { Groups } from './groups/groups.service';
 import { Permission } from './permission/permission.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
+import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 
 const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
@@ -39,10 +41,24 @@ const groupsToPermissions = new GroupsToPermissions({
   groupsToPermissionsRepository,
 });
 
+const usersToGroups = new UsersToGroups({
+  usersToGroupsRepository,
+});
+
 const groups = new Groups({
   groupsRepository,
   permissionService: permission,
   groupsToPermissionsService: groupsToPermissions,
+  usersToGroupsService: usersToGroups,
 });
 
-export { auth, user, token, encrypt, permission, groups, groupsToPermissions };
+export {
+  auth,
+  user,
+  token,
+  encrypt,
+  permission,
+  groups,
+  groupsToPermissions,
+  usersToGroups,
+};

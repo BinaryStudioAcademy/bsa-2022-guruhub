@@ -24,12 +24,6 @@ async function up(knex: Knex): Promise<void> {
       .references(ColumnName.ID)
       .inTable(TableName.GROUPS);
   });
-  await knex.schema.alterTable(TableName.USERS, (table) => {
-    table
-      .integer(ColumnName.GROUP_ID)
-      .references(ColumnName.ID)
-      .inTable(TableName.GROUPS);
-  });
 }
 
 async function down(knex: Knex): Promise<void> {

@@ -17,12 +17,13 @@ const groupCreate = Joi.object({
     }),
   [getNameOf<GroupsRequestDto>('permissionIds')]: Joi.array()
     .items(Joi.number())
-    .min(1)
+    .min(GroupValidationRule.PERMISSION_IDS_MIN_LENGTH)
     .required()
     .messages({
       'array.empty': GroupValidationMessage.PERMISSION_IDS_REQUIRE,
       'array.min': GroupValidationMessage.PERMISSION_IDS_MIN_LENGTH,
     }),
+  [getNameOf<GroupsRequestDto>('userIds')]: Joi.array().items(Joi.number()),
 });
 
 export { groupCreate };

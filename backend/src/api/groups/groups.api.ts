@@ -21,7 +21,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: groupCreateValidationSchema,
     },
     async handler(req: FastifyRequest<{ Body: GroupsRequestDto }>, rep) {
-      const group = await groupsService.createGroup(req.body);
+      const group = await groupsService.create(req.body);
 
       return rep.status(HttpCode.CREATED).send(group);
     },
