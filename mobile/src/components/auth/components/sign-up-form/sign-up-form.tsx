@@ -6,6 +6,7 @@ import { UserSignUpRequestDto } from '~/common/types/types';
 import { Button, Input, Link, Text, View } from '~/components/common/common';
 import { useAppForm } from '~/hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from '~/validation-schemas/validation-schemas';
+
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common/constants';
 import { styles } from './styles';
 

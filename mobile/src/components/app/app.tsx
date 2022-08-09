@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import RNBootSplash from 'react-native-bootsplash';
 import 'fast-text-encoding';
 
-import { Root as RootNavigation } from '~/navigation/root/root.navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import React, { FC } from 'react';
+import RNBootSplash from 'react-native-bootsplash';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { linking } from '~/config/config';
+import { Root as RootNavigation } from '~/navigation/root/root.navigation';
+
+import { Toast } from '../common/common';
 import { styles } from './styles';
 
 const App: FC = () => {
@@ -18,6 +21,7 @@ const App: FC = () => {
       <NavigationContainer linking={linking} onReady={handleNavigationReady}>
         <RootNavigation />
       </NavigationContainer>
+      <Toast />
     </GestureHandlerRootView>
   );
 };

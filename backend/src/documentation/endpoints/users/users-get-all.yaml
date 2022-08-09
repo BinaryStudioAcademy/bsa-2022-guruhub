@@ -1,0 +1,10 @@
+get:
+  summary: Get all users
+  tags:
+    - users
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/users/users-get-all-response-dto.yaml'

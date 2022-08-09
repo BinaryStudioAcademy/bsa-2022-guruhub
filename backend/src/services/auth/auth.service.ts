@@ -1,17 +1,17 @@
+import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
-  UserByIdResponse,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
+import { AuthError } from '~/exceptions/exceptions';
 import {
-  user as userServ,
   encrypt as encryptServ,
   token as tokenServ,
+  user as userServ,
 } from '~/services/services';
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
-import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -38,7 +38,7 @@ class Auth {
 
     if (userByEmail) {
       throw new AuthError({
-        message: ValidationMessage.EMAIL_ALREADY_EXISTS,
+        message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
         status: HttpCode.UNAUTHORIZED,
       });
     }
@@ -54,13 +54,13 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UserByIdResponse> {
+  ): Promise<UsersByIdResponseDto> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {
       throw new AuthError({
         status: HttpCode.BAD_REQUEST,
-        message: ValidationMessage.BAD_CREDENTIALS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
       });
     }
 
@@ -75,11 +75,16 @@ class Auth {
     if (!isPasswordValid) {
       throw new AuthError({
         status: HttpCode.BAD_REQUEST,
-        message: ValidationMessage.BAD_CREDENTIALS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
       });
     }
 
-    return { id: user.id, email: user.email };
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    };
   }
 
   async signIn(

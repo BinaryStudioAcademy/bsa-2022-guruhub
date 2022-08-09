@@ -1,8 +1,10 @@
 import { ENV } from 'common/enums/enums';
-import { Http } from './http/http.service';
+
 import { AuthApi } from './auth-api/auth-api.service';
-import { Storage } from './storage/storage.service';
+import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
+import { Storage } from './storage/storage.service';
+import { UsersApi } from './users/users.service';
 
 const storage = new Storage({ storage: localStorage });
 
@@ -13,6 +15,11 @@ const authApi = new AuthApi({
   http,
 });
 
+const usersApi = new UsersApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const notification = new Notification();
 
-export { authApi, storage, notification };
+export { authApi, notification, storage, usersApi };
