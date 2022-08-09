@@ -4,13 +4,8 @@ import {
   FC,
   UserSignInRequestDto,
 } from 'common/types/types';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useLocation,
-  useNavigate,
-} from 'hooks/hooks';
+import { useAppDispatch, useAppSelector, useLocation } from 'hooks/hooks';
+import { Navigate } from 'components/common/common';
 import { authActions } from 'store/actions';
 import { SignUpForm, SignInForm } from './components/components';
 import { getValidClasses } from 'helpers/helpers';
@@ -21,16 +16,9 @@ import logo from 'assets/img/logo.svg';
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
 
   const hasUser = Boolean(user);
-
-  useEffect(() => {
-    if (hasUser) {
-      navigate(AppRoute.ROOT);
-    }
-  }, [hasUser, navigate]);
 
   const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
     dispatch(authActions.signIn(payload));
@@ -52,6 +40,10 @@ const Auth: FC = () => {
 
     return null;
   };
+
+  if (!hasUser) {
+    <Navigate to={AppRoute.ROOT} />;
+  }
 
   return (
     <>
