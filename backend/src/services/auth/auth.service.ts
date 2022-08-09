@@ -1,5 +1,5 @@
 import {
-  UserByIdResponse,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
@@ -54,7 +54,7 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UserByIdResponse> {
+  ): Promise<UsersByIdResponseDto> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {

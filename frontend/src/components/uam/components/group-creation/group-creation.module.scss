@@ -1,0 +1,102 @@
+.main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 40px;
+  background-color: var(--background-gray-400);
+}
+
+.groupForm {
+  width: 100%;
+  max-width: 1440px;
+  padding: 30px 50px;
+  background-color: var(--background-gray-300);
+  border-radius: 8px;
+}
+
+.groupFormHeading {
+  color: var(--typography-text-100-inverse);
+  font-size: 30px;
+}
+
+.groupSubHeading {
+  color: var(--typography-text-100-inverse);
+  font-size: 16px;
+}
+
+.groupWorkers {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.groupWorkersAmount {
+  color: var(--typography-text-100-inverse);
+}
+
+.groupPermissions {
+  margin-bottom: 40px;
+}
+
+th:first-child {
+  width: 40px;
+}
+
+.btnsWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnSecondary {
+  width: 200px;
+  height: 48px;
+  margin-right: 8px;
+  color: #ff9c00;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: transparent;
+  border: 2px solid #ff9c00;
+  border-radius: 28px;
+  cursor: pointer;
+}
+
+.btnPrimary {
+  width: 200px;
+  height: 48px;
+  color: var(--typography-text-100-inverse);
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #ff9c00;
+  border: 2px solid #ff9c00;
+  border-radius: 28px;
+  cursor: pointer;
+}
+
+.checkboxWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxWrapper input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ff9c00;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.checked {
+  position: relative;
+  background-color: #ff9c00;
+}
+
+.checked::before {
+  content: '\2713';
+  position: absolute;
+  top: -4px;
+  right: 1px;
+  color: #ffffff;
+  font-size: 16px;
+}
