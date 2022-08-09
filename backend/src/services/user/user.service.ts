@@ -4,52 +4,33 @@ import {
   UsersGetAllResponseDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
-import {
-  user as userRep,
-  usersToGroups as usersToGroupsRep,
-} from '~/data/repositories/repositories';
+import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
 
 type Constructor = {
   userRepository: typeof userRep;
-  usersToGroupsRepository: typeof usersToGroupsRep;
   encryptService: Encrypt;
 };
 
 class User {
   #userRepository: typeof userRep;
-  #usersToGroupsRepository: typeof usersToGroupsRep;
   #encryptService: Encrypt;
 
-  constructor({
-    userRepository,
-    usersToGroupsRepository,
-    encryptService,
-  }: Constructor) {
+  constructor({ userRepository, encryptService }: Constructor) {
     this.#userRepository = userRepository;
-    this.#usersToGroupsRepository = usersToGroupsRepository;
     this.#encryptService = encryptService;
   }
 
   async getAll(): Promise<UsersGetAllResponseDto> {
     const users = await this.#userRepository.getAll();
 
-    const usersWithGroups = await Promise.all(
-      users.map(async (user) => {
-        const groups = await this.#usersToGroupsRepository.getByUserId(user.id);
-
-        return {
-          id: user.id,
-          email: user.email,
-          fullName: user.fullName,
-          createdAt: user.createdAt,
-          groups,
-        };
-      }),
-    );
-
     return {
-      items: usersWithGroups,
+      items: users.map((user) => ({
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        createdAt: user.createdAt,
+      })),
     };
   }
 

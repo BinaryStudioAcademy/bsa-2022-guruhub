@@ -15,16 +15,12 @@ class Permission {
   async getAll(): Promise<PermissionsGetAllResponseDto> {
     const permissions = await this.#permissionRepository.getAll();
 
-    const items = permissions.map((permission) => {
-      return {
+    return {
+      items: permissions.map((permission) => ({
         id: permission.id,
         key: permission.key,
         name: permission.name,
-      };
-    });
-
-    return {
-      items,
+      })),
     };
   }
 }
