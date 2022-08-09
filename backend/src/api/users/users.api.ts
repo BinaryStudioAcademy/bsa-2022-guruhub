@@ -1,11 +1,6 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import {
-  ApiPath,
-  HttpCode,
-  HttpMethod,
-  UsersApiPath,
-} from '~/common/enums/enums';
+import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
 import { user as usersService } from '~/services/services';
 
 type Options = {
@@ -14,12 +9,12 @@ type Options = {
   };
 };
 
-const initUserApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
+const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const { user: userService } = opts.services;
 
   fastify.route({
     method: HttpMethod.GET,
-    url: `${ApiPath.USERS}${UsersApiPath.ROOT}`,
+    url: UsersApiPath.ROOT,
     async handler(req: FastifyRequest, rep) {
       const users = await userService.getAll();
 
@@ -28,4 +23,4 @@ const initUserApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   });
 };
 
-export { initUserApi };
+export { initUsersApi };

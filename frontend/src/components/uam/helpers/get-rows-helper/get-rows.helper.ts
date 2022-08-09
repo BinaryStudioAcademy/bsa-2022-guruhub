@@ -1,5 +1,6 @@
 import { UsersGetAllItemResponseDto } from 'common/types/types';
-import { UserTableAccessor } from 'components/uam/common/enums/user-table-accesson.enum';
+
+import { UserTableAccessor } from '../common/enums/enums';
 
 const getRows = (
   users: UsersGetAllItemResponseDto[],
