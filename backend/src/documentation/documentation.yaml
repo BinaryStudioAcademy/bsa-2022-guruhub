@@ -27,5 +27,5 @@ components:
       $ref: './schemas/auth/user-sign-in-request-dto.yaml'
     UserSignInResponseDto:
       $ref: './schemas/auth/user-sign-in-response-dto.yaml'
-    UserDeleteRequestDto:
+    UsersDeleteRequestDto:
       $ref: './schemas/users/users-delete-request-dto.yaml'

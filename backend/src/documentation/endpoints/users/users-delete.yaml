@@ -7,7 +7,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../schemas/users/user-delete-request-dto.yaml'
+          $ref: '../../schemas/users/users-delete-request-dto.yaml'
   responses:
     '200':
       description: User successfully deleted
