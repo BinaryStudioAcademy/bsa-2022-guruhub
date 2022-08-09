@@ -1,10 +1,11 @@
+import { AppRoute } from 'common/enums/enums';
 import { FC, UserSignUpRequestDto } from 'common/types/types';
 import { Button, Input, Link } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
+
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common';
-import { AppRoute } from 'common/enums/enums';
 import styles from './styles.module.scss';
 
 type Props = {

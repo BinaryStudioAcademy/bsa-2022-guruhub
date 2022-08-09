@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
+
 import styles from './styles.module.scss';
 
 type Props<Data extends Record<string, unknown>> = {

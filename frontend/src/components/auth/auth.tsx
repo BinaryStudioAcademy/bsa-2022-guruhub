@@ -1,17 +1,18 @@
-import { AppRoute } from 'common/enums/enums';
-import {
-  UserSignUpRequestDto,
-  FC,
-  UserSignInRequestDto,
-} from 'common/types/types';
-import { useAppDispatch, useAppSelector, useLocation } from 'hooks/hooks';
-import { Navigate } from 'components/common/common';
-import { authActions } from 'store/actions';
-import { SignUpForm, SignInForm } from './components/components';
-import { getValidClasses } from 'helpers/helpers';
-import styles from './styles.module.scss';
 import authImage from 'assets/img/auth.png';
 import logo from 'assets/img/logo.svg';
+import { AppRoute } from 'common/enums/enums';
+import {
+  FC,
+  UserSignInRequestDto,
+  UserSignUpRequestDto,
+} from 'common/types/types';
+import { Navigate } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
+import { useAppDispatch, useAppSelector, useLocation } from 'hooks/hooks';
+import { authActions } from 'store/actions';
+
+import { SignInForm, SignUpForm } from './components/components';
+import styles from './styles.module.scss';
 
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
