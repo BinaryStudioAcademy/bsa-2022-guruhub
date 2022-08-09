@@ -98,7 +98,7 @@ class Auth {
     };
   }
 
-  async currentUser(token: string): Promise<UserByIdResponse | null> {
+  async currentUser(token: string): Promise<UsersByIdResponseDto | null> {
     try {
       const { userId } = await this.#tokenService.decode(token);
       const user = await this.#userService.getById(userId as string);

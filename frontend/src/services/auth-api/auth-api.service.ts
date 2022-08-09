@@ -9,7 +9,7 @@ import {
   UserSignUpResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
-  UserByIdResponse,
+  UsersByIdResponseDto,
 } from 'common/types/types';
 import { Http } from '../http/http.service';
 
@@ -49,7 +49,7 @@ class AuthApi {
     );
   }
 
-  public getCurrentUser(): Promise<UserByIdResponse> {
+  public getCurrentUser(): Promise<UsersByIdResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
       {

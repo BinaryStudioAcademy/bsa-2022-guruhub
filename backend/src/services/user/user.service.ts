@@ -69,7 +69,7 @@ class User {
     };
   }
 
-  async getById(id: string): Promise<UserByIdResponse | null> {
+  async getById(id: string): Promise<UsersByIdResponseDto | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {

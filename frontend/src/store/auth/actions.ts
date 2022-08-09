@@ -45,7 +45,7 @@ const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
 );
 
 const getCurrentUser = createAsyncThunk<
-  UserByIdResponse,
+  UsersByIdResponseDto,
   void,
   AsyncThunkConfig
 >(ActionType.FETCH_CURRENT_USER, async (_payload, { extra }) => {
