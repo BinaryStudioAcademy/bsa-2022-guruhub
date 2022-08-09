@@ -26,10 +26,10 @@ const ENV = {
     DIALECT: DB_DIALECT,
   },
   API: {
-    V1_PREFIX: '/api/v1/',
+    V1_PREFIX: '/api/v1',
   },
   JWT: {
-    SECRET: SECRET_KEY,
+    SECRET: String(SECRET_KEY),
     EXPIRES_IN: '24h',
     ALG: 'HS256',
   },
