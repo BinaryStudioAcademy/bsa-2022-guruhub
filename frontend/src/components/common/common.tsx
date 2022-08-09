@@ -1,12 +1,11 @@
-export { Routes, Route } from 'react-router-dom';
-export { ErrorMessage } from '@hookform/error-message';
-
+export { AuthorizedMenu } from './authorized-menu/authorized-menu';
+export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
 export { Button } from './button/button';
+export { Header } from './header/header';
+export { Icon } from './icon/icon';
+export { Image } from './image/image';
 export { Input } from './input/input';
 export { Link } from './link/link';
-export { Header } from './header/header';
-export { Image } from './image/image';
 export { Toast } from './toast/toast';
-export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
-export { AuthorizedMenu } from './authorized-menu/authorized-menu';
-export { Icon } from './icon/icon';
+export { ErrorMessage } from '@hookform/error-message';
+export { Navigate, Route, Routes } from 'react-router-dom';

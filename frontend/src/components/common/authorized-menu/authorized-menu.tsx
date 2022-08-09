@@ -1,10 +1,11 @@
 import { FC } from 'common/types/types';
+import { Link } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useMatch, useResolvedPath } from 'hooks/hooks';
-import { Link } from 'components/common/common';
+
+import { Icon } from '../icon/icon';
 import { routes } from './common';
 import styles from './styles.module.scss';
-import { Icon } from '../icon/icon';
 
 const AuthorizedMenu: FC = () => {
   return (

@@ -1,5 +1,6 @@
 import { FC } from 'common/types/types';
-import { Header, AuthorizedMenu } from '../common';
+
+import { AuthorizedMenu, Header } from '../common';
 
 const AuthorizedWrapper: FC = ({ children }) => {
   return (

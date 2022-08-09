@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-
 import { DataStatus } from 'common/enums/enums';
-import { UserByIdResponse } from 'common/types/types';
-import { signUp, signIn, logout } from './actions';
+import { UsersByIdResponseDto } from 'common/types/types';
+
+import { logout, signIn, signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  user: UserByIdResponse | null;
+  user: UsersByIdResponseDto | null;
 };
 
 const initialState: State = {

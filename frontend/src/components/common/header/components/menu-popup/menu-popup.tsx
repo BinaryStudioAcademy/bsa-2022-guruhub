@@ -2,6 +2,7 @@ import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
 import { useAppDispatch, useHandleClickOutside, useRef } from 'hooks/hooks';
 import { authActions } from 'store/actions';
+
 import styles from './styles.module.scss';
 
 type Props = {

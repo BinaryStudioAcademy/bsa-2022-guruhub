@@ -1,10 +1,10 @@
-import { FC } from 'common/types/types';
-import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
-import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
-import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
-import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
 import { ReactComponent as BillingIcon } from 'assets/icons/billing.svg';
+import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
+import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
+import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
+import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
+import { FC } from 'common/types/types';
 
 const icons = {
   home: HomeIcon,

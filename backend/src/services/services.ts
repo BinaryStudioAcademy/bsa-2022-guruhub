@@ -1,6 +1,7 @@
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import { user as userRepository } from '~/data/repositories/repositories';
+
 import { Auth } from './auth/auth.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Token } from './token/token.service';
@@ -23,4 +24,4 @@ const auth = new Auth({
   tokenService: token,
 });
 
-export { auth, user, token, encrypt };
+export { auth, encrypt, token, user };
