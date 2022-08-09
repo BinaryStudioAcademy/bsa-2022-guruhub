@@ -5,9 +5,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  drawerContainer: {
-    paddingTop: 0,
-  },
   header: {
     paddingVertical: 30,
     paddingHorizontal: 20,
@@ -16,6 +13,35 @@ const styles = StyleSheet.create({
   },
   list: {
     padding: 30,
+  },
+  listTitle: {
+    color: AppColor.TEXT.GRAY_200,
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 10,
+    marginLeft: 10,
+  },
+  listItem: {
+    justifyContent: 'center',
+    borderRadius: 25,
+  },
+  listItemText: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginLeft: -20,
+    marginRight: 10,
+  },
+  listBorder: {
+    width: '62.5%',
+    height: 2,
+    marginTop: 30,
+    marginBottom: 40,
+    marginLeft: 10,
+    backgroundColor: AppColor.BACKGROUND.GRAY_400,
+  },
+  icon: {
+    marginVertical: 7,
+    marginLeft: 15,
   },
   footer: {
     alignItems: 'flex-start',
@@ -29,18 +55,10 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
     borderRadius: 14,
   },
-  button: {
-    justifyContent: 'center',
-    height: 40,
-    paddingHorizontal: 20,
-    backgroundColor: AppColor.BRAND.BLUE_100,
-    borderRadius: 20,
-  },
-  buttonText: {
-    color: AppColor.TEXT.GRAY_100,
-    fontSize: 16,
-    fontWeight: '500',
-    textTransform: 'capitalize',
+  footerImage: {
+    marginLeft: 20,
+    marginBottom: 10,
+    resizeMode: 'contain',
   },
 });
 
