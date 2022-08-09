@@ -10,8 +10,16 @@ const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
       accessor: UserTableAccessor.ID,
     },
     {
+      Header: UserTableHeader.FULL_NAME,
+      accessor: UserTableAccessor.FULL_NAME,
+    },
+    {
       Header: UserTableHeader.EMAIL,
       accessor: UserTableAccessor.EMAIL,
+    },
+    {
+      Header: UserTableHeader.CREATED_AT,
+      accessor: UserTableAccessor.CREATED_AT,
     },
   ];
 };

@@ -11,6 +11,8 @@ paths:
   # Users
   /users:
     $ref: './endpoints/users/users-get-all.yaml'
+  /auth/sign-in:
+    $ref: './endpoints/auth/user-sign-in.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -19,3 +21,7 @@ components:
       $ref: './schemas/auth/user-sign-up-response-dto.yaml'
     UsersGetAllResponseDto:
       $ref: './schemas/users/users-get-all-response-dto.yaml'
+    UserSignInRequestDto:
+      $ref: './schemas/auth/user-sign-in-request-dto.yaml'
+    UserSignInResponseDto:
+      $ref: './schemas/auth/user-sign-in-response-dto.yaml'
