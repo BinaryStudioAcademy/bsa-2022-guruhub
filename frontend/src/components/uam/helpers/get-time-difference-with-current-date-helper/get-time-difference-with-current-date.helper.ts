@@ -1,7 +1,7 @@
-import { TIME_CONSTANTS } from '../../common/constants/constants';
-
 const convertTimeDifferenceIntoSecondsDifference = (time: number): number => {
-  return Math.floor(time / TIME_CONSTANTS.MILLISECONDS_IN_SECOND);
+  const millisecondsInSecond = 1000;
+
+  return Math.floor(time / millisecondsInSecond);
 };
 
 const getTimeDifferenceWithCurrentTime = (time: string): string => {
