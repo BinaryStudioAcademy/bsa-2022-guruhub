@@ -14,7 +14,14 @@ const App: FC = () => {
         />
         <Route path={AppRoute.SIGN_UP} element={<Auth />} />
         <Route path={AppRoute.SIGN_IN} element={<Auth />} />
-        <Route path={AppRoute.UAM} element={<Uam />} />
+        <Route
+          path={AppRoute.UAM}
+          element={
+            <AuthorizedWrapper>
+              <Uam />
+            </AuthorizedWrapper>
+          }
+        />
       </Routes>
     </>
   );
