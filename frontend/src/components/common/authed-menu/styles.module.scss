@@ -1,0 +1,60 @@
+.menu {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  max-width: 270px;
+  padding: 40px;
+  background-color: var(--background-gray-300);
+}
+
+.title {
+  color: var(--typography-text-gray-200);
+  font-weight: 500;
+  line-height: 27.5px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-right: 0;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 15px 23px;
+  text-align: left;
+  word-wrap: nowrap;
+  background-color: transparent;
+  border: none;
+  border-radius: 28px;
+}
+
+.currentRoute {
+  background-color: var(--brand-blue-100);
+}
+
+.bottomLine {
+  border-bottom: 2px solid var(--background-gray-400);
+}
+
+.icon {
+  margin-right: 10px;
+  fill: var(--text-gray-200);
+}
+
+.iconSelected {
+  fill: white;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  color: var(--text-gray-200);
+  font-size: 16px;
+}
+
+.linkSelected {
+  color: white;
+}
