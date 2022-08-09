@@ -10,6 +10,8 @@ paths:
     $ref: './endpoints/auth/user-sign-up.yaml'
   /auth/sign-in:
     $ref: './endpoints/auth/user-sign-in.yaml'
+  /users/:id:
+    $ref: './endpoints/users/user-delete.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -20,4 +22,6 @@ components:
       $ref: './schemas/auth/user-sign-in-request-dto.yaml'
     UserSignInResponseDto:
       $ref: './schemas/auth/user-sign-in-response-dto.yaml'
+    UserDeleteRequestDto:
+      $ref: './schemas/users/user-delete-request-dto.yaml'
 
