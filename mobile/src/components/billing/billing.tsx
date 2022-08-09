@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { View, Text } from 'react-native';
-import { styles } from './styles';
 
 const Billing: FC = () => {
   return (
-    <View style={styles.container}>
+    <View>
       <Text>Billing Screen</Text>
     </View>
   );
