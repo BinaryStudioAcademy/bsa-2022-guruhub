@@ -8,10 +8,10 @@ export {
 export { type HttpOptions } from './http/http';
 export { type FC } from './react/react';
 export {
-  type UserSignUpRequestDto,
-  type UserSignUpResponseDto,
+  type UsersByIdResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserByIdResponse,
+  type UserSignUpRequestDto,
+  type UserSignUpResponseDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

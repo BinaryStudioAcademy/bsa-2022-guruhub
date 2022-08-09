@@ -1,6 +1,7 @@
+import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { NavLink } from 'react-router-dom';
-import { AppRoute } from 'common/enums/enums';
+
 import styles from './styles.module.scss';
 
 type Props = {

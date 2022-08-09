@@ -1,13 +1,14 @@
-import React, { FC } from 'react';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
+import React, { FC } from 'react';
 
-import { Auth } from '~/components/auth/auth';
-import { App as AppNavigation } from '~/navigation/app/app.navigation';
 import { RootScreenName } from '~/common/enums/enums';
 import { RootNavigationParamList } from '~/common/types/types';
+import { Auth } from '~/components/auth/auth';
+
+import { App as AppNavigation } from '../app/app.navigation';
 
 const NativeStack = createNativeStackNavigator<RootNavigationParamList>();
 

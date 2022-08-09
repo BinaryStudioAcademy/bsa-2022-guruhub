@@ -1,17 +1,17 @@
+import { HttpCode, ValidationMessage } from '~/common/enums/enums';
 import {
-  UserByIdResponse,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
+import { AuthError } from '~/exceptions/exceptions';
 import {
-  user as userServ,
   encrypt as encryptServ,
   token as tokenServ,
+  user as userServ,
 } from '~/services/services';
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
-import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -54,7 +54,7 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UserByIdResponse> {
+  ): Promise<UsersByIdResponseDto> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {
