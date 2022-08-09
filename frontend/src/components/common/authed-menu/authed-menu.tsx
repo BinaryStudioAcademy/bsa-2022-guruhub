@@ -1,7 +1,7 @@
 import { FC } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
 import { useLocation } from 'hooks/hooks';
-import { Link } from '../common';
+import { Link } from 'components/common/common';
 import { routes } from './common';
 import styles from './styles.module.scss';
 
