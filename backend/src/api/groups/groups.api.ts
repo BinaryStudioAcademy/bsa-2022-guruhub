@@ -1,18 +1,18 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { HttpCode, HttpMethod, GroupsApiPath } from '~/common/enums/enums';
 import { GroupsRequestDto } from '~/common/types/types';
-import { groups as groupsService } from '~/services/services';
+import { group as groupService } from '~/services/services';
 
 import { groupCreate as groupCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
-    groups: typeof groupsService;
+    group: typeof groupService;
   };
 };
 
 const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { groups: groupsService } = opts.services;
+  const { group: groupService } = opts.services;
 
   fastify.route({
     method: HttpMethod.POST,
@@ -21,7 +21,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: groupCreateValidationSchema,
     },
     async handler(req: FastifyRequest<{ Body: GroupsRequestDto }>, rep) {
-      const group = await groupsService.create(req.body);
+      const group = await groupService.create(req.body);
 
       return rep.status(HttpCode.CREATED).send(group);
     },

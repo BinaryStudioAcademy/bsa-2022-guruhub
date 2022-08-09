@@ -1,8 +1,4 @@
-type PermissionsGetAllItemResponseDto = {
-  id: number;
-  key: string;
-  name: string;
-};
+import { PermissionsGetAllItemResponseDto } from '~/common/types/permission/permission';
 
 type PermissionsGetAllResponseDto = {
   items: PermissionsGetAllItemResponseDto[];

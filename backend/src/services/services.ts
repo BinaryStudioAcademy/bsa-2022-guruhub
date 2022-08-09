@@ -2,7 +2,7 @@ import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
   user as userRepository,
-  groups as groupsRepository,
+  group as groupsRepository,
   permission as permissionRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -11,7 +11,7 @@ import { Auth } from './auth/auth.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Token } from './token/token.service';
 import { User } from './user/user.service';
-import { Groups } from './groups/groups.service';
+import { Group } from './group/group.service';
 import { Permission } from './permission/permission.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
@@ -45,7 +45,7 @@ const usersToGroups = new UsersToGroups({
   usersToGroupsRepository,
 });
 
-const groups = new Groups({
+const group = new Group({
   groupsRepository,
   permissionService: permission,
   groupsToPermissionsService: groupsToPermissions,
@@ -58,7 +58,7 @@ export {
   token,
   encrypt,
   permission,
-  groups,
+  group,
   groupsToPermissions,
   usersToGroups,
 };

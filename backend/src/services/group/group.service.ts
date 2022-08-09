@@ -4,7 +4,7 @@ import {
   groupsToPermissions as groupsToPermissionsServ,
   usersToGroups as usersToGroupsServ,
 } from '~/services/services';
-import { groups as groupsRep } from '~/data/repositories/repositories';
+import { group as groupsRep } from '~/data/repositories/repositories';
 import { changeStringCase } from '~/helpers/helpers';
 import { StringCase } from '~/common/enums/enums';
 
@@ -15,7 +15,7 @@ type Constructor = {
   usersToGroupsService: typeof usersToGroupsServ;
 };
 
-class Groups {
+class Group {
   #groupsRepository: typeof groupsRep;
   #permissionService: typeof permissionServ;
   #groupsToPermissionsService: typeof groupsToPermissionsServ;
@@ -66,4 +66,4 @@ class Groups {
   }
 }
 
-export { Groups };
+export { Group };

@@ -31,9 +31,6 @@ async function down(knex: Knex): Promise<void> {
     table.dropColumn(ColumnName.GROUP_ID);
     table.dropColumn(ColumnName.PERMISSION_ID);
   });
-  await knex.schema.alterTable(TableName.USERS, (table) => {
-    table.dropColumn(ColumnName.GROUP_ID);
-  });
 }
 
 export { up, down };

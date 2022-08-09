@@ -1,13 +1,13 @@
 import {
   User as UserModel,
   Permission as PermissionModel,
-  Groups as GroupsModel,
+  Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   UsersToGroups as UsersToGroupsModel,
 } from '~/data/models/models';
 import { User } from './user/user.repository';
 import { Permission } from './permission/permission.repository';
-import { Groups } from './groups/groups.repository';
+import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
 
@@ -19,8 +19,8 @@ const permission = new Permission({
   PermissionModel,
 });
 
-const groups = new Groups({
-  GroupsModel,
+const group = new Group({
+  GroupModel,
 });
 
 const groupsToPermissions = new GroupsToPermissions({
@@ -31,4 +31,4 @@ const usersToGroups = new UsersToGroups({
   UsersToGroupsModel,
 });
 
-export { user, permission, groups, groupsToPermissions, usersToGroups };
+export { user, permission, group, groupsToPermissions, usersToGroups };

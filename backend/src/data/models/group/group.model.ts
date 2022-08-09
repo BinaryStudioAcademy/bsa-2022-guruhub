@@ -1,7 +1,7 @@
 import { DbTableName } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 
-class Groups extends Abstract {
+class Group extends Abstract {
   'name': string;
 
   'key': string;
@@ -11,4 +11,4 @@ class Groups extends Abstract {
   }
 }
 
-export { Groups };
+export { Group };

@@ -1,7 +1,7 @@
 import * as Joi from 'joi';
 import { getNameOf } from '~/helpers/helpers';
 import { GroupsRequestDto } from '~/common/types/types';
-import { GroupValidationRule } from '~/common/enums/validation/validation';
+import { GroupValidationRule } from '~/common/enums/enums';
 import { GroupValidationMessage } from '~/common/enums/group/group';
 
 const groupCreate = Joi.object({

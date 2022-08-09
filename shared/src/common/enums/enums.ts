@@ -4,4 +4,4 @@ export { StringCase } from './case/case';
 export { ContentType } from './file/file';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { UserValidationMessage, UserValidationRule } from './user/user';
-export { GroupValidationMessage } from './group/group';
+export { GroupValidationMessage, GroupValidationRule } from './group/group';
