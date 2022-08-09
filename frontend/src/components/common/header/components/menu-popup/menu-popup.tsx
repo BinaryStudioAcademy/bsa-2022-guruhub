@@ -1,12 +1,6 @@
-import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
-import {
-  useAppDispatch,
-  useHandleClickOutside,
-  useNavigate,
-  useRef,
-} from 'hooks/hooks';
+import { useAppDispatch, useHandleClickOutside, useRef } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 import styles from './styles.module.scss';
 
@@ -16,14 +10,11 @@ type Props = {
 
 const Popup: FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const popupRef = useRef<HTMLDivElement>(null);
   useHandleClickOutside(popupRef, onClose);
 
   const handleLogout = (): void => {
-    dispatch(authActions.logout()).then(() => {
-      navigate(AppRoute.SIGN_IN);
-    });
+    dispatch(authActions.logout());
   };
 
   return (

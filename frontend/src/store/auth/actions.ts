@@ -35,14 +35,12 @@ const signIn = createAsyncThunk<
   return user;
 });
 
-const logout = createAsyncThunk<null, undefined, AsyncThunkConfig>(
+const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.LOGOUT,
   (_request, { extra }) => {
     const { storage } = extra;
 
     storage.removeItem(StorageKey.TOKEN);
-
-    return null;
   },
 );
 
