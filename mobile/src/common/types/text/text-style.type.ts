@@ -1,4 +1,5 @@
 import { TextStyle as UITextStyle } from 'react-native';
+
 import { AppFontFamily } from '~/common/enums/enums';
 
 type Text = UITextStyle & {

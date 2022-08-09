@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { TextInput, ViewStyle as UIViewStyle } from 'react-native';
-import { AppColor } from '~/common/enums/enums';
 
+import { AppColor } from '~/common/enums/enums';
 import {
   FormControl,
   FormControlErrors,
