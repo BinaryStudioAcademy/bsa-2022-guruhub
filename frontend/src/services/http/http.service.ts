@@ -1,4 +1,9 @@
-import { HttpHeader, HttpMethod, StorageKey } from 'common/enums/enums';
+import {
+  ContentType,
+  HttpHeader,
+  HttpMethod,
+  StorageKey,
+} from 'common/enums/enums';
 import { HttpOptions } from 'common/types/types';
 import { HttpError } from 'exceptions/exceptions';
 import { Storage } from 'services/storage/storage.service';
@@ -18,8 +23,13 @@ class Http {
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
-    const { method = HttpMethod.GET, payload = null, hasAuth = true } = options;
-    const headers = this.getHeaders(hasAuth);
+    const {
+      method = HttpMethod.GET,
+      payload = null,
+      contentType,
+      hasAuth = true,
+    } = options;
+    const headers = this.getHeaders(contentType, hasAuth);
 
     return fetch(url, {
       method,
@@ -31,8 +41,12 @@ class Http {
       .catch(this.throwError);
   }
 
-  private getHeaders(hasAuth?: boolean): Headers {
+  private getHeaders(contentType?: ContentType, hasAuth?: boolean): Headers {
     const headers = new Headers();
+
+    if (contentType) {
+      headers.append(HttpHeader.CONTENT_TYPE, contentType);
+    }
 
     if (hasAuth) {
       const token = this.#storage.getItem(StorageKey.TOKEN);

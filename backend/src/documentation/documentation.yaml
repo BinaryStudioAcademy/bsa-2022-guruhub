@@ -10,6 +10,8 @@ paths:
     $ref: './endpoints/auth/user-sign-up.yaml'
   /auth/sign-in:
     $ref: './endpoints/auth/user-sign-in.yaml'
+  /auth/current-user:
+    $ref: './endpoints/auth/current-user.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -20,4 +22,10 @@ components:
       $ref: './schemas/auth/user-sign-in-request-dto.yaml'
     UserSignInResponseDto:
       $ref: './schemas/auth/user-sign-in-response-dto.yaml'
-
+    CurrentUserResponseDto:
+      $ref: './schemas/auth/current-user-response-dto.yaml'
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT

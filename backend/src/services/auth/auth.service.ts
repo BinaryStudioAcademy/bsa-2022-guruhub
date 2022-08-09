@@ -1,8 +1,5 @@
-import {
-  CustomExceptionName,
-  HttpCode,
-  ValidationMessage,
-} from '~/common/enums/enums';
+import { HttpCode, ValidationMessage } from '~/common/enums/enums';
+import { exceptionMessage } from '~/common/enums/exceptions/exception-message.enum';
 import {
   UsersByIdResponseDto,
   UserSignInRequestDto,
@@ -103,7 +100,7 @@ class Auth {
     };
   }
 
-  async currentUser(token: string): Promise<UsersByIdResponseDto | null> {
+  async getCurrentUser(token: string): Promise<UsersByIdResponseDto | null> {
     try {
       const { userId } = await this.#tokenService.decode(token);
       const user = await this.#userService.getById(userId);
@@ -112,7 +109,7 @@ class Auth {
     } catch {
       throw new AuthError({
         status: HttpCode.UNAUTHORIZED,
-        message: CustomExceptionName.AUTH_ERROR,
+        message: exceptionMessage.UNAUTHORIZED_USER,
       });
     }
   }

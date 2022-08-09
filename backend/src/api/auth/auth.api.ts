@@ -52,7 +52,7 @@ const initAuthApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     async handler(req, rep) {
       const [, token] = req.headers?.authorization?.split(' ') ?? [];
 
-      const user = await authService.currentUser(token);
+      const user = await authService.getCurrentUser(token);
 
       return rep.status(HttpCode.OK).send(user);
     },
