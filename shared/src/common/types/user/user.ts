@@ -1,3 +1,4 @@
+export { type UserDeleteRequestDto } from './user-delete-request-dto.type';
 export { type UsersGetAllResponseDto } from './user-get-all-response-dto.type';
 export { type UserSignInRequestDto } from './user-sign-in-request-dto.type';
 export { type UserSignInResponseDto } from './user-sign-in-response-dto.type';
