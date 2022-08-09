@@ -13,6 +13,7 @@
   font-style: normal;
   line-height: 21px;
   text-align: left;
+  border-right: 1px solid #393b4d;
   border-bottom: 1px solid #393b4d;
 }
 
@@ -27,4 +28,8 @@
 .tableHeadRowHeader,
 .tableBodyRowData {
   padding: 20px;
+}
+
+.tableHeadRowHeader:last-child {
+  border-right: none;
 }
