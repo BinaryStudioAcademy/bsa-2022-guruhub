@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - docs/app-architecture/**/*.*
+      - .github/workflows/generate-app-schema.yml
   workflow_dispatch:
 
 jobs:
