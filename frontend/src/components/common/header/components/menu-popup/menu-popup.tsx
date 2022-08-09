@@ -1,3 +1,4 @@
+import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
 import {
@@ -21,7 +22,7 @@ const Popup: FC<Props> = ({ onClose }) => {
 
   const handleLogout = (): void => {
     dispatch(authActions.logout()).then(() => {
-      navigate('/sign-in');
+      navigate(AppRoute.SIGN_IN);
     });
   };
 
