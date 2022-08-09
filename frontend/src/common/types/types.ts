@@ -6,8 +6,13 @@ export {
   type FormControlValues,
 } from './form/form';
 export { type HttpOptions } from './http/http';
+export {
+  type NavigationMenuItem,
+  type SubNavigationMenuItem,
+} from './navigation-menu/navigation-menu';
 export { type PermissionsGroupCreationDto } from './permissions/permissions';
-export { type FC } from './react/react';
+export { type FC, type SVGProps } from './react/react';
+export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
   type UsersGetAllItemResponseDto,

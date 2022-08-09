@@ -1,9 +1,12 @@
 type: object
 properties:
-  id:
-    type: integer
-    example: 1
-  email:
-    type: string
-    example: john.doe@gmail.com
-
+  token: string
+  user:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      email:
+        type: string
+        example: john.doe@gmail.com

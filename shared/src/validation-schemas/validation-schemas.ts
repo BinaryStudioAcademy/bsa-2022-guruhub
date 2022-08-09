@@ -1,2 +1,2 @@
 export { groupCreate } from './group/group';
-export { userSignIn, userSignUp } from './user/user';
+export { userDelete, userSignIn, userSignUp } from './user/user';

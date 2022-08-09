@@ -5,6 +5,7 @@ import {
   HttpMethod,
 } from 'common/enums/enums';
 import {
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
@@ -34,6 +35,7 @@ class AuthApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+        hasAuth: false,
       },
     );
   }
@@ -45,6 +47,17 @@ class AuthApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+        hasAuth: false,
+      },
+    );
+  }
+
+  public getCurrentUser(): Promise<UsersByIdResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
+      {
+        method: HttpMethod.GET,
+        contentType: ContentType.JSON,
       },
     );
   }
