@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: '3.10'
           cache: 'pip'
-      - run: pip3 install diagrams
+      - run: pip install -r ./docs/app-architecture/requirements.txt
 
       - name: Generate diagram
         run: cd ./docs/app-architecture && python3 app-arch.py
