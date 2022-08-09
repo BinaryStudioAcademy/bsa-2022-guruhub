@@ -38,7 +38,7 @@ This is the repository responsible for GuruHub's apps.
 ```mermaid
 %%{ init: { 'theme': 'neutral', 'securitylevel': 'loose', 'htmlLabels': true } }%%
 graph LR
-  cloud-watch(<img src='./docs/assets/imgs/cloud-watch.svg' width='48' height='48' /></br>CloudWatch)
+  cloud-watch(<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-2022-guruhub/task/GRHB-6-app-schema/docs/assets/imgs/cloud-watch.svg' width='48' height='48' /></br>CloudWatch)
 
   elb(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/aws-load-balancer.svg' width='48' height='48' alt='application load balancer' /><br />ELB)
 
