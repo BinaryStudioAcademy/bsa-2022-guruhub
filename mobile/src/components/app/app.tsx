@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { linking } from '~/config/config';
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 
+import { Toast } from '../common/common';
 import { styles } from './styles';
 
 const App: FC = () => {
@@ -20,6 +21,7 @@ const App: FC = () => {
       <NavigationContainer linking={linking} onReady={handleNavigationReady}>
         <RootNavigation />
       </NavigationContainer>
+      <Toast />
     </GestureHandlerRootView>
   );
 };
