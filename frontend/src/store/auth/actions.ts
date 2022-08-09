@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
 import { StorageKey } from 'common/enums/enums';
 import {
-  UserSignUpRequestDto,
-  UserSignInRequestDto,
-  UsersByIdResponseDto,
   AsyncThunkConfig,
+  UsersByIdResponseDto,
+  UserSignInRequestDto,
+  UserSignUpRequestDto,
 } from 'common/types/types';
+
 import { ActionType } from './common';
 
 const signUp = createAsyncThunk<
@@ -44,4 +44,4 @@ const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   },
 );
 
-export { signUp, signIn, logout };
+export { logout, signIn, signUp };

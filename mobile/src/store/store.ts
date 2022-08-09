@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import { authApi, notification } from '~/services/services';
+
 import { handleError } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 

@@ -1,8 +1,8 @@
 import {
-  UserSignUpRequestDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetAllResponseDto,
+  UserSignUpRequestDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -24,10 +24,14 @@ class User {
   async getAll(): Promise<UsersGetAllResponseDto> {
     const users = await this.#userRepository.getAll();
 
-    return users.map((user) => ({
+    const items = users.map((user) => ({
       id: user.id,
       email: user.email,
     }));
+
+    return {
+      items,
+    };
   }
 
   async create({

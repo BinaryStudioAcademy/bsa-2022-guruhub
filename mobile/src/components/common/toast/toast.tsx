@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import UIToast, {
   BaseToast,
-  InfoToast,
   ErrorToast,
+  InfoToast,
   ToastConfig,
 } from 'react-native-toast-message';
 
 import { NotificationType } from '~/common/enums/enums';
+
 import { styles } from './styles';
 
 const toastConfig: ToastConfig = {
