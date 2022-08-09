@@ -1,5 +1,5 @@
-type UserDeleteRequestRaramsDto = {
+type UserDeleteRequestParamsDto = {
   id: string;
 };
 
-export { type UserDeleteRequestRaramsDto };
+export { type UserDeleteRequestParamsDto };

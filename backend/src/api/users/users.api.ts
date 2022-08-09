@@ -1,7 +1,7 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
-import { UserDeleteRequestRaramsDto } from '~/common/types/types';
+import { UserDeleteRequestParamsDto } from '~/common/types/types';
 import { user as userService } from '~/services/services';
 import { userDelete as userDeleteRequestParamsValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -29,7 +29,7 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: UsersApiPath.$ID,
     schema: { params: userDeleteRequestParamsValidationSchema },
     async handler(
-      req: FastifyRequest<{ Params: UserDeleteRequestRaramsDto }>,
+      req: FastifyRequest<{ Params: UserDeleteRequestParamsDto }>,
       rep,
     ) {
       const { id } = req.params;

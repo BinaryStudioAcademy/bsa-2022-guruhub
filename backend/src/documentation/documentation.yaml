@@ -14,7 +14,7 @@ paths:
   /users:
     $ref: './endpoints/users/users-get-all.yaml'
   /users/:id:
-    $ref: './endpoints/users/user-delete.yaml'
+    $ref: './endpoints/users/users-delete.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -28,4 +28,4 @@ components:
     UserSignInResponseDto:
       $ref: './schemas/auth/user-sign-in-response-dto.yaml'
     UserDeleteRequestDto:
-      $ref: './schemas/users/user-delete-request-dto.yaml'
+      $ref: './schemas/users/users-delete-request-dto.yaml'

@@ -5,7 +5,7 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type PermissionsGetAllResponseDto } from './permission/permission';
 export {
-  type UserDeleteRequestRaramsDto,
+  type UserDeleteRequestParamsDto,
   type UsersByIdResponseDto,
   type UsersGetAllItemResponseDto,
   type UsersGetAllResponseDto,
