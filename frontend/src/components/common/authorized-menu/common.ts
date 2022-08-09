@@ -6,14 +6,9 @@ const routes: NavigationMenuItem[] = [
     name: 'Menu',
     subroutes: [
       {
-        name: 'Overview',
-        iconName: 'home',
-        href: AppRoute.ROOT,
-      },
-      {
         name: 'Courses',
         iconName: 'course',
-        href: AppRoute.COURSES,
+        href: AppRoute.ROOT,
       },
       {
         name: 'Mentors',
@@ -24,6 +19,11 @@ const routes: NavigationMenuItem[] = [
         name: 'Education',
         iconName: 'education',
         href: AppRoute.EDUCATION,
+      },
+      {
+        name: 'Interview',
+        iconName: 'home',
+        href: AppRoute.INTERVIEW,
       },
     ],
   },
