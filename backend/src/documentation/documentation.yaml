@@ -11,12 +11,12 @@ paths:
     $ref: './endpoints/auth/user-sign-up.yaml'
   # Users
   /users:
-    $ref: './endpoints/users/users.yaml'
+    $ref: './endpoints/users/users-get-all.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
       $ref: './schemas/auth/user-sign-up-request-dto.yaml'
     UserSignUpResponseDto:
       $ref: './schemas/auth/user-sign-up-response-dto.yaml'
-    UsersResponseDto:
-      $ref: './schemas/users/users-response-dto.yaml'
+    UsersGetAllResponseDto:
+      $ref: './schemas/users/users-get-all-response-dto.yaml'

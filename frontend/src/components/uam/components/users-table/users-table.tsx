@@ -1,17 +1,15 @@
 import { ReactElement } from 'react';
 import { Column } from 'react-table';
-import { Table } from '../../../common/common';
+import { Table } from 'components/common/common';
 import styles from './styles.module.scss';
+import { UsersGetAllItemResponseDto } from 'guruhub-shared';
 
-type Props<Data extends Record<string, unknown>> = {
-  columns: Column<Data>[];
-  data: readonly Data[];
+type Props = {
+  columns: Column<UsersGetAllItemResponseDto>[];
+  data: readonly UsersGetAllItemResponseDto[];
 };
 
-const UsersTable = <Data extends Record<string, unknown>>({
-  columns,
-  data,
-}: Props<Data>): ReactElement => {
+const UsersTable = ({ columns, data }: Props): ReactElement => {
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>

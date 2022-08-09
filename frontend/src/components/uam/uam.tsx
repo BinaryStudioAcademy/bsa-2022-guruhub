@@ -1,12 +1,14 @@
 import { Column } from 'react-table';
+
 import { useEffect, useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { FC } from 'common/types/types';
+import { FC, UsersGetAllItemResponseDto } from 'common/types/types';
 import { uamActions } from 'store/actions';
 import { UsersTable } from './components/users-table/users-table';
-import { getColumns } from './helpers/get-columns';
+import { getColumns } from './helpers/get-columns.helper';
+import { getRows } from './helpers/get-rows.helper';
 import styles from './styles.module.scss';
 
-const Uam: FC = () => {
+const UAM: FC = () => {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
 
@@ -14,14 +16,15 @@ const Uam: FC = () => {
     dispatch(uamActions.getUsers());
   }, []);
 
-  const columns: Column[] = getColumns();
+  const columns: Column<UsersGetAllItemResponseDto>[] = getColumns();
+  const rows: readonly UsersGetAllItemResponseDto[] = getRows(users);
 
   return (
     <div className={styles.uam}>
       <h1 className={styles.pageTitle}>User Access Managment</h1>
-      <UsersTable data={users} columns={columns} />
+      <UsersTable data={rows} columns={columns} />
     </div>
   );
 };
 
-export { Uam };
+export { UAM };
