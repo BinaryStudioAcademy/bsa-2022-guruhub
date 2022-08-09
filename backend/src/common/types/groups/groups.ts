@@ -1,4 +1,4 @@
 export {
-  type GroupsRequestDto,
+  type GroupsCreateRequestDto,
   type GroupsResponseDto,
-} from 'guruhub-shared/common/types/groups/groups';
+} from 'guruhub-shared/common/types/types';

@@ -1,4 +1,7 @@
-import { GroupsRequestDto, GroupsResponseDto } from '~/common/types/types';
+import {
+  GroupsCreateRequestDto,
+  GroupsResponseDto,
+} from '~/common/types/types';
 import {
   permission as permissionServ,
   groupsToPermissions as groupsToPermissionsServ,
@@ -33,7 +36,9 @@ class Group {
     this.#usersToGroupsService = usersToGroupsService;
   }
 
-  async create(groupsRequestDto: GroupsRequestDto): Promise<GroupsResponseDto> {
+  async create(
+    groupsRequestDto: GroupsCreateRequestDto,
+  ): Promise<GroupsResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const group = await this.#groupsRepository.create({
       name,
@@ -45,7 +50,7 @@ class Group {
 
     if (userIds) {
       await Promise.all(
-        userIds.map((userId) => {
+        userIds.map((userId: number) => {
           return this.#usersToGroupsService.createUsersToGroups({
             groupId: group.id,
             userId: userId,
@@ -54,7 +59,7 @@ class Group {
       );
     }
     await Promise.all(
-      permissionIds.map((it) => {
+      permissionIds.map((it: number) => {
         return this.#groupsToPermissionsService.createGroupsToPermissions({
           groupId: group.id,
           permissionId: it,

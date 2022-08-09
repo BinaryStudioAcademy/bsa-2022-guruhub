@@ -4,5 +4,5 @@ export {
   PermissionApiPath,
   GroupsApiPath,
   UsersApiPath,
-} from 'guruhub-shared/common/enums/api/api';
+} from 'guruhub-shared/common/enums/enums';
 export { ControllerHook } from './controller-hook.enum';

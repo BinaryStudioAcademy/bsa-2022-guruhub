@@ -1,4 +1,10 @@
-export { ApiPath, AuthApiPath } from './api/api';
+export {
+  ApiPath,
+  AuthApiPath,
+  PermissionApiPath,
+  UsersApiPath,
+  GroupsApiPath,
+} from './api/api';
 export { CustomExceptionName } from './exceptions/exceptions';
 export { StringCase } from './case/case';
 export { ContentType } from './file/file';

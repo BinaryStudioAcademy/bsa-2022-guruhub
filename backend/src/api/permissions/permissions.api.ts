@@ -9,7 +9,7 @@ type Options = {
   };
 };
 
-const initPermissionApi: FastifyPluginAsync<Options> = async (
+const initPermissionsApi: FastifyPluginAsync<Options> = async (
   fastify,
   opts,
 ) => {
@@ -26,4 +26,4 @@ const initPermissionApi: FastifyPluginAsync<Options> = async (
   });
 };
 
-export { initPermissionApi };
+export { initPermissionsApi };
