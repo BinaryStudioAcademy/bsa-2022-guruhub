@@ -15,7 +15,7 @@ import {
   HttpCode,
   ValidationMessage,
 } from '~/common/enums/enums';
-import { AuthError, InvalidCredentialsError } from '~/exceptions/exceptions';
+import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -101,13 +101,13 @@ class Auth {
   async currentUser(token: string): Promise<UsersByIdResponseDto | null> {
     try {
       const { userId } = await this.#tokenService.decode(token);
-      const user = await this.#userService.getById(userId as string);
+      const user = await this.#userService.getById(userId);
 
       return user;
     } catch {
-      throw new InvalidCredentialsError({
+      throw new AuthError({
         status: HttpCode.UNAUTHORIZED,
-        message: CustomExceptionName.INVALID_CREDENTIALS,
+        message: CustomExceptionName.AUTH_ERROR,
       });
     }
   }

@@ -37,8 +37,10 @@ class Token {
     return jwtVerify(token, secretKey);
   }
 
-  async decode(token: string): Promise<JWTPayload> {
-    return decodeJwt(token);
+  async decode<T>(token: string): Promise<T> {
+    const data = decodeJwt(token);
+
+    return data as JWTPayload & T;
   }
 }
 export { Token };

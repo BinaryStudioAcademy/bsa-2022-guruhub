@@ -1,4 +1,4 @@
-import { StorageKey, HttpMethod } from 'common/enums/enums';
+import { StorageKey, HttpMethod, HttpHeader } from 'common/enums/enums';
 import { HttpError } from 'exceptions/exceptions';
 import { HttpOptions } from 'common/types/types';
 import { Storage } from 'services/storage/storage.service';
@@ -36,7 +36,7 @@ class Http {
 
     if (hasAuth) {
       const token = this.#storage.getItem(StorageKey.TOKEN);
-      headers.append('authorization', `Bearer ${token}`);
+      headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token}`);
     }
 
     return headers;
