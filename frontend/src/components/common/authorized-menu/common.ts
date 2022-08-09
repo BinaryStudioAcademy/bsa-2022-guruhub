@@ -22,7 +22,7 @@ const routes: NavigationMenuItem[] = [
       },
       {
         name: 'Interview',
-        iconName: 'home',
+        iconName: 'education',
         href: AppRoute.INTERVIEW,
       },
     ],
