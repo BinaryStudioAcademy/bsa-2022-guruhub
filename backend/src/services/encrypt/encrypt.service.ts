@@ -1,4 +1,5 @@
 import { genSalt, hash } from 'bcrypt';
+
 import { EncryptionData } from '~/common/types/types';
 
 type Constructor = {

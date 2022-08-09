@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AsyncThunkConfig, UsersGetAllResponseDto } from 'common/types/types';
+
 import { ActionType } from './common';
 
 const getUsers = createAsyncThunk<

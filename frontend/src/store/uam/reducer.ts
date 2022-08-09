@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-
 import { DataStatus } from 'common/enums/enums';
 import { UsersGetAllResponseDto } from 'common/types/types';
+
 import { getUsers } from './actions';
 
 type State = {

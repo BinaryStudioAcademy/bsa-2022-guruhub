@@ -1,8 +1,9 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
+
 import {
+  ApiPath,
   HttpCode,
   HttpMethod,
-  ApiPath,
   UsersApiPath,
 } from '~/common/enums/enums';
 import { user as usersService } from '~/services/services';

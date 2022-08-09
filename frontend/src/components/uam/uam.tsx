@@ -1,8 +1,8 @@
-import { Column } from 'react-table';
-
-import { useEffect, useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { FC, UsersGetAllItemResponseDto } from 'common/types/types';
+import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
+import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
+
 import { UsersTable } from './components/components';
 import { getColumns, getRows } from './helpers/helpers';
 import styles from './styles.module.scss';
