@@ -1,3 +1,6 @@
+import { HttpCode, HttpError } from 'guruhub-shared';
+
+import { ValidationMessage } from '~/common/enums/enums';
 import {
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
@@ -73,11 +76,14 @@ class User {
     };
   }
 
-  async delete(id: string): Promise<void> {
-    const user = await this.#userRepository.getById(id);
+  async delete(id: number): Promise<void> {
+    const deletedUsersCount = await this.#userRepository.delete(id);
 
-    if (user) {
-      await this.#userRepository.delete(String(user.id));
+    if (!deletedUsersCount) {
+      throw new HttpError({
+        message: ValidationMessage.DELETE_NOT_FOUND,
+        status: HttpCode.NOT_FOUND,
+      });
     }
   }
 }

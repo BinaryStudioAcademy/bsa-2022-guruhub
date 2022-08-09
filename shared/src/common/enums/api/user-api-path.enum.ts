@@ -1,5 +1,5 @@
 enum UserPath {
-  USER = '/user',
+  ROOT = '/',
   $ID = '/:id',
 }
 

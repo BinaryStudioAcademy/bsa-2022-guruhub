@@ -47,8 +47,8 @@ class User {
     });
   }
 
-  async delete(userId: string): Promise<void> {
-    await this.#UserModel.query().where({ id: userId }).del();
+  async delete(userId: number): Promise<number> {
+    return await this.#UserModel.query().delete().where({ id: userId });
   }
 }
 

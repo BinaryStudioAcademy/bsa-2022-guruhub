@@ -1,6 +1,6 @@
 export { type UsersByEmailResponseDto } from './users-by-email-response-dto.type';
 export {
-  type UserDeleteRequestDto,
+  type UserDeleteRequestRaramsDto,
   type UsersByIdResponseDto,
   type UsersGetAllResponseDto,
   type UserSignInRequestDto,

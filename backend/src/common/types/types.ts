@@ -1,7 +1,7 @@
 export { type EncryptionData } from './encryption/encryption';
 export { type TokenPayload } from './token/token';
 export {
-  type UserDeleteRequestDto,
+  type UserDeleteRequestRaramsDto,
   type UsersByEmailResponseDto,
   type UsersByIdResponseDto,
   type UsersGetAllResponseDto,
