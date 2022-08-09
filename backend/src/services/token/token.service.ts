@@ -1,11 +1,12 @@
 import {
-  SignJWT,
-  generateSecret,
-  JWTVerifyResult,
-  jwtVerify,
   decodeJwt,
+  generateSecret,
   JWTPayload,
+  jwtVerify,
+  JWTVerifyResult,
+  SignJWT,
 } from 'jose';
+
 import { TokenPayload } from '~/common/types/types';
 
 type Constructor = {

@@ -1,11 +1,11 @@
 import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Routes, Route, AuthorizedWrapper } from 'components/common/common';
 import { Auth } from 'components/auth/auth';
-import { authActions } from 'store/actions';
-import { useEffect } from 'react';
+import { AuthorizedWrapper, Route, Routes } from 'components/common/common';
 import { useAppDispatch } from 'hooks/hooks';
+import { useEffect } from 'react';
 import { storage } from 'services/services';
+import { authActions } from 'store/actions';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();

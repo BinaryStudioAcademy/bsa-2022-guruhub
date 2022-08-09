@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Text as UIText, TextStyle as UITextStyle } from 'react-native';
 
 import { AppFontFamily } from '~/common/enums/enums';
+
 import { styles } from './styles';
 
 type TextStyle = UITextStyle & {

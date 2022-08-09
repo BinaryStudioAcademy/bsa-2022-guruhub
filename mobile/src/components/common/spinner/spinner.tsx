@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { ActivityIndicator, ColorValue } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
+
 import { styles } from './styles';
 
 type Props = {

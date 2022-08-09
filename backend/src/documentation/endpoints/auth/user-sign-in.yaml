@@ -1,0 +1,21 @@
+post:
+  summary: User Sign In
+  tags:
+    - auth
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/auth/user-sign-in-request-dto.yaml'
+  responses:
+    '200':
+      description: Sign-in successful
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/auth/user-sign-in-response-dto.yaml'
+    '401':
+      description: Unexisting user/invalid password
+    '400':
+      description: Invalid data sent

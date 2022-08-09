@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-
 import { DataStatus } from 'common/enums/enums';
 import { UsersByIdResponseDto } from 'common/types/types';
-import { signUp, signIn, logout, getCurrentUser } from './actions';
+
+import { getCurrentUser,logout, signIn, signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;

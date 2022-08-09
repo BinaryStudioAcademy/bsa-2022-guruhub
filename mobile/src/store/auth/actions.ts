@@ -5,6 +5,7 @@ import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
+
 import { ActionType } from './common';
 
 const signUp = createAsyncThunk<

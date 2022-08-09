@@ -5,12 +5,13 @@ import {
   HttpMethod,
 } from 'common/enums/enums';
 import {
-  UserSignUpRequestDto,
-  UserSignUpResponseDto,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
-  UsersByIdResponseDto,
+  UserSignUpRequestDto,
+  UserSignUpResponseDto,
 } from 'common/types/types';
+
 import { Http } from '../http/http.service';
 
 type Constructor = {
