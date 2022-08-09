@@ -36,9 +36,9 @@ This is the repository responsible for GuruHub's apps.
 ### 🏗 Application Schema
 
 ```mermaid
-%%{ init: { 'theme': 'neutral', 'securitylevel': 'antiscript' } }%%
+%%{ init: { 'theme': 'neutral', 'securitylevel': 'loose', 'htmlLabels': true } }%%
 graph LR
-  cloud-watch(&#x3C;img src=&#x27;./docs/assets/imgs/cloud-watch.svg&#x27; width=&#x27;48&#x27; height=&#x27;48&#x27; alt=&#x27;application load balancer&#x27; /&#x3E;&#x3C;br /&#x3E;CloudWatch)
+  cloud-watch(<img src='./docs/assets/imgs/cloud-watch.svg' width='48' height='48' /></br>CloudWatch)
 
   elb(<img src='https://guruhub-public.s3.eu-central-1.amazonaws.com/docs/assets/imgs/aws-load-balancer.svg' width='48' height='48' alt='application load balancer' /><br />ELB)
 
