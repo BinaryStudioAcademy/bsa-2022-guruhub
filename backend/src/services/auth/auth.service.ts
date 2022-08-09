@@ -108,7 +108,7 @@ class Auth {
     } catch {
       throw new AuthError({
         status: HttpCode.UNAUTHORIZED,
-        message: exceptionMessage.UNAUTHORIZED_USER,
+        message: ExceptionMessage.UNAUTHORIZED_USER,
       });
     }
   }
