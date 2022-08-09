@@ -35,6 +35,7 @@ class AuthApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+        hasAuth: false,
       },
     );
   }
@@ -46,6 +47,7 @@ class AuthApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+        hasAuth: false,
       },
     );
   }

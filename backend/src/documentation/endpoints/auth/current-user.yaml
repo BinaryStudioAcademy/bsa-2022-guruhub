@@ -2,8 +2,6 @@ get:
   summary: Get Current User
   tags:
     - auth
-  requestBody:
-    required: false
   responses:
     '200':
       description: Authorized user
