@@ -3,7 +3,9 @@ export {
   type UserSignUpResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserByIdResponse,
+  type UsersByIdResponseDto,
+  type UsersGetAllItemResponseDto,
+  type UsersGetAllResponseDto,
   type UserDeleteRequestDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

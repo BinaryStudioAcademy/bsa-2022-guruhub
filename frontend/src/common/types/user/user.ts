@@ -3,5 +3,5 @@ export {
   type UserSignUpResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserByIdResponse,
+  type UsersByIdResponseDto,
 } from 'guruhub-shared/common/types/types';
