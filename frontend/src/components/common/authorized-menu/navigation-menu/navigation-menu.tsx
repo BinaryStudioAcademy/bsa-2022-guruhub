@@ -5,10 +5,10 @@ import { useMatch, useResolvedPath } from 'hooks/hooks';
 import { NavigationMenuItem } from './navigation-menu-item/navigation-menu-item';
 import styles from './styles.module.scss';
 
-interface Props {
+type Props = {
   name: string;
   subroutes: SubNavigationMenuItem[];
-}
+};
 
 const NavigationMenu: FC<Props> = ({ name, subroutes }) => {
   return (

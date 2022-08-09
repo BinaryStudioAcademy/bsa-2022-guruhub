@@ -9,14 +9,7 @@ import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
-const iconNameToIcon: Record<
-  IconName,
-  FC<
-    SVGProps<SVGSVGElement> & {
-      title?: string;
-    }
-  >
-> = {
+const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   home: HomeIcon,
   course: CourseIcon,
   mentors: MentorsIcon,

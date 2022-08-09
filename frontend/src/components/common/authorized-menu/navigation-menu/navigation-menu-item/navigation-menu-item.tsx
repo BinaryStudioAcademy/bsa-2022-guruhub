@@ -5,12 +5,12 @@ import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
-interface Props {
+type Props = {
   href: AppRoute;
   isCurrentRoute: PathMatch<string> | null;
   iconName: IconName;
   routeName: string;
-}
+};
 
 const NavigationMenuItem: FC<Props> = ({
   href,
