@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import {
-  default as UIToast,
+import UIToast, {
   BaseToast,
   InfoToast,
   ErrorToast,

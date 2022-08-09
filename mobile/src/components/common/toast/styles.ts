@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   text1: {
     fontFamily: AppFontFamily.INTER_400,
     fontSize: 16,
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
 
   error: {
-    borderLeftColor: 'red',
+    borderLeftColor: AppColor.SUPPORT.ERROR_RED_100,
     backgroundColor: '#FBDDDD',
   },
 
@@ -40,3 +40,5 @@ export const styles = StyleSheet.create({
     color: AppColor.BRAND.GREEN_100,
   },
 });
+
+export { styles };

@@ -21,3 +21,4 @@ export {
   type FormControlPath,
 } from './form/form';
 export { type NotificationPayload } from './notification/notification-payload.type';
+export { type ShowNotificationType } from './notification/notification-service.type';
