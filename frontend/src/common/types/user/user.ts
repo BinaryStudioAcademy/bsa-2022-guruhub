@@ -5,4 +5,5 @@ export {
   type UserSignInResponseDto,
   type UserByIdResponse,
   type UserResponse,
+  type UserGetAllResponse,
 } from 'guruhub-shared/common/types/types';

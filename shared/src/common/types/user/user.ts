@@ -6,3 +6,4 @@ export {
 export { type UserSignInRequestDto } from './user-sign-in-request-dto.type';
 export { type UserSignInResponseDto } from './user-sign-in-response-dto.type';
 export { type UserResponse } from './user-response-dto.type';
+export { type UserGetAllResponse } from './user-get-all-response-dto.type';

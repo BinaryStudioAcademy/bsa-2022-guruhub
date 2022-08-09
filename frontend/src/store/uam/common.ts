@@ -1,5 +1,5 @@
 enum ActionType {
-  USERS = 'users',
+  GET_USERS = 'uam/get-users',
 }
 
 export { ActionType };

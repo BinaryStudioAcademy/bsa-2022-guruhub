@@ -5,5 +5,6 @@ export {
   type UserSignInResponseDto,
   type UserByIdResponse,
   type UserResponse,
+  type UserGetAllResponse,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

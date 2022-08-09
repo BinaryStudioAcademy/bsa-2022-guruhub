@@ -1,5 +1,5 @@
-import { HttpMethod, UsersApiPath } from 'common/enums/enums';
-import { UserResponse } from 'common/types/types';
+import { HttpMethod, ApiPath, UsersApiPath } from 'common/enums/enums';
+import { UserGetAllResponse } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -16,10 +16,13 @@ class UsersApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getUsers(): Promise<UserResponse[]> {
-    return this.#http.load(`${this.#apiPrefix}${UsersApiPath.USERS}`, {
-      method: HttpMethod.GET,
-    });
+  public getAll(): Promise<UserGetAllResponse> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
   }
 }
 

@@ -6,7 +6,7 @@ import { getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  users: UserResponse[] | null;
+  users: UserResponse[];
 };
 
 const initialState: State = {
@@ -20,7 +20,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getUsers.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.users = action.payload;
+    state.users = action.payload.items;
   });
   builder.addCase(getUsers.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
