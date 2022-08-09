@@ -1,5 +1,5 @@
-import React, { ComponentProps, FC } from 'react';
 import { Link as UILink } from '@react-navigation/native';
+import React, { ComponentProps, FC } from 'react';
 
 type Props = {
   label: string;

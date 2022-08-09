@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Provider as StoreProvider } from 'react-redux';
 
-import { store } from '~/store/store';
 import { App } from '~/components/app/app';
+import { store } from '~/store/store';
 
 const Root: FC = () => {
   return (

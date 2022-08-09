@@ -1,8 +1,8 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
+import { Navigate } from 'components/common/common';
 import { useAppSelector } from 'hooks/hooks';
 import { ReactNode } from 'react';
-import { Navigate } from 'components/common/common';
 
 type Props = {
   redirectTo?: AppRoute;

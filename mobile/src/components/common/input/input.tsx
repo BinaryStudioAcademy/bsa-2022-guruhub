@@ -3,12 +3,13 @@ import { TextInput } from 'react-native';
 
 import {
   FormControl,
-  FormControlPath,
   FormControlErrors,
+  FormControlPath,
   FormControlValues,
 } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
 import { useFormControl } from '~/hooks/hooks';
+
 import { styles } from './styles';
 
 type Props<T extends FormControlValues> = {

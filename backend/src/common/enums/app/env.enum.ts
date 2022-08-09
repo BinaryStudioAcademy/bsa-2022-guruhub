@@ -1,4 +1,5 @@
 import { config } from 'dotenv';
+
 import { AppEnvironment } from './app-environment.enum';
 
 config();
