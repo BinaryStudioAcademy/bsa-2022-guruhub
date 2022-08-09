@@ -1,6 +1,6 @@
 import authImage from 'assets/img/auth.png';
 import logo from 'assets/img/logo.svg';
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, DataStatus } from 'common/enums/enums';
 import {
   FC,
   UserSignInRequestDto,
@@ -8,7 +8,13 @@ import {
 } from 'common/types/types';
 import { Navigate } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
-import { useAppDispatch, useAppSelector, useLocation } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useLocation,
+  useNavigate,
+} from 'hooks/hooks';
 import { authActions } from 'store/actions';
 
 import { SignInForm, SignUpForm } from './components/components';
@@ -17,7 +23,8 @@ import styles from './styles.module.scss';
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, dataStatus } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const hasUser = Boolean(user);
 
@@ -28,6 +35,12 @@ const Auth: FC = () => {
   const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {
     dispatch(authActions.signUp(payload));
   };
+
+  useEffect(() => {
+    if (dataStatus === DataStatus.FULFILLED) {
+      navigate(AppRoute.ROOT);
+    }
+  }, [dataStatus]);
 
   const getScreen = (screen: string): React.ReactElement | null => {
     switch (screen) {
