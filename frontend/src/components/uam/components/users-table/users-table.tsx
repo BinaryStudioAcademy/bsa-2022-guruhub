@@ -1,15 +1,14 @@
-import { ReactElement } from 'react';
 import { Column } from 'react-table';
 import { Table } from 'components/common/common';
+import { FC, UsersGetAllItemResponseDto } from 'common/types/types';
 import styles from './styles.module.scss';
-import { UsersGetAllItemResponseDto } from 'guruhub-shared';
 
 type Props = {
   columns: Column<UsersGetAllItemResponseDto>[];
-  data: readonly UsersGetAllItemResponseDto[];
+  data: UsersGetAllItemResponseDto[];
 };
 
-const UsersTable = ({ columns, data }: Props): ReactElement => {
+const UsersTable: FC<Props> = ({ columns, data }: Props) => {
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>

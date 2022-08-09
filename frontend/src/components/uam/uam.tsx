@@ -3,9 +3,8 @@ import { Column } from 'react-table';
 import { useEffect, useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { FC, UsersGetAllItemResponseDto } from 'common/types/types';
 import { uamActions } from 'store/actions';
-import { UsersTable } from './components/users-table/users-table';
-import { getColumns } from './helpers/get-columns.helper';
-import { getRows } from './helpers/get-rows.helper';
+import { UsersTable } from './components/components';
+import { getColumns, getRows } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const UAM: FC = () => {
@@ -17,7 +16,7 @@ const UAM: FC = () => {
   }, []);
 
   const columns: Column<UsersGetAllItemResponseDto>[] = getColumns();
-  const rows: readonly UsersGetAllItemResponseDto[] = getRows(users);
+  const rows: UsersGetAllItemResponseDto[] = getRows(users);
 
   return (
     <div className={styles.uam}>

@@ -1,4 +1,4 @@
-import { UsersGetAllItemResponseDto } from 'guruhub-shared';
+import { UsersGetAllItemResponseDto } from 'common/types/types';
 import { Column } from 'react-table';
 
 const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
