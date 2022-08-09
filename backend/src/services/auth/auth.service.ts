@@ -10,8 +10,12 @@ import {
   encrypt as encryptServ,
   token as tokenServ,
 } from '~/services/services';
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
-import { AuthError } from '~/exceptions/exceptions';
+import {
+  CustomExceptionName,
+  HttpCode,
+  ValidationMessage,
+} from '~/common/enums/enums';
+import { AuthError, InvalidCredentialsError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -92,6 +96,20 @@ class Auth {
       user,
       token,
     };
+  }
+
+  async currentUser(token: string): Promise<UserByIdResponse | null> {
+    try {
+      const { userId } = await this.#tokenService.decode(token);
+      const user = await this.#userService.getById(userId as string);
+
+      return user;
+    } catch {
+      throw new InvalidCredentialsError({
+        status: HttpCode.UNAUTHORIZED,
+        message: CustomExceptionName.INVALID_CREDENTIALS,
+      });
+    }
   }
 }
 

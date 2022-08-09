@@ -1,4 +1,11 @@
-import { SignJWT, generateSecret, JWTVerifyResult, jwtVerify } from 'jose';
+import {
+  SignJWT,
+  generateSecret,
+  JWTVerifyResult,
+  jwtVerify,
+  decodeJwt,
+  JWTPayload,
+} from 'jose';
 import { TokenPayload } from '~/common/types/types';
 
 type Constructor = {
@@ -29,6 +36,9 @@ class Token {
 
     return jwtVerify(token, secretKey);
   }
-}
 
+  async decode(token: string): Promise<JWTPayload> {
+    return decodeJwt(token);
+  }
+}
 export { Token };

@@ -41,7 +41,7 @@ const getCurrentUser = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.FETCH_CURRENT_USER, async (_payload, { extra }) => {
   const { authApi } = extra;
-  const { user } = await authApi.getCurrentUser();
+  const user = await authApi.getCurrentUser();
 
   return user;
 });

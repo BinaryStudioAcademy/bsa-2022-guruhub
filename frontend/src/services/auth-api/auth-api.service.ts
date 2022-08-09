@@ -9,6 +9,7 @@ import {
   UserSignUpResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
+  UserByIdResponse,
 } from 'common/types/types';
 import { Http } from '../http/http.service';
 
@@ -48,11 +49,11 @@ class AuthApi {
     );
   }
 
-  public getCurrentUser(): Promise<UserSignInResponseDto> {
+  public getCurrentUser(): Promise<UserByIdResponse> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
       {
-        method: HttpMethod.POST,
+        method: HttpMethod.GET,
         contentType: ContentType.JSON,
       },
     );

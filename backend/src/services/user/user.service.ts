@@ -67,6 +67,19 @@ class User {
       passwordSalt: user.passwordSalt,
     };
   }
+
+  async getById(id: string): Promise<UserByIdResponse | null> {
+    const user = await this.#userRepository.getById(id);
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+    };
+  }
 }
 
 export { User };

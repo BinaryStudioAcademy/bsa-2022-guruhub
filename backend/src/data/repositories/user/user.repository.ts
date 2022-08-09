@@ -25,6 +25,12 @@ class User {
     return user ?? null;
   }
 
+  async getById(id: string): Promise<UserM | null> {
+    const user = await this.#UserModel.query().select().where({ id }).first();
+
+    return user ?? null;
+  }
+
   async create(user: {
     email: string;
     fullName: string;
