@@ -8,6 +8,7 @@ import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
+
 import { Http } from '../http/http.service';
 
 type Constructor = {

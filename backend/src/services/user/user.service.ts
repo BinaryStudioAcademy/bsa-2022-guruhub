@@ -1,8 +1,8 @@
 import {
-  UserSignUpRequestDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetAllResponseDto,
+  UserSignUpRequestDto,
 } from '~/common/types/types';
 import {
   user as userRep,
@@ -48,7 +48,9 @@ class User {
       }),
     );
 
-    return usersWithGroups;
+    return {
+      items: usersWithGroups,
+    };
   }
 
   async create({

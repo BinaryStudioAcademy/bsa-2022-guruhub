@@ -29,4 +29,4 @@ async function down(knex: Knex): Promise<void> {
   return knex.schema.dropTableIfExists(TABLE_NAME);
 }
 
-export { up, down };
+export { down, up };

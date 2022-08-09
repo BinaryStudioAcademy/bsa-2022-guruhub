@@ -32,4 +32,4 @@ async function down(knex: Knex): Promise<void> {
   });
 }
 
-export { up, down };
+export { down, up };

@@ -1,15 +1,15 @@
+import { StringCase } from '~/common/enums/enums';
 import {
   GroupsCreateRequestDto,
   GroupsResponseDto,
 } from '~/common/types/types';
-import {
-  permission as permissionServ,
-  groupsToPermissions as groupsToPermissionsServ,
-  usersToGroups as usersToGroupsServ,
-} from '~/services/services';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { changeStringCase } from '~/helpers/helpers';
-import { StringCase } from '~/common/enums/enums';
+import {
+  groupsToPermissions as groupsToPermissionsServ,
+  permission as permissionServ,
+  usersToGroups as usersToGroupsServ,
+} from '~/services/services';
 
 type Constructor = {
   groupsRepository: typeof groupsRep;

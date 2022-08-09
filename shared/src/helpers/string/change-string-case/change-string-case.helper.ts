@@ -1,4 +1,5 @@
-import { paramCase, Options, snakeCase } from 'change-case';
+import { Options, paramCase, snakeCase } from 'change-case';
+
 import { StringCase } from '~/common/enums/case/case.enum';
 
 const caseTypeToFn: Record<StringCase, typeof paramCase> = {

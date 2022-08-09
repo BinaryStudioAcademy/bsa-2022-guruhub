@@ -1,8 +1,9 @@
 import * as Joi from 'joi';
-import { getNameOf } from '~/helpers/helpers';
-import { GroupsCreateRequestDto } from '~/common/types/types';
+
 import { GroupValidationRule } from '~/common/enums/enums';
 import { GroupValidationMessage } from '~/common/enums/group/group';
+import { GroupsCreateRequestDto } from '~/common/types/types';
+import { getNameOf } from '~/helpers/helpers';
 
 const groupCreate = Joi.object({
   [getNameOf<GroupsCreateRequestDto>('name')]: Joi.string()

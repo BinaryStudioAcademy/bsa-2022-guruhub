@@ -1,13 +1,14 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
-import { HttpCode, HttpMethod, AuthApiPath } from '~/common/enums/enums';
+
+import { AuthApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
   UserSignInRequestDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
 import { auth as authService } from '~/services/services';
 import {
-  userSignUp as userSignUpValidationSchema,
   userSignIn as userSignInValidationSchema,
+  userSignUp as userSignUpValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {

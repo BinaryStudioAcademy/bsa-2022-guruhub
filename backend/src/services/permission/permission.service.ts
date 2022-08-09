@@ -1,5 +1,5 @@
-import { permission as permissionRep } from '~/data/repositories/repositories';
 import { PermissionsGetAllResponseDto } from '~/common/types/types';
+import { permission as permissionRep } from '~/data/repositories/repositories';
 
 type Constructor = {
   permissionRepository: typeof permissionRep;

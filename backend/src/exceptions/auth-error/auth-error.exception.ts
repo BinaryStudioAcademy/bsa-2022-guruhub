@@ -1,4 +1,5 @@
-import { HttpError } from '~/exceptions/exceptions';
+import { HttpError } from 'guruhub-shared/exceptions/exceptions';
+
 import { CustomExceptionName } from '~/common/enums/enums';
 
 type Constructor = {

@@ -1,5 +1,5 @@
-import { Resolver } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
+import { Resolver } from 'react-hook-form';
 
 import { FormControlValues, ValidationSchema } from '~/common/types/types';
 

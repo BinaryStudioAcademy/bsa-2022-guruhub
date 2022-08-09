@@ -2,10 +2,11 @@ import { FastifyPluginAsync } from 'fastify';
 
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
-import { auth, permission, group, user } from '~/services/services';
+import { auth, group, permission, user } from '~/services/services';
+
 import { initAuthApi } from './auth/auth.api';
-import { initPermissionsApi } from './permissions/permissions.api';
 import { initGroupsApi } from './groups/groups.api';
+import { initPermissionsApi } from './permissions/permissions.api';
 import { initUsersApi } from './users/users.api';
 
 const initApi: FastifyPluginAsync = async (fastify) => {

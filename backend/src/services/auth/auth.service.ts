@@ -1,17 +1,17 @@
+import { HttpCode, ValidationMessage } from '~/common/enums/enums';
 import {
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-  UsersByIdResponseDto,
 } from '~/common/types/types';
+import { AuthError } from '~/exceptions/exceptions';
 import {
-  user as userServ,
   encrypt as encryptServ,
   token as tokenServ,
+  user as userServ,
 } from '~/services/services';
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
-import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
