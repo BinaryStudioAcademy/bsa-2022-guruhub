@@ -1,7 +1,7 @@
 import { AppRoute } from 'common/enums/enums';
-import { Route } from 'common/types/types';
+import { NavigationMenuItem } from 'common/types/types';
 
-const routes: Route[] = [
+const routes: NavigationMenuItem[] = [
   {
     name: 'Menu',
     subroutes: [

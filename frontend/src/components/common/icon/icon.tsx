@@ -9,11 +9,11 @@ import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
-const icons: Record<
+const iconNameToIcon: Record<
   IconName,
   FC<
     SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
+      title?: string;
     }
   >
 > = {
@@ -31,7 +31,7 @@ type Props = {
 };
 
 const Icon: FC<Props> = ({ name, className }) => {
-  const SelectedIcon = icons[name];
+  const SelectedIcon = iconNameToIcon[name];
 
   return <SelectedIcon className={getValidClasses(styles.icon, className)} />;
 };
