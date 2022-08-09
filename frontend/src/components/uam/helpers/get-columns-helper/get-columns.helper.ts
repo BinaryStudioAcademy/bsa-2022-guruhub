@@ -1,5 +1,8 @@
-import { UserTableAccessor, UserTableHeader } from 'common/enums/enums';
 import { UsersGetAllItemResponseDto } from 'common/types/types';
+import {
+  UserTableAccessor,
+  UserTableHeader,
+} from 'components/uam/common/enums/enums';
 import { Column } from 'react-table';
 
 const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
