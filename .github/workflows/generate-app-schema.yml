@@ -1,7 +1,7 @@
 name: Generate app schema
 
 on:
-  pull_request:
+  push:
     paths:
       - docs/app-architecture/**/*.*
       - .github/workflows/generate-app-schema.yml
