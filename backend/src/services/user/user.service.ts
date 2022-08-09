@@ -24,10 +24,14 @@ class User {
   async getAll(): Promise<UsersGetAllResponseDto> {
     const users = await this.#userRepository.getAll();
 
-    return users.map((user) => ({
+    const items = users.map((user) => ({
       id: user.id,
       email: user.email,
     }));
+
+    return {
+      items,
+    };
   }
 
   async create({

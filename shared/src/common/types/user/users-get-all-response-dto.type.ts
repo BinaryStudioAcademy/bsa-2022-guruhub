@@ -1,5 +1,7 @@
 import { UsersGetAllItemResponseDto } from './users-get-all-item-response-dto.type';
 
-type UsersGetAllResponseDto = UsersGetAllItemResponseDto[];
+type UsersGetAllResponseDto = {
+  items: UsersGetAllItemResponseDto[];
+};
 
 export { type UsersGetAllResponseDto };

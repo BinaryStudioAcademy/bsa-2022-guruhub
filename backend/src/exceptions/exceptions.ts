@@ -1,2 +1,2 @@
-export { AuthError } from '~/exceptions/auth-error/auth-error';
+export { AuthError } from './auth-error/auth-error.exception';
 export { HttpError } from 'guruhub-shared/exceptions/exceptions';
