@@ -35,4 +35,13 @@ const signIn = createAsyncThunk<
   return user;
 });
 
-export { signUp, signIn };
+const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.LOGOUT,
+  (_request, { extra }) => {
+    const { storage } = extra;
+
+    storage.removeItem(StorageKey.TOKEN);
+  },
+);
+
+export { signUp, signIn, logout };
