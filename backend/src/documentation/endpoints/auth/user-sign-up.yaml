@@ -16,3 +16,7 @@ post:
             $ref: '../../schemas/auth/user-sign-up-response-dto.yaml'
     '400':
       description: Invalid data
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/error-dto.yaml'
