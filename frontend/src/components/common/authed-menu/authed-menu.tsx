@@ -10,15 +10,10 @@ const AuthedMenu: FC = () => {
 
   return (
     <div className={styles.menu}>
-      {routes.map(({ name, subroutes }, idx) => (
+      {routes.map(({ name, subroutes }) => (
         <div key={name}>
           <h4 className={styles.title}>{name}</h4>
-          <div
-            className={getValidClasses(
-              styles.links,
-              idx !== routes.length - 1 && styles.bottomLine,
-            )}
-          >
+          <div className={getValidClasses(styles.links, styles.bottomLine)}>
             {subroutes.map(({ name: routeName, Icon, href }) => {
               const isCurrentRoute = pathname === href;
 

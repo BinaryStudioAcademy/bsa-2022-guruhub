@@ -20,7 +20,7 @@
   padding-right: 0;
 }
 
-.bottomLine {
+.bottomLine:not(:last-child) {
   border-bottom: 2px solid var(--background-gray-400);
 }
 
@@ -49,4 +49,12 @@
 .linkSelected {
   color: white;
   background-color: var(--brand-blue-100);
+}
+
+.link:hover {
+  color: white;
+}
+
+.link:hover .icon {
+  fill: white;
 }
