@@ -8,9 +8,16 @@ paths:
   # Auth
   /auth/sign-up:
     $ref: './endpoints/auth/user-sign-up.yaml'
+  /auth/sign-in:
+    $ref: './endpoints/auth/user-sign-in.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
       $ref: './schemas/auth/user-sign-up-request-dto.yaml'
     UserSignUpResponseDto:
       $ref: './schemas/auth/user-sign-up-response-dto.yaml'
+    UserSignInRequestDto:
+      $ref: './schemas/auth/user-sign-in-request-dto.yaml'
+    UserSignInResponseDto:
+      $ref: './schemas/auth/user-sign-in-response-dto.yaml'
+

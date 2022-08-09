@@ -1,6 +1,6 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { HttpCode, HttpMethod, UserPath } from '~/common/enums/enums';
+import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
 import { UserDeleteRequestRaramsDto } from '~/common/types/types';
 import { user as userService } from '~/services/services';
 import { userDelete as userDeleteRequestParamsValidationSchema } from '~/validation-schemas/validation-schemas';
@@ -15,8 +15,18 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const { user: userService } = opts.services;
 
   fastify.route({
+    method: HttpMethod.GET,
+    url: UsersApiPath.ROOT,
+    async handler(req, rep) {
+      const users = await userService.getAll();
+
+      return rep.status(HttpCode.OK).send(users);
+    },
+  });
+
+  fastify.route({
     method: HttpMethod.DELETE,
-    url: `${UserPath.$ID}`,
+    url: UsersApiPath.$ID,
     schema: { params: userDeleteRequestParamsValidationSchema },
     async handler(
       req: FastifyRequest<{ Params: UserDeleteRequestRaramsDto }>,
