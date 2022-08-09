@@ -1,1 +1,1 @@
-export { type ValidationSchema } from 'guruhub-shared/common/types/validation/validation';
+export { type ValidationSchema } from 'guruhub-shared/common/types/types';

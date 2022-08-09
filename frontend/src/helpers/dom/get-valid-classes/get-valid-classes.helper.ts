@@ -1,4 +1,4 @@
-import { clsx, ClassValue } from 'clsx';
+import { ClassValue, clsx } from 'clsx';
 
 const getValidClasses = (...values: ClassValue[]): string => clsx(values);
 

@@ -6,12 +6,19 @@ export {
   type FormControlValues,
 } from './form/form';
 export { type HttpOptions } from './http/http';
-export { type FC } from './react/react';
 export {
-  type UserSignUpRequestDto,
-  type UserSignUpResponseDto,
+  type NavigationMenuItem,
+  type SubNavigationMenuItem,
+} from './navigation-menu/navigation-menu';
+export { type FC, type SVGProps } from './react/react';
+export { type IconName } from './ui/ui';
+export {
+  type UsersByIdResponseDto,
+  type UsersGetAllItemResponseDto,
+  type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
-  type UserByIdResponse,
+  type UserSignUpRequestDto,
+  type UserSignUpResponseDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

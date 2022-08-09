@@ -1,5 +1,3 @@
-import { useForm, UseFormHandleSubmit } from 'react-hook-form';
-
 import {
   FormControl,
   FormControlErrors,
@@ -7,6 +5,7 @@ import {
   ValidationSchema,
 } from 'common/types/types';
 import { getFormValidationResolver } from 'helpers/helpers';
+import { useForm, UseFormHandleSubmit } from 'react-hook-form';
 
 type UseAppFormArgs = {
   defaultValues: Record<string, unknown>;

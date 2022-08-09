@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Text as UIText } from 'react-native';
 
+
 import { TextStyle } from '~/common/types/types';
 import { styles } from './styles';
 
