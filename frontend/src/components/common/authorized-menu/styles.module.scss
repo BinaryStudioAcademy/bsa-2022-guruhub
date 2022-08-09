@@ -1,8 +1,7 @@
 .menu {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
-  max-width: 270px;
+  min-width: 270px;
   padding: 40px;
   background-color: var(--background-gray-300);
 }
