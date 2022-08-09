@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-
 import { DataStatus } from 'common/enums/enums';
 import { UsersByIdResponseDto } from 'common/types/types';
-import { signUp } from './actions';
+
+import { logout, signIn, signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -18,12 +18,32 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(signUp.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(signUp.fulfilled, (state, action) => {
+  builder.addCase(signIn.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(signUp.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.user = action.payload;
+    state.user = payload;
+  });
+  builder.addCase(signIn.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.user = payload;
+  });
+  builder.addCase(logout.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.user = null;
   });
   builder.addCase(signUp.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
+  });
+  builder.addCase(signIn.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
+  });
+  builder.addCase(logout.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
   });
 });
 

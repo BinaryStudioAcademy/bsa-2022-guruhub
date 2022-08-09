@@ -41,7 +41,7 @@ This is the repository responsible for GuruHub's apps.
 
 ```mermaid
 erDiagram
-    users }|--|| groups : group_id
+
     users {
       int id PK
       dateTime created_at
@@ -60,6 +60,16 @@ erDiagram
       varchar key
   }
 
+  users_to_groups }|--|| groups : group_id
+  users_to_groups }|--|| users : user_id
+  users_to_groups {
+      int id PK
+      dateTime created_at
+      dateTime updated_at
+      int group_id FK "unique (group_id user_id)"
+      int user_id FK "unique (group_id user_id)"
+  }
+
   permissions {
       int id PK
       dateTime created_at
@@ -76,7 +86,6 @@ erDiagram
       dateTime updated_at
       int permission_id FK "unique (permission_id group_id)"
       int group_id FK "unique (permission_id group_id)"
-      boolean is_allowed
   }
 
   user_details ||--|| users : user_id
@@ -212,6 +221,16 @@ erDiagram
 
 - **`production`** - production source code.
 - **`development`** - staging source code.
+
+#### 👍👎 Pull Request flow
+
+```
+<project-prefix>-<ticket-number>: <ticket-title>
+```
+
+##### Example:
+
+`blog-5: Add form component`
 
 #### 🌳 Branch flow
 

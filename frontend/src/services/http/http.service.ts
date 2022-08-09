@@ -1,6 +1,6 @@
-import { HttpError } from 'exceptions/exceptions';
 import { HttpHeader, HttpMethod } from 'common/enums/enums';
 import { HttpOptions } from 'common/types/types';
+import { HttpError } from 'exceptions/exceptions';
 
 class Http {
   async load<T = unknown>(

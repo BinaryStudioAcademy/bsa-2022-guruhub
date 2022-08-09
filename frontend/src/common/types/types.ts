@@ -6,13 +6,16 @@ export {
   type FormControlValues,
 } from './form/form';
 export { type HttpOptions } from './http/http';
+export { type PermissionsGroupCreationDto } from './permissions/permissions';
 export { type FC } from './react/react';
 export {
-  type UserSignUpRequestDto,
-  type UserSignUpResponseDto,
   type UsersByIdResponseDto,
   type UsersGetAllItemResponseDto,
   type UsersGetAllResponseDto,
   type UsersGroupCreationDto,
+  type UserSignInRequestDto,
+  type UserSignInResponseDto,
+  type UserSignUpRequestDto,
+  type UserSignUpResponseDto,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

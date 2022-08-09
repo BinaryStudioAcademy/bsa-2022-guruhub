@@ -1,7 +1,8 @@
 type UsersGetAllItemResponseDto = {
   id: number;
   email: string;
-  name: string;
+  fullName: string;
+  createdAt: string;
 };
 
 export { type UsersGetAllItemResponseDto };

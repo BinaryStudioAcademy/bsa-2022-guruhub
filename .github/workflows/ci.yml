@@ -7,7 +7,7 @@ on:
       - production
 
 jobs:
-  lint:
+  ci:
     runs-on: ubuntu-latest
 
     steps:

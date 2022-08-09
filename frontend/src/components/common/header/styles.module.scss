@@ -1,0 +1,35 @@
+.headerWrapper {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  min-height: 96px;
+  background-color: var(--background-gray-300);
+  box-shadow: inset 1px #2c2b3e;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 270px;
+  border-right: 1px solid;
+}
+
+.userWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 94px;
+  height: 94px;
+}
+
+.popup {
+  margin-left: auto;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+}

@@ -1,7 +1,7 @@
 enum UserTableAccesson {
   ID = 'id',
   EMAIL = 'email',
-  FULL_NAME = 'name',
+  FULL_NAME = 'fullName',
   CHECKBOX = 'checkbox',
 }
 

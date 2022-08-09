@@ -1,15 +1,28 @@
+import authImage from 'assets/img/auth.png';
+import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
-import { UserSignUpRequestDto, FC } from 'common/types/types';
-import { useAppDispatch, useLocation } from 'hooks/hooks';
+import {
+  FC,
+  UserSignInRequestDto,
+  UserSignUpRequestDto,
+} from 'common/types/types';
+import { Navigate } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
+import { useAppDispatch, useAppSelector, useLocation } from 'hooks/hooks';
 import { authActions } from 'store/actions';
-import { SignUpForm, SignInForm } from './components/components';
+
+import { SignInForm, SignUpForm } from './components/components';
+import styles from './styles.module.scss';
 
 const Auth: FC = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
+  const { user } = useAppSelector((state) => state.auth);
 
-  const handleSignInSubmit = (): void => {
-    // handle sign in
+  const hasUser = Boolean(user);
+
+  const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
+    dispatch(authActions.signIn(payload));
   };
 
   const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {
@@ -29,7 +42,28 @@ const Auth: FC = () => {
     return null;
   };
 
-  return <>{getScreen(pathname)}</>;
+  if (!hasUser) {
+    <Navigate to={AppRoute.ROOT} />;
+  }
+
+  return (
+    <>
+      <div className={styles.main}>
+        <div className={styles.background}>
+          <div className={getValidClasses(styles.circle, styles.circleFirst)} />
+          <div className={getValidClasses(styles.circle, styles.circleSecond)}>
+            <img src={logo} className={styles.logo} />
+            <img src={authImage} />
+          </div>
+          <div className={getValidClasses(styles.circle, styles.circleThird)} />
+          <div
+            className={getValidClasses(styles.circle, styles.circleFourth)}
+          />
+        </div>
+        {getScreen(pathname)}
+      </div>
+    </>
+  );
 };
 
 export { Auth };

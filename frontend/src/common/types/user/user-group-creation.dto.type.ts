@@ -1,7 +1,8 @@
 type UsersGroupCreationDto = {
   checkbox: JSX.Element;
-  name: string;
+  fullName: string;
   email: string;
+  id: number;
 };
 
 export { UsersGroupCreationDto };

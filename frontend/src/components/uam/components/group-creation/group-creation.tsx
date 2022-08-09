@@ -1,65 +1,44 @@
-import { Table } from 'components/common/table/table';
-import { Column } from 'react-table';
-import styles from './group-creation.module.scss';
 import { FC } from 'common/types/types';
-import { Button, Checkbox } from 'components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
+import { Button } from 'components/common/common';
+import { Table } from 'components/common/table/table';
+import {
+  getGroupCreationPermissionColumns,
+  getGroupCreationUserColumns,
+} from 'helpers/get-columns-helper/get-columns.helper';
+import {
+  getGroupCreationPermissionRows,
+  getGroupCreationUserRows,
+} from 'helpers/get-rows-helper/get-rows.helper';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useNavigate,
+} from 'hooks/hooks';
 import { uamActions } from 'store/actions';
-import { getGroupCreationRows } from 'helpers/get-rows-helper/get-rows.helper';
-import { getGroupCreationColumns } from 'helpers/get-columns-helper/get-columns.helper';
+
+import styles from './group-creation.module.scss';
 
 const GroupCreation: FC = () => {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
+  const { permissions } = useAppSelector((state) => state.uam);
+  const navigate = useNavigate();
+
+  const handleCancelClick = (): void => {
+    navigate('/uam');
+  };
 
   useEffect(() => {
     dispatch(uamActions.getUsers());
+    dispatch(uamActions.getPermissions());
   }, []);
 
-  const rows = getGroupCreationRows(users);
-  const columns = getGroupCreationColumns();
+  const userRows = getGroupCreationUserRows(users);
+  const userColumns = getGroupCreationUserColumns();
 
-  const testData2 = [
-    {
-      checkbox: (
-        <Checkbox
-          styles={{
-            wrapperClass: styles.checkboxWrapper,
-            inputClass: styles.checked,
-          }}
-        />
-      ),
-      email: 'manage-bs',
-      fullname: '2 months ago',
-    },
-    {
-      col1: (
-        <Checkbox
-          styles={{
-            wrapperClass: styles.checkboxWrapper,
-            inputClass: styles.checked,
-          }}
-        />
-      ),
-      col2: 'manage-eam',
-      col3: '2 months ago',
-    },
-  ];
-
-  const testCols2 = [
-    {
-      Header: '',
-      accessor: 'id',
-    },
-    {
-      Header: 'Policy name',
-      accessor: 'email',
-    },
-    {
-      Header: 'Created',
-      accessor: 'fullName',
-    },
-  ];
+  const permissionColumns = getGroupCreationPermissionColumns();
+  const permissionRows = getGroupCreationPermissionRows(permissions);
 
   return (
     <div className={styles.main}>
@@ -71,22 +50,23 @@ const GroupCreation: FC = () => {
           <h5 className={styles.groupSubHeading}>
             Add workers to the Group - Optional
           </h5>
-          <Table data={rows} columns={columns} />
+          <Table data={userRows} columns={userColumns} />
           <span className={styles.groupWorkersAmount}>
-            {users.length} results
+            {users.items.length} results
           </span>
         </div>
         <div className={styles.groupPermissions}>
           <h5 className={styles.groupSubHeading}>
             Attach permissions policies
           </h5>
-          <Table data={testData2} columns={testCols2 as Column[]} />
+          <Table data={permissionRows} columns={permissionColumns} />
         </div>
         <div className={styles.btnsWrapper}>
           <Button
             type={'button'}
             label={'Cancel'}
             className={styles.btnSecondary}
+            onClick={handleCancelClick}
           />
           <Button
             type={'button'}

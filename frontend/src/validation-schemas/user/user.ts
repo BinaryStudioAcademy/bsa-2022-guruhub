@@ -1,1 +1,4 @@
-export { userSignUp } from 'guruhub-shared/validation-schemas/user/user';
+export {
+  userSignIn,
+  userSignUp,
+} from 'guruhub-shared/validation-schemas/validation-schemas';

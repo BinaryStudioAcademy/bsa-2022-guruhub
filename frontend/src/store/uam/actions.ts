@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AsyncThunkConfig, UsersGetAllResponseDto } from 'common/types/types';
+import { PermissionsGetAllResponseDto } from 'guruhub-shared';
+
 import { ActionType } from './common';
 
 const getUsers = createAsyncThunk<
@@ -13,4 +15,15 @@ const getUsers = createAsyncThunk<
   return users;
 });
 
-export { getUsers };
+const getPermissions = createAsyncThunk<
+  PermissionsGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_PERMISSIONS, async (_, { extra }) => {
+  const { permissionsApi } = extra;
+  const permissions = await permissionsApi.getAll();
+
+  return permissions;
+});
+
+export { getPermissions, getUsers };

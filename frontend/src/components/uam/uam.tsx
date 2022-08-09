@@ -1,6 +1,7 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { useLocation } from 'hooks/hooks';
+
 import { GroupCreation } from './components/components';
 
 const Uam: FC = () => {

@@ -1,5 +1,6 @@
 import { FC } from 'common/types/types';
 import { useState } from 'react';
+
 import styles from '../../uam/components/group-creation/group-creation.module.scss';
 
 type Props = {

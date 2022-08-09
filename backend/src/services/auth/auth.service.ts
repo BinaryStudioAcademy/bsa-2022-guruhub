@@ -1,3 +1,4 @@
+import { HttpCode, ValidationMessage } from '~/common/enums/enums';
 import {
   UsersByIdResponseDto,
   UserSignInRequestDto,
@@ -5,13 +6,12 @@ import {
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
+import { AuthError } from '~/exceptions/exceptions';
 import {
-  user as userServ,
   encrypt as encryptServ,
   token as tokenServ,
+  user as userServ,
 } from '~/services/services';
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
-import { AuthError } from '~/exceptions/exceptions';
 
 type Constructor = {
   userService: typeof userServ;
@@ -79,7 +79,12 @@ class Auth {
       });
     }
 
-    return { id: user.id, email: user.email };
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    };
   }
 
   async signIn(

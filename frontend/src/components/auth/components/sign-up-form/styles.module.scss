@@ -1,0 +1,39 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600px;
+  margin-right: 60px;
+  padding: 40px;
+  color: white;
+  background-color: var(--background-gray-400);
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formTitle {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.formTitle,
+.formLink {
+  margin: 0;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 0;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

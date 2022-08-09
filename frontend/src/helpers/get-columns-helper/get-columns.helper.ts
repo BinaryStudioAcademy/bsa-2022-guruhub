@@ -1,4 +1,5 @@
 import {
+  PermissionsGroupCreationDto,
   UsersGetAllItemResponseDto,
   UsersGroupCreationDto,
 } from 'common/types/types';
@@ -17,7 +18,7 @@ const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
   ];
 };
 
-const getGroupCreationColumns = (): Column<UsersGroupCreationDto>[] => {
+const getGroupCreationUserColumns = (): Column<UsersGroupCreationDto>[] => {
   return [
     {
       Header: '',
@@ -25,13 +26,39 @@ const getGroupCreationColumns = (): Column<UsersGroupCreationDto>[] => {
     },
     {
       Header: 'Name',
-      accessor: 'name',
+      accessor: 'fullName',
     },
     {
       Header: 'Email',
       accessor: 'email',
     },
+    {
+      Header: 'Worker ID',
+      accessor: 'id',
+    },
   ];
 };
 
-export { getColumns, getGroupCreationColumns };
+const getGroupCreationPermissionColumns =
+  (): Column<PermissionsGroupCreationDto>[] => {
+    return [
+      {
+        Header: '',
+        accessor: 'checkbox',
+      },
+      {
+        Header: 'Policy name',
+        accessor: 'name',
+      },
+      {
+        Header: 'Policy ID',
+        accessor: 'id',
+      },
+    ];
+  };
+
+export {
+  getColumns,
+  getGroupCreationPermissionColumns,
+  getGroupCreationUserColumns,
+};

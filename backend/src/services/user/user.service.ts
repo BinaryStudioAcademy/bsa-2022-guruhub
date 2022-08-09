@@ -1,7 +1,8 @@
 import {
-  UserSignUpRequestDto,
-  UserByEmailDto,
+  UsersByEmailResponseDto,
   UsersByIdResponseDto,
+  UsersGetAllResponseDto,
+  UserSignUpRequestDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -20,14 +21,17 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  async getAll(): Promise<UsersByIdResponseDto[]> {
+  async getAll(): Promise<UsersGetAllResponseDto> {
     const users = await this.#userRepository.getAll();
 
-    return users.map((user) => ({
-      id: user.id,
-      email: user.email,
-      name: user.fullName,
-    }));
+    return {
+      items: users.map((user) => ({
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        createdAt: user.createdAt,
+      })),
+    };
   }
 
   async create({
@@ -51,10 +55,12 @@ class User {
     return {
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
     };
   }
 
-  async getByEmail(email: string): Promise<UserByEmailDto | null> {
+  async getByEmail(email: string): Promise<UsersByEmailResponseDto | null> {
     const user = await this.#userRepository.getByEmail(email);
 
     if (!user) {
@@ -64,8 +70,10 @@ class User {
     return {
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
       passwordHash: user.passwordHash,
       passwordSalt: user.passwordSalt,
+      createdAt: user.createdAt,
     };
   }
 }
