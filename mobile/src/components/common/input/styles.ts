@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_100,
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 6,
+    borderWidth: 2,
     paddingStart: 15,
     paddingTop: 7,
     paddingBottom: 7,

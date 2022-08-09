@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { TextInput, ViewStyle as UIViewStyle } from 'react-native';
 import { AppColor } from '~/common/enums/enums';
 
@@ -38,6 +38,18 @@ const Input = <T extends FormControlValues>({
   const { value, onChange, onBlur } = field;
   const error = errors[name]?.message as string;
 
+  const [borderColor, setBorderColor] = useState('');
+
+  useEffect(() => {
+    if (error) {
+      setBorderColor(AppColor.SUPPORT.ERROR_RED_100);
+    } else if (!error && value) {
+      setBorderColor(AppColor.BRAND.BLUE_100);
+    } else {
+      setBorderColor(AppColor.BACKGROUND.GRAY_300);
+    }
+  }, [error]);
+
   return (
     <View>
       <Text style={{ ...styles.label, ...labelStyle }}>{label}</Text>
@@ -46,8 +58,14 @@ const Input = <T extends FormControlValues>({
         placeholder={placeholder}
         placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
-        onBlur={onBlur}
-        style={{ ...styles.input, ...inputStyle }}
+        onFocus={(): void | boolean =>
+          !error && setBorderColor(AppColor.BRAND.BLUE_100)
+        }
+        onBlur={(): void | boolean => {
+          !error && setBorderColor(AppColor.BACKGROUND.GRAY_300);
+          onBlur;
+        }}
+        style={{ ...styles.input, ...inputStyle, borderColor }}
         secureTextEntry={true && name === 'password'}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}

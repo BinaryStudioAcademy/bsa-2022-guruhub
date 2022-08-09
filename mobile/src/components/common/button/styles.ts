@@ -3,8 +3,8 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: AppColor.BRAND.BLUE_100,
     borderRadius: 28,
+    backgroundColor: AppColor.BRAND.BLUE_100,
     alignItems: 'center',
     paddingTop: 16,
     paddingBottom: 16,
