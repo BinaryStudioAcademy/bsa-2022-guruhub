@@ -1,4 +1,4 @@
-export { Routes, Route } from 'react-router-dom';
+export { Routes, Route, Navigate } from 'react-router-dom';
 export { ErrorMessage } from '@hookform/error-message';
 
 export { Button } from './button/button';
