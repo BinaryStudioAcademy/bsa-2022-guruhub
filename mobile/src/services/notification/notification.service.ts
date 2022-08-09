@@ -2,7 +2,7 @@ import Toast from 'react-native-toast-message';
 
 import { NotificationType } from '~/common/enums/enums';
 
-import { ShowNotificationType } from './common/types/types';
+import { ShowNotificationParams } from './common/types/types';
 
 class Notification {
   public [NotificationType.ERROR](message: string): void {
@@ -29,7 +29,7 @@ class Notification {
     });
   }
 
-  private showNotification(props: ShowNotificationType): void {
+  private showNotification(props: ShowNotificationParams): void {
     Toast.show({
       type: props.type,
       text1: props.title,

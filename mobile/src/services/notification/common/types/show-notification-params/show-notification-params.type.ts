@@ -1,9 +1,9 @@
 import { NotificationType } from '~/common/enums/enums';
 
-type ShowNotificationType = {
+type ShowNotificationParams = {
   type: NotificationType;
   title: string;
   message: string;
 };
 
-export { type ShowNotificationType };
+export { type ShowNotificationParams };

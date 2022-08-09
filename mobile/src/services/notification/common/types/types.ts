@@ -1,1 +1,1 @@
-export { type ShowNotificationType } from './show-notification-params/notification-service.type';
+export { type ShowNotificationParams } from './show-notification-params/show-notification-params.type';
