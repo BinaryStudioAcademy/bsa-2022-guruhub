@@ -23,7 +23,7 @@ with Diagram('Guruhub', direction='LR', filename='app-arch', curvestyle='curved'
 
         rds - postgres
 
-      with Cluster('Auto-scaling'):
+      with Cluster('Auto Scaling'):
         ec2 = EC2('EC2')
         node_js = Nodejs('Node.js')
 
