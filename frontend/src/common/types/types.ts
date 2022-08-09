@@ -6,11 +6,12 @@ export {
   type FormControlValues,
 } from './form/form';
 export { type HttpOptions } from './http/http';
-export { type NavigationMenuItem } from './navigation-menu/routes.type';
-export { type SubNavigationMenuItem } from './navigation-menu/subroutes.type';
+export {
+  type NavigationMenuItem,
+  type SubNavigationMenuItem,
+} from './navigation-menu/navigation-menu';
 export { type FC, type SVGProps } from './react/react';
-export { type PathMatch } from './react-router/react-router.type';
-export { type IconName } from './ui/icon-name.type';
+export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
   type UserSignInRequestDto,

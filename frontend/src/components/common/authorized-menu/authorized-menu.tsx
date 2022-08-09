@@ -1,7 +1,7 @@
 import { FC } from 'common/types/types';
 
 import { routes } from './common';
-import { NavigationMenu } from './navigation-menu/navigation-menu';
+import { NavigationMenu } from './components/components';
 import styles from './styles.module.scss';
 
 const AuthorizedMenu: FC = () => {

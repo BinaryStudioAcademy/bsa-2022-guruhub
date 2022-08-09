@@ -1,4 +1,4 @@
-import { SubNavigationMenuItem } from './subroutes.type';
+import { SubNavigationMenuItem } from './subnavigation-menu-item.type';
 
 type NavigationMenuItem = {
   name: string;

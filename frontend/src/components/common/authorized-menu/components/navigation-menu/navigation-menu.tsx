@@ -2,7 +2,7 @@ import { FC, SubNavigationMenuItem } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
 import { useMatch, useResolvedPath } from 'hooks/hooks';
 
-import { NavigationMenuItem } from './navigation-menu-item/navigation-menu-item';
+import { NavigationMenuItem } from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -17,10 +17,12 @@ const NavigationMenu: FC<Props> = ({ name, subroutes }) => {
       <div className={getValidClasses(styles.links, styles.bottomLine)}>
         {subroutes.map(({ name: routeName, iconName, href }) => {
           const resolvedPath = useResolvedPath(href);
-          const isCurrentRoute = useMatch({
-            path: resolvedPath.pathname,
-            end: true,
-          });
+          const isCurrentRoute = Boolean(
+            useMatch({
+              path: resolvedPath.pathname,
+              end: true,
+            }),
+          );
 
           return (
             <NavigationMenuItem

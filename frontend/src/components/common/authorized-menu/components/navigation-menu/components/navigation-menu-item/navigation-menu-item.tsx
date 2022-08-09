@@ -1,5 +1,5 @@
 import { AppRoute } from 'common/enums/enums';
-import { FC, IconName, PathMatch } from 'common/types/types';
+import { FC, IconName } from 'common/types/types';
 import { Icon, Link } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 
@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   href: AppRoute;
-  isCurrentRoute: PathMatch<string> | null;
+  isCurrentRoute: boolean;
   iconName: IconName;
   routeName: string;
 };
