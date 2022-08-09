@@ -1,6 +1,3 @@
-import { HttpCode, HttpError } from 'guruhub-shared';
-
-import { ValidationMessage } from '~/common/enums/enums';
 import {
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
@@ -80,15 +77,10 @@ class User {
     };
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<boolean> {
     const deletedUsersCount = await this.#userRepository.delete(id);
 
-    if (!deletedUsersCount) {
-      throw new HttpError({
-        message: ValidationMessage.DELETE_NOT_FOUND,
-        status: HttpCode.NOT_FOUND,
-      });
-    }
+    return Boolean(deletedUsersCount);
   }
 }
 
