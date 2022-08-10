@@ -16,15 +16,14 @@ const ProtectedRoute: FC<Props> = ({
 }) => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
 
-  const hasUser = Boolean(user);
   const token = Boolean(storage.getItem(StorageKey.TOKEN));
-
-  if (
+  const hasUser = Boolean(user);
+  const hasLoaded =
     !token ||
-    (!hasUser &&
-      (dataStatus === DataStatus.FULFILLED ||
-        dataStatus === DataStatus.REJECTED))
-  ) {
+    dataStatus === DataStatus.FULFILLED ||
+    dataStatus === DataStatus.REJECTED;
+
+  if (!hasUser && hasLoaded) {
     return <Navigate to={redirectTo} />;
   }
 
