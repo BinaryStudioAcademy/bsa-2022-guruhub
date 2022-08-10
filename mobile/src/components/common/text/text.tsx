@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Text as UIText } from 'react-native';
 
-import { TextStyle } from '~/common/types/types';
+import { AppTextStyle } from '~/common/types/types';
 
 import { styles } from './styles';
 
 type Props = {
   children: string;
-  style?: TextStyle;
+  style?: AppTextStyle;
 };
 
 const Text: FC<Props> = ({ style, children }) => {
