@@ -1,7 +1,7 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
+import { Link } from 'components/common/common';
 
-import { Link } from '../common';
 import styles from './styles.module.scss';
 
 const NotFound: FC = () => {

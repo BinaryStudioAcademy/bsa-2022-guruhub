@@ -8,6 +8,7 @@ enum AppRoute {
   BILLING = '/billing',
   SETTINGS = '/settings',
   UAM = '/uam',
+  ANY = '*',
 }
 
 export { AppRoute };

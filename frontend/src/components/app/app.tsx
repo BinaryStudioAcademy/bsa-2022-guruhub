@@ -3,11 +3,11 @@ import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
   AuthorizedWrapper,
-  NotFound,
   ProtectedRoute,
   Route,
   Routes,
 } from 'components/common/common';
+import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch } from 'hooks/hooks';
 import { useEffect } from 'react';
@@ -43,7 +43,7 @@ const App: FC = () => {
           }
         />
         <Route
-          path="*"
+          path={AppRoute.ANY}
           element={
             <AuthorizedWrapper>
               <NotFound />
