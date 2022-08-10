@@ -1,17 +1,19 @@
 import { ReactComponent as DeleteIcon } from 'assets/icons/trash-can-solid.svg';
 import { ReactElement } from 'react';
-import { Column, useTable } from 'react-table';
+import { CellProps, Column, useTable } from 'react-table';
 
 import styles from './styles.module.scss';
 
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
+  onClick: (userId: string) => void;
 };
 
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
+  onClick,
 }: Props<Data>): ReactElement => {
   const tableInstance = useTable(
     {
@@ -23,7 +25,14 @@ const Table = <Data extends Record<string, unknown>>({
         ...columns,
         {
           Header: 'Actions',
-          Cell: <DeleteIcon className={styles.deleteIcon} />,
+          Cell: ({ row }: CellProps<Data>) => (
+            <DeleteIcon
+              onClick={(): void => {
+                onClick(String(row.original.id));
+              }}
+              className={styles.deleteIcon}
+            />
+          ),
         },
       ]);
     },

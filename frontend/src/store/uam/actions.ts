@@ -19,13 +19,17 @@ const getUsers = createAsyncThunk<
 });
 
 const deleteUser = createAsyncThunk<
-  void,
+  string,
   UsersDeleteRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.DELETE_USER, async (payload, { extra }) => {
   const { usersApi } = extra;
 
   await usersApi.delete(payload);
+
+  const { id } = payload;
+
+  return id;
 });
 
 export { deleteUser, getUsers };

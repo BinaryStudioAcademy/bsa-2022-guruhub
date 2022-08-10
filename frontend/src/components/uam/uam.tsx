@@ -18,10 +18,14 @@ const UAM: FC = () => {
   const columns: Column<UsersGetAllItemResponseDto>[] = getColumns();
   const rows: UsersGetAllItemResponseDto[] = getRows(users);
 
+  const deleteUser = (userId: string): void => {
+    dispatch(uamActions.deleteUser({ id: userId }));
+  };
+
   return (
     <div className={styles.uam}>
       <h1 className={styles.pageTitle}>User Access Managment</h1>
-      <UsersTable data={rows} columns={columns} />
+      <UsersTable data={rows} columns={columns} onClick={deleteUser} />
     </div>
   );
 };

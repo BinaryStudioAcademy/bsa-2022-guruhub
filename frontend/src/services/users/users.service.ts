@@ -30,10 +30,9 @@ class UsersApi {
 
   public delete(payload: UsersDeleteRequestParamsDto): Promise<void> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.$ID}`,
+      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}${payload.id}`,
       {
         method: HttpMethod.DELETE,
-        payload: JSON.stringify(payload),
       },
     );
   }

@@ -48,7 +48,12 @@ class User {
   }
 
   async delete(userId: number): Promise<number> {
-    return this.#UserModel.query().delete().where({ id: userId });
+    const deletedUsersCount = this.#UserModel
+      .query()
+      .delete()
+      .where({ id: userId });
+
+    return deletedUsersCount;
   }
 }
 

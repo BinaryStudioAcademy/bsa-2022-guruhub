@@ -6,11 +6,13 @@ import { deleteUser, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
+  isDeleted: DataStatus;
   users: UsersGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
+  isDeleted: DataStatus.IDLE,
   users: [],
 };
 
@@ -27,13 +29,16 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(deleteUser.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.isDeleted = DataStatus.PENDING;
   });
-  builder.addCase(deleteUser.fulfilled, (state) => {
-    state.dataStatus = DataStatus.FULFILLED;
+  builder.addCase(deleteUser.fulfilled, (state, action) => {
+    state.isDeleted = DataStatus.FULFILLED;
+    state.users = state.users.filter(
+      (user) => user.id !== Number(action.payload),
+    );
   });
   builder.addCase(deleteUser.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.isDeleted = DataStatus.REJECTED;
   });
 });
 

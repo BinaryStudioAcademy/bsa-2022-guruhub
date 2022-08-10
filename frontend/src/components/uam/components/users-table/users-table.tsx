@@ -7,13 +7,14 @@ import styles from './styles.module.scss';
 type Props = {
   columns: Column<UsersGetAllItemResponseDto>[];
   data: UsersGetAllItemResponseDto[];
+  onClick: (userId: string) => void;
 };
 
-const UsersTable: FC<Props> = ({ columns, data }: Props) => {
+const UsersTable: FC<Props> = ({ columns, data, onClick }: Props) => {
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={data} columns={columns} />
+      <Table data={data} columns={columns} onClick={onClick} />
     </div>
   );
 };
