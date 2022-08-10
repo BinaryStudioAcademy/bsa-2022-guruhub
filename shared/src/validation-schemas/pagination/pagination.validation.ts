@@ -6,10 +6,10 @@ import { getNameOf } from '~/helpers/helpers';
 
 const pagination = Joi.object({
   [getNameOf<EntityPaginationRequestQueryDto>('count')]: Joi.number().min(
-    PaginationValidationRule.COUNT,
+    PaginationValidationRule.MIN_COUNT,
   ),
   [getNameOf<EntityPaginationRequestQueryDto>('page')]: Joi.number().min(
-    PaginationValidationRule.PAGE,
+    PaginationValidationRule.MIN_PAGE,
   ),
 });
 

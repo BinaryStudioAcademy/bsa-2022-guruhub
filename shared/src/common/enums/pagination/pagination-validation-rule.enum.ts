@@ -1,6 +1,6 @@
 enum PaginationValidationRule {
-  PAGE = 1,
-  COUNT = 1,
+  MIN_PAGE = 1,
+  MIN_COUNT = 1,
 }
 
 export { PaginationValidationRule };
