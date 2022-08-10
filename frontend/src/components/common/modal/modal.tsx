@@ -1,18 +1,17 @@
 import { FC } from 'common/types/types';
-import { Button } from 'components/common/common';
 import { useState } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 
 type Props = {
+  isOpenDefault: boolean;
   title: string;
   children: ReactNode;
-  submitTitle: string;
 };
 
-const Modal: FC<Props> = ({ title, children, submitTitle }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+const Modal: FC<Props> = ({ isOpenDefault = true, title, children }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(isOpenDefault);
   const onCloseHandler = (): void => {
     setIsOpen(false);
   };
@@ -26,9 +25,6 @@ const Modal: FC<Props> = ({ title, children, submitTitle }) => {
         <div className={styles.mainContent}>
           <h2 className={styles.modalTitle}>{title}</h2>
           <div className={styles.childrenSection}>{children}</div>
-          <div className={styles.submitWrapper}>
-            <Button label={submitTitle} />
-          </div>
         </div>
       </div>
     </div>
