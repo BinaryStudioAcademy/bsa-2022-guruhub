@@ -1,7 +1,12 @@
 import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
-import { AuthorizedWrapper, Route, Routes } from 'components/common/common';
+import {
+  AuthorizedWrapper,
+  ProtectedRoute,
+  Route,
+  Routes,
+} from 'components/common/common';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch } from 'hooks/hooks';
 import { useEffect } from 'react';
@@ -32,7 +37,7 @@ const App: FC = () => {
           path={AppRoute.UAM}
           element={
             <AuthorizedWrapper>
-              <UAM />
+              <ProtectedRoute component={<UAM />} />
             </AuthorizedWrapper>
           }
         />
