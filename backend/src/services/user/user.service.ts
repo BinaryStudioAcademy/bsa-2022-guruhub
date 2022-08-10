@@ -1,3 +1,5 @@
+import { PermissionsGetAllItemResponseDto } from 'guruhub-shared/common/types/permission/permission-item-response-dto.type';
+
 import {
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
@@ -75,6 +77,18 @@ class User {
       passwordSalt: user.passwordSalt,
       createdAt: user.createdAt,
     };
+  }
+
+  async getPermissons(
+    id: number,
+  ): Promise<PermissionsGetAllItemResponseDto[] | []> {
+    const permissions = await this.#userRepository.getUserPermissons(id);
+
+    if (!permissions) {
+      return [];
+    }
+
+    return permissions;
   }
 
   async getById(id: string): Promise<UsersByIdResponseDto | null> {

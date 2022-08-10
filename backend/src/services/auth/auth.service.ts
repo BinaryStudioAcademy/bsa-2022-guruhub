@@ -45,10 +45,12 @@ class Auth {
 
     const user = await this.#userService.create(userRequestDto);
     const token = await this.#tokenService.create({ userId: user.id });
+    const permissions = await this.#userService.getPermissons(user.id);
 
     return {
       user,
       token,
+      permissions,
     };
   }
 
@@ -92,10 +94,12 @@ class Auth {
   ): Promise<UserSignInResponseDto> {
     const user = await this.verifySignIn(userRequestDto);
     const token = await this.#tokenService.create({ userId: user.id });
+    const permissions = await this.#userService.getPermissons(user.id);
 
     return {
       user,
       token,
+      permissions,
     };
   }
 
