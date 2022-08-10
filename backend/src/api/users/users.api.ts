@@ -7,7 +7,10 @@ import {
   UsersDeleteRequestParamsDto,
 } from '~/common/types/types';
 import { user as userService } from '~/services/services';
-import { userDelete as userDeleteRequestParamsValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  pagination as paginationQueryValidationSchema,
+  userDelete as userDeleteRequestParamsValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -21,6 +24,9 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: UsersApiPath.ROOT,
+    schema: {
+      querystring: paginationQueryValidationSchema,
+    },
     async handler(
       req: FastifyRequest<{
         Querystring: UserGetAllRequestQueryDto;
@@ -28,11 +34,9 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const { page = DEFAULT_PAGE, count = DEFAULT_COUNT } = req.query;
-      const verifiedPage = page > 0 ? page : DEFAULT_PAGE;
-      const verifiedCount = count > 0 ? count : DEFAULT_COUNT;
       const users = await userService.getAll({
-        page: verifiedPage,
-        count: verifiedCount,
+        page,
+        count,
       });
 
       return rep.status(HttpCode.OK).send(users);
