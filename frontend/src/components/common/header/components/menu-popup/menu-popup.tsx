@@ -12,7 +12,10 @@ type Props = {
 const Popup: FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const popupRef = useRef<HTMLDivElement>(null);
-  useHandleClickOutside(popupRef, onClose);
+  useHandleClickOutside({
+    ref: popupRef,
+    onClick: onClose,
+  });
 
   const handleLogout = (): void => {
     dispatch(authActions.logout());

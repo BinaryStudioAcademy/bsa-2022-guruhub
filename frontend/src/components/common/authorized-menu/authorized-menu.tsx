@@ -8,7 +8,12 @@ const AuthorizedMenu: FC = () => {
   return (
     <div className={styles.menu}>
       {routes.map(({ name, subroutes }) => (
-        <NavigationMenu key={name} name={name} subroutes={subroutes} />
+        <NavigationMenu
+          key={name}
+          name={name}
+          subroutes={subroutes}
+          className={styles.bottomLine}
+        />
       ))}
     </div>
   );
