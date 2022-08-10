@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Image,View } from 'react-native';
+import { Image, View } from 'react-native';
 
 import { styles } from './style';
 
 type VendorLabel = {
-  vendor_name?: string;
+  vendor_name: string;
 };
 
 const VendorLabel: FC<VendorLabel> = ({ vendor_name }) => {
@@ -19,7 +19,7 @@ const VendorLabel: FC<VendorLabel> = ({ vendor_name }) => {
 
   let imgSource;
 
-  switch (vendor_name) {
+  switch (vendor_name.toLowerCase()) {
     case 'udemy':
       imgSource = VENDOR_LOGO.udemy.uri;
       break;

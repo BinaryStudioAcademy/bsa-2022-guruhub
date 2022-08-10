@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { Image,Pressable, View } from 'react-native';
+import { Image, Pressable, View } from 'react-native';
 
 import { Text } from '../../../common/common';
 import { BestsellerLabel } from '../bestseller-label/bestseller-label';
@@ -22,7 +22,7 @@ const CourseCard: FC<CourseCardProps> = ({
     difficulty,
     author_name,
     rating_star,
-    ratings,
+    ratings_count,
     isBestseller,
     price,
     course_image,
@@ -30,7 +30,7 @@ const CourseCard: FC<CourseCardProps> = ({
 
   return (
     <Pressable onPress={onCoursePress} style={styles.container}>
-      <VendorLabel vendor_name={vendor_name} />
+      {vendor_name && <VendorLabel vendor_name={vendor_name} />}
       <View style={styles.imageContainer}>
         <Image style={styles.course_image} source={{ uri: course_image }} />
         <DifficultyLabel difficulty={difficulty} />
@@ -49,7 +49,7 @@ const CourseCard: FC<CourseCardProps> = ({
             <Text style={styles.rating_text}>{'★★★★★'}</Text>
           </View>
           <View>
-            <Text style={styles.rating_text}>{`(${ratings})`}</Text>
+            <Text style={styles.rating_text}>{`(${ratings_count})`}</Text>
           </View>
         </View>
         <View style={styles.footer}>
