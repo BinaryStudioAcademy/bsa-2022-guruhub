@@ -3,21 +3,12 @@ import { RefObject, useEffect } from 'react';
 type Parameters = {
   ref: RefObject<HTMLElement>;
   onClick: () => void;
-  ignoredElement?: RefObject<HTMLElement>;
 };
 
-const useHandleClickOutside = ({
-  ref,
-  onClick,
-  ignoredElement,
-}: Parameters): void => {
+const useHandleClickOutside = ({ ref, onClick }: Parameters): void => {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent): void => {
-      if (
-        ref.current &&
-        !ref.current.contains(e.target as Node) &&
-        !ignoredElement?.current?.contains(e.target as Node)
-      ) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
         onClick();
       }
     };
