@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import { AppNavigationParamList } from '~/common/types/navigation/app-navigation-param-list.type';
+import { AppNavigationParamList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { Courses } from '~/components/courses/courses';
 import { Mentors } from '~/components/mentors/mentors';
