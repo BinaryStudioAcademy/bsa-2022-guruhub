@@ -1,5 +1,5 @@
-const { getDefaultConfig } = require("metro-config");
-const { mergeConfig } = require("metro-config");
+const { getDefaultConfig } = require('metro-config');
+const { mergeConfig } = require('metro-config');
 const path = require('path');
 
 const PATH_TO_NODE_MODULES = path.resolve(__dirname, './node_modules');
