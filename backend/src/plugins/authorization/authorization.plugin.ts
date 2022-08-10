@@ -6,7 +6,6 @@ import {
   ExceptionMessage,
   HttpCode,
 } from '~/common/enums/enums';
-import { UsersByIdResponseDto } from '~/common/types/types';
 import { InvalidCredentialsError } from '~/exceptions/exceptions';
 import {
   token as tokenService,
@@ -20,12 +19,6 @@ type Options = {
     token: typeof tokenService;
   };
 };
-
-declare module 'fastify' {
-  export interface FastifyRequest {
-    user: UsersByIdResponseDto;
-  }
-}
 
 const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.decorateRequest('user', null);
