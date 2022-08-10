@@ -12,7 +12,6 @@ export {
   type UsersByEmailResponseDto,
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
-  type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

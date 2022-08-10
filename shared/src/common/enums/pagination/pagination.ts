@@ -1,2 +1,2 @@
 export { PaginationDefaultValues } from './pagination-default-values.enum';
-export { PaginationMinValues } from './pagination-min-values.enum';
+export { PaginationValidationRule } from './pagination-validation-rule.enum';
