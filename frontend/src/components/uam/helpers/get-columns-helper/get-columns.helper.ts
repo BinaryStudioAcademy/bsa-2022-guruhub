@@ -1,26 +1,23 @@
 import { UsersGetAllItemResponseDto } from 'common/types/types';
-import {
-  UserTableAccessor,
-  UserTableHeader,
-} from 'components/uam/common/enums/enums';
+import { UserTableAccessor } from 'components/uam/common/enums/enums';
 import { Column } from 'react-table';
 
 const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
   return [
     {
-      Header: UserTableHeader.ID,
+      Header: 'ID',
       accessor: UserTableAccessor.ID,
     },
     {
-      Header: UserTableHeader.FULL_NAME,
+      Header: 'Full name',
       accessor: UserTableAccessor.FULL_NAME,
     },
     {
-      Header: UserTableHeader.EMAIL,
+      Header: 'Email',
       accessor: UserTableAccessor.EMAIL,
     },
     {
-      Header: UserTableHeader.CREATED_AT,
+      Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
     },
   ];
