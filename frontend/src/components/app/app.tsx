@@ -1,4 +1,4 @@
-import { AppRoute, StorageKey } from 'common/enums/enums';
+import { AppRoute, DataStatus, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
@@ -6,14 +6,16 @@ import {
   ProtectedRoute,
   Route,
   Routes,
+  Spinner,
 } from 'components/common/common';
 import { UAM } from 'components/uam/uam';
-import { useAppDispatch } from 'hooks/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { useEffect } from 'react';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
 
 const App: FC = () => {
+  const { user, dataStatus } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const token = Boolean(storage.getItem(StorageKey.TOKEN));
@@ -23,6 +25,10 @@ const App: FC = () => {
       dispatch(authActions.getCurrentUser());
     }
   }, [dispatch, token]);
+
+  if (!user && token && dataStatus !== DataStatus.REJECTED) {
+    return <Spinner />;
+  }
 
   return (
     <>
