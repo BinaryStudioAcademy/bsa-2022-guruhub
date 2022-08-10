@@ -10,9 +10,8 @@ import styles from './styles.module.scss';
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
 
-  const handleOpenMenuPopup = (): void => setIsMenuPopupVisible(true);
-
-  const handleCloseMenuPopup = (): void => setIsMenuPopupVisible(false);
+  const handlePopupOper = (): void =>
+    setIsMenuPopupVisible(!isMenuPopupVisible);
 
   return (
     <header>
@@ -21,7 +20,7 @@ const Header: FC = () => {
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
         <div className={styles.userWrapper}>
-          <button onClick={handleOpenMenuPopup} className={styles.button}>
+          <button onClick={handlePopupOper} className={styles.button}>
             <Image
               width="50"
               height="50"
@@ -31,7 +30,7 @@ const Header: FC = () => {
             />
           </button>
           <div className={styles.popup}>
-            {isMenuPopupVisible && <Popup onClose={handleCloseMenuPopup} />}
+            {isMenuPopupVisible && <Popup onClose={handlePopupOper} />}
           </div>
         </div>
       </div>
