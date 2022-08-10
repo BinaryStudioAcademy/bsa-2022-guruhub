@@ -3,11 +3,11 @@ import { TextInput, ViewStyle as UIViewStyle } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import {
+  AppTextStyle,
   FormControl,
   FormControlErrors,
   FormControlPath,
   FormControlValues,
-  TextStyle,
 } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
 import { useFormControl } from '~/hooks/hooks';
@@ -20,7 +20,7 @@ type Props<T extends FormControlValues> = {
   control: FormControl<T>;
   errors: FormControlErrors<T>;
   placeholder?: string;
-  labelStyle?: TextStyle;
+  labelStyle?: AppTextStyle;
   inputStyle?: UIViewStyle;
 };
 
@@ -66,7 +66,7 @@ const Input = <T extends FormControlValues>({
           onBlur;
         }}
         style={{ ...styles.input, ...inputStyle, borderColor }}
-        secureTextEntry={true && name === 'password'}
+        secureTextEntry={name === 'password'}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
     </View>
