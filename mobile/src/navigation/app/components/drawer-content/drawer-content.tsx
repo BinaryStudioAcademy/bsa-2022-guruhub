@@ -4,8 +4,15 @@ import {
 } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 import { Button, Image, ScrollView } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
-import { AppColor, AppIcon, AppScreenName } from '~/common/enums/enums';
+import Billing from '~/assets/icons/billing.svg';
+import Book from '~/assets/icons/book.svg';
+import Education from '~/assets/icons/education.svg';
+import Home from '~/assets/icons/home.svg';
+import Mentors from '~/assets/icons/mentors.svg';
+import Settings from '~/assets/icons/settings.svg';
+import { AppColor, AppScreenName } from '~/common/enums/enums';
 import { Text, View } from '~/components/common/common';
 
 import { styles } from './styles';
@@ -13,10 +20,14 @@ import { styles } from './styles';
 const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
   const focusedRoute = props.state.routes[props.state.index];
 
+  const handleNavigateTo = (route: string): void => {
+    props.navigation.navigate(route);
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Image source={AppIcon.LOGO} />
+        <Image source={require('~/assets/logo.png')} />
       </View>
       <View style={styles.list}>
         <Text style={styles.listTitle}>Menu</Text>
@@ -31,15 +42,16 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
               {AppScreenName.OVERVIEW}
             </Text>
           )}
-          icon={({ focused }): JSX.Element => (
-            <Image
+          icon={({ color }): JSX.Element => (
+            <SvgXml
               style={styles.icon}
-              source={focused ? AppIcon.HOME_LIGHT : AppIcon.HOME_DARK}
+              color={color}
+              width="22"
+              height="22"
+              xml={Home}
             />
           )}
-          onPress={(): void =>
-            props.navigation.navigate(AppScreenName.OVERVIEW)
-          }
+          onPress={(): void => handleNavigateTo(AppScreenName.OVERVIEW)}
         />
         <DrawerItem
           style={styles.listItem}
@@ -52,13 +64,16 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
               {AppScreenName.COURSES}
             </Text>
           )}
-          icon={({ focused }): JSX.Element => (
-            <Image
+          icon={({ color }): JSX.Element => (
+            <SvgXml
               style={styles.icon}
-              source={focused ? AppIcon.BOOK_LIGHT : AppIcon.BOOK_DARK}
+              color={color}
+              width="22"
+              height="22"
+              xml={Book}
             />
           )}
-          onPress={(): void => props.navigation.navigate(AppScreenName.COURSES)}
+          onPress={(): void => handleNavigateTo(AppScreenName.COURSES)}
         />
         <DrawerItem
           style={styles.listItem}
@@ -71,13 +86,16 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
               {AppScreenName.MENTORS}
             </Text>
           )}
-          icon={({ focused }): JSX.Element => (
-            <Image
+          icon={({ color }): JSX.Element => (
+            <SvgXml
               style={styles.icon}
-              source={focused ? AppIcon.MENTORS_LIGHT : AppIcon.MENTORS_DARK}
+              color={color}
+              width="22"
+              height="22"
+              xml={Mentors}
             />
           )}
-          onPress={(): void => props.navigation.navigate(AppScreenName.MENTORS)}
+          onPress={(): void => handleNavigateTo(AppScreenName.MENTORS)}
         />
         <DrawerItem
           style={styles.listItem}
@@ -92,17 +110,16 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
               {AppScreenName.MY_EDUCATION}
             </Text>
           )}
-          icon={({ focused }): JSX.Element => (
-            <Image
+          icon={({ color }): JSX.Element => (
+            <SvgXml
               style={styles.icon}
-              source={
-                focused ? AppIcon.EDUCATION_LIGHT : AppIcon.EDUCATION_DARK
-              }
+              color={color}
+              width="22"
+              height="22"
+              xml={Education}
             />
           )}
-          onPress={(): void =>
-            props.navigation.navigate(AppScreenName.MY_EDUCATION)
-          }
+          onPress={(): void => handleNavigateTo(AppScreenName.MY_EDUCATION)}
         />
         <View style={styles.listBorder}></View>
         <Text style={styles.listTitle}>Account</Text>
@@ -117,13 +134,16 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
               {AppScreenName.BILLING}
             </Text>
           )}
-          icon={({ focused }): JSX.Element => (
-            <Image
+          icon={({ color }): JSX.Element => (
+            <SvgXml
               style={styles.icon}
-              source={focused ? AppIcon.BILLING_LIGHT : AppIcon.BILLING_DARK}
+              color={color}
+              width="22"
+              height="22"
+              xml={Billing}
             />
           )}
-          onPress={(): void => props.navigation.navigate(AppScreenName.BILLING)}
+          onPress={(): void => handleNavigateTo(AppScreenName.BILLING)}
         />
         <DrawerItem
           style={styles.listItem}
@@ -136,19 +156,23 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
               {AppScreenName.SETTINGS}
             </Text>
           )}
-          icon={({ focused }): JSX.Element => (
-            <Image
+          icon={({ color }): JSX.Element => (
+            <SvgXml
               style={styles.icon}
-              source={focused ? AppIcon.SETTINGS_LIGHT : AppIcon.SETTINGS_DARK}
+              color={color}
+              width="22"
+              height="22"
+              xml={Settings}
             />
           )}
-          onPress={(): void =>
-            props.navigation.navigate(AppScreenName.SETTINGS)
-          }
+          onPress={(): void => handleNavigateTo(AppScreenName.SETTINGS)}
         />
       </View>
       <View style={styles.footer}>
-        <Image style={styles.footerImage} source={AppIcon.SALY} />
+        <Image
+          style={styles.footerImage}
+          source={require('~/assets/saly.png')}
+        />
         <Button title="Become A Mentor" />
       </View>
     </ScrollView>
