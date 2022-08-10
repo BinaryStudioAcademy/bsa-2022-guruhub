@@ -1,33 +1,27 @@
 import { FC } from 'common/types/types';
-import { useEffect, useState } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
 type Props = {
   totalCount: number;
-  pageSize?: number;
+  pageSize: number;
   currentPage: number;
   onPageChange: (newPage: number) => void;
 };
 
 const Pagination: FC<Props> = ({
   totalCount,
-  pageSize = 5,
+  pageSize,
   currentPage,
   onPageChange,
 }) => {
-  const [totalPages, setTotalPages] = useState(0);
+  const totalPages = Math.ceil(totalCount / pageSize);
 
-  useEffect(() => {
-    const total = Math.ceil(totalCount / pageSize);
-    setTotalPages(total);
-  }, []);
-
-  const onNext = (): void => {
+  const handleNextPageChange = (): void => {
     onPageChange(currentPage + 1);
   };
 
-  const onPrevious = (): void => {
+  const handlePreviousPageChange = (): void => {
     onPageChange(currentPage - 1);
   };
 
@@ -35,7 +29,7 @@ const Pagination: FC<Props> = ({
     <div className={styles.pagination}>
       <button
         className={styles.back}
-        onClick={onPrevious}
+        onClick={handlePreviousPageChange}
         disabled={currentPage === 1}
       ></button>
       <span>
@@ -43,7 +37,7 @@ const Pagination: FC<Props> = ({
       </span>
       <button
         className={styles.next}
-        onClick={onNext}
+        onClick={handleNextPageChange}
         disabled={currentPage === totalPages}
       ></button>
     </div>
