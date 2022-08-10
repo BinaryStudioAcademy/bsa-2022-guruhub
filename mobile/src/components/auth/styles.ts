@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     top: -65,
     right: -43,
   },
+  logo: {
+    height: 34,
+  },
 });
 
 export { styles };

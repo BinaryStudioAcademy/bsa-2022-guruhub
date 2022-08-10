@@ -3,9 +3,11 @@ import React, { FC, ReactElement } from 'react';
 import { RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
 import { Image, View } from '~/components/common/common';
+import { getImageUri } from '~/helpers/helpers';
 import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 
+import logo from '../../assets/images/logo.png';
 import { SignInForm, SignUpForm } from './components/components';
 import { styles } from './styles';
 
@@ -36,7 +38,7 @@ const Auth: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../../../assets/images/logo.png')} />
+      <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
       <View style={styles.circle_1} />
       <View style={styles.circle_2} />
       {getScreen(name)}
