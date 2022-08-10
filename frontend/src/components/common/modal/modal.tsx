@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { useState } from 'hooks/hooks';
+import { useHandleClickOutside, useRef, useState } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
@@ -15,10 +15,16 @@ const Modal: FC<Props> = ({ isOpenDefault = true, title, children }) => {
   const onCloseHandler = (): void => {
     setIsOpen(false);
   };
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useHandleClickOutside({
+    ref: popupRef,
+    onClick: onCloseHandler,
+  });
 
   return isOpen ? (
     <div className={styles.modalBackgroundContainer}>
-      <div className={styles.modalContainer}>
+      <div className={styles.modalContainer} ref={popupRef}>
         <span className={styles.modalClose} onClick={onCloseHandler}>
           &times;
         </span>
