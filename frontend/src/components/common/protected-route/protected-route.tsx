@@ -1,8 +1,9 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, DataStatus, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Navigate } from 'components/common/common';
 import { useAppSelector } from 'hooks/hooks';
 import { ReactNode } from 'react';
+import { storage } from 'services/services';
 
 type Props = {
   redirectTo?: AppRoute;
@@ -13,13 +14,17 @@ const ProtectedRoute: FC<Props> = ({
   redirectTo = AppRoute.SIGN_IN,
   component,
 }) => {
-  const { user } = useAppSelector(({ auth }) => ({
-    user: auth.user,
-  }));
+  const { user, dataStatus } = useAppSelector((state) => state.auth);
 
   const hasUser = Boolean(user);
+  const token = Boolean(storage.getItem(StorageKey.TOKEN));
 
-  if (!hasUser) {
+  if (
+    !token ||
+    (!hasUser &&
+      (dataStatus === DataStatus.FULFILLED ||
+        dataStatus === DataStatus.REJECTED))
+  ) {
     return <Navigate to={redirectTo} />;
   }
 
