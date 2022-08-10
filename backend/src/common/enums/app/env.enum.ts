@@ -29,7 +29,7 @@ const ENV = {
     V1_PREFIX: '/api/v1',
   },
   JWT: {
-    SECRET: String(SECRET_KEY),
+    SECRET: SECRET_KEY as string,
     EXPIRES_IN: '24h',
     ALG: 'HS256',
   },
