@@ -18,15 +18,16 @@ const App: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  const token = Boolean(storage.getItem(StorageKey.TOKEN));
+  const hasUser = Boolean(user);
+  const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
 
   useEffect(() => {
-    if (token) {
+    if (hasToken) {
       dispatch(authActions.getCurrentUser());
     }
-  }, [dispatch, token]);
+  }, [dispatch, hasToken]);
 
-  if (!user && token && dataStatus !== DataStatus.REJECTED) {
+  if (!hasUser && hasToken && dataStatus !== DataStatus.REJECTED) {
     return <Spinner />;
   }
 
