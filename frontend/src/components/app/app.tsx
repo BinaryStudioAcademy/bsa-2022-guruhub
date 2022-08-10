@@ -1,12 +1,7 @@
 import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
-import {
-  AuthorizedWrapper,
-  ProtectedRoute,
-  Route,
-  Routes,
-} from 'components/common/common';
+import { AuthorizedWrapper, Route, Routes } from 'components/common/common';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch } from 'hooks/hooks';
@@ -38,7 +33,7 @@ const App: FC = () => {
           path={AppRoute.UAM}
           element={
             <AuthorizedWrapper>
-              <ProtectedRoute component={<UAM />} />
+              <UAM />
             </AuthorizedWrapper>
           }
         />

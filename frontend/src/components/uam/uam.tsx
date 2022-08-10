@@ -1,6 +1,6 @@
 import {
   FC,
-  GroupsResponseDto,
+  GroupsGetAllItemResponseDto,
   UsersGetAllItemResponseDto,
 } from 'common/types/types';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
@@ -31,8 +31,9 @@ const UAM: FC = () => {
   const usersColumns: Column<UsersGetAllItemResponseDto>[] = getUsersColumns();
   const usersRows: UsersGetAllItemResponseDto[] = getUsersRows(users);
 
-  const groupsColumns: Column<GroupsResponseDto>[] = getGroupsColumns();
-  const groupsRows: GroupsResponseDto[] = getGroupsRows(groups);
+  const groupsColumns: Column<GroupsGetAllItemResponseDto>[] =
+    getGroupsColumns();
+  const groupsRows: GroupsGetAllItemResponseDto[] = getGroupsRows(groups);
 
   return (
     <div className={styles.uam}>
