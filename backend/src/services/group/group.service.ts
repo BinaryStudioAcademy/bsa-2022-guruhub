@@ -69,6 +69,12 @@ class Group {
 
     return group;
   }
+
+  async getAll(): Promise<GroupsResponseDto[]> {
+    const groups = await this.#groupsRepository.getAll();
+
+    return groups;
+  }
 }
 
 export { Group };
