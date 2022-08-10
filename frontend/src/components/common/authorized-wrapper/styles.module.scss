@@ -1,4 +1,9 @@
 .content {
   display: flex;
   flex-grow: 1;
+  min-height: 0;
+}
+
+.main_content {
+  overflow: scroll;
 }
