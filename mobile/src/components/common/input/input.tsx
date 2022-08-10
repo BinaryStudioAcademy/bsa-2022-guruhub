@@ -1,9 +1,8 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { TextInput, ViewStyle as UIViewStyle } from 'react-native';
+import React, { ReactElement } from 'react';
+import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import {
-  AppTextStyle,
   FormControl,
   FormControlErrors,
   FormControlPath,
@@ -20,8 +19,6 @@ type Props<T extends FormControlValues> = {
   control: FormControl<T>;
   errors: FormControlErrors<T>;
   placeholder?: string;
-  labelStyle?: AppTextStyle;
-  inputStyle?: UIViewStyle;
 };
 
 const Input = <T extends FormControlValues>({
@@ -30,42 +27,22 @@ const Input = <T extends FormControlValues>({
   control,
   errors,
   placeholder,
-  labelStyle,
-  inputStyle,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
   const { value, onChange, onBlur } = field;
   const error = errors[name]?.message as string;
 
-  const [borderColor, setBorderColor] = useState('');
-
-  useEffect(() => {
-    if (error) {
-      setBorderColor(AppColor.SUPPORT.ERROR_RED_100);
-    } else if (!error && value) {
-      setBorderColor(AppColor.BRAND.BLUE_100);
-    } else {
-      setBorderColor(AppColor.BACKGROUND.GRAY_300);
-    }
-  }, [error]);
-
   return (
     <View>
-      <Text style={{ ...styles.label, ...labelStyle }}>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
       <TextInput
         value={value}
         placeholder={placeholder}
         placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
-        onFocus={(): void | boolean =>
-          !error && setBorderColor(AppColor.BRAND.BLUE_100)
-        }
-        onBlur={(): void | boolean => {
-          !error && setBorderColor(AppColor.BACKGROUND.GRAY_300);
-          onBlur;
-        }}
-        style={{ ...styles.input, ...inputStyle, borderColor }}
+        onBlur={onBlur}
+        style={styles.input}
         secureTextEntry={name === 'password'}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}

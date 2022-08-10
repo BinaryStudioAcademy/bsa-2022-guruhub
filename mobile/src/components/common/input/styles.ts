@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 6,
     borderWidth: 2,
+    borderColor: AppColor.BACKGROUND.GRAY_300,
     paddingStart: 15,
     paddingTop: 7,
     paddingBottom: 7,

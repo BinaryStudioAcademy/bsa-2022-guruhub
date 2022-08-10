@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { Pressable, ViewStyle as UIViewStyle } from 'react-native';
+import { Pressable } from 'react-native';
 
-import { AppTextStyle } from '~/common/types/types';
 import { Text } from '~/components/common/common';
 
 import { styles } from './styles';
@@ -9,14 +8,12 @@ import { styles } from './styles';
 type Props = {
   label: string;
   onPress: () => void;
-  buttonStyle?: UIViewStyle;
-  labelStyle?: AppTextStyle;
 };
 
-const Button: FC<Props> = ({ label, onPress, buttonStyle, labelStyle }) => {
+const Button: FC<Props> = ({ label, onPress }) => {
   return (
-    <Pressable style={{ ...styles.button, ...buttonStyle }} onPress={onPress}>
-      <Text style={{ ...styles.label, ...labelStyle }}>{label}</Text>
+    <Pressable style={styles.button} onPress={onPress}>
+      <Text style={styles.label}>{label}</Text>
     </Pressable>
   );
 };
