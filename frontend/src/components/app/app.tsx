@@ -7,6 +7,7 @@ import {
   Route,
   Routes,
 } from 'components/common/common';
+import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch } from 'hooks/hooks';
 import { useEffect } from 'react';
@@ -38,6 +39,14 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <ProtectedRoute component={<UAM />} />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.ANY}
+          element={
+            <AuthorizedWrapper>
+              <NotFound />
             </AuthorizedWrapper>
           }
         />
