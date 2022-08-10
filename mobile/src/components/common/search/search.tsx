@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import { ImageURISource, TextInput } from 'react-native';
+import { ImageURISource, TextInput, TouchableOpacity } from 'react-native';
 
+import search from '~/assets/images/search.png';
+import voice from '~/assets/images/voice.png';
 import { AppColor } from '~/common/enums/enums';
 import { Image, View } from '~/components/common/common';
 import { useEffect, useState } from '~/hooks/hooks';
@@ -9,6 +11,7 @@ import { styles } from './styles';
 
 type Props = {
   onSearch: (text: string) => void;
+  onVoice?: () => Promise<string>;
 };
 
 type IconSize = {
@@ -18,8 +21,9 @@ type IconSize = {
 
 type IconName = 'search' | 'voice';
 
-const Search: FC<Props> = ({ onSearch }) => {
+const Search: FC<Props> = ({ onSearch, onVoice }) => {
   const [text, setText] = useState('');
+  const [borderColor, setBorderColor] = useState('transparent');
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -33,12 +37,18 @@ const Search: FC<Props> = ({ onSearch }) => {
     setText(value);
   };
 
+  const handleVoicePress = async (): Promise<void> => {
+    if (onVoice) {
+      handleChangeText(await onVoice());
+    }
+  };
+
   const getUriSource = (name: IconName): ImageURISource => {
     if (name === 'search') {
-      return require('../../../assets/img/search.png');
+      return search;
     }
 
-    return require('../../../assets/img/voice.png');
+    return voice;
   };
 
   const getIcon = (name: IconName, size: IconSize): JSX.Element => {
@@ -51,19 +61,27 @@ const Search: FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <View style={styles.searchBar}>
-      {getIcon('search', { width: 25, height: 25 })}
+    <View style={{ ...styles.searchBar, borderColor: borderColor }}>
+      {getIcon('search', { width: 16, height: 16 })}
       <TextInput
+        selectionColor={AppColor.TEXT.GRAY_200}
         style={styles.search}
+        onFocus={(): void => setBorderColor(AppColor.BRAND.BLUE_100)}
+        onBlur={(): void => setBorderColor('transparent')}
         autoComplete="off"
         autoCorrect={false}
-        inlineImageLeft="search_icon"
-        inlineImagePadding={10}
         onChangeText={handleChangeText}
         value={text}
         placeholder="Search"
         placeholderTextColor={AppColor.TEXT.GRAY_200}
       />
+      <TouchableOpacity
+        activeOpacity={0.7}
+        disabled={!onVoice}
+        onPress={handleVoicePress}
+      >
+        {getIcon('voice', { width: 12, height: 18 })}
+      </TouchableOpacity>
     </View>
   );
 };
