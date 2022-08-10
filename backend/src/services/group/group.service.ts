@@ -4,6 +4,7 @@ import {
   GroupsResponseDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
+import { InvalidGroupError } from '~/exceptions/exceptions';
 import { changeStringCase } from '~/helpers/helpers';
 import {
   groupsToPermissions as groupsToPermissionsServ,
@@ -40,6 +41,12 @@ class Group {
     groupsRequestDto: GroupsCreateRequestDto,
   ): Promise<GroupsResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
+    const groupByName = await this.#groupsRepository.getByName(name);
+
+    if (groupByName) {
+      throw new InvalidGroupError();
+    }
+
     const group = await this.#groupsRepository.create({
       name,
       key: changeStringCase({
