@@ -12,37 +12,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255,255,255, .12)',
   },
-  list: {
-    padding: 30,
-  },
-  listTitle: {
-    color: AppColor.TEXT.GRAY_200,
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-  listItem: {
-    justifyContent: 'center',
-    borderRadius: 25,
-  },
-  listItemText: {
-    fontSize: 16,
-    fontWeight: '500',
-    marginLeft: -20,
-    marginRight: 10,
+  listWrapper: {
+    alignItems: 'flex-start',
   },
   listBorder: {
-    width: '62.5%',
+    width: '60%',
     height: 2,
-    marginTop: 30,
-    marginBottom: 40,
-    marginLeft: 10,
+    marginLeft: 40,
+    marginBottom: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
-  },
-  icon: {
-    marginVertical: 7,
-    marginLeft: 15,
   },
   footer: {
     alignItems: 'flex-start',
