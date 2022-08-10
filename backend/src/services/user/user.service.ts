@@ -1,6 +1,7 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  UserGetResponseDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UserSignUpRequestDto,
@@ -26,7 +27,7 @@ class User {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<UsersByIdResponseDto>
+    EntityPagination<UserGetResponseDto>
   > {
     const result = await this.#userRepository.getPaginated({ page, count });
 

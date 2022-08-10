@@ -9,6 +9,7 @@ export { type PermissionsGetAllResponseDto } from './permission/permission';
 export { type TokenPayload } from './token/token';
 export {
   type EntityPaginationRequestQueryDto,
+  type UserGetResponseDto,
   type UsersByEmailResponseDto,
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
