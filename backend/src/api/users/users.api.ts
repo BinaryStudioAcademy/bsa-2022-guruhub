@@ -1,7 +1,11 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
+import { DEFAULT_COUNT, DEFAULT_PAGE } from '~/common/constants/constants';
 import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
-import { UsersDeleteRequestParamsDto } from '~/common/types/types';
+import {
+  UserGetAllRequestQueryDto,
+  UsersDeleteRequestParamsDto,
+} from '~/common/types/types';
 import { user as userService } from '~/services/services';
 import { userDelete as userDeleteRequestParamsValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -17,8 +21,19 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: UsersApiPath.ROOT,
-    async handler(req, rep) {
-      const users = await userService.getAll();
+    async handler(
+      req: FastifyRequest<{
+        Querystring: UserGetAllRequestQueryDto;
+      }>,
+      rep,
+    ) {
+      const { page = DEFAULT_PAGE, count = DEFAULT_COUNT } = req.query;
+      const verifiedPage = page > 0 ? page : DEFAULT_PAGE;
+      const verifiedCount = count > 0 ? count : DEFAULT_COUNT;
+      const users = await userService.getAll({
+        page: verifiedPage,
+        count: verifiedCount,
+      });
 
       return rep.status(HttpCode.OK).send(users);
     },

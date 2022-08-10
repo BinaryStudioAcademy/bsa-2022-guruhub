@@ -1,0 +1,4 @@
+const DEFAULT_PAGE = 1;
+const DEFAULT_COUNT = 10;
+
+export { DEFAULT_COUNT, DEFAULT_PAGE };

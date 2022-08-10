@@ -1,3 +1,5 @@
+import { UserGetAllRequestQueryDto } from 'guruhub-shared/common/types/types';
+
 import { User as UserM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,8 +13,11 @@ class User {
     this.#UserModel = UserModel;
   }
 
-  async getAll(): Promise<UserM[]> {
-    return this.#UserModel.query();
+  async getAll({ page, count }: UserGetAllRequestQueryDto): Promise<UserM[]> {
+    return this.#UserModel
+      .query()
+      .limit(count)
+      .offset((page - 1) * count);
   }
 
   async getByEmail(email: string): Promise<UserM | null> {

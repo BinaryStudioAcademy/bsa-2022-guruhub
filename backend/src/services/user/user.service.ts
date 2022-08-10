@@ -1,4 +1,5 @@
 import {
+  UserGetAllRequestQueryDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetAllResponseDto,
@@ -21,8 +22,11 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  async getAll(): Promise<UsersGetAllResponseDto> {
-    const users = await this.#userRepository.getAll();
+  async getAll({
+    page,
+    count,
+  }: UserGetAllRequestQueryDto): Promise<UsersGetAllResponseDto> {
+    const users = await this.#userRepository.getAll({ page, count });
 
     return {
       items: users.map((user) => ({

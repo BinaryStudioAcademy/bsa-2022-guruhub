@@ -1,4 +1,5 @@
 export { type UsersDeleteRequestParamsDto } from './user-delete-request-dto.type';
+export { type UserGetAllRequestQueryDto } from './user-get-all-request-query.type';
 export { type UserSignInRequestDto } from './user-sign-in-request-dto.type';
 export { type UserSignInResponseDto } from './user-sign-in-response-dto.type';
 export { type UserSignUpRequestDto } from './user-sign-up-request-dto.type';
