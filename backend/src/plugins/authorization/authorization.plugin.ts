@@ -1,4 +1,4 @@
-import { FastifyPluginCallback } from 'fastify';
+import { FastifyPluginAsync } from 'fastify';
 import fp from 'fastify-plugin';
 
 import {
@@ -27,8 +27,7 @@ declare module 'fastify' {
   }
 }
 
-// eslint-disable-next-line max-params
-const auth: FastifyPluginCallback<Options> = (fastify, opts, done) => {
+const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.decorateRequest('user', null);
 
   fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
@@ -56,7 +55,6 @@ const auth: FastifyPluginCallback<Options> = (fastify, opts, done) => {
       reply.code(HttpCode.UNAUTHORIZED).send(err);
     }
   });
-  done();
 };
 const authorization = fp(auth);
 
