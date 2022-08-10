@@ -1,4 +1,4 @@
-post:
+delete:
   summary: User Delete
   tags:
     - users
@@ -9,7 +9,7 @@ post:
         schema:
           $ref: '../../schemas/users/users-delete-request-dto.yaml'
   responses:
-    '200':
+    '204':
       description: User successfully deleted
     '404':
       description: User to delete not found
