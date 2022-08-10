@@ -38,7 +38,7 @@ class Auth {
 
     if (userByEmail) {
       throw new AuthError({
-        message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
         status: HttpCode.UNAUTHORIZED,
       });
     }
