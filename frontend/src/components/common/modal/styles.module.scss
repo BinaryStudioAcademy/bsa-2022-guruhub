@@ -12,7 +12,7 @@
 .modalContainer {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 50%;
   height: 80%;
   margin: auto;
   color: white;
@@ -21,11 +21,13 @@
 
 .modalClose {
   width: 20px;
-  margin-right: 10px;
+  margin-right: 20px;
   margin-left: auto;
   padding-top: 5px;
   color: var(--background-gray-200);
   font-size: 25px;
+  background: none;
+  border: none;
 }
 
 .modalClose:hover {

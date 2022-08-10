@@ -1,41 +1,41 @@
 import { FC } from 'common/types/types';
-import { useHandleClickOutside, useRef, useState } from 'hooks/hooks';
+import { useHandleClickOutside, useRef } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
+import { Icon } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
-  isOpenDefault: boolean;
+  isOpen: boolean;
+  onClose: () => void;
   title: string;
   children: ReactNode;
 };
 
-const Modal: FC<Props> = ({ isOpenDefault = true, title, children }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(isOpenDefault);
-  const onCloseHandler = (): void => {
-    setIsOpen(false);
-  };
+const Modal: FC<Props> = ({ isOpen, onClose, children, title }) => {
   const popupRef = useRef<HTMLDivElement>(null);
 
   useHandleClickOutside({
     ref: popupRef,
-    onClick: onCloseHandler,
+    onClick: onClose,
   });
 
-  return isOpen ? (
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
     <div className={styles.modalBackgroundContainer}>
       <div className={styles.modalContainer} ref={popupRef}>
-        <span className={styles.modalClose} onClick={onCloseHandler}>
-          &times;
-        </span>
+        <button className={styles.modalClose} onClick={onClose}>
+          <Icon name="cross" />
+        </button>
         <div className={styles.mainContent}>
           <h2 className={styles.modalTitle}>{title}</h2>
           <div className={styles.childrenSection}>{children}</div>
         </div>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 
