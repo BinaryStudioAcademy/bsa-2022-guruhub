@@ -5,3 +5,4 @@ export { Spinner } from './spinner/spinner';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
 export { View } from 'react-native';
+export { Image } from 'react-native';

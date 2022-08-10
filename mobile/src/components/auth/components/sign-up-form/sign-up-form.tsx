@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-import { Image } from 'react-native';
 
-import { RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
-import { Button, Input, Link, Text, View } from '~/components/common/common';
+import { Button, Input, Text, View } from '~/components/common/common';
 import { useAppForm } from '~/hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -21,10 +19,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
   });
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../../../../assets/images/logo.png')} />
-      <View style={styles.circle_1} />
-      <View style={styles.circle_2} />
+    <>
       <Text style={styles.title}>Create an account</Text>
       <View>
         <View style={styles.inputWrapper}>
@@ -57,9 +52,8 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
         <View style={styles.buttonWrapper}>
           <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
         </View>
-        <Link label="Go to Sign In" to={{ screen: RootScreenName.SIGN_IN }} />
       </View>
-    </View>
+    </>
   );
 };
 

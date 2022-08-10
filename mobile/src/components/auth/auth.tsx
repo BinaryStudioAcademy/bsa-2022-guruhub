@@ -2,10 +2,12 @@ import React, { FC, ReactElement } from 'react';
 
 import { RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
+import { Image, View } from '~/components/common/common';
 import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
 import { auth as authActions } from '~/store/actions';
 
 import { SignInForm, SignUpForm } from './components/components';
+import { styles } from './styles';
 
 const Auth: FC = () => {
   const { name } = useAppRoute();
@@ -32,7 +34,14 @@ const Auth: FC = () => {
     return null;
   };
 
-  return <>{getScreen(name)}</>;
+  return (
+    <View style={styles.container}>
+      <Image source={require('../../../../assets/images/logo.png')} />
+      <View style={styles.circle_1} />
+      <View style={styles.circle_2} />
+      {getScreen(name)}
+    </View>
+  );
 };
 
 export { Auth };
