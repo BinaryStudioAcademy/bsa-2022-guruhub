@@ -16,6 +16,7 @@ export {
   type RootNavigationParamList,
   type RootNavigationScreenProps,
 } from './navigation/navigation';
+export { type NotificationPayload } from './notification/notification';
 export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,

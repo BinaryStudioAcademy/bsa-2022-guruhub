@@ -24,10 +24,14 @@ class User {
   async getAll(): Promise<UsersGetAllResponseDto> {
     const users = await this.#userRepository.getAll();
 
-    return users.map((user) => ({
-      id: user.id,
-      email: user.email,
-    }));
+    return {
+      items: users.map((user) => ({
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        createdAt: user.createdAt,
+      })),
+    };
   }
 
   async create({
@@ -51,6 +55,8 @@ class User {
     return {
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
     };
   }
 
@@ -64,9 +70,32 @@ class User {
     return {
       id: user.id,
       email: user.email,
+      fullName: user.fullName,
       passwordHash: user.passwordHash,
       passwordSalt: user.passwordSalt,
+      createdAt: user.createdAt,
     };
+  }
+
+  async getById(id: string): Promise<UsersByIdResponseDto | null> {
+    const user = await this.#userRepository.getById(id);
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    };
+  }
+
+  async delete(id: number): Promise<boolean> {
+    const deletedUsersCount = await this.#userRepository.delete(id);
+
+    return Boolean(deletedUsersCount);
   }
 }
 

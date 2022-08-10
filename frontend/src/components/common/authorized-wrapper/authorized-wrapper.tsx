@@ -1,12 +1,16 @@
 import { FC } from 'common/types/types';
 
-import { Header } from '../common';
+import { AuthorizedMenu, Header } from '../common';
+import styles from './styles.module.scss';
 
 const AuthorizedWrapper: FC = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <div className={styles.content}>
+        <AuthorizedMenu />
+        {children}
+      </div>
     </>
   );
 };

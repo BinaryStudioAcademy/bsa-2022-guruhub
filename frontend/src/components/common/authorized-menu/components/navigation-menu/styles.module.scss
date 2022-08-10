@@ -1,0 +1,12 @@
+.title {
+  color: var(--typography-text-gray-200);
+  font-weight: 500;
+  line-height: 27.5px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-right: 0;
+}

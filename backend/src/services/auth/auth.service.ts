@@ -1,4 +1,4 @@
-import { HttpCode, ValidationMessage } from '~/common/enums/enums';
+import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
   UsersByIdResponseDto,
   UserSignInRequestDto,
@@ -38,7 +38,7 @@ class Auth {
 
     if (userByEmail) {
       throw new AuthError({
-        message: ValidationMessage.EMAIL_ALREADY_EXISTS,
+        message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
         status: HttpCode.UNAUTHORIZED,
       });
     }
@@ -60,7 +60,7 @@ class Auth {
     if (!user) {
       throw new AuthError({
         status: HttpCode.BAD_REQUEST,
-        message: ValidationMessage.BAD_CREDENTIALS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
       });
     }
 
@@ -75,11 +75,16 @@ class Auth {
     if (!isPasswordValid) {
       throw new AuthError({
         status: HttpCode.BAD_REQUEST,
-        message: ValidationMessage.BAD_CREDENTIALS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
       });
     }
 
-    return { id: user.id, email: user.email };
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    };
   }
 
   async signIn(
@@ -92,6 +97,20 @@ class Auth {
       user,
       token,
     };
+  }
+
+  async getCurrentUser(token: string): Promise<UsersByIdResponseDto | null> {
+    try {
+      const { userId } = await this.#tokenService.decode(token);
+      const user = await this.#userService.getById(userId);
+
+      return user;
+    } catch {
+      throw new AuthError({
+        status: HttpCode.UNAUTHORIZED,
+        message: ExceptionMessage.UNAUTHORIZED_USER,
+      });
+    }
   }
 }
 
