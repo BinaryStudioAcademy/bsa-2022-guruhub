@@ -4,7 +4,7 @@ import { UsersByIdResponseDto } from './users-by-id-response-dto.type';
 type UserSignInResponseDto = {
   token: string;
   user: UsersByIdResponseDto;
-  permissions: PermissionsGetAllItemResponseDto[] | [];
+  permissions: PermissionsGetAllItemResponseDto[];
 };
 
 export { type UserSignInResponseDto };

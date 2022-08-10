@@ -14,7 +14,6 @@ import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
 
 const user = new User({
   UserModel,
-  GroupModel,
 });
 
 const permission = new Permission({

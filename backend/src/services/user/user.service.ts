@@ -79,10 +79,10 @@ class User {
     };
   }
 
-  async getPermissons(
+  async getUserPermissions(
     id: number,
   ): Promise<PermissionsGetAllItemResponseDto[] | []> {
-    const permissions = await this.#userRepository.getUserPermissons(id);
+    const permissions = await this.#userRepository.getUserPermissions(id);
 
     if (!permissions) {
       return [];

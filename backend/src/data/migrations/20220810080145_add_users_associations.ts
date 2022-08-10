@@ -7,7 +7,6 @@ const TableName = {
 
 const ColumnName = {
   ID: 'id',
-  PERMISSION_ID: 'permission_id',
   GROUP_ID: 'group_id',
 } as const;
 
