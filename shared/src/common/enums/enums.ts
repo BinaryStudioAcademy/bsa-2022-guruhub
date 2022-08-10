@@ -10,4 +10,8 @@ export { CustomExceptionName } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
+export {
+  PaginationDefaultValues,
+  PaginationMinValues,
+} from './pagination/pagination';
 export { UserValidationMessage, UserValidationRule } from './user/user';

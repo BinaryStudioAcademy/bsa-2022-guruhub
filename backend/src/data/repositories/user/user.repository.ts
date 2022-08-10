@@ -1,5 +1,7 @@
-import { UserGetAllRequestQueryDto } from 'guruhub-shared/common/types/types';
-
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import { User as UserM } from '~/data/models/models';
 
 type Constructor = {
@@ -13,11 +15,17 @@ class User {
     this.#UserModel = UserModel;
   }
 
-  async getAll({ page, count }: UserGetAllRequestQueryDto): Promise<UserM[]> {
-    return this.#UserModel
-      .query()
-      .limit(count)
-      .offset((page - 1) * count);
+  async getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {
+    const ZERO_INDEXED_PAGE = page - 1;
+    const result = await this.#UserModel.query().page(ZERO_INDEXED_PAGE, count);
+
+    return {
+      items: result.results,
+      total: result.total,
+    };
   }
 
   async getByEmail(email: string): Promise<UserM | null> {

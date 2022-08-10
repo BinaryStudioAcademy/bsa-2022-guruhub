@@ -1,8 +1,9 @@
 export { type UsersByEmailResponseDto } from './users-by-email-response-dto.type';
 export {
-  type UserGetAllRequestQueryDto,
+  type EntityPaginationRequestQueryDto,
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
+  type UsersGetAllItemResponseDto,
   type UsersGetAllResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,

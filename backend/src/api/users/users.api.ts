@@ -1,9 +1,13 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { DEFAULT_COUNT, DEFAULT_PAGE } from '~/common/constants/constants';
-import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
 import {
-  UserGetAllRequestQueryDto,
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValues,
+  UsersApiPath,
+} from '~/common/enums/enums';
+import {
+  EntityPaginationRequestQueryDto,
   UsersDeleteRequestParamsDto,
 } from '~/common/types/types';
 import { user as userService } from '~/services/services';
@@ -29,12 +33,15 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     },
     async handler(
       req: FastifyRequest<{
-        Querystring: UserGetAllRequestQueryDto;
+        Querystring: EntityPaginationRequestQueryDto;
       }>,
       rep,
     ) {
-      const { page = DEFAULT_PAGE, count = DEFAULT_COUNT } = req.query;
-      const users = await userService.getAll({
+      const {
+        page = PaginationDefaultValues.DEFAULT_PAGE,
+        count = PaginationDefaultValues.DEFAULT_COUNT,
+      } = req.query;
+      const users = await userService.getPaginated({
         page,
         count,
       });

@@ -1,8 +1,8 @@
 import {
-  UserGetAllRequestQueryDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
-  UsersGetAllResponseDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
@@ -22,19 +22,22 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  async getAll({
+  async getPaginated({
     page,
     count,
-  }: UserGetAllRequestQueryDto): Promise<UsersGetAllResponseDto> {
-    const users = await this.#userRepository.getAll({ page, count });
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<UsersByIdResponseDto>
+  > {
+    const result = await this.#userRepository.getPaginated({ page, count });
 
     return {
-      items: users.map((user) => ({
+      items: result.items.map((user) => ({
         id: user.id,
         email: user.email,
         fullName: user.fullName,
         createdAt: user.createdAt,
       })),
+      total: result.total,
     };
   }
 

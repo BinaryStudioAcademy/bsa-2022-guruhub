@@ -1,11 +1,16 @@
 import * as Joi from 'joi';
 
-import { UserGetAllRequestQueryDto } from '~/common/types/types';
+import { PaginationMinValues } from '~/common/enums/enums';
+import { EntityPaginationRequestQueryDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const pagination = Joi.object({
-  [getNameOf<UserGetAllRequestQueryDto>('count')]: Joi.number().min(1),
-  [getNameOf<UserGetAllRequestQueryDto>('page')]: Joi.number().min(1),
+  [getNameOf<EntityPaginationRequestQueryDto>('count')]: Joi.number().min(
+    PaginationMinValues.COUNT,
+  ),
+  [getNameOf<EntityPaginationRequestQueryDto>('page')]: Joi.number().min(
+    PaginationMinValues.PAGE,
+  ),
 });
 
 export { pagination };
