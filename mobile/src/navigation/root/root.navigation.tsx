@@ -8,7 +8,7 @@ import { RootScreenName } from '~/common/enums/enums';
 import { RootNavigationParamList } from '~/common/types/types';
 import { Auth } from '~/components/auth/auth';
 
-import { App as AppNavigation } from '../app/app.navigation';
+import { App as AppNavigation } from '~/navigation/app/app.navigation';
 
 const NativeStack = createNativeStackNavigator<RootNavigationParamList>();
 
