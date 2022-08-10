@@ -2,7 +2,7 @@ import { UsersGetAllItemResponseDto } from 'common/types/types';
 
 import { UserTableAccessor } from '../../common/enums/enums';
 
-const getRows = (
+const getUsersRows = (
   users: UsersGetAllItemResponseDto[],
 ): UsersGetAllItemResponseDto[] => {
   return users.map((user) => ({
@@ -13,4 +13,4 @@ const getRows = (
   }));
 };
 
-export { getRows };
+export { getUsersRows };

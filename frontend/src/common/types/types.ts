@@ -5,6 +5,7 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
+export { GroupsResponseDto } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,

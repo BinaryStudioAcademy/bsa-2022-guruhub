@@ -3,7 +3,7 @@ import { Column } from 'react-table';
 
 import { UserTableHeader } from '../../common/enums/enums';
 
-const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
+const getUsersColumns = (): Column<UsersGetAllItemResponseDto>[] => {
   return [
     {
       Header: UserTableHeader.ID,
@@ -24,4 +24,4 @@ const getColumns = (): Column<UsersGetAllItemResponseDto>[] => {
   ];
 };
 
-export { getColumns };
+export { getUsersColumns };
