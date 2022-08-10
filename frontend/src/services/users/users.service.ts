@@ -1,5 +1,8 @@
 import { ApiPath, HttpMethod, UsersApiPath } from 'common/enums/enums';
-import { UsersGetAllResponseDto } from 'common/types/types';
+import {
+  UsersDeleteRequestParamsDto,
+  UsersGetAllResponseDto,
+} from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -21,6 +24,16 @@ class UsersApi {
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public delete(payload: UsersDeleteRequestParamsDto): Promise<void> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.$ID}`,
+      {
+        method: HttpMethod.DELETE,
+        payload: JSON.stringify(payload),
       },
     );
   }

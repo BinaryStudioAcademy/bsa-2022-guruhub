@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AsyncThunkConfig, UsersGetAllResponseDto } from 'common/types/types';
+import {
+  AsyncThunkConfig,
+  UsersDeleteRequestParamsDto,
+  UsersGetAllResponseDto,
+} from 'common/types/types';
 
 import { ActionType } from './common';
 
@@ -14,4 +18,14 @@ const getUsers = createAsyncThunk<
   return usersDto;
 });
 
-export { getUsers };
+const deleteUser = createAsyncThunk<
+  void,
+  UsersDeleteRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.DELETE_USER, async (payload, { extra }) => {
+  const { usersApi } = extra;
+
+  await usersApi.delete(payload);
+});
+
+export { deleteUser, getUsers };

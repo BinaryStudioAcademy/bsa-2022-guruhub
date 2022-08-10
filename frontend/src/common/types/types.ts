@@ -14,6 +14,7 @@ export { type FC, type SVGProps } from './react/react';
 export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
+  type UsersDeleteRequestParamsDto,
   type UsersGetAllItemResponseDto,
   type UsersGetAllResponseDto,
   type UserSignInRequestDto,

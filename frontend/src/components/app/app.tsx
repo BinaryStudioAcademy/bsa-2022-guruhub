@@ -3,7 +3,7 @@ import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
   AuthorizedWrapper,
-  ProtectedRoute,
+  // ProtectedRoute,
   Route,
   Routes,
 } from 'components/common/common';
@@ -38,7 +38,8 @@ const App: FC = () => {
           path={AppRoute.UAM}
           element={
             <AuthorizedWrapper>
-              <ProtectedRoute component={<UAM />} />
+              {/* <ProtectedRoute component={<UAM />} /> */}
+              <UAM />
             </AuthorizedWrapper>
           }
         />

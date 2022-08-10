@@ -1,3 +1,4 @@
+import { ReactComponent as DeleteIcon } from 'assets/icons/trash-can-solid.svg';
 import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
 
@@ -12,10 +13,21 @@ const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
 }: Props<Data>): ReactElement => {
-  const tableInstance = useTable({
-    columns,
-    data,
-  });
+  const tableInstance = useTable(
+    {
+      columns,
+      data,
+    },
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        ...columns,
+        {
+          Header: 'Actions',
+          Cell: <DeleteIcon className={styles.deleteIcon} />,
+        },
+      ]);
+    },
+  );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
