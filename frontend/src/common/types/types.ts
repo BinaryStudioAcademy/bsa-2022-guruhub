@@ -11,6 +11,7 @@ export {
   type NavigationMenuItem,
   type SubNavigationMenuItem,
 } from './navigation-menu/navigation-menu';
+export { type NotificationPayload } from './notification/notification';
 export { type FC, type SVGProps } from './react/react';
 export { type IconName } from './ui/ui';
 export {
