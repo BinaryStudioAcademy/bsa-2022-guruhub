@@ -1,8 +1,7 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { NotificationType } from 'common/enums/enums';
 import { AppDispatch } from 'common/types/types';
-
-import { notify } from '../../app/actions';
+import { appActions } from 'store/actions';
 
 type HandleErrorParams = {
   dispatch: AppDispatch;
@@ -14,7 +13,7 @@ const handleError: Middleware =
   (action): void => {
     if (action.error) {
       const { message } = action.error;
-      dispatch(notify({ type: NotificationType.ERROR, message }));
+      dispatch(appActions.notify({ type: NotificationType.ERROR, message }));
     }
 
     return next(action);
