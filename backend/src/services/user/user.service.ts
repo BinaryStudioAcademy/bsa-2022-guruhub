@@ -29,7 +29,11 @@ class User {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<UserGetResponseDto>
   > {
-    const result = await this.#userRepository.getPaginated({ page, count });
+    const ZERO_INDEXED_PAGE = page - 1;
+    const result = await this.#userRepository.getPaginated({
+      page: ZERO_INDEXED_PAGE,
+      count,
+    });
 
     return {
       items: result.items.map((user) => ({

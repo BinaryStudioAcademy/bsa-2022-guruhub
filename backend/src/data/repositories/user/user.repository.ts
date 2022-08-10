@@ -19,8 +19,7 @@ class User {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {
-    const ZERO_INDEXED_PAGE = page - 1;
-    const result = await this.#UserModel.query().page(ZERO_INDEXED_PAGE, count);
+    const result = await this.#UserModel.query().page(page, count);
 
     return {
       items: result.results,
