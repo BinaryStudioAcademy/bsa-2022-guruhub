@@ -1,8 +1,10 @@
 import { FastifyPluginAsync } from 'fastify';
 
+import { WHITE_ROUTES } from '~/common/constants/constants';
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
-import { auth, group, permission, user } from '~/services/services';
+import { authorization as authorizationPlugin } from '~/plugins/plugins';
+import { auth, group, permission, token, user } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
 import { initGroupsApi } from './groups/groups.api';
@@ -14,6 +16,14 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     return <T>(data: T): ReturnType<ValidationSchema['validate']> => {
       return schema.validate(data);
     };
+  });
+
+  fastify.register(authorizationPlugin, {
+    services: {
+      user,
+      token,
+    },
+    routesWhiteList: WHITE_ROUTES,
   });
 
   fastify.register(initAuthApi, {
