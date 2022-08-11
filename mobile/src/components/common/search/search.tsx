@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ImageURISource, TextInput, TouchableOpacity } from 'react-native';
+import { ImageURISource, TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import { Image, View } from '~/components/common/common';
@@ -19,7 +19,7 @@ type IconSize = {
 
 type IconName = 'search' | 'voice';
 
-const Search: FC<Props> = ({ onSearch, onVoice }) => {
+const Search: FC<Props> = ({ onSearch }) => {
   const [text, setText] = useState('');
   const [borderColor, setBorderColor] = useState('transparent');
 
@@ -33,12 +33,6 @@ const Search: FC<Props> = ({ onSearch, onVoice }) => {
 
   const handleChangeText = (value: string): void => {
     setText(value);
-  };
-
-  const handleVoicePress = async (): Promise<void> => {
-    if (onVoice) {
-      handleChangeText(await onVoice());
-    }
   };
 
   const getUriSource = (name: IconName): ImageURISource => {
@@ -73,13 +67,7 @@ const Search: FC<Props> = ({ onSearch, onVoice }) => {
         placeholder="Search"
         placeholderTextColor={AppColor.TEXT.GRAY_200}
       />
-      <TouchableOpacity
-        activeOpacity={0.7}
-        disabled={!onVoice}
-        onPress={handleVoicePress}
-      >
-        {getIcon('voice', { width: 12, height: 18 })}
-      </TouchableOpacity>
+      {getIcon('voice', { width: 12, height: 18 })}
     </View>
   );
 };
