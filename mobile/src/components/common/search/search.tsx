@@ -1,3 +1,4 @@
+import { debounce } from 'debounce';
 import React, { FC } from 'react';
 import { ImageURISource, TextInput } from 'react-native';
 
@@ -9,7 +10,6 @@ import { styles } from './styles';
 
 type Props = {
   onSearch: (text: string) => void;
-  onVoice?: () => Promise<string>;
 };
 
 type IconSize = {
@@ -22,13 +22,12 @@ type IconName = 'search' | 'voice';
 const Search: FC<Props> = ({ onSearch }) => {
   const [text, setText] = useState('');
   const [borderColor, setBorderColor] = useState('transparent');
+  const handleOnSearch = debounce(onSearch, 1000);
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      onSearch(text);
-    }, 1000);
+    handleOnSearch(text);
 
-    return () => clearTimeout(delayDebounceFn);
+    return () => handleOnSearch.clear();
   }, [text]);
 
   const handleChangeText = (value: string): void => {
