@@ -1,4 +1,5 @@
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
+export { type CourseToCourseCategoriesResponseDto } from './course-to-course-categories/course-to-course-categories';
 export { type CourseToVendorsResponseDto } from './course-to-vendors/course-to-vendors';
 export { type EncryptionData } from './encryption/encryption';
 export {

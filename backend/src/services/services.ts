@@ -2,6 +2,8 @@ import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
   courseCategory as courseCategoryRepository,
+  courseToCourseCategories as courseToCourseCategoriesRepository,
+  courseToVendors as courseToVendorsRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -12,6 +14,8 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { CourseCategory } from './course-category/course-category.service';
+import { CourseToCourseCategories } from './course-to-course-categories/course-to-course-categories.service';
+import { CourseToVendors } from './course-to-vendors/course-to-vendors.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -62,9 +66,17 @@ const vendor = new Vendor({ vendorRepository });
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
 
+const courseToCourseCategories = new CourseToCourseCategories({
+  courseToCourseCategoriesRepository,
+});
+
+const courseToVendors = new CourseToVendors({ courseToVendorsRepository });
+
 export {
   auth,
   courseCategory,
+  courseToCourseCategories,
+  courseToVendors,
   encrypt,
   group,
   groupsToPermissions,
