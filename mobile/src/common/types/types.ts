@@ -21,6 +21,9 @@ export {
 export { type NotificationPayload } from './notification/notification';
 export { type AppTextStyle } from './ui/ui';
 export {
+  type UsersByIdResponseDto,
+  type UserSignInRequestDto,
+  type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from './user/user';
