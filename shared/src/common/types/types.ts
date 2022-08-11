@@ -20,3 +20,4 @@ export {
 } from './user/user';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
+export { type VendorGetResponseDto } from './vendor/vendor';

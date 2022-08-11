@@ -6,6 +6,7 @@ import {
   permission as permissionRepository,
   user as userRepository,
   usersToGroups as usersToGroupsRepository,
+  vendor as vendorRepository,
 } from '~/data/repositories/repositories';
 
 import { Auth } from './auth/auth.service';
@@ -16,6 +17,7 @@ import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { User } from './user/user.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
+import { Vendor } from './vendor/vendor.service';
 
 const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
@@ -54,6 +56,8 @@ const group = new Group({
   userService: user,
 });
 
+const vendor = new Vendor({ vendorRepository });
+
 export {
   auth,
   encrypt,
@@ -63,4 +67,5 @@ export {
   token,
   user,
   usersToGroups,
+  vendor,
 };
