@@ -1,12 +1,9 @@
-import {
-  FC,
-  GroupsGetAllItemResponseDto,
-  UsersGetAllItemResponseDto,
-} from 'common/types/types';
+import { FC, GroupsGetAllItemResponseDto } from 'common/types/types';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
 
+import { UsersColumn, UsersRow } from './common/types/types';
 import { GroupsTable, UsersTable } from './components/components';
 import {
   getGroupsColumns,
@@ -28,25 +25,21 @@ const UAM: FC = () => {
     dispatch(uamActions.getGroups());
   }, []);
 
-  const usersColumns: Column<UsersGetAllItemResponseDto>[] = getUsersColumns();
-  const usersRows: UsersGetAllItemResponseDto[] = getUsersRows(users);
+  const handleUserDelete = (userId: string): void => {
+    dispatch(uamActions.deleteUser({ id: userId }));
+  };
+
+  const usersColumns: Column<UsersColumn>[] = getUsersColumns();
+  const usersRows: UsersRow[] = getUsersRows(users, handleUserDelete);
 
   const groupsColumns: Column<GroupsGetAllItemResponseDto>[] =
     getGroupsColumns();
   const groupsRows: GroupsGetAllItemResponseDto[] = getGroupsRows(groups);
 
-  const deleteUser = (userId: string): void => {
-    dispatch(uamActions.deleteUser({ id: userId }));
-  };
-
   return (
     <div className={styles.uam}>
       <h1 className={styles.pageTitle}>User Access Managment</h1>
-      <UsersTable
-        data={usersRows}
-        columns={usersColumns}
-        onClick={deleteUser}
-      />
+      <UsersTable data={usersRows} columns={usersColumns} />
       <GroupsTable data={groupsRows} columns={groupsColumns} />
     </div>
   );

@@ -28,7 +28,7 @@ class UsersApi {
     );
   }
 
-  public delete(payload: UsersDeleteRequestParamsDto): Promise<void> {
+  public delete(payload: UsersDeleteRequestParamsDto): Promise<boolean> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}${payload.id}`,
       {

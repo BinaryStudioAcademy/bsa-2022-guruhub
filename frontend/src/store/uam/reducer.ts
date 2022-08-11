@@ -9,14 +9,14 @@ import { deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  isDeleted: DataStatus;
+  userDeleteDataStatus: DataStatus;
   users: UsersGetAllItemResponseDto[];
   groups: GroupsGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  isDeleted: DataStatus.IDLE,
+  userDeleteDataStatus: DataStatus.IDLE,
   users: [],
   groups: [],
 };
@@ -45,16 +45,16 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(deleteUser.pending, (state) => {
-    state.isDeleted = DataStatus.PENDING;
+    state.userDeleteDataStatus = DataStatus.PENDING;
   });
   builder.addCase(deleteUser.fulfilled, (state, action) => {
-    state.isDeleted = DataStatus.FULFILLED;
+    state.userDeleteDataStatus = DataStatus.FULFILLED;
     state.users = state.users.filter(
       (user) => user.id !== Number(action.payload),
     );
   });
   builder.addCase(deleteUser.rejected, (state) => {
-    state.isDeleted = DataStatus.REJECTED;
+    state.userDeleteDataStatus = DataStatus.REJECTED;
   });
 });
 
