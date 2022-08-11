@@ -17,6 +17,8 @@ const initialState: State = {
     user: {
       id: 0,
       email: '',
+      createdAt: '',
+      fullName: '',
     },
   },
 };
