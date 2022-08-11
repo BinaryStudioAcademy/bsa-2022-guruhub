@@ -4,4 +4,5 @@ export { ContentType } from './file/file';
 export { HttpHeader, HttpMethod } from './http/http';
 export { AppScreenName, RootScreenName } from './navigation/navigation';
 export { NotificationType } from './notification/notification';
+export { StackDirection } from './stack/stack-direction.enum';
 export { AppColor, AppFontFamily } from './ui/ui';
