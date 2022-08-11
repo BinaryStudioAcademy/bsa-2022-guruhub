@@ -1,9 +1,9 @@
 import { debounce } from 'debounce';
 import React, { FC } from 'react';
-import { ImageURISource, TextInput } from 'react-native';
+import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
-import { Image, View } from '~/components/common/common';
+import { Icon, View } from '~/components/common/common';
 import { useEffect, useState } from '~/hooks/hooks';
 
 import { styles } from './styles';
@@ -11,13 +11,6 @@ import { styles } from './styles';
 type Props = {
   onSearch: (text: string) => void;
 };
-
-type IconSize = {
-  width: number;
-  height: number;
-};
-
-type IconName = 'search' | 'voice';
 
 const Search: FC<Props> = ({ onSearch }) => {
   const [text, setText] = useState('');
@@ -36,26 +29,9 @@ const Search: FC<Props> = ({ onSearch }) => {
 
   const handleOnBlur = (): void => setBorderColor('transparent');
 
-  const getUriSource = (name: IconName): ImageURISource => {
-    if (name === 'search') {
-      return require('~/assets/images/search.png');
-    }
-
-    return require('~/assets/images/voice.png');
-  };
-
-  const getIcon = (name: IconName, size: IconSize): JSX.Element => {
-    return (
-      <Image
-        source={Image.resolveAssetSource(getUriSource(name))}
-        style={{ width: size.width, height: size.height }}
-      />
-    );
-  };
-
   return (
     <View style={{ ...styles.searchBar, borderColor: borderColor }}>
-      {getIcon('search', { width: 16, height: 16 })}
+      <Icon name="search" />
       <TextInput
         selectionColor={AppColor.TEXT.GRAY_200}
         style={styles.search}
@@ -68,7 +44,7 @@ const Search: FC<Props> = ({ onSearch }) => {
         placeholder="Search"
         placeholderTextColor={AppColor.TEXT.GRAY_200}
       />
-      {getIcon('voice', { width: 12, height: 18 })}
+      <Icon name="voice" size={{ width: 12, height: 18 }} />
     </View>
   );
 };
