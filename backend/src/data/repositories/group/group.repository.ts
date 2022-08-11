@@ -20,6 +20,16 @@ class Group {
     });
   }
 
+  async getByName(name: string): Promise<GroupM | null> {
+    const group = await this.#GroupModel
+      .query()
+      .select()
+      .where({ name })
+      .first();
+
+    return group ?? null;
+  }
+
   async getAll(): Promise<GroupM[]> {
     return this.#GroupModel.query();
   }

@@ -1,3 +1,7 @@
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import { Permission as PermissionM, User as UserM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,8 +15,16 @@ class User {
     this.#UserModel = UserModel;
   }
 
-  async getAll(): Promise<UserM[]> {
-    return this.#UserModel.query();
+  async getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {
+    const result = await this.#UserModel.query().page(page, count);
+
+    return {
+      items: result.results,
+      total: result.total,
+    };
   }
 
   async getByEmail(email: string): Promise<UserM | null> {
@@ -44,6 +56,12 @@ class User {
       .castTo(PermissionM);
 
     return permissions;
+  }
+
+  async getByIds(ids: number[]): Promise<UserM[]> {
+    const users = await this.#UserModel.query().findByIds(ids);
+
+    return users;
   }
 
   async create(user: {
