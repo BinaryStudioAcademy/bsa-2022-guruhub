@@ -1,26 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { UserSignInResponseDto } from 'guruhub-shared';
 
 import { DataStatus } from '~/common/enums/enums';
+import { UsersByIdResponseDto } from '~/common/types/types';
 
 import { signIn, signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  user?: UserSignInResponseDto;
+  user: UsersByIdResponseDto | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  user: {
-    token: '',
-    user: {
-      id: 0,
-      email: '',
-      createdAt: '',
-      fullName: '',
-    },
-  },
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -36,12 +28,13 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(signIn.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(signIn.fulfilled, (state, action) => {
+  builder.addCase(signIn.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.user = action.payload;
+    state.user = payload;
   });
   builder.addCase(signIn.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
   });
 });
 

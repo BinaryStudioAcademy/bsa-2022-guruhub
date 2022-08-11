@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
-  UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
@@ -21,13 +21,14 @@ const signUp = createAsyncThunk<
 });
 
 const signIn = createAsyncThunk<
-  UserSignInResponseDto,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_IN, async (payload, { extra }) => {
   const { authApi } = extra;
+  const { user } = await authApi.signIn(payload);
 
-  return authApi.signIn(payload);
+  return user;
 });
 
 export { signIn, signUp };

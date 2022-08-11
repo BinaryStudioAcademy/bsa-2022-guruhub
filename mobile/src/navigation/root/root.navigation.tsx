@@ -3,10 +3,10 @@ import {
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 
 import { RootScreenName } from '~/common/enums/enums';
-import { RootNavigationParamList, RootState } from '~/common/types/types';
+import { RootNavigationParamList } from '~/common/types/types';
+import { useAppSelector } from '~/hooks/hooks';
 import { App as AppNavigation } from '~/navigation/app/app.navigation';
 import { Auth as AuthNavigation } from '~/navigation/auth/auth.navigation';
 
@@ -17,11 +17,11 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: FC = () => {
-  const currentUser = useSelector((state: RootState) => state.auth.user);
+  const hasUser = useAppSelector(({ auth }) => auth);
 
   return (
     <NativeStack.Navigator screenOptions={screenOptions}>
-      {currentUser?.token ? (
+      {hasUser.user ? (
         <NativeStack.Screen
           name={RootScreenName.APP}
           component={AppNavigation}
