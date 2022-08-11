@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AsyncThunkConfig, UsersGetAllResponseDto } from 'common/types/types';
+import {
+  AsyncThunkConfig,
+  GroupsGetAllResponseDto,
+  UsersGetAllResponseDto,
+} from 'common/types/types';
 
 import { ActionType } from './common';
 
@@ -14,4 +18,15 @@ const getUsers = createAsyncThunk<
   return usersDto;
 });
 
-export { getUsers };
+const getGroups = createAsyncThunk<
+  GroupsGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_GROUPS, async (_, { extra }) => {
+  const { groupsApi } = extra;
+  const groups = await groupsApi.getAll();
+
+  return groups;
+});
+
+export { getGroups, getUsers };
