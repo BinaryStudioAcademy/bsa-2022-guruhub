@@ -27,11 +27,13 @@ class UsersApi {
     EntityPagination<UsersGetResponseDto>
   > {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.USERS}${
-        UsersApiPath.ROOT
-      }?page=${page}&count=${count}`,
+      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+        queryString: {
+          page,
+          count,
+        },
       },
     );
   }
