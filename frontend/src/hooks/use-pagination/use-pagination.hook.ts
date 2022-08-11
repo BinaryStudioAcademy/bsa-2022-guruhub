@@ -6,7 +6,7 @@ type UsePaginationResult = {
   handlePageChange: (page: number) => void;
 };
 
-function usePagination(): UsePaginationResult {
+const usePagination = (): UsePaginationResult => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getValidPageFromSearchParams = (): number => {
@@ -27,6 +27,6 @@ function usePagination(): UsePaginationResult {
   };
 
   return { page, handlePageChange };
-}
+};
 
 export { usePagination };
