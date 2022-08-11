@@ -14,6 +14,12 @@ class Permission {
   async getAll(): Promise<PermissionM[]> {
     return this.#PermissionModel.query();
   }
+
+  async getByIds(ids: number[]): Promise<PermissionM[]> {
+    const permissions = await this.#PermissionModel.query().findByIds(ids);
+
+    return permissions;
+  }
 }
 
 export { Permission };

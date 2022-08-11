@@ -92,6 +92,17 @@ class User {
     };
   }
 
+  async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
+    const users = await this.#userRepository.getByIds(ids);
+
+    return users.map((user) => ({
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    }));
+  }
+
   async delete(id: number): Promise<boolean> {
     const deletedUsersCount = await this.#userRepository.delete(id);
 

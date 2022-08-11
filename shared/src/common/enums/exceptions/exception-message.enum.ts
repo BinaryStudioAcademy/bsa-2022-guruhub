@@ -4,6 +4,8 @@ enum ExceptionMessage {
   UNAUTHORIZED_USER = 'Unauthorized user.',
   INVALID_TOKEN = 'Token is invalid.',
   INVALID_GROUP_NAME = 'Group name is invalid.',
+  INVALID_GROUP_PERMISSIONS = 'Group permissions are invalid.',
+  INVALID_GROUP_USERS = 'Group users are invalid.',
 }
 
 export { ExceptionMessage };

@@ -1,5 +1,5 @@
 export { AuthError } from './auth-error/auth-error.exception';
-export { InvalidGroupError } from './invalid-group-error/invalid-group-error.exception';
+export { GroupsError } from './groups-error/groups-error.exception';
 export {
   HttpError,
   InvalidCredentialsError,

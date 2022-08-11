@@ -6,7 +6,7 @@ import {
   HttpCode,
 } from '~/common/enums/enums';
 
-class InvalidGroupError extends HttpError {
+class GroupsError extends HttpError {
   constructor({
     message = ExceptionMessage.INVALID_GROUP_NAME,
     status = HttpCode.BAD_REQUEST,
@@ -16,4 +16,4 @@ class InvalidGroupError extends HttpError {
   }
 }
 
-export { InvalidGroupError };
+export { GroupsError };
