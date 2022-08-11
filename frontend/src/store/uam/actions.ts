@@ -1,20 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   GroupsGetAllResponseDto,
   UsersDeleteRequestParamsDto,
-  UsersGetAllResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getUsers = createAsyncThunk<
-  UsersGetAllResponseDto,
-  void,
+  EntityPagination<UsersGetResponseDto>,
+  EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_USERS, async (_, { extra }) => {
+>(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
   const { usersApi } = extra;
-  const usersDto = await usersApi.getAll();
+  const usersDto = await usersApi.getPaginated({ page, count });
 
   return usersDto;
 });

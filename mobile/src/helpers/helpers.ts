@@ -1,2 +1,2 @@
-export { getImageUri } from './ui/ui';
+export { getImageUri } from './image/image';
 export { getFormValidationResolver } from './validation/validation';

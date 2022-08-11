@@ -11,7 +11,7 @@ import { Overview } from '~/components/overview/overview';
 import { Settings } from '~/components/setting/setting';
 
 import { SCREEN_OPTIONS } from './common/constants';
-import { CustomDrawerContent } from './components/drawer-content/drawer-content';
+import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
@@ -20,7 +20,7 @@ const App: FC = () => {
     <Drawer.Navigator
       initialRouteName={AppScreenName.OVERVIEW}
       screenOptions={SCREEN_OPTIONS}
-      drawerContent={(props): JSX.Element => <CustomDrawerContent {...props} />}
+      drawerContent={(props): JSX.Element => <DrawerContent {...props} />}
     >
       <Drawer.Screen name={AppScreenName.OVERVIEW} component={Overview} />
       <Drawer.Screen name={AppScreenName.COURSES} component={Courses} />

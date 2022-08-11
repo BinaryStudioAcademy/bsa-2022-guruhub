@@ -1,14 +1,18 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
+import logo from '~/assets/images/logo.png';
+import saly from '~/assets/images/saly.png';
+import { AppScreenName } from '~/common/enums/enums';
 import { Button, Image, ScrollView, View } from '~/components/common/common';
+import { getImageUri } from '~/helpers/helpers';
 import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
-import { CustomDrawerList } from '~/navigation/app/components/drawer-list/drawer-list';
 
+import { DrawerList } from '../drawer-list/drawer-list';
 import { styles } from './styles';
 
-const CustomDrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
-  const focusedRouteName = state.routes[state.index].name;
+const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
+  const focusedRouteName = state.routes[state.index].name as AppScreenName;
 
   const handleBecomeMentor = (): void => {
     // TODO: navigate to application screen
@@ -17,27 +21,26 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('~/assets/logo.png')} />
+        <Image source={{ uri: getImageUri(logo) }} />
       </View>
-      {NAVIGATION_ITEMS.map(({ name, subroutes, border }) => (
+      {NAVIGATION_ITEMS.map(({ name, subroutes }, index) => (
         <View style={styles.listWrapper} key={name}>
-          <CustomDrawerList
+          <DrawerList
             name={name}
             subroutes={subroutes}
             focusedRouteName={focusedRouteName}
           />
-          {border ? <View style={styles.listBorder}></View> : ''}
+          {Boolean(index) && index !== NAVIGATION_ITEMS.length - 1 && (
+            <View style={styles.listBorder} />
+          )}
         </View>
       ))}
       <View style={styles.footer}>
-        <Image
-          style={styles.footerImage}
-          source={require('~/assets/saly.png')}
-        />
+        <Image style={styles.footerImage} source={{ uri: getImageUri(saly) }} />
         <Button label="Become A Mentor" onPress={handleBecomeMentor} />
       </View>
     </ScrollView>
   );
 };
 
-export { CustomDrawerContent };
+export { DrawerContent };

@@ -1,7 +1,22 @@
 get:
-  summary: Get all users
+  summary: Get users for a page
   tags:
     - users
+  parameters:
+    - in: query
+      name: page
+      schema:
+        type: integer
+      default: 1
+      required: false
+      description: The number of page to be returned
+    - in: query
+      name: count
+      schema:
+        type: integer
+      default: 10
+      required: false
+      description: The number of users to be returned for request
   responses:
     '200':
       content:

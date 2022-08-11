@@ -1,23 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
+  EntityPagination,
   GroupsGetAllItemResponseDto,
-  UsersGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  userDeleteDataStatus: DataStatus;
-  users: UsersGetAllItemResponseDto[];
+  users: EntityPagination<UsersGetResponseDto>;
   groups: GroupsGetAllItemResponseDto[];
+  userDeleteDataStatus: DataStatus;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
+  users: {
+    items: [],
+    total: 0,
+  },
   userDeleteDataStatus: DataStatus.IDLE,
-  users: [],
   groups: [],
 };
 
@@ -27,7 +31,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getUsers.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.users = action.payload.items;
+    state.users = action.payload;
   });
   builder.addCase(getUsers.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -47,11 +51,8 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(deleteUser.pending, (state) => {
     state.userDeleteDataStatus = DataStatus.PENDING;
   });
-  builder.addCase(deleteUser.fulfilled, (state, action) => {
+  builder.addCase(deleteUser.fulfilled, (state) => {
     state.userDeleteDataStatus = DataStatus.FULFILLED;
-    state.users = state.users.filter(
-      (user) => user.id !== Number(action.payload),
-    );
   });
   builder.addCase(deleteUser.rejected, (state) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;

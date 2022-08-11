@@ -1,7 +1,9 @@
 import { ApiPath, HttpMethod, UsersApiPath } from 'common/enums/enums';
 import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UsersDeleteRequestParamsDto,
-  UsersGetAllResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -19,11 +21,20 @@ class UsersApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<UsersGetAllResponseDto> {
+  public getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<UsersGetResponseDto>
+  > {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+        queryString: {
+          page,
+          count,
+        },
       },
     );
   }
