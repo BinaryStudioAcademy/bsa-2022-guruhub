@@ -12,10 +12,10 @@ const VendorLabel: FC<VendorLabel> = ({ vendor_name }) => {
 
   const VENDOR_LOGO = {
     udemy: {
-      uri: require('./assets/images/vendors_logo/udemy.png'),
+      uri: require('./assets/images/udemy.png'),
     },
     coursera: {
-      uri: require('./assets/images/vendors_logo/coursera.png'),
+      uri: require('./assets/images/coursera.png'),
     },
   };
 
