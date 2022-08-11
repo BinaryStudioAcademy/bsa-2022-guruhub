@@ -43,6 +43,12 @@ class User {
     return user ?? null;
   }
 
+  async getByIds(ids: number[]): Promise<UserM[]> {
+    const users = await this.#UserModel.query().findByIds(ids);
+
+    return users;
+  }
+
   async create(user: {
     email: string;
     fullName: string;
