@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 
 import { StackDirection } from '~/common/enums/enums';
-
-import { View } from '../common';
+import { View } from '~/components/common/common';
 
 type Props = {
   children: any[];
