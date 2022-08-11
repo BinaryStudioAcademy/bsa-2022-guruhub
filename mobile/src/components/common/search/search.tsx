@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { ImageURISource, TextInput, TouchableOpacity } from 'react-native';
 
-import search from '~/assets/images/search.png';
-import voice from '~/assets/images/voice.png';
 import { AppColor } from '~/common/enums/enums';
 import { Image, View } from '~/components/common/common';
 import { useEffect, useState } from '~/hooks/hooks';
@@ -45,10 +43,10 @@ const Search: FC<Props> = ({ onSearch, onVoice }) => {
 
   const getUriSource = (name: IconName): ImageURISource => {
     if (name === 'search') {
-      return search;
+      return require('~/assets/images/search.png');
     }
 
-    return voice;
+    return require('~/assets/images/voice.png');
   };
 
   const getIcon = (name: IconName, size: IconSize): JSX.Element => {
