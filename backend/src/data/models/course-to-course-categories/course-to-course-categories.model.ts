@@ -2,14 +2,14 @@ import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 
-class CoursesToVendors extends Abstract {
+class CourseToCourseCategories extends Abstract {
   'courseId': number;
 
-  'vendorId': number;
+  'courseCategoryId': number;
 
   static override get tableName(): string {
-    return DbTableName.COURSES_TO_VENDORS;
+    return DbTableName.COURSES_TO_COURSE_CATEGORIES;
   }
 }
 
-export { CoursesToVendors };
+export { CourseToCourseCategories };

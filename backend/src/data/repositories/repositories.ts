@@ -1,8 +1,8 @@
 import {
   Course as CourseModel,
   CourseCategory as CourseCategoryModel,
-  CoursesToCourseCategories as CoursesToCourseCategoriesModel,
-  CoursesToVendors as CoursesToVendorsModel,
+  CourseToCourseCategories as CourseToCourseCategoriesModel,
+  CourseToVendors as CourseToVendorsModel,
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   Permission as PermissionModel,
@@ -13,8 +13,8 @@ import {
 
 import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
-import { CoursesToCourseCategories } from './courses-to-course-categories/courses-to-course-categories.repository';
-import { CoursesToVendors } from './courses-to-vendors/courses-to-vendors.repository';
+import { CourseToVendors } from './course-to-vendors/course-to-vendors.repository';
+import { CourseToCourseCategories } from './courses-to-course-categories/courses-to-course-categories.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Permission } from './permission/permission.repository';
@@ -46,10 +46,10 @@ const course = new Course({ CourseModel });
 
 const courseCategory = new CourseCategory({ CourseCategoryModel });
 
-const coursesToVendors = new CoursesToVendors({ CoursesToVendorsModel });
+const courseToVendors = new CourseToVendors({ CourseToVendorsModel });
 
-const coursesToCourseCategories = new CoursesToCourseCategories({
-  CoursesToCourseCategoriesModel,
+const courseToCourseCategories = new CourseToCourseCategories({
+  CourseToCourseCategoriesModel,
 });
 
 const vendor = new Vendor({ VendorModel });
@@ -57,8 +57,8 @@ const vendor = new Vendor({ VendorModel });
 export {
   course,
   courseCategory,
-  coursesToCourseCategories,
-  coursesToVendors,
+  courseToCourseCategories,
+  courseToVendors,
   group,
   groupsToPermissions,
   permission,

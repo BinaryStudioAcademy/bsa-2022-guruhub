@@ -1,27 +1,27 @@
-import { CoursesToCourseCategories as CoursesToCourseCategoriesM } from '~/data/models/courses-to-course-categories/courses-to-course-categories.model';
+import { CourseToCourseCategories as CourseToCourseCategoriesM } from '~/data/models/models';
 
 type Constructor = {
-  CoursesToCourseCategoriesModel: typeof CoursesToCourseCategoriesM;
+  CourseToCourseCategoriesModel: typeof CourseToCourseCategoriesM;
 };
 
-class CoursesToCourseCategories {
-  #CoursesToCourseCategoriesModel: typeof CoursesToCourseCategoriesM;
+class CourseToCourseCategories {
+  #CourseToCourseCategoriesModel: typeof CourseToCourseCategoriesM;
 
-  constructor({ CoursesToCourseCategoriesModel }: Constructor) {
-    this.#CoursesToCourseCategoriesModel = CoursesToCourseCategoriesModel;
+  constructor({ CourseToCourseCategoriesModel }: Constructor) {
+    this.#CourseToCourseCategoriesModel = CourseToCourseCategoriesModel;
   }
 
-  async create(coursesToCourseCategories: {
+  async create(courseToCourseCategories: {
     courseId: number;
     courseCategoryId: number;
-  }): Promise<CoursesToCourseCategoriesM> {
-    const { courseId, courseCategoryId } = coursesToCourseCategories;
+  }): Promise<CourseToCourseCategoriesM> {
+    const { courseId, courseCategoryId } = courseToCourseCategories;
 
-    return this.#CoursesToCourseCategoriesModel.query().insert({
+    return this.#CourseToCourseCategoriesModel.query().insert({
       courseId,
       courseCategoryId,
     });
   }
 }
 
-export { CoursesToCourseCategories };
+export { CourseToCourseCategories };
