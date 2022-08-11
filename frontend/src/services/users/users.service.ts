@@ -20,7 +20,7 @@ class UsersApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll({
+  public getPaginated({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
