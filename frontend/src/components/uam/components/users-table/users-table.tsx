@@ -35,6 +35,12 @@ const UsersTable: FC = () => {
 
   const handleUserDelete = (userId: string): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
+    dispatch(
+      uamActions.getUsers({
+        page,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
   };
 
   const columns: Column<UsersTableType>[] = getUsersColumns();
