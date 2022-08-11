@@ -1,7 +1,8 @@
 import { StringCase } from '~/common/enums/enums';
 import {
+  type GroupsGetAllItemResponseDto,
+  type GroupsGetAllResponseDto,
   GroupsCreateRequestDto,
-  GroupsResponseDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { changeStringCase } from '~/helpers/helpers';
@@ -38,7 +39,7 @@ class Group {
 
   async create(
     groupsRequestDto: GroupsCreateRequestDto,
-  ): Promise<GroupsResponseDto> {
+  ): Promise<GroupsGetAllItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const group = await this.#groupsRepository.create({
       name,
@@ -68,6 +69,12 @@ class Group {
     );
 
     return group;
+  }
+
+  async getAll(): Promise<GroupsGetAllResponseDto> {
+    const items = await this.#groupsRepository.getAll();
+
+    return { items };
   }
 }
 

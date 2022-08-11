@@ -1,5 +1,6 @@
 import { ReactComponent as BillingIcon } from 'assets/icons/billing.svg';
 import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
+import { ReactComponent as CrossIcon } from 'assets/icons/cross.svg';
 import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
 import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
@@ -16,6 +17,7 @@ const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   education: EducationIcon,
   billing: BillingIcon,
   settings: SettingsIcon,
+  cross: CrossIcon,
 };
 
 type Props = {
