@@ -4,6 +4,7 @@ export {
   ControllerHook,
   GroupsApiPath,
   PermissionApiPath,
+  Permissions,
   UsersApiPath,
 } from './api/api';
 export { AppEnvironment, ENV, LogLevel } from './app/app';

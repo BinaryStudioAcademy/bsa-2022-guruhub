@@ -1,4 +1,5 @@
 export { ControllerHook } from './controller-hook.enum';
+export { Permissions } from './permissions.enum';
 export {
   ApiPath,
   AuthApiPath,

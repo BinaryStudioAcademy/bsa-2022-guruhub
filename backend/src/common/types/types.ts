@@ -17,5 +17,8 @@ export {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from './user/user';
-export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
+export {
+  type UsersToGroupsGetAllResponseDto,
+  type UsersToGroupsResponseDto,
+} from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

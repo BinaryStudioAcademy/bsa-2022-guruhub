@@ -1,4 +1,7 @@
-import { UsersToGroupsResponseDto } from '~/common/types/types';
+import {
+  UsersToGroupsGetAllResponseDto,
+  UsersToGroupsResponseDto,
+} from '~/common/types/types';
 import { usersToGroups as usersToGroupsRep } from '~/data/repositories/repositories';
 
 type Constructor = {
@@ -23,6 +26,14 @@ class UsersToGroups {
       groupId: model.groupId,
       userId: model.userId,
     };
+  }
+
+  async getGroupsByUserId(
+    userId: number,
+  ): Promise<UsersToGroupsGetAllResponseDto> {
+    const items = await this.#usersToGroupsRepository.getByUserId(userId);
+
+    return { items };
   }
 }
 
