@@ -1,13 +1,16 @@
-import { StringCase } from '~/common/enums/enums';
+import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
+  type GroupsGetAllItemResponseDto,
+  type GroupsGetAllResponseDto,
   GroupsCreateRequestDto,
-  GroupsResponseDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
+import { GroupsError } from '~/exceptions/exceptions';
 import { changeStringCase } from '~/helpers/helpers';
 import {
   groupsToPermissions as groupsToPermissionsServ,
   permission as permissionServ,
+  user as userServ,
   usersToGroups as usersToGroupsServ,
 } from '~/services/services';
 
@@ -16,6 +19,7 @@ type Constructor = {
   permissionService: typeof permissionServ;
   groupsToPermissionsService: typeof groupsToPermissionsServ;
   usersToGroupsService: typeof usersToGroupsServ;
+  userService: typeof userServ;
 };
 
 class Group {
@@ -23,23 +27,48 @@ class Group {
   #permissionService: typeof permissionServ;
   #groupsToPermissionsService: typeof groupsToPermissionsServ;
   #usersToGroupsService: typeof usersToGroupsServ;
+  #userService: typeof userServ;
 
   constructor({
     groupsRepository,
     permissionService,
     groupsToPermissionsService,
     usersToGroupsService,
+    userService,
   }: Constructor) {
     this.#groupsRepository = groupsRepository;
     this.#permissionService = permissionService;
     this.#groupsToPermissionsService = groupsToPermissionsService;
     this.#usersToGroupsService = usersToGroupsService;
+    this.#userService = userService;
   }
 
   async create(
     groupsRequestDto: GroupsCreateRequestDto,
-  ): Promise<GroupsResponseDto> {
+  ): Promise<GroupsGetAllItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
+    const groupByName = await this.#groupsRepository.getByName(name);
+
+    if (groupByName) {
+      throw new GroupsError();
+    }
+    const permissions = await this.#permissionService.getByIds(permissionIds);
+
+    if (permissions.items.length !== permissionIds.length) {
+      throw new GroupsError({
+        message: ExceptionMessage.INVALID_GROUP_PERMISSIONS,
+      });
+    }
+
+    if (userIds) {
+      const users = await this.#userService.getByIds(userIds);
+
+      if (users.length !== userIds.length) {
+        throw new GroupsError({
+          message: ExceptionMessage.INVALID_GROUP_USERS,
+        });
+      }
+    }
     const group = await this.#groupsRepository.create({
       name,
       key: changeStringCase({
@@ -68,6 +97,12 @@ class Group {
     );
 
     return group;
+  }
+
+  async getAll(): Promise<GroupsGetAllResponseDto> {
+    const items = await this.#groupsRepository.getAll();
+
+    return { items };
   }
 }
 

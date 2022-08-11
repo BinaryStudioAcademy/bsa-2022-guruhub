@@ -26,6 +26,16 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       return rep.status(HttpCode.CREATED).send(group);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: GroupsApiPath.ROOT,
+    async handler(req, rep) {
+      const groups = await groupService.getAll();
+
+      return rep.status(HttpCode.OK).send(groups);
+    },
+  });
 };
 
 export { initGroupsApi };
