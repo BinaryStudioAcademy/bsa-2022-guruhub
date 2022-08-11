@@ -6,7 +6,7 @@
     "npm": ">=8.8 <9"
   },
   "scripts": {
-    "lint:js": "npx eslint --fix \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
+    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:js && npm run lint:type",
     "android": "react-native run-android",
