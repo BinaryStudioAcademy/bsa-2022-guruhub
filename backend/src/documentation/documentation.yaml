@@ -17,6 +17,9 @@ paths:
     $ref: './endpoints/users/users-get-all.yaml'
   /users/:id:
     $ref: './endpoints/users/users-delete.yaml'
+  # Groups
+  /groups:
+    $ref: './endpoints/groups/groups-get-all.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -33,6 +36,8 @@ components:
       $ref: './schemas/users/users-delete-request-dto.yaml'
     CurrentUserResponseDto:
       $ref: './schemas/auth/current-user-response-dto.yaml'
+    GroupsGetAllResponseDto:
+      $ref: './schemas/groups/groups-get-all-response-dto.yaml'
     securitySchemes:
       bearerAuth:
         type: http
