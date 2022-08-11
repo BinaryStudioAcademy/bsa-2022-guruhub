@@ -6,8 +6,7 @@ import {
 } from '~/common/enums/enums';
 import { HttpOptions } from '~/common/types/types';
 import { HttpError } from '~/exceptions/exceptions';
-
-import { Storage } from '../storage/storage.service';
+import { Storage } from '~/services/storage/storage.service';
 
 type Constructor = {
   storage: Storage;

@@ -24,6 +24,7 @@ class Storage {
   public delete(key: StorageKey): void {
     return this.#storage.delete(key);
   }
+
   public deleteAll(): void {
     return this.#storage.clearAll();
   }
