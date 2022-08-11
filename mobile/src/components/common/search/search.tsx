@@ -30,9 +30,11 @@ const Search: FC<Props> = ({ onSearch }) => {
     return () => handleOnSearch.clear();
   }, [text]);
 
-  const handleChangeText = (value: string): void => {
-    setText(value);
-  };
+  const handleChangeText = (value: string): void => setText(value);
+
+  const handleOnFocus = (): void => setBorderColor(AppColor.BRAND.BLUE_100);
+
+  const handleOnBlur = (): void => setBorderColor('transparent');
 
   const getUriSource = (name: IconName): ImageURISource => {
     if (name === 'search') {
@@ -57,8 +59,8 @@ const Search: FC<Props> = ({ onSearch }) => {
       <TextInput
         selectionColor={AppColor.TEXT.GRAY_200}
         style={styles.search}
-        onFocus={(): void => setBorderColor(AppColor.BRAND.BLUE_100)}
-        onBlur={(): void => setBorderColor('transparent')}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
         autoComplete="off"
         autoCorrect={false}
         onChangeText={handleChangeText}
