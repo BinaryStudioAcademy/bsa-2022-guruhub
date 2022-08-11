@@ -76,10 +76,8 @@ class Group {
   ): Promise<GroupsResponseDto> {
     const { id, name } = groupsRequestDto;
 
-    let group;
-
     if (name) {
-      group = await this.#groupsRepository.update({
+      await this.#groupsRepository.update({
         id,
         name,
         key: changeStringCase({
@@ -87,9 +85,8 @@ class Group {
           caseType: StringCase.SNAKE_CASE,
         }),
       });
-    } else {
-      group = await this.#groupsRepository.getById(id);
     }
+    const group = await this.#groupsRepository.getById(id);
 
     return group as GroupsResponseDto;
   }

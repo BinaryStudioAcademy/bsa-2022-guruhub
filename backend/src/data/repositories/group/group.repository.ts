@@ -24,15 +24,13 @@ class Group {
     id: number;
     name: string;
     key: string;
-  }): Promise<GroupM | null> {
+  }): Promise<GroupM | number> {
     const { id, name, key } = group;
 
-    await this.#GroupModel.query().where({ id }).update({
+    return await this.#GroupModel.query().where({ id }).update({
       name,
       key,
     });
-
-    return this.getById(id);
   }
 
   async getById(id: number): Promise<GroupM | null> {
