@@ -4,4 +4,8 @@ type UsersToGroupsResponseDto = {
   groupId: number;
 };
 
-export { type UsersToGroupsResponseDto };
+type UsersToGroupsGetAllResponseDto = {
+  items: UsersToGroupsResponseDto[] | null;
+};
+
+export { type UsersToGroupsGetAllResponseDto, type UsersToGroupsResponseDto };

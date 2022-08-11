@@ -3,6 +3,7 @@ enum ExceptionMessage {
   BAD_CREDENTIALS = 'You have entered an invalid username or password.',
   UNAUTHORIZED_USER = 'Unauthorized user.',
   INVALID_TOKEN = 'Token is invalid.',
+  PERMISSION_ERROR = 'Permission error occurred.',
 }
 
 export { ExceptionMessage };
