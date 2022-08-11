@@ -1,11 +1,14 @@
+import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
+
 import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
-const SCREEN_OPTIONS = {
+const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 14,
     lineHeight: 16,
     letterSpacing: 0.5,
+    textTransform: 'none',
   },
   tabBarStyle: {
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
@@ -16,7 +19,6 @@ const SCREEN_OPTIONS = {
   swipeEnabled: false,
   tabBarActiveTintColor: AppColor.TEXT.GRAY_100,
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
-  upperCaseLabel: false,
 };
 
 export { SCREEN_OPTIONS };
