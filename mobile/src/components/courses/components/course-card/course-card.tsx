@@ -1,6 +1,8 @@
 import React, { FC, ReactElement } from 'react';
 import { Image, Pressable, View } from 'react-native';
 
+import { Course } from '~/common/types/courses/course.type';
+
 import { Text } from '../../../common/common';
 import { BestsellerLabel } from '../bestseller-label/bestseller-label';
 import { DifficultyLabel } from '../difficulty-label/difficulty-label';
@@ -8,7 +10,7 @@ import { VendorLabel } from '../vendor-label/vendor-label';
 import { styles } from './styles';
 
 type CourseCardProps = {
-  course: any;
+  course: Course;
   onCoursePress?: () => void;
 };
 

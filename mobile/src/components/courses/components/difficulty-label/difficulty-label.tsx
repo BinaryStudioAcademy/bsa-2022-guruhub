@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { Image,Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import { styles } from './style';
 
@@ -8,6 +8,8 @@ type DifficultyLabel = {
 };
 
 const DifficultyLabel: FC<DifficultyLabel> = ({ difficulty }): ReactElement => {
+  let imgSource;
+  let difficultyText = '';
   const DIFFICULTY_ICON = {
     begginer: {
       uri: require('./assets/images/begginer.png'),
@@ -22,9 +24,6 @@ const DifficultyLabel: FC<DifficultyLabel> = ({ difficulty }): ReactElement => {
       text: 'Master',
     },
   };
-
-  let imgSource;
-  let difficultyText;
 
   switch (difficulty.toLowerCase()) {
     case 'begginer':

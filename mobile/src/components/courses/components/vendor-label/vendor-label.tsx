@@ -8,6 +8,8 @@ type VendorLabel = {
 };
 
 const VendorLabel: FC<VendorLabel> = ({ vendor_name }) => {
+  let imgSource;
+
   const VENDOR_LOGO = {
     udemy: {
       uri: require('./assets/images/vendors_logo/udemy.png'),
@@ -16,8 +18,6 @@ const VendorLabel: FC<VendorLabel> = ({ vendor_name }) => {
       uri: require('./assets/images/vendors_logo/coursera.png'),
     },
   };
-
-  let imgSource;
 
   switch (vendor_name.toLowerCase()) {
     case 'udemy':
