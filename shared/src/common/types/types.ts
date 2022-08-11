@@ -9,7 +9,6 @@ export {
 } from './pagination/pagination';
 export { type PermissionsGetAllResponseDto } from './permission/permission';
 export {
-  type UserGetResponseDto,
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetAllItemResponseDto,

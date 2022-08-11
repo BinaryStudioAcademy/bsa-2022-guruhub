@@ -11,7 +11,7 @@ export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export {
-  PaginationDefaultValues,
+  PaginationDefaultValue,
   PaginationValidationRule,
 } from './pagination/pagination';
 export { UserValidationMessage, UserValidationRule } from './user/user';

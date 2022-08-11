@@ -3,7 +3,7 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import {
   HttpCode,
   HttpMethod,
-  PaginationDefaultValues,
+  PaginationDefaultValue,
   UsersApiPath,
 } from '~/common/enums/enums';
 import {
@@ -38,8 +38,8 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const {
-        page = PaginationDefaultValues.DEFAULT_PAGE,
-        count = PaginationDefaultValues.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+        count = PaginationDefaultValue.DEFAULT_COUNT,
       } = req.query;
       const users = await userService.getPaginated({
         page,

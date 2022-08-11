@@ -1,1 +1,1 @@
-export { PaginationDefaultValues } from 'guruhub-shared/common/enums/enums';
+export { PaginationDefaultValue } from 'guruhub-shared/common/enums/enums';
