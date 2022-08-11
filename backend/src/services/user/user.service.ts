@@ -118,11 +118,18 @@ class User {
   async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
     const users = await this.#userRepository.getByIds(ids);
 
-    return users.map((user) => ({
+    const usersPermissions = users.map(
+      async (user) => await this.#userRepository.getUserPermissions(user.id),
+    );
+
+    return users.map((user, index) => ({
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions: usersPermissions[
+        index
+      ] as unknown as PermissionsGetAllItemResponseDto[],
     }));
   }
 
