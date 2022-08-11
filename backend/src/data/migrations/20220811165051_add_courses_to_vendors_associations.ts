@@ -13,7 +13,7 @@ enum ColumnName {
 }
 
 async function up(knex: Knex): Promise<void> {
-  return knex.schema.alterTable(TableName.COURSES, (table) => {
+  return knex.schema.alterTable(TableName.COURSES_TO_VENDORS, (table) => {
     table
       .integer(ColumnName.VENDOR_ID)
       .references(ColumnName.ID)
