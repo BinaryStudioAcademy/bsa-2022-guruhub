@@ -17,11 +17,11 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: FC = () => {
-  const hasUser = useAppSelector(({ auth }) => auth);
+  const hasUser = useAppSelector(({ auth }) => Boolean(auth.user));
 
   return (
     <NativeStack.Navigator screenOptions={screenOptions}>
-      {hasUser.user ? (
+      {hasUser ? (
         <NativeStack.Screen
           name={RootScreenName.APP}
           component={AppNavigation}
