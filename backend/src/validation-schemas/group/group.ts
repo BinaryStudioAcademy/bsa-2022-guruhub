@@ -1,1 +1,4 @@
-export { groupCreate } from 'guruhub-shared/validation-schemas/group/group';
+export {
+  groupCreate,
+  groupUpdate,
+} from 'guruhub-shared/validation-schemas/group/group';
