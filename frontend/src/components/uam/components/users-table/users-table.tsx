@@ -7,8 +7,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useSearchParams,
-  useState,
+  usePagination,
 } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
@@ -16,26 +15,9 @@ import { uamActions } from 'store/actions';
 import styles from './styles.module.scss';
 
 const UsersTable: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const getValidPageFromSearchParams = (): number => {
-    const pageFromQuery = Number(searchParams.get('page'));
-
-    return pageFromQuery > 0
-      ? pageFromQuery
-      : PaginationDefaultValue.DEFAULT_PAGE;
-  };
-
-  const [page, setPage] = useState<number>(getValidPageFromSearchParams());
+  const { page, handlePageChange } = usePagination();
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
-
-  const handlePageChange = (page: number): void => {
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
-    updatedSearchParams.set('page', String(page));
-    setSearchParams(updatedSearchParams);
-    setPage(page);
-  };
 
   useEffect(() => {
     dispatch(
