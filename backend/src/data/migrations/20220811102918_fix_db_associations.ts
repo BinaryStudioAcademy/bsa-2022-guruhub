@@ -19,52 +19,68 @@ const onDeleteCascadeParam = 'CASCADE';
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.GROUPS_TO_PERMISSIONS, (table) => {
+    table.dropForeign(ColumnName.GROUP_ID);
+    table.dropForeign(ColumnName.PERMISSION_ID);
     table
       .integer(ColumnName.GROUP_ID)
       .references(ColumnName.ID)
       .inTable(TableName.GROUPS)
-      .onDelete(onDeleteCascadeParam);
+      .onDelete(onDeleteCascadeParam)
+      .alter();
     table
       .integer(ColumnName.PERMISSION_ID)
       .references(ColumnName.ID)
       .inTable(TableName.PERMISSIONS)
-      .onDelete(onDeleteCascadeParam);
+      .onDelete(onDeleteCascadeParam)
+      .alter();
   });
 
   await knex.schema.alterTable(TableName.USERS_TO_GROUPS, (table) => {
+    table.dropForeign(ColumnName.GROUP_ID);
+    table.dropForeign(ColumnName.USER_ID);
     table
       .integer(ColumnName.GROUP_ID)
       .references(ColumnName.ID)
       .inTable(TableName.GROUPS)
-      .onDelete(onDeleteCascadeParam);
+      .onDelete(onDeleteCascadeParam)
+      .alter();
     table
       .integer(ColumnName.USER_ID)
       .references(ColumnName.ID)
       .inTable(TableName.USERS)
-      .onDelete(onDeleteCascadeParam);
+      .onDelete(onDeleteCascadeParam)
+      .alter();
   });
 }
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.GROUPS_TO_PERMISSIONS, (table) => {
+    table.dropForeign(ColumnName.GROUP_ID);
+    table.dropForeign(ColumnName.PERMISSION_ID);
     table
       .integer(ColumnName.GROUP_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.GROUPS);
+      .inTable(TableName.GROUPS)
+      .alter();
     table
       .integer(ColumnName.PERMISSION_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.PERMISSIONS);
+      .inTable(TableName.PERMISSIONS)
+      .alter();
   });
   await knex.schema.alterTable(TableName.USERS_TO_GROUPS, (table) => {
+    table.dropForeign(ColumnName.GROUP_ID);
+    table.dropForeign(ColumnName.USER_ID);
     table
       .integer(ColumnName.GROUP_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.GROUPS);
+      .inTable(TableName.GROUPS)
+      .alter();
     table
       .integer(ColumnName.USER_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.USERS);
+      .inTable(TableName.USERS)
+      .alter();
   });
 }
 
