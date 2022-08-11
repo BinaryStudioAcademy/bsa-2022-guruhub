@@ -1,6 +1,6 @@
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, AppScreenName } from '~/common/enums/enums';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 100,
@@ -19,4 +19,42 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
   },
 };
 
-export { SCREEN_OPTIONS };
+const NAVIGATION_ITEMS = [
+  {
+    name: 'Menu',
+    border: true,
+    subroutes: [
+      {
+        name: AppScreenName.OVERVIEW,
+        iconName: '',
+      },
+      {
+        name: AppScreenName.COURSES,
+        iconName: '',
+      },
+      {
+        name: AppScreenName.MENTORS,
+        iconName: '',
+      },
+      {
+        name: AppScreenName.MY_EDUCATION,
+        iconName: '',
+      },
+    ],
+  },
+  {
+    name: 'Account',
+    subroutes: [
+      {
+        name: AppScreenName.BILLING,
+        iconName: '',
+      },
+      {
+        name: AppScreenName.SETTINGS,
+        iconName: '',
+      },
+    ],
+  },
+];
+
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

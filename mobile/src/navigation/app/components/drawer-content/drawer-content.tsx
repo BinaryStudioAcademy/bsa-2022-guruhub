@@ -1,64 +1,17 @@
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
-import billing from '~/assets/icons/billing.svg';
-import book from '~/assets/icons/book.svg';
-import education from '~/assets/icons/education.svg';
-import home from '~/assets/icons/home.svg';
-import mentors from '~/assets/icons/mentors.svg';
-import settings from '~/assets/icons/settings.svg';
-import { AppScreenName } from '~/common/enums/enums';
 import { Button, Image, ScrollView, View } from '~/components/common/common';
+import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
 import { CustomDrawerList } from '~/navigation/app/components/drawer-list/drawer-list';
 
 import { styles } from './styles';
 
-const routes = [
-  {
-    name: 'Menu',
-    border: true,
-    subroutes: [
-      {
-        name: AppScreenName.OVERVIEW,
-        iconName: home,
-      },
-      {
-        name: AppScreenName.COURSES,
-        iconName: book,
-      },
-      {
-        name: AppScreenName.MENTORS,
-        iconName: mentors,
-      },
-      {
-        name: AppScreenName.MY_EDUCATION,
-        iconName: education,
-      },
-    ],
-  },
-  {
-    name: 'Account',
-    subroutes: [
-      {
-        name: AppScreenName.BILLING,
-        iconName: billing,
-      },
-      {
-        name: AppScreenName.SETTINGS,
-        iconName: settings,
-      },
-    ],
-  },
-];
-
-const CustomDrawerContent: FC<DrawerContentComponentProps> = ({
-  state,
-  navigation,
-}) => {
+const CustomDrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const focusedRouteName = state.routes[state.index].name;
 
-  const handleNavigateTo = (name: AppScreenName): void => {
-    navigation.navigate(name);
+  const handleBecomeMentor = (): void => {
+    // TODO: navigate to application screen
   };
 
   return (
@@ -66,7 +19,7 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = ({
       <View style={styles.header}>
         <Image source={require('~/assets/logo.png')} />
       </View>
-      {routes.map(({ name, subroutes, border }) => (
+      {NAVIGATION_ITEMS.map(({ name, subroutes, border }) => (
         <View style={styles.listWrapper} key={name}>
           <CustomDrawerList
             name={name}
@@ -81,10 +34,7 @@ const CustomDrawerContent: FC<DrawerContentComponentProps> = ({
           style={styles.footerImage}
           source={require('~/assets/saly.png')}
         />
-        <Button
-          label="Become A Mentor"
-          onPress={(): void => handleNavigateTo(AppScreenName.SETTINGS)}
-        />
+        <Button label="Become A Mentor" onPress={handleBecomeMentor} />
       </View>
     </ScrollView>
   );

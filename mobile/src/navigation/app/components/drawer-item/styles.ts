@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 27,
   },
-  itemText: {
+  label: {
     fontSize: 16,
     fontWeight: '500',
   },
-  itemIcon: {
+  icon: {
     marginRight: 12,
   },
 });

@@ -19,8 +19,8 @@ const CustomDrawerList: FC<DrawerNavigationList> = ({
           <CustomDrawerItem
             key={name}
             name={name}
-            icon={iconName}
-            focusedRouteName={focusedRouteName}
+            iconName={iconName}
+            isFocused={focusedRouteName === name}
           />
         );
       })}
