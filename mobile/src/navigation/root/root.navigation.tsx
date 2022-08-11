@@ -18,8 +18,8 @@ const screenOptions: NativeStackNavigationOptions = {
 const Root: FC = () => {
   return (
     <NativeStack.Navigator screenOptions={screenOptions}>
-      <NativeStack.Screen name={RootScreenName.SIGN_UP} component={Auth} />
       <NativeStack.Screen name={RootScreenName.SIGN_IN} component={Auth} />
+      <NativeStack.Screen name={RootScreenName.SIGN_UP} component={Auth} />
       <NativeStack.Screen name={RootScreenName.APP} component={AppNavigation} />
     </NativeStack.Navigator>
   );
