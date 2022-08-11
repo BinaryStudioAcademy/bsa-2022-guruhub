@@ -1,44 +1,22 @@
 import React, { FC } from 'react';
-import { Image, View } from 'react-native';
 
-import { styles } from './style';
+import { VendoLabelCoursera, VendoLabelUdemy } from './vendor-labels';
 
-type VendorLabel = {
+type Props = {
   vendor_name: string;
 };
 
-const VendorLabel: FC<VendorLabel> = ({ vendor_name }) => {
-  let imgSource;
-
-  const VENDOR_LOGO = {
-    udemy: {
-      uri: require('./assets/images/udemy.png'),
-    },
-    coursera: {
-      uri: require('./assets/images/coursera.png'),
-    },
-  };
-
-  switch (vendor_name.toLowerCase()) {
-    case 'udemy':
-      imgSource = VENDOR_LOGO.udemy.uri;
-      break;
-    case 'coursera':
-      imgSource = VENDOR_LOGO.coursera.uri;
-      break;
-    default:
-      break;
+const VendorLabel: FC<Props> = ({ vendor_name }) => {
+  switch (vendor_name.toLocaleLowerCase()) {
+    case 'udemy': {
+      return <VendoLabelUdemy />;
+    }
+    case 'coursera': {
+      return <VendoLabelCoursera />;
+    }
   }
 
-  return (
-    <>
-      {vendor_name && (
-        <View style={styles.container}>
-          <Image style={styles.logo} source={imgSource} />
-        </View>
-      )}
-    </>
-  );
+  return null;
 };
 
 export { VendorLabel };

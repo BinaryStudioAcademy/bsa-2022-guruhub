@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
-import { Course } from '~/common/types/courses/courses';
+import { CoursesGetAllResponseDto } from '~/common/types/courses/courses';
 import { useAppDispatch } from '~/hooks/hooks';
 import { loadCourses } from '~/store/courses/actions';
 
@@ -12,14 +12,14 @@ import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
   const dispatch = useAppDispatch();
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<CoursesGetAllResponseDto | []>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCoursesLoad = async (): Promise<void> => {
     try {
       setIsLoading(true);
       const data = await dispatch(loadCourses({}));
-      setCourses(data.payload as Course[]);
+      setCourses(data.payload as CoursesGetAllResponseDto);
     } finally {
       setIsLoading(false);
     }

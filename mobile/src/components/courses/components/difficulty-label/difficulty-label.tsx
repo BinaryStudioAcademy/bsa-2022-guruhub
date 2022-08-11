@@ -1,57 +1,29 @@
 import React, { FC, ReactElement } from 'react';
-import { Image, Text, View } from 'react-native';
 
-import { styles } from './style';
+import {
+  DifficultyLabelBegginer,
+  DifficultyLabelIntermediate,
+  DifficultyLabelMaster,
+} from './difficulty-labels';
 
-type DifficultyLabel = {
+type Props = {
   difficulty: string;
 };
 
-const DifficultyLabel: FC<DifficultyLabel> = ({ difficulty }): ReactElement => {
-  let imgSource;
-  let difficultyText = '';
-  const DIFFICULTY_ICON = {
-    begginer: {
-      uri: require('./assets/images/begginer.png'),
-      text: 'Begginer',
-    },
-    intermediate: {
-      uri: require('./assets/images/intermediate.png'),
-      text: 'Intermediate',
-    },
-    master: {
-      uri: require('./assets/images/master.png'),
-      text: 'Master',
-    },
-  };
-
-  switch (difficulty.toLowerCase()) {
-    case 'begginer':
-      imgSource = DIFFICULTY_ICON.begginer.uri;
-      difficultyText = DIFFICULTY_ICON.begginer.text;
-      break;
-    case 'intermediate':
-      imgSource = DIFFICULTY_ICON.intermediate.uri;
-      difficultyText = DIFFICULTY_ICON.intermediate.text;
-      break;
-    case 'master':
-      imgSource = DIFFICULTY_ICON.master.uri;
-      difficultyText = DIFFICULTY_ICON.master.text;
-      break;
-    default:
-      break;
+const DifficultyLabel: FC<Props> = ({ difficulty }): ReactElement | null => {
+  switch (difficulty.toLocaleLowerCase()) {
+    case 'begginer': {
+      return <DifficultyLabelBegginer />;
+    }
+    case 'intermediate': {
+      return <DifficultyLabelIntermediate />;
+    }
+    case 'master': {
+      return <DifficultyLabelMaster />;
+    }
   }
 
-  return (
-    <>
-      {difficulty && (
-        <View style={styles.container}>
-          <Text style={styles.text}>{difficultyText}</Text>
-          <Image style={styles.icon} source={imgSource} />
-        </View>
-      )}
-    </>
-  );
+  return null;
 };
 
 export { DifficultyLabel };

@@ -48,18 +48,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#C4C4C4',
   },
-  rating_container: {
-    marginBottom: 17,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rating_text: {
-    marginRight: 6,
-    fontFamily: AppFontFamily.INTER_600,
-    color: AppColor.TEXT.GRAY_200,
-    fontSize: 12,
-  },
-  rating_star: {},
   footer: {
     paddingTop: 9,
     paddingBottom: 12,

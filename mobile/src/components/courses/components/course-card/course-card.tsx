@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Image, Pressable, View } from 'react-native';
 
-import { Course } from '~/common/types/courses/course.type';
+import { CoursesGetAllItemResponseDto } from '~/common/types/courses/courses';
 
 import { Text } from '../../../common/common';
 import { BestsellerLabel } from '../bestseller-label/bestseller-label';
@@ -9,23 +9,18 @@ import { DifficultyLabel } from '../difficulty-label/difficulty-label';
 import { VendorLabel } from '../vendor-label/vendor-label';
 import { styles } from './styles';
 
-type CourseCardProps = {
-  course: Course;
+type Props = {
+  course: CoursesGetAllItemResponseDto;
   onCoursePress?: () => void;
 };
 
-const CourseCard: FC<CourseCardProps> = ({
-  course,
-  onCoursePress,
-}): ReactElement => {
+const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
   const {
     title,
     vendor_name,
     difficulty,
     author_name,
-    rating_star,
-    ratings_count,
-    isBestseller,
+    is_bestseller,
     price,
     course_image,
   } = course;
@@ -43,19 +38,9 @@ const CourseCard: FC<CourseCardProps> = ({
           <View style={styles.avatar_container}></View>
           <Text style={styles.author_name}>{author_name}</Text>
         </View>
-        <View style={styles.rating_container}>
-          <View>
-            <Text style={styles.rating_text}>{rating_star}</Text>
-          </View>
-          <View>
-            <Text style={styles.rating_text}>{'★★★★★'}</Text>
-          </View>
-          <View>
-            <Text style={styles.rating_text}>{`(${ratings_count})`}</Text>
-          </View>
-        </View>
+
         <View style={styles.footer}>
-          {isBestseller ? (
+          {is_bestseller ? (
             <BestsellerLabel />
           ) : (
             <View style={styles.footer_bestseller}></View>

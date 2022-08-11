@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
-import { Text,View } from 'react-native';
 
+import { Text, View } from '../../../common/common';
 import { styles } from './style';
 
 const BestsellerLabel: FC = (): ReactElement => {

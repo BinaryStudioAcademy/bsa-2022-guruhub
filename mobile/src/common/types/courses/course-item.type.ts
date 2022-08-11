@@ -1,4 +1,4 @@
-type Course = {
+type CoursesGetAllItemResponseDto = {
   id: string;
   title: string;
   vendor_name: string;
@@ -6,8 +6,8 @@ type Course = {
   author_name: string;
   rating_star: string;
   ratings_count: number;
-  isBestseller: boolean;
+  is_bestseller: boolean;
   price: number;
   course_image: string;
 };
-export { type Course };
+export { type CoursesGetAllItemResponseDto };

@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { Course } from '~/common/types/courses/courses';
+import { CoursesGetAllResponseDto } from '~/common/types/courses/courses';
 import { AsyncThunkConfig } from '~/common/types/types';
 
 import { ActionType } from './common';
 
-const courses = [
+const MOCK_COURSES = [
   {
     id: '1',
     title: 'Coumplete giude to ASP.Net ',
@@ -14,7 +14,7 @@ const courses = [
     author_name: 'Ivan Englishman',
     rating_star: '4.4',
     ratings_count: 206269,
-    isBestseller: true,
+    is_bestseller: true,
     price: 33.33,
     course_image: 'https://img-c.udemycdn.com/course/240x135/14346_9972_8.jpg',
   },
@@ -26,7 +26,7 @@ const courses = [
     author_name: 'Ivan Englishman',
     rating_star: '4.4',
     ratings_count: 206269,
-    isBestseller: false,
+    is_bestseller: false,
     price: 33.33,
     course_image: 'https://img-c.udemycdn.com/course/240x135/709660_24ad_7.jpg',
   },
@@ -38,7 +38,7 @@ const courses = [
     author_name: 'Ivan Englishman',
     rating_star: '4.4',
     ratings_count: 206269,
-    isBestseller: true,
+    is_bestseller: true,
     price: 33.33,
     course_image: 'https://img-c.udemycdn.com/course/240x135/14346_9972_8.jpg',
   },
@@ -50,7 +50,7 @@ const courses = [
     author_name: 'Ivan Englishman',
     rating_star: '4.4',
     ratings_count: 206269,
-    isBestseller: false,
+    is_bestseller: false,
     price: 33.33,
     course_image: 'https://img-c.udemycdn.com/course/240x135/709660_24ad_7.jpg',
   },
@@ -60,13 +60,14 @@ type PayloadType = {
   filters?: any;
 };
 
-const loadCourses = createAsyncThunk<Course[], PayloadType, AsyncThunkConfig>(
-  ActionType.SET_ALL_COURSES,
-  () => {
-    //const { coursesApi } = extra;
-    //const courses = await coursesApi.getAllCourses(filters);
-    return courses;
-  },
-);
+const loadCourses = createAsyncThunk<
+  CoursesGetAllResponseDto,
+  PayloadType,
+  AsyncThunkConfig
+>(ActionType.GET_COURSES, () => {
+  //const { coursesApi } = extra;
+  //const courses = await coursesApi.getAllCourses(filters);
+  return MOCK_COURSES;
+});
 
 export { loadCourses };

@@ -1,5 +1,5 @@
 enum ActionType {
-  SET_ALL_COURSES = 'courses/set-all-courses',
+  GET_COURSES = 'courses/get-courses',
 }
 
 export { ActionType };
