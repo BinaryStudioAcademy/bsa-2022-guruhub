@@ -1,23 +1,26 @@
-import { PaginationDefaultValue } from 'common/enums/enums';
-import { useSearchParams, useState } from 'hooks/hooks';
+import { URLSearchParamsInit } from 'common/types/types';
+import { getValidPageFromSearchParams } from 'helpers/pagination/get-valid-page-from-search-params/get-valid-page-from-search-params.helper';
+import { useState } from 'hooks/hooks';
+
+type UsePaginationArgs = {
+  pageFromQuery: number;
+  searchParams: URLSearchParamsInit;
+  setSearchParams: (nextInit: URLSearchParamsInit) => void;
+};
 
 type UsePaginationResult = {
   page: number;
   handlePageChange: (page: number) => void;
 };
 
-const usePagination = (): UsePaginationResult => {
-  const [searchParams, setSearchParams] = useSearchParams();
+const usePagination = ({
+  pageFromQuery,
+  searchParams,
+  setSearchParams,
+}: UsePaginationArgs): UsePaginationResult => {
+  const validPage = getValidPageFromSearchParams(pageFromQuery);
 
-  const getValidPageFromSearchParams = (): number => {
-    const pageFromQuery = Number(searchParams.get('page'));
-
-    return pageFromQuery > 0
-      ? pageFromQuery
-      : PaginationDefaultValue.DEFAULT_PAGE;
-  };
-
-  const [page, setPage] = useState<number>(getValidPageFromSearchParams());
+  const [page, setPage] = useState<number>(validPage);
 
   const handlePageChange = (page: number): void => {
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
