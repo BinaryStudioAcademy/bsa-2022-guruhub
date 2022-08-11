@@ -10,4 +10,5 @@ export {
   useNavigate,
   useParams,
   useResolvedPath,
+  useSearchParams,
 } from 'react-router-dom';
