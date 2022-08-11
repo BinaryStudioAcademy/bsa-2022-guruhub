@@ -1,5 +1,5 @@
 import { URLSearchParamsInit } from 'common/types/types';
-import { getValidPageFromSearchParams } from 'helpers/pagination/get-valid-page-from-search-params/get-valid-page-from-search-params.helper';
+import { getValidPageFromSearchParams } from 'helpers/helpers';
 import { useState } from 'hooks/hooks';
 
 type UsePaginationArgs = {
