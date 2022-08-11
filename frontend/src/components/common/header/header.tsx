@@ -16,8 +16,8 @@ const Header: FC = () => {
   const handlePopupOper = (): void =>
     setIsMenuPopupVisible(!isMenuPopupVisible);
 
-  const handleLogIn = (): void => navigate(AppRoute.SIGN_IN);
-  const handleSignUp = (): void => navigate(AppRoute.SIGN_UP);
+  const handleNavigateToLogIn = (): void => navigate(AppRoute.SIGN_IN);
+  const handleNavigateToSignUp = (): void => navigate(AppRoute.SIGN_UP);
 
   return (
     <header>
@@ -28,8 +28,12 @@ const Header: FC = () => {
         <div className={styles.userWrapper}>
           {!user ? (
             <div className={styles.buttonsWrapper}>
-              <Button onClick={handleLogIn} label="Log In" color="grey" />
-              <Button onClick={handleSignUp} label="Sign Up" />
+              <Button
+                onClick={handleNavigateToLogIn}
+                label="Log In"
+                color="grey"
+              />
+              <Button onClick={handleNavigateToSignUp} label="Sign Up" />
             </div>
           ) : (
             <button onClick={handlePopupOper} className={styles.button}>
