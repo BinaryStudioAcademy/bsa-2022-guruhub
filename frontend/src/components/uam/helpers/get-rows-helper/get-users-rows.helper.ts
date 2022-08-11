@@ -1,13 +1,13 @@
 import { UsersGetAllItemResponseDto } from 'common/types/types';
 import { UserTableAccessor } from 'components/uam/common/enums/enums';
-import { UsersRow } from 'components/uam/common/types/types';
+import { UsersTableType } from 'components/uam/common/types/types';
 
 import { Actions } from '../../components/users-table/components/components';
 
 const getUsersRows = (
   users: UsersGetAllItemResponseDto[],
   onUserDelete: (userId: string) => void,
-): UsersRow[] => {
+): UsersTableType[] => {
   return users.map((user) => ({
     [UserTableAccessor.ID]: user.id,
     [UserTableAccessor.EMAIL]: user.email,

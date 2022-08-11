@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
 
-import { UsersColumn, UsersRow } from './common/types/types';
+import { UsersTableType } from './common/types/types';
 import { GroupsTable, UsersTable } from './components/components';
 import {
   getGroupsColumns,
@@ -29,8 +29,8 @@ const UAM: FC = () => {
     dispatch(uamActions.deleteUser({ id: userId }));
   };
 
-  const usersColumns: Column<UsersColumn>[] = getUsersColumns();
-  const usersRows: UsersRow[] = getUsersRows(users, handleUserDelete);
+  const usersColumns: Column<UsersTableType>[] = getUsersColumns();
+  const usersRows: UsersTableType[] = getUsersRows(users, handleUserDelete);
 
   const groupsColumns: Column<GroupsGetAllItemResponseDto>[] =
     getGroupsColumns();

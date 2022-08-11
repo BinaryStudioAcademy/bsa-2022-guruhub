@@ -1,13 +1,13 @@
 import { FC } from 'common/types/types';
 import { Table } from 'components/common/common';
-import { UsersColumn, UsersRow } from 'components/uam/common/types/types';
+import { UsersTableType } from 'components/uam/common/types/types';
 import { Column } from 'react-table';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  columns: Column<UsersColumn>[];
-  data: UsersRow[];
+  columns: Column<UsersTableType>[];
+  data: UsersTableType[];
 };
 
 const UsersTable: FC<Props> = ({ columns, data }: Props) => {

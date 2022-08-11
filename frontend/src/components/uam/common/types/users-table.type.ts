@@ -1,4 +1,4 @@
-type UsersColumn = {
+type UsersTableType = {
   id: number;
   email: string;
   fullName: string;
@@ -6,4 +6,4 @@ type UsersColumn = {
   actions: JSX.Element;
 };
 
-export { UsersColumn };
+export { UsersTableType };

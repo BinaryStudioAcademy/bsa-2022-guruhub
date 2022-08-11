@@ -1,8 +1,8 @@
 import { UserTableAccessor } from 'components/uam/common/enums/enums';
-import { UsersColumn } from 'components/uam/common/types/types';
+import { UsersTableType } from 'components/uam/common/types/types';
 import { Column } from 'react-table';
 
-const getUsersColumns = (): Column<UsersColumn>[] => {
+const getUsersColumns = (): Column<UsersTableType>[] => {
   return [
     {
       Header: 'ID',
