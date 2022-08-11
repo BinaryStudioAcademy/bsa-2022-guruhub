@@ -48,9 +48,11 @@ class Auth {
     const permissions = await this.#userService.getUserPermissions(user.id);
 
     return {
-      user,
+      user: {
+        ...user,
+        permissions,
+      },
       token,
-      permissions,
     };
   }
 
@@ -81,11 +83,14 @@ class Auth {
       });
     }
 
+    const permissions = await this.#userService.getUserPermissions(user.id);
+
     return {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions,
     };
   }
 
@@ -94,12 +99,10 @@ class Auth {
   ): Promise<UserSignInResponseDto> {
     const user = await this.verifySignIn(userRequestDto);
     const token = await this.#tokenService.create({ userId: user.id });
-    const permissions = await this.#userService.getUserPermissions(user.id);
 
     return {
       user,
       token,
-      permissions,
     };
   }
 

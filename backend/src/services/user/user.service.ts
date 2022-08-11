@@ -1,4 +1,4 @@
-import { PermissionsGetAllItemResponseDto } from 'guruhub-shared/common/types/permission/permission-item-response-dto.type';
+import { PermissionsGetAllItemResponseDto } from 'guruhub-shared/common/types/permission/permission';
 
 import {
   UsersByEmailResponseDto,
@@ -59,6 +59,7 @@ class User {
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions: [],
     };
   }
 
@@ -81,14 +82,8 @@ class User {
 
   async getUserPermissions(
     id: number,
-  ): Promise<PermissionsGetAllItemResponseDto[] | []> {
-    const permissions = await this.#userRepository.getUserPermissions(id);
-
-    if (!permissions) {
-      return [];
-    }
-
-    return permissions;
+  ): Promise<PermissionsGetAllItemResponseDto[]> {
+    return await this.#userRepository.getUserPermissions(id);
   }
 
   async getById(id: string): Promise<UsersByIdResponseDto | null> {
@@ -97,12 +92,14 @@ class User {
     if (!user) {
       return null;
     }
+    const permissions = await this.#userRepository.getUserPermissions(user.id);
 
     return {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions: permissions,
     };
   }
 

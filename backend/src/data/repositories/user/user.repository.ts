@@ -31,7 +31,7 @@ class User {
     return user ?? null;
   }
 
-  async getUserPermissions(id: number): Promise<PermissionM[] | null> {
+  async getUserPermissions(id: number): Promise<PermissionM[]> {
     const permissions = await this.#UserModel
       .query()
       .select(
@@ -40,13 +40,10 @@ class User {
         'groups:permissions.key',
       )
       .joinRelated('groups.permissions')
-      .where('users.id', id);
+      .where('users.id', id)
+      .castTo(PermissionM);
 
-    if (permissions.length === 0) {
-      return null;
-    }
-
-    return permissions as unknown as PermissionM[];
+    return permissions;
   }
 
   async create(user: {
