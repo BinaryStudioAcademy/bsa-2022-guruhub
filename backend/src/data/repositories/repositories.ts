@@ -1,5 +1,6 @@
 import {
   Course as CourseModel,
+  CourseCategory as CourseCategoryModel,
   CoursesToCourseCategories as CoursesToCourseCategoriesModel,
   CoursesToVendors as CoursesToVendorsModel,
   Group as GroupModel,
@@ -11,6 +12,7 @@ import {
 } from '~/data/models/models';
 
 import { Course } from './course/course.repository';
+import { CourseCategory } from './course-category/course-category.repository';
 import { CoursesToCourseCategories } from './courses-to-course-categories/courses-to-course-categories.repository';
 import { CoursesToVendors } from './courses-to-vendors/courses-to-vendors.repository';
 import { Group } from './group/group.repository';
@@ -42,6 +44,8 @@ const usersToGroups = new UsersToGroups({
 
 const course = new Course({ CourseModel });
 
+const courseCategory = new CourseCategory({ CourseCategoryModel });
+
 const coursesToVendors = new CoursesToVendors({ CoursesToVendorsModel });
 
 const coursesToCourseCategories = new CoursesToCourseCategories({
@@ -52,6 +56,7 @@ const vendor = new Vendor({ VendorModel });
 
 export {
   course,
+  courseCategory,
   coursesToCourseCategories,
   coursesToVendors,
   group,
