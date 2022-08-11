@@ -19,6 +19,27 @@ class Group {
       key,
     });
   }
+
+  async update(group: {
+    id: number;
+    name: string;
+    key: string;
+  }): Promise<GroupM | null> {
+    const { id, name, key } = group;
+
+    await this.#GroupModel.query().where({ id }).update({
+      name,
+      key,
+    });
+
+    return this.getById(id);
+  }
+
+  async getById(id: number): Promise<GroupM | null> {
+    const group = await this.#GroupModel.query().select().where({ id }).first();
+
+    return group ?? null;
+  }
 }
 
 export { Group };
