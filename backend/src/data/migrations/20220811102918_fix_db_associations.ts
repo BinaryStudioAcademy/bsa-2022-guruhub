@@ -12,11 +12,12 @@ const ColumnName = {
   ID: 'id',
   PERMISSION_ID: 'permission_id',
   GROUP_ID: 'group_id',
+  USER_ID: 'user_id',
 } as const;
 
 const onDeleteCascadeParam = 'CASCADE';
 
-export async function up(knex: Knex): Promise<void> {
+async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.GROUPS_TO_PERMISSIONS, (table) => {
     table
       .integer(ColumnName.GROUP_ID)
@@ -29,11 +30,42 @@ export async function up(knex: Knex): Promise<void> {
       .inTable(TableName.PERMISSIONS)
       .onDelete(onDeleteCascadeParam);
   });
-}
 
-export async function down(knex: Knex): Promise<void> {
-  await knex.schema.alterTable(TableName.GROUPS_TO_PERMISSIONS, (table) => {
-    table.dropColumn(ColumnName.GROUP_ID);
-    table.dropColumn(ColumnName.PERMISSION_ID);
+  await knex.schema.alterTable(TableName.USERS_TO_GROUPS, (table) => {
+    table
+      .integer(ColumnName.GROUP_ID)
+      .references(ColumnName.ID)
+      .inTable(TableName.GROUPS)
+      .onDelete(onDeleteCascadeParam);
+    table
+      .integer(ColumnName.USER_ID)
+      .references(ColumnName.ID)
+      .inTable(TableName.USERS)
+      .onDelete(onDeleteCascadeParam);
   });
 }
+
+async function down(knex: Knex): Promise<void> {
+  await knex.schema.alterTable(TableName.GROUPS_TO_PERMISSIONS, (table) => {
+    table
+      .integer(ColumnName.GROUP_ID)
+      .references(ColumnName.ID)
+      .inTable(TableName.GROUPS);
+    table
+      .integer(ColumnName.PERMISSION_ID)
+      .references(ColumnName.ID)
+      .inTable(TableName.PERMISSIONS);
+  });
+  await knex.schema.alterTable(TableName.USERS_TO_GROUPS, (table) => {
+    table
+      .integer(ColumnName.GROUP_ID)
+      .references(ColumnName.ID)
+      .inTable(TableName.GROUPS);
+    table
+      .integer(ColumnName.USER_ID)
+      .references(ColumnName.ID)
+      .inTable(TableName.USERS);
+  });
+}
+
+export { down, up };
