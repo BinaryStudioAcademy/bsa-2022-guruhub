@@ -28,8 +28,8 @@ const Header: FC = () => {
         <div className={styles.userWrapper}>
           {!user ? (
             <div className={styles.buttonsWrapper}>
-              <Button onClick={handleLogIn} label={'Log In'} color={'grey'} />
-              <Button onClick={handleSignUp} label={'Sign Up'} />
+              <Button onClick={handleLogIn} label="Log In" color="grey" />
+              <Button onClick={handleSignUp} label="Sign Up" />
             </div>
           ) : (
             <button onClick={handlePopupOper} className={styles.button}>
