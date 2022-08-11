@@ -1,43 +1,30 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment, ReactNode } from 'react';
 
-import { StackDirection } from '~/common/enums/enums';
 import { View } from '~/components/common/common';
 
 type Props = {
-  children: any[];
+  children: ReactNode;
   space?: number;
-  direction?: StackDirection;
+  isHorizontal?: boolean;
 };
 
-const Stack: FC<Props> = ({
-  children,
-  space,
-  direction = StackDirection.COLUMN,
-}) => {
+const Stack: FC<Props> = ({ children, space, isHorizontal }) => {
   const separatorStyle = {
-    marginBottom:
-      direction === StackDirection.ROW ||
-      direction === StackDirection.ROW_REVERSE
-        ? 0
-        : space,
-    marginLeft:
-      direction === StackDirection.COLUMN ||
-      direction === StackDirection.COLUMN_REVERSE
-        ? 0
-        : space,
+    marginTop: isHorizontal ? 0 : space,
+    marginLeft: isHorizontal ? space : 0,
   };
 
   if (!Array.isArray(children)) {
-    return children;
+    return <>{children}</>;
   }
 
   return (
-    <View style={{ flexDirection: direction }}>
+    <View style={{ flexDirection: isHorizontal ? 'row' : 'column' }}>
       {children.map((child, index) => (
-        <React.Fragment key={child.key ?? index}>
+        <Fragment key={child.key ?? index}>
+          {Boolean(index) && <View style={separatorStyle} />}
           {child}
-          {index !== children.length - 1 && <View style={separatorStyle} />}
-        </React.Fragment>
+        </Fragment>
       ))}
     </View>
   );
