@@ -6,8 +6,9 @@ import React, { FC } from 'react';
 
 import { RootScreenName } from '~/common/enums/enums';
 import { RootNavigationParamList } from '~/common/types/types';
-import { Auth } from '~/components/auth/auth';
+import { useAppSelector } from '~/hooks/hooks';
 import { App as AppNavigation } from '~/navigation/app/app.navigation';
+import { Auth as AuthNavigation } from '~/navigation/auth/auth.navigation';
 
 const NativeStack = createNativeStackNavigator<RootNavigationParamList>();
 
@@ -16,11 +17,21 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 const Root: FC = () => {
+  const hasUser = useAppSelector(({ auth }) => Boolean(auth.user));
+
   return (
     <NativeStack.Navigator screenOptions={screenOptions}>
-      <NativeStack.Screen name={RootScreenName.SIGN_IN} component={Auth} />
-      <NativeStack.Screen name={RootScreenName.SIGN_UP} component={Auth} />
-      <NativeStack.Screen name={RootScreenName.APP} component={AppNavigation} />
+      {hasUser ? (
+        <NativeStack.Screen
+          name={RootScreenName.APP}
+          component={AppNavigation}
+        />
+      ) : (
+        <NativeStack.Screen
+          name={RootScreenName.AUTH}
+          component={AuthNavigation}
+        />
+      )}
     </NativeStack.Navigator>
   );
 };

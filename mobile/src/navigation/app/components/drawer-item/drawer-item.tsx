@@ -8,11 +8,7 @@ import { useAppNavigate } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
-const CustomDrawerItem: FC<DrawerNavigationItem> = ({
-  name,
-  iconName,
-  isFocused = false,
-}) => {
+const DrawerItem: FC<DrawerNavigationItem> = ({ name, isFocused = false }) => {
   const navigation = useAppNavigate();
   const color = isFocused ? AppColor.TEXT.GRAY_100 : AppColor.TEXT.GRAY_200;
   const backgroundColor = isFocused ? AppColor.BRAND.BLUE_100 : 'transparent';
@@ -26,10 +22,9 @@ const CustomDrawerItem: FC<DrawerNavigationItem> = ({
       style={{ backgroundColor, ...styles.item }}
       onPress={handlePress}
     >
-      <Text>{iconName}</Text>
       <Text style={{ color, ...styles.label }}>{name}</Text>
     </Pressable>
   );
 };
 
-export { CustomDrawerItem };
+export { DrawerItem };

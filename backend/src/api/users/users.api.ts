@@ -1,9 +1,20 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
-import { UsersDeleteRequestParamsDto } from '~/common/types/types';
+import {
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValue,
+  UsersApiPath,
+} from '~/common/enums/enums';
+import {
+  EntityPaginationRequestQueryDto,
+  UsersDeleteRequestParamsDto,
+} from '~/common/types/types';
 import { user as userService } from '~/services/services';
-import { userDelete as userDeleteRequestParamsValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  pagination as paginationQueryValidationSchema,
+  userDelete as userDeleteRequestParamsValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -17,8 +28,23 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: UsersApiPath.ROOT,
-    async handler(req, rep) {
-      const users = await userService.getAll();
+    schema: {
+      querystring: paginationQueryValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Querystring: EntityPaginationRequestQueryDto;
+      }>,
+      rep,
+    ) {
+      const {
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+      } = req.query;
+      const users = await userService.getPaginated({
+        page,
+        count,
+      });
 
       return rep.status(HttpCode.OK).send(users);
     },

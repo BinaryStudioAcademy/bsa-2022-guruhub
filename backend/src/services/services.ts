@@ -51,6 +51,7 @@ const group = new Group({
   permissionService: permission,
   groupsToPermissionsService: groupsToPermissions,
   usersToGroupsService: usersToGroups,
+  userService: user,
 });
 
 export {
