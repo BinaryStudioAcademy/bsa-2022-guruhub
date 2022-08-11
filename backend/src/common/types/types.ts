@@ -5,13 +5,15 @@ export {
   type GroupsGetAllResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
+export { EntityPagination } from './pagination/pagination';
 export { type PermissionsGetAllResponseDto } from './permission/permission';
 export { type TokenPayload } from './token/token';
 export {
+  type EntityPaginationRequestQueryDto,
   type UsersByEmailResponseDto,
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
-  type UsersGetAllResponseDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
