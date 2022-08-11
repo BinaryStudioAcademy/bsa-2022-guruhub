@@ -1,6 +1,7 @@
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
+  courseCategory as courseCategoryRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -10,6 +11,7 @@ import {
 } from '~/data/repositories/repositories';
 
 import { Auth } from './auth/auth.service';
+import { CourseCategory } from './course-category/course-category.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -58,8 +60,11 @@ const group = new Group({
 
 const vendor = new Vendor({ vendorRepository });
 
+const courseCategory = new CourseCategory({ courseCategoryRepository });
+
 export {
   auth,
+  courseCategory,
   encrypt,
   group,
   groupsToPermissions,

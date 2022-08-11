@@ -1,3 +1,4 @@
+export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
