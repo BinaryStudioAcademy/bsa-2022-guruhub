@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
+  GroupsGetAllResponseDto,
   UsersDeleteRequestParamsDto,
   UsersGetAllResponseDto,
 } from 'common/types/types';
@@ -18,6 +19,17 @@ const getUsers = createAsyncThunk<
   return usersDto;
 });
 
+const getGroups = createAsyncThunk<
+  GroupsGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_GROUPS, async (_, { extra }) => {
+  const { groupsApi } = extra;
+  const groups = await groupsApi.getAll();
+
+  return groups;
+});
+
 const deleteUser = createAsyncThunk<
   string,
   UsersDeleteRequestParamsDto,
@@ -32,4 +44,4 @@ const deleteUser = createAsyncThunk<
   return id;
 });
 
-export { deleteUser, getUsers };
+export { deleteUser, getGroups, getUsers };
