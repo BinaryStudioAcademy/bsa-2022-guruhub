@@ -2,8 +2,8 @@ import { AppScreenName } from '~/common/enums/enums';
 
 type DrawerNavigationItem = {
   name: AppScreenName;
-  icon: string;
-  focusedRouteName: string;
+  iconName: string;
+  isFocused?: boolean;
 };
 
 export { type DrawerNavigationItem };

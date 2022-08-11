@@ -1,13 +1,8 @@
-import { AppScreenName } from '~/common/enums/enums';
-
-type DrawerNavigationListSubroutes = {
-  name: AppScreenName;
-  iconName: string;
-};
+import { DrawerNavigationItem } from './drawer-navigation-item.type';
 
 type DrawerNavigationList = {
   name: string;
-  subroutes: DrawerNavigationListSubroutes[];
+  subroutes: DrawerNavigationItem[];
   focusedRouteName: string;
 };
 
