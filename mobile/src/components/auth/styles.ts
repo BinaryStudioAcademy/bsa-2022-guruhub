@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
-  circle_1: {
+  circle1: {
     position: 'absolute',
     width: 68,
     height: 68,
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     bottom: 147,
     left: -34,
   },
-  circle_2: {
+  circle2: {
     position: 'absolute',
     width: 100,
     height: 100,

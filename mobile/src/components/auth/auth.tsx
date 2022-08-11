@@ -39,8 +39,8 @@ const Auth: FC = () => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
-      <View style={styles.circle_1} />
-      <View style={styles.circle_2} />
+      <View style={styles.circle1} />
+      <View style={styles.circle2} />
       {getScreen(name)}
     </View>
   );
