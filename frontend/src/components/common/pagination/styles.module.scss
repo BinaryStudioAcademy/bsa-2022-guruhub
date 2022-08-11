@@ -1,0 +1,51 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--typography-text-100-inverse);
+  background-color: inherit;
+}
+
+.back,
+.next {
+  background: none;
+  border: none;
+}
+
+.back::before,
+.next::before {
+  content: '';
+  position: relative;
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-top: 1.5px solid var(--typography-text-100-inverse);
+  cursor: pointer;
+}
+
+.back::before {
+  border-left: 1.5px solid var(--typography-text-100-inverse);
+}
+
+.next::before {
+  border-right: 1.5px solid var(--typography-text-100-inverse);
+}
+
+.back:active::before,
+.next:active::before {
+  border-color: var(--typography-text-gray-200);
+}
+
+.back:disabled::before,
+.next:disabled::before {
+  border-color: var(--typography-text-gray-200);
+  cursor: auto;
+}
+
+.next {
+  transform: rotate(45deg);
+}
+
+.back {
+  transform: rotate(-45deg);
+}

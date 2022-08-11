@@ -29,6 +29,10 @@ class Group {
 
     return group ?? null;
   }
+
+  async getAll(): Promise<GroupM[]> {
+    return this.#GroupModel.query();
+  }
 }
 
 export { Group };

@@ -1,0 +1,10 @@
+get:
+  summary: Get all groups
+  tags:
+    - groups
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/groups/groups-get-all-response-dto.yaml'

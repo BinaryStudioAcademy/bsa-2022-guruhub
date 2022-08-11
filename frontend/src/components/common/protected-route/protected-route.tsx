@@ -13,9 +13,7 @@ const ProtectedRoute: FC<Props> = ({
   redirectTo = AppRoute.SIGN_IN,
   component,
 }) => {
-  const { user } = useAppSelector(({ auth }) => ({
-    user: auth.user,
-  }));
+  const { user } = useAppSelector((state) => state.auth);
 
   const hasUser = Boolean(user);
 

@@ -1,27 +1,29 @@
-import { FC, UsersGetAllItemResponseDto } from 'common/types/types';
+import { FC, GroupsGetAllItemResponseDto } from 'common/types/types';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
 
-import { UsersTable } from './components/components';
-import { getColumns, getRows } from './helpers/helpers';
+import { GroupsTable, UsersTable } from './components/components';
+import { getGroupsColumns, getGroupsRows } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const UAM: FC = () => {
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.uam);
+  const { groups } = useAppSelector((state) => state.uam);
 
   useEffect(() => {
-    dispatch(uamActions.getUsers());
+    dispatch(uamActions.getGroups());
   }, []);
 
-  const columns: Column<UsersGetAllItemResponseDto>[] = getColumns();
-  const rows: UsersGetAllItemResponseDto[] = getRows(users);
+  const groupsColumns: Column<GroupsGetAllItemResponseDto>[] =
+    getGroupsColumns();
+  const groupsRows: GroupsGetAllItemResponseDto[] = getGroupsRows(groups);
 
   return (
     <div className={styles.uam}>
       <h1 className={styles.pageTitle}>User Access Managment</h1>
-      <UsersTable data={rows} columns={columns} />
+      <UsersTable />
+      <GroupsTable data={groupsRows} columns={groupsColumns} />
     </div>
   );
 };
