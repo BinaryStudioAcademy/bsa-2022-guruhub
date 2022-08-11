@@ -1,4 +1,5 @@
 import {
+  Course as CourseModel,
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   Permission as PermissionModel,
@@ -6,6 +7,7 @@ import {
   UsersToGroups as UsersToGroupsModel,
 } from '~/data/models/models';
 
+import { Course } from './course/course.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Permission } from './permission/permission.repository';
@@ -32,4 +34,6 @@ const usersToGroups = new UsersToGroups({
   UsersToGroupsModel,
 });
 
-export { group, groupsToPermissions, permission, user, usersToGroups };
+const courses = new Course({ CourseModel });
+
+export { courses, group, groupsToPermissions, permission, user, usersToGroups };
