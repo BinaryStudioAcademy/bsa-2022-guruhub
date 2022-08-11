@@ -4,4 +4,4 @@ export { Link } from './link/link';
 export { Spinner } from './spinner/spinner';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
-export { Image, View } from 'react-native';
+export { Image, ScrollView, View } from 'react-native';
