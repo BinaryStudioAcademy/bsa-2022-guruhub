@@ -9,11 +9,11 @@ import { DEFAULT_SIGN_IN_PAYLOAD } from './common/constants';
 import { styles } from './styles';
 
 type Props = {
-  onSubmit: () => void;
+  onSubmit: (payload: UserSignInRequestDto) => void;
 };
 
-const SignInForm: FC<Props> = () => {
-  const { control, errors } = useAppForm<UserSignInRequestDto>({
+const SignInForm: FC<Props> = ({ onSubmit }) => {
+  const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
     defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
     validationSchema: userSignInValidationSchema,
   });
@@ -41,12 +41,7 @@ const SignInForm: FC<Props> = () => {
           />
         </View>
         <View style={styles.buttonWrapper}>
-          <Button
-            label="Sign in"
-            onPress={(): void => {
-              // TODO: handle press
-            }}
-          />
+          <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </>

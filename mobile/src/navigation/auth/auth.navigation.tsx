@@ -12,8 +12,8 @@ const Tab = createMaterialTopTabNavigator<AuthNavigationParamList>();
 const Auth: FC = () => {
   return (
     <Tab.Navigator screenOptions={SCREEN_OPTIONS}>
-      <Tab.Screen name={AuthScreenName.SIGN_UP} component={AuthScreen} />
       <Tab.Screen name={AuthScreenName.SIGN_IN} component={AuthScreen} />
+      <Tab.Screen name={AuthScreenName.SIGN_UP} component={AuthScreen} />
     </Tab.Navigator>
   );
 };
