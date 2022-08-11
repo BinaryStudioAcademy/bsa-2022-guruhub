@@ -11,7 +11,7 @@ import { styles } from './styles';
 const CustomDrawerItem: FC<DrawerNavigationItem> = ({
   name,
   iconName,
-  isFocused,
+  isFocused = false,
 }) => {
   const navigation = useAppNavigate();
   const color = isFocused ? AppColor.TEXT.GRAY_100 : AppColor.TEXT.GRAY_200;
