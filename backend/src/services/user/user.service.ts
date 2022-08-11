@@ -3,7 +3,7 @@ import {
   EntityPaginationRequestQueryDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
-  UsersGetAllItemResponseDto,
+  UsersGetResponseDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
@@ -27,7 +27,7 @@ class User {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<UsersGetAllItemResponseDto>
+    EntityPagination<UsersGetResponseDto>
   > {
     const ZERO_INDEXED_PAGE = page - 1;
     const result = await this.#userRepository.getPaginated({

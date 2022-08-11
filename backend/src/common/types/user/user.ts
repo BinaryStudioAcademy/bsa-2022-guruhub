@@ -3,7 +3,7 @@ export {
   type EntityPaginationRequestQueryDto,
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
-  type UsersGetAllItemResponseDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

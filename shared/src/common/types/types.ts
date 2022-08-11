@@ -12,8 +12,7 @@ export { type PermissionsGetAllResponseDto } from './permission/permission';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
-  type UsersGetAllItemResponseDto,
-  type UsersGetAllResponseDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

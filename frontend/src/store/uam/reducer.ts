@@ -1,21 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
+  EntityPagination,
   GroupsGetAllItemResponseDto,
-  UsersGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  users: UsersGetAllItemResponseDto[];
+  users: EntityPagination<UsersGetResponseDto>;
   groups: GroupsGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  users: [],
+  users: {
+    items: [],
+    total: 0,
+  },
   groups: [],
 };
 
@@ -25,7 +29,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getUsers.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.users = action.payload.items;
+    state.users = action.payload;
   });
   builder.addCase(getUsers.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
