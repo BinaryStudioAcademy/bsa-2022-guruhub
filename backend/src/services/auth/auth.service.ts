@@ -38,7 +38,7 @@ class Auth {
 
     if (userByEmail) {
       throw new AuthError({
-        message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
+        message: ExceptionMessage.BAD_CREDENTIALS,
         status: HttpCode.UNAUTHORIZED,
       });
     }
@@ -97,6 +97,20 @@ class Auth {
       user,
       token,
     };
+  }
+
+  async getCurrentUser(token: string): Promise<UsersByIdResponseDto | null> {
+    try {
+      const { userId } = await this.#tokenService.decode(token);
+      const user = await this.#userService.getById(userId);
+
+      return user;
+    } catch {
+      throw new AuthError({
+        status: HttpCode.UNAUTHORIZED,
+        message: ExceptionMessage.UNAUTHORIZED_USER,
+      });
+    }
   }
 }
 

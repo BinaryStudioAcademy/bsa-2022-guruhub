@@ -8,11 +8,15 @@ paths:
   # Auth
   /auth/sign-up:
     $ref: './endpoints/auth/user-sign-up.yaml'
+  /auth/sign-in:
+    $ref: './endpoints/auth/user-sign-in.yaml'
+  /auth/current-user:
+    $ref: './endpoints/auth/current-user.yaml'
   # Users
   /users:
     $ref: './endpoints/users/users-get-all.yaml'
-  /auth/sign-in:
-    $ref: './endpoints/auth/user-sign-in.yaml'
+  /users/:id:
+    $ref: './endpoints/users/users-delete.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -25,3 +29,12 @@ components:
       $ref: './schemas/auth/user-sign-in-request-dto.yaml'
     UserSignInResponseDto:
       $ref: './schemas/auth/user-sign-in-response-dto.yaml'
+    UsersDeleteRequestDto:
+      $ref: './schemas/users/users-delete-request-dto.yaml'
+    CurrentUserResponseDto:
+      $ref: './schemas/auth/current-user-response-dto.yaml'
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT

@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": ">=16 <17",
-    "npm": ">=8 <9"
+    "npm": ">=8.8 <9"
   },
   "scripts": {
     "lint:js": "npx eslint --fix \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",

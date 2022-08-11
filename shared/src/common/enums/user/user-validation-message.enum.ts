@@ -4,6 +4,7 @@ const UserValidationMessage = {
   NAME_REQUIRE: 'Full name is required',
   NAME_MIN_LENGTH: `Full name must be at least ${UserValidationRule.NAME_MIN_LENGTH} characters long`,
   NAME_MAX_LENGTH: `Full name must be at most ${UserValidationRule.NAME_MAX_LENGTH} characters long`,
+  NAME_WRONG: 'Full name must consist of alphabetic characters',
   EMAIL_REQUIRE: 'Email is required',
   EMAIL_WRONG: 'Email is wrong',
   EMAIL_MIN_LENGTH: `Email must be at least ${UserValidationRule.EMAIL_MIN_LENGTH} characters long`,

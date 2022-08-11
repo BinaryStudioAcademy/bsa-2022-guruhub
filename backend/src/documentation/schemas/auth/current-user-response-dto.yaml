@@ -1,0 +1,14 @@
+type: object
+properties:
+  email:
+    type: string
+    example: john.doe@gmail.com
+  fullName:
+    type: string
+    example: John Doe
+  id:
+    type: number
+    example: 1
+  createdAt:
+    type: string
+    example: 2022-08-09T08:20:47.167Z

@@ -76,6 +76,27 @@ class User {
       createdAt: user.createdAt,
     };
   }
+
+  async getById(id: string): Promise<UsersByIdResponseDto | null> {
+    const user = await this.#userRepository.getById(id);
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    };
+  }
+
+  async delete(id: number): Promise<boolean> {
+    const deletedUsersCount = await this.#userRepository.delete(id);
+
+    return Boolean(deletedUsersCount);
+  }
 }
 
 export { User };

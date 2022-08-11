@@ -44,4 +44,15 @@ const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   },
 );
 
-export { logout, signIn, signUp };
+const getCurrentUser = createAsyncThunk<
+  UsersByIdResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.LOAD_CURRENT_USER, async (_payload, { extra }) => {
+  const { authApi } = extra;
+  const user = await authApi.getCurrentUser();
+
+  return user;
+});
+
+export { getCurrentUser, logout, signIn, signUp };
