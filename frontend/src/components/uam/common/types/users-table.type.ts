@@ -3,7 +3,7 @@ type UsersTableType = {
   email: string;
   fullName: string;
   createdAt: string;
-  actions: JSX.Element;
+  actions_payload: number;
 };
 
 export { UsersTableType };

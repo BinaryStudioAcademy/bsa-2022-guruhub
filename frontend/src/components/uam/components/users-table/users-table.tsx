@@ -43,8 +43,8 @@ const UsersTable: FC = () => {
     );
   };
 
-  const columns: Column<UsersTableType>[] = getUsersColumns();
-  const rows: UsersTableType[] = getUsersRows(users.items, handleUserDelete);
+  const columns: Column<UsersTableType>[] = getUsersColumns(handleUserDelete);
+  const rows: UsersTableType[] = getUsersRows(users.items);
 
   return (
     <div className={styles.usersTable}>
