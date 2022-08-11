@@ -1,5 +1,7 @@
+import { ExceptionMessage } from '~/common/enums/enums';
 import { CourseGetResponseDto, CourseRequestDto } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
+import { CourseError } from '~/exceptions/exceptions';
 import {
   courseCategory as courseCategoryServ,
   courseToCourseCategories as courseToCourseCategoriesServ,
@@ -47,13 +49,15 @@ class Course {
     );
 
     if (!courseCategory) {
-      throw new Error('Course category not found');
+      throw new CourseError();
     }
 
     const vendor = await this.#vendorService.getById(vendorId);
 
     if (!vendor) {
-      throw new Error('Vendor not found');
+      throw new CourseError({
+        message: ExceptionMessage.INVALID_COURSE_VENDOR,
+      });
     }
 
     const course = await this.#courseRepository.create({
