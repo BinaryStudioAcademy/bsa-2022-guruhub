@@ -1,6 +1,6 @@
 import { Knex } from 'knex';
 
-const TABLE_NAME = 'courses_to_course_category_id';
+const TABLE_NAME = 'courses_to_course_categories';
 
 enum ColumnName {
   ID = 'id',

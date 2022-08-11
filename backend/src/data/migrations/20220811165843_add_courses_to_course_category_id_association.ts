@@ -3,7 +3,7 @@ import { Knex } from 'knex';
 enum TableName {
   COURSES = 'courses',
   COURSE_CATEGORIES = 'course_categories',
-  COURSES_TO_COURSE_CATEGORY_ID = 'courses_to_course_category_id',
+  COURSES_TO_COURSE_CATEGORIES = 'courses_to_course_categories',
 }
 
 enum ColumnName {
@@ -14,7 +14,7 @@ enum ColumnName {
 
 async function up(knex: Knex): Promise<void> {
   return knex.schema.alterTable(
-    TableName.COURSES_TO_COURSE_CATEGORY_ID,
+    TableName.COURSES_TO_COURSE_CATEGORIES,
     (table) => {
       table
         .integer(ColumnName.COURSE_ID)
@@ -29,7 +29,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-  knex.schema.alterTable(TableName.COURSES_TO_COURSE_CATEGORY_ID, (table) => {
+  knex.schema.alterTable(TableName.COURSES_TO_COURSE_CATEGORIES, (table) => {
     table.dropColumn(ColumnName.COURSE_ID);
     table.dropColumn(ColumnName.COURSE_CATEGORY_ID);
   });
