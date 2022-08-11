@@ -2,6 +2,7 @@ import { StringCase } from '~/common/enums/enums';
 import {
   GroupsCreateRequestDto,
   GroupsResponseDto,
+  GroupsUpdateRequestDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { changeStringCase } from '~/helpers/helpers';
@@ -68,6 +69,29 @@ class Group {
     );
 
     return group;
+  }
+
+  async update(
+    groupsRequestDto: GroupsUpdateRequestDto,
+  ): Promise<GroupsResponseDto> {
+    const { id, name } = groupsRequestDto;
+
+    let group;
+
+    if (name) {
+      group = await this.#groupsRepository.update({
+        id,
+        name,
+        key: changeStringCase({
+          stringToChange: name,
+          caseType: StringCase.SNAKE_CASE,
+        }),
+      });
+    } else {
+      group = await this.#groupsRepository.getById(id);
+    }
+
+    return group as GroupsResponseDto;
   }
 }
 
