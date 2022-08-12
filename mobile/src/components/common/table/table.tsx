@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { ViewStyle } from 'react-native';
 import {
   Cell,
@@ -12,9 +12,11 @@ import { ScrollView, View } from '~/components/common/common';
 
 import { styles } from './styles';
 
-type Props = {
-  header: (string | number | unknown)[];
-  data: (string | number | unknown)[][];
+type AllowedData = string | number;
+
+type Props<Data extends Record<AllowedData, unknown>> = {
+  header: Data[];
+  data: Data[][];
   columnWidthArr?: number[];
   tableDataTextStyle?: AppTextStyle;
   tableHeaderTextStyle?: AppTextStyle;
@@ -22,7 +24,7 @@ type Props = {
   tableContainerStyle?: ViewStyle;
 };
 
-const Table: FC<Props> = ({
+const Table = <Data extends Record<AllowedData, unknown>>({
   header,
   data,
   columnWidthArr,
@@ -30,7 +32,7 @@ const Table: FC<Props> = ({
   tableHeaderTextStyle,
   tableHeaderCellStyle,
   tableContainerStyle,
-}): ReactElement => {
+}: Props<Data>): ReactElement => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
