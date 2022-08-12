@@ -1,4 +1,7 @@
+import { UserDetailsCreateRequestDto } from 'guruhub-shared';
+
 import { UserDetailsResponseDto } from '~/common/types/types';
+import { UserDetails as UserDetailsM } from '~/data/models/models';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
 
 type Constructor = {
@@ -12,6 +15,20 @@ class UserDetails {
     this.#userDetailsRepository = userDetailsRepository;
   }
 
+  async create(
+    userDetailsCreateRequestDto: UserDetailsCreateRequestDto,
+  ): Promise<UserDetailsM> {
+    // eslint-disable-next-line no-console
+    console.log('user eq body');
+    // eslint-disable-next-line no-console
+    console.log(userDetailsCreateRequestDto);
+    const userDetails = await this.#userDetailsRepository.create(
+      userDetailsCreateRequestDto,
+    );
+
+    return userDetails;
+  }
+
   async getByUserId(userId: number): Promise<UserDetailsResponseDto | null> {
     const userDetails = await this.#userDetailsRepository.getByUserId(userId);
 
@@ -21,7 +38,7 @@ class UserDetails {
 
     return {
       id: userDetails.id,
-      fullName: userDetails.fullName,
+      firstName: userDetails.firstName,
       lastName: userDetails.lastName,
       avatarUrl: userDetails.avatarUrl,
       gender: userDetails.gender,

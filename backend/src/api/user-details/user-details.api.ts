@@ -1,6 +1,7 @@
-import { FastifyPluginAsync } from 'fastify';
+import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
+import { UserDetailsCreateRequestDto } from '~/common/types/types';
 import { userDetails as userDetailsService } from '~/services/services';
 
 type Options = {
@@ -22,6 +23,19 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
       const userDetails = await userDetailsService.getByUserId(req.user.id);
 
       return rep.status(HttpCode.OK).send(userDetails);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.POST,
+    url: UsersApiPath.DETAILS,
+    async handler(
+      req: FastifyRequest<{ Body: UserDetailsCreateRequestDto }>,
+      rep,
+    ) {
+      const userDetails = await userDetailsService.create(req.body);
+
+      return rep.status(HttpCode.CREATED).send(userDetails);
     },
   });
 };

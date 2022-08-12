@@ -1,1 +1,4 @@
-export { type UserDetailsResponseDto } from 'guruhub-shared/common/types/types';
+export {
+  type UserDetailsCreateRequestDto,
+  type UserDetailsResponseDto,
+} from 'guruhub-shared/common/types/types';

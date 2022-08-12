@@ -1,3 +1,4 @@
+import { UserDetailsCreateRequestDto } from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
 type Constructor = {
@@ -9,6 +10,20 @@ class UserDetails {
 
   constructor({ UserDetailsModel }: Constructor) {
     this.#UserDetailsModel = UserDetailsModel;
+  }
+
+  async create(
+    userDetails: UserDetailsCreateRequestDto,
+  ): Promise<UserDetailsM> {
+    const { lastName, firstName, gender, dateOfBirth, avatarUrl } = userDetails;
+
+    return this.#UserDetailsModel.query().insert({
+      firstName,
+      lastName,
+      avatarUrl,
+      gender,
+      dateOfBirth,
+    });
   }
 
   async getByUserId(userId: number): Promise<UserDetailsM | null> {

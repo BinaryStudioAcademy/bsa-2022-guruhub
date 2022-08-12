@@ -3,7 +3,7 @@ import { DbTableName } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 
 class UserDetails extends Abstract {
-  'fullName': string;
+  'firstName': string;
 
   'lastName': string;
 

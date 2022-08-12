@@ -1,6 +1,6 @@
 type UserDetailsResponseDto = {
   id: number;
-  fullName: string;
+  firstName: string;
   lastName: string;
   gender: string;
   avatarUrl: string;
