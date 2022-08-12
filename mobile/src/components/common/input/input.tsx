@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { TextInput } from 'react-native';
 
+import { AppColor } from '~/common/enums/enums';
 import {
   FormControl,
   FormControlErrors,
@@ -34,15 +35,17 @@ const Input = <T extends FormControlValues>({
 
   return (
     <View>
-      <Text>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
       <TextInput
         value={value}
         placeholder={placeholder}
+        placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
         onBlur={onBlur}
         style={styles.input}
+        secureTextEntry={name === 'password'}
       />
-      {Boolean(error) && <Text>{error}</Text>}
+      {Boolean(error) && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };

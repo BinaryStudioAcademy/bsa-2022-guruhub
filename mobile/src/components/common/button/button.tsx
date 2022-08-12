@@ -13,7 +13,7 @@ type Props = {
 const Button: FC<Props> = ({ label, onPress }) => {
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <Text>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
     </Pressable>
   );
 };
