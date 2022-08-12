@@ -20,6 +20,9 @@ paths:
   # Groups
   /groups:
     $ref: './endpoints/groups/groups-get-all.yaml'
+  # Courses
+  /courses:
+    $ref: './endpoints/courses/course-add.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -38,6 +41,8 @@ components:
       $ref: './schemas/auth/current-user-response-dto.yaml'
     GroupsGetAllResponseDto:
       $ref: './schemas/groups/groups-get-all-response-dto.yaml'
+    CourseCreateRequestDto:
+      $ref: './schemas/courses/course-add-request-dto.yaml'
     securitySchemes:
       bearerAuth:
         type: http
