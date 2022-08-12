@@ -17,14 +17,12 @@ type Props = {
 const Search: FC<Props> = ({ onSearch }) => {
   const [borderColor, setBorderColor] = useState('transparent');
 
-  const { watch, control } = useAppForm<SearchInput>({
+  const { control } = useAppForm<SearchInput>({
     defaultValues: DEFAULT_SEARCH_TEXT,
   });
 
   const { field } = useFormControl({ name: 'search', control: control });
   const { value, onChange } = field;
-
-  const watchSearchText = watch('search');
 
   const handleOnSearch = debounce(onSearch, 1000);
 
@@ -33,10 +31,10 @@ const Search: FC<Props> = ({ onSearch }) => {
   const handleOnBlur = (): void => setBorderColor('transparent');
 
   useEffect(() => {
-    handleOnSearch(watchSearchText);
+    handleOnSearch(value);
 
     return () => handleOnSearch.clear();
-  }, [watchSearchText]);
+  }, [value]);
 
   return (
     <View style={{ ...styles.searchBar, borderColor: borderColor }}>
