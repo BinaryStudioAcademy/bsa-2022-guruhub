@@ -5,3 +5,7 @@
   padding: 5px;
   overflow-x: scroll;
 }
+
+.categoriesList::-webkit-scrollbar {
+  display: none;
+}

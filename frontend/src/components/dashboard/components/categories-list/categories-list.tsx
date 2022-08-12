@@ -20,9 +20,6 @@ const CategoriesList = ({ categories }: Props): ReactElement => {
           key={category.id}
           img={`/${category.name}.svg`}
           name={category.name}
-          textColor={'white'}
-          borderColor={'yellow'}
-          backgroundColor={'#1e1e2c'}
         />
       ))}
     </div>
