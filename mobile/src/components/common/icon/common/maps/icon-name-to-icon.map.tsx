@@ -10,10 +10,9 @@ import Message from '~/assets/icons/message.svg';
 import Search from '~/assets/icons/search.svg';
 import Settings from '~/assets/icons/settings.svg';
 import Voice from '~/assets/icons/voice.svg';
-import { AppScreenName } from '~/common/enums/enums';
 import { IconName } from '~/common/types/ui/icon-name.type';
 
-const iconNameToIcon: Record<IconName | AppScreenName, FC<SvgProps>> = {
+const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   search: Search,
   voice: Voice,
   home: Home,
@@ -23,11 +22,5 @@ const iconNameToIcon: Record<IconName | AppScreenName, FC<SvgProps>> = {
   mentors: Mentors,
   settings: Settings,
   book: Book,
-  Overview: Home,
-  Courses: Book,
-  Mentors: Mentors,
-  'My Education': Education,
-  Billing: Billing,
-  Settings: Settings,
 };
 export { iconNameToIcon };

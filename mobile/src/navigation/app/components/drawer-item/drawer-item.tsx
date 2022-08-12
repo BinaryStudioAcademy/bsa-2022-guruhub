@@ -7,7 +7,11 @@ import { useAppNavigate } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
-const DrawerItem: FC<DrawerNavigationItem> = ({ name, isFocused = false }) => {
+const DrawerItem: FC<DrawerNavigationItem> = ({
+  name,
+  isFocused = false,
+  icon,
+}) => {
   const navigation = useAppNavigate();
   const color = isFocused ? AppColor.TEXT.GRAY_100 : AppColor.TEXT.GRAY_200;
   const backgroundColor = isFocused ? AppColor.BRAND.BLUE_100 : 'transparent';
@@ -22,7 +26,7 @@ const DrawerItem: FC<DrawerNavigationItem> = ({ name, isFocused = false }) => {
       onPress={handlePress}
     >
       <View style={styles.iconContainer}>
-        <Icon name={name} color={color} width={20} height={20} />
+        <Icon name={icon} color={color} width={20} height={20} />
       </View>
       <View>
         <Text style={{ color, ...styles.label }}>{name}</Text>

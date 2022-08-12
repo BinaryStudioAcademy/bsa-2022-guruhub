@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 
-import { AppScreenName } from '~/common/enums/enums';
 import { IconName } from '~/common/types/ui/icon-name.type';
 import { iconNameToIcon } from '~/components/common/icon/common/maps/icon-name-to-icon.map';
 
 type Props = {
-  name: IconName | AppScreenName;
+  name: IconName;
   width?: number;
   height?: number;
   color?: string;
