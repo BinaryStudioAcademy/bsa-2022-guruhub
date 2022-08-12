@@ -1,15 +1,36 @@
-import { ContentType, HttpHeader, HttpMethod } from '~/common/enums/enums';
+import {
+  ContentType,
+  HttpHeader,
+  HttpMethod,
+  StorageKey,
+} from '~/common/enums/enums';
 import { HttpOptions } from '~/common/types/types';
 import { HttpError } from '~/exceptions/exceptions';
+import { Storage } from '~/services/storage/storage.service';
+
+type Constructor = {
+  storage: Storage;
+};
 
 class Http {
+  #storage: Storage;
+
+  constructor({ storage }: Constructor) {
+    this.#storage = storage;
+  }
+
   load<T = unknown>(
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
-    const { method = HttpMethod.GET, payload = null, contentType } = options;
+    const {
+      method = HttpMethod.GET,
+      payload = null,
+      contentType,
+      hasAuth = true,
+    } = options;
 
-    const headers = this.getHeaders(contentType);
+    const headers = this.getHeaders(contentType, hasAuth);
 
     return fetch(url, {
       method,
@@ -21,11 +42,16 @@ class Http {
       .catch(this.throwError);
   }
 
-  private getHeaders(contentType?: ContentType): Headers {
+  private getHeaders(contentType?: ContentType, hasAuth?: boolean): Headers {
     const headers = new Headers();
 
     if (contentType) {
       headers.append(HttpHeader.CONTENT_TYPE, contentType);
+    }
+
+    if (hasAuth) {
+      const token = this.#storage.get(StorageKey.ACCESS_TOKEN);
+      headers.append(HttpHeader.AUTHORIZATION, `Bearer ${token}`);
     }
 
     return headers;
