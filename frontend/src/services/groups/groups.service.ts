@@ -1,5 +1,5 @@
 import { ApiPath, GroupsApiPath, HttpMethod } from 'common/enums/enums';
-import { GroupsGetAllResponseDto } from 'common/types/types';
+import { EntityPagination, GroupItemResponseDto } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -16,7 +16,7 @@ class GroupsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<GroupsGetAllResponseDto> {
+  public getAll(): Promise<EntityPagination<GroupItemResponseDto>> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {

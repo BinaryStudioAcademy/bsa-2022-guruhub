@@ -1,4 +1,1 @@
-export {
-  GroupsGetAllItemResponseDto,
-  GroupsGetAllResponseDto,
-} from 'guruhub-shared/common/types/types';
+export { GroupItemResponseDto } from 'guruhub-shared/common/types/types';

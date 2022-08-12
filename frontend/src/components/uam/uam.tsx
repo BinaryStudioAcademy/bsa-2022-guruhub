@@ -1,4 +1,4 @@
-import { FC, GroupsGetAllItemResponseDto } from 'common/types/types';
+import { FC, GroupItemResponseDto } from 'common/types/types';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
@@ -15,9 +15,8 @@ const UAM: FC = () => {
     dispatch(uamActions.getGroups());
   }, []);
 
-  const groupsColumns: Column<GroupsGetAllItemResponseDto>[] =
-    getGroupsColumns();
-  const groupsRows: GroupsGetAllItemResponseDto[] = getGroupsRows(groups);
+  const groupsColumns: Column<GroupItemResponseDto>[] = getGroupsColumns();
+  const groupsRows: GroupItemResponseDto[] = getGroupsRows(groups);
 
   return (
     <div className={styles.uam}>

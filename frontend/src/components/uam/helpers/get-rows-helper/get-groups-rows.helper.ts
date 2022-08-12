@@ -1,9 +1,9 @@
-import { GroupsGetAllItemResponseDto } from 'common/types/types';
+import { GroupItemResponseDto } from 'common/types/types';
 import { GroupsTableAccessor } from 'components/uam/common/enums/enums';
 
 const getGroupsRows = (
-  groups: GroupsGetAllItemResponseDto[],
-): GroupsGetAllItemResponseDto[] => {
+  groups: GroupItemResponseDto[],
+): GroupItemResponseDto[] => {
   return groups.map((group) => ({
     [GroupsTableAccessor.ID]: group.id,
     [GroupsTableAccessor.NAME]: group.name,

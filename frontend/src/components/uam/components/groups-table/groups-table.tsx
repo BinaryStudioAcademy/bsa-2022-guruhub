@@ -1,12 +1,12 @@
-import { FC, GroupsGetAllItemResponseDto } from 'common/types/types';
+import { FC, GroupItemResponseDto } from 'common/types/types';
 import { Table } from 'components/common/common';
 import { Column } from 'react-table';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  columns: Column<GroupsGetAllItemResponseDto>[];
-  data: GroupsGetAllItemResponseDto[];
+  columns: Column<GroupItemResponseDto>[];
+  data: GroupItemResponseDto[];
 };
 
 const GroupsTable: FC<Props> = ({ columns, data }: Props) => {

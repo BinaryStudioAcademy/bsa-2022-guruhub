@@ -1,8 +1,8 @@
-import { GroupsGetAllItemResponseDto } from 'common/types/types';
+import { GroupItemResponseDto } from 'common/types/types';
 import { GroupsTableAccessor } from 'components/uam/common/enums/enums';
 import { Column } from 'react-table';
 
-const getGroupsColumns = (): Column<GroupsGetAllItemResponseDto>[] => {
+const getGroupsColumns = (): Column<GroupItemResponseDto>[] => {
   return [
     {
       Header: 'ID',
