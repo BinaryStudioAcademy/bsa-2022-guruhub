@@ -26,12 +26,6 @@ class GroupsToPermissions {
       permissionId: model.permissionId,
     };
   }
-
-  getPermissionsByGroupId(
-    groupId: number,
-  ): Promise<GroupsToPermissionsResponseDto[]> {
-    return this.#groupsToPermissionsRepository.getPermissionsByGroupId(groupId);
-  }
 }
 
 export { GroupsToPermissions };

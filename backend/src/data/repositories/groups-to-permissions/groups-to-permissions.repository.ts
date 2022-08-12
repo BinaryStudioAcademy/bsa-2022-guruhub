@@ -22,12 +22,6 @@ class GroupsToPermissions {
       permissionId,
     });
   }
-
-  async getPermissionsByGroupId(
-    groupId: number,
-  ): Promise<GroupsToPermissionsM[]> {
-    return this.#GroupsToPermissionsModel.query().select().where({ groupId });
-  }
 }
 
 export { GroupsToPermissions };
