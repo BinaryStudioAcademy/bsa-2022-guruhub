@@ -6,7 +6,7 @@ enum ExceptionMessage {
   INVALID_GROUP_NAME = 'Group name is invalid.',
   INVALID_GROUP_PERMISSIONS = 'Group permissions are invalid.',
   INVALID_GROUP_USERS = 'Group users are invalid.',
-  PERMISSIONS_ERROR = 'Permissions error occurred.',
+  PERMISSIONS_ERROR = 'You don`t have permission to access this resource.',
 }
 
 export { ExceptionMessage };
