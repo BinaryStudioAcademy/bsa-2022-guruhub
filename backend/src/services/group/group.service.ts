@@ -125,7 +125,7 @@ class Group {
 
   async update(
     groupsRequestDto: GroupsUpdateRequestDto,
-  ): Promise<GroupsResponseDto> {
+  ): Promise<GroupsItemResponseDto> {
     const { id, name } = groupsRequestDto;
 
     if (name) {
@@ -140,7 +140,7 @@ class Group {
     }
     const group = await this.#groupsRepository.getById(id);
 
-    return group as GroupsResponseDto;
+    return group as GroupsItemResponseDto;
   }
 }
 
