@@ -7,29 +7,19 @@ import {
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
+  UserSignUpResponseDto,
 } from '~/common/types/types';
 
 import { ActionType } from './common';
 
 const signUp = createAsyncThunk<
-  UsersByIdResponseDto,
+  UserSignUpResponseDto,
   UserSignUpRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_UP, async (payload, { extra }) => {
   const { authApi, storage } = extra;
   const { token, user } = await authApi.signUp(payload);
   storage.set(StorageKey.ACCESS_TOKEN, token);
-
-  return user;
-});
-
-const signIn = createAsyncThunk<
-  UsersByIdResponseDto,
-  UserSignInRequestDto,
-  AsyncThunkConfig
->(ActionType.SIGN_IN, async (payload, { extra }) => {
-  const { authApi } = extra;
-  const { user } = await authApi.signIn(payload);
 
   return user;
 });
