@@ -78,6 +78,14 @@ class Course {
 
     return course;
   }
+
+  // async createByUrl(
+  //   url: string,
+  // ): Promise<CourseGetResponseDto> {
+  //   const course = await this.#courseRepository.createByUrl(url);
+
+  //   return course;
+  // }
 }
 
 export { Course };

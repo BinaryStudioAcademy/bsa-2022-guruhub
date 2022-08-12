@@ -2,6 +2,7 @@ export {
   ApiPath,
   AuthApiPath,
   ControllerHook,
+  CoursesApiPath,
   GroupsApiPath,
   PermissionApiPath,
   UsersApiPath,

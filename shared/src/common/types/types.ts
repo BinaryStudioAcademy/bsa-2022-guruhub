@@ -1,4 +1,5 @@
 export {
+  type CourseCreateByUrlRequestDto,
   type CourseGetResponseDto,
   type CourseRequestDto,
 } from './course/course';
