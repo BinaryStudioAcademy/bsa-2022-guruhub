@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { HttpOptions } from '~/common/types/types';
 
@@ -9,12 +9,13 @@ class Http {
   ): Promise<T> {
     const { headers } = options;
 
-    return axios
-      .get(url, {
+    try {
+      return axios.get(url, {
         headers,
-      })
-      .then((res) => res.data)
-      .catch(this.throwError);
+      });
+    } catch (err) {
+      this.throwError(err as AxiosError);
+    }
   }
 
   private throwError(err: Error): never {
