@@ -1,27 +1,19 @@
-import { Image } from 'components/common/common';
+import { FC, IconName } from 'common/types/types';
+import { Icon } from 'components/common/common';
 import { ReactElement } from 'react';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
 
-type Props<Data extends string> = {
-  img: Data;
-  name: Data;
+type Props = {
+  iconName: IconName;
+  name: string;
 };
 
-const Category = <Data extends string>({
-  img,
-  name,
-}: Props<Data>): ReactElement => {
+const Category: FC<Props> = ({ iconName, name }): ReactElement => {
   return (
     <div className={styles.category} style={{ borderColor: getRandomColor() }}>
-      <Image
-        width={'30px'}
-        height={'30px'}
-        src={img}
-        alt={`${name} category`}
-        isCircular={true}
-      />
+      <Icon name={iconName} className={styles.icon} />
       <p>{name}</p>
     </div>
   );

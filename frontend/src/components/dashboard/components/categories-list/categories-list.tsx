@@ -1,3 +1,4 @@
+import { IconName } from 'common/types/types';
 import { ReactElement } from 'react';
 
 import { Category } from './components/category/category';
@@ -5,6 +6,7 @@ import styles from './styles.module.scss';
 
 type Category = {
   id: number;
+  key: string;
   name: string;
 };
 
@@ -18,7 +20,7 @@ const CategoriesList = ({ items }: Props): ReactElement => {
       {items.map((category) => (
         <Category
           key={category.id}
-          img={`/${category.name.toLowerCase()}.svg`}
+          iconName={category.key as IconName}
           name={category.name}
         />
       ))}

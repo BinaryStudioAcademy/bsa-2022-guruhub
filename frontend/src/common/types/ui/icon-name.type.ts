@@ -5,6 +5,11 @@ type IconName =
   | 'education'
   | 'billing'
   | 'settings'
-  | 'cross';
+  | 'cross'
+  | 'nodejs'
+  | 'java'
+  | 'c'
+  | 'typescript'
+  | 'python';
 
 export { IconName };
