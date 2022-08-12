@@ -6,7 +6,7 @@ enum ColumnName {
   UPDATED_AT = 'updated_at',
 }
 
-const TABLE_NAME = 'courses_to_vendors';
+const TABLE_NAME = 'course_to_vendor';
 
 async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TABLE_NAME, (table) => {
