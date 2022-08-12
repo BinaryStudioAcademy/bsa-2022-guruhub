@@ -1,11 +1,9 @@
-import { URLSearchParamsInit } from 'common/types/types';
-import { getValidPageFromSearchParams } from 'helpers/helpers';
-import { useState } from 'hooks/hooks';
+import { useSearchParams, useState } from 'hooks/hooks';
+
+import { getValidPageFromSearchParams } from './helpers/helpers';
 
 type UsePaginationArgs = {
-  pageFromQuery: number;
-  searchParams: URLSearchParamsInit;
-  setSearchParams: (nextInit: URLSearchParamsInit) => void;
+  queryName: string;
 };
 
 type UsePaginationResult = {
@@ -14,17 +12,18 @@ type UsePaginationResult = {
 };
 
 const usePagination = ({
-  pageFromQuery,
-  searchParams,
-  setSearchParams,
+  queryName,
 }: UsePaginationArgs): UsePaginationResult => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageFromQuery = Number(searchParams.get(queryName));
+
   const validPage = getValidPageFromSearchParams(pageFromQuery);
 
   const [page, setPage] = useState<number>(validPage);
 
   const handlePageChange = (page: number): void => {
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
-    updatedSearchParams.set('page', String(page));
+    updatedSearchParams.set(queryName, String(page));
     setSearchParams(updatedSearchParams);
     setPage(page);
   };

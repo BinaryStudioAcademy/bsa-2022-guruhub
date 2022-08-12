@@ -1,14 +1,12 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
-import { Table } from 'components/common/common';
-import { Pagination } from 'components/common/pagination/pagination';
+import { Pagination, Table } from 'components/common/common';
 import { getUsersColumns, getUsersRows } from 'components/uam/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
   usePagination,
-  useSearchParams,
 } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
@@ -16,13 +14,7 @@ import { uamActions } from 'store/actions';
 import styles from './styles.module.scss';
 
 const UsersTable: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageFromQuery = Number(searchParams.get('page'));
-  const { page, handlePageChange } = usePagination({
-    pageFromQuery,
-    searchParams,
-    setSearchParams,
-  });
+  const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
 
