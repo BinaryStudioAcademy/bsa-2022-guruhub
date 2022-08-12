@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
-import { SearchInput } from '~/common/types/types';
+import { SearchPayload } from '~/common/types/types';
 import { Icon, View } from '~/components/common/common';
-import { DEFAULT_SEARCH_TEXT } from '~/components/common/search/common/constants';
+import { DEFAULT_SEARCH_PAYLOAD } from '~/components/common/search/common/constants';
 import { useAppForm, useEffect, useFormControl, useState } from '~/hooks/hooks';
 
 import { styles } from './styles';
@@ -17,23 +17,23 @@ type Props = {
 const Search: FC<Props> = ({ onSearch }) => {
   const [borderColor, setBorderColor] = useState('transparent');
 
-  const { control } = useAppForm<SearchInput>({
-    defaultValues: DEFAULT_SEARCH_TEXT,
+  const { control } = useAppForm<SearchPayload>({
+    defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
   const { field } = useFormControl({ name: 'search', control: control });
   const { value, onChange } = field;
 
-  const handleOnSearch = debounce(onSearch, 1000);
+  const handleSearch = debounce(onSearch, 1000);
 
   const handleOnFocus = (): void => setBorderColor(AppColor.BRAND.BLUE_100);
 
   const handleOnBlur = (): void => setBorderColor('transparent');
 
   useEffect(() => {
-    handleOnSearch(value);
+    handleSearch(value);
 
-    return () => handleOnSearch.clear();
+    return () => handleSearch.clear();
   }, [value]);
 
   return (
@@ -51,7 +51,6 @@ const Search: FC<Props> = ({ onSearch }) => {
         placeholder="Search"
         placeholderTextColor={AppColor.TEXT.GRAY_200}
       />
-      <Icon name="voice" width={12} height={18} />
     </View>
   );
 };

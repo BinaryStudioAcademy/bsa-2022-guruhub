@@ -20,7 +20,7 @@ export {
   type RootNavigationScreenProps,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
-export { type SearchInput } from './search/search-input.type';
+export { type SearchPayload } from './search/search-input.type';
 export { type AppTextStyle } from './ui/ui';
 export {
   type UsersByIdResponseDto,

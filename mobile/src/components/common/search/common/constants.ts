@@ -1,7 +1,7 @@
-import { SearchInput } from '~/common/types/types';
+import { SearchPayload } from '~/common/types/types';
 
-const DEFAULT_SEARCH_TEXT: SearchInput = {
+const DEFAULT_SEARCH_PAYLOAD: SearchPayload = {
   search: '',
 };
 
-export { DEFAULT_SEARCH_TEXT };
+export { DEFAULT_SEARCH_PAYLOAD };

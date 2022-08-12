@@ -1,5 +1,5 @@
-type SearchInput = {
+type SearchPayload = {
   search: string;
 };
 
-export { type SearchInput };
+export { type SearchPayload };
