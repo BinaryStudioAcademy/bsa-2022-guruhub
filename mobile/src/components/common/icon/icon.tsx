@@ -1,28 +1,19 @@
 import React, { FC } from 'react';
-import { SvgProps } from 'react-native-svg';
 
-import Search from '~/assets/icons/search.svg';
-import Voice from '~/assets/icons/voice.svg';
 import { IconName } from '~/common/types/ui/icon-name.type';
-
-const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
-  search: Search,
-  voice: Voice,
-};
+import { IconNameToIcon } from '~/components/common/icon/common/maps/icon-name-to-icon.map';
 
 type Props = {
   name: IconName;
-  size?: {
-    width: number;
-    height: number;
-  };
-  fill?: string;
+  width?: number;
+  height?: number;
+  color?: string;
 };
 
-const Icon: FC<Props> = ({ name, size = { width: 16, height: 16 }, fill }) => {
-  const SelectedIcon = iconNameToIcon[name];
+const Icon: FC<Props> = ({ name, width = 16, height = 16, color }) => {
+  const SelectedIcon = IconNameToIcon[name];
 
-  return <SelectedIcon width={size.width} height={size.height} fill={fill} />;
+  return <SelectedIcon width={width} height={height} color={color} />;
 };
 
 export { Icon };
