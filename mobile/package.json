@@ -11,7 +11,8 @@
     "lint": "npm run lint:js && npm run lint:type",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start"
+    "start": "react-native start",
+    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
   "dependencies": {
     "@hookform/resolvers": "2.9.5",
