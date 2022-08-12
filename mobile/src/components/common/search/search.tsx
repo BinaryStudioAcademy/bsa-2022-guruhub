@@ -44,7 +44,7 @@ const Search: FC<Props> = ({ onSearch }) => {
         placeholder="Search"
         placeholderTextColor={AppColor.TEXT.GRAY_200}
       />
-      <Icon name="voice" size={{ width: 12, height: 18 }} />
+      <Icon name="voice" width={12} height={18} />
     </View>
   );
 };
