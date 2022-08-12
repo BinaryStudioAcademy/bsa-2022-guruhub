@@ -22,13 +22,15 @@ const Button: FC<Props> = ({
 }) => {
   const navigate = useNavigate();
 
+  const handleOnClick = (): void => {
+    to ? navigate(to) : onClick && onClick();
+  };
+
   return (
     <button
       type={type}
       className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
-      onClick={(): void => {
-        to ? navigate(to) : onClick && onClick();
-      }}
+      onClick={handleOnClick}
     >
       {label}
     </button>
