@@ -1,4 +1,4 @@
-import { debounce } from 'debounce';
+// import { debounce } from 'debounce';
 import React, { FC } from 'react';
 import { TextInput } from 'react-native';
 
@@ -6,7 +6,7 @@ import { AppColor } from '~/common/enums/enums';
 import { SearchPayload } from '~/common/types/types';
 import { Icon, View } from '~/components/common/common';
 import { DEFAULT_SEARCH_PAYLOAD } from '~/components/common/search/common/constants';
-import { useAppForm, useEffect, useFormControl, useState } from '~/hooks/hooks';
+import { useAppForm, useFormControl, useState } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -14,7 +14,7 @@ type Props = {
   onSearch: (text: string) => void;
 };
 
-const Search: FC<Props> = ({ onSearch }) => {
+const Search: FC<Props> = () => {
   const [borderColor, setBorderColor] = useState('transparent');
 
   const { control } = useAppForm<SearchPayload>({
@@ -24,17 +24,17 @@ const Search: FC<Props> = ({ onSearch }) => {
   const { field } = useFormControl({ name: 'search', control: control });
   const { value, onChange } = field;
 
-  const handleSearch = debounce(onSearch, 1000);
+  // const handleSearch = useDebounce(onSearch, 1000);
 
   const handleOnFocus = (): void => setBorderColor(AppColor.BRAND.BLUE_100);
 
   const handleOnBlur = (): void => setBorderColor('transparent');
 
-  useEffect(() => {
-    handleSearch(value);
-
-    return () => handleSearch.clear();
-  }, [value]);
+  // useEffect(() => {
+  //   handleSearch(value);
+  //
+  //   return () => handleSearch.clear();
+  // }, [value]);
 
   return (
     <View style={{ ...styles.searchBar, borderColor: borderColor }}>
