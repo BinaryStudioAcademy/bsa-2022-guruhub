@@ -11,7 +11,7 @@ enum ColumnName {
   COURSE_CATEGORY_ID = 'course_category_id',
 }
 
-enum RelatedTablesNames {
+enum TableName {
   VENDORS = 'vendors',
   COURSE_CATEGORIES = 'course_categories',
 }
@@ -35,11 +35,11 @@ async function up(knex: Knex): Promise<void> {
     table
       .integer(ColumnName.VENDOR_ID)
       .references(ColumnName.ID)
-      .inTable(RelatedTablesNames.VENDORS);
+      .inTable(TableName.VENDORS);
     table
       .integer(ColumnName.COURSE_CATEGORY_ID)
       .references(ColumnName.ID)
-      .inTable(RelatedTablesNames.COURSE_CATEGORIES);
+      .inTable(TableName.COURSE_CATEGORIES);
   });
 }
 
