@@ -14,7 +14,7 @@ import {
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
-  groupDelete as GroupsDeleteValidationSchema,
+  groupDelete as groupsDeleteValidationSchema,
   pagination as paginationQueryValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -67,7 +67,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.DELETE,
     url: GroupsApiPath.$ID,
-    schema: { params: GroupsDeleteValidationSchema },
+    schema: { params: groupsDeleteValidationSchema },
     async handler(
       req: FastifyRequest<{ Params: GroupsDeleteRequestParamDto }>,
       rep,

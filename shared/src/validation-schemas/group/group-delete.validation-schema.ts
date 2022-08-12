@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 
-import { GroupsDeleteRequestParamDto } from '~/common/types/groups/groups-delete-request-dto.types';
+import { GroupsDeleteRequestParamDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const groupDelete = Joi.object({

@@ -2,12 +2,14 @@ delete:
   summary: Group Delete
   tags:
     - groups
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          $ref: '../../schemas/groups/groups-delete-request-dto.yaml'
+  parameters:
+    - name: id
+      in: path
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/groups/groups-delete-request-dto.yaml'
   responses:
     '204':
       description: Group successfully deleted
