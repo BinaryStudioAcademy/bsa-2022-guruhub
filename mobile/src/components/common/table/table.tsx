@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 import {
   Cell,
   Rows,
@@ -16,10 +16,10 @@ type Props = {
   header: (string | number | unknown)[];
   data: (string | number | unknown)[][];
   columnWidthArr?: number[];
-  tableDataTextStyle?: StyleProp<AppTextStyle>;
-  tableHeaderTextStyle?: StyleProp<AppTextStyle>;
-  tableHeaderCellStyle?: StyleProp<ViewStyle>;
-  tableContainerStyle?: StyleProp<ViewStyle>;
+  tableDataTextStyle?: AppTextStyle;
+  tableHeaderTextStyle?: AppTextStyle;
+  tableHeaderCellStyle?: ViewStyle;
+  tableContainerStyle?: ViewStyle;
 };
 
 const Table: FC<Props> = ({
@@ -43,19 +43,22 @@ const Table: FC<Props> = ({
                     key={cellIndex}
                     data={cellData}
                     width={columnWidthArr && columnWidthArr[cellIndex]}
-                    textStyle={[styles.headerText, tableHeaderTextStyle]}
-                    style={[
-                      Boolean(cellIndex) && styles.verticalSeparator,
-                      styles.headerCell,
-                      tableHeaderCellStyle,
-                    ]}
+                    textStyle={{
+                      ...styles.headerText,
+                      ...tableHeaderTextStyle,
+                    }}
+                    style={{
+                      ...(Boolean(cellIndex) && styles.verticalSeparator),
+                      ...styles.headerCell,
+                      ...tableHeaderCellStyle,
+                    }}
                   />
                 ))}
               </TableWrapper>
               <Rows
                 data={data}
                 widthArr={columnWidthArr}
-                textStyle={[styles.dataText, tableDataTextStyle]}
+                textStyle={{ ...styles.dataText, ...tableDataTextStyle }}
               />
             </UITable>
           </ScrollView>
