@@ -1,12 +1,12 @@
-import { PermissionsGetAllItemResponseDto } from 'guruhub-shared/common/types/permission/permission';
-
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  PermissionItem,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetResponseDto,
   UserSignUpRequestDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -52,7 +52,7 @@ class User {
     email,
     fullName,
     password,
-  }: UserSignUpRequestDto): Promise<UsersByIdResponseDto> {
+  }: UserSignUpRequestDto): Promise<UserWithPermissions> {
     const passwordSalt = await this.#encryptService.generateSalt();
     const passwordHash = await this.#encryptService.encrypt(
       password,
@@ -92,13 +92,11 @@ class User {
     };
   }
 
-  async getUserPermissions(
-    id: number,
-  ): Promise<PermissionsGetAllItemResponseDto[]> {
-    return await this.#userRepository.getUserPermissions(id);
+  getUserPermissions(id: number): Promise<PermissionItem[]> {
+    return this.#userRepository.getUserPermissions(id);
   }
 
-  async getById(id: string): Promise<UsersByIdResponseDto | null> {
+  async getById(id: string): Promise<UserWithPermissions | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {
@@ -111,25 +109,18 @@ class User {
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
-      permissions: permissions,
+      permissions,
     };
   }
 
   async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
     const users = await this.#userRepository.getByIds(ids);
 
-    const usersPermissions = users.map(
-      async (user) => await this.#userRepository.getUserPermissions(user.id),
-    );
-
-    return users.map((user, index) => ({
+    return users.map((user) => ({
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
-      permissions: usersPermissions[
-        index
-      ] as unknown as PermissionsGetAllItemResponseDto[],
     }));
   }
 

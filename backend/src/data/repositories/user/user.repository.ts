@@ -53,7 +53,7 @@ class User {
       )
       .joinRelated('groups.permissions')
       .where('users.id', id)
-      .castTo(PermissionM);
+      .castTo<PermissionM[]>();
 
     return permissions;
   }
