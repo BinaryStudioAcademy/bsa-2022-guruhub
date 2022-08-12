@@ -1,7 +1,13 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { GroupsApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
+  GroupsApiPath,
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import {
+  EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
 } from '~/common/types/types';
@@ -9,6 +15,7 @@ import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
   groupDelete as GroupsDeleteValidationSchema,
+  pagination as paginationQueryValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -30,6 +37,30 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const group = await groupService.create(req.body);
 
       return rep.status(HttpCode.CREATED).send(group);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: GroupsApiPath.ROOT,
+    schema: {
+      querystring: paginationQueryValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      rep,
+    ) {
+      const {
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+      } = req.query;
+
+      const groups = await groupService.getPaginated({
+        page,
+        count,
+      });
+
+      return rep.status(HttpCode.OK).send(groups);
     },
   });
 

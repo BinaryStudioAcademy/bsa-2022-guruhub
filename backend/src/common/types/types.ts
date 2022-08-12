@@ -2,8 +2,7 @@ export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
-  type GroupsGetAllItemResponseDto,
-  type GroupsGetAllResponseDto,
+  type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { EntityPagination } from './pagination/pagination';
