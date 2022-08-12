@@ -55,10 +55,6 @@ class AuthApi {
   getCurrentUser(): Promise<UsersByIdResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
-      {
-        method: HttpMethod.GET,
-        contentType: ContentType.JSON,
-      },
     );
   }
 }
