@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import { RootScreenName } from '~/common/enums/enums';
+import { AuthScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
 import { Image, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
@@ -25,10 +25,10 @@ const Auth: FC = () => {
 
   const getScreen = (screen: string): ReactElement | null => {
     switch (screen) {
-      case RootScreenName.SIGN_IN: {
+      case AuthScreenName.SIGN_IN: {
         return <SignInForm onSubmit={handleSignInSubmit} />;
       }
-      case RootScreenName.SIGN_UP: {
+      case AuthScreenName.SIGN_UP: {
         return <SignUpForm onSubmit={handleSignUpSubmit} />;
       }
     }
