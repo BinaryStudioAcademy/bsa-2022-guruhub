@@ -15,13 +15,17 @@ class Course {
     title: string;
     description: string;
     url: string;
+    vendorId: number;
+    courseCategoryId: number;
   }): Promise<CourseM> {
-    const { title, description, url } = course;
+    const { title, description, url, vendorId, courseCategoryId } = course;
 
     return this.#CourseModel.query().insert({
       title,
       description,
       url,
+      vendorId,
+      courseCategoryId,
     });
   }
 }

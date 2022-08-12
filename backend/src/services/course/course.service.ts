@@ -72,6 +72,8 @@ class Course {
       description,
       title,
       url,
+      vendorId: vendor.id,
+      courseCategoryId: courseCategory.id,
     });
 
     await this.#courseToCourseCategoriesService.createCourseToCourseCategories({

@@ -9,6 +9,10 @@ class Course extends Abstract {
 
   'url': string;
 
+  'vendorId': number;
+
+  'courseCategoryId': number;
+
   static override get tableName(): string {
     return DbTableName.COURSES;
   }
