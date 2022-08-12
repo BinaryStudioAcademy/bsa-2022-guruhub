@@ -15,7 +15,8 @@ async function up(knex: Knex): Promise<void> {
     table
       .integer(ColumnName.USER_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.USERS);
+      .inTable(TableName.USERS)
+      .notNullable();
   });
 }
 
