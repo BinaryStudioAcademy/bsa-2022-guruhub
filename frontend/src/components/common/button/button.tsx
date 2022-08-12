@@ -23,7 +23,7 @@ const Button: FC<Props> = ({
   const navigate = useNavigate();
 
   const handleOnClick = (): void => {
-    to ? navigate(to) : onClick && onClick();
+    to ? navigate(to) : onClick?.();
   };
 
   return (

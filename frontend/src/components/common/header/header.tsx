@@ -14,7 +14,7 @@ const Header: FC = () => {
 
   const hasUser = Boolean(user);
 
-  const handlePopupOper = (): void =>
+  const handlePopupOpen = (): void =>
     setIsMenuPopupVisible(!isMenuPopupVisible);
 
   return (
@@ -25,7 +25,7 @@ const Header: FC = () => {
         </div>
         <div className={styles.userWrapper}>
           {hasUser ? (
-            <button onClick={handlePopupOper} className={styles.button}>
+            <button onClick={handlePopupOpen} className={styles.button}>
               <Image
                 width="50"
                 height="50"
@@ -41,7 +41,7 @@ const Header: FC = () => {
             </div>
           )}
           <div className={styles.popup}>
-            {isMenuPopupVisible && <Popup onClose={handlePopupOper} />}
+            {isMenuPopupVisible && <Popup onClose={handlePopupOpen} />}
           </div>
         </div>
       </div>
