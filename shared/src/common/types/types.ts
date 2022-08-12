@@ -1,7 +1,6 @@
 export {
   type GroupsCreateRequestDto,
-  type GroupsGetAllItemResponseDto,
-  type GroupsGetAllResponseDto,
+  type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export {
