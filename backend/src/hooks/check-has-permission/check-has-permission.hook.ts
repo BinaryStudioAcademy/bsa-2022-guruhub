@@ -5,7 +5,7 @@ import { UsersByIdResponseDto } from '~/common/types/types';
 import { PermissionsError } from '~/exceptions/exceptions';
 
 const checkHasPermissions =
-  (permissions: PermissionKey[]) =>
+  (...permissions: PermissionKey[]) =>
   async (req: FastifyRequest, rep: FastifyReply): Promise<void> => {
     try {
       const userPermissions =
