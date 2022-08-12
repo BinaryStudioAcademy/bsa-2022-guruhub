@@ -1,0 +1,15 @@
+.category {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 40px;
+  margin-left: 10px;
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.category p {
+  margin-left: 5px;
+}
