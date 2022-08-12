@@ -4,11 +4,19 @@ import { WHITE_ROUTES } from '~/common/constants/constants';
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
 import { authorization as authorizationPlugin } from '~/plugins/plugins';
-import { auth, group, permission, token, user } from '~/services/services';
+import {
+  auth,
+  group,
+  permission,
+  token,
+  user,
+  userDetails,
+} from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initPermissionsApi } from './permissions/permissions.api';
+import { initUserDetailsApi } from './user-details/user-details.api';
 import { initUsersApi } from './users/users.api';
 
 const initApi: FastifyPluginAsync = async (fastify) => {
@@ -50,6 +58,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.register(initUsersApi, {
     services: {
       user,
+    },
+    prefix: ApiPath.USERS,
+  });
+
+  fastify.register(initUserDetailsApi, {
+    services: {
+      userDetails,
     },
     prefix: ApiPath.USERS,
   });

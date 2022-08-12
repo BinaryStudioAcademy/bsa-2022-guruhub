@@ -5,6 +5,7 @@ import {
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
   user as userRepository,
+  userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
 } from '~/data/repositories/repositories';
 
@@ -15,6 +16,7 @@ import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissio
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { User } from './user/user.service';
+import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 
 const encrypt = new Encrypt({
@@ -24,6 +26,10 @@ const encrypt = new Encrypt({
 const user = new User({
   userRepository,
   encryptService: encrypt,
+});
+
+const userDetails = new UserDetails({
+  userDetailsRepository,
 });
 
 const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
@@ -62,5 +68,6 @@ export {
   permission,
   token,
   user,
+  userDetails,
   usersToGroups,
 };
