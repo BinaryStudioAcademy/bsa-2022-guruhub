@@ -3,22 +3,22 @@ import { ReactElement } from 'react';
 import { Category } from './components/category/category';
 import styles from './styles.module.scss';
 
-type MockedCategoryType = {
+type Category = {
   id: number;
   name: string;
 };
 
 type Props = {
-  categories: MockedCategoryType[];
+  items: Category[];
 };
 
-const CategoriesList = ({ categories }: Props): ReactElement => {
+const CategoriesList = ({ items }: Props): ReactElement => {
   return (
     <div className={styles.categoriesList}>
-      {categories.map((category) => (
+      {items.map((category) => (
         <Category
           key={category.id}
-          img={`/${category.name}.svg`}
+          img={`/${category.name.toLowerCase()}.svg`}
           name={category.name}
         />
       ))}
