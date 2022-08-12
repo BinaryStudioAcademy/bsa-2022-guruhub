@@ -1,1 +1,1 @@
-export { PermissionKey } from './permission.enum';
+export { PermissionKey } from './permission-key.enum';
