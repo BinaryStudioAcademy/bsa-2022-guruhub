@@ -12,7 +12,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i guruhub-shared"
+    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
   "dependencies": {
     "@hookform/resolvers": "2.9.5",

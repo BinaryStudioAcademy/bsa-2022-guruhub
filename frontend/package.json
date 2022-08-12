@@ -13,7 +13,7 @@
     "lint": "npm run lint:css && npm run lint:js && npm run lint:type",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i guruhub-shared"
+    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
   "dependencies": {
     "@hookform/error-message": "2.0.0",
