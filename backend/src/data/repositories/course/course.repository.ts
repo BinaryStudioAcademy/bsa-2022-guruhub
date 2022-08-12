@@ -16,7 +16,7 @@ class Course {
     description: string;
     url: string;
     vendorId: number;
-    courseCategoryId: number;
+    courseCategoryId?: number;
   }): Promise<CourseM> {
     const { title, description, url, vendorId, courseCategoryId } = course;
 

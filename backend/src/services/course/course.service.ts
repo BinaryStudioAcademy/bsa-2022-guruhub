@@ -6,8 +6,6 @@ import {
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CourseError } from '~/exceptions/exceptions';
 import {
-  courseCategory as courseCategoryServ,
-  courseToCourseCategories as courseToCourseCategoriesServ,
   courseToVendors as courseToVendorsServ,
   udemy as udemyServ,
   vendor as vendorServ,
@@ -15,8 +13,6 @@ import {
 
 type Constructor = {
   courseRepository: typeof courseRep;
-  courseCategoryService: typeof courseCategoryServ;
-  courseToCourseCategoriesService: typeof courseToCourseCategoriesServ;
   courseToVendorsService: typeof courseToVendorsServ;
   vendorService: typeof vendorServ;
   udemyService: typeof udemyServ;
@@ -24,23 +20,17 @@ type Constructor = {
 
 class Course {
   #courseRepository: typeof courseRep;
-  #courseCategoryService: typeof courseCategoryServ;
-  #courseToCourseCategoriesService: typeof courseToCourseCategoriesServ;
   #courseToVendorsService: typeof courseToVendorsServ;
   #vendorService: typeof vendorServ;
   #udemyService: typeof udemyServ;
 
   constructor({
     courseRepository,
-    courseCategoryService,
-    courseToCourseCategoriesService,
     courseToVendorsService,
     vendorService,
     udemyService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
-    this.#courseCategoryService = courseCategoryService;
-    this.#courseToCourseCategoriesService = courseToCourseCategoriesService;
     this.#courseToVendorsService = courseToVendorsService;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
@@ -49,16 +39,7 @@ class Course {
   async create(
     courseRequestDto: CourseCreateRequestDto,
   ): Promise<CourseGetResponseDto> {
-    const { courseCategoryName, description, title, url, vendorKey } =
-      courseRequestDto;
-
-    const courseCategory = await this.#courseCategoryService.getByName(
-      courseCategoryName,
-    );
-
-    if (!courseCategory) {
-      throw new CourseError();
-    }
+    const { description, title, url, vendorKey } = courseRequestDto;
 
     const vendor = await this.#vendorService.getByKey(vendorKey);
 
@@ -73,12 +54,6 @@ class Course {
       title,
       url,
       vendorId: vendor.id,
-      courseCategoryId: courseCategory.id,
-    });
-
-    await this.#courseToCourseCategoriesService.createCourseToCourseCategories({
-      courseCategoryId: courseCategory.id,
-      courseId: course.id,
     });
 
     await this.#courseToVendorsService.createCourseToVendors({
@@ -96,15 +71,9 @@ class Course {
     switch (host) {
       case CourseHost.UDEMY: {
         const courseData = await this.#udemyService.getByUrl(urlObject);
-        const {
-          description,
-          title,
-          url,
-          primary_category: { title: courseCategoryName },
-        } = courseData;
+        const { description, title, url } = courseData;
 
         return await this.create({
-          courseCategoryName,
           description,
           title,
           url,
@@ -112,7 +81,9 @@ class Course {
         });
       }
       default: {
-        return null;
+        throw new CourseError({
+          message: ExceptionMessage.INVALID_URL_HOST,
+        });
       }
     }
   }

@@ -4,7 +4,6 @@ type CourseCreateRequestDto = {
   title: string;
   description: string;
   url: string;
-  courseCategoryName: string;
   vendorKey: VendorKey;
 };
 

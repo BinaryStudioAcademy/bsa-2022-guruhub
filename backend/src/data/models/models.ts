@@ -1,6 +1,4 @@
 export { Course } from './course/course.model';
-export { CourseCategory } from './course-category/course-category.model';
-export { CourseToCourseCategories } from './course-to-course-categories/course-to-course-categories.model';
 export { CourseToVendors } from './course-to-vendors/course-to-vendors.model';
 export { Group } from './group/group.model';
 export { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.model';

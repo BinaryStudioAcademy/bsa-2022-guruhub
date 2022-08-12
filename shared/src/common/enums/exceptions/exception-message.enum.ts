@@ -9,6 +9,7 @@ enum ExceptionMessage {
   INVALID_COURSE_VENDOR = 'Course vendor is invalid.',
   INVALID_COURSE_CATEGORY = 'Course category is invalid.',
   COURSE_NOT_FOUND = 'Course not found.',
+  INVALID_URL_HOST = 'URL is invalid. Only courses from Udemy are supported.',
 }
 
 export { ExceptionMessage };

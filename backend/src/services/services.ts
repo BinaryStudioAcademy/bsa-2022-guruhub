@@ -2,8 +2,6 @@ import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
   course as courseRepository,
-  courseCategory as courseCategoryRepository,
-  courseToCourseCategories as courseToCourseCategoriesRepository,
   courseToVendors as courseToVendorsRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
@@ -15,8 +13,6 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { Course } from './course/course.service';
-import { CourseCategory } from './course-category/course-category.service';
-import { CourseToCourseCategories } from './course-to-course-categories/course-to-course-categories.service';
 import { CourseToVendors } from './course-to-vendors/course-to-vendors.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
@@ -68,12 +64,6 @@ const group = new Group({
 
 const vendor = new Vendor({ vendorRepository });
 
-const courseCategory = new CourseCategory({ courseCategoryRepository });
-
-const courseToCourseCategories = new CourseToCourseCategories({
-  courseToCourseCategoriesRepository,
-});
-
 const courseToVendors = new CourseToVendors({ courseToVendorsRepository });
 
 const http = new Http();
@@ -84,8 +74,6 @@ const udemy = new Udemy({
 
 const course = new Course({
   courseRepository,
-  courseCategoryService: courseCategory,
-  courseToCourseCategoriesService: courseToCourseCategories,
   courseToVendorsService: courseToVendors,
   vendorService: vendor,
   udemyService: udemy,
@@ -94,8 +82,6 @@ const course = new Course({
 export {
   auth,
   course,
-  courseCategory,
-  courseToCourseCategories,
   courseToVendors,
   encrypt,
   group,
