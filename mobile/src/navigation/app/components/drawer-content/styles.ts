@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255,255,255, .12)',
   },
+  logo: {
+    height: 34,
+    width: 150,
+  },
   listWrapper: {
     alignItems: 'flex-start',
   },
@@ -23,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   footer: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-end',
     height: 140,
     marginTop: 130,
@@ -38,6 +42,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: 10,
     resizeMode: 'contain',
+    width: 219,
+    height: 182,
   },
 });
 
