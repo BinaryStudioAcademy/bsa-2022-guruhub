@@ -1,4 +1,4 @@
-import { createReducer, isAnyOf } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/common/enums/enums';
 import { UsersByIdResponseDto } from '~/common/types/types';
@@ -16,42 +16,47 @@ const initialState: State = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder
-    .addMatcher(
-      isAnyOf(
-        signUp.pending,
-        signIn.pending,
-        logout.pending,
-        loadCurrentUser.pending,
-      ),
-      (state) => {
-        state.dataStatus = DataStatus.PENDING;
-      },
-    )
-    .addMatcher(
-      isAnyOf(
-        signUp.fulfilled,
-        signIn.fulfilled,
-        logout.fulfilled,
-        loadCurrentUser.fulfilled,
-      ),
-      (state, action) => {
-        state.dataStatus = DataStatus.FULFILLED;
-        state.user = action.payload;
-      },
-    )
-    .addMatcher(
-      isAnyOf(
-        signUp.rejected,
-        signIn.rejected,
-        logout.rejected,
-        loadCurrentUser.rejected,
-      ),
-      (state) => {
-        state.dataStatus = DataStatus.REJECTED;
-        state.user = null;
-      },
-    );
+  builder.addCase(signUp.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(signIn.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(loadCurrentUser.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(signUp.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.user = payload;
+  });
+  builder.addCase(signIn.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.user = payload;
+  });
+  builder.addCase(loadCurrentUser.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.user = payload;
+  });
+  builder.addCase(logout.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.user = null;
+  });
+  builder.addCase(signUp.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
+  });
+  builder.addCase(signIn.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
+  });
+  builder.addCase(loadCurrentUser.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
+  });
+  builder.addCase(logout.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.user = null;
+  });
 });
 
 export { reducer };
