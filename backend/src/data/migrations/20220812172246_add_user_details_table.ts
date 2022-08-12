@@ -18,7 +18,7 @@ async function up(knex: Knex): Promise<void> {
     table.string(ColumnName.FIRST_NAME).notNullable();
     table.string(ColumnName.LAST_NAME).notNullable();
     table.string(ColumnName.GENDER).notNullable();
-    table.string(ColumnName.AVATAR_URL).notNullable();
+    table.string(ColumnName.AVATAR_URL);
     table
       .dateTime(ColumnName.CREATED_AT)
       .notNullable()
@@ -27,7 +27,7 @@ async function up(knex: Knex): Promise<void> {
       .dateTime(ColumnName.UPDATED_AT)
       .notNullable()
       .defaultTo(knex.fn.now());
-    table.date(ColumnName.DATE_OF_BIRTH).notNullable();
+    table.date(ColumnName.DATE_OF_BIRTH);
   });
 }
 
