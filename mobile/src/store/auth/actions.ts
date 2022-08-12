@@ -5,15 +5,13 @@ import {
   AsyncThunkConfig,
   UsersByIdResponseDto,
   UserSignInRequestDto,
-  UserSignInResponseDto,
   UserSignUpRequestDto,
-  UserSignUpResponseDto,
 } from '~/common/types/types';
 
 import { ActionType } from './common';
 
 const signUp = createAsyncThunk<
-  UserSignUpResponseDto,
+  UsersByIdResponseDto,
   UserSignUpRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_UP, async (payload, { extra }) => {
@@ -25,7 +23,7 @@ const signUp = createAsyncThunk<
 });
 
 const signIn = createAsyncThunk<
-  UserSignInResponseDto,
+  UsersByIdResponseDto,
   UserSignInRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_IN, async (payload, { extra }) => {

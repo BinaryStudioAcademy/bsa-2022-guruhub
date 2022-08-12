@@ -1,16 +1,13 @@
 import { createReducer, isAnyOf } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/common/enums/enums';
-import {
-  UsersByIdResponseDto,
-  UserSignInResponseDto,
-} from '~/common/types/types';
+import { UsersByIdResponseDto } from '~/common/types/types';
 
 import { loadCurrentUser, logout, signIn, signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  user: UsersByIdResponseDto | UserSignInResponseDto | null;
+  user: UsersByIdResponseDto | null;
 };
 
 const initialState: State = {
