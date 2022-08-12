@@ -1,6 +1,5 @@
 .button {
   display: flex;
-  margin: 0 7px;
   padding: 16px;
   color: white;
   font-weight: 600;
@@ -8,14 +7,16 @@
   line-height: 16px;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  background: var(--brand-blue-100);
   border: none;
   border-radius: 28px;
   outline: none;
 }
 
-.button__grey {
-  color: white;
+.button-blue {
+  background: var(--brand-blue-100);
+}
+
+.button-gray {
   background: var(--background-gray-200);
 }
 

@@ -3,7 +3,7 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { useAppSelector, useNavigate, useState } from 'hooks/hooks';
+import { useAppSelector, useState } from 'hooks/hooks';
 
 import { Popup } from './components/components';
 import styles from './styles.module.scss';
@@ -11,13 +11,11 @@ import styles from './styles.module.scss';
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
   const { user } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
+
+  const hasUser = Boolean(user);
 
   const handlePopupOper = (): void =>
     setIsMenuPopupVisible(!isMenuPopupVisible);
-
-  const handleNavigateToLogIn = (): void => navigate(AppRoute.SIGN_IN);
-  const handleNavigateToSignUp = (): void => navigate(AppRoute.SIGN_UP);
 
   return (
     <header>
@@ -26,16 +24,7 @@ const Header: FC = () => {
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
         <div className={styles.userWrapper}>
-          {!user ? (
-            <div className={styles.buttonsWrapper}>
-              <Button
-                onClick={handleNavigateToLogIn}
-                label="Log In"
-                color="grey"
-              />
-              <Button onClick={handleNavigateToSignUp} label="Sign Up" />
-            </div>
-          ) : (
+          {hasUser ? (
             <button onClick={handlePopupOper} className={styles.button}>
               <Image
                 width="50"
@@ -45,6 +34,11 @@ const Header: FC = () => {
                 isCircular
               />
             </button>
+          ) : (
+            <div className={styles.buttonsWrapper}>
+              <Button label="Log In" btnColor="gray" to={AppRoute.SIGN_IN} />
+              <Button label="Sign Up" to={AppRoute.SIGN_UP} />
+            </div>
           )}
           <div className={styles.popup}>
             {isMenuPopupVisible && <Popup onClose={handlePopupOper} />}
