@@ -1,14 +1,17 @@
 export {
   type GroupsCreateRequestDto,
-  type GroupsResponseDto,
+  type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
+export {
+  type EntityPagination,
+  type EntityPaginationRequestQueryDto,
+} from './pagination/pagination';
 export { type PermissionsGetAllResponseDto } from './permission/permission';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
-  type UsersGetAllItemResponseDto,
-  type UsersGetAllResponseDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,

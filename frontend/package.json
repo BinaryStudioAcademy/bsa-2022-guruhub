@@ -4,7 +4,7 @@
   "private": true,
   "engines": {
     "node": ">=16 <17",
-    "npm": ">=8 <9"
+    "npm": ">=8.8 <9"
   },
   "scripts": {
     "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
@@ -12,7 +12,8 @@
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:css && npm run lint:js && npm run lint:type",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
   "dependencies": {
     "@hookform/error-message": "2.0.0",

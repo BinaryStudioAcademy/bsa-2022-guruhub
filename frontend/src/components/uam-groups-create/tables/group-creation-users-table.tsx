@@ -2,7 +2,7 @@ import {
   FC,
   FormControl,
   FormControlErrors,
-  UsersGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { Table } from 'components/common/common';
 
@@ -13,7 +13,7 @@ import {
 import styles from '../styles.module.scss';
 
 type Props = {
-  users: UsersGetAllItemResponseDto[];
+  users: UsersGetResponseDto[];
   useFormData: {
     control: FormControl;
     errors: FormControlErrors;

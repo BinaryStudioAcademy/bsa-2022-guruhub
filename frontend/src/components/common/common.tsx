@@ -7,6 +7,8 @@ export { Icon } from './icon/icon';
 export { Image } from './image/image';
 export { Input } from './input/input';
 export { Link } from './link/link';
+export { Modal } from './modal/modal';
+export { ProtectedRoute } from './protected-route/protected-route';
 export { Spinner } from './spinner/spinner';
 export { Table } from './table/table';
 export { Toast } from './toast/toast';

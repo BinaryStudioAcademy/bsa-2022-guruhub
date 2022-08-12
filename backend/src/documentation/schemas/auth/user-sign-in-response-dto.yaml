@@ -1,6 +1,7 @@
 type: object
 properties:
-  token: string
+  token:
+    type: string
   user:
     type: object
     properties:

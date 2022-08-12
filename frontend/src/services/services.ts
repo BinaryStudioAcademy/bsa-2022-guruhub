@@ -1,6 +1,7 @@
 import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { GroupsApi } from './groups/groups.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions/permissions.service';
@@ -23,9 +24,14 @@ const usersApi = new UsersApi({
   http,
 });
 
+const groupsApi = new GroupsApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const permissionsApi = new PermissionsApi({
   apiPrefix: ENV.API_PATH,
   http,
 });
 
-export { authApi, notification, permissionsApi, storage, usersApi };
+export { authApi, groupsApi, notification, permissionsApi, storage, usersApi };

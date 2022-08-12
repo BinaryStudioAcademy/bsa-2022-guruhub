@@ -32,7 +32,7 @@ const UAMGroupsCreate: FC = () => {
 
   useEffect(() => {
     batch(() => {
-      dispatch(uamActions.getUsers());
+      dispatch(uamActions.getUsers({ page: 1, count: 10 }));
       dispatch(groupCreationActions.getPermissions());
     });
   }, []);
@@ -52,7 +52,10 @@ const UAMGroupsCreate: FC = () => {
         <div className={styles.groupFormHeaderWrapper}>
           <h2 className={styles.groupFormHeading}>Create group</h2>
         </div>
-        <GroupCreationUsersTable users={users} useFormData={useFormData} />
+        <GroupCreationUsersTable
+          users={users.items}
+          useFormData={useFormData}
+        />
         <GroupCreationPermissionsTable
           permissions={permissions}
           useFormData={useFormData}

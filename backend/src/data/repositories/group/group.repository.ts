@@ -1,3 +1,7 @@
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import { Group as GroupM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,6 +15,18 @@ class Group {
     this.#GroupModel = GroupModel;
   }
 
+  async getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
+    const result = await this.#GroupModel.query().page(page, count);
+
+    return {
+      items: result.results,
+      total: result.total,
+    };
+  }
+
   async create(group: { name: string; key: string }): Promise<GroupM> {
     const { name, key } = group;
 
@@ -18,6 +34,16 @@ class Group {
       name,
       key,
     });
+  }
+
+  async getByName(name: string): Promise<GroupM | null> {
+    const group = await this.#GroupModel
+      .query()
+      .select()
+      .where({ name })
+      .first();
+
+    return group ?? null;
   }
 }
 
