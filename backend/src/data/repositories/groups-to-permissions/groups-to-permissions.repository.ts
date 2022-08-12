@@ -22,6 +22,14 @@ class GroupsToPermissions {
       permissionId,
     });
   }
+
+  async getByGroupId(groupId: number): Promise<GroupsToPermissionsM[]> {
+    return this.#GroupsToPermissionsModel.query().where({ groupId }).select();
+  }
+
+  async delete(id: number): Promise<number> {
+    return this.#GroupsToPermissionsModel.query().delete().where({ id });
+  }
 }
 
 export { GroupsToPermissions };

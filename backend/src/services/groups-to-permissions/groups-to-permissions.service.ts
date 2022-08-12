@@ -26,6 +26,23 @@ class GroupsToPermissions {
       permissionId: model.permissionId,
     };
   }
+
+  async getPermissionsByGroupId(
+    groupId: number,
+  ): Promise<GroupsToPermissionsResponseDto[]> {
+    const permissions = await this.#groupsToPermissionsRepository.getByGroupId(
+      groupId,
+    );
+
+    return permissions;
+  }
+
+  async delete(id: number): Promise<boolean> {
+    const deleteGroupPermission =
+      await this.#groupsToPermissionsRepository.delete(id);
+
+    return Boolean(deleteGroupPermission);
+  }
 }
 
 export { GroupsToPermissions };

@@ -4,6 +4,7 @@ import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsItemResponseDto,
+  GroupsToPermissionsResponseDto,
   GroupsUpdateRequestDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
@@ -126,7 +127,7 @@ class Group {
   async update(
     groupsRequestDto: GroupsUpdateRequestDto,
   ): Promise<GroupsItemResponseDto> {
-    const { id, name } = groupsRequestDto;
+    const { id, name, permissionIds } = groupsRequestDto;
 
     if (name) {
       await this.#groupsRepository.update({
@@ -139,6 +140,33 @@ class Group {
       });
     }
     const group = await this.#groupsRepository.getById(id);
+
+    if (permissionIds) {
+      const groupPrermissions =
+        await this.#groupsToPermissionsService.getPermissionsByGroupId(id);
+      const dbPermissionIds = groupPrermissions.map(
+        (permission) => permission.permissionId,
+      );
+
+      await Promise.all(
+        permissionIds.map((permissionId: number) => {
+          if (!dbPermissionIds.includes(permissionId)) {
+            return this.#groupsToPermissionsService.createGroupsToPermissions({
+              groupId: id,
+              permissionId,
+            });
+          }
+        }),
+      );
+
+      await Promise.all(
+        groupPrermissions.map((permission: GroupsToPermissionsResponseDto) => {
+          if (!permissionIds.includes(permission.permissionId)) {
+            return this.#groupsToPermissionsService.delete(permission.id);
+          }
+        }),
+      );
+    }
 
     return group as GroupsItemResponseDto;
   }
