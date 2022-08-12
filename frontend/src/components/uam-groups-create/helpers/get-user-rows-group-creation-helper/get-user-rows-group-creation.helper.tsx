@@ -1,14 +1,14 @@
 import {
   FormControl,
   FormControlErrors,
+  UsersGetResponseDto,
   UsersGroupCreationDto,
 } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
 import { UserTableAccessor } from 'components/uam/common/enums/user-table-accessor.enum';
-import { UsersGetAllItemResponseDto } from 'guruhub-shared/common/types/user/users-get-all-item-response-dto.type';
 
 const getGroupCreationUserRows = (
-  users: UsersGetAllItemResponseDto[],
+  users: UsersGetResponseDto[],
   useFormData: {
     control: FormControl;
     errors: FormControlErrors;
