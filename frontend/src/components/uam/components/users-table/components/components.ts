@@ -1,1 +1,1 @@
-export { Actions } from './actions-cell/actions-cell';
+export { ActionsCell } from './actions-cell/actions-cell';

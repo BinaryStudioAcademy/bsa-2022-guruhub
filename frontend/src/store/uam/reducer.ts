@@ -51,7 +51,11 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(deleteUser.pending, (state) => {
     state.userDeleteDataStatus = DataStatus.PENDING;
   });
-  builder.addCase(deleteUser.fulfilled, (state) => {
+  builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
+    state.users = {
+      items: state.users.items.filter((item) => item.id !== payload),
+      total: --state.users.total,
+    };
     state.userDeleteDataStatus = DataStatus.FULFILLED;
   });
   builder.addCase(deleteUser.rejected, (state) => {

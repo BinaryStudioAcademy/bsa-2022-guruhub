@@ -33,7 +33,7 @@ const getGroups = createAsyncThunk<
 });
 
 const deleteUser = createAsyncThunk<
-  string,
+  number,
   UsersDeleteRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.DELETE_USER, async (payload, { extra }) => {

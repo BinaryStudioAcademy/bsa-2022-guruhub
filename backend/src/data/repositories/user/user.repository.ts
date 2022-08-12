@@ -66,7 +66,7 @@ class User {
   }
 
   async delete(userId: number): Promise<number> {
-    const deletedUsersCount = this.#UserModel
+    const deletedUsersCount = await this.#UserModel
       .query()
       .delete()
       .where({ id: userId });

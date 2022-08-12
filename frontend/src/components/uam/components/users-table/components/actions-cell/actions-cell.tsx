@@ -1,20 +1,25 @@
 import { Icon } from 'components/common/common';
+import { FC } from 'react';
+import { CellProps } from 'react-table';
 
+import {
+  UsersTableActionsProps,
+  UsersTableRow,
+} from '../../../../common/types/types';
 import styles from './styles.module.scss';
 
-const Actions = (
-  id: string,
-  onWorkerDelete: (id: string) => void,
-): JSX.Element => {
+const ActionsCell: FC<CellProps<UsersTableRow, UsersTableActionsProps>> = ({
+  value: { id, onDelete },
+}) => {
   const handleDelete = (): void => {
-    onWorkerDelete(id);
+    onDelete(id);
   };
 
   return (
-    <div onClick={handleDelete}>
-      <Icon name={'delete'} className={styles.deleteIcon} />
-    </div>
+    <button className={styles.deleteBtn} type="button" onClick={handleDelete}>
+      <Icon name="delete" className={styles.deleteIcon} />
+    </button>
   );
 };
 
-export { Actions };
+export { ActionsCell };
