@@ -5,18 +5,22 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
+export { GroupsItemResponseDto } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,
   type SubNavigationMenuItem,
 } from './navigation-menu/navigation-menu';
 export { type NotificationPayload } from './notification/notification';
+export {
+  type EntityPagination,
+  type EntityPaginationRequestQueryDto,
+} from './pagination/pagination';
 export { type FC, type SVGProps } from './react/react';
 export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
-  type UsersGetAllItemResponseDto,
-  type UsersGetAllResponseDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
