@@ -27,8 +27,8 @@ const checkPermissionKeys = (
   requiredPermissions: PermissionKey[],
   userPermissions: PermissionKey[],
 ): boolean =>
-  requiredPermissions.every((permission) =>
-    userPermissions.includes(permission),
-  );
+  requiredPermissions.every((permission) => {
+    return userPermissions.includes(permission);
+  });
 
 export { checkHasPermissions };
