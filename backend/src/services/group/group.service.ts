@@ -76,6 +76,12 @@ class Group {
 
     return { items };
   }
+
+  async delete(id: number): Promise<boolean> {
+    const deletedGroupsCount = this.#groupsRepository.delete(id);
+
+    return Boolean(deletedGroupsCount);
+  }
 }
 
 export { Group };

@@ -23,6 +23,10 @@ class Group {
   async getAll(): Promise<GroupM[]> {
     return this.#GroupModel.query();
   }
+
+  async delete(groupId: number): Promise<number> {
+    return this.#GroupModel.query().delete().where({ id: groupId });
+  }
 }
 
 export { Group };

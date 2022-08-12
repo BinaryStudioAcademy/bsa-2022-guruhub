@@ -36,6 +36,14 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       return rep.status(HttpCode.OK).send(groups);
     },
   });
+
+  // fastify.route({
+  //   method: HttpMethod.DELETE,
+  //   url: GroupsApiPath.$ID,
+  //   async handler(eq, rep) {
+  //     const groupDeleted = await groupService.delete;
+  //   },
+  // });
 };
 
 export { initGroupsApi };
