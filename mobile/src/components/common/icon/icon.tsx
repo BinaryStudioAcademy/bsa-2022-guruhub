@@ -1,33 +1,11 @@
 import React, { FC } from 'react';
-import { SvgProps } from 'react-native-svg';
 
-import {
-  Billing,
-  Book,
-  Education,
-  Home,
-  Mentors,
-  Message,
-  Search,
-  Settings,
-  Voice,
-} from '~/assets/icons/icons';
+import { AppScreenName } from '~/common/enums/enums';
 import { IconName } from '~/common/types/ui/icon-name.type';
-
-const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
-  search: Search,
-  voice: Voice,
-  home: Home,
-  message: Message,
-  education: Education,
-  billing: Billing,
-  mentors: Mentors,
-  settings: Settings,
-  book: Book,
-};
+import { iconNameToIcon } from '~/components/common/icon/common/maps/icon-name-to-icon.map';
 
 type Props = {
-  name: IconName;
+  name: IconName | AppScreenName;
   width?: number;
   height?: number;
   color?: string;

@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { AppScreenName } from '~/common/enums/enums';
 import { DrawerNavigationItem } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
+import { DrawerItem } from '~/navigation/app/components/components';
 
-import { DrawerItem } from '../drawer-item/drawer-item';
 import { styles } from './styles';
 
 type Props = {
