@@ -16,7 +16,7 @@ const UAM: FC = () => {
   }, []);
 
   const columns: Column<UsersGetAllItemResponseDto>[] = getColumns();
-  const rows: UsersGetAllItemResponseDto[] = getRows(users.items);
+  const rows: UsersGetAllItemResponseDto[] = getRows(users);
 
   return (
     <div className={styles.uam}>

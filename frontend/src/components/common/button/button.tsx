@@ -1,4 +1,5 @@
 import { FC } from 'common/types/types';
+import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -10,7 +11,11 @@ type Props = {
 };
 
 const Button: FC<Props> = ({ type = 'button', label, onClick, className }) => (
-  <button type={type} className={className ?? styles.button} onClick={onClick}>
+  <button
+    type={type}
+    className={getValidClasses(className ? styles[className] : styles.button)}
+    onClick={onClick}
+  >
     {label}
   </button>
 );

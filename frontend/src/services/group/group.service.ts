@@ -7,7 +7,7 @@ type Constructor = {
   apiPrefix: string;
 };
 
-class GroupApi {
+class GroupsApi {
   #http: Http;
   #apiPrefix: string;
 
@@ -25,4 +25,4 @@ class GroupApi {
   }
 }
 
-export { GroupApi };
+export { GroupsApi };

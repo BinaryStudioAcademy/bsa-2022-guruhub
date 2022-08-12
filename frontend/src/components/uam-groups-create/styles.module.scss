@@ -1,0 +1,48 @@
+.main {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+  padding: 40px;
+  background-color: var(--background-gray-400);
+}
+
+.groupForm {
+  width: 100%;
+  max-width: 1440px;
+  padding: 30px 50px;
+  background-color: var(--background-gray-300);
+  border-radius: 8px;
+}
+
+.groupFormHeading {
+  color: var(--typography-text-100-inverse);
+  font-size: 30px;
+}
+
+.groupSubHeading {
+  color: var(--typography-text-100-inverse);
+  font-size: 16px;
+}
+
+.groupWorkers {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.groupWorkersAmount {
+  color: var(--typography-text-100-inverse);
+}
+
+.groupPermissions {
+  margin-bottom: 40px;
+}
+
+th:first-child {
+  width: 40px;
+}
+
+.btnsWrapper {
+  display: flex;
+  justify-content: flex-end;
+}

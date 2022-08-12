@@ -2,8 +2,8 @@ import { AppRoute, StorageKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import { AuthorizedWrapper, Route, Routes } from 'components/common/common';
-import { GroupCreation } from 'components/uam/components/components';
 import { UAM } from 'components/uam/uam';
+import { UAMGroupsCreate } from 'components/uam-groups-create/uam-groups-create';
 import { useAppDispatch } from 'hooks/hooks';
 import { useEffect } from 'react';
 import { storage } from 'services/services';
@@ -41,7 +41,7 @@ const App: FC = () => {
           path={AppRoute.UAM_CREATE_GROUP}
           element={
             <AuthorizedWrapper>
-              <GroupCreation />
+              <UAMGroupsCreate />
             </AuthorizedWrapper>
           }
         />
