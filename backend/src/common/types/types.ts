@@ -1,6 +1,7 @@
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
+  type GroupsDeleteRequestParamDto,
   type GroupsGetAllItemResponseDto,
   type GroupsGetAllResponseDto,
 } from './groups/groups';

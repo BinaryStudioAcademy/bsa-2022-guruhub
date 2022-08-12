@@ -1,9 +1,15 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { GroupsApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
-import { GroupsCreateRequestDto } from '~/common/types/types';
+import {
+  GroupsCreateRequestDto,
+  GroupsDeleteRequestParamDto,
+} from '~/common/types/types';
 import { group as groupService } from '~/services/services';
-import { groupCreate as groupCreateValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  groupCreate as groupCreateValidationSchema,
+  groupDelete as GroupsDeleteValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -37,13 +43,23 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     },
   });
 
-  // fastify.route({
-  //   method: HttpMethod.DELETE,
-  //   url: GroupsApiPath.$ID,
-  //   async handler(eq, rep) {
-  //     const groupDeleted = await groupService.delete;
-  //   },
-  // });
+  fastify.route({
+    method: HttpMethod.DELETE,
+    url: GroupsApiPath.$ID,
+    schema: { params: GroupsDeleteValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: GroupsDeleteRequestParamDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+
+      const isDeleted = await groupService.delete(Number(id));
+
+      return rep
+        .status(isDeleted ? HttpCode.NO_CONTENT : HttpCode.NOT_FOUND)
+        .send();
+    },
+  });
 };
 
 export { initGroupsApi };

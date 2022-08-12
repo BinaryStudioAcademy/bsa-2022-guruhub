@@ -1,5 +1,6 @@
 export {
   type GroupsCreateRequestDto,
+  type GroupsDeleteRequestParamDto,
   type GroupsGetAllItemResponseDto,
   type GroupsGetAllResponseDto,
 } from './groups/groups';

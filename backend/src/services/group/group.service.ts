@@ -106,7 +106,7 @@ class Group {
   }
 
   async delete(id: number): Promise<boolean> {
-    const deletedGroupsCount = this.#groupsRepository.delete(id);
+    const deletedGroupsCount = await this.#groupsRepository.delete(id);
 
     return Boolean(deletedGroupsCount);
   }
