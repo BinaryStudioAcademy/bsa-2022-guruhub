@@ -3,9 +3,10 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { HttpCode, PermissionKey } from '~/common/enums/enums';
 import { UsersByIdResponseDto } from '~/common/types/types';
 import { PermissionsError } from '~/exceptions/exceptions';
+import { checkPermissionKeys } from '~/helpers/helpers';
 
 const checkHasPermissions =
-  (...permissions: PermissionKey[]) =>
+  (...requiredPermissions: PermissionKey[]) =>
   async (req: FastifyRequest, rep: FastifyReply): Promise<void> => {
     try {
       const userPermissions =
@@ -15,20 +16,17 @@ const checkHasPermissions =
           }
         ).permissions ?? [];
 
-      if (!checkPermissionKeys(permissions, userPermissions)) {
+      if (
+        !checkPermissionKeys({
+          requiredPermissions,
+          userPermissions,
+        })
+      ) {
         throw new PermissionsError();
       }
     } catch (err) {
       rep.code(HttpCode.FORBIDDEN).send(err);
     }
   };
-
-const checkPermissionKeys = (
-  requiredPermissions: PermissionKey[],
-  userPermissions: PermissionKey[],
-): boolean =>
-  requiredPermissions.every((permission) => {
-    return userPermissions.includes(permission);
-  });
 
 export { checkHasPermissions };
