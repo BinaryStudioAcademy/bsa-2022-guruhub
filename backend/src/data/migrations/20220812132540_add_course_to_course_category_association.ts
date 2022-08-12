@@ -3,7 +3,7 @@ import { Knex } from 'knex';
 enum TableName {
   COURSES = 'courses',
   COURSE_CATEGORIES = 'course_categories',
-  COURSES_TO_COURSE_CATEGORIES = 'courses_to_course_categories',
+  COURSES_TO_COURSE_CATEGORIES = 'course_to_course_category',
 }
 
 enum ColumnName {
