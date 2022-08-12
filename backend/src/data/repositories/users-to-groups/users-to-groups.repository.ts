@@ -31,6 +31,14 @@ class UsersToGroups {
 
     return groups ?? null;
   }
+
+  async getByGroupId(groupId: number): Promise<UsersToGroupsM[]> {
+    return this.#UsersToGroupsModel.query().where({ groupId }).select();
+  }
+
+  async delete(id: number): Promise<number> {
+    return this.#UsersToGroupsModel.query().delete().where({ id });
+  }
 }
 
 export { UsersToGroups };

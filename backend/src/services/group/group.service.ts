@@ -126,7 +126,7 @@ class Group {
   async update(
     groupsRequestDto: GroupsUpdateRequestDto,
   ): Promise<GroupsItemResponseDto> {
-    const { id, name, permissionIds } = groupsRequestDto;
+    const { id, name, permissionIds, userIds } = groupsRequestDto;
 
     if (name) {
       await this.#groupsRepository.update({
@@ -144,6 +144,13 @@ class Group {
       await this.#groupsToPermissionsService.updatePermissionsByGroupId({
         groupId: id,
         permissionIds,
+      });
+    }
+
+    if (userIds) {
+      await this.#usersToGroupsService.updateUsersByGroupId({
+        groupId: id,
+        userIds,
       });
     }
 
