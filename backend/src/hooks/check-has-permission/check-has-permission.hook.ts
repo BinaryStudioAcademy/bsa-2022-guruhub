@@ -24,8 +24,11 @@ const checkHasPermissions =
   };
 
 const checkPermissionKeys = (
-  target: PermissionKey[],
-  arr: PermissionKey[],
-): boolean => target.every((elem) => arr.includes(elem));
+  requiredPermissions: PermissionKey[],
+  userPermissions: PermissionKey[],
+): boolean =>
+  requiredPermissions.every((permission) =>
+    userPermissions.includes(permission),
+  );
 
 export { checkHasPermissions };
