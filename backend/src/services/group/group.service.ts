@@ -2,8 +2,8 @@ import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupItemResponseDto,
   GroupsCreateRequestDto,
-  GroupsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
@@ -48,7 +48,7 @@ class Group {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<GroupsGetAllItemResponseDto>
+    EntityPagination<GroupItemResponseDto>
   > {
     const ZERO_INDEXED_PAGE = page - 1;
     const result = await this.#groupsRepository.getPaginated({
@@ -68,7 +68,7 @@ class Group {
 
   async create(
     groupsRequestDto: GroupsCreateRequestDto,
-  ): Promise<GroupsGetAllItemResponseDto> {
+  ): Promise<GroupItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const groupByName = await this.#groupsRepository.getByName(name);
 
