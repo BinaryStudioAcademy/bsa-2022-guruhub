@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     backgroundColor: AppColor.BRAND.BLUE_100,
     alignItems: 'center',
-    paddingTop: 16,
-    paddingBottom: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
   },
   label: {
     fontFamily: AppFontFamily.INTER_600,

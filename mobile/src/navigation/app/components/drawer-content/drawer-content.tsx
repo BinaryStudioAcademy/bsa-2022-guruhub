@@ -21,18 +21,16 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Image source={{ uri: getImageUri(logo) }} />
+        <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
       </View>
       {NAVIGATION_ITEMS.map(({ name, subroutes }, index) => (
         <View style={styles.listWrapper} key={name}>
+          {Boolean(index) && <View style={styles.listBorder} />}
           <DrawerList
             name={name}
             subroutes={subroutes}
             focusedRouteName={focusedRouteName}
           />
-          {Boolean(index) && index !== NAVIGATION_ITEMS.length - 1 && (
-            <View style={styles.listBorder} />
-          )}
         </View>
       ))}
       <View style={styles.footer}>

@@ -9,7 +9,7 @@ const AuthorizedWrapper: FC = ({ children }) => {
       <Header />
       <div className={styles.content}>
         <AuthorizedMenu />
-        {children}
+        <div className={styles.mainContent}>{children}</div>
       </div>
     </>
   );

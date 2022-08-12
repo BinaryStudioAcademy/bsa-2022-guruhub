@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     height: 68,
     borderRadius: 34,
     backgroundColor: AppColor.BRAND.BLUE_100,
-    bottom: 147,
+    top: 494,
     left: -34,
   },
   circle2: {

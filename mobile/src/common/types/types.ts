@@ -12,6 +12,7 @@ export {
 export { type HttpOptions } from './http/http';
 export {
   type AppNavigationParamList,
+  type AuthNavigationParamList,
   type DrawerNavigationItem,
   type DrawerNavigationList,
   type NavigationScreenProps,
@@ -21,6 +22,9 @@ export {
 export { type NotificationPayload } from './notification/notification';
 export { type AppTextStyle } from './ui/ui';
 export {
+  type UsersByIdResponseDto,
+  type UserSignInRequestDto,
+  type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
 } from './user/user';

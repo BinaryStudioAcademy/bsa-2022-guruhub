@@ -3,7 +3,7 @@ import {
   AsyncThunkConfig,
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  GroupsGetAllResponseDto,
+  GroupsItemResponseDto,
   UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
 } from 'common/types/types';
@@ -22,7 +22,7 @@ const getUsers = createAsyncThunk<
 });
 
 const getGroups = createAsyncThunk<
-  GroupsGetAllResponseDto,
+  EntityPagination<GroupsItemResponseDto>,
   void,
   AsyncThunkConfig
 >(ActionType.GET_GROUPS, async (_, { extra }) => {
