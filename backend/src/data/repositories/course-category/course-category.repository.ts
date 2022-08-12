@@ -11,11 +11,11 @@ class CourseCategory {
     this.#CourseCategoryModel = CourseCategoryModel;
   }
 
-  async getById(id: number): Promise<CourseCategoryM | null> {
+  async getByName(name: string): Promise<CourseCategoryM | null> {
     const courseCategory = await this.#CourseCategoryModel
       .query()
       .select()
-      .where({ id })
+      .where({ name })
       .first();
 
     return courseCategory ?? null;

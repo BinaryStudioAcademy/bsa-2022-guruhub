@@ -1,7 +1,7 @@
 export {
   type CourseCreateByUrlRequestDto,
+  type CourseCreateRequestDto,
   type CourseGetResponseDto,
-  type CourseRequestDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export { type CourseToCourseCategoriesResponseDto } from './course-to-course-categories/course-to-course-categories';
@@ -13,9 +13,11 @@ export {
   type GroupsGetAllResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
+export { type HttpOptions } from './http/http';
 export { EntityPagination } from './pagination/pagination';
 export { type PermissionsGetAllResponseDto } from './permission/permission';
 export { type TokenPayload } from './token/token';
+export { type UdemyGetResponseDto } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
   type UsersByEmailResponseDto,

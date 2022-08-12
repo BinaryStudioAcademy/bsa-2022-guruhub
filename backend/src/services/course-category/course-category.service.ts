@@ -11,8 +11,8 @@ class CourseCategory {
     this.#courseCategoryRepository = courseCategoryRepository;
   }
 
-  async getById(id: number): Promise<CourseCategoryGetResponseDto | null> {
-    const courseCategory = await this.#courseCategoryRepository.getById(id);
+  async getByName(name: string): Promise<CourseCategoryGetResponseDto | null> {
+    const courseCategory = await this.#courseCategoryRepository.getByName(name);
 
     return courseCategory ?? null;
   }

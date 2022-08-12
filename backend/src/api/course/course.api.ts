@@ -11,8 +11,8 @@ type Options = {
   };
 };
 
-const initCourseApi: FastifyPluginAsync<Options> = async (fastify, _opts) => {
-  // const { course: courseService } = opts.services;
+const initCourseApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
+  const { course: courseService } = opts.services;
 
   fastify.route({
     method: HttpMethod.POST,
@@ -21,15 +21,12 @@ const initCourseApi: FastifyPluginAsync<Options> = async (fastify, _opts) => {
       body: courseCreateValidationSchema,
     },
     async handler(
-      _req: FastifyRequest<{ Body: CourseCreateByUrlRequestDto }>,
-      _rep,
+      req: FastifyRequest<{ Body: CourseCreateByUrlRequestDto }>,
+      rep,
     ) {
-      // const { url } = req.body;
-      // const urlObject = new URL(url);
-      // TO DO
-      // const course = await courseService.createByUrl(req.body);
-      // createByUrl is not implemented yet
-      // It should get the course data from the url and create the course
+      const { url } = req.body;
+      const course = await courseService.createByUrl(url);
+      rep.send(course);
     },
   });
 };

@@ -1,5 +1,5 @@
+export { type CourseCreateRequestDto } from './course-create-request-dto.type';
 export {
   type CourseCreateByUrlRequestDto,
   type CourseGetResponseDto,
-  type CourseRequestDto,
 } from 'guruhub-shared/common/types/types';

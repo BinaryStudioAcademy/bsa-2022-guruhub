@@ -1,3 +1,4 @@
+import { VendorKey } from '~/common/enums/enums';
 import { Vendor as VendorM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,11 +12,11 @@ class Vendor {
     this.#VendorModel = VendorModel;
   }
 
-  async getById(id: number): Promise<VendorM | null> {
+  async getByKey(key: VendorKey): Promise<VendorM | null> {
     const vendor = await this.#VendorModel
       .query()
       .select()
-      .where({ id })
+      .where({ key })
       .first();
 
     return vendor ?? null;

@@ -21,8 +21,10 @@ import { CourseToVendors } from './course-to-vendors/course-to-vendors.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
+import { Http } from './http/http.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
+import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 import { Vendor } from './vendor/vendor.service';
@@ -74,12 +76,19 @@ const courseToCourseCategories = new CourseToCourseCategories({
 
 const courseToVendors = new CourseToVendors({ courseToVendorsRepository });
 
+const http = new Http();
+
+const udemy = new Udemy({
+  httpService: http,
+});
+
 const course = new Course({
   courseRepository,
   courseCategoryService: courseCategory,
   courseToCourseCategoriesService: courseToCourseCategories,
   courseToVendorsService: courseToVendors,
   vendorService: vendor,
+  udemyService: udemy,
 });
 
 export {
@@ -91,8 +100,10 @@ export {
   encrypt,
   group,
   groupsToPermissions,
+  http,
   permission,
   token,
+  udemy,
   user,
   usersToGroups,
   vendor,
