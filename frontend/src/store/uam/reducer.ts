@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
   EntityPagination,
-  GroupsGetAllItemResponseDto,
+  GroupsItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -11,7 +11,7 @@ import { getGroups, getUsers } from './actions';
 type State = {
   dataStatus: DataStatus;
   users: EntityPagination<UsersGetResponseDto>;
-  groups: GroupsGetAllItemResponseDto[];
+  groups: GroupsItemResponseDto[];
 };
 
 const initialState: State = {

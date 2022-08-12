@@ -1,10 +1,16 @@
 import { ENV } from '~/common/enums/enums';
 
+import { MMKV } from '../components/common/common';
 import { AuthApi } from './auth-api/auth-api.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
+import { Storage } from './storage/storage.service';
 
-const http = new Http();
+const storage = new Storage({
+  storage: new MMKV(),
+});
+
+const http = new Http({ storage });
 
 const authApi = new AuthApi({
   http,
@@ -13,4 +19,4 @@ const authApi = new AuthApi({
 
 const notification = new Notification();
 
-export { authApi, notification };
+export { authApi, notification, storage };
