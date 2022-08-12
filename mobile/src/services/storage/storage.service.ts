@@ -13,8 +13,8 @@ class Storage {
     this.#storage = storage;
   }
 
-  public get(key: StorageKey): string | undefined {
-    return this.#storage.getString(key);
+  public get(key: StorageKey): string | null {
+    return this.#storage.getString(key) ?? null;
   }
 
   public set(key: StorageKey, value: string): void {

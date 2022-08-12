@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { App as AppNavigation } from '~/navigation/app/app.navigation';
 import { Auth as AuthNavigation } from '~/navigation/auth/auth.navigation';
 import { storage } from '~/services/services';
-import { loadCurrentUser } from '~/store/auth/actions';
+import { auth } from '~/store/actions';
 
 const NativeStack = createNativeStackNavigator<RootNavigationParamList>();
 
@@ -28,7 +28,7 @@ const Root: FC = () => {
 
   useEffect(() => {
     if (hasToken) {
-      dispatch(loadCurrentUser());
+      dispatch(auth.loadCurrentUser());
     }
   }, [dispatch, hasToken]);
 
