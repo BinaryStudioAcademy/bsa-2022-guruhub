@@ -16,13 +16,11 @@ class UserDetails {
   }
 
   async create(
+    userId: number,
     userDetailsCreateRequestDto: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
-    // eslint-disable-next-line no-console
-    console.log('user eq body');
-    // eslint-disable-next-line no-console
-    console.log(userDetailsCreateRequestDto);
     const userDetails = await this.#userDetailsRepository.create(
+      userId,
       userDetailsCreateRequestDto,
     );
 

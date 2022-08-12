@@ -33,7 +33,10 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
       req: FastifyRequest<{ Body: UserDetailsCreateRequestDto }>,
       rep,
     ) {
-      const userDetails = await userDetailsService.create(req.body);
+      const userDetails = await userDetailsService.create(
+        req.user.id,
+        req.body,
+      );
 
       return rep.status(HttpCode.CREATED).send(userDetails);
     },

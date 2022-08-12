@@ -13,6 +13,7 @@ class UserDetails {
   }
 
   async create(
+    userId: number,
     userDetails: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
     const { lastName, firstName, gender, dateOfBirth, avatarUrl } = userDetails;
@@ -23,6 +24,7 @@ class UserDetails {
       avatarUrl,
       gender,
       dateOfBirth,
+      userId,
     });
   }
 
