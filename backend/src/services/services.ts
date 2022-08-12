@@ -2,7 +2,7 @@ import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
   course as courseRepository,
-  courseToVendors as courseToVendorsRepository,
+  courseToVendor as courseToVendorRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -13,7 +13,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { Course } from './course/course.service';
-import { CourseToVendors } from './course-to-vendors/course-to-vendors.service';
+import { CourseToVendor } from './course-to-vendor/course-to-vendor.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -64,7 +64,7 @@ const group = new Group({
 
 const vendor = new Vendor({ vendorRepository });
 
-const courseToVendors = new CourseToVendors({ courseToVendorsRepository });
+const courseToVendor = new CourseToVendor({ courseToVendorRepository });
 
 const http = new Http();
 
@@ -74,7 +74,7 @@ const udemy = new Udemy({
 
 const course = new Course({
   courseRepository,
-  courseToVendorsService: courseToVendors,
+  courseToVendorService: courseToVendor,
   vendorService: vendor,
   udemyService: udemy,
 });
@@ -82,7 +82,7 @@ const course = new Course({
 export {
   auth,
   course,
-  courseToVendors,
+  courseToVendor,
   encrypt,
   group,
   groupsToPermissions,

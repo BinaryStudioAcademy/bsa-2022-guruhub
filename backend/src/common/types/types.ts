@@ -4,8 +4,7 @@ export {
   type CourseGetResponseDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
-export { type CourseToCourseCategoriesResponseDto } from './course-to-course-categories/course-to-course-categories';
-export { type CourseToVendorsResponseDto } from './course-to-vendors/course-to-vendors';
+export { type CourseToVendorResponseDto } from './course-to-vendor/course-to-vendor';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,

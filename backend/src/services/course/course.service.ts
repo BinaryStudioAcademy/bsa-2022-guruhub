@@ -6,32 +6,32 @@ import {
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CourseError } from '~/exceptions/exceptions';
 import {
-  courseToVendors as courseToVendorsServ,
+  courseToVendor as courseToVendorServ,
   udemy as udemyServ,
   vendor as vendorServ,
 } from '~/services/services';
 
 type Constructor = {
   courseRepository: typeof courseRep;
-  courseToVendorsService: typeof courseToVendorsServ;
+  courseToVendorService: typeof courseToVendorServ;
   vendorService: typeof vendorServ;
   udemyService: typeof udemyServ;
 };
 
 class Course {
   #courseRepository: typeof courseRep;
-  #courseToVendorsService: typeof courseToVendorsServ;
+  #courseToVendorService: typeof courseToVendorServ;
   #vendorService: typeof vendorServ;
   #udemyService: typeof udemyServ;
 
   constructor({
     courseRepository,
-    courseToVendorsService,
+    courseToVendorService: courseToVendorService,
     vendorService,
     udemyService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
-    this.#courseToVendorsService = courseToVendorsService;
+    this.#courseToVendorService = courseToVendorService;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
   }
@@ -56,7 +56,7 @@ class Course {
       vendorId: vendor.id,
     });
 
-    await this.#courseToVendorsService.createCourseToVendors({
+    await this.#courseToVendorService.createCourseToVendor({
       courseId: course.id,
       vendorId: vendor.id,
     });
