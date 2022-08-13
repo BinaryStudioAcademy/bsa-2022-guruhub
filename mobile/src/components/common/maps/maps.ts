@@ -1,1 +1,1 @@
-export { IconNameToIcon } from '../icon/common/maps/icon-name-to-icon.map';
+export { iconNameToIcon } from '../icon/common/maps/icon-name-to-icon.map';
