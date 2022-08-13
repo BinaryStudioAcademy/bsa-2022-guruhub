@@ -9,10 +9,12 @@ import {
 import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
+  GroupsDeleteRequestParamDto,
 } from '~/common/types/types';
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
+  groupDelete as groupsDeleteValidationSchema,
   pagination as paginationQueryValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -59,6 +61,24 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(groups);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.DELETE,
+    url: GroupsApiPath.$ID,
+    schema: { params: groupsDeleteValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: GroupsDeleteRequestParamDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+
+      const isDeleted = await groupService.delete(Number(id));
+
+      return rep
+        .status(isDeleted ? HttpCode.NO_CONTENT : HttpCode.NOT_FOUND)
+        .send();
     },
   });
 };
