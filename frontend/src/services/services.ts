@@ -5,6 +5,7 @@ import { GroupsApi } from './groups/groups.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
 import { Storage } from './storage/storage.service';
+import { UserDetailsApi } from './user-details/user-details.service';
 import { UsersApi } from './users/users.service';
 
 const storage = new Storage({ storage: localStorage });
@@ -21,6 +22,11 @@ const usersApi = new UsersApi({
   http,
 });
 
+const userDetailsApi = new UserDetailsApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const groupsApi = new GroupsApi({
   apiPrefix: ENV.API_PATH,
   http,
@@ -28,4 +34,4 @@ const groupsApi = new GroupsApi({
 
 const notification = new Notification();
 
-export { authApi, groupsApi, notification, storage, usersApi };
+export { authApi, groupsApi, notification, storage, userDetailsApi, usersApi };
