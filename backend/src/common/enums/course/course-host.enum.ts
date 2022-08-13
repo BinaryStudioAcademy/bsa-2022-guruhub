@@ -1,4 +1,5 @@
 enum CourseHost {
-  UDEMY = 'www.udemy.com',
+  W_UDEMY = 'www.udemy.com',
+  UDEMY = 'udemy.com',
 }
 export { CourseHost };
