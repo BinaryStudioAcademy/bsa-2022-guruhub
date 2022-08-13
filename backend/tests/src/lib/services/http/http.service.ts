@@ -1,7 +1,7 @@
 import FormData from 'form-data';
-import got, { Got, Headers, Options, Response } from 'got';
+import got, { Got, Headers } from 'got';
 
-import { ApiSession } from '~/lib/common/types/types';
+import { ApiSession, RequestOptions, Response } from '~/lib/common/types/types';
 import { SessionStorage } from '~/lib/helpers/helpers';
 
 type HttpServiceConstructor = {
@@ -11,15 +11,6 @@ type HttpServiceConstructor = {
 type RequestBuilderConstructor = {
   got: Got;
   sessionStorage: SessionStorage<ApiSession>;
-};
-
-type RequestOptions = Options & {
-  noAutoAuth?: boolean;
-  startTimeMs?: number;
-};
-
-type ResponseWithDuration<T = unknown> = Response<T> & {
-  durationMs: number;
 };
 
 class RequestBuilder {
@@ -135,7 +126,7 @@ class RequestBuilder {
     return this;
   }
 
-  async send<T>(): Promise<ResponseWithDuration<T>> {
+  async send<T>(): Promise<Response<T>> {
     if (!this.#options.noAutoAuth) {
       this.authorize();
     }
@@ -146,7 +137,7 @@ class RequestBuilder {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await this.#got<T>(this.#options as any);
 
-    return response as ResponseWithDuration<T>;
+    return response as Response<T>;
   }
 
   #getToken(): string | undefined {
@@ -182,12 +173,12 @@ class HttpService {
           },
         ],
         afterResponse: [
-          (response): ResponseWithDuration => {
+          (response): Response => {
             const { startTimeMs } = response.request.options as RequestOptions;
             const endTimeMs = performance.now();
             const durationMs = endTimeMs - (startTimeMs ?? endTimeMs);
 
-            const responseWithDuration = response as ResponseWithDuration;
+            const responseWithDuration = response as Response;
             responseWithDuration.durationMs = durationMs;
 
             return responseWithDuration;
