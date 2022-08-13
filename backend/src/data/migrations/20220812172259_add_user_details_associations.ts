@@ -22,7 +22,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-  await knex.schema.alterTable(TableName.USERS, (table) => {
+  await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
     table.dropColumn(ColumnName.USER_ID);
   });
 }
