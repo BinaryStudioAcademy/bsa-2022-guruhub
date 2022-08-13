@@ -6,7 +6,7 @@ import { AppTextStyle } from '~/common/types/types';
 import { styles } from './styles';
 
 type Props = {
-  children: string;
+  children: string | React.ReactNode;
   style?: AppTextStyle;
 };
 
