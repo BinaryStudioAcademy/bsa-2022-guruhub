@@ -1,5 +1,5 @@
 type UsersDeleteRequestParamsDto = {
-  id: string;
+  id: number;
 };
 
 export { type UsersDeleteRequestParamsDto };
