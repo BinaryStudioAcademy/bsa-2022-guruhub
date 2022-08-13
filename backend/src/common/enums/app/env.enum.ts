@@ -14,6 +14,7 @@ const {
   SECRET_KEY,
   UDEMY_CLIENT_ID,
   UDEMY_CLIENT_SECRET,
+  UDEMY_API_BASE,
 } = process.env;
 
 const ENV = {
@@ -36,6 +37,7 @@ const ENV = {
     ALG: 'HS256',
   },
   UDEMY: {
+    API_BASE: UDEMY_API_BASE as string,
     CLIENT_ID: UDEMY_CLIENT_ID as string,
     CLIENT_SECRET: UDEMY_CLIENT_SECRET as string,
   },

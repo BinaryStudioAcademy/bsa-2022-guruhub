@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
-
 import { ENV, UdemyApiPath } from '~/common/enums/enums';
 import { UdemyGetResponseDto } from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
@@ -20,24 +18,27 @@ class Udemy {
       'utf-8',
     ).toString('base64');
     this.#authorizationTokenBase64 = AUTHORIZATION_TOKEN_BASE64;
-    this.#apiBaseUrl = 'https://www.udemy.com/api-2.0/';
+    this.#apiBaseUrl = ENV.UDEMY.API_BASE;
     this.#httpService = httpService;
   }
 
   async getByUrl(url: URL): Promise<UdemyGetResponseDto> {
     const courseIdOrSlug = url.pathname;
-    this.setHeaders();
-    const res: AxiosResponse<UdemyGetResponseDto> = await this.#httpService.get(
+    const headers = this.getHeaders();
+    const res = await this.#httpService.get<UdemyGetResponseDto>(
       this.getRequestUrl(courseIdOrSlug),
+      { headers },
     );
 
     return res.data;
   }
 
-  private setHeaders(): void {
-    axios.defaults.headers.common['Authorization'] = `Basic ${
-      this.#authorizationTokenBase64
-    }`;
+  private getHeaders(): Record<string, string> {
+    const headers = {
+      Authorization: `Basic ${this.#authorizationTokenBase64}`,
+    };
+
+    return headers;
   }
 
   private getRequestUrl(courseIdOrSlug: string): string {
