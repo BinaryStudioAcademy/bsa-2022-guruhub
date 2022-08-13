@@ -1,11 +1,16 @@
-import { debounce } from 'debounce';
 import React, { FC } from 'react';
 import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import { Icon, View } from '~/components/common/common';
-import { useEffect, useState } from '~/hooks/hooks';
+import {
+  DEFAULT_SEARCH_PAYLOAD,
+  SEARCH_DELAY_MS,
+} from '~/components/common/search/common/constants';
+import { debounce } from '~/helpers/helpers';
+import { useAppForm, useEffect, useFormControl, useState } from '~/hooks/hooks';
 
+import { SearchPayload } from './common/types';
 import { styles } from './styles';
 
 type Props = {
@@ -13,21 +18,28 @@ type Props = {
 };
 
 const Search: FC<Props> = ({ onSearch }) => {
-  const [text, setText] = useState('');
   const [borderColor, setBorderColor] = useState('transparent');
-  const handleOnSearch = debounce(onSearch, 1000);
 
-  useEffect(() => {
-    handleOnSearch(text);
+  const { control } = useAppForm<SearchPayload>({
+    defaultValues: DEFAULT_SEARCH_PAYLOAD,
+  });
 
-    return () => handleOnSearch.clear();
-  }, [text]);
+  const { field } = useFormControl({ name: 'search', control: control });
+  const { value, onChange } = field;
 
-  const handleChangeText = (value: string): void => setText(value);
+  const handleSearch = (): void => onSearch(value);
+
+  const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
 
   const handleOnFocus = (): void => setBorderColor(AppColor.BRAND.BLUE_100);
 
   const handleOnBlur = (): void => setBorderColor('transparent');
+
+  useEffect(() => {
+    debounceHandleSearch();
+
+    return () => debounceHandleSearch.clear();
+  }, [value]);
 
   return (
     <View style={{ ...styles.searchBar, borderColor: borderColor }}>
@@ -39,12 +51,11 @@ const Search: FC<Props> = ({ onSearch }) => {
         onBlur={handleOnBlur}
         autoComplete="off"
         autoCorrect={false}
-        onChangeText={handleChangeText}
-        value={text}
+        onChangeText={onChange}
+        value={value}
         placeholder="Search"
         placeholderTextColor={AppColor.TEXT.GRAY_200}
       />
-      <Icon name="voice" size={{ width: 12, height: 18 }} />
     </View>
   );
 };
