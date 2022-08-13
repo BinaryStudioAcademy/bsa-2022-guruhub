@@ -2,7 +2,10 @@ import React, { FC, ReactElement } from 'react';
 
 import logo from '~/assets/images/logo.png';
 import { AuthScreenName } from '~/common/enums/enums';
-import { UserSignUpRequestDto } from '~/common/types/types';
+import {
+  UserSignInRequestDto,
+  UserSignUpRequestDto,
+} from '~/common/types/types';
 import { Image, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
@@ -15,8 +18,8 @@ const Auth: FC = () => {
   const { name } = useAppRoute();
   const dispatch = useAppDispatch();
 
-  const handleSignInSubmit = (): void => {
-    // TODO: handle sign in
+  const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
+    dispatch(authActions.signIn(payload));
   };
 
   const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {

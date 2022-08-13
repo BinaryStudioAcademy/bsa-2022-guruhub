@@ -13,7 +13,7 @@ type Props = {
 const Icon: FC<Props> = ({ name, width = 16, height = 16, color }) => {
   const SelectedIcon = iconNameToIcon[name];
 
-  return <SelectedIcon width={width} height={height} fill={color} />;
+  return <SelectedIcon width={width} height={height} color={color} />;
 };
 
 export { Icon };

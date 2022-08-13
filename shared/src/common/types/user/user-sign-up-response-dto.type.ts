@@ -1,8 +1,8 @@
-import { UsersByIdResponseDto } from './users-by-id-response-dto.type';
+import { UserWithPermissions } from './user-with-permissions.type';
 
 type UserSignUpResponseDto = {
   token: string;
-  user: UsersByIdResponseDto;
+  user: UserWithPermissions;
 };
 
 export { type UserSignUpResponseDto };

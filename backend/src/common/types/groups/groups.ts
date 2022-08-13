@@ -1,5 +1,5 @@
 export {
   type GroupsCreateRequestDto,
-  type GroupsGetAllItemResponseDto,
-  type GroupsGetAllResponseDto,
+  type GroupsDeleteRequestParamDto,
+  type GroupsItemResponseDto,
 } from 'guruhub-shared/common/types/types';
