@@ -13,7 +13,7 @@ type Props = {
   items: Category[];
 };
 
-const CategoriesList: FC<Props> = ({ items }: Props) => {
+const CategoriesList: FC<Props> = ({ items }) => {
   return (
     <ul className={styles.categoriesList}>
       {items.map((category) => (
