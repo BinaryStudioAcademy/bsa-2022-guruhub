@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { UdemyApiPath } from '~/common/enums/enums';
+import { ENV, UdemyApiPath } from '~/common/enums/enums';
 import { UdemyGetResponseDto } from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
 
@@ -14,7 +14,7 @@ class Udemy {
   #httpService: typeof httpServ;
 
   constructor({ httpService }: Constructor) {
-    const AUTHORIZATION_TOKEN_UTF8 = `${process.env.UDEMY_CLIENT_ID}:${process.env.UDEMY_CLIENT_SECRET}`;
+    const AUTHORIZATION_TOKEN_UTF8 = `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`;
     const AUTHORIZATION_TOKEN_BASE64 = Buffer.from(
       AUTHORIZATION_TOKEN_UTF8,
       'utf-8',
