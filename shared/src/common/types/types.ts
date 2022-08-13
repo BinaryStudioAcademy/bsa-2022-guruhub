@@ -19,7 +19,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsCreateRequestDto,
-  UserDetailsResponseDto,
+  type UserDetailsItemDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

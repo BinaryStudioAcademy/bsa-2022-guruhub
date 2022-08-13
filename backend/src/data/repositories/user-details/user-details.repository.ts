@@ -28,6 +28,15 @@ class UserDetails {
     });
   }
 
+  async update(
+    userId: number,
+    userDetails: UserDetailsCreateRequestDto,
+  ): Promise<UserDetailsM> {
+    return this.#UserDetailsModel
+      .query()
+      .patchAndFetchById(userId, userDetails);
+  }
+
   async getByUserId(userId: number): Promise<UserDetailsM | null> {
     const userDetails = await this.#UserDetailsModel
       .query()

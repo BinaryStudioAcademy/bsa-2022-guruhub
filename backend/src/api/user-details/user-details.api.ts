@@ -3,7 +3,7 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
 import { UserDetailsCreateRequestDto } from '~/common/types/types';
 import { userDetails as userDetailsService } from '~/services/services';
-import { userDetailsCreate as userDetailsCreateValidationSchema } from '~/validation-schemas/validation-schemas';
+import { userDetailsUpdate as userDetailsUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -28,21 +28,21 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
   });
 
   fastify.route({
-    method: HttpMethod.POST,
+    method: HttpMethod.PUT,
     url: UsersApiPath.DETAILS,
     schema: {
-      body: userDetailsCreateValidationSchema,
+      body: userDetailsUpdateValidationSchema,
     },
     async handler(
       req: FastifyRequest<{ Body: UserDetailsCreateRequestDto }>,
       rep,
     ) {
-      const userDetails = await userDetailsService.create(
+      const userDetails = await userDetailsService.update(
         req.user.id,
         req.body,
       );
 
-      return rep.status(HttpCode.CREATED).send(userDetails);
+      return rep.status(userDetails.status).send(userDetails.userDetails);
     },
   });
 };

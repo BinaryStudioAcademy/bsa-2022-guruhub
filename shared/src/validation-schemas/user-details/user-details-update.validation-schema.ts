@@ -7,7 +7,7 @@ import {
 import { UserDetailsCreateRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const userDetailsCreate = Joi.object({
+const userDetailsUpdate = Joi.object({
   [getNameOf<UserDetailsCreateRequestDto>('firstName')]: Joi.string()
     .trim()
     .min(UserDetailsValidationRule.FIRST_NAME_MIN_LENGTH)
@@ -43,4 +43,4 @@ const userDetailsCreate = Joi.object({
     Joi.date().less('now'),
 });
 
-export { userDetailsCreate };
+export { userDetailsUpdate };

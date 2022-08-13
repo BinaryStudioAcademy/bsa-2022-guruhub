@@ -1,1 +1,1 @@
-export { userDetailsCreate } from './user-details-create.validation-schema';
+export { userDetailsUpdate } from './user-details-update.validation-schema';

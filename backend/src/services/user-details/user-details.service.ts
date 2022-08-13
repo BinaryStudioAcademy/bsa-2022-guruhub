@@ -1,7 +1,9 @@
-import { UserDetailsCreateRequestDto } from 'guruhub-shared';
-
-import { UserDetailsResponseDto } from '~/common/types/types';
-import { UserDetails as UserDetailsM } from '~/data/models/models';
+import { HttpCode } from '~/common/enums/enums';
+import {
+  UserDetailsCreateRequestDto,
+  UserDetailsItemDto,
+  UserDetailsResponseDto,
+} from '~/common/types/types';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
 
 type Constructor = {
@@ -15,19 +17,37 @@ class UserDetails {
     this.#userDetailsRepository = userDetailsRepository;
   }
 
-  async create(
+  async update(
     userId: number,
     userDetailsCreateRequestDto: UserDetailsCreateRequestDto,
-  ): Promise<UserDetailsM> {
+  ): Promise<UserDetailsResponseDto> {
+    const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
+      userId,
+    );
+
+    if (userDetailsByUserId) {
+      const userDetails = await this.#userDetailsRepository.update(
+        userDetailsByUserId.id,
+        userDetailsCreateRequestDto,
+      );
+
+      return {
+        status: HttpCode.OK,
+        userDetails: userDetails,
+      };
+    }
     const userDetails = await this.#userDetailsRepository.create(
       userId,
       userDetailsCreateRequestDto,
     );
 
-    return userDetails;
+    return {
+      status: HttpCode.CREATED,
+      userDetails,
+    };
   }
 
-  async getByUserId(userId: number): Promise<UserDetailsResponseDto | null> {
+  async getByUserId(userId: number): Promise<UserDetailsItemDto | null> {
     const userDetails = await this.#userDetailsRepository.getByUserId(userId);
 
     if (!userDetails) {
