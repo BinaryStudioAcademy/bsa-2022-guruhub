@@ -3,6 +3,7 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
 import { UserDetailsCreateRequestDto } from '~/common/types/types';
 import { userDetails as userDetailsService } from '~/services/services';
+import { userDetailsCreate as userDetailsCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -29,6 +30,9 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.POST,
     url: UsersApiPath.DETAILS,
+    schema: {
+      body: userDetailsCreateValidationSchema,
+    },
     async handler(
       req: FastifyRequest<{ Body: UserDetailsCreateRequestDto }>,
       rep,

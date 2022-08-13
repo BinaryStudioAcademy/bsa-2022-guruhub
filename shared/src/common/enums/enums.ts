@@ -15,3 +15,7 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { UserValidationMessage, UserValidationRule } from './user/user';
+export {
+  UserDetailsValidationMessage,
+  UserDetailsValidationRule,
+} from './user-details/user-details';
