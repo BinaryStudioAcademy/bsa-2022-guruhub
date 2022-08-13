@@ -4,6 +4,7 @@ import { http as httpServ } from '~/services/services';
 
 type Constructor = {
   httpService: typeof httpServ;
+  authorizationToken: string;
 };
 
 class Udemy {
@@ -11,13 +12,8 @@ class Udemy {
   #apiBaseUrl: string;
   #httpService: typeof httpServ;
 
-  constructor({ httpService }: Constructor) {
-    const AUTHORIZATION_TOKEN_UTF8 = `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`;
-    const AUTHORIZATION_TOKEN_BASE64 = Buffer.from(
-      AUTHORIZATION_TOKEN_UTF8,
-      'utf-8',
-    ).toString('base64');
-    this.#authorizationTokenBase64 = AUTHORIZATION_TOKEN_BASE64;
+  constructor({ httpService, authorizationToken }: Constructor) {
+    this.#authorizationTokenBase64 = authorizationToken;
     this.#apiBaseUrl = ENV.UDEMY.API_BASE;
     this.#httpService = httpService;
   }
