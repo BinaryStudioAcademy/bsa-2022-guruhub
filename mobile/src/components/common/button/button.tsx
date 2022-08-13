@@ -8,12 +8,11 @@ import { styles } from './styles';
 type Props = {
   label: string;
   onPress: () => void;
-  disabled?: boolean;
 };
 
-const Button: FC<Props> = ({ label, onPress, disabled = false }) => {
+const Button: FC<Props> = ({ label, onPress }) => {
   return (
-    <Pressable style={styles.button} onPress={onPress} disabled={disabled}>
+    <Pressable style={styles.button} onPress={onPress}>
       <Text style={styles.label}>{label}</Text>
     </Pressable>
   );
