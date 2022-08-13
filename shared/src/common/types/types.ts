@@ -7,7 +7,10 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type PermissionsGetAllResponseDto } from './permission/permission';
+export {
+  type PermissionItem,
+  type PermissionsGetAllResponseDto,
+} from './permission/permission';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
@@ -16,6 +19,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

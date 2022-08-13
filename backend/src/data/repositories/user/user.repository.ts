@@ -2,7 +2,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
 } from '~/common/types/types';
-import { User as UserM } from '~/data/models/models';
+import { Permission as PermissionM, User as UserM } from '~/data/models/models';
 
 type Constructor = {
   UserModel: typeof UserM;
@@ -41,6 +41,21 @@ class User {
     const user = await this.#UserModel.query().select().where({ id }).first();
 
     return user ?? null;
+  }
+
+  async getUserPermissions(id: number): Promise<PermissionM[]> {
+    const permissions = await this.#UserModel
+      .query()
+      .select(
+        'groups:permissions.id',
+        'groups:permissions.name',
+        'groups:permissions.key',
+      )
+      .joinRelated('groups.permissions')
+      .where('users.id', id)
+      .castTo<PermissionM[]>();
+
+    return permissions;
   }
 
   async getByIds(ids: number[]): Promise<UserM[]> {
