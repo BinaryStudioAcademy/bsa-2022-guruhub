@@ -1,14 +1,13 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Table } from 'components/common/common';
-import { Pagination } from 'components/common/pagination/pagination';
+import { Pagination, Table } from 'components/common/common';
 import { UsersTableRow } from 'components/uam/common/types/types';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
   useMemo,
-  useState,
+  usePagination,
 } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
@@ -17,13 +16,9 @@ import { getUsersColumns } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const UsersTable: FC = () => {
-  const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
+  const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
-
-  const handlePageChange = (page: number): void => {
-    setPage(page);
-  };
 
   useEffect(() => {
     dispatch(
