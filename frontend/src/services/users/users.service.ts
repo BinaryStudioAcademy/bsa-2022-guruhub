@@ -2,6 +2,7 @@ import { ApiPath, HttpMethod, UsersApiPath } from 'common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -34,6 +35,15 @@ class UsersApi {
           page,
           count,
         },
+      },
+    );
+  }
+
+  public delete({ id }: UsersDeleteRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.DELETE,
       },
     );
   }

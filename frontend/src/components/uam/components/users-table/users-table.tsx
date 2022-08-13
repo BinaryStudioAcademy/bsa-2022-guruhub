@@ -1,17 +1,19 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
-import { FC, UsersGetResponseDto } from 'common/types/types';
+import { FC } from 'common/types/types';
 import { Table } from 'components/common/common';
 import { Pagination } from 'components/common/pagination/pagination';
-import { getUsersColumns, getUsersRows } from 'components/uam/helpers/helpers';
+import { UsersTableRow } from 'components/uam/common/types/types';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useMemo,
   useState,
 } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
 
+import { getUsersColumns } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const UsersTable: FC = () => {
@@ -32,13 +34,18 @@ const UsersTable: FC = () => {
     );
   }, [page]);
 
-  const columns: Column<UsersGetResponseDto>[] = getUsersColumns();
-  const rows: UsersGetResponseDto[] = getUsersRows(users.items);
+  const handleUserDelete = (userId: number): void => {
+    dispatch(uamActions.deleteUser({ id: userId }));
+  };
+
+  const columns = useMemo<Column<UsersTableRow>[]>(() => {
+    return getUsersColumns(handleUserDelete);
+  }, []);
 
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={rows} columns={columns} />
+      <Table data={users.items} columns={columns} />
       <Pagination
         currentPage={page}
         onPageChange={handlePageChange}
