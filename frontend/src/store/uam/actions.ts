@@ -3,7 +3,8 @@ import {
   AsyncThunkConfig,
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  GroupsGetAllResponseDto,
+  GroupsItemResponseDto,
+  UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -21,7 +22,7 @@ const getUsers = createAsyncThunk<
 });
 
 const getGroups = createAsyncThunk<
-  GroupsGetAllResponseDto,
+  EntityPagination<GroupsItemResponseDto>,
   void,
   AsyncThunkConfig
 >(ActionType.GET_GROUPS, async (_, { extra }) => {
@@ -31,4 +32,18 @@ const getGroups = createAsyncThunk<
   return groups;
 });
 
-export { getGroups, getUsers };
+const deleteUser = createAsyncThunk<
+  number,
+  UsersDeleteRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.DELETE_USER, async (payload, { extra }) => {
+  const { usersApi } = extra;
+
+  await usersApi.delete(payload);
+
+  const { id } = payload;
+
+  return id;
+});
+
+export { deleteUser, getGroups, getUsers };

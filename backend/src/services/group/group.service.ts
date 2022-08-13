@@ -1,8 +1,9 @@
 import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
-  type GroupsGetAllItemResponseDto,
-  type GroupsGetAllResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
+  GroupsItemResponseDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
@@ -43,9 +44,31 @@ class Group {
     this.#userService = userService;
   }
 
+  async getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<GroupsItemResponseDto>
+  > {
+    const ZERO_INDEXED_PAGE = page - 1;
+    const result = await this.#groupsRepository.getPaginated({
+      page: ZERO_INDEXED_PAGE,
+      count,
+    });
+
+    return {
+      items: result.items.map((group) => ({
+        id: group.id,
+        name: group.name,
+        key: group.key,
+      })),
+      total: result.total,
+    };
+  }
+
   async create(
     groupsRequestDto: GroupsCreateRequestDto,
-  ): Promise<GroupsGetAllItemResponseDto> {
+  ): Promise<GroupsItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const groupByName = await this.#groupsRepository.getByName(name);
 
@@ -99,10 +122,10 @@ class Group {
     return group;
   }
 
-  async getAll(): Promise<GroupsGetAllResponseDto> {
-    const items = await this.#groupsRepository.getAll();
+  async delete(id: number): Promise<boolean> {
+    const deletedGroupsCount = await this.#groupsRepository.delete(id);
 
-    return { items };
+    return Boolean(deletedGroupsCount);
   }
 }
 

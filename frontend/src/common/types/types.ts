@@ -5,10 +5,7 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
-export {
-  GroupsGetAllItemResponseDto,
-  GroupsGetAllResponseDto,
-} from './groups/groups';
+export { GroupsItemResponseDto } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,
@@ -19,10 +16,15 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type FC, type SVGProps } from './react/react';
+export {
+  type FC,
+  type SVGProps,
+  type URLSearchParamsInit,
+} from './react/react';
 export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
+  type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
