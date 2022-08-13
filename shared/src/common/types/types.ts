@@ -2,7 +2,6 @@ export {
   type CourseCreateByUrlRequestDto,
   type CourseGetResponseDto,
 } from './course/course';
-export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export { type CourseToVendorResponseDto } from './course-to-vendor/course-to-vendor';
 export {
   type GroupsCreateRequestDto,
