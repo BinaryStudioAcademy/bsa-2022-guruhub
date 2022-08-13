@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { ViewStyle } from 'react-native';
 import {
   Cell,
   Rows,
@@ -7,52 +6,37 @@ import {
   TableWrapper,
 } from 'react-native-table-component';
 
-import { AppTextStyle } from '~/common/types/types';
 import { ScrollView, View } from '~/components/common/common';
 
 import { styles } from './styles';
 
-type AllowedData = string | number;
-
-type Props<Data extends Record<AllowedData, unknown>> = {
+type Props<Data extends Record<string, unknown>> = {
   header: Data[];
   data: Data[][];
   columnWidthArr?: number[];
-  tableDataTextStyle?: AppTextStyle;
-  tableHeaderTextStyle?: AppTextStyle;
-  tableHeaderCellStyle?: ViewStyle;
-  tableContainerStyle?: ViewStyle;
 };
 
-const Table = <Data extends Record<AllowedData, unknown>>({
+const Table = <Data extends Record<string, unknown>>({
   header,
   data,
   columnWidthArr,
-  tableDataTextStyle,
-  tableHeaderTextStyle,
-  tableHeaderCellStyle,
-  tableContainerStyle,
 }: Props<Data>): ReactElement => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
         <View>
           <ScrollView>
-            <UITable style={tableContainerStyle}>
+            <UITable style={styles.container}>
               <TableWrapper style={styles.header}>
                 {header.map((cellData, cellIndex) => (
                   <Cell
                     key={cellIndex}
                     data={cellData}
                     width={columnWidthArr && columnWidthArr[cellIndex]}
-                    textStyle={{
-                      ...styles.headerText,
-                      ...tableHeaderTextStyle,
-                    }}
+                    textStyle={styles.headerText}
                     style={{
                       ...(Boolean(cellIndex) && styles.verticalSeparator),
                       ...styles.headerCell,
-                      ...tableHeaderCellStyle,
                     }}
                   />
                 ))}
@@ -60,7 +44,7 @@ const Table = <Data extends Record<AllowedData, unknown>>({
               <Rows
                 data={data}
                 widthArr={columnWidthArr}
-                textStyle={{ ...styles.dataText, ...tableDataTextStyle }}
+                textStyle={styles.dataText}
               />
             </UITable>
           </ScrollView>
