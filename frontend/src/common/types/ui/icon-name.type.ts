@@ -10,6 +10,7 @@ type IconName =
   | 'java'
   | 'c'
   | 'typescript'
-  | 'python';
+  | 'python'
+  | 'delete';
 
 export { IconName };

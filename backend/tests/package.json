@@ -9,10 +9,26 @@
     "lint:js": "npx eslint \"src/**/*.{js,ts}\"",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:js && npm run lint:type",
+    "test": "mocha",
     "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/chai": "4.3.3",
+    "@types/chai-json-schema": "1.4.6",
+    "@types/mocha": "9.1.1",
+    "@types/node": "18.7.2",
+    "ts-node": "10.9.1",
+    "tsconfig-paths": "4.1.0",
+    "typescript": "4.7.4"
+  },
   "dependencies": {
-    "guruhub-shared": "file:../shared/build"
+    "@faker-js/faker": "7.4.0",
+    "chai": "4.3.6",
+    "chai-json-schema": "1.5.1",
+    "dotenv": "16.0.1",
+    "env": "0.0.2",
+    "got": "12.3.1",
+    "guruhub-shared": "file:../../shared/build",
+    "mocha": "10.0.0"
   }
 }

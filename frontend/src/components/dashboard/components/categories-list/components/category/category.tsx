@@ -1,6 +1,5 @@
 import { FC, IconName } from 'common/types/types';
 import { Icon } from 'components/common/common';
-import { ReactElement } from 'react';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
@@ -10,7 +9,7 @@ type Props = {
   name: string;
 };
 
-const Category: FC<Props> = ({ iconName, name }): ReactElement => {
+const Category: FC<Props> = ({ iconName, name }) => {
   return (
     <div className={styles.category} style={{ borderColor: getRandomColor() }}>
       <Icon name={iconName} className={styles.icon} />

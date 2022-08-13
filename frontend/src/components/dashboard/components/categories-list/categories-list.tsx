@@ -1,5 +1,4 @@
-import { IconName } from 'common/types/types';
-import { ReactElement } from 'react';
+import { FC, IconName } from 'common/types/types';
 
 import { Category } from './components/category/category';
 import styles from './styles.module.scss';
@@ -14,17 +13,15 @@ type Props = {
   items: Category[];
 };
 
-const CategoriesList = ({ items }: Props): ReactElement => {
+const CategoriesList: FC<Props> = ({ items }: Props) => {
   return (
-    <div className={styles.categoriesList}>
+    <ul className={styles.categoriesList}>
       {items.map((category) => (
-        <Category
-          key={category.id}
-          iconName={category.key as IconName}
-          name={category.name}
-        />
+        <li key={category.id}>
+          <Category iconName={category.key as IconName} name={category.name} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

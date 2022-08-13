@@ -9,6 +9,7 @@ import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
 import { ReactComponent as NodeJSIcon } from 'assets/icons/nodejs.svg';
 import { ReactComponent as PythonIcon } from 'assets/icons/python.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
+import { ReactComponent as DeleteIcon } from 'assets/icons/trash-can-solid.svg';
 import { ReactComponent as TypeScriptIcon } from 'assets/icons/typescript.svg';
 import { FC, IconName, SVGProps } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
@@ -28,6 +29,7 @@ const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   java: JavaIcon,
   nodejs: NodeJSIcon,
   python: PythonIcon,
+  delete: DeleteIcon,
 };
 
 type Props = {
