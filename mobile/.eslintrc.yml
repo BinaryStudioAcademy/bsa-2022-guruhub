@@ -11,3 +11,8 @@ overrides:
     rules:
       import/no-named-as-default:
         - off
+  - files:
+      - custom.d.ts
+    rules:
+      import/no-default-export:
+        - off
