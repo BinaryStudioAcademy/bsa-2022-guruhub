@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
-import { SearchPayload } from '~/common/types/types';
 import { Icon, View } from '~/components/common/common';
 import {
   DEFAULT_SEARCH_PAYLOAD,
@@ -11,6 +10,7 @@ import {
 import { useDebounce } from '~/helpers/helpers';
 import { useAppForm, useEffect, useFormControl, useState } from '~/hooks/hooks';
 
+import { SearchPayload } from './common/types';
 import { styles } from './styles';
 
 type Props = {
