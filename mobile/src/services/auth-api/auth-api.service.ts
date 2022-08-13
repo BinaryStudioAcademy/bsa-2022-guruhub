@@ -5,6 +5,9 @@ import {
   HttpMethod,
 } from '~/common/enums/enums';
 import {
+  UsersByIdResponseDto,
+  UserSignInRequestDto,
+  UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
 } from '~/common/types/types';
@@ -32,7 +35,26 @@ class AuthApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+        hasAuth: false,
       },
+    );
+  }
+
+  signIn(payload: UserSignInRequestDto): Promise<UserSignInResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+        hasAuth: false,
+      },
+    );
+  }
+
+  getCurrentUser(): Promise<UsersByIdResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
     );
   }
 }

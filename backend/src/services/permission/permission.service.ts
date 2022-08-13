@@ -23,6 +23,18 @@ class Permission {
       })),
     };
   }
+
+  async getByIds(ids: number[]): Promise<PermissionsGetAllResponseDto> {
+    const permissions = await this.#permissionRepository.getByIds(ids);
+
+    return {
+      items: permissions.map((permission) => ({
+        id: permission.id,
+        key: permission.key,
+        name: permission.name,
+      })),
+    };
+  }
 }
 
 export { Permission };

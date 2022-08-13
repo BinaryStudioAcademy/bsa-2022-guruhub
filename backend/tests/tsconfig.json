@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "ts-node": {
+    "files": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "moduleResolution": "node",
+    "checkJs": true,
+    "noEmit": true,
+    "types": ["mocha", "node"],
+    "typeRoots": ["./src/typings"]
+  }
+}

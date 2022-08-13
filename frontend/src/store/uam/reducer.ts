@@ -2,16 +2,17 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
   EntityPagination,
-  GroupsGetAllItemResponseDto,
+  GroupsItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
-import { getGroups, getUsers } from './actions';
+import { deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   users: EntityPagination<UsersGetResponseDto>;
-  groups: GroupsGetAllItemResponseDto[];
+  groups: GroupsItemResponseDto[];
+  userDeleteDataStatus: DataStatus;
 };
 
 const initialState: State = {
@@ -20,6 +21,7 @@ const initialState: State = {
     items: [],
     total: 0,
   },
+  userDeleteDataStatus: DataStatus.IDLE,
   groups: [],
 };
 
@@ -44,6 +46,20 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getGroups.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(deleteUser.pending, (state) => {
+    state.userDeleteDataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
+    state.users = {
+      items: state.users.items.filter((item) => item.id !== payload),
+      total: --state.users.total,
+    };
+    state.userDeleteDataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(deleteUser.rejected, (state) => {
+    state.userDeleteDataStatus = DataStatus.REJECTED;
   });
 });
 
