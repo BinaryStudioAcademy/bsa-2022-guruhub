@@ -3,16 +3,18 @@ import { DataStatus } from 'common/enums/enums';
 import {
   EntityPagination,
   GroupsItemResponseDto,
+  PermissionItem,
   UsersGetResponseDto,
 } from 'common/types/types';
 
-import { deleteUser, getGroups, getUsers } from './actions';
+import { deleteUser, getGroups, getPermissions, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   users: EntityPagination<UsersGetResponseDto>;
   groups: GroupsItemResponseDto[];
   userDeleteDataStatus: DataStatus;
+  permissions: PermissionItem[];
 };
 
 const initialState: State = {
@@ -23,6 +25,7 @@ const initialState: State = {
   },
   userDeleteDataStatus: DataStatus.IDLE,
   groups: [],
+  permissions: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,6 +63,17 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(deleteUser.rejected, (state) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(getPermissions.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getPermissions.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.permissions = payload.items;
+  });
+  builder.addCase(getPermissions.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 });
 

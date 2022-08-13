@@ -4,6 +4,7 @@ import { AuthApi } from './auth-api/auth-api.service';
 import { GroupsApi } from './groups/groups.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
+import { PermissionsApi } from './permissions/permissions';
 import { Storage } from './storage/storage.service';
 import { UsersApi } from './users/users.service';
 
@@ -26,6 +27,11 @@ const groupsApi = new GroupsApi({
   http,
 });
 
+const permissionsApi = new PermissionsApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const notification = new Notification();
 
-export { authApi, groupsApi, notification, storage, usersApi };
+export { authApi, groupsApi, notification, permissionsApi, storage, usersApi };

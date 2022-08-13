@@ -4,6 +4,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   GroupsItemResponseDto,
+  PermissionsGetAllResponseDto,
   UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
 } from 'common/types/types';
@@ -46,4 +47,15 @@ const deleteUser = createAsyncThunk<
   return id;
 });
 
-export { deleteUser, getGroups, getUsers };
+const getPermissions = createAsyncThunk<
+  PermissionsGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_PERMISSIONS, async (_, { extra }) => {
+  const { permissionsApi } = extra;
+  const permissions = await permissionsApi.getAll();
+
+  return permissions;
+});
+
+export { deleteUser, getGroups, getPermissions, getUsers };

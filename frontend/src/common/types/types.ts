@@ -17,6 +17,10 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
+  PermissionItem,
+  PermissionsGetAllResponseDto,
+} from './permissions/permissions';
+export {
   type FC,
   type SVGProps,
   type URLSearchParamsInit,
