@@ -29,11 +29,6 @@ class Udemy {
     this.setHeaders();
     const res: AxiosResponse<UdemyGetResponseDto> = await this.#httpService.get(
       this.getRequestUrl(courseIdOrSlug),
-      {
-        headers: {
-          Authorization: `Basic ${this.#authorizationTokenBase64}`,
-        },
-      },
     );
 
     return res.data;
