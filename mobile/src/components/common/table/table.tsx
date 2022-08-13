@@ -6,21 +6,27 @@ import {
   TableWrapper,
 } from 'react-native-table-component';
 
+import { TableColumn } from '~/common/types/ui/ui';
 import { ScrollView, View } from '~/components/common/common';
 
 import { styles } from './styles';
 
 type Props<Data extends Record<string, unknown>> = {
-  header: Data[];
-  data: Data[][];
+  columns: TableColumn<Data>[];
+  data: Data[];
   columnWidthArr?: number[];
 };
 
 const Table = <Data extends Record<string, unknown>>({
-  header,
+  columns,
   data,
   columnWidthArr,
 }: Props<Data>): ReactElement => {
+  const headers = columns.map(({ header }) => header);
+  const tableData = data.map((entry) =>
+    columns.map(({ accessor }) => entry[accessor]),
+  );
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
@@ -28,7 +34,7 @@ const Table = <Data extends Record<string, unknown>>({
           <ScrollView>
             <UITable style={styles.container}>
               <TableWrapper style={styles.header}>
-                {header.map((cellData, cellIndex) => (
+                {headers.map((cellData, cellIndex) => (
                   <Cell
                     key={cellIndex}
                     data={cellData}
@@ -42,7 +48,7 @@ const Table = <Data extends Record<string, unknown>>({
                 ))}
               </TableWrapper>
               <Rows
-                data={data}
+                data={tableData}
                 widthArr={columnWidthArr}
                 textStyle={styles.dataText}
               />
