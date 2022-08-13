@@ -8,7 +8,7 @@ import {
 
 class CourseError extends HttpError {
   constructor({
-    message = ExceptionMessage.INVALID_COURSE_CATEGORY,
+    message = ExceptionMessage.INVALID_COURSE_VENDOR,
     status = HttpCode.BAD_REQUEST,
   } = {}) {
     super({ message, status });

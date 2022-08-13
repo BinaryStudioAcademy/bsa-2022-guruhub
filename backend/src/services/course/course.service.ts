@@ -26,7 +26,7 @@ class Course {
 
   constructor({
     courseRepository,
-    courseToVendorService: courseToVendorService,
+    courseToVendorService,
     vendorService,
     udemyService,
   }: Constructor) {
