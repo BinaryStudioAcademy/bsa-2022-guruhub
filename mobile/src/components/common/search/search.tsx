@@ -29,16 +29,16 @@ const Search: FC<Props> = ({ onSearch }) => {
 
   const handleSearch = (): void => onSearch(value);
 
-  const callbackDebounce = useDebounce(handleSearch, SEARCH_DELAY_MS);
+  const debounceHandleSearch = useDebounce(handleSearch, SEARCH_DELAY_MS);
 
   const handleOnFocus = (): void => setBorderColor(AppColor.BRAND.BLUE_100);
 
   const handleOnBlur = (): void => setBorderColor('transparent');
 
   useEffect(() => {
-    callbackDebounce();
+    debounceHandleSearch();
 
-    return () => callbackDebounce.clear();
+    return () => debounceHandleSearch.clear();
   }, [value]);
 
   return (
