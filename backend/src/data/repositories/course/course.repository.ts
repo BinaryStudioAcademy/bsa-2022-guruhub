@@ -1,3 +1,4 @@
+import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,13 +12,7 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  async create(course: {
-    title: string;
-    description: string;
-    url: string;
-    vendorId: number;
-    courseCategoryId?: number;
-  }): Promise<CourseM> {
+  async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {
     const { title, description, url, vendorId, courseCategoryId } = course;
 
     return this.#CourseModel.query().insert({
