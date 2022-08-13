@@ -1,1 +1,1 @@
-export { useDebounce } from './use-debounce/use-debounce.helper';
+export { debounce } from './debounce/debounce.helper';

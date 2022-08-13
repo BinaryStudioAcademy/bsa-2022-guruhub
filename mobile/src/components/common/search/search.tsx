@@ -7,7 +7,7 @@ import {
   DEFAULT_SEARCH_PAYLOAD,
   SEARCH_DELAY_MS,
 } from '~/components/common/search/common/constants';
-import { useDebounce } from '~/helpers/helpers';
+import { debounce } from '~/helpers/helpers';
 import { useAppForm, useEffect, useFormControl, useState } from '~/hooks/hooks';
 
 import { SearchPayload } from './common/types';
@@ -29,7 +29,7 @@ const Search: FC<Props> = ({ onSearch }) => {
 
   const handleSearch = (): void => onSearch(value);
 
-  const debounceHandleSearch = useDebounce(handleSearch, SEARCH_DELAY_MS);
+  const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
 
   const handleOnFocus = (): void => setBorderColor(AppColor.BRAND.BLUE_100);
 
