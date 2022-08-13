@@ -5,6 +5,7 @@ import {
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { AuthError } from '~/exceptions/exceptions';
 import {
@@ -54,7 +55,7 @@ class Auth {
 
   async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UsersByIdResponseDto> {
+  ): Promise<UserWithPermissions> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {
@@ -79,11 +80,14 @@ class Auth {
       });
     }
 
+    const permissions = await this.#userService.getUserPermissions(user.id);
+
     return {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions,
     };
   }
 

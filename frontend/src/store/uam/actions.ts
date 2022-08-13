@@ -4,6 +4,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   GroupsItemResponseDto,
+  UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -31,4 +32,18 @@ const getGroups = createAsyncThunk<
   return groups;
 });
 
-export { getGroups, getUsers };
+const deleteUser = createAsyncThunk<
+  number,
+  UsersDeleteRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.DELETE_USER, async (payload, { extra }) => {
+  const { usersApi } = extra;
+
+  await usersApi.delete(payload);
+
+  const { id } = payload;
+
+  return id;
+});
+
+export { deleteUser, getGroups, getUsers };

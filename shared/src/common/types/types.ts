@@ -1,5 +1,6 @@
 export {
   type GroupsCreateRequestDto,
+  type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
@@ -7,7 +8,10 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type PermissionsGetAllResponseDto } from './permission/permission';
+export {
+  type PermissionItem,
+  type PermissionsGetAllResponseDto,
+} from './permission/permission';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
@@ -16,6 +20,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export {
   type UserDetailsCreateRequestDto,
