@@ -8,6 +8,7 @@ module.exports = {
     '~/setup.ts',
   ],
   timeout: 20 * SECOND,
+  slow: 7 * SECOND,
   bail: false,
   parallel: false,
   spec: ['./src/tests/specs/**/*.spec.ts'],
