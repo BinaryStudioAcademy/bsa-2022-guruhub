@@ -1,6 +1,5 @@
 import {
   Course as CourseModel,
-  CourseToVendor as CourseToVendorModel,
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   Permission as PermissionModel,
@@ -10,7 +9,6 @@ import {
 } from '~/data/models/models';
 
 import { Course } from './course/course.repository';
-import { CourseToVendor } from './course-to-vendor/course-to-vendor.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Permission } from './permission/permission.repository';
@@ -40,13 +38,10 @@ const usersToGroups = new UsersToGroups({
 
 const course = new Course({ CourseModel });
 
-const courseToVendor = new CourseToVendor({ CourseToVendorModel });
-
 const vendor = new Vendor({ VendorModel });
 
 export {
   course,
-  courseToVendor,
   group,
   groupsToPermissions,
   permission,

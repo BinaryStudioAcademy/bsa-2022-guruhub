@@ -3,7 +3,6 @@ export {
   type CourseCreateRequestDto,
   type CourseGetResponseDto,
 } from './course/course';
-export { type CourseToVendorResponseDto } from './course-to-vendor/course-to-vendor';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
