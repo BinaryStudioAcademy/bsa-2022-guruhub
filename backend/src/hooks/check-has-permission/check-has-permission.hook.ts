@@ -1,31 +1,40 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyRequest } from 'fastify';
 
-import { HttpCode, PermissionKey } from '~/common/enums/enums';
-import { UsersByIdResponseDto } from '~/common/types/types';
+import {
+  ExceptionMessage,
+  HttpCode,
+  PermissionKey,
+} from '~/common/enums/enums';
+import { EntityPaginationRequestQueryDto } from '~/common/types/types';
 import { PermissionsError } from '~/exceptions/exceptions';
-import { checkPermissionKeys } from '~/helpers/helpers';
+import { checkHasPermission } from '~/helpers/helpers';
 
 const checkHasPermissions =
-  (...requiredPermissions: PermissionKey[]) =>
-  async (req: FastifyRequest, rep: FastifyReply): Promise<void> => {
-    try {
-      const userPermissions =
-        (
-          req.user as UsersByIdResponseDto & {
-            permissions: [];
-          }
-        ).permissions ?? [];
+  (...pagePermissions: PermissionKey[]) =>
+  async (
+    req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+  ): Promise<void> => {
+    const { user } = req;
+    const hasUser = Boolean(user);
+    const userPermissions = user.permissions.map((item) => item.key);
 
-      if (
-        !checkPermissionKeys({
-          requiredPermissions,
-          userPermissions,
-        })
-      ) {
-        throw new PermissionsError();
-      }
-    } catch (err) {
-      rep.code(HttpCode.FORBIDDEN).send(err);
+    if (!hasUser) {
+      throw new PermissionsError({
+        message: ExceptionMessage.PERMISSION_LACK,
+        status: HttpCode.FORBIDDEN,
+      });
+    }
+
+    const hasUserPermission = checkHasPermission({
+      pagePermissions,
+      userPermissions,
+    });
+
+    if (!hasUserPermission) {
+      throw new PermissionsError({
+        message: ExceptionMessage.PERMISSION_LACK,
+        status: HttpCode.FORBIDDEN,
+      });
     }
   };
 

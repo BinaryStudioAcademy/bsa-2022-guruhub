@@ -1,8 +1,17 @@
-import { CustomExceptionName, ExceptionMessage } from '~/common/enums/enums';
+import { HttpError } from 'guruhub-shared/exceptions/exceptions';
 
-class PermissionsError extends Error {
-  constructor(message = ExceptionMessage.PERMISSIONS_ERROR) {
-    super(message);
+import {
+  CustomExceptionName,
+  ExceptionMessage,
+  HttpCode,
+} from '~/common/enums/enums';
+
+class PermissionsError extends HttpError {
+  constructor({
+    message = ExceptionMessage.PERMISSION_LACK,
+    status = HttpCode.FORBIDDEN,
+  } = {}) {
+    super({ message, status });
     this.name = CustomExceptionName.PERMISSION_ERROR;
   }
 }

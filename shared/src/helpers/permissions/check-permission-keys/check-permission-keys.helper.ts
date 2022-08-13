@@ -1,16 +1,18 @@
 import { PermissionKey } from '~/common/enums/enums';
 
 type Args = {
-  requiredPermissions: PermissionKey[];
+  pagePermissions: PermissionKey[];
   userPermissions: PermissionKey[];
 };
 
-const checkPermissionKeys = ({
-  requiredPermissions,
+const checkHasPermission = ({
+  pagePermissions,
   userPermissions,
-}: Args): boolean =>
-  requiredPermissions.every((permission) => {
-    return userPermissions.includes(permission);
+}: Args): boolean => {
+  return pagePermissions.every((pagePermission) => {
+    return userPermissions.some(
+      (userPermission) => userPermission === pagePermission,
+    );
   });
-
-export { checkPermissionKeys };
+};
+export { checkHasPermission };

@@ -1,20 +1,20 @@
 import { AppRoute, PermissionKey } from 'common/enums/enums';
-import { FC, UsersByIdResponseDto } from 'common/types/types';
+import { FC } from 'common/types/types';
 import { Navigate } from 'components/common/common';
-import { checkPermissionKeys } from 'helpers/helpers';
+import { checkHasPermission } from 'helpers/helpers';
 import { useAppSelector } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
 type Props = {
   redirectTo?: AppRoute;
   component: ReactNode;
-  permissions?: PermissionKey[];
+  pagePermissions?: PermissionKey[];
 };
 
 const ProtectedRoute: FC<Props> = ({
   redirectTo = AppRoute.SIGN_IN,
   component,
-  permissions,
+  pagePermissions,
 }) => {
   const { user } = useAppSelector((state) => state.auth);
 
@@ -24,17 +24,12 @@ const ProtectedRoute: FC<Props> = ({
     return <Navigate to={redirectTo} />;
   }
 
-  if (permissions) {
-    const userPermissions =
-      (
-        user as UsersByIdResponseDto & {
-          permissions: [];
-        }
-      ).permissions ?? [];
+  if (pagePermissions) {
+    const userPermissions = user?.permissions.map((item) => item.key) ?? [];
 
     if (
-      !checkPermissionKeys({
-        requiredPermissions: permissions,
+      !checkHasPermission({
+        pagePermissions,
         userPermissions,
       })
     ) {

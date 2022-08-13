@@ -51,7 +51,7 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <ProtectedRoute
-                permissions={[PermissionKey.MANAGE_UAM]}
+                pagePermissions={[PermissionKey.MANAGE_UAM]}
                 component={<UAM />}
               />
             </AuthorizedWrapper>
