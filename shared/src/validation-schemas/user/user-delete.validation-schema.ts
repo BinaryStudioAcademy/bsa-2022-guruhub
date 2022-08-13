@@ -4,8 +4,8 @@ import { UsersDeleteRequestParamsDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const userDelete = Joi.object({
-  [getNameOf<UsersDeleteRequestParamsDto>('id')]: Joi.string()
-    .trim()
+  [getNameOf<UsersDeleteRequestParamsDto>('id')]: Joi.number()
+    .integer()
     .required(),
 });
 

@@ -20,6 +20,8 @@ paths:
   # Groups
   /groups:
     $ref: './endpoints/groups/groups-get-all.yaml'
+  /groups/:id:
+    $ref: './endpoints/groups/groups-delete.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/course-add.yaml'
