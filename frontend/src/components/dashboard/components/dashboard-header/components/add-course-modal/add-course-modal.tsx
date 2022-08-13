@@ -1,6 +1,6 @@
 import { CourseCreateByUrlRequestDto, FC } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
-import { getNameOf } from 'guruhub-shared';
+import { getNameOf } from 'helpers/helpers';
 import { useAppDispatch, useAppForm } from 'hooks/hooks';
 import { coursesActions } from 'store/actions';
 import { courseCreate as courseCreateValidationSchema } from 'validation-schemas/validation-schemas';
