@@ -1,1 +1,5 @@
-export { ApiPath, AuthApiPath } from 'guruhub-shared/common/enums/enums';
+export {
+  ApiPath,
+  AuthApiPath,
+  GroupsApiPath,
+} from 'guruhub-shared/common/enums/enums';
