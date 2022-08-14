@@ -20,6 +20,7 @@ const Pagination: FC<Props> = ({
   const totalPages = Math.ceil(totalCount / pageSize);
   const isDisabledBack = currentPage === 1;
   const isDisabledNext = currentPage === totalPages;
+
   const handleNextPageChange = (): void => {
     onPageChange(currentPage + 1);
   };
