@@ -10,3 +10,7 @@
 .categoriesList::-webkit-scrollbar {
   display: none;
 }
+
+.category {
+  flex-shrink: 0;
+}

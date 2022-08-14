@@ -6,11 +6,6 @@ type IconName =
   | 'billing'
   | 'settings'
   | 'cross'
-  | 'nodejs'
-  | 'java'
-  | 'c'
-  | 'typescript'
-  | 'python'
   | 'delete';
 
 export { IconName };

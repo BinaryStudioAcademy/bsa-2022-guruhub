@@ -1,6 +1,5 @@
 .category {
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   height: 40px;
   margin-left: 10px;
@@ -14,9 +13,4 @@
 
 .category p {
   margin-left: 5px;
-}
-
-.icon {
-  width: 30px;
-  height: 30px;
 }

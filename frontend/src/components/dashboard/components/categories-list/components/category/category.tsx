@@ -1,18 +1,25 @@
-import { FC, IconName } from 'common/types/types';
-import { Icon } from 'components/common/common';
+import { FC } from 'common/types/types';
+import { Image } from 'components/common/common';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
-  iconName: IconName;
+  keyName: string;
   name: string;
 };
 
-const Category: FC<Props> = ({ iconName, name }) => {
+const Category: FC<Props> = ({ keyName, name }) => {
   return (
     <div className={styles.category} style={{ borderColor: getRandomColor() }}>
-      <Icon name={iconName} className={styles.icon} />
+      <Image
+        width={'30px'}
+        height={'30px'}
+        src={`/${keyName}.svg`}
+        alt={`${keyName} img`}
+        isCircular={true}
+      />
+
       <p>{name}</p>
     </div>
   );
