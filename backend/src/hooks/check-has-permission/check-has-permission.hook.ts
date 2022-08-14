@@ -5,18 +5,14 @@ import {
   HttpCode,
   PermissionKey,
 } from '~/common/enums/enums';
-import { EntityPaginationRequestQueryDto } from '~/common/types/types';
 import { PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
 const checkHasPermissions =
   (...pagePermissions: PermissionKey[]) =>
-  async (
-    req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
-  ): Promise<void> => {
+  async (req: FastifyRequest): Promise<void> => {
     const { user } = req;
     const hasUser = Boolean(user);
-    const userPermissions = user.permissions.map((item) => item.key);
 
     if (!hasUser) {
       throw new PermissionsError({
@@ -26,8 +22,8 @@ const checkHasPermissions =
     }
 
     const hasUserPermission = checkHasPermission({
-      pagePermissions,
-      userPermissions,
+      permissionKeys: pagePermissions,
+      userPermissions: user.permissions,
     });
 
     if (!hasUserPermission) {
