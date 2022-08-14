@@ -4,6 +4,7 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Spinner } from './spinner/spinner';
 export { Stack } from './stack/stack';
+export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
 export { Image, ScrollView, View } from 'react-native';
