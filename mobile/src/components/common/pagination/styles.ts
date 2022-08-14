@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   textCount: {
     fontSize: 14,
     color: 'white',
+    marginHorizontal: 5,
   },
   back: {
     width: 7,

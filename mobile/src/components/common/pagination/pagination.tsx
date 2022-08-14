@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC } from 'react';
 
 import { Pressable, Text, View } from '~/components/common/common';
 
@@ -16,7 +16,7 @@ const Pagination: FC<Props> = ({
   pageSize,
   currentPage,
   onPageChange,
-}): ReactElement => {
+}) => {
   const totalPages = Math.ceil(totalCount / pageSize);
   const isDisabledBack = currentPage === 1;
   const isDisabledNext = currentPage === totalPages;
@@ -34,16 +34,13 @@ const Pagination: FC<Props> = ({
         style={[styles.back, isDisabledBack ? styles.disabled : styles.enabled]}
         onPress={handlePreviousPageChange}
         disabled={isDisabledBack}
-      ></Pressable>
-      <Text style={styles.textCount}>
-        {' '}
-        {currentPage} of {totalPages}{' '}
-      </Text>
+      />
+      <Text style={styles.textCount}>{`${currentPage} of ${totalPages}`}</Text>
       <Pressable
         style={[styles.next, isDisabledNext ? styles.disabled : styles.enabled]}
         onPress={handleNextPageChange}
         disabled={isDisabledNext}
-      ></Pressable>
+      />
     </View>
   );
 };
