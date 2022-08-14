@@ -1,6 +1,7 @@
 import {
   FormControl,
   FormControlErrors,
+  FormControlRegister,
   FormControlValues,
   ValidationSchema,
 } from 'common/types/types';
@@ -13,6 +14,7 @@ type UseAppFormArgs = {
 };
 
 type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
+  register: FormControlRegister;
   control: FormControl;
   errors: FormControlErrors;
   handleSubmit: UseFormHandleSubmit<T>;
@@ -23,6 +25,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
   defaultValues,
 }: UseAppFormArgs): UseAppFormResult<T> => {
   const {
+    register,
     control,
     handleSubmit,
     formState: { errors },
@@ -34,6 +37,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
   });
 
   return {
+    register,
     handleSubmit: handleSubmit as UseFormHandleSubmit<T>,
     control,
     errors,

@@ -3,9 +3,10 @@ export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
+  type FormControlRegister,
   type FormControlValues,
 } from './form/form';
-export { GroupsItemResponseDto } from './groups/groups';
+export { GroupsCreateRequestDto, GroupsItemResponseDto } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,
@@ -17,7 +18,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  PermissionItem,
+  PermissionGetAllItemResponseDto,
   PermissionsGetAllResponseDto,
   PermissionsGroupCreationDto,
 } from './permissions/permissions';

@@ -1,50 +1,42 @@
 import {
   FC,
   FormControl,
-  FormControlErrors,
   FormControlPath,
+  FormControlRegister,
 } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl, useState } from 'hooks/hooks';
-import React from 'react';
 
-import { ErrorMessage } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
   id: number;
   name: FormControlPath;
+  errorMessage: string;
+  register: FormControlRegister;
   control: FormControl;
-  errors: FormControlErrors;
 };
 
-const Checkbox: FC<Props> = ({ id, name, control, errors }) => {
+const Checkbox: FC<Props> = ({ id, name, errorMessage, register, control }) => {
   const { field } = useFormControl({ name, control });
-  const [value, setValue] = useState<boolean>(false);
-
-  const onChange = (event: React.SyntheticEvent): void => {
-    const target = event.target as HTMLInputElement;
-    setValue((prev) => {
-      field.value ? field.onChange(null) : field.onChange(Number(target.value));
-
-      return !prev;
-    });
-  };
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   return (
     <div className={styles.checkboxWrapper}>
       <input
-        {...field}
         type="checkbox"
-        className={getValidClasses(field.value && styles.checked)}
-        checked={value}
-        onChange={onChange}
-        name={name}
+        className={getValidClasses(isChecked && styles.checked)}
+        {...register(name, {
+          required: {
+            value: true,
+            message: errorMessage,
+          },
+        })}
         value={id}
+        onClick={(): void => {
+          setIsChecked(!field.value.includes(`${id}`));
+        }}
       />
-      <span className={styles.errorMessage}>
-        <ErrorMessage errors={errors} name={name} />
-      </span>
     </div>
   );
 };

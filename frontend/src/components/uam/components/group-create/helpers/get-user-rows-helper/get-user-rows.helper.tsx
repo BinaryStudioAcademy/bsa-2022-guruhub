@@ -1,15 +1,19 @@
 import {
   FormControl,
   FormControlErrors,
+  FormControlRegister,
   UsersGetResponseDto,
   UsersGroupCreationDto,
 } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
-import { UserTableAccessor } from 'components/uam/common/enums/user-table-accessor.enum';
+import { UserTableAccessor } from 'components/uam/common/enums/enums';
+
+import { GroupCreationFieldsName } from '../../common/enums/enums';
 
 const getUserRows = (
   users: UsersGetResponseDto[],
   useFormData: {
+    register: FormControlRegister;
     control: FormControl;
     errors: FormControlErrors;
   },
@@ -18,9 +22,10 @@ const getUserRows = (
     [UserTableAccessor.CHECKBOX]: (
       <Checkbox
         id={user.id}
-        name={`user${user.id}`}
+        name={GroupCreationFieldsName.USER_IDS}
+        errorMessage={'Users checkboxes can not be empty'}
+        register={useFormData.register}
         control={useFormData.control}
-        errors={useFormData.errors}
       />
     ),
     [UserTableAccessor.EMAIL]: user.email,

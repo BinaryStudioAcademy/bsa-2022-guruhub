@@ -1,16 +1,21 @@
 import {
   FormControl,
   FormControlErrors,
+  FormControlRegister,
+  PermissionGetAllItemResponseDto,
   PermissionsGroupCreationDto,
 } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
-import { PermissionsGetAllItemResponseDto } from 'guruhub-shared/common/types/permission/permission-item-response-dto.type';
 
-import { PermissionTableAccessor } from '../../common/enums/enums';
+import {
+  GroupCreationFieldsName,
+  PermissionTableAccessor,
+} from '../../common/enums/enums';
 
 const getPermissionsRows = (
-  permissions: PermissionsGetAllItemResponseDto[],
+  permissions: PermissionGetAllItemResponseDto[],
   useFormData: {
+    register: FormControlRegister;
     control: FormControl;
     errors: FormControlErrors;
   },
@@ -20,9 +25,10 @@ const getPermissionsRows = (
       [PermissionTableAccessor.CHECKBOX]: (
         <Checkbox
           id={permission.id}
-          name={`permission${permission.id}`}
+          name={GroupCreationFieldsName.PERMISSION_IDS}
+          errorMessage={'Permissions checkboxes can not be empty'}
+          register={useFormData.register}
           control={useFormData.control}
-          errors={useFormData.errors}
         />
       ),
       [PermissionTableAccessor.NAME]: permission.name,

@@ -9,7 +9,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  type PermissionItem,
+  type PermissionGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {

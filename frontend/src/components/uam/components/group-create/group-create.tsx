@@ -1,7 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, GroupsCreateRequestDto } from 'common/types/types';
 import { Button } from 'components/common/common';
-import { GroupsCreateRequestDto } from 'guruhub-shared/common/types/groups/groups';
 import {
   useAppDispatch,
   useAppForm,
@@ -22,9 +21,10 @@ const UAMGroupsCreate: FC = () => {
   const { users } = useAppSelector((state) => state.uam);
   const { permissions } = useAppSelector((state) => state.uam);
   const navigate = useNavigate();
-  const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
-    defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
-  });
+  const { register, control, handleSubmit, errors } =
+    useAppForm<GroupsCreateRequestDto>({
+      defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
+    });
 
   const handleCancelClick = (): void => {
     navigate(AppRoute.UAM);
@@ -38,6 +38,7 @@ const UAMGroupsCreate: FC = () => {
   }, []);
 
   const useFormData = {
+    register,
     control,
     errors,
   };
