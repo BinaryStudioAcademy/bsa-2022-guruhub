@@ -7,8 +7,8 @@ import { AppScreenName } from '~/common/enums/enums';
 import { Button, Image, ScrollView, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
+import { DrawerList } from '~/navigation/app/components/components';
 
-import { DrawerList } from '../drawer-list/drawer-list';
 import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {

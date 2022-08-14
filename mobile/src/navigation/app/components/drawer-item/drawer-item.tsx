@@ -1,14 +1,17 @@
 import React, { FC } from 'react';
-import { Pressable } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import { DrawerNavigationItem } from '~/common/types/types';
-import { Text } from '~/components/common/common';
+import { Icon, Pressable, Text, View } from '~/components/common/common';
 import { useAppNavigate } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
-const DrawerItem: FC<DrawerNavigationItem> = ({ name, isFocused = false }) => {
+const DrawerItem: FC<DrawerNavigationItem> = ({
+  name,
+  isFocused = false,
+  icon,
+}) => {
   const navigation = useAppNavigate();
   const color = isFocused ? AppColor.TEXT.GRAY_100 : AppColor.TEXT.GRAY_200;
   const backgroundColor = isFocused ? AppColor.BRAND.BLUE_100 : 'transparent';
@@ -22,7 +25,12 @@ const DrawerItem: FC<DrawerNavigationItem> = ({ name, isFocused = false }) => {
       style={{ backgroundColor, ...styles.item }}
       onPress={handlePress}
     >
-      <Text style={{ color, ...styles.label }}>{name}</Text>
+      <View style={styles.iconContainer}>
+        <Icon name={icon} color={color} width={20} height={20} />
+      </View>
+      <View>
+        <Text style={{ color, ...styles.label }}>{name}</Text>
+      </View>
     </Pressable>
   );
 };
