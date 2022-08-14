@@ -1,8 +1,8 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
-import { useNavigate } from 'hooks/hooks';
 
+import { Link } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -20,17 +20,20 @@ const Button: FC<Props> = ({
   to,
   onClick,
 }) => {
-  const navigate = useNavigate();
+  const isLink = Boolean(to);
 
-  const handleOnClick = (): void => {
-    to ? navigate(to) : onClick?.();
-  };
-
-  return (
+  return isLink ? (
+    <Link
+      to={to as AppRoute}
+      className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
+    >
+      {label}
+    </Link>
+  ) : (
     <button
       type={type}
       className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
-      onClick={handleOnClick}
+      onClick={onClick}
     >
       {label}
     </button>
