@@ -22,14 +22,18 @@ const Button: FC<Props> = ({
 }) => {
   const isLink = Boolean(to);
 
-  return isLink ? (
-    <Link
-      to={to as AppRoute}
-      className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
-    >
-      {label}
-    </Link>
-  ) : (
+  if (isLink) {
+    return (
+      <Link
+        to={to as AppRoute}
+        className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
+      >
+        {label}
+      </Link>
+    );
+  }
+
+  return (
     <button
       type={type}
       className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
