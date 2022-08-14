@@ -4,7 +4,7 @@ import { Got, Headers } from 'got';
 import { ApiSession, RequestOptions, Response } from '~/lib/common/types/types';
 import { SessionStorage } from '~/lib/helpers/helpers';
 
-type RequestBuilderConstructor = {
+type Constructor = {
   got: Got;
   sessionStorage: SessionStorage<ApiSession>;
 };
@@ -14,7 +14,7 @@ class RequestBuilder {
   #options: RequestOptions = {};
   #sessionStorage: SessionStorage<ApiSession>;
 
-  constructor({ got, sessionStorage }: RequestBuilderConstructor) {
+  constructor({ got, sessionStorage }: Constructor) {
     this.#got = got;
     this.#sessionStorage = sessionStorage;
   }

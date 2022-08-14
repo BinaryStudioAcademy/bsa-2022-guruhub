@@ -5,7 +5,7 @@ import { SessionStorage } from '~/lib/helpers/helpers';
 
 import { RequestBuilder } from './request-builder';
 
-type HttpServiceConstructor = {
+type Constructor = {
   sessionStorage: SessionStorage<ApiSession>;
 };
 
@@ -13,7 +13,7 @@ class HttpService {
   #got: Got;
   #sessionStorage: SessionStorage<ApiSession>;
 
-  constructor({ sessionStorage }: HttpServiceConstructor) {
+  constructor({ sessionStorage }: Constructor) {
     this.#sessionStorage = sessionStorage;
 
     this.#got = got.extend({
