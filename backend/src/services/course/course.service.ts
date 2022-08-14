@@ -1,10 +1,10 @@
 import { CourseHost, ExceptionMessage, VendorKey } from '~/common/enums/enums';
 import {
-  CourseCreateRequestDto,
+  CourseCreateArgumentsDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
-import { CourseError } from '~/exceptions/exceptions';
+import { CoursesError } from '~/exceptions/exceptions';
 import { udemy as udemyServ, vendor as vendorServ } from '~/services/services';
 
 type Constructor = {
@@ -25,14 +25,14 @@ class Course {
   }
 
   async create(
-    courseRequestDto: CourseCreateRequestDto,
+    courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
     const { description, title, url, vendorKey } = courseRequestDto;
 
     const vendor = await this.#vendorService.getByKey(vendorKey);
 
     if (!vendor) {
-      throw new CourseError({
+      throw new CoursesError({
         message: ExceptionMessage.INVALID_COURSE_VENDOR,
       });
     }
@@ -49,7 +49,7 @@ class Course {
 
   async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
     const urlObject = new URL(url);
-    const host = urlObject.host;
+    const { host } = urlObject;
 
     switch (host) {
       case CourseHost.UDEMY:
@@ -65,7 +65,7 @@ class Course {
         });
       }
       default: {
-        throw new CourseError({
+        throw new CoursesError({
           message: ExceptionMessage.INVALID_URL_HOST,
         });
       }

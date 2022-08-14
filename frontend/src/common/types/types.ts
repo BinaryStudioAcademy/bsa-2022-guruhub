@@ -1,6 +1,6 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
-  type CourseCreateByUrlRequestDto,
+  type CourseCreateRequestDto,
   type CourseGetResponseDto,
 } from './course/course';
 export {

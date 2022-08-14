@@ -1,7 +1,7 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { CoursesApiPath, HttpMethod } from '~/common/enums/enums';
-import { CourseCreateByUrlRequestDto } from '~/common/types/types';
+import { CourseCreateRequestDto } from '~/common/types/types';
 import { course as courseService } from '~/services/services';
 import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -11,7 +11,7 @@ type Options = {
   };
 };
 
-const initCourseApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
+const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const { course: courseService } = opts.services;
 
   fastify.route({
@@ -20,10 +20,7 @@ const initCourseApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       body: courseCreateValidationSchema,
     },
-    async handler(
-      req: FastifyRequest<{ Body: CourseCreateByUrlRequestDto }>,
-      rep,
-    ) {
+    async handler(req: FastifyRequest<{ Body: CourseCreateRequestDto }>, rep) {
       const { url } = req.body;
       const course = await courseService.createByUrl(url);
       rep.send(course);
@@ -31,4 +28,4 @@ const initCourseApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   });
 };
 
-export { initCourseApi };
+export { initCoursesApi };

@@ -1,32 +1,33 @@
-import { ENV, UdemyApiPath } from '~/common/enums/enums';
+import { HttpMethod } from '~/common/enums/enums';
 import { UdemyGetResponseDto } from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
   httpService: typeof httpServ;
   authorizationToken: string;
+  baseUrl: string;
 };
 
 class Udemy {
   #authorizationTokenBase64: string;
-  #apiBaseUrl: string;
+  #baseUrl: string;
   #httpService: typeof httpServ;
 
-  constructor({ httpService, authorizationToken }: Constructor) {
+  constructor({ httpService, authorizationToken, baseUrl }: Constructor) {
     this.#authorizationTokenBase64 = authorizationToken;
-    this.#apiBaseUrl = ENV.UDEMY.API_BASE;
+    this.#baseUrl = baseUrl;
     this.#httpService = httpService;
   }
 
   async getByUrl(url: URL): Promise<UdemyGetResponseDto> {
     const courseIdOrSlug = url.pathname;
     const headers = this.getHeaders();
-    const res = await this.#httpService.get<UdemyGetResponseDto>(
+    const res = await this.#httpService.load<UdemyGetResponseDto>(
       this.getRequestUrl(courseIdOrSlug),
-      { headers },
+      { headers, method: HttpMethod.GET },
     );
 
-    return res.data;
+    return res;
   }
 
   private getHeaders(): Record<string, string> {
@@ -38,9 +39,9 @@ class Udemy {
   }
 
   private getRequestUrl(courseIdOrSlug: string): string {
-    return `${this.#apiBaseUrl}${
-      UdemyApiPath.COURSES
-    }${courseIdOrSlug}?fields[course]=title,description,primary_category,url`;
+    return `${
+      this.#baseUrl
+    }courses${courseIdOrSlug}?fields[course]=title,description,url`;
   }
 }
 

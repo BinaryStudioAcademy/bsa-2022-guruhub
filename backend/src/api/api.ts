@@ -14,7 +14,7 @@ import {
 } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
-import { initCourseApi } from './course/course.api';
+import { initCoursesApi } from './course/course.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initPermissionsApi } from './permissions/permissions.api';
 import { initUsersApi } from './users/users.api';
@@ -61,7 +61,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     },
     prefix: ApiPath.USERS,
   });
-  fastify.register(initCourseApi, {
+  fastify.register(initCoursesApi, {
     services: {
       course,
     },

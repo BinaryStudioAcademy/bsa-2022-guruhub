@@ -5,7 +5,6 @@ export {
   CoursesApiPath,
   GroupsApiPath,
   PermissionApiPath,
-  UdemyApiPath,
   UsersApiPath,
 } from './api/api';
 export { AppEnvironment, ENV, LogLevel } from './app/app';

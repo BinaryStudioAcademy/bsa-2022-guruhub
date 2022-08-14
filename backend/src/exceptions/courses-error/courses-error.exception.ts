@@ -6,7 +6,7 @@ import {
   HttpCode,
 } from '~/common/enums/enums';
 
-class CourseError extends HttpError {
+class CoursesError extends HttpError {
   constructor({
     message = ExceptionMessage.INVALID_COURSE_VENDOR,
     status = HttpCode.BAD_REQUEST,
@@ -16,4 +16,4 @@ class CourseError extends HttpError {
   }
 }
 
-export { CourseError };
+export { CoursesError };

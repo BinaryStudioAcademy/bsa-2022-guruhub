@@ -21,7 +21,7 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public addCourse(url: string): Promise<CourseGetResponseDto> {
+  public create(url: string): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
       {

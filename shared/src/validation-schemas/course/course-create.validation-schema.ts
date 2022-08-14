@@ -1,11 +1,11 @@
 import * as Joi from 'joi';
 
 import { CourseValidationMessage } from '~/common/enums/enums';
-import { CourseCreateByUrlRequestDto } from '~/common/types/types';
+import { CourseCreateRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const courseCreate = Joi.object({
-  [getNameOf<CourseCreateByUrlRequestDto>('url')]: Joi.string()
+  [getNameOf<CourseCreateRequestDto>('url')]: Joi.string()
     .trim()
     .uri()
     .messages({

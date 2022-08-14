@@ -1,39 +1,39 @@
-import { CourseCreateByUrlRequestDto, FC } from 'common/types/types';
-import { Button, Input } from 'components/common/common';
+import { CourseCreateRequestDto, FC } from 'common/types/types';
+import { Button, Input, Modal } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppDispatch, useAppForm } from 'hooks/hooks';
-import { coursesActions } from 'store/actions';
+import { dashboardActions } from 'store/actions';
 import { courseCreate as courseCreateValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CREATE_COURSE_PAYLOAD } from './common';
 import styles from './styles.module.scss';
 
 type Props = {
+  isModalOpen: boolean;
   onModalToggle: () => void;
 };
 
-const AddCourseModal: FC<Props> = ({ onModalToggle }) => {
-  const { control, errors, handleSubmit } =
-    useAppForm<CourseCreateByUrlRequestDto>({
-      defaultValues: DEFAULT_CREATE_COURSE_PAYLOAD,
-      validationSchema: courseCreateValidationSchema,
-    });
+const AddCourseModal: FC<Props> = ({ isModalOpen, onModalToggle }) => {
+  const { control, errors, handleSubmit } = useAppForm<CourseCreateRequestDto>({
+    defaultValues: DEFAULT_CREATE_COURSE_PAYLOAD,
+    validationSchema: courseCreateValidationSchema,
+  });
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (payload: CourseCreateByUrlRequestDto): void => {
-    dispatch(coursesActions.addCourse(payload)).then(onModalToggle);
+  const onSubmit = (payload: CourseCreateRequestDto): void => {
+    dispatch(dashboardActions.addCourse(payload)).then(onModalToggle);
   };
 
   return (
-    <div>
+    <Modal isOpen={isModalOpen} onClose={onModalToggle} title="Add new course">
       <h3>Import</h3>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formWrapper}>
         <div className={styles.formContent}>
           <Input
             type="text"
             label="Place the link"
-            name={getNameOf<CourseCreateByUrlRequestDto>('url')}
+            name={getNameOf<CourseCreateRequestDto>('url')}
             control={control}
             errors={errors}
           />
@@ -42,7 +42,7 @@ const AddCourseModal: FC<Props> = ({ onModalToggle }) => {
           <Button type="submit" label="Submit course" />
         </div>
       </form>
-    </div>
+    </Modal>
   );
 };
 

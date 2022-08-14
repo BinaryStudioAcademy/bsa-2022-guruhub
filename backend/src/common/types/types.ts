@@ -1,5 +1,5 @@
 export {
-  type CourseCreateByUrlRequestDto,
+  type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
   type CourseGetResponseDto,

@@ -1,1 +1,1 @@
-export { VendorKey } from './vendor-key.enum';
+export { VendorKey } from 'guruhub-shared/common/enums/enums';

@@ -1,4 +1,4 @@
 export {
-  type CourseCreateByUrlRequestDto,
+  type CourseCreateRequestDto,
   type CourseGetResponseDto,
 } from 'guruhub-shared/common/types/types';

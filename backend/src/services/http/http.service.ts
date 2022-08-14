@@ -1,23 +1,39 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosRequestHeaders,
+  AxiosResponse,
+} from 'axios';
 
+import { HttpMethod } from '~/common/enums/enums';
 import { HttpOptions } from '~/common/types/types';
 
 class Http {
-  async get<T = unknown>(
+  #http: AxiosInstance;
+
+  constructor() {
+    this.#http = axios.create();
+  }
+
+  async load<T = unknown>(
     url: string,
     options: Partial<HttpOptions> = {},
-  ): Promise<AxiosResponse<T>> {
-    const { headers } = options;
+  ): Promise<T> {
+    const { headers = {}, method = HttpMethod.GET } = options;
 
-    try {
-      const res: Promise<AxiosResponse<T>> = axios.get(url, {
-        headers,
-      });
+    const res = this.#http
+      .request({
+        url,
+        method,
+        headers: headers as AxiosRequestHeaders | undefined,
+      })
+      .then(this.getData<T>)
+      .catch(this.throwError);
 
-      return res;
-    } catch (err) {
-      this.throwError(err as AxiosError);
-    }
+    return res;
+  }
+
+  private getData<T = unknown>(res: AxiosResponse): T {
+    return res.data;
   }
 
   private throwError(err: Error): never {

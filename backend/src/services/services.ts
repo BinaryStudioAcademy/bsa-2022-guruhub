@@ -64,15 +64,13 @@ const vendor = new Vendor({ vendorRepository });
 
 const http = new Http();
 
-const UDEMY_AUTHORIZATION_TOKEN_UTF8 = `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`;
-const UDEMY_AUTHORIZATION_TOKEN_BASE64 = Buffer.from(
-  UDEMY_AUTHORIZATION_TOKEN_UTF8,
-  'utf-8',
-).toString('base64');
-
 const udemy = new Udemy({
   httpService: http,
-  authorizationToken: UDEMY_AUTHORIZATION_TOKEN_BASE64,
+  baseUrl: ENV.UDEMY.BASE_URL,
+  authorizationToken: Buffer.from(
+    `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`,
+    'utf-8',
+  ).toString('base64'),
 });
 
 const course = new Course({

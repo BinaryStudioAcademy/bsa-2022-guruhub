@@ -17,3 +17,4 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { UserValidationMessage, UserValidationRule } from './user/user';
+export { VendorKey } from './vendor/vendor';
