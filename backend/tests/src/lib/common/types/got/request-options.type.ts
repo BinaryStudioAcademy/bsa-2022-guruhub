@@ -1,7 +1,7 @@
 import { Options as GotRequestOptions } from 'got';
 
 type RequestOptions = GotRequestOptions & {
-  noAutoAuth?: boolean;
+  hasAutoAuth?: boolean;
   startTimeMs?: number;
 };
 
