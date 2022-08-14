@@ -9,6 +9,7 @@ import {
   Spinner,
 } from 'components/common/common';
 import { NotFound } from 'components/not-found/not-found';
+import { UAMGroupsCreate } from 'components/uam/components/group-create/group-create';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { useEffect } from 'react';
@@ -46,6 +47,14 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <ProtectedRoute component={<UAM />} />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.UAM_CREATE_GROUP}
+          element={
+            <AuthorizedWrapper>
+              <UAMGroupsCreate />
             </AuthorizedWrapper>
           }
         />

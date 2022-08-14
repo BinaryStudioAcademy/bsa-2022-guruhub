@@ -19,6 +19,7 @@ export {
 export {
   PermissionItem,
   PermissionsGetAllResponseDto,
+  PermissionsGroupCreationDto,
 } from './permissions/permissions';
 export {
   type FC,
@@ -30,6 +31,7 @@ export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
+  type UsersGroupCreationDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
