@@ -32,7 +32,7 @@ class SessionStorage<T extends object> {
     }
 
     if (this.#currentSessionName === name) {
-      this.exit();
+      this.exitSession();
     }
 
     delete this.#sessions[name];
@@ -46,7 +46,7 @@ class SessionStorage<T extends object> {
     this.#currentSessionName = name;
   }
 
-  exit(): void {
+  exitSession(): void {
     this.#currentSessionName = null;
   }
 
@@ -55,10 +55,10 @@ class SessionStorage<T extends object> {
     this.enterSession(name);
   }
 
-  enterSessionAndRemoveSessionPrevious(name: string): void {
+  enterSessionAndRemovePrevious(name: string): void {
     this.#throwIfNotInSession();
-    this.enterSession(name);
     this.removeSession(this.#currentSessionName as string);
+    this.enterSession(name);
   }
 
   get(key: keyof T): T[typeof key] | undefined {
