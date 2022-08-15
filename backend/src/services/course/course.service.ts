@@ -57,7 +57,7 @@ class Course {
         const courseData = await this.#udemyService.getByUrl(urlObject);
         const { description, title, url } = courseData;
 
-        return await this.create({
+        return this.create({
           description,
           title,
           url,

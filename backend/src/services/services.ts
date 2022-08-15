@@ -9,6 +9,7 @@ import {
   usersToGroups as usersToGroupsRepository,
   vendor as vendorRepository,
 } from '~/data/repositories/repositories';
+import { getUdemyToken } from '~/helpers/helpers';
 
 import { Auth } from './auth/auth.service';
 import { Course } from './course/course.service';
@@ -67,10 +68,7 @@ const http = new Http();
 const udemy = new Udemy({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
-  authorizationToken: Buffer.from(
-    `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`,
-    'utf-8',
-  ).toString('base64'),
+  authorizationToken: getUdemyToken(),
 });
 
 const course = new Course({

@@ -14,7 +14,7 @@ import {
 } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
-import { initCoursesApi } from './course/course.api';
+import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initPermissionsApi } from './permissions/permissions.api';
 import { initUsersApi } from './users/users.api';
