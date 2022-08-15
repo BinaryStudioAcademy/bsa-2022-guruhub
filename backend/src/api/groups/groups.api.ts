@@ -10,11 +10,13 @@ import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsUpdateRequestDto,
+  GroupsUpdateRequestParamsDto,
 } from '~/common/types/types';
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
   groupUpdate as groupUpdateValidationSchema,
+  groupUpdateParams as groupUpdateParamsValidationSchema,
   pagination as paginationQueryValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -69,9 +71,19 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: GroupsApiPath.$ID,
     schema: {
       body: groupUpdateValidationSchema,
+      params: groupUpdateParamsValidationSchema,
     },
-    async handler(req: FastifyRequest<{ Body: GroupsUpdateRequestDto }>, rep) {
-      const group = await groupService.update(req.body);
+    async handler(
+      req: FastifyRequest<{
+        Body: GroupsUpdateRequestDto;
+        Params: GroupsUpdateRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const group = await groupService.update({
+        id: parseInt(req.params.id, 10),
+        groupsRequestDto: req.body,
+      });
 
       return rep.status(HttpCode.OK).send(group);
     },

@@ -23,12 +23,20 @@ class GroupsToPermissions {
     });
   }
 
-  async getByGroupId(groupId: number): Promise<GroupsToPermissionsM[]> {
-    return this.#GroupsToPermissionsModel.query().where({ groupId }).select();
+  getByGroupId(groupId: number): Promise<GroupsToPermissionsM[]> {
+    return this.#GroupsToPermissionsModel
+      .query()
+      .where({ groupId })
+      .select()
+      .execute();
   }
 
-  async delete(id: number): Promise<number> {
-    return this.#GroupsToPermissionsModel.query().delete().where({ id });
+  delete(id: number): Promise<number> {
+    return this.#GroupsToPermissionsModel
+      .query()
+      .delete()
+      .where({ id })
+      .execute();
   }
 }
 

@@ -47,26 +47,29 @@ class GroupsToPermissions {
       (permission) => permission.permissionId,
     );
 
+    const permissionsToCreate = permissionIds.filter((id: number) => {
+      return !dbPermissionIds.includes(id);
+    });
+    const permissionsToDelete = groupPrermissions.filter(
+      (permission: GroupsToPermissionsResponseDto) => {
+        return !permissionIds.includes(permission.permissionId);
+      },
+    );
+
     await Promise.all(
-      permissionIds.map((permissionId: number) => {
-        if (!dbPermissionIds.includes(permissionId)) {
-          return this.createGroupsToPermissions({
-            groupId,
-            permissionId,
-          });
-        }
+      permissionsToCreate.map((permissionId: number) => {
+        return this.createGroupsToPermissions({
+          groupId,
+          permissionId,
+        });
       }),
     );
 
     await Promise.all(
-      groupPrermissions.map((permission: GroupsToPermissionsResponseDto) => {
-        if (!permissionIds.includes(permission.permissionId)) {
-          return this.delete(permission.id);
-        }
+      permissionsToDelete.map((permission: GroupsToPermissionsResponseDto) => {
+        return this.delete(permission.id);
       }),
     );
-
-    return;
   }
 
   async delete(id: number): Promise<boolean> {

@@ -123,38 +123,33 @@ class Group {
     return group;
   }
 
-  async update(
-    groupsRequestDto: GroupsUpdateRequestDto,
-  ): Promise<GroupsItemResponseDto> {
-    const { id, name, permissionIds, userIds } = groupsRequestDto;
+  async update(data: {
+    id: number;
+    groupsRequestDto: GroupsUpdateRequestDto;
+  }): Promise<GroupsItemResponseDto> {
+    const { id, groupsRequestDto } = data;
+    const { name, permissionIds, userIds } = groupsRequestDto;
 
-    if (name) {
-      await this.#groupsRepository.update({
-        id,
-        name,
-        key: changeStringCase({
-          stringToChange: name,
-          caseType: StringCase.SNAKE_CASE,
-        }),
-      });
-    }
-    const group = await this.#groupsRepository.getById(id);
+    const group = await this.#groupsRepository.update({
+      id,
+      name,
+      key: changeStringCase({
+        stringToChange: name,
+        caseType: StringCase.SNAKE_CASE,
+      }),
+    });
 
-    if (permissionIds) {
-      await this.#groupsToPermissionsService.updatePermissionsByGroupId({
-        groupId: id,
-        permissionIds,
-      });
-    }
+    await this.#groupsToPermissionsService.updatePermissionsByGroupId({
+      groupId: id,
+      permissionIds,
+    });
 
-    if (userIds) {
-      await this.#usersToGroupsService.updateUsersByGroupId({
-        groupId: id,
-        userIds,
-      });
-    }
+    await this.#usersToGroupsService.updateUsersByGroupId({
+      groupId: id,
+      userIds,
+    });
 
-    return group as GroupsItemResponseDto;
+    return group[0];
   }
 }
 

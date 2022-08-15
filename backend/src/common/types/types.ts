@@ -3,6 +3,7 @@ export {
   type GroupsCreateRequestDto,
   type GroupsItemResponseDto,
   type GroupsUpdateRequestDto,
+  type GroupsUpdateRequestParamsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { EntityPagination } from './pagination/pagination';

@@ -46,17 +46,18 @@ class Group {
     return group ?? null;
   }
 
-  async update(group: {
-    id: number;
-    name: string;
-    key: string;
-  }): Promise<GroupM | number> {
+  update(group: { id: number; name: string; key: string }): Promise<GroupM[]> {
     const { id, name, key } = group;
 
-    return await this.#GroupModel.query().where({ id }).update({
-      name,
-      key,
-    });
+    return this.#GroupModel
+      .query()
+      .where({ id })
+      .update({
+        name,
+        key,
+      })
+      .returning('*')
+      .execute();
   }
 
   async getById(id: number): Promise<GroupM | null> {
