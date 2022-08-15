@@ -18,10 +18,11 @@ const chaiHttp: Chai.ChaiPlugin = ({ Assertion }) => {
     const response = this._obj as Response;
 
     this.assert(
-      response.durationMs <= AssertionConstants.ResponseNormalExecutionTimeMs,
+      response.durationMs <=
+        AssertionConstants.RESPONSE_NORMAL_EXECUTION_TIME_MS,
       'Expected response to have execution time less or equal to #{exp}ms, but got #{act}ms',
       'Expected response to have execution time more than #{exp}ms, but got #{act}ms',
-      AssertionConstants.ResponseNormalExecutionTimeMs,
+      AssertionConstants.RESPONSE_NORMAL_EXECUTION_TIME_MS,
       response.durationMs,
     );
   });
