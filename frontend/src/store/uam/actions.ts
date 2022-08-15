@@ -39,8 +39,9 @@ const createGroup = createAsyncThunk<
   GroupsCreateRequestDto,
   AsyncThunkConfig
 >(ActionType.CREATE_GROUP, async (registerPayload, { extra }) => {
-  const { groupsApi } = extra;
+  const { groupsApi, notification } = extra;
   const groupsResponseDto = await groupsApi.create(registerPayload);
+  notification.success('Group has been succeffully created!');
 
   return groupsResponseDto;
 });

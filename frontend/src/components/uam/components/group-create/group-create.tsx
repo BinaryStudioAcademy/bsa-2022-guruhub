@@ -33,6 +33,10 @@ const UAMGroupsCreate: FC = () => {
     navigate(AppRoute.UAM);
   };
 
+  const onSubmit = (data: GroupsCreateRequestDto): void => {
+    dispatch(uamActions.createGroup(data));
+  };
+
   useEffect(() => {
     batch(() => {
       dispatch(uamActions.getUsers({ page: 1, count: 10 }));
@@ -44,10 +48,6 @@ const UAMGroupsCreate: FC = () => {
     register,
     control,
     errors,
-  };
-
-  const onSubmit = (data: GroupsCreateRequestDto): void => {
-    dispatch(uamActions.createGroup(data));
   };
 
   return (
