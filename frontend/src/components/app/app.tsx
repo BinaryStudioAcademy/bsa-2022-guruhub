@@ -13,6 +13,7 @@ import {
   Routes,
   Spinner,
 } from 'components/common/common';
+import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
@@ -42,7 +43,11 @@ const App: FC = () => {
       <Routes>
         <Route
           path={AppRoute.ROOT}
-          element={<AuthorizedWrapper>Root</AuthorizedWrapper>}
+          element={
+            <AuthorizedWrapper>
+              <Dashboard />
+            </AuthorizedWrapper>
+          }
         />
         <Route path={AppRoute.SIGN_UP} element={<Auth />} />
         <Route path={AppRoute.SIGN_IN} element={<Auth />} />
