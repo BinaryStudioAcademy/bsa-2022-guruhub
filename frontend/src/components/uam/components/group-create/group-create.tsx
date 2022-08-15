@@ -1,6 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC, GroupsCreateRequestDto } from 'common/types/types';
-import { Button, ErrorMessage } from 'components/common/common';
+import { Button, Input } from 'components/common/common';
 import {
   useAppDispatch,
   useAppForm,
@@ -56,12 +56,14 @@ const UAMGroupsCreate: FC = () => {
         <div className={styles.groupFormHeaderWrapper}>
           <h2 className={styles.groupFormHeading}>Create group</h2>
         </div>
-        <span className={styles.errorMessage}>
-          <ErrorMessage
-            errors={useFormData.errors}
-            name={GroupCreationFieldsName.NAME}
-          />
-        </span>
+        <Input
+          control={control}
+          errors={errors}
+          label={'Group name'}
+          name={GroupCreationFieldsName.NAME}
+          placeholder={'Enter group name'}
+          type={'text'}
+        />
         <UsersTable users={users.items} useFormData={useFormData} />
         <PermissionsTable permissions={permissions} useFormData={useFormData} />
         <div className={styles.btnsBlock}>

@@ -29,7 +29,7 @@ const PermissionsTable: FC<Props> = ({ permissions, useFormData }) => {
 
   return (
     <div className={styles.groupPermissions}>
-      <h5 className={styles.groupSubHeading}>Attach permissions policies</h5>
+      <p className={styles.groupSubHeading}>Attach permissions policies</p>
       <span className={styles.errorMessage}>
         <ErrorMessage
           errors={useFormData.errors}

@@ -1,7 +1,7 @@
 import { GroupsCreateRequestDto } from 'common/types/groups/groups';
 
 const DEFAULT_CREATE_GROUP_PAYLOAD: GroupsCreateRequestDto = {
-  name: 'ABC',
+  name: '',
   permissionIds: [],
   userIds: [],
 };

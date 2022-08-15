@@ -25,9 +25,9 @@ const UsersTable: FC<Props> = ({ users, useFormData }) => {
 
   return (
     <div className={styles.groupWorkers}>
-      <h5 className={styles.groupSubHeading}>
+      <p className={styles.groupSubHeading}>
         Add workers to the Group - Optional
-      </h5>
+      </p>
       <Table data={userRows} columns={userColumns} />
       <span className={styles.groupWorkersAmount}>{users.length} results</span>
     </div>
