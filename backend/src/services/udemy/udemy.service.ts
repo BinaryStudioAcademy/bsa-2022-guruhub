@@ -1,20 +1,19 @@
-import { HttpMethod } from '~/common/enums/enums';
+import { ENV, HttpMethod } from '~/common/enums/enums';
 import { UdemyGetResponseDto } from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
   httpService: typeof httpServ;
-  authorizationToken: string;
   baseUrl: string;
 };
 
 class Udemy {
-  #authorizationTokenBase64: string;
+  #authorizationToken: string;
   #baseUrl: string;
   #httpService: typeof httpServ;
 
-  constructor({ httpService, authorizationToken, baseUrl }: Constructor) {
-    this.#authorizationTokenBase64 = authorizationToken;
+  constructor({ httpService, baseUrl }: Constructor) {
+    this.#authorizationToken = this.getToken();
     this.#baseUrl = baseUrl;
     this.#httpService = httpService;
   }
@@ -32,7 +31,7 @@ class Udemy {
 
   private getHeaders(): Record<string, string> {
     const headers = {
-      Authorization: `Basic ${this.#authorizationTokenBase64}`,
+      Authorization: `Basic ${this.#authorizationToken}`,
     };
 
     return headers;
@@ -42,6 +41,13 @@ class Udemy {
     return `${
       this.#baseUrl
     }courses${courseIdOrSlug}?fields[course]=title,description,url`;
+  }
+
+  private getToken(): string {
+    return Buffer.from(
+      `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`,
+      'utf-8',
+    ).toString('base64');
   }
 }
 
