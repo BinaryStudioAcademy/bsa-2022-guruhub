@@ -15,6 +15,15 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const { course: courseService } = opts.services;
 
   fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.ROOT,
+    async handler(_req, rep) {
+      const courses = await courseService.getAll();
+      rep.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
     method: HttpMethod.POST,
     url: CoursesApiPath.ROOT,
     schema: {

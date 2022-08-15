@@ -31,9 +31,9 @@ const Dashboard: FC = () => {
   };
 
   return (
-    <div className={styles.headerWrapper}>
+    <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Courses</h1>
+        <h1 className={styles.headerTitle}>Course</h1>
         <Button label="+ Add new course" onClick={handleNewCourseModalToggle} />
         <AddCourseModal
           isModalOpen={isNewCourseModalOpen}

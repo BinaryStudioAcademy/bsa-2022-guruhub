@@ -8,7 +8,7 @@ import {
 import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
-  CourseGetResponseDto,
+  CourseGetResponseDto[],
   void,
   AsyncThunkConfig
 >(ActionType.GET_COURSES, async (_request, { extra }) => {

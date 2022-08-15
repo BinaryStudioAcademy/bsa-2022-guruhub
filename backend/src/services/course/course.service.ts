@@ -24,6 +24,10 @@ class Course {
     this.#udemyService = udemyService;
   }
 
+  async getAll(): Promise<CourseGetResponseDto[]> {
+    return this.#courseRepository.getAll();
+  }
+
   async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {

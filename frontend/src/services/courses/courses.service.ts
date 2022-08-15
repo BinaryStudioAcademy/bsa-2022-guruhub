@@ -21,7 +21,7 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  getAll(): Promise<CourseGetResponseDto> {
+  getAll(): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
       {

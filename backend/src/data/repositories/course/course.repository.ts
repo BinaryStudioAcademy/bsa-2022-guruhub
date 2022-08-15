@@ -12,6 +12,10 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
+  async getAll(): Promise<CourseM[]> {
+    return this.#CourseModel.query();
+  }
+
   async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {
     const { title, description, url, vendorId, courseCategoryId } = course;
 

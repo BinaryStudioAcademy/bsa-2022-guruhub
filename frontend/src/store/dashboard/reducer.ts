@@ -20,7 +20,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses.push(payload);
+    state.courses = payload;
   });
   builder.addCase(getCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
