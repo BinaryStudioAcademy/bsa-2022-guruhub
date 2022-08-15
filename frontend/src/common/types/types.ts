@@ -1,5 +1,9 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  type CourseCreateRequestDto,
+  type CourseGetResponseDto,
+} from './course/course';
+export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
