@@ -14,7 +14,7 @@ type Props = {
 const GroupsTable: FC<Props> = ({ columns, data }: Props) => {
   const navigate = useNavigate();
 
-  const onAddGroupClick = (): void => {
+  const handleAddGroupClick = (): void => {
     navigate(AppRoute.UAM_CREATE_GROUP);
   };
 
@@ -22,7 +22,7 @@ const GroupsTable: FC<Props> = ({ columns, data }: Props) => {
     <div className={styles.groupsTable}>
       <div className={styles.groupTableHeadingPanel}>
         <h1 className={styles.groupsTableHeading}>Groups</h1>
-        <Button label="Add Group" type="button" onClick={onAddGroupClick} />
+        <Button label="Add Group" type="button" onClick={handleAddGroupClick} />
       </div>
       <Table data={data} columns={columns} />
     </div>

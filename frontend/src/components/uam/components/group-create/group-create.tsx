@@ -1,4 +1,4 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
 import { FC, GroupsCreateRequestDto } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
 import {
@@ -8,7 +8,6 @@ import {
   useEffect,
   useNavigate,
 } from 'hooks/hooks';
-import { batch } from 'react-redux';
 import { uamActions } from 'store/actions';
 import { groupCreate } from 'validation-schemas/validation-schemas';
 
@@ -20,8 +19,7 @@ import styles from './styles.module.scss';
 
 const UAMGroupsCreate: FC = () => {
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.uam);
-  const { permissions } = useAppSelector((state) => state.uam);
+  const { users, permissions } = useAppSelector((state) => state.uam);
   const navigate = useNavigate();
   const { register, control, handleSubmit, errors } =
     useAppForm<GroupsCreateRequestDto>({
@@ -38,10 +36,13 @@ const UAMGroupsCreate: FC = () => {
   };
 
   useEffect(() => {
-    batch(() => {
-      dispatch(uamActions.getUsers({ page: 1, count: 10 }));
-      dispatch(uamActions.getPermissions());
-    });
+    dispatch(
+      uamActions.getUsers({
+        page: PaginationDefaultValue.DEFAULT_PAGE,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+    dispatch(uamActions.getPermissions());
   }, []);
 
   const useFormData = {
@@ -70,7 +71,7 @@ const UAMGroupsCreate: FC = () => {
           <div className={styles.btnsWrapper}>
             <Button
               type="button"
-              inversedStyles
+              hasInversedStyles
               label="Cancel"
               onClick={handleCancelClick}
             />

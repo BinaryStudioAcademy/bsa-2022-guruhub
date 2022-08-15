@@ -9,13 +9,13 @@ type Props = {
   label: string;
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
-  inversedStyles?: boolean;
+  hasInversedStyles?: boolean;
   to?: AppRoute;
   onClick?: () => void;
 };
 
 const Button: FC<Props> = ({
-  inversedStyles = false,
+  hasInversedStyles = false,
   type = 'button',
   btnColor = 'blue',
   label,
@@ -29,7 +29,7 @@ const Button: FC<Props> = ({
       <Link
         to={to as AppRoute}
         className={
-          inversedStyles
+          hasInversedStyles
             ? getValidClasses(styles.button, styles.inversedStyles)
             : styles.button
         }
@@ -43,7 +43,7 @@ const Button: FC<Props> = ({
     <button
       type={type}
       className={
-        inversedStyles
+        hasInversedStyles
           ? getValidClasses(
               styles.button,
               styles[`button-${btnColor}`],
