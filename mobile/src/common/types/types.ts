@@ -20,6 +20,7 @@ export {
   type RootNavigationScreenProps,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
+export { type PermissionItem } from './permission/permission';
 export { type AppTextStyle } from './ui/ui';
 export {
   type UsersByIdResponseDto,
@@ -27,5 +28,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

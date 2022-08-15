@@ -34,13 +34,13 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.OVERVIEW,
         icon: 'home',
         component: Overview,
-        permissions: ['uac'],
+        permissions: [],
       },
       {
         name: AppScreenName.COURSES,
         icon: 'book',
         component: Courses,
-        permissions: ['uac'],
+        permissions: [],
       },
       {
         name: AppScreenName.MENTORS,

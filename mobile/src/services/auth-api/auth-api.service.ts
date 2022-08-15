@@ -5,11 +5,11 @@ import {
   HttpMethod,
 } from '~/common/enums/enums';
 import {
-  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -52,7 +52,7 @@ class AuthApi {
     );
   }
 
-  getCurrentUser(): Promise<UsersByIdResponseDto> {
+  getCurrentUser(): Promise<UserWithPermissions> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
     );
