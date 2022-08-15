@@ -1,7 +1,9 @@
+import searchIcon from 'assets/img/search-icon.svg';
 import { FC } from 'common/types/types';
 import { useState } from 'hooks/hooks';
 import { coursesApi } from 'services/services';
 
+import { SearchIcon } from './components/search-icon/search-icon';
 import styles from './styles.module.scss';
 
 const SearchBar: FC = () => {
@@ -14,6 +16,7 @@ const SearchBar: FC = () => {
 
   return (
     <div className={styles.searchWrapper}>
+      <SearchIcon src={searchIcon} alt="search" />
       <input
         type="text"
         className={styles.searchfield}
