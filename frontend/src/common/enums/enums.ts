@@ -12,3 +12,4 @@ export { HttpHeader, HttpMethod } from './http/http';
 export { NotificationType } from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { VendorKey } from './vendor/vendor';

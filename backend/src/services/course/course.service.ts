@@ -25,7 +25,24 @@ class Course {
   }
 
   async getAll(): Promise<CourseGetResponseDto[]> {
-    return this.#courseRepository.getAll();
+    const courses = await this.#courseRepository.getAll();
+
+    return Promise.all(
+      courses.map(async (course) => {
+        const vendor = await this.#vendorService.getById(course.vendorId);
+
+        if (!vendor) {
+          throw new CoursesError({
+            message: ExceptionMessage.INVALID_COURSE_VENDOR,
+          });
+        }
+
+        return {
+          ...course,
+          vendorKey: vendor.key as VendorKey,
+        };
+      }),
+    );
   }
 
   async create(
@@ -48,7 +65,10 @@ class Course {
       vendorId: vendor.id,
     });
 
-    return course;
+    return {
+      ...course,
+      vendorKey,
+    };
   }
 
   async createByUrl(url: string): Promise<CourseGetResponseDto | null> {

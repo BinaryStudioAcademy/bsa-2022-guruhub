@@ -1,4 +1,8 @@
 .container {
+  position: relative;
+}
+
+.content {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -37,4 +41,56 @@
   float: right;
   margin: 10px 0;
   color: var(--typography-text-100-inverse);
+}
+
+.vendor {
+  position: absolute;
+  top: 30px;
+  padding: 8px 11px;
+  background-color: var(--typography-text-100-inverse);
+  border-radius: 0 12px 12px 0;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+}
+
+.ratingNumber {
+  margin-right: 10px;
+}
+
+.numOfVotes {
+  margin-left: 10px;
+}
+
+.rating {
+  width: 10px;
+  text-shadow:
+    -1px 0 var(--typography-text-gray-200),
+    0 1px var(--typography-text-gray-200),
+    1px 0 var(--typography-text-gray-200),
+    0 -1px var(--typography-text-gray-200);
+}
+
+.ratingEmpty {
+  color: var(--background-gray-100);
+}
+
+.level {
+  position: absolute;
+  top: 130px;
+  left: 21px;
+  display: flex;
+  align-items: baseline;
+  padding: 4px 13px;
+  background-color: var(--typography-text-100-inverse);
+  border-radius: 12.5px;
+}
+
+.levelTitle {
+  margin: 0;
 }

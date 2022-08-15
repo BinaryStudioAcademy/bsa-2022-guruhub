@@ -10,7 +10,11 @@ const Courses: FC = () => {
   return (
     <div className={styles.container}>
       {courses.map((course) => (
-        <Course key={course.id} title={course.title} />
+        <Course
+          key={course.id}
+          title={course.title}
+          vendor={course.vendorKey}
+        />
       ))}
     </div>
   );

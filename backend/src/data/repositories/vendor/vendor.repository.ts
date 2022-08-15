@@ -12,6 +12,16 @@ class Vendor {
     this.#VendorModel = VendorModel;
   }
 
+  async getById(id: number): Promise<VendorM | null> {
+    const vendor = await this.#VendorModel
+      .query()
+      .select()
+      .where({ id })
+      .first();
+
+    return vendor ?? null;
+  }
+
   async getByKey(key: VendorKey): Promise<VendorM | null> {
     const vendor = await this.#VendorModel
       .query()
