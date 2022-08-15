@@ -6,12 +6,12 @@ import {
   PermissionsGetAllItemResponseDto,
 } from 'common/types/types';
 import { ErrorMessage, Table } from 'components/common/common';
+import { PermissionsTableRow } from 'components/uam/common/types/types';
+import { useMemo } from 'hooks/hooks';
+import { Column } from 'react-table';
 
 import { GroupCreationFieldsName } from '../../common/enums/enums';
-import {
-  getPermissionsColumns,
-  getPermissionsRows,
-} from '../../helpers/helpers';
+import { getPermissionsColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -24,8 +24,12 @@ type Props = {
 };
 
 const PermissionsTable: FC<Props> = ({ permissions, useFormData }) => {
-  const permissionColumns = getPermissionsColumns();
-  const permissionRows = getPermissionsRows(permissions, useFormData);
+  const columns = useMemo<Column<PermissionsTableRow>[]>(() => {
+    return getPermissionsColumns(useFormData.control, {
+      register: useFormData.register,
+      name: GroupCreationFieldsName.PERMISSION_IDS,
+    });
+  }, []);
 
   return (
     <div className={styles.groupPermissions}>
@@ -36,7 +40,7 @@ const PermissionsTable: FC<Props> = ({ permissions, useFormData }) => {
           name={GroupCreationFieldsName.PERMISSION_IDS}
         />
       </span>
-      <Table data={permissionRows} columns={permissionColumns} />
+      <Table data={permissions} columns={columns} />
     </div>
   );
 };

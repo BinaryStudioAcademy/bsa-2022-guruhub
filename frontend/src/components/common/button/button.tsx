@@ -28,11 +28,10 @@ const Button: FC<Props> = ({
     return (
       <Link
         to={to as AppRoute}
-        className={
-          hasInversedStyles
-            ? getValidClasses(styles.button, styles.inversedStyles)
-            : styles.button
-        }
+        className={getValidClasses(
+          styles.button,
+          hasInversedStyles && styles.inversedStyles,
+        )}
       >
         {label}
       </Link>
@@ -42,15 +41,11 @@ const Button: FC<Props> = ({
   return (
     <button
       type={type}
-      className={
-        hasInversedStyles
-          ? getValidClasses(
-              styles.button,
-              styles[`button-${btnColor}`],
-              styles.inversedStyles,
-            )
-          : getValidClasses(styles.button, styles[`button-${btnColor}`])
-      }
+      className={getValidClasses(
+        styles.button,
+        styles[`button-${btnColor}`],
+        hasInversedStyles && styles.inversedStyles,
+      )}
       onClick={onClick}
     >
       {label}
