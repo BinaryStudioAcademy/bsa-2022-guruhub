@@ -1,3 +1,6 @@
+import { QueryBuilder } from 'objection';
+
+import { VendorKey } from '~/common/enums/enums';
 import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -12,8 +15,13 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  async getAll(): Promise<CourseM[]> {
-    return this.#CourseModel.query();
+  async getAll(): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+    return this.#CourseModel
+      .query()
+      .join('vendors', 'vendors.id', 'courses.vendorId')
+      .select('courses.*', 'vendors.key as vendorKey') as QueryBuilder<
+      CourseM & { vendorKey: VendorKey }
+    >;
   }
 
   async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {

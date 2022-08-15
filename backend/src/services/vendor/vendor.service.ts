@@ -13,12 +13,6 @@ class Vendor {
     this.#vendorRepository = vendorRepository;
   }
 
-  async getById(id: number): Promise<VendorGetResponseDto | null> {
-    const vendor = await this.#vendorRepository.getById(id);
-
-    return vendor ?? null;
-  }
-
   async getByKey(key: VendorKey): Promise<VendorGetResponseDto | null> {
     const vendor = await this.#vendorRepository.getByKey(key);
 
