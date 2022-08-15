@@ -5,7 +5,7 @@ import { CellProps } from 'react-table';
 import {
   PermissionsTableActionsProps,
   PermissionsTableRow,
-} from '../../../../common/types/types';
+} from '../../common/types/types';
 
 const PermissionsActionsCell: FC<
   CellProps<PermissionsTableRow, PermissionsTableActionsProps>

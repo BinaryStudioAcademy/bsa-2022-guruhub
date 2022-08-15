@@ -5,12 +5,12 @@ import {
   FormControlRegister,
   PermissionsGetAllItemResponseDto,
 } from 'common/types/types';
-import { ErrorMessage, Table } from 'components/common/common';
-import { PermissionsTableRow } from 'components/uam/common/types/types';
+import { Table } from 'components/common/common';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
 import { GroupCreationFieldsName } from '../../common/enums/enums';
+import { PermissionsTableRow } from '../../common/types/types';
 import { getPermissionsColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
 
@@ -34,12 +34,6 @@ const PermissionsTable: FC<Props> = ({ permissions, useFormData }) => {
   return (
     <div className={styles.groupPermissions}>
       <p className={styles.groupSubHeading}>Attach permissions policies</p>
-      <span className={styles.errorMessage}>
-        <ErrorMessage
-          errors={useFormData.errors}
-          name={GroupCreationFieldsName.PERMISSION_IDS}
-        />
-      </span>
       <Table data={permissions} columns={columns} />
     </div>
   );

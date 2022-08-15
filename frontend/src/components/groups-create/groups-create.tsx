@@ -6,9 +6,8 @@ import {
   useAppForm,
   useAppSelector,
   useEffect,
-  useNavigate,
 } from 'hooks/hooks';
-import { uamActions } from 'store/actions';
+import { groupsCreationActions, uamActions } from 'store/actions';
 import { groupCreate } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CREATE_GROUP_PAYLOAD } from './common/default-create-group-payload';
@@ -19,20 +18,16 @@ import styles from './styles.module.scss';
 
 const UAMGroupsCreate: FC = () => {
   const dispatch = useAppDispatch();
-  const { users, permissions } = useAppSelector((state) => state.uam);
-  const navigate = useNavigate();
+  const { users, permissions } = useAppSelector((state) => state.groupsCreate);
   const { register, control, handleSubmit, errors } =
     useAppForm<GroupsCreateRequestDto>({
       defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
       validationSchema: groupCreate,
     });
 
-  const handleCancelClick = (): void => {
-    navigate(AppRoute.UAM);
-  };
-
   const onSubmit = (data: GroupsCreateRequestDto): void => {
-    dispatch(uamActions.createGroup(data));
+    alert(JSON.stringify(data));
+    //dispatch(groupsCreationActions.createGroup(data));
   };
 
   useEffect(() => {
@@ -42,7 +37,7 @@ const UAMGroupsCreate: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-    dispatch(uamActions.getPermissions());
+    dispatch(groupsCreationActions.getPermissions());
   }, []);
 
   const useFormData = {
@@ -60,10 +55,10 @@ const UAMGroupsCreate: FC = () => {
         <Input
           control={control}
           errors={errors}
-          label={'Group name'}
+          label="Group name"
           name={GroupCreationFieldsName.NAME}
-          placeholder={'Enter group name'}
-          type={'text'}
+          placeholder="Enter group name"
+          type="text"
         />
         <UsersTable users={users.items} useFormData={useFormData} />
         <PermissionsTable permissions={permissions} useFormData={useFormData} />
@@ -71,9 +66,9 @@ const UAMGroupsCreate: FC = () => {
           <div className={styles.btnsWrapper}>
             <Button
               type="button"
-              hasInversedStyles
+              btnType="outlined"
               label="Cancel"
-              onClick={handleCancelClick}
+              to={AppRoute.UAM}
             />
             <Button type="submit" label="Create" />
           </div>

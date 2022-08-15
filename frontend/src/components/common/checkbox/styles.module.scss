@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.checkboxWrapper input[type='checkbox'] {
+.checkbox {
   width: 20px;
   height: 20px;
   border: 2px solid var(--brand-blue-100);
@@ -14,12 +14,12 @@
   appearance: none;
 }
 
-.checkboxWrapper input:checked {
+.checkbox:checked {
   position: relative;
   background-color: var(--brand-blue-100);
 }
 
-.checkboxWrapper input:checked::before {
+.checkbox:checked::before {
   content: '\2713';
   position: absolute;
   top: -4px;

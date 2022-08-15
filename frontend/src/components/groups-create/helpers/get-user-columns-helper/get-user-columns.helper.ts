@@ -9,7 +9,7 @@ import { Column } from 'react-table';
 import {
   GroupCreationUsersTableActionsProps,
   GroupCreationUsersTableRow,
-} from '../../../../common/types/types';
+} from '../../common/types/types';
 import { UserActionCell } from '../../components/components';
 
 type UseFormRegisterEntities = {

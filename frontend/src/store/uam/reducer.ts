@@ -7,13 +7,7 @@ import {
   UsersGetResponseDto,
 } from 'common/types/types';
 
-import {
-  createGroup,
-  deleteUser,
-  getGroups,
-  getPermissions,
-  getUsers,
-} from './actions';
+import { deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -57,17 +51,6 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(createGroup.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(createGroup.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.groups = [...state.groups, action.payload];
-  });
-  builder.addCase(createGroup.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-
   builder.addCase(deleteUser.pending, (state) => {
     state.userDeleteDataStatus = DataStatus.PENDING;
   });
@@ -80,17 +63,6 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(deleteUser.rejected, (state) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;
-  });
-
-  builder.addCase(getPermissions.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(getPermissions.fulfilled, (state, { payload }) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.permissions = payload.items;
-  });
-  builder.addCase(getPermissions.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
   });
 });
 

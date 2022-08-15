@@ -5,11 +5,11 @@ import {
 } from 'common/types/types';
 import { Column } from 'react-table';
 
+import { PermissionTableAccessor } from '../../common/enums/enums';
 import {
   PermissionsTableActionsProps,
   PermissionsTableRow,
-} from '../../../../common/types/types';
-import { PermissionTableAccessor } from '../../common/enums/enums';
+} from '../../common/types/types';
 import { PermissionsActionsCell } from '../../components/components';
 
 type UseFormRegisterEntities = {

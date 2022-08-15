@@ -6,11 +6,11 @@ import {
   UsersGetResponseDto,
 } from 'common/types/types';
 import { Table } from 'components/common/common';
-import { GroupCreationUsersTableRow } from 'components/uam/common/types/types';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
 import { GroupCreationFieldsName } from '../../common/enums/enums';
+import { GroupCreationUsersTableRow } from '../../common/types/types';
 import { getUserColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
 

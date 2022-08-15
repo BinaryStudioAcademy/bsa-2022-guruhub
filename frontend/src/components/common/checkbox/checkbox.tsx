@@ -21,6 +21,7 @@ const Checkbox: FC<Props> = ({ id, name, register, control }) => {
   return (
     <div className={styles.checkboxWrapper}>
       <input
+        className={styles.checkbox}
         {...register(name, {
           required: true,
         })}

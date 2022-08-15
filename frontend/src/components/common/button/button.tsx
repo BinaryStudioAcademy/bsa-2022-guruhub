@@ -9,13 +9,13 @@ type Props = {
   label: string;
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
-  hasInversedStyles?: boolean;
+  btnType?: 'filled' | 'outlined';
   to?: AppRoute;
   onClick?: () => void;
 };
 
 const Button: FC<Props> = ({
-  hasInversedStyles = false,
+  btnType = 'filled',
   type = 'button',
   btnColor = 'blue',
   label,
@@ -30,7 +30,7 @@ const Button: FC<Props> = ({
         to={to as AppRoute}
         className={getValidClasses(
           styles.button,
-          hasInversedStyles && styles.inversedStyles,
+          btnType === 'outlined' && styles.outlined,
         )}
       >
         {label}
@@ -44,7 +44,7 @@ const Button: FC<Props> = ({
       className={getValidClasses(
         styles.button,
         styles[`button-${btnColor}`],
-        hasInversedStyles && styles.inversedStyles,
+        btnType === 'outlined' && styles.outlined,
       )}
       onClick={onClick}
     >
