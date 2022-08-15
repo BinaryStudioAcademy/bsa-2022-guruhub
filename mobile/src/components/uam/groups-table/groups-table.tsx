@@ -10,14 +10,14 @@ import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
-  const { groups } = useAppSelector((state) => state.uam);
+  const { items } = useAppSelector((state) => state.uam.groups);
 
   useEffect(() => {
     dispatch(uamActions.getGroups());
   }, [dispatch]);
 
   const groupsColumns = getGroupsColumns();
-  const groupsRows = getGroupsRows(groups);
+  const groupsRows = getGroupsRows(items);
 
   const { width } = useWindowDimensions();
 
