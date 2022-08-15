@@ -26,15 +26,19 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     subroutes: [
       {
         name: AppScreenName.OVERVIEW,
+        icon: 'home',
       },
       {
         name: AppScreenName.COURSES,
+        icon: 'book',
       },
       {
         name: AppScreenName.MENTORS,
+        icon: 'mentors',
       },
       {
         name: AppScreenName.MY_EDUCATION,
+        icon: 'education',
       },
     ],
   },
@@ -43,9 +47,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     subroutes: [
       {
         name: AppScreenName.BILLING,
+        icon: 'billing',
       },
       {
         name: AppScreenName.SETTINGS,
+        icon: 'settings',
       },
       {
         name: AppScreenName.UAM,

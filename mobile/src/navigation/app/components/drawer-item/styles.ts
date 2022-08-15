@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
+
     minWidth: 225,
     height: 54,
     marginBottom: 5,
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     fontFamily: AppFontFamily.INTER_500,
     fontSize: 16,
   },
-  icon: {
+  iconContainer: {
     marginRight: 12,
   },
 });
