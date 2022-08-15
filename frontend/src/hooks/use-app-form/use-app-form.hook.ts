@@ -14,8 +14,8 @@ type UseAppFormArgs = {
 };
 
 type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
-  register: FormControlRegister;
   control: FormControl;
+  register: FormControlRegister;
   errors: FormControlErrors;
   handleSubmit: UseFormHandleSubmit<T>;
 };

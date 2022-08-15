@@ -26,7 +26,6 @@ const getPermissionsRows = (
         <Checkbox
           id={permission.id}
           name={GroupCreationFieldsName.PERMISSION_IDS}
-          errorMessage={'Permissions checkboxes can not be empty'}
           register={useFormData.register}
           control={useFormData.control}
         />

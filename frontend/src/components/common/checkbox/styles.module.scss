@@ -14,12 +14,12 @@
   appearance: none;
 }
 
-.checked {
+.checkboxWrapper input:checked {
   position: relative;
   background-color: var(--brand-blue-100);
 }
 
-.checked::before {
+.checkboxWrapper input:checked::before {
   content: '\2713';
   position: absolute;
   top: -4px;

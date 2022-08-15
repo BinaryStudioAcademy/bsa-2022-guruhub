@@ -1,6 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC, GroupsCreateRequestDto } from 'common/types/types';
-import { Button } from 'components/common/common';
+import { Button, ErrorMessage } from 'components/common/common';
 import {
   useAppDispatch,
   useAppForm,
@@ -10,8 +10,10 @@ import {
 } from 'hooks/hooks';
 import { batch } from 'react-redux';
 import { uamActions } from 'store/actions';
+import { groupCreate } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CREATE_GROUP_PAYLOAD } from './common/default-create-group-payload';
+import { GroupCreationFieldsName } from './common/enums/enums';
 import { PermissionsTable } from './components/permissions-table/permissions-table';
 import { UsersTable } from './components/users-table/users-table';
 import styles from './styles.module.scss';
@@ -24,6 +26,7 @@ const UAMGroupsCreate: FC = () => {
   const { register, control, handleSubmit, errors } =
     useAppForm<GroupsCreateRequestDto>({
       defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
+      validationSchema: groupCreate,
     });
 
   const handleCancelClick = (): void => {
@@ -44,7 +47,7 @@ const UAMGroupsCreate: FC = () => {
   };
 
   const onSubmit = (data: GroupsCreateRequestDto): void => {
-    alert(JSON.stringify(data)); // just to show what we get from form
+    alert(JSON.stringify(data));
   };
 
   return (
@@ -53,17 +56,23 @@ const UAMGroupsCreate: FC = () => {
         <div className={styles.groupFormHeaderWrapper}>
           <h2 className={styles.groupFormHeading}>Create group</h2>
         </div>
+        <span className={styles.errorMessage}>
+          <ErrorMessage
+            errors={useFormData.errors}
+            name={GroupCreationFieldsName.NAME}
+          />
+        </span>
         <UsersTable users={users.items} useFormData={useFormData} />
         <PermissionsTable permissions={permissions} useFormData={useFormData} />
         <div className={styles.btnsBlock}>
           <div className={styles.btnsWrapper}>
             <Button
-              type="button"
+              type={'button'}
               inversedStyles={true}
-              label="Cancel"
+              label={'Cancel'}
               onClick={handleCancelClick}
             />
-            <Button type="submit" label="Create" />
+            <Button type={'submit'} label="Create" />
           </div>
         </div>
       </form>

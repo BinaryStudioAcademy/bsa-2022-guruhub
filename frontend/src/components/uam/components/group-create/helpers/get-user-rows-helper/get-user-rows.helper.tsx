@@ -23,7 +23,6 @@ const getUserRows = (
       <Checkbox
         id={user.id}
         name={GroupCreationFieldsName.USER_IDS}
-        errorMessage={'Users checkboxes can not be empty'}
         register={useFormData.register}
         control={useFormData.control}
       />
