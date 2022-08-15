@@ -9,8 +9,8 @@ import { PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
 const checkHasPermissions =
-  (...pagePermissions: PermissionKey[]) =>
-  async (req: FastifyRequest): Promise<void> => {
+  <T>(...pagePermissions: PermissionKey[]) =>
+  async (req: FastifyRequest<T>): Promise<void> => {
     const { user } = req;
     const hasUser = Boolean(user);
 
