@@ -1,2 +1,2 @@
 export { ENV } from './app/app';
-export { AssertionConstants } from './assertion/assertion';
+export { AssertionConstant } from './assertion/assertion';

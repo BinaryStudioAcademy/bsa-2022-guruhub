@@ -1,4 +1,4 @@
-import { AssertionConstants } from '~/lib/common/enums/enums';
+import { AssertionConstant } from '~/lib/common/enums/enums';
 import { Response } from '~/lib/common/types/types';
 
 const chaiHttp: Chai.ChaiPlugin = ({ Assertion }) => {
@@ -19,10 +19,10 @@ const chaiHttp: Chai.ChaiPlugin = ({ Assertion }) => {
 
     this.assert(
       response.durationMs <=
-        AssertionConstants.RESPONSE_NORMAL_EXECUTION_TIME_MS,
+        AssertionConstant.RESPONSE_NORMAL_EXECUTION_TIME_MS,
       'Expected response to have execution time less or equal to #{exp}ms, but got #{act}ms',
       'Expected response to have execution time more than #{exp}ms, but got #{act}ms',
-      AssertionConstants.RESPONSE_NORMAL_EXECUTION_TIME_MS,
+      AssertionConstant.RESPONSE_NORMAL_EXECUTION_TIME_MS,
       response.durationMs,
     );
   });

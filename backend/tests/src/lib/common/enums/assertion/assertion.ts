@@ -1,1 +1,1 @@
-export { AssertionConstants } from './assertion-constants.enum';
+export { AssertionConstant } from './assertion-constant.enum';
