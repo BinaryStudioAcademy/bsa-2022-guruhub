@@ -12,3 +12,17 @@ properties:
   createdAt:
     type: string
     example: 2022-08-09T08:20:47.167Z
+  permissions:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        key:
+          type: string
+          example: manage_uam
+        name:
+          type: string
+          example: Manage UAM
