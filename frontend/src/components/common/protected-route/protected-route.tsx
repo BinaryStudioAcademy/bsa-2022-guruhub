@@ -1,9 +1,15 @@
-import { AppRoute, PermissionKey } from 'common/enums/enums';
+import {
+  AppRoute,
+  ExceptionMessage,
+  NotificationType,
+  PermissionKey,
+} from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Navigate } from 'components/common/common';
 import { checkHasPermission } from 'helpers/helpers';
-import { useAppSelector } from 'hooks/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { ReactNode } from 'react';
+import { appActions } from 'store/actions';
 
 type Props = {
   redirectTo?: AppRoute;
@@ -17,6 +23,7 @@ const ProtectedRoute: FC<Props> = ({
   permissions = [],
 }) => {
   const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   const hasUser = Boolean(user);
   const hasUserPermission = checkHasPermission({
@@ -25,6 +32,15 @@ const ProtectedRoute: FC<Props> = ({
   });
 
   if (!hasUser || !hasUserPermission) {
+    if (!hasUserPermission) {
+      dispatch(
+        appActions.notify({
+          type: NotificationType.ERROR,
+          message: ExceptionMessage.PERMISSION_LACK,
+        }),
+      );
+    }
+
     return <Navigate to={redirectTo} />;
   }
 
