@@ -1,13 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/common/enums/enums';
-import { EntityPagination, GroupsItemResponseDto } from '~/common/types/types';
+import {
+  EntityPagination,
+  GroupsItemResponseDto,
+  UsersGetResponseDto,
+} from '~/common/types/types';
 
-import { getGroups } from './actions';
+import { deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   groups: EntityPagination<GroupsItemResponseDto>;
+  users: EntityPagination<UsersGetResponseDto>;
+  userDeleteDataStatus: DataStatus;
 };
 
 const initialState: State = {
@@ -16,6 +22,18 @@ const initialState: State = {
     items: [],
     total: 0,
   },
+  users: {
+    items: [
+      {
+        id: 1,
+        email: 'john.doe@gmail.com',
+        fullName: 'Fullname',
+        createdAt: 'today',
+      },
+    ],
+    total: 0,
+  },
+  userDeleteDataStatus: DataStatus.IDLE,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -28,6 +46,31 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getGroups.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(getUsers.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getUsers.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.users = action.payload;
+  });
+  builder.addCase(getUsers.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(deleteUser.pending, (state) => {
+    state.userDeleteDataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
+    state.users = {
+      items: state.users.items.filter((item) => item.id !== payload),
+      total: --state.users.total,
+    };
+    state.userDeleteDataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(deleteUser.rejected, (state) => {
+    state.userDeleteDataStatus = DataStatus.REJECTED;
   });
 });
 
