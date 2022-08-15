@@ -1,23 +1,48 @@
-import { AppRoute } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import {
+  AppRoute,
+  ExceptionMessage,
+  NotificationType,
+  PermissionKey,
+} from 'common/enums/enums';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Navigate } from 'components/common/common';
-import { useAppSelector } from 'hooks/hooks';
-import { ReactNode } from 'react';
+import { checkHasPermission } from 'helpers/helpers';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { ReactNode, useEffect } from 'react';
+import { appActions } from 'store/actions';
 
 type Props = {
   redirectTo?: AppRoute;
   component: ReactNode;
+  permissions?: PermissionKey[];
 };
 
 const ProtectedRoute: FC<Props> = ({
   redirectTo = AppRoute.SIGN_IN,
   component,
+  permissions = [],
 }) => {
   const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   const hasUser = Boolean(user);
+  const hasUserPermission = checkHasPermission({
+    permissionKeys: permissions,
+    userPermissions: (user as UserWithPermissions).permissions,
+  });
 
-  if (!hasUser) {
+  useEffect(() => {
+    if (!hasUserPermission) {
+      dispatch(
+        appActions.notify({
+          type: NotificationType.ERROR,
+          message: ExceptionMessage.PERMISSION_LACK,
+        }),
+      );
+    }
+  }, [dispatch, hasUserPermission]);
+
+  if (!hasUser || !hasUserPermission) {
     return <Navigate to={redirectTo} />;
   }
 

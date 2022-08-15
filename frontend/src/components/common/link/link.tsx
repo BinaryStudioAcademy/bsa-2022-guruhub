@@ -6,10 +6,11 @@ import styles from './styles.module.scss';
 
 type Props = {
   to: AppRoute;
+  className?: string;
 };
 
-const Link: FC<Props> = ({ children, to }) => (
-  <NavLink to={to} className={styles.link}>
+const Link: FC<Props> = ({ children, to, className }) => (
+  <NavLink to={to} className={className ?? styles.link}>
     {children}
   </NavLink>
 );

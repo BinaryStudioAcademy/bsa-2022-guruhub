@@ -2,7 +2,7 @@
 '*': npm run lint:editorconfig && npm run lint:fs
 'shared/**/*.ts': npm run lint:shared:js
 'backend/**/*.ts': npm run lint:backend:js
-'backend/tests/**/*.{js,ts}': npm run lint:backend:tests:js
+'backend/tests/**/*.ts': npm run lint:backend:tests:js
 'frontend/**/*.scss': npm run lint:frontend:css
 'frontend/**/*.{ts,tsx}': npm run lint:frontend:js
 'mobile/**/*.{ts,tsx}': npm run lint:mobile:js

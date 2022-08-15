@@ -9,6 +9,7 @@ import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
 import { Overview } from '~/components/overview/overview';
 import { Settings } from '~/components/setting/setting';
+import { UAM } from '~/components/uam/uam';
 
 import { SCREEN_OPTIONS } from './common/constants';
 import { DrawerContent } from './components/components';
@@ -31,6 +32,7 @@ const App: FC = () => {
       />
       <Drawer.Screen name={AppScreenName.BILLING} component={Billing} />
       <Drawer.Screen name={AppScreenName.SETTINGS} component={Settings} />
+      <Drawer.Screen name={AppScreenName.UAM} component={UAM} />
     </Drawer.Navigator>
   );
 };

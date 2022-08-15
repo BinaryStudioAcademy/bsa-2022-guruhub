@@ -12,6 +12,9 @@ const {
   DB_POOL_MAX,
   DB_DIALECT,
   SECRET_KEY,
+  UDEMY_CLIENT_ID,
+  UDEMY_CLIENT_SECRET,
+  UDEMY_BASE_URL,
 } = process.env;
 
 const ENV = {
@@ -32,6 +35,11 @@ const ENV = {
     SECRET: SECRET_KEY as string,
     EXPIRES_IN: '24h',
     ALG: 'HS256',
+  },
+  UDEMY: {
+    BASE_URL: UDEMY_BASE_URL as string,
+    CLIENT_ID: UDEMY_CLIENT_ID as string,
+    CLIENT_SECRET: UDEMY_CLIENT_SECRET as string,
   },
 };
 
