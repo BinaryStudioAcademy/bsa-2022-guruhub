@@ -18,10 +18,8 @@ import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.dashboard);
+  const { categories, dataStatus } = useAppSelector((state) => state.dashboard);
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
-
-  const { dataStatus } = useAppSelector((state) => state.dashboard);
 
   useEffect(() => {
     dispatch(dashboardActions.getCourses());
