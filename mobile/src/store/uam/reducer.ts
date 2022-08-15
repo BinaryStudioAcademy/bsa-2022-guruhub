@@ -56,9 +56,11 @@ const reducer = createReducer(initialState, (builder) => {
     state.userDeleteDataStatus = DataStatus.PENDING;
   });
   builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
+    const items = state.users.items.filter((item) => item.id !== payload);
+
     state.users = {
-      items: state.users.items.filter((item) => item.id !== payload),
-      total: --state.users.total,
+      items: items,
+      total: items.length,
     };
     state.userDeleteDataStatus = DataStatus.FULFILLED;
   });

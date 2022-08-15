@@ -1,13 +1,16 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC } from 'react';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
-import { TableColumn } from '~/common/types/ui/ui';
 import { Pagination, Table, Text, View } from '~/components/common/common';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import { getUsersColumns } from '~/components/uam/helpers/helpers';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useState,
+} from '~/hooks/hooks';
 import { uamActions } from '~/store/actions';
 
-import { UsersTableData } from '../common/types/types';
-import { getUsersColumns } from '../helpers/helpers';
 import { ActionCell } from './action-cell';
 import { styles } from './styles';
 
@@ -15,6 +18,17 @@ const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
+
+  const handleUserDelete = (userId: number): void => {
+    dispatch(uamActions.deleteUser({ id: userId }));
+  };
+
+  const usersColumns = getUsersColumns();
+
+  const tableData = users.items.map((user) => ({
+    ...user,
+    action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
+  }));
 
   useEffect(() => {
     dispatch(
@@ -24,19 +38,6 @@ const UsersTable: FC = () => {
       }),
     );
   }, [page]);
-
-  const handleUserDelete = (userId: number): void => {
-    dispatch(uamActions.deleteUser({ id: userId }));
-  };
-
-  const usersColumns = useMemo<TableColumn<UsersTableData>[]>(() => {
-    return getUsersColumns();
-  }, []);
-
-  const tableData = users.items.map((user) => ({
-    ...user,
-    action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
-  }));
 
   return (
     <View>
