@@ -23,6 +23,15 @@ class Course {
       courseCategoryId,
     });
   }
+
+  async getByCategoryId(courseCategoryId: number): Promise<CourseM[] | null> {
+    const courses = await this.#CourseModel
+      .query()
+      .select()
+      .where({ courseCategoryId });
+
+    return courses ?? null;
+  }
 }
 
 export { Course };

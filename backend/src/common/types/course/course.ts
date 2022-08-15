@@ -3,4 +3,5 @@ export { type CourseCreateRequestArgumentsDto } from './course-create-request-ar
 export {
   type CourseCreateRequestDto,
   type CourseGetResponseDto,
+  type CoursesGetByCategoryRequestParamsDto,
 } from 'guruhub-shared/common/types/types';

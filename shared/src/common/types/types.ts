@@ -1,7 +1,9 @@
 export {
   type CourseCreateRequestDto,
   type CourseGetResponseDto,
+  type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
+export { type CourseCategoryGetResponseDto } from './course-category/course-category-get-response-dto.type';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
