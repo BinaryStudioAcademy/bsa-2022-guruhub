@@ -11,8 +11,7 @@ import {
   UserSignUpResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
-
-import { Http } from '../http/http.service';
+import { Http } from 'services/http/http.service';
 
 type Constructor = {
   http: Http;

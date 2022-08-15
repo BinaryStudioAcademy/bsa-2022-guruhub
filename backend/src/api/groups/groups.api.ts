@@ -1,16 +1,19 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import {
+  ControllerHook,
   GroupsApiPath,
   HttpCode,
   HttpMethod,
   PaginationDefaultValue,
+  PermissionKey,
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
 } from '~/common/types/types';
+import { checkHasPermissions } from '~/hooks/hooks';
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
@@ -26,6 +29,10 @@ type Options = {
 
 const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const { group: groupService } = opts.services;
+
+  fastify.addHook(ControllerHook.PRE_HANDLER, async (request) => {
+    await checkHasPermissions(PermissionKey.MANAGE_UAM)(request);
+  });
 
   fastify.route({
     method: HttpMethod.POST,
