@@ -8,7 +8,7 @@ import { FC, UserWithPermissions } from 'common/types/types';
 import { Navigate } from 'components/common/common';
 import { checkHasPermission } from 'helpers/helpers';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { appActions } from 'store/actions';
 
 type Props = {
@@ -31,7 +31,7 @@ const ProtectedRoute: FC<Props> = ({
     userPermissions: (user as UserWithPermissions).permissions,
   });
 
-  if (!hasUser || !hasUserPermission) {
+  useEffect(() => {
     if (!hasUserPermission) {
       dispatch(
         appActions.notify({
@@ -40,7 +40,9 @@ const ProtectedRoute: FC<Props> = ({
         }),
       );
     }
+  }, [dispatch, hasUserPermission]);
 
+  if (!hasUser || !hasUserPermission) {
     return <Navigate to={redirectTo} />;
   }
 
