@@ -29,7 +29,8 @@
     "chai": "4.3.6",
     "chai-json-schema": "1.5.1",
     "dotenv": "16.0.1",
-    "got": "12.3.1",
+    "form-data": "4.0.0",
+    "got": "11.8.5",
     "guruhub-shared": "file:../../shared/build",
     "mocha": "10.0.0"
   }
