@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
+
     minWidth: 225,
     height: 54,
     marginBottom: 5,
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  icon: {
+  iconContainer: {
     marginRight: 12,
   },
 });

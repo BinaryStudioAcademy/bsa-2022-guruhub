@@ -11,7 +11,6 @@
       "~/*": ["./src/*"]
     },
     "moduleResolution": "node",
-    "checkJs": true,
     "noEmit": true,
     "types": ["mocha", "node"],
     "typeRoots": ["./src/typings"]
