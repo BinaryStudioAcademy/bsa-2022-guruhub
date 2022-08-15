@@ -5,7 +5,10 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
-export { GroupsItemResponseDto } from './groups/groups';
+export {
+  GroupsDeleteRequestParamDto,
+  GroupsItemResponseDto,
+} from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,

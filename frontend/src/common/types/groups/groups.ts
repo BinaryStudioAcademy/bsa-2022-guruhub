@@ -1,1 +1,4 @@
-export { GroupsItemResponseDto } from 'guruhub-shared/common/types/types';
+export {
+  GroupsDeleteRequestParamDto,
+  GroupsItemResponseDto,
+} from 'guruhub-shared/common/types/types';
