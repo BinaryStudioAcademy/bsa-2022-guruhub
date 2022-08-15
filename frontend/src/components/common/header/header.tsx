@@ -3,14 +3,15 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { useAppSelector, useState } from 'hooks/hooks';
+import { useAppSelector, useLocation, useState } from 'hooks/hooks';
 
-import { Popup } from './components/components';
+import { Popup, SearchBar } from './components/components';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
   const { user } = useAppSelector((state) => state.auth);
+  const location = useLocation();
 
   const hasUser = Boolean(user);
 
@@ -23,6 +24,7 @@ const Header: FC = () => {
         <div className={styles.logoWrapper}>
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
+        {location.pathname === '/' && <SearchBar />}
         <div className={styles.userWrapper}>
           {hasUser ? (
             <button onClick={handlePopupOpen} className={styles.button}>

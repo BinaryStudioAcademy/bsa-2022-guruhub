@@ -27,6 +27,20 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       return rep.status(HttpCode.CREATED).send(course);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.ROOT,
+    async handler(
+      req: FastifyRequest<{ Querystring: { title: string } }>,
+      rep,
+    ) {
+      const { title } = req.query;
+      const courses = await courseService.findByName(title);
+
+      return rep.status(HttpCode.OK).send(courses);
+    },
+  });
 };
 
 export { initCoursesApi };

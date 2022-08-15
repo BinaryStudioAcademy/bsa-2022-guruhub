@@ -31,6 +31,18 @@ class Courses {
       },
     );
   }
+
+  public getByName(name: string): Promise<CourseGetResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${
+        CoursesApiPath.ROOT
+      }?title=${name}`,
+      {
+        method: HttpMethod.GET,
+        contentType: ContentType.JSON,
+      },
+    );
+  }
 }
 
 export { Courses };

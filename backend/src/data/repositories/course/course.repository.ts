@@ -23,6 +23,10 @@ class Course {
       courseCategoryId,
     });
   }
+
+  async findByName(name: string): Promise<CourseM[]> {
+    return this.#CourseModel.query().where('title', 'like', `%${name}%`);
+  }
 }
 
 export { Course };
