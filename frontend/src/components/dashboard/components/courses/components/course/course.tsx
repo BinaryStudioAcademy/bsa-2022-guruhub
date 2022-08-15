@@ -4,7 +4,11 @@ import { Image } from 'components/common/common';
 
 import styles from './styles.module.scss';
 
-const Course: FC = () => {
+type Props = {
+  title: string;
+};
+
+const Course: FC<Props> = ({ title }) => {
   return (
     <div className={styles.container}>
       <div className={styles.image}>
@@ -16,9 +20,7 @@ const Course: FC = () => {
         />
       </div>
       <div>
-        <h4 className={styles.title}>
-          Complete guide to ASP.NET Core MVC (.NET 6)
-        </h4>
+        <h4 className={styles.title}>{title}</h4>
         <div className={styles.instructor}>
           <Image
             src={defaultUserAvatar}
