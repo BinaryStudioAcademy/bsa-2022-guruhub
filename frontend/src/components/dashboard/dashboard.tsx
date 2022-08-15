@@ -9,17 +9,23 @@ import {
 } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
-import { AddCourseModal, Courses } from './components/components';
+import {
+  AddCourseModal,
+  CategoriesList,
+  Courses,
+} from './components/components';
 import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
+  const dispatch = useAppDispatch();
+  const { categories } = useAppSelector((state) => state.dashboard);
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
 
   const { dataStatus } = useAppSelector((state) => state.dashboard);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(dashboardActions.getCourses());
+    dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 
   if (dataStatus === DataStatus.PENDING) {
@@ -31,14 +37,20 @@ const Dashboard: FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.headerTitle}>Course</h1>
-        <Button label="+ Add new course" onClick={handleNewCourseModalToggle} />
-        <AddCourseModal
-          isModalOpen={isNewCourseModalOpen}
-          onModalToggle={handleNewCourseModalToggle}
-        />
+    <div className={styles.dashboard}>
+      <div className={styles.headerWrapper}>
+        <div className={styles.header}>
+          <h1 className={styles.headingText}>Course</h1>
+          <Button
+            label="+ Add new course"
+            onClick={handleNewCourseModalToggle}
+          />
+          <AddCourseModal
+            isModalOpen={isNewCourseModalOpen}
+            onModalToggle={handleNewCourseModalToggle}
+          />
+        </div>
+        <CategoriesList items={categories} />
       </div>
       <Courses />
     </div>
