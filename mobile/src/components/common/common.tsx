@@ -3,7 +3,6 @@ export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';
 export { Pagination } from './pagination/pagination';
-export { ProtectedRoute } from './protected-route/protected-route';
 export { Search } from './search/search';
 export { Spinner } from './spinner/spinner';
 export { Stack } from './stack/stack';
