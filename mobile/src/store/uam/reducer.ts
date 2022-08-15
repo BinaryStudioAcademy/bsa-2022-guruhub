@@ -23,14 +23,7 @@ const initialState: State = {
     total: 0,
   },
   users: {
-    items: [
-      {
-        id: 1,
-        email: 'john.doe@gmail.com',
-        fullName: 'Fullname',
-        createdAt: 'today',
-      },
-    ],
+    items: [],
     total: 0,
   },
   userDeleteDataStatus: DataStatus.IDLE,

@@ -21,8 +21,8 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
       <Icon
         name={'trash'}
         color={AppColor.TEXT.GRAY_200}
-        width={25}
-        height={25}
+        width={20}
+        height={20}
       />
     </Pressable>
   );
