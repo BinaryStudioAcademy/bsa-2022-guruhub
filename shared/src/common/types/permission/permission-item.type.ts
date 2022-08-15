@@ -1,6 +1,8 @@
+import { PermissionKey } from '~/common/enums/enums';
+
 type PermissionItem = {
   id: number;
-  key: string;
+  key: PermissionKey;
   name: string;
 };
 

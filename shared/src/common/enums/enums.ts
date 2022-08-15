@@ -16,5 +16,6 @@ export {
   PaginationDefaultValue,
   PaginationValidationRule,
 } from './pagination/pagination';
+export { PermissionKey } from './permissions/permissions';
 export { UserValidationMessage, UserValidationRule } from './user/user';
 export { VendorKey } from './vendor/vendor';

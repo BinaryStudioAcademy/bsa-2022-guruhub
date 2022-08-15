@@ -4,6 +4,7 @@ enum CustomExceptionName {
   INVALID_CREDENTIALS = 'InvalidCredentials',
   INVALID_GROUP = 'InvalidGroup',
   INVALID_COURSE = 'InvalidCourse',
+  PERMISSION_ERROR = 'PermissionError',
 }
 
 export { CustomExceptionName };

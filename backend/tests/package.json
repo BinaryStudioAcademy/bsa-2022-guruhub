@@ -6,10 +6,13 @@
     "npm": ">=8.8 <9"
   },
   "scripts": {
-    "lint:js": "npx eslint \"src/**/*.{js,ts}\"",
+    "lint:js": "npx eslint \"src/**/*.ts\"",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:js && npm run lint:type",
     "test": "mocha",
+    "test:development": "node env TESTS_CONFIG=development npm test",
+    "test:staging": "node env TESTS_CONFIG=staging npm test",
+    "test:production": "node env TESTS_CONFIG=production npm test",
     "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
   "devDependencies": {
@@ -26,8 +29,8 @@
     "chai": "4.3.6",
     "chai-json-schema": "1.5.1",
     "dotenv": "16.0.1",
-    "env": "0.0.2",
-    "got": "12.3.1",
+    "form-data": "4.0.0",
+    "got": "11.8.5",
     "guruhub-shared": "file:../../shared/build",
     "mocha": "10.0.0"
   }
