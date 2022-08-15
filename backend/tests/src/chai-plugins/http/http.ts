@@ -1,4 +1,4 @@
-import { AssertionConstants } from '~/lib/common/constants/constants';
+import { AssertionConstants } from '~/lib/common/enums/enums';
 import { Response } from '~/lib/common/types/types';
 
 const chaiHttp: Chai.ChaiPlugin = ({ Assertion }) => {
