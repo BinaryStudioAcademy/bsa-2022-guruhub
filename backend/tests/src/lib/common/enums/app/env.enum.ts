@@ -1,0 +1,143 @@
+import { config } from 'dotenv';
+
+config();
+
+const {
+  LOCAL_API_PREFIX_URL,
+  LOCAL_STUDENT_EMAIL,
+  LOCAL_STUDENT_PASSWORD,
+  LOCAL_MENTOR_EMAIL,
+  LOCAL_MENTOR_PASSWORD,
+  LOCAL_INTERVIEW_MANAGER_EMAIL,
+  LOCAL_INTERVIEW_MANAGER_PASSWORD,
+  LOCAL_UAM_MANAGER_EMAIL,
+  LOCAL_UAM_MANAGER_PASSWORD,
+  LOCAL_CATEGORIES_MANAGER_EMAIL,
+  LOCAL_CATEGORIES_MANAGER_PASSWORD,
+  LOCAL_MENTORING_MANAGER_EMAIL,
+  LOCAL_MENTORING_MANAGER_PASSWORD,
+  STAGING_STUDENT_EMAIL,
+  STAGING_STUDENT_PASSWORD,
+  STAGING_MENTOR_EMAIL,
+  STAGING_MENTOR_PASSWORD,
+  STAGING_INTERVIEW_MANAGER_EMAIL,
+  STAGING_INTERVIEW_MANAGER_PASSWORD,
+  STAGING_UAM_MANAGER_EMAIL,
+  STAGING_UAM_MANAGER_PASSWORD,
+  STAGING_CATEGORIES_MANAGER_EMAIL,
+  STAGING_CATEGORIES_MANAGER_PASSWORD,
+  STAGING_MENTORING_MANAGER_EMAIL,
+  STAGING_MENTORING_MANAGER_PASSWORD,
+  PRODUCTION_STUDENT_EMAIL,
+  PRODUCTION_STUDENT_PASSWORD,
+  PRODUCTION_MENTOR_EMAIL,
+  PRODUCTION_MENTOR_PASSWORD,
+  PRODUCTION_INTERVIEW_MANAGER_EMAIL,
+  PRODUCTION_INTERVIEW_MANAGER_PASSWORD,
+  PRODUCTION_UAM_MANAGER_EMAIL,
+  PRODUCTION_UAM_MANAGER_PASSWORD,
+  PRODUCTION_CATEGORIES_MANAGER_EMAIL,
+  PRODUCTION_CATEGORIES_MANAGER_PASSWORD,
+  PRODUCTION_MENTORING_MANAGER_EMAIL,
+  PRODUCTION_MENTORING_MANAGER_PASSWORD,
+} = process.env;
+
+const ENV = {
+  TESTS_CONFIG: {
+    DEVELOPMENT: {
+      API: {
+        PREFIX_URL: LOCAL_API_PREFIX_URL ?? '',
+      },
+      USERS: {
+        STUDENT: {
+          email: LOCAL_STUDENT_EMAIL ?? '',
+          password: LOCAL_STUDENT_PASSWORD ?? '',
+        },
+        MENTOR: {
+          email: LOCAL_MENTOR_EMAIL ?? '',
+          password: LOCAL_MENTOR_PASSWORD ?? '',
+        },
+        INTERVIEW_MANAGER: {
+          email: LOCAL_INTERVIEW_MANAGER_EMAIL ?? '',
+          password: LOCAL_INTERVIEW_MANAGER_PASSWORD ?? '',
+        },
+        UAM_MANAGER: {
+          email: LOCAL_UAM_MANAGER_EMAIL ?? '',
+          password: LOCAL_UAM_MANAGER_PASSWORD ?? '',
+        },
+        CATEGORIES_MANAGER: {
+          email: LOCAL_CATEGORIES_MANAGER_EMAIL ?? '',
+          password: LOCAL_CATEGORIES_MANAGER_PASSWORD ?? '',
+        },
+        MENTORING_MANAGER: {
+          email: LOCAL_MENTORING_MANAGER_EMAIL ?? '',
+          password: LOCAL_MENTORING_MANAGER_PASSWORD ?? '',
+        },
+      },
+    },
+    STAGING: {
+      API: {
+        PREFIX_URL: 'https://development.guruhub.club/api/v1',
+      },
+      USERS: {
+        STUDENT: {
+          email: STAGING_STUDENT_EMAIL ?? '',
+          password: STAGING_STUDENT_PASSWORD ?? '',
+        },
+        MENTOR: {
+          email: STAGING_MENTOR_EMAIL ?? '',
+          password: STAGING_MENTOR_PASSWORD ?? '',
+        },
+        INTERVIEW_MANAGER: {
+          email: STAGING_INTERVIEW_MANAGER_EMAIL ?? '',
+          password: STAGING_INTERVIEW_MANAGER_PASSWORD ?? '',
+        },
+        UAM_MANAGER: {
+          email: STAGING_UAM_MANAGER_EMAIL ?? '',
+          password: STAGING_UAM_MANAGER_PASSWORD ?? '',
+        },
+        CATEGORIES_MANAGER: {
+          email: STAGING_CATEGORIES_MANAGER_EMAIL ?? '',
+          password: STAGING_CATEGORIES_MANAGER_PASSWORD ?? '',
+        },
+        MENTORING_MANAGER: {
+          email: STAGING_MENTORING_MANAGER_EMAIL ?? '',
+          password: STAGING_MENTORING_MANAGER_PASSWORD ?? '',
+        },
+      },
+    },
+    PRODUCTION: {
+      API: {
+        PREFIX_URL: 'https://guruhub.club/api/v1',
+      },
+      USERS: {
+        STUDENT: {
+          email: PRODUCTION_STUDENT_EMAIL ?? '',
+          password: PRODUCTION_STUDENT_PASSWORD ?? '',
+        },
+        MENTOR: {
+          email: PRODUCTION_MENTOR_EMAIL ?? '',
+          password: PRODUCTION_MENTOR_PASSWORD ?? '',
+        },
+        INTERVIEW_MANAGER: {
+          email: PRODUCTION_INTERVIEW_MANAGER_EMAIL ?? '',
+          password: PRODUCTION_INTERVIEW_MANAGER_PASSWORD ?? '',
+        },
+        UAM_MANAGER: {
+          email: PRODUCTION_UAM_MANAGER_EMAIL ?? '',
+          password: PRODUCTION_UAM_MANAGER_PASSWORD ?? '',
+        },
+        CATEGORIES_MANAGER: {
+          email: PRODUCTION_CATEGORIES_MANAGER_EMAIL ?? '',
+          password: PRODUCTION_CATEGORIES_MANAGER_PASSWORD ?? '',
+        },
+        MENTORING_MANAGER: {
+          email: PRODUCTION_MENTORING_MANAGER_EMAIL ?? '',
+          password: PRODUCTION_MENTORING_MANAGER_PASSWORD ?? '',
+        },
+      },
+    },
+  },
+} as const;
+
+export { ENV };
