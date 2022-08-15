@@ -14,7 +14,7 @@ export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/gro
 export { type HttpOptions } from './http/http';
 export { EntityPagination } from './pagination/pagination';
 export {
-  type PermissionItem,
+  type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export { type TokenPayload } from './token/token';

@@ -4,8 +4,8 @@ import { reducer as uam } from './uam/reducer';
 
 const rootReducer = {
   auth,
-  dashboard,
   uam,
+  dashboard,
 };
 
 export { rootReducer };

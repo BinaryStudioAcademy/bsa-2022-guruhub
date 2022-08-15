@@ -1,6 +1,7 @@
 import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { CategoriesApi } from './categories/categories.service';
 import { Courses } from './courses/courses.service';
 import { GroupsApi } from './groups/groups.service';
 import { Http } from './http/http.service';
@@ -32,6 +33,19 @@ const coursesApi = new Courses({
   http,
 });
 
+const categoriesApi = new CategoriesApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const notification = new Notification();
 
-export { authApi, coursesApi, groupsApi, notification, storage, usersApi };
+export {
+  authApi,
+  categoriesApi,
+  coursesApi,
+  groupsApi,
+  notification,
+  storage,
+  usersApi,
+};
