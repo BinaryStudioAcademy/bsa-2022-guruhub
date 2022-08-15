@@ -7,6 +7,7 @@ export { ProtectedRoute } from './protected-route/protected-route';
 export { Search } from './search/search';
 export { Spinner } from './spinner/spinner';
 export { Stack } from './stack/stack';
+export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
 export { Image, Pressable, ScrollView, View } from 'react-native';
