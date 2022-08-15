@@ -20,7 +20,7 @@ const Category: FC<Props> = ({ keyName, name }) => {
         isCircular={true}
       />
 
-      <p>{name}</p>
+      <p className={styles.categoryName}>{name}</p>
     </div>
   );
 };
