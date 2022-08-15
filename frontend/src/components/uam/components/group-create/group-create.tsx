@@ -69,12 +69,12 @@ const UAMGroupsCreate: FC = () => {
         <div className={styles.btnsBlock}>
           <div className={styles.btnsWrapper}>
             <Button
-              type={'button'}
-              inversedStyles={true}
-              label={'Cancel'}
+              type="button"
+              inversedStyles
+              label="Cancel"
               onClick={handleCancelClick}
             />
-            <Button type={'submit'} label="Create" />
+            <Button type="submit" label="Create" />
           </div>
         </div>
       </form>

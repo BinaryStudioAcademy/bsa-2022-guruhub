@@ -3,7 +3,7 @@ import {
   FormControl,
   FormControlErrors,
   FormControlRegister,
-  PermissionGetAllItemResponseDto,
+  PermissionsGetAllItemResponseDto,
 } from 'common/types/types';
 import { ErrorMessage, Table } from 'components/common/common';
 
@@ -15,7 +15,7 @@ import {
 import styles from './styles.module.scss';
 
 type Props = {
-  permissions: PermissionGetAllItemResponseDto[];
+  permissions: PermissionsGetAllItemResponseDto[];
   useFormData: {
     register: FormControlRegister;
     control: FormControl;

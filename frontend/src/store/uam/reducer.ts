@@ -3,7 +3,7 @@ import { DataStatus } from 'common/enums/enums';
 import {
   EntityPagination,
   GroupsItemResponseDto,
-  PermissionGetAllItemResponseDto,
+  PermissionsGetAllItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -20,7 +20,7 @@ type State = {
   users: EntityPagination<UsersGetResponseDto>;
   groups: GroupsItemResponseDto[];
   userDeleteDataStatus: DataStatus;
-  permissions: PermissionGetAllItemResponseDto[];
+  permissions: PermissionsGetAllItemResponseDto[];
 };
 
 const initialState: State = {

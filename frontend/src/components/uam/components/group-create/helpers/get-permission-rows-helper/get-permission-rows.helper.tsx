@@ -2,7 +2,7 @@ import {
   FormControl,
   FormControlErrors,
   FormControlRegister,
-  PermissionGetAllItemResponseDto,
+  PermissionsGetAllItemResponseDto,
   PermissionsGroupCreationDto,
 } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
@@ -13,7 +13,7 @@ import {
 } from '../../common/enums/enums';
 
 const getPermissionsRows = (
-  permissions: PermissionGetAllItemResponseDto[],
+  permissions: PermissionsGetAllItemResponseDto[],
   useFormData: {
     register: FormControlRegister;
     control: FormControl;

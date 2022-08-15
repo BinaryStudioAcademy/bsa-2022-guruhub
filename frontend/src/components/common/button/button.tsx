@@ -15,10 +15,10 @@ type Props = {
 };
 
 const Button: FC<Props> = ({
-  type = 'button',
   inversedStyles = false,
-  label,
+  type = 'button',
   btnColor = 'blue',
+  label,
   to,
   onClick,
 }) => {
@@ -42,7 +42,15 @@ const Button: FC<Props> = ({
   return (
     <button
       type={type}
-      className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
+      className={
+        inversedStyles
+          ? getValidClasses(
+              styles.button,
+              styles[`button-${btnColor}`],
+              styles.inversedStyles,
+            )
+          : getValidClasses(styles.button, styles[`button-${btnColor}`])
+      }
       onClick={onClick}
     >
       {label}

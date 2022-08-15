@@ -1,4 +1,8 @@
 export {
+  CategoryGetAllItemResponseDto,
+  CategoryGetAllResponseDto,
+} from './category/category';
+export {
   type CourseCreateRequestDto,
   type CourseGetResponseDto,
 } from './course/course';
@@ -14,7 +18,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  type PermissionGetAllItemResponseDto,
+  type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {

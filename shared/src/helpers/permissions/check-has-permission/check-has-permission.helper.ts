@@ -1,9 +1,9 @@
 import { PermissionKey } from '~/common/enums/enums';
-import { PermissionGetAllItemResponseDto } from '~/common/types/types';
+import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
 
 type Args = {
   permissionKeys: PermissionKey[];
-  userPermissions: PermissionGetAllItemResponseDto[];
+  userPermissions: PermissionsGetAllItemResponseDto[];
 };
 
 const checkHasPermission = ({

@@ -1,5 +1,9 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  CategoryGetAllItemResponseDto,
+  CategoryGetAllResponseDto,
+} from './category/category';
+export {
   type CourseCreateRequestDto,
   type CourseGetResponseDto,
 } from './course/course';
@@ -22,7 +26,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  PermissionGetAllItemResponseDto,
+  PermissionsGetAllItemResponseDto,
   PermissionsGetAllResponseDto,
   PermissionsGroupCreationDto,
 } from './permissions/permissions';
