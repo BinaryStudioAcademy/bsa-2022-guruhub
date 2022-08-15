@@ -87,7 +87,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const group = await groupService.update({
-        id: parseInt(req.params.id, 10),
+        id: req.params.id,
         groupsRequestDto: req.body,
       });
 
