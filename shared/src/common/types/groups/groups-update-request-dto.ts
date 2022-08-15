@@ -1,8 +1,11 @@
 type GroupsUpdateRequestDto = {
-  id: number;
-  name?: string;
-  permissionIds?: number[];
-  userIds?: number[];
+  name: string;
+  permissionIds: number[];
+  userIds: number[];
 };
 
-export { type GroupsUpdateRequestDto };
+type GroupsUpdateRequestParamsDto = {
+  id: string;
+};
+
+export { type GroupsUpdateRequestDto, type GroupsUpdateRequestParamsDto };

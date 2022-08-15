@@ -2,11 +2,13 @@ import * as Joi from 'joi';
 
 import { GroupValidationRule } from '~/common/enums/enums';
 import { GroupValidationMessage } from '~/common/enums/group/group';
-import { GroupsUpdateRequestDto } from '~/common/types/types';
+import {
+  GroupsUpdateRequestDto,
+  GroupsUpdateRequestParamsDto,
+} from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const groupUpdate = Joi.object({
-  [getNameOf<GroupsUpdateRequestDto>('id')]: Joi.string().trim().required(),
   [getNameOf<GroupsUpdateRequestDto>('name')]: Joi.string()
     .trim()
     .min(GroupValidationRule.NAME_MIN_LENGTH)
@@ -28,4 +30,10 @@ const groupUpdate = Joi.object({
   ),
 });
 
-export { groupUpdate };
+const groupUpdateParams = Joi.object({
+  [getNameOf<GroupsUpdateRequestParamsDto>('id')]: Joi.string()
+    .trim()
+    .required(),
+});
+
+export { groupUpdate, groupUpdateParams };
