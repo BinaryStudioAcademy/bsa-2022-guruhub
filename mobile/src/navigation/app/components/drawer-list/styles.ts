@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   list: {
     padding: 30,
   },
   listTitle: {
+    fontFamily: AppFontFamily.INTER_500,
     color: AppColor.TEXT.GRAY_200,
     fontSize: 16,
-    fontWeight: '500',
     marginBottom: 10,
     marginLeft: 10,
   },

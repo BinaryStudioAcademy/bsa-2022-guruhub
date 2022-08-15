@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { AppFontFamily } from '~/common/enums/enums';
+
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
@@ -12,8 +14,8 @@ const styles = StyleSheet.create({
     borderRadius: 27,
   },
   label: {
+    fontFamily: AppFontFamily.INTER_500,
     fontSize: 16,
-    fontWeight: '500',
   },
   iconContainer: {
     marginRight: 12,
