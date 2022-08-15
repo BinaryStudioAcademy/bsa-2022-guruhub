@@ -5,16 +5,20 @@ import {
   HttpCode,
   HttpMethod,
   PaginationDefaultValue,
+  PermissionKey,
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
+  GroupsDeleteRequestParamDto,
   GroupsUpdateRequestDto,
   GroupsUpdateRequestParamsDto,
 } from '~/common/types/types';
+import { checkHasPermissions } from '~/hooks/hooks';
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
+  groupDelete as groupsDeleteValidationSchema,
   groupUpdate as groupUpdateValidationSchema,
   groupUpdateParams as groupUpdateParamsValidationSchema,
   pagination as paginationQueryValidationSchema,
@@ -35,6 +39,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       body: groupCreateValidationSchema,
     },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
     async handler(req: FastifyRequest<{ Body: GroupsCreateRequestDto }>, rep) {
       const group = await groupService.create(req.body);
 
@@ -48,6 +53,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       querystring: paginationQueryValidationSchema,
     },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       rep,
@@ -86,6 +92,25 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(group);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.DELETE,
+    url: GroupsApiPath.$ID,
+    schema: { params: groupsDeleteValidationSchema },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
+    async handler(
+      req: FastifyRequest<{ Params: GroupsDeleteRequestParamDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+
+      const isDeleted = await groupService.delete(Number(id));
+
+      return rep
+        .status(isDeleted ? HttpCode.NO_CONTENT : HttpCode.NOT_FOUND)
+        .send();
     },
   });
 };

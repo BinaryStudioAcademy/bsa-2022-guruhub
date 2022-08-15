@@ -1,10 +1,12 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  PermissionsGetAllItemResponseDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetResponseDto,
   UserSignUpRequestDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -50,7 +52,7 @@ class User {
     email,
     fullName,
     password,
-  }: UserSignUpRequestDto): Promise<UsersByIdResponseDto> {
+  }: UserSignUpRequestDto): Promise<UserWithPermissions> {
     const passwordSalt = await this.#encryptService.generateSalt();
     const passwordHash = await this.#encryptService.encrypt(
       password,
@@ -69,6 +71,7 @@ class User {
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions: [],
     };
   }
 
@@ -89,18 +92,24 @@ class User {
     };
   }
 
-  async getById(id: string): Promise<UsersByIdResponseDto | null> {
+  getUserPermissions(id: number): Promise<PermissionsGetAllItemResponseDto[]> {
+    return this.#userRepository.getUserPermissions(id);
+  }
+
+  async getById(id: string): Promise<UserWithPermissions | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {
       return null;
     }
+    const permissions = await this.#userRepository.getUserPermissions(user.id);
 
     return {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions,
     };
   }
 

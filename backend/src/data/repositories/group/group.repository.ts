@@ -65,6 +65,10 @@ class Group {
 
     return group ?? null;
   }
+
+  async delete(groupId: number): Promise<number> {
+    return this.#GroupModel.query().delete().where({ id: groupId });
+  }
 }
 
 export { Group };

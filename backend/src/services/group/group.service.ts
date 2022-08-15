@@ -151,6 +151,12 @@ class Group {
 
     return group[0];
   }
+
+  async delete(id: number): Promise<boolean> {
+    const deletedGroupsCount = await this.#groupsRepository.delete(id);
+
+    return Boolean(deletedGroupsCount);
+  }
 }
 
 export { Group };

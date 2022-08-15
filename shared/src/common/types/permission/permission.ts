@@ -1,2 +1,2 @@
-export { type PermissionsGetAllResponseDto } from './permission-get-all-response-dto.type';
-export { type PermissionsGetAllItemResponseDto } from './permission-item-response-dto.type';
+export { type PermissionsGetAllItemResponseDto } from './permissions-get-all-item-response-dto.type';
+export { type PermissionsGetAllResponseDto } from './permissions-get-all-response-dto.type';

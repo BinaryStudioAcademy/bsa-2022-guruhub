@@ -1,6 +1,5 @@
 .headerWrapper {
   display: flex;
-  flex-grow: 1;
   justify-content: space-between;
   min-height: 96px;
   background-color: var(--background-gray-300);
@@ -13,16 +12,18 @@
   justify-content: center;
   align-items: center;
   width: 270px;
-  border-right: 1px solid;
+  margin-left: 3px;
+  border-right: 3px solid var(--background-gray-400);
 }
 
 .userWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   width: 94px;
   height: 94px;
+  margin-right: 76px;
 }
 
 .popup {
@@ -32,4 +33,12 @@
 .button {
   background-color: transparent;
   border: none;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
 }

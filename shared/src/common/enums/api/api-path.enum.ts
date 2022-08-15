@@ -3,6 +3,8 @@ enum ApiPath {
   PERMISSIONS = '/permissions',
   GROUPS = '/groups',
   USERS = '/users',
+  CATEGORIES = '/categories',
+  COURSES = '/courses',
 }
 
 export { ApiPath };

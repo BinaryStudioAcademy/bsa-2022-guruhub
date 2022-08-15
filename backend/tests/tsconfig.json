@@ -1,5 +1,8 @@
 {
   "extends": "../../tsconfig.json",
+  "ts-node": {
+    "files": true
+  },
   "include": ["src"],
   "exclude": ["node_modules"],
   "compilerOptions": {
@@ -8,8 +11,8 @@
       "~/*": ["./src/*"]
     },
     "moduleResolution": "node",
-    "allowJs": true,
-    "checkJs": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["mocha", "node"],
+    "typeRoots": ["./src/typings"]
   }
 }

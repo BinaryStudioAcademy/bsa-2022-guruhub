@@ -26,6 +26,8 @@ ignore:
   - frontend/node_modules
   - backend/build
   - backend/node_modules
+  - backend/tests/node_modules
+  - backend/tests/build
   - mobile/ios
   - mobile/android
   - mobile/node_modules
