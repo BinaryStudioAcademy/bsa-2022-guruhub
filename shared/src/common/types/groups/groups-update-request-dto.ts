@@ -5,7 +5,7 @@ type GroupsUpdateRequestDto = {
 };
 
 type GroupsUpdateRequestParamsDto = {
-  id: string;
+  id: number;
 };
 
 export { type GroupsUpdateRequestDto, type GroupsUpdateRequestParamsDto };
