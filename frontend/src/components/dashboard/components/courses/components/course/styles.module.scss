@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 235px;
+  padding: 12px;
+  background-color: var(--background-gray-100);
+  border-radius: 16px;
+}
+
+.image {
+  height: 155px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.title {
+  color: white;
+}
+
+.instructor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instructorName {
+  color: #e3e3e3;
+}
+
+.footer {
+  margin-top: 14px;
+  border-top: 1px solid var(--typography-text-gray-200);
+}
+
+.price {
+  float: right;
+  margin: 10px 0;
+  color: var(--typography-text-100-inverse);
+}

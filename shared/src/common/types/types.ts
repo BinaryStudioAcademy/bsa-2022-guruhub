@@ -1,3 +1,4 @@
+export { type CourseGetResponseDto } from './course/course';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,

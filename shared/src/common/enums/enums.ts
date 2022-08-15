@@ -1,6 +1,7 @@
 export {
   ApiPath,
   AuthApiPath,
+  CoursesApiPath,
   GroupsApiPath,
   PermissionApiPath,
   UsersApiPath,
