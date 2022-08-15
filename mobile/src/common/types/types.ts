@@ -28,6 +28,8 @@ export {
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
+  type UsersDeleteRequestParamsDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
