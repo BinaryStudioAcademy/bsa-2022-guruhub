@@ -1,1 +1,1 @@
-export { type PermissionItem } from 'guruhub-shared/common/types/permission/permission';
+export { type PermissionsGetAllItemResponseDto as PermissionItem } from 'guruhub-shared/common/types/permission/permission';

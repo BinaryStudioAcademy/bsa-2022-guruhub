@@ -8,6 +8,7 @@ import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
 import { Overview } from '~/components/overview/overview';
 import { Settings } from '~/components/setting/setting';
+import { UAM } from '~/components/uam/uam';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
@@ -74,6 +75,8 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
       {
         name: AppScreenName.UAM,
         icon: 'uam',
+        component: UAM,
+        permissions: [],
       },
     ],
   },
