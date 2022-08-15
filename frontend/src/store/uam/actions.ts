@@ -3,6 +3,7 @@ import {
   AsyncThunkConfig,
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupsCreateRequestDto,
   GroupsItemResponseDto,
   PermissionsGetAllResponseDto,
   UsersDeleteRequestParamsDto,
@@ -33,6 +34,17 @@ const getGroups = createAsyncThunk<
   return groups;
 });
 
+const createGroup = createAsyncThunk<
+  GroupsItemResponseDto,
+  GroupsCreateRequestDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_GROUP, async (registerPayload, { extra }) => {
+  const { groupsApi } = extra;
+  const groupsResponseDto = await groupsApi.create(registerPayload);
+
+  return groupsResponseDto;
+});
+
 const deleteUser = createAsyncThunk<
   number,
   UsersDeleteRequestParamsDto,
@@ -58,4 +70,4 @@ const getPermissions = createAsyncThunk<
   return permissions;
 });
 
-export { deleteUser, getGroups, getPermissions, getUsers };
+export { createGroup, deleteUser, getGroups, getPermissions, getUsers };

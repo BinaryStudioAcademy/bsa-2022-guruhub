@@ -47,7 +47,7 @@ const UAMGroupsCreate: FC = () => {
   };
 
   const onSubmit = (data: GroupsCreateRequestDto): void => {
-    alert(JSON.stringify(data));
+    dispatch(uamActions.createGroup(data));
   };
 
   return (

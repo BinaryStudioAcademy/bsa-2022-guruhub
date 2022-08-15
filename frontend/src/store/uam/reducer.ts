@@ -7,7 +7,13 @@ import {
   UsersGetResponseDto,
 } from 'common/types/types';
 
-import { deleteUser, getGroups, getPermissions, getUsers } from './actions';
+import {
+  createGroup,
+  deleteUser,
+  getGroups,
+  getPermissions,
+  getUsers,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -48,6 +54,17 @@ const reducer = createReducer(initialState, (builder) => {
     state.groups = action.payload.items;
   });
   builder.addCase(getGroups.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(createGroup.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(createGroup.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.groups = [...state.groups, action.payload];
+  });
+  builder.addCase(createGroup.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
