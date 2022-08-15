@@ -1,6 +1,5 @@
 import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
-  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
@@ -103,7 +102,7 @@ class Auth {
     };
   }
 
-  async getCurrentUser(token: string): Promise<UsersByIdResponseDto | null> {
+  async getCurrentUser(token: string): Promise<UserWithPermissions | null> {
     try {
       const { userId } = await this.#tokenService.decode(token);
       const user = await this.#userService.getById(userId);

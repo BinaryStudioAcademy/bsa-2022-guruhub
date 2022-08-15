@@ -30,5 +30,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';
