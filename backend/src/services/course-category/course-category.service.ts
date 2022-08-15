@@ -13,9 +13,7 @@ class CourseCategory {
   }
 
   async getByName(name: string): Promise<CourseCategoryGetResponseDto | null> {
-    const courseCategory = await this.#courseCategoryRepository.getByName(name);
-
-    return courseCategory ?? null;
+    return this.#courseCategoryRepository.getByName(name);
   }
 }
 

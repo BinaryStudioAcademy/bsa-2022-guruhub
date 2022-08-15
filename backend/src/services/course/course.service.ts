@@ -95,9 +95,7 @@ class Course {
       });
     }
 
-    const courses = await this.#courseRepository.getByCategoryId(category.id);
-
-    return courses;
+    return this.#courseRepository.getByCategoryId(category.id);
   }
 }
 
