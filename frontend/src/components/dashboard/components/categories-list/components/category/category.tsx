@@ -13,11 +13,11 @@ const Category: FC<Props> = ({ keyName, name }) => {
   return (
     <div className={styles.category} style={{ borderColor: getRandomColor() }}>
       <Image
-        width={'30px'}
-        height={'30px'}
+        width="30px"
+        height="30px"
         src={`/${keyName}.svg`}
         alt={`${keyName} img`}
-        isCircular={true}
+        isCircular
       />
 
       <p className={styles.categoryName}>{name}</p>

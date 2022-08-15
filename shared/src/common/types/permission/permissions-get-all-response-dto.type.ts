@@ -1,7 +1,7 @@
-import { PermissionItem } from './permission-item.type';
+import { PermissionsGetAllItemResponseDto } from './permissions-get-all-item-response-dto.type';
 
 type PermissionsGetAllResponseDto = {
-  items: PermissionItem[];
+  items: PermissionsGetAllItemResponseDto[];
 };
 
 export { type PermissionsGetAllResponseDto };

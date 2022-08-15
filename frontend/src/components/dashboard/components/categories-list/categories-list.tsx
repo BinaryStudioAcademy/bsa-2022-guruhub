@@ -1,16 +1,10 @@
-import { FC } from 'common/types/types';
+import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
 
 import { Category } from './components/category/category';
 import styles from './styles.module.scss';
 
-type Category = {
-  id: number;
-  key: string;
-  name: string;
-};
-
 type Props = {
-  items: Category[];
+  items: CategoryGetAllItemResponseDto[];
 };
 
 const CategoriesList: FC<Props> = ({ items }) => {

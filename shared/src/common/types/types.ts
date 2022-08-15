@@ -1,4 +1,8 @@
 export {
+  CategoryGetAllItemResponseDto,
+  CategoryGetAllResponseDto,
+} from './category/category';
+export {
   type GroupsCreateRequestDto,
   type GroupsItemResponseDto,
 } from './groups/groups';
@@ -8,7 +12,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  type PermissionItem,
+  type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {

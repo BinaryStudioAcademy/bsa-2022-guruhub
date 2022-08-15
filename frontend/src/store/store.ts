@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
   authApi,
+  categoriesApi,
   groupsApi,
   notification,
   storage,
@@ -16,6 +17,7 @@ const extraArgument = {
   groupsApi,
   storage,
   notification,
+  categoriesApi,
 };
 
 const store = configureStore({
