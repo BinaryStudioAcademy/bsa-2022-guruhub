@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 
 import { IconName } from '~/common/types/ui/icon-name.type';
-
-import { iconNameToIcon } from '../maps/maps';
+import { iconNameToIcon } from '~/components/common/icon/common/maps/icon-name-to-icon.map';
 
 type Props = {
   name: IconName;
