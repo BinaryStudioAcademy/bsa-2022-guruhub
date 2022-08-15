@@ -1,16 +1,21 @@
-import { ApiPath, CoursesApiPath, HttpMethod } from 'common/enums/enums';
+import {
+  ApiPath,
+  ContentType,
+  CoursesApiPath,
+  HttpMethod,
+} from 'common/enums/enums';
 import { CourseGetResponseDto } from 'common/types/types';
-
-import { Http } from '../http/http.service';
+import { Http } from 'services/http/http.service';
 
 type Constructor = {
   http: Http;
   apiPrefix: string;
 };
 
-class CoursesApi {
+class Courses {
   #http: Http;
   #apiPrefix: string;
+
   constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
@@ -24,6 +29,16 @@ class CoursesApi {
       },
     );
   }
+  public create(url: string): Promise<CourseGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ url }),
+      },
+    );
+  }
 }
 
-export { CoursesApi };
+export { Courses };

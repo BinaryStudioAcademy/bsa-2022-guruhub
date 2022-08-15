@@ -1,4 +1,9 @@
-import { AppRoute, DataStatus, StorageKey } from 'common/enums/enums';
+import {
+  AppRoute,
+  DataStatus,
+  PermissionKey,
+  StorageKey,
+} from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
@@ -50,7 +55,10 @@ const App: FC = () => {
           path={AppRoute.UAM}
           element={
             <AuthorizedWrapper>
-              <ProtectedRoute component={<UAM />} />
+              <ProtectedRoute
+                permissions={[PermissionKey.MANAGE_UAM]}
+                component={<UAM />}
+              />
             </AuthorizedWrapper>
           }
         />

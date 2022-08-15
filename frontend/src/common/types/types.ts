@@ -1,5 +1,8 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
-export { CourseGetResponseDto } from './course/course';
+export {
+  type CourseCreateRequestDto,
+  type CourseGetResponseDto,
+} from './course/course';
 export {
   type FormControl,
   type FormControlErrors,
@@ -31,5 +34,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

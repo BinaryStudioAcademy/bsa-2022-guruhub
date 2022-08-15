@@ -5,12 +5,14 @@ import {
   HttpCode,
   HttpMethod,
   PaginationDefaultValue,
+  PermissionKey,
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
 } from '~/common/types/types';
+import { checkHasPermissions } from '~/hooks/hooks';
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
@@ -33,6 +35,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       body: groupCreateValidationSchema,
     },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
     async handler(req: FastifyRequest<{ Body: GroupsCreateRequestDto }>, rep) {
       const group = await groupService.create(req.body);
 
@@ -46,6 +49,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       querystring: paginationQueryValidationSchema,
     },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       rep,
@@ -68,6 +72,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.DELETE,
     url: GroupsApiPath.$ID,
     schema: { params: groupsDeleteValidationSchema },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Params: GroupsDeleteRequestParamDto }>,
       rep,

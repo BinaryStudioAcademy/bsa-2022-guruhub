@@ -9,6 +9,7 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
+export { type GroupsItemResponseDto } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type AppNavigationParamList,
@@ -20,7 +21,11 @@ export {
   type RootNavigationScreenProps,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
-export { type AppTextStyle } from './ui/ui';
+export {
+  type EntityPagination,
+  type EntityPaginationRequestQueryDto,
+} from './pagination/pagination';
+export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
   type UserSignInRequestDto,

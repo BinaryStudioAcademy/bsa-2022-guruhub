@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import { CourseGetResponseDto } from 'common/types/types';
 
-import { getCourses } from './actions';
+import { addCourse, getCourses } from './actions';
 
 type State = {
   courses: CourseGetResponseDto[];
@@ -23,6 +23,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.courses.push(payload);
   });
   builder.addCase(getCourses.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(addCourse.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(addCourse.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.courses.push(payload);
+  });
+  builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

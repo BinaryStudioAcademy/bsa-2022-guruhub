@@ -1,12 +1,20 @@
 import { DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Spinner } from 'components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
+import { Button, Spinner } from 'components/common/common';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useState,
+} from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
-import { Courses } from './components/components';
+import { AddCourseModal, Courses } from './components/components';
+import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
+  const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+
   const { dataStatus } = useAppSelector((state) => state.dashboard);
   const dispatch = useAppDispatch();
 
@@ -18,8 +26,20 @@ const Dashboard: FC = () => {
     return <Spinner />;
   }
 
+  const handleNewCourseModalToggle = (): void => {
+    setIsNewCourseModalOpen(!isNewCourseModalOpen);
+  };
+
   return (
-    <div>
+    <div className={styles.headerWrapper}>
+      <div className={styles.header}>
+        <h1>Courses</h1>
+        <Button label="+ Add new course" onClick={handleNewCourseModalToggle} />
+        <AddCourseModal
+          isModalOpen={isNewCourseModalOpen}
+          onModalToggle={handleNewCourseModalToggle}
+        />
+      </div>
       <Courses />
     </div>
   );
