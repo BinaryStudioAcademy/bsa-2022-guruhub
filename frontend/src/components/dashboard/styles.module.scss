@@ -7,3 +7,18 @@
   padding: 20px;
   background: var(--background-gray-400);
 }
+
+.headerWrapper {
+  width: 100%;
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headingText {
+  color: var(--typography-text-100-inverse);
+}

@@ -4,6 +4,7 @@ enum ApiPath {
   GROUPS = '/groups',
   USERS = '/users',
   CATEGORIES = '/categories',
+  COURSES = '/courses',
 }
 
 export { ApiPath };

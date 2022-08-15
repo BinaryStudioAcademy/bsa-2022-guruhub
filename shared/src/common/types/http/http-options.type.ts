@@ -1,4 +1,4 @@
-import { ContentType, HttpMethod } from 'common/enums/enums';
+import { ContentType, HttpMethod } from '~/common/enums/enums';
 
 type HttpOptions = {
   method: HttpMethod;
@@ -6,6 +6,7 @@ type HttpOptions = {
   payload: BodyInit | null;
   hasAuth?: boolean;
   queryString?: Record<string, unknown>;
+  headers?: Record<string, string>;
 };
 
 export { type HttpOptions };
