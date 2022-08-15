@@ -1,4 +1,9 @@
-import { AppRoute, DataStatus, StorageKey } from 'common/enums/enums';
+import {
+  AppRoute,
+  DataStatus,
+  PermissionKey,
+  StorageKey,
+} from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
@@ -8,6 +13,7 @@ import {
   Routes,
   Spinner,
 } from 'components/common/common';
+import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
@@ -37,7 +43,11 @@ const App: FC = () => {
       <Routes>
         <Route
           path={AppRoute.ROOT}
-          element={<AuthorizedWrapper>Root</AuthorizedWrapper>}
+          element={
+            <AuthorizedWrapper>
+              <Dashboard />
+            </AuthorizedWrapper>
+          }
         />
         <Route path={AppRoute.SIGN_UP} element={<Auth />} />
         <Route path={AppRoute.SIGN_IN} element={<Auth />} />
@@ -45,7 +55,10 @@ const App: FC = () => {
           path={AppRoute.UAM}
           element={
             <AuthorizedWrapper>
-              <ProtectedRoute component={<UAM />} />
+              <ProtectedRoute
+                permissions={[PermissionKey.MANAGE_UAM]}
+                component={<UAM />}
+              />
             </AuthorizedWrapper>
           }
         />

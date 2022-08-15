@@ -1,7 +1,7 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  PermissionItem,
+  PermissionsGetAllItemResponseDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
   UsersGetResponseDto,
@@ -92,7 +92,7 @@ class User {
     };
   }
 
-  getUserPermissions(id: number): Promise<PermissionItem[]> {
+  getUserPermissions(id: number): Promise<PermissionsGetAllItemResponseDto[]> {
     return this.#userRepository.getUserPermissions(id);
   }
 

@@ -18,6 +18,7 @@ class HttpService {
 
     this.#got = got.extend({
       http2: true,
+      throwHttpErrors: false,
       prefixUrl: testsConfig.prefixUrl,
       responseType: 'json',
       headers: {

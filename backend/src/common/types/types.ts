@@ -1,3 +1,9 @@
+export {
+  type CourseCreateArgumentsDto,
+  type CourseCreateRequestArgumentsDto,
+  type CourseCreateRequestDto,
+  type CourseGetResponseDto,
+} from './course/course';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
@@ -5,12 +11,14 @@ export {
   type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
+export { type HttpOptions } from './http/http';
 export { EntityPagination } from './pagination/pagination';
 export {
-  type PermissionItem,
+  type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export { type TokenPayload } from './token/token';
+export { type UdemyGetResponseDto } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
   type UsersByEmailResponseDto,
@@ -25,3 +33,4 @@ export {
 } from './user/user';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
+export { type VendorGetResponseDto } from './vendor/vendor';
