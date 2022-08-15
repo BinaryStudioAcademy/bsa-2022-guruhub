@@ -55,6 +55,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
       },
       {
         name: AppScreenName.UAM,
+        icon: 'uam',
       },
     ],
   },
