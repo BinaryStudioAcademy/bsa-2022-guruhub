@@ -149,7 +149,7 @@ class Group {
       userIds,
     });
 
-    return group[0];
+    return group;
   }
 
   async delete(id: number): Promise<boolean> {

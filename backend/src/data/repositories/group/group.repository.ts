@@ -46,17 +46,15 @@ class Group {
     return group ?? null;
   }
 
-  update(group: { id: number; name: string; key: string }): Promise<GroupM[]> {
+  update(group: { id: number; name: string; key: string }): Promise<GroupM> {
     const { id, name, key } = group;
 
     return this.#GroupModel
       .query()
-      .where({ id })
-      .update({
+      .patchAndFetchById(id, {
         name,
         key,
       })
-      .returning('*')
       .execute();
   }
 

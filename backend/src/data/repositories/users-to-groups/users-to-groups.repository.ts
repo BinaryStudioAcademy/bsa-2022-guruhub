@@ -40,6 +40,28 @@ class UsersToGroups {
       .execute();
   }
 
+  update(usersToGroups: { groupId: number; userIds: number[] }): void {
+    const { groupId, userIds } = usersToGroups;
+    this.#UsersToGroupsModel
+      .query()
+      .where({ groupId })
+      .whereNotIn('user_id', userIds)
+      .delete()
+      .execute();
+
+    userIds.map((userId: number) => {
+      return this.#UsersToGroupsModel
+        .query()
+        .insert({
+          groupId,
+          userId,
+        })
+        .onConflict(['user_id', 'group_id'])
+        .ignore()
+        .execute();
+    });
+  }
+
   delete(id: number): Promise<number> {
     return this.#UsersToGroupsModel.query().delete().where({ id }).execute();
   }

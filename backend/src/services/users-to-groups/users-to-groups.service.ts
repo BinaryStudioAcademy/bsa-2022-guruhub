@@ -38,32 +38,11 @@ class UsersToGroups {
     userIds: number[];
   }): Promise<void> {
     const { groupId, userIds } = usersToGroups;
-    const groupUsers = await this.getUsersByGroupId(groupId);
-    const dbUsersId = groupUsers.map((user) => user.userId);
 
-    const usersToCreate = userIds.filter((id: number) => {
-      return !dbUsersId.includes(id);
+    return this.#usersToGroupsRepository.update({
+      groupId,
+      userIds,
     });
-    const usersToDelete = groupUsers.filter(
-      (user: UsersToGroupsResponseDto) => {
-        return !userIds.includes(user.userId);
-      },
-    );
-
-    await Promise.all(
-      usersToCreate.map((userId: number) => {
-        return this.createUsersToGroups({
-          groupId,
-          userId,
-        });
-      }),
-    );
-
-    await Promise.all(
-      usersToDelete.map((user: UsersToGroupsResponseDto) => {
-        return this.delete(user.id);
-      }),
-    );
   }
 
   async delete(id: number): Promise<boolean> {

@@ -31,6 +31,32 @@ class GroupsToPermissions {
       .execute();
   }
 
+  update(groupsToPermissions: {
+    groupId: number;
+    permissionIds: number[];
+  }): void {
+    const { groupId, permissionIds } = groupsToPermissions;
+
+    this.#GroupsToPermissionsModel
+      .query()
+      .where({ groupId })
+      .whereNotIn('permission_id', permissionIds)
+      .delete()
+      .execute();
+
+    permissionIds.map((permissionId: number) => {
+      return this.#GroupsToPermissionsModel
+        .query()
+        .insert({
+          groupId,
+          permissionId,
+        })
+        .onConflict(['permission_id', 'group_id'])
+        .ignore()
+        .execute();
+    });
+  }
+
   delete(id: number): Promise<number> {
     return this.#GroupsToPermissionsModel
       .query()
