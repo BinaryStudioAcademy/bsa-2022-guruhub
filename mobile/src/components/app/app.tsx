@@ -1,8 +1,7 @@
 import 'fast-text-encoding';
 
-import React, { FC } from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
+import React, { FC } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 

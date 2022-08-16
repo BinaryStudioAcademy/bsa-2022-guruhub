@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
 import { AppNavigationParamList } from '~/common/types/types';
