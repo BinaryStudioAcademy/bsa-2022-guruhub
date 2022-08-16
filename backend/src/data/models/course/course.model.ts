@@ -6,17 +6,17 @@ import { Abstract } from '../abstract/abstract.model';
 import { Vendor } from '../models';
 
 class Course extends Abstract {
-  'title': string;
+  public 'title': string;
 
-  'description': string;
+  public 'description': string;
 
-  'url': string;
+  public 'url': string;
 
-  'vendorId': number;
+  public 'vendorId': number;
 
-  'courseCategoryId': number;
+  public 'courseCategoryId': number;
 
-  static override get relationMappings(): RelationMappings {
+  public static override get relationMappings(): RelationMappings {
     return {
       vendor: {
         relation: Model.HasOneRelation,
@@ -29,7 +29,7 @@ class Course extends Abstract {
     };
   }
 
-  static override get tableName(): string {
+  public static override get tableName(): string {
     return DbTableName.COURSES;
   }
 }

@@ -6,11 +6,11 @@ import { Abstract } from '../abstract/abstract.model';
 import { Permission } from '../models';
 
 class Group extends Abstract {
-  'name': string;
+  public 'name': string;
 
-  'key': string;
+  public 'key': string;
 
-  static override get relationMappings(): RelationMappings {
+  public static override get relationMappings(): RelationMappings {
     return {
       permissions: {
         relation: Model.ManyToManyRelation,
@@ -27,7 +27,7 @@ class Group extends Abstract {
     };
   }
 
-  static override get tableName(): string {
+  public static override get tableName(): string {
     return DbTableName.GROUPS;
   }
 }

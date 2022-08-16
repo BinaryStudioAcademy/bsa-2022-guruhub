@@ -7,7 +7,7 @@ import {
 } from '~/common/enums/enums';
 
 class PermissionsError extends HttpError {
-  constructor({
+  public constructor({
     message = ExceptionMessage.PERMISSION_LACK,
     status = HttpCode.FORBIDDEN,
   } = {}) {

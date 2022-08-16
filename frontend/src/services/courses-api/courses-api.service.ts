@@ -14,14 +14,15 @@ type Constructor = {
 
 class Courses {
   #http: Http;
+
   #apiPrefix: string;
 
-  constructor({ http, apiPrefix }: Constructor) {
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
   }
 
-  getAll(): Promise<CourseGetResponseDto[]> {
+  public getAll(): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
       {
@@ -29,6 +30,7 @@ class Courses {
       },
     );
   }
+
   public create(url: string): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,

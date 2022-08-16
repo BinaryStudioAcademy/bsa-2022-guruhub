@@ -1,7 +1,8 @@
-import { GroupsItemResponseDto, TableColumn } from '~/common/types/types';
+import { TableColumn } from '~/common/types/types';
 import { GroupsTableAccessor } from '~/components/uam/common/enums/enums';
+import { GroupsTableData } from '~/components/uam/common/types/types';
 
-const getGroupsColumns = (): TableColumn<GroupsItemResponseDto>[] => {
+const getGroupsColumns = (): TableColumn<GroupsTableData>[] => {
   return [
     {
       header: 'ID',
@@ -14,6 +15,10 @@ const getGroupsColumns = (): TableColumn<GroupsItemResponseDto>[] => {
     {
       header: 'Key',
       accessor: GroupsTableAccessor.KEY,
+    },
+    {
+      header: 'Actions',
+      accessor: GroupsTableAccessor.ACTION,
     },
   ];
 };

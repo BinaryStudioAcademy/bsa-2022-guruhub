@@ -15,20 +15,26 @@ type Constructor = {
 
 class Course {
   #courseRepository: typeof courseRep;
+
   #vendorService: typeof vendorServ;
+
   #udemyService: typeof udemyServ;
 
-  constructor({ courseRepository, vendorService, udemyService }: Constructor) {
+  public constructor({
+    courseRepository,
+    vendorService,
+    udemyService,
+  }: Constructor) {
     this.#courseRepository = courseRepository;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
   }
 
-  getAll(): Promise<CourseGetResponseDto[]> {
+  public getAll(): Promise<CourseGetResponseDto[]> {
     return this.#courseRepository.getAll();
   }
 
-  async create(
+  public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
     const { description, title, url, vendorKey } = courseRequestDto;
@@ -54,7 +60,7 @@ class Course {
     };
   }
 
-  async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
+  public async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
     const urlObject = new URL(url);
     const { host } = urlObject;
 
