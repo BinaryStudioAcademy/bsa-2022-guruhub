@@ -23,11 +23,11 @@ const getGroups = createAsyncThunk<
   return groups;
 });
 
-const deleteGroups = createAsyncThunk<
+const deleteGroup = createAsyncThunk<
   number,
   GroupsDeleteRequestParamDto,
   AsyncThunkConfig
->(ActionType.DELETE_GROUPS, async (payload, { extra }) => {
+>(ActionType.DELETE_GROUP, async (payload, { extra }) => {
   const { groupsApi } = extra;
 
   await groupsApi.delete(payload);
@@ -62,4 +62,4 @@ const deleteUser = createAsyncThunk<
   return id;
 });
 
-export { deleteGroups, deleteUser, getGroups, getUsers };
+export { deleteGroup, deleteUser, getGroups, getUsers };

@@ -7,7 +7,7 @@ import {
   UsersGetResponseDto,
 } from '~/common/types/types';
 
-import { deleteGroups, deleteUser, getGroups, getUsers } from './actions';
+import { deleteGroup, deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -43,10 +43,10 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(deleteGroups.pending, (state) => {
+  builder.addCase(deleteGroup.pending, (state) => {
     state.groupsDeleteDataStatus = DataStatus.PENDING;
   });
-  builder.addCase(deleteGroups.fulfilled, (state, { payload }) => {
+  builder.addCase(deleteGroup.fulfilled, (state, { payload }) => {
     const items = state.groups.items.filter((item) => item.id !== payload);
     state.groups = {
       items: items,
@@ -54,7 +54,7 @@ const reducer = createReducer(initialState, (builder) => {
     };
     state.groupsDeleteDataStatus = DataStatus.FULFILLED;
   });
-  builder.addCase(deleteGroups.rejected, (state) => {
+  builder.addCase(deleteGroup.rejected, (state) => {
     state.groupsDeleteDataStatus = DataStatus.REJECTED;
   });
 

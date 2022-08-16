@@ -15,7 +15,7 @@ const GroupsTable: FC = () => {
   const { items } = useAppSelector((state) => state.uam.groups);
 
   const handleGroupsItemDelete = (groupId: number): void => {
-    dispatch(uamActions.deleteGroups({ id: groupId }));
+    dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
   const groupsColumns = getGroupsColumns();
