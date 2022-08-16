@@ -11,11 +11,11 @@ type Constructor = {
 class User {
   #UserModel: typeof UserM;
 
-  constructor({ UserModel }: Constructor) {
+  public constructor({ UserModel }: Constructor) {
     this.#UserModel = UserModel;
   }
 
-  async getPaginated({
+  public async getPaginated({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {
@@ -27,7 +27,7 @@ class User {
     };
   }
 
-  async getByEmail(email: string): Promise<UserM | null> {
+  public async getByEmail(email: string): Promise<UserM | null> {
     const user = await this.#UserModel
       .query()
       .select()
@@ -37,13 +37,13 @@ class User {
     return user ?? null;
   }
 
-  async getById(id: string): Promise<UserM | null> {
+  public async getById(id: string): Promise<UserM | null> {
     const user = await this.#UserModel.query().select().where({ id }).first();
 
     return user ?? null;
   }
 
-  async getUserPermissions(id: number): Promise<PermissionM[]> {
+  public async getUserPermissions(id: number): Promise<PermissionM[]> {
     const permissions = await this.#UserModel
       .query()
       .select(
@@ -58,13 +58,13 @@ class User {
     return permissions;
   }
 
-  async getByIds(ids: number[]): Promise<UserM[]> {
+  public async getByIds(ids: number[]): Promise<UserM[]> {
     const users = await this.#UserModel.query().findByIds(ids);
 
     return users;
   }
 
-  async create(user: {
+  public async create(user: {
     email: string;
     fullName: string;
     passwordSalt: string;
@@ -80,7 +80,7 @@ class User {
     });
   }
 
-  async delete(userId: number): Promise<number> {
+  public async delete(userId: number): Promise<number> {
     const deletedUsersCount = await this.#UserModel
       .query()
       .delete()

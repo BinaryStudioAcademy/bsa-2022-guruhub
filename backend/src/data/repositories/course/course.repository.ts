@@ -8,11 +8,13 @@ type Constructor = {
 class Course {
   #CourseModel: typeof CourseM;
 
-  constructor({ CourseModel }: Constructor) {
+  public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
   }
 
-  async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {
+  public async create(
+    course: CourseCreateRequestArgumentsDto,
+  ): Promise<CourseM> {
     const { title, description, url, vendorId, courseCategoryId } = course;
 
     return this.#CourseModel.query().insert({
