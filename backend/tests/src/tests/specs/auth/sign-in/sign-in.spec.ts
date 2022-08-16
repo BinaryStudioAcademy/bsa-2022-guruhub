@@ -1,9 +1,13 @@
 import {
   ExceptionMessage,
   HttpCode,
+  HttpErrorDto,
+  HttpStatusMessage,
+  UserSignInResponseDto,
   UserValidationMessage,
 } from 'guruhub-shared';
 
+import { Response } from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {
   apiSessionStorage,
@@ -26,22 +30,28 @@ describe('Sign in tests', () => {
   });
 
   it('should sign in with valid data', async () => {
-    const response = await authService.signIn(testsConfig.users.student);
+    const response = (await authService.signIn(
+      testsConfig.users.student,
+    )) as Response<UserSignInResponseDto>;
+
     response.should.have.status(200);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signInResponseSchema);
-    response.body.token.length.should.equal(105);
-    response.body.user.email.should.equal(testsConfig.users.student.email);
+    response.body.token.should.be.equal(
+      /^[a-zA-Z0-9_-+/]\.[a-zA-Z0-9_-+/]\.[a-zA-Z0-9_-+/]$/,
+    );
+    response.body.user.email.should.be.equal(testsConfig.users.student.email);
 
     httpService.setToken(response.body.token);
   });
 
   it('should return authorized user data', async () => {
     const response = await authService.getCurrentUser();
+
     response.should.have.status(200);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(currentUserResponseSchema);
-    response.body.email.should.equal(testsConfig.users.student.email);
+    response.body.email.should.be.equal(testsConfig.users.student.email);
   });
 
   withTestData(
@@ -114,18 +124,17 @@ describe('Sign in tests', () => {
       },
     ],
     ({ email, password, message }) => {
-      it('should return an error with invalid data', async () => {
-        const response = await authService.signIn({
-          'email': email,
-          'password': password,
-        });
+      it(`should return an error with invalid data: email - ${email}, password - ${password}`, async () => {
+        const response = (await authService.signIn({
+          email,
+          password,
+        })) as Response<HttpErrorDto>;
 
         response.should.have.status(HttpCode.BAD_REQUEST);
         response.should.have.normalExecutionTime;
         response.body.should.have.jsonSchema(errorSchema);
-        response.body.statusCode.should.equal(HttpCode.BAD_REQUEST);
-        response.body.error.should.equal('Bad Request');
-        response.body.message.should.equal(message);
+        response.body.error.should.be.equal(HttpStatusMessage.BAD_REQUEST);
+        response.body.message.should.be.equal(message);
       });
     },
   );

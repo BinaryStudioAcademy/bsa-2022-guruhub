@@ -1,23 +1,26 @@
+import { permissionSchema } from '../../json-schemas';
+
 const currentUserResponseSchema = {
-  'type': 'object',
-  'properties': {
-    'id': {
-      'type': 'integer',
+  type: 'object',
+  properties: {
+    id: {
+      type: 'integer',
     },
-    'email': {
-      'type': 'string',
+    email: {
+      type: 'string',
     },
-    'fullName': {
-      'type': 'string',
+    fullName: {
+      type: 'string',
     },
-    'createdAt': {
-      'type': 'string',
+    createdAt: {
+      type: 'string',
     },
-    'permissions': {
-      'type': 'array',
+    permissions: {
+      type: 'array',
+      items: permissionSchema,
     },
   },
-  'required': ['id', 'email', 'fullName', 'createdAt'],
+  required: ['id', 'email', 'fullName', 'createdAt', 'permissions'],
 };
 
 export { currentUserResponseSchema };

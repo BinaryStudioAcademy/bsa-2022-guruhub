@@ -1,22 +1,13 @@
+import { userSchema } from '../../json-schemas';
+
 const signInResponseSchema = {
-  'type': 'object',
-  'properties': {
-    'token': {
-      'type': 'string',
+  type: 'object',
+  properties: {
+    token: {
+      type: 'string',
     },
-    'user': {
-      'type': 'object',
-      'properties': {
-        'id': {
-          'type': 'integer',
-        },
-        'email': {
-          'type': 'string',
-        },
-      },
-      'required': ['id', 'email'],
-    },
-    'required': ['token', 'user'],
+    user: userSchema,
+    required: ['token', 'user'],
   },
 };
 

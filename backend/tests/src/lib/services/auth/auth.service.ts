@@ -1,6 +1,7 @@
 import {
   ApiPath,
   AuthApiPath,
+  HttpErrorDto,
   UsersGetResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
@@ -23,7 +24,7 @@ class AuthService {
 
   signIn(
     data: UserSignInRequestDto,
-  ): Promise<Response<UserSignInResponseDto>> | any {
+  ): Promise<Response<UserSignInResponseDto | HttpErrorDto>> {
     return this.#httpService
       .request()
       .post()
