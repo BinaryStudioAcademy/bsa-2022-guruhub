@@ -7,11 +7,7 @@ const getAllowedScreens = (
   const userPermissionKeys = userPermissions.map((item) => item.key);
 
   return screens.filter((screen) => {
-    if (!screen.permissions.length) {
-      return true;
-    }
-
-    return screen.permissions.some((permission) =>
+    return screen.permissions.every((permission) =>
       userPermissionKeys.includes(permission),
     );
   });
