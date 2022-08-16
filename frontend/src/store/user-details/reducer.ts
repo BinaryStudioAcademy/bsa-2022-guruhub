@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import { UserDetailsItemDto } from 'common/types/types';
 
-import { getUserDetails } from './actions';
+import { getUserDetails, updateUserDetails } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -23,6 +23,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.userDetails = action.payload;
   });
   builder.addCase(getUserDetails.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(updateUserDetails.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(updateUserDetails.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.userDetails = action.payload;
+  });
+  builder.addCase(updateUserDetails.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

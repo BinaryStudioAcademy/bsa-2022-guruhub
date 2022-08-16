@@ -1,10 +1,10 @@
 import { HttpCode } from '~/common/enums/enums';
 
-import { UserDetailsItemDto } from './user-details';
+import { UserDetailsCreateRequestDto } from './user-details';
 
 type UserDetailsResponseDto = {
   status: HttpCode;
-  userDetails: UserDetailsItemDto;
+  userDetails: UserDetailsCreateRequestDto;
 };
 
 export { type UserDetailsResponseDto };

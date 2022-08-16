@@ -16,6 +16,7 @@ type Props = {
   name: FormControlPath;
   placeholder?: string;
   type?: 'text' | 'email' | 'date' | 'password';
+  defaultValue?: string;
 };
 
 const Input: FC<Props> = ({
@@ -25,6 +26,7 @@ const Input: FC<Props> = ({
   name,
   placeholder = '',
   type = 'text',
+  defaultValue = '',
 }) => {
   const { field } = useFormControl({ name, control });
 
@@ -35,6 +37,7 @@ const Input: FC<Props> = ({
         {...field}
         type={type}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         className={styles.input}
       />
       <span className={styles.errorMessage}>

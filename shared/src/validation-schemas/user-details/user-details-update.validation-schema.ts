@@ -38,7 +38,6 @@ const userDetailsUpdate = Joi.object({
     .messages({
       'string.empty': UserDetailsValidationMessage.GENDER_REQUIRE,
     }),
-  [getNameOf<UserDetailsCreateRequestDto>('avatarUrl')]: Joi.string(),
   [getNameOf<UserDetailsCreateRequestDto>('dateOfBirth')]:
     Joi.date().less('now'),
 });

@@ -24,6 +24,15 @@ class GroupsApi {
       },
     );
   }
+
+  public update(): Promise<EntityPagination<GroupsItemResponseDto>> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
+      {
+        method: HttpMethod.PUT,
+      },
+    );
+  }
 }
 
 export { GroupsApi };

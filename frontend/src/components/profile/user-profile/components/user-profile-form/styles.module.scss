@@ -1,0 +1,50 @@
+.subtitle {
+  color: var(--typography-text-100-inverse);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+  color-scheme: dark;
+}
+
+.formWrapper {
+  margin-top: 60px;
+  color: var(--typography-text-100-inverse);
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  padding: 24px 0;
+  column-gap: 20px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.personalInfo {
+  margin-top: 50px;
+}
+
+.text {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  color: var(--typography-text-gray-200);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.cancelBtn {
+  margin-right: 15px;
+  background-color: var(--background-gray-200);
+}

@@ -1,16 +1,26 @@
+import { SettingsWrapperType } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
-import { userDetailsActions } from 'store/actions';
+import { useState } from 'hooks/hooks';
+
+import { SettingsWrapper } from './settings-wrapper/settings-wrapper';
+import styles from './styles.module.scss';
+import { UserProfile } from './user-profile/user-profile';
 
 const Profile: FC = () => {
-  const dispatch = useAppDispatch();
-  const { userDetails } = useAppSelector((state) => state.userDetails);
+  const [tab, setTab] = useState<string>(
+    SettingsWrapperType.PERSONAL_INFORMATION,
+  );
 
-  useEffect(() => {
-    dispatch(userDetailsActions.getUserDetails());
-  }, []);
+  const handleChangeTab = (tab: string): void => {
+    setTab(tab);
+  };
 
-  return <div>{userDetails?.id}</div>;
+  return (
+    <div className={styles.grid}>
+      <SettingsWrapper selectedTab={tab} onHandleChangeTab={handleChangeTab} />
+      {tab === SettingsWrapperType.PERSONAL_INFORMATION && <UserProfile />}
+    </div>
+  );
 };
 
 export { Profile };

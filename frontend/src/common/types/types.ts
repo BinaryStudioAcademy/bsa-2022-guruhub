@@ -18,9 +18,11 @@ export {
 } from './pagination/pagination';
 export {
   type FC,
+  type FormEvent,
   type SVGProps,
   type URLSearchParamsInit,
 } from './react/react';
+export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,

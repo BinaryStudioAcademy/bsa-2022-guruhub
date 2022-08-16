@@ -16,16 +16,18 @@ class UserDetails {
     userId: number,
     userDetails: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
-    const { lastName, firstName, gender, dateOfBirth, avatarUrl } = userDetails;
+    const { lastName, firstName, gender, dateOfBirth } = userDetails;
 
-    return this.#UserDetailsModel.query().insert({
-      firstName,
-      lastName,
-      avatarUrl,
-      gender,
-      dateOfBirth,
-      userId,
-    });
+    return this.#UserDetailsModel
+      .query()
+      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
+      .insert({
+        firstName,
+        lastName,
+        gender,
+        dateOfBirth,
+        userId,
+      });
   }
 
   async update(
@@ -34,6 +36,7 @@ class UserDetails {
   ): Promise<UserDetailsM> {
     return this.#UserDetailsModel
       .query()
+      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
       .patchAndFetchById(userId, userDetails);
   }
 

@@ -10,6 +10,7 @@ export { Modal } from './modal/modal';
 export { Pagination } from './pagination/pagination';
 export { ProtectedRoute } from './protected-route/protected-route';
 export { Spinner } from './spinner/spinner';
+export { Switcher } from './switcher/switcher';
 export { Table } from './table/table';
 export { Toast } from './toast/toast';
 export { ErrorMessage } from '@hookform/error-message';

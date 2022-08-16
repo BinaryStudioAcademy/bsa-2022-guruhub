@@ -1,0 +1,28 @@
+.imageWrapper {
+  width: 100%;
+  max-width: 136px;
+  margin-right: 17px;
+}
+
+.btn {
+  min-width: 130px;
+}
+
+.btnUpdate {
+  margin-bottom: 11px;
+  color: var(--brand-blue-100);
+  background: var(--background-gray-400);
+  border: 1px solid var(--brand-blue-100);
+}
+
+.btnUpdate:hover {
+  color: var(--typography-text-100-inverse);
+  background: var(--background-gray-400);
+  border: 1px solid var(--typography-text-100-inverse);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}

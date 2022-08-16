@@ -1,4 +1,4 @@
-import defaultUserAvatar from 'assets/img/avatar-default.svg';
+import defaultUserAvatar from 'assets/img/avatar-default.jpg';
 import logo from 'assets/img/logo.svg';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';

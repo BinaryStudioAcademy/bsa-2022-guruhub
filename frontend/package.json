@@ -7,7 +7,7 @@
     "npm": ">=8.8 <9"
   },
   "scripts": {
-    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to . --fix",
+    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to . ",
     "lint:css": "npx stylelint \"src/**/*.scss\"",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:css && npm run lint:js && npm run lint:type",
@@ -27,6 +27,7 @@
     "react-redux": "8.0.2",
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
+    "react-switch-selector": "^2.0.0",
     "react-table": "7.8.0",
     "react-toastify": "9.0.8"
   },
