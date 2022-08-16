@@ -4,8 +4,4 @@ type GroupsUpdateRequestDto = {
   userIds: number[];
 };
 
-type GroupsUpdateRequestParamsDto = {
-  id: number;
-};
-
-export { type GroupsUpdateRequestDto, type GroupsUpdateRequestParamsDto };
+export { type GroupsUpdateRequestDto };

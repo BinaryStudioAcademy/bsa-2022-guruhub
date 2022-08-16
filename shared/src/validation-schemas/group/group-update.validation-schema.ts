@@ -2,10 +2,7 @@ import * as Joi from 'joi';
 
 import { GroupValidationRule } from '~/common/enums/enums';
 import { GroupValidationMessage } from '~/common/enums/group/group';
-import {
-  GroupsUpdateRequestDto,
-  GroupsUpdateRequestParamsDto,
-} from '~/common/types/types';
+import { GroupsUpdateRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const groupUpdate = Joi.object({
@@ -30,10 +27,4 @@ const groupUpdate = Joi.object({
   ),
 });
 
-const groupUpdateParams = Joi.object({
-  [getNameOf<GroupsUpdateRequestParamsDto>('id')]: Joi.number()
-    .integer()
-    .required(),
-});
-
-export { groupUpdate, groupUpdateParams };
+export { groupUpdate };
