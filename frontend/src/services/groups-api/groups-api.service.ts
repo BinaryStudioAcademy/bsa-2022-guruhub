@@ -7,6 +7,7 @@ import {
 import {
   EntityPagination,
   GroupsCreateRequestDto,
+  GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -29,6 +30,15 @@ class GroupsApi {
   public getAll(): Promise<EntityPagination<GroupsItemResponseDto>> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getById(id: number): Promise<GroupsGetByIdResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}/${id}`,
       {
         method: HttpMethod.GET,
       },
