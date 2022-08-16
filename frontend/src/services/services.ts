@@ -6,6 +6,7 @@ import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
+import { PermissionsApi } from './permissions-api/permissions-api';
 import { Storage } from './storage/storage.service';
 import { UsersApi } from './users-api/users-api.service';
 
@@ -32,6 +33,11 @@ const groupsApi = new GroupsApi({
   http,
 });
 
+const permissionsApi = new PermissionsApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const coursesApi = new Courses({
   apiPrefix: ENV.API_PATH,
   http,
@@ -50,6 +56,7 @@ export {
   coursesApi,
   groupsApi,
   notification,
+  permissionsApi,
   storage,
   usersApi,
 };
