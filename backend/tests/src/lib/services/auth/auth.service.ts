@@ -18,11 +18,11 @@ type Constructor = {
 class AuthService {
   #httpService: HttpService;
 
-  constructor({ httpService }: Constructor) {
+  public constructor({ httpService }: Constructor) {
     this.#httpService = httpService;
   }
 
-  signIn(
+  public signIn(
     data: UserSignInRequestDto,
   ): Promise<Response<UserSignInResponseDto | HttpErrorDto>> {
     return this.#httpService
@@ -34,7 +34,7 @@ class AuthService {
       .send();
   }
 
-  getCurrentUser(): Promise<Response<UsersGetResponseDto>> {
+  public getCurrentUser(): Promise<Response<UsersGetResponseDto>> {
     return this.#httpService
       .request()
       .get()
