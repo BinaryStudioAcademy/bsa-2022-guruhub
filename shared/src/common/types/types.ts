@@ -9,6 +9,8 @@ export {
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdRequestDto,
+  type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';

@@ -15,6 +15,7 @@ import {
 } from 'components/common/common';
 import { Dashboard } from 'components/dashboard/dashboard';
 import { UAMGroupsCreate } from 'components/groups-create/groups-create';
+import { UAMGroupsEdit } from 'components/groups-edit/groups-edit';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
@@ -67,6 +68,14 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <UAMGroupsCreate />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.UAM_EDIT_GROUP}
+          element={
+            <AuthorizedWrapper>
+              <UAMGroupsEdit />
             </AuthorizedWrapper>
           }
         />

@@ -8,7 +8,9 @@ export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
+  type GroupsWithPermissionIdsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';

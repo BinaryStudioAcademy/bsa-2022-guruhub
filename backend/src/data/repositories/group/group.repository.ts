@@ -1,6 +1,7 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupsWithPermissionIdsDto,
 } from '~/common/types/types';
 import { Group as GroupM } from '~/data/models/models';
 
@@ -13,6 +14,28 @@ class Group {
 
   public constructor({ GroupModel }: Constructor) {
     this.#GroupModel = GroupModel;
+  }
+
+  public async getById(id: number): Promise<GroupsWithPermissionIdsDto | null> {
+    const group = await this.#GroupModel
+      .query()
+      .where({ groupId: id })
+      .select('groups.*', 'permissions.id as permissions')
+      .joinRelated('permissions')
+      .castTo<(GroupM & { permissions: number })[]>()
+      .then((records) => {
+        const permissions: number[] = [];
+        records.forEach((record) => {
+          permissions.push(record.permissions);
+        });
+
+        return {
+          ...records[0],
+          permissions,
+        };
+      });
+
+    return group ?? null;
   }
 
   public async getPaginated({

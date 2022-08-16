@@ -24,6 +24,12 @@ class UsersToGroups {
       userId: model.userId,
     };
   }
+
+  public getUsersByGroupId(
+    groupId: number,
+  ): Promise<UsersToGroupsResponseDto[] | null> {
+    return this.#usersToGroupsRepository.getUsersByGroupId(groupId);
+  }
 }
 
 export { UsersToGroups };

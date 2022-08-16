@@ -3,6 +3,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
+  GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
@@ -46,6 +47,22 @@ class Group {
     this.#groupsToPermissionsService = groupsToPermissionsService;
     this.#usersToGroupsService = usersToGroupsService;
     this.#userService = userService;
+  }
+
+  public async getById(id: number): Promise<GroupsGetByIdResponseDto | null> {
+    const groupWithPermissions = await this.#groupsRepository.getById(id);
+
+    if (!groupWithPermissions) {
+      throw new GroupsError({ message: ExceptionMessage.INVALID_GROUP_ID });
+    }
+
+    const users = await this.#usersToGroupsService.getUsersByGroupId(id);
+    const userIds = users?.map((user) => user.userId);
+
+    return {
+      ...groupWithPermissions,
+      users: userIds ?? [],
+    };
   }
 
   public async getPaginated({

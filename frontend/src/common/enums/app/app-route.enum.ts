@@ -9,6 +9,7 @@ enum AppRoute {
   SETTINGS = '/settings',
   UAM = '/uam',
   UAM_CREATE_GROUP = '/uam/groups/create',
+  UAM_EDIT_GROUP = '/uam/groups/edit/:id',
   ANY = '*',
 }
 
