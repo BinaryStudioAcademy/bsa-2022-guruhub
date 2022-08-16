@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { SvgProps } from 'react-native-svg';
 
 import Billing from '~/assets/icons/billing.svg';

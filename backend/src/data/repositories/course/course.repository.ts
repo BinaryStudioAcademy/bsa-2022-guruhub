@@ -11,11 +11,11 @@ type Constructor = {
 class Course {
   #CourseModel: typeof CourseM;
 
-  constructor({ CourseModel }: Constructor) {
+  public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
   }
 
-  async getAll(filteringOpts: {
+  public async getAll(filteringOpts: {
     categoryId: number | null;
   }): Promise<(CourseM & { vendorKey: VendorKey })[]> {
     const { categoryId } = filteringOpts ?? {};
@@ -34,7 +34,9 @@ class Course {
     >;
   }
 
-  async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {
+  public async create(
+    course: CourseCreateRequestArgumentsDto,
+  ): Promise<CourseM> {
     const { title, description, url, vendorId, courseCategoryId } = course;
 
     return this.#CourseModel.query().insert({
@@ -46,7 +48,7 @@ class Course {
     });
   }
 
-  async getByCategoryId(
+  public async getByCategoryId(
     courseCategoryId: number,
   ): Promise<(CourseM & { vendorKey: VendorKey })[]> {
     return this.#CourseModel

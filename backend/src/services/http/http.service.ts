@@ -10,11 +10,11 @@ import { HttpOptions } from '~/common/types/types';
 class Http {
   #http: AxiosInstance;
 
-  constructor() {
+  public constructor() {
     this.#http = axios.create();
   }
 
-  async load<T = unknown>(
+  public async load<T = unknown>(
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {

@@ -7,11 +7,11 @@ type Constructor = {
 class CourseCategory {
   #CourseCategoryModel: typeof CourseCategoryM;
 
-  constructor({ CourseCategoryModel }: Constructor) {
+  public constructor({ CourseCategoryModel }: Constructor) {
     this.#CourseCategoryModel = CourseCategoryModel;
   }
 
-  async getByKey(key: string): Promise<CourseCategoryM | null> {
+  public async getByKey(key: string): Promise<CourseCategoryM | null> {
     const courseCategory = await this.#CourseCategoryModel
       .query()
       .select()

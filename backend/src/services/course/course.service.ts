@@ -20,11 +20,14 @@ type Constructor = {
 
 class Course {
   #courseRepository: typeof courseRep;
+
   #vendorService: typeof vendorServ;
+
   #udemyService: typeof udemyServ;
+
   #courseCategoryService: typeof courseCategoryServ;
 
-  constructor({
+  public constructor({
     courseRepository,
     vendorService,
     udemyService,
@@ -36,7 +39,7 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  async getAll(filteringOpts: {
+  public async getAll(filteringOpts: {
     categoryKey: string;
   }): Promise<CourseGetResponseDto[] | null> {
     const { categoryKey } = filteringOpts;
@@ -47,7 +50,7 @@ class Course {
     });
   }
 
-  async create(
+  public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
     const { description, title, url, vendorKey } = courseRequestDto;
@@ -73,7 +76,7 @@ class Course {
     };
   }
 
-  async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
+  public async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
     const urlObject = new URL(url);
     const { host } = urlObject;
 
@@ -98,7 +101,7 @@ class Course {
     }
   }
 
-  async getCategoryIdByKey(categoryKey: string): Promise<number | null> {
+  public async getCategoryIdByKey(categoryKey: string): Promise<number | null> {
     if (!categoryKey) {
       return null;
     }

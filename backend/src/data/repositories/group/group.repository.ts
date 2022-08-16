@@ -11,11 +11,11 @@ type Constructor = {
 class Group {
   #GroupModel: typeof GroupM;
 
-  constructor({ GroupModel }: Constructor) {
+  public constructor({ GroupModel }: Constructor) {
     this.#GroupModel = GroupModel;
   }
 
-  async getPaginated({
+  public async getPaginated({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
@@ -27,7 +27,7 @@ class Group {
     };
   }
 
-  async create(group: { name: string; key: string }): Promise<GroupM> {
+  public async create(group: { name: string; key: string }): Promise<GroupM> {
     const { name, key } = group;
 
     return this.#GroupModel.query().insert({
@@ -36,7 +36,7 @@ class Group {
     });
   }
 
-  async getByName(name: string): Promise<GroupM | null> {
+  public async getByName(name: string): Promise<GroupM | null> {
     const group = await this.#GroupModel
       .query()
       .select()
@@ -46,7 +46,7 @@ class Group {
     return group ?? null;
   }
 
-  async delete(groupId: number): Promise<number> {
+  public async delete(groupId: number): Promise<number> {
     return this.#GroupModel.query().delete().where({ id: groupId });
   }
 }

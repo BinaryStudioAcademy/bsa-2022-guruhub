@@ -1,4 +1,4 @@
-import type { Middleware } from '@reduxjs/toolkit';
+import { type Middleware } from '@reduxjs/toolkit';
 
 import { NotificationType } from '~/common/enums/enums';
 import { AppDispatch } from '~/common/types/types';

@@ -8,7 +8,7 @@ type Constructor = {
 };
 
 class AuthError extends HttpError {
-  constructor({ message, status }: Constructor = {}) {
+  public constructor({ message, status }: Constructor = {}) {
     super({ message, status });
     this.name = CustomExceptionName.AUTH_ERROR;
   }

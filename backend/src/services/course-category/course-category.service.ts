@@ -8,11 +8,11 @@ type Constructor = {
 class CourseCategory {
   #courseCategoryRepository: typeof courseCategoryRep;
 
-  constructor({ courseCategoryRepository }: Constructor) {
+  public constructor({ courseCategoryRepository }: Constructor) {
     this.#courseCategoryRepository = courseCategoryRepository;
   }
 
-  getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
+  public getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
     return this.#courseCategoryRepository.getByKey(key);
   }
 }

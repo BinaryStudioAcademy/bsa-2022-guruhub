@@ -9,8 +9,8 @@ import {
   Vendor as VendorModel,
 } from '~/data/models/models';
 
-import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
+import { Course } from './course/course.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Permission } from './permission/permission.repository';
