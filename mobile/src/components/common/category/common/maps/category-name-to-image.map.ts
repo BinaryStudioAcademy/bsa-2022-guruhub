@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { ImageProps } from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 
 import C from '~/assets/images/c.png';
 import CSS from '~/assets/images/css.png';
@@ -12,7 +11,10 @@ import React from '~/assets/images/react.png';
 import Typescript from '~/assets/images/typescript.png';
 import { CourseImageName } from '~/common/types/types';
 
-const categoryNameToImage: Record<CourseImageName, FC<ImageProps>> = {
+const categoryNameToImage: Record<
+  CourseImageName | string,
+  ImageSourcePropType
+> = {
   c: C,
   css: CSS,
   html: HTML,

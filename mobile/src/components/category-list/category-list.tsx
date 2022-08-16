@@ -14,7 +14,10 @@ const CategoryList: FC<Props> = ({ items }) => {
   const [categories, setCategories] = useState(items);
 
   const handlePress = (index: number): void => {
-    setCategories([...categories.slice(index), ...categories.slice(0, index)]);
+    setCategories([
+      categories[index],
+      ...categories.filter((item) => item.id !== categories[index].id),
+    ]);
   };
 
   const renderCategories = categories.map((category, index) => (

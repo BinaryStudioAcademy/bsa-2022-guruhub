@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
-import { CourseImageName } from '~/common/types/types';
 import { Image, Pressable, Text, View } from '~/components/common/common';
 import { categoryNameToImage } from '~/components/common/maps/maps';
+import { getImageUri } from '~/helpers/helpers';
 import { useState } from '~/hooks/hooks';
 
 import { getRandomColor } from './helpers/get-random-color.helper';
@@ -10,14 +10,14 @@ import { styles } from './style';
 
 type Props = {
   imageName: string;
-  name: string | CourseImageName;
+  name: string;
   onPress: () => void;
 };
 
 const Category: FC<Props> = ({ imageName, name, onPress }) => {
   const [isActive, setIsActive] = useState(false);
-  const borderColor = getRandomColor();
 
+  const borderColor = getRandomColor();
   const imageKeys = Object.keys(categoryNameToImage);
   const hasImage = imageKeys.includes(imageName);
 
@@ -36,7 +36,12 @@ const Category: FC<Props> = ({ imageName, name, onPress }) => {
         }}
       >
         {hasImage ? (
-          <Image source={{ uri: `~/assets/images/${imageName}.png` }} />
+          <View style={styles.logoWrapper}>
+            <Image
+              source={{ uri: getImageUri(categoryNameToImage[imageName]) }}
+              style={styles.logoImage}
+            />
+          </View>
         ) : (
           <Text style={{ ...styles.logoText, backgroundColor: borderColor }}>
             {name[0].toUpperCase()}
