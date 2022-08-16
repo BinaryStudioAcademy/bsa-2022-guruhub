@@ -11,7 +11,7 @@ const CoursesList: FC<Props> = ({ courses }) => {
   return (
     <div className={styles.container}>
       {courses.map((course) => (
-        <Course key={course.id} title={course.title} vendor={course.vendor} />
+        <Course key={course.id} course={course} />
       ))}
     </div>
   );
