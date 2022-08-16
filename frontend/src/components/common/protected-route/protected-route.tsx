@@ -1,3 +1,5 @@
+import { ReactNode, useEffect } from 'react';
+
 import {
   AppRoute,
   ExceptionMessage,
@@ -8,7 +10,6 @@ import { FC, UserWithPermissions } from 'common/types/types';
 import { Navigate } from 'components/common/common';
 import { checkHasPermission } from 'helpers/helpers';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { ReactNode, useEffect } from 'react';
 import { appActions } from 'store/actions';
 
 type Props = {

@@ -11,9 +11,6 @@ extends:
   - plugin:import/typescript
   - plugin:@typescript-eslint/recommended
 
-plugins:
-  - simple-import-sort
-
 rules:
   padding-line-between-statements:
     - off
@@ -91,7 +88,27 @@ rules:
     - error
   import/no-duplicates:
     - error
-  simple-import-sort/imports:
+  import/order:
     - error
-  simple-import-sort/exports:
+    - newlines-between: always
+      alphabetize:
+        order: asc
+      pathGroups:
+        - pattern: react
+          group: external
+          position: before
+        - pattern: '~/**'
+          group: internal
+      pathGroupsExcludedImportTypes:
+        - react
+      groups:
+        - - builtin
+          - external
+        - internal
+        - - parent
+          - sibling
+        - index
+        - object
+        - type
+  import/group-exports:
     - error

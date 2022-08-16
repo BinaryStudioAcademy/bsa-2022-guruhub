@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+
 import { Column, useTable } from 'react-table';
 
 import styles from './styles.module.scss';

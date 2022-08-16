@@ -16,8 +16,7 @@ import {
 import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
-import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { useEffect } from 'react';
+import { useEffect, useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
 

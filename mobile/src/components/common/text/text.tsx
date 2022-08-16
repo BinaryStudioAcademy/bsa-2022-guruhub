@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Text as UIText } from 'react-native';
 
 import { AppTextStyle } from '~/common/types/types';

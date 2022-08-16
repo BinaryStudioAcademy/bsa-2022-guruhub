@@ -1,8 +1,9 @@
+import React, { FC, useEffect } from 'react';
+
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import React, { FC, useEffect } from 'react';
 
 import { DataStatus, RootScreenName, StorageKey } from '~/common/enums/enums';
 import { RootNavigationParamList } from '~/common/types/types';
