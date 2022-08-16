@@ -21,14 +21,15 @@ type Constructor = {
 
 class AuthApi {
   #http: Http;
+
   #apiPrefix: string;
 
-  constructor({ http, apiPrefix }: Constructor) {
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
   }
 
-  signUp(payload: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+  public signUp(payload: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
       {
@@ -40,7 +41,7 @@ class AuthApi {
     );
   }
 
-  signIn(payload: UserSignInRequestDto): Promise<UserSignInResponseDto> {
+  public signIn(payload: UserSignInRequestDto): Promise<UserSignInResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
       {
@@ -52,7 +53,7 @@ class AuthApi {
     );
   }
 
-  getCurrentUser(): Promise<UserWithPermissions> {
+  public getCurrentUser(): Promise<UserWithPermissions> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
     );

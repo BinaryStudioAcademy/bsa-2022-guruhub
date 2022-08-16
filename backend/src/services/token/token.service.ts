@@ -16,14 +16,15 @@ type Constructor = {
 
 class Token {
   #alg: string;
+
   #expiresIn: string;
 
-  constructor({ alg, expiresIn }: Constructor) {
+  public constructor({ alg, expiresIn }: Constructor) {
     this.#alg = alg;
     this.#expiresIn = expiresIn;
   }
 
-  async create(data: TokenPayload): Promise<string> {
+  public async create(data: TokenPayload): Promise<string> {
     const secretKey = await generateSecret(this.#alg);
 
     return new SignJWT(data)
@@ -32,13 +33,13 @@ class Token {
       .sign(secretKey);
   }
 
-  async verify(token: string): Promise<JWTVerifyResult> {
+  public async verify(token: string): Promise<JWTVerifyResult> {
     const secretKey = await generateSecret(this.#alg);
 
     return jwtVerify(token, secretKey);
   }
 
-  async decode<T>(token: string): Promise<JWTPayload & T> {
+  public async decode<T>(token: string): Promise<JWTPayload & T> {
     const data = decodeJwt(token);
 
     return data as JWTPayload & T;

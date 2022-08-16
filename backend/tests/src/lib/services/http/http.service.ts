@@ -11,9 +11,10 @@ type Constructor = {
 
 class HttpService {
   #got: Got;
+
   #sessionStorage: SessionStorage<ApiSession>;
 
-  constructor({ sessionStorage }: Constructor) {
+  public constructor({ sessionStorage }: Constructor) {
     this.#sessionStorage = sessionStorage;
 
     this.#got = got.extend({
@@ -49,18 +50,18 @@ class HttpService {
     });
   }
 
-  request(): RequestBuilder {
+  public request(): RequestBuilder {
     return new RequestBuilder({
       got: this.#got,
       sessionStorage: this.#sessionStorage,
     });
   }
 
-  setToken(token: string): void {
+  public setToken(token: string): void {
     this.#sessionStorage.set('token', token);
   }
 
-  removeToken(): void {
+  public removeToken(): void {
     this.#sessionStorage.remove('token');
   }
 }
