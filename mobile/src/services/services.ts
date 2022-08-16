@@ -1,6 +1,7 @@
+import { MMKV } from 'react-native-mmkv';
+
 import { ENV } from '~/common/enums/enums';
 
-import { MMKV } from '../components/common/common';
 import { AuthApi } from './auth-api/auth-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
