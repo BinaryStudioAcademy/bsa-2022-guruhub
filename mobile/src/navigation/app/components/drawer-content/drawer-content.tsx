@@ -13,6 +13,7 @@ import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
+  const allowedRoutes = state.routes.map((item) => item.name);
 
   const handleBecomeMentor = (): void => {
     // TODO: navigate to application screen
@@ -28,7 +29,9 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
           {Boolean(index) && <View style={styles.listBorder} />}
           <DrawerList
             name={name}
-            subroutes={subroutes}
+            subroutes={subroutes.filter((item) =>
+              allowedRoutes.includes(item.name),
+            )}
             focusedRouteName={focusedRouteName}
           />
         </View>
