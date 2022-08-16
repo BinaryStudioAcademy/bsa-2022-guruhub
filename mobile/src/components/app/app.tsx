@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { linking } from '~/config/config';
+import { linking, NavigationTheme } from '~/config/config';
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 
 import { Toast } from '../common/common';
@@ -18,7 +18,11 @@ const App: FC = () => {
 
   return (
     <GestureHandlerRootView style={styles.rootView}>
-      <NavigationContainer linking={linking} onReady={handleNavigationReady}>
+      <NavigationContainer
+        theme={NavigationTheme}
+        linking={linking}
+        onReady={handleNavigationReady}
+      >
         <RootNavigation />
       </NavigationContainer>
       <Toast />
