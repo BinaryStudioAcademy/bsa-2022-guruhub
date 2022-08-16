@@ -28,6 +28,7 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
+export { type PermissionsGetAllItemResponseDto } from './permission/permission';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
@@ -37,5 +38,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

@@ -12,6 +12,8 @@ class Course extends Abstract {
 
   public 'url': string;
 
+  public 'imageUrl': string;
+
   public 'vendorId': number;
 
   public 'courseCategoryId': number;

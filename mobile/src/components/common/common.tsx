@@ -3,6 +3,7 @@ export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';
 export { Pagination } from './pagination/pagination';
+export { Search } from './search/search';
 export { Spinner } from './spinner/spinner';
 export { Stack } from './stack/stack';
 export { Table } from './table/table';
