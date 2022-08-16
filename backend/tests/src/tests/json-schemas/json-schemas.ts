@@ -1,1 +1,1 @@
-export { signUpErrorResponseSchema } from './auth/auth';
+export { errorResponseSchema } from './shared/shared';

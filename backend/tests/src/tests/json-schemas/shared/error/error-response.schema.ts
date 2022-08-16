@@ -1,4 +1,4 @@
-const signUpErrorResponseSchema = {
+const errorResponseSchema = {
   'type': 'object',
   'required': ['statusCode', 'error', 'message'],
   'properties': {
@@ -14,4 +14,4 @@ const signUpErrorResponseSchema = {
   },
 };
 
-export { signUpErrorResponseSchema };
+export { errorResponseSchema };

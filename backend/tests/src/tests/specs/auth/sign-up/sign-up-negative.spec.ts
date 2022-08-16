@@ -2,7 +2,7 @@ import { HttpCode } from 'guruhub-shared';
 
 import { withTestData } from '~/lib/helpers/helpers';
 import { apiSessionStorage, authService } from '~/lib/services/services';
-import { signUpErrorResponseSchema } from '~/tests/json-schemas/shared/error/sign-up-error-response.schema';
+import { errorResponseSchema } from '~/tests/json-schemas/json-schemas';
 
 describe('Sign up negative tests', () => {
   before(() => apiSessionStorage.addAndEnterSession('default'));
@@ -96,7 +96,7 @@ describe('Sign up negative tests', () => {
 
         response.should.have.status(HttpCode.BAD_REQUEST);
         response.should.have.normalExecutionTime;
-        response.body.should.have.jsonSchema(signUpErrorResponseSchema);
+        response.body.should.have.jsonSchema(errorResponseSchema);
       });
     },
   );
