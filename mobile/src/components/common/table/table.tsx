@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+
 import { Cell, Rows, Table as UITable } from 'react-native-table-component';
 
 import { TableColumn } from '~/common/types/ui/ui';

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Pressable } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';

@@ -1,5 +1,6 @@
-import { Icon } from 'components/common/common';
 import { FC } from 'react';
+
+import { Icon } from 'components/common/common';
 import { CellProps } from 'react-table';
 
 import {

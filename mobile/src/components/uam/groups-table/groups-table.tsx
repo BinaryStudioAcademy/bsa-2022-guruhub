@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+
 import { useWindowDimensions } from 'react-native';
 
 import { Table, Text, View } from '~/components/common/common';

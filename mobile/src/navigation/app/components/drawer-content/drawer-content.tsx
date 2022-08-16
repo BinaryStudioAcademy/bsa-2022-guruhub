@@ -1,5 +1,6 @@
-import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
+
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
 
 import logo from '~/assets/images/logo.png';
 import saly from '~/assets/images/saly.png';
