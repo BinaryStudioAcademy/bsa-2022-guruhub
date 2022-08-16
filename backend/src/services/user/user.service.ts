@@ -18,14 +18,15 @@ type Constructor = {
 
 class User {
   #userRepository: typeof userRep;
+
   #encryptService: Encrypt;
 
-  constructor({ userRepository, encryptService }: Constructor) {
+  public constructor({ userRepository, encryptService }: Constructor) {
     this.#userRepository = userRepository;
     this.#encryptService = encryptService;
   }
 
-  async getPaginated({
+  public async getPaginated({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
@@ -48,7 +49,7 @@ class User {
     };
   }
 
-  async create({
+  public async create({
     email,
     fullName,
     password,
@@ -75,7 +76,9 @@ class User {
     };
   }
 
-  async getByEmail(email: string): Promise<UsersByEmailResponseDto | null> {
+  public async getByEmail(
+    email: string,
+  ): Promise<UsersByEmailResponseDto | null> {
     const user = await this.#userRepository.getByEmail(email);
 
     if (!user) {
@@ -92,11 +95,13 @@ class User {
     };
   }
 
-  getUserPermissions(id: number): Promise<PermissionsGetAllItemResponseDto[]> {
+  public getUserPermissions(
+    id: number,
+  ): Promise<PermissionsGetAllItemResponseDto[]> {
     return this.#userRepository.getUserPermissions(id);
   }
 
-  async getById(id: string): Promise<UserWithPermissions | null> {
+  public async getById(id: string): Promise<UserWithPermissions | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {
@@ -113,7 +118,7 @@ class User {
     };
   }
 
-  async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
+  public async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
     const users = await this.#userRepository.getByIds(ids);
 
     return users.map((user) => ({
@@ -124,7 +129,7 @@ class User {
     }));
   }
 
-  async delete(id: number): Promise<boolean> {
+  public async delete(id: number): Promise<boolean> {
     const deletedUsersCount = await this.#userRepository.delete(id);
 
     return Boolean(deletedUsersCount);

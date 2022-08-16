@@ -11,75 +11,77 @@ type Constructor = {
 
 class RequestBuilder {
   #got: Got;
+
   #options: RequestOptions = {};
+
   #sessionStorage: SessionStorage<ApiSession>;
 
-  constructor({ got, sessionStorage }: Constructor) {
+  public constructor({ got, sessionStorage }: Constructor) {
     this.#got = got;
     this.#sessionStorage = sessionStorage;
   }
 
-  get(): this {
+  public get(): this {
     this.#options.method = 'get';
 
     return this;
   }
 
-  head(): this {
+  public head(): this {
     this.#options.method = 'head';
 
     return this;
   }
 
-  options(): this {
+  public options(): this {
     this.#options.method = 'options';
 
     return this;
   }
 
-  trace(): this {
+  public trace(): this {
     this.#options.method = 'trace';
 
     return this;
   }
 
-  post(): this {
+  public post(): this {
     this.#options.method = 'post';
 
     return this;
   }
 
-  put(): this {
+  public put(): this {
     this.#options.method = 'put';
 
     return this;
   }
 
-  patch(): this {
+  public patch(): this {
     this.#options.method = 'patch';
 
     return this;
   }
 
-  delete(): this {
+  public delete(): this {
     this.#options.method = 'delete';
 
     return this;
   }
 
-  path(path: string): this {
+  public path(path: string): this {
     this.#options.url = path.replace(/^\/+/, '');
 
     return this;
   }
 
-  noAutoAuth(): this {
+  public noAutoAuth(): this {
     this.#options.hasAutoAuth = false;
 
     return this;
   }
 
-  authorize(customToken?: string): this {
+  public authorize(customToken?: string): this {
     const token = customToken ?? this.#getToken();
 
     if (token) {
@@ -91,7 +93,7 @@ class RequestBuilder {
     return this;
   }
 
-  query(
+  public query(
     query: Record<string, string | number | boolean | null | undefined>,
   ): this {
     this.#options.searchParams = query;
@@ -99,7 +101,7 @@ class RequestBuilder {
     return this;
   }
 
-  headers(headers: Headers): this {
+  public headers(headers: Headers): this {
     this.#options.headers = {
       ...(this.#options.headers ?? {}),
       ...headers,
@@ -110,19 +112,19 @@ class RequestBuilder {
 
   // JSON body can be anything. Even non-object.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data(data: any): this {
+  public data(data: any): this {
     this.#options.json = data;
 
     return this;
   }
 
-  form(data: FormData): this {
+  public form(data: FormData): this {
     this.#options.body = data;
 
     return this;
   }
 
-  async send<T>(): Promise<Response<T>> {
+  public async send<T>(): Promise<Response<T>> {
     if (!(this.#options.hasAutoAuth ?? true)) {
       this.authorize();
     }

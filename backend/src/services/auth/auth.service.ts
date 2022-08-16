@@ -21,16 +21,22 @@ type Constructor = {
 
 class Auth {
   #userService: typeof userServ;
+
   #tokenService: typeof tokenServ;
+
   #encryptService: typeof encryptServ;
 
-  constructor({ userService, encryptService, tokenService }: Constructor) {
+  public constructor({
+    userService,
+    encryptService,
+    tokenService,
+  }: Constructor) {
     this.#userService = userService;
     this.#encryptService = encryptService;
     this.#tokenService = tokenService;
   }
 
-  async signUp(
+  public async signUp(
     userRequestDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
     const { email } = userRequestDto;
@@ -52,7 +58,7 @@ class Auth {
     };
   }
 
-  async verifySignIn(
+  public async verifySignIn(
     signInUserDto: UserSignInRequestDto,
   ): Promise<UserWithPermissions> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
@@ -90,7 +96,7 @@ class Auth {
     };
   }
 
-  async signIn(
+  public async signIn(
     userRequestDto: UserSignInRequestDto,
   ): Promise<UserSignInResponseDto> {
     const user = await this.verifySignIn(userRequestDto);
@@ -102,7 +108,9 @@ class Auth {
     };
   }
 
-  async getCurrentUser(token: string): Promise<UserWithPermissions | null> {
+  public async getCurrentUser(
+    token: string,
+  ): Promise<UserWithPermissions | null> {
     try {
       const { userId } = await this.#tokenService.decode(token);
       const user = await this.#userService.getById(userId);
