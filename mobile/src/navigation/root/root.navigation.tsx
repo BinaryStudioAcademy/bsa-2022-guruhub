@@ -1,8 +1,9 @@
+import React, { FC, useEffect } from 'react';
+
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import React, { FC, useEffect } from 'react';
 
 import { DataStatus, RootScreenName, StorageKey } from '~/common/enums/enums';
 import { RootNavigationParamList } from '~/common/types/types';
@@ -11,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { App as AppNavigation } from '~/navigation/app/app.navigation';
 import { Auth as AuthNavigation } from '~/navigation/auth/auth.navigation';
 import { storage } from '~/services/services';
-import { auth } from '~/store/actions';
+import { authActions } from '~/store/actions';
 
 const NativeStack = createNativeStackNavigator<RootNavigationParamList>();
 
@@ -28,7 +29,7 @@ const Root: FC = () => {
 
   useEffect(() => {
     if (hasToken) {
-      dispatch(auth.loadCurrentUser());
+      dispatch(authActions.loadCurrentUser());
     }
   }, [dispatch, hasToken]);
 

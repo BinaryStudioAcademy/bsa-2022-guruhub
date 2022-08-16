@@ -1,15 +1,24 @@
 export {
+  CategoryGetAllItemResponseDto,
+  CategoryGetAllResponseDto,
+} from './category/category';
+export {
+  type CourseCreateRequestDto,
+  type CourseGetResponseDto,
+} from './course/course';
+export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
+export { type HttpOptions } from './http/http';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  type PermissionItem,
+  type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
@@ -24,3 +33,4 @@ export {
 } from './user/user';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
+export { type VendorGetResponseDto } from './vendor/vendor';

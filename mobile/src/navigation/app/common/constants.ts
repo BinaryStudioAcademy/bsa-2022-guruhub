@@ -1,17 +1,17 @@
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
 
-import { AppColor, AppScreenName } from '~/common/enums/enums';
+import { AppColor, AppFontFamily, AppScreenName } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
-  swipeEdgeWidth: 100,
+  swipeEdgeWidth: 70,
   headerStyle: {
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
   headerTintColor: AppColor.TEXT.GRAY_100,
   headerTitleStyle: {
+    fontFamily: AppFontFamily.INTER_500,
     fontSize: 20,
-    fontWeight: '500',
     letterSpacing: 0.5,
   },
   drawerStyle: {
@@ -52,6 +52,10 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
       {
         name: AppScreenName.SETTINGS,
         icon: 'settings',
+      },
+      {
+        name: AppScreenName.UAM,
+        icon: 'uam',
       },
     ],
   },

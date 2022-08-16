@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+
 import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';

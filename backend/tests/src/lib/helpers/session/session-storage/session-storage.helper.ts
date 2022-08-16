@@ -2,9 +2,10 @@ import { Session } from '../session/session.helper';
 
 class SessionStorage<T extends object> {
   #sessions: Record<string, Session<T>> = {};
+
   #currentSessionName: string | null = null;
 
-  get isInSession(): boolean {
+  public get isInSession(): boolean {
     return this.#currentSessionName !== null;
   }
 
@@ -14,11 +15,11 @@ class SessionStorage<T extends object> {
     return this.#sessions[this.#currentSessionName as string];
   }
 
-  sessionExists(name: string): boolean {
+  public sessionExists(name: string): boolean {
     return Boolean(this.#sessions[name]);
   }
 
-  addSession(name: string, initialData: T = {} as T): void {
+  public addSession(name: string, initialData: T = {} as T): void {
     if (this.sessionExists(name)) {
       throw new Error('Session already exists');
     }
@@ -26,19 +27,19 @@ class SessionStorage<T extends object> {
     this.#sessions[name] = new Session<T>(initialData);
   }
 
-  removeSession(name: string): void {
+  public removeSession(name: string): void {
     if (!this.sessionExists(name)) {
       throw new Error('No sessions with given name exist');
     }
 
     if (this.#currentSessionName === name) {
-      this.exit();
+      this.exitSession();
     }
 
     delete this.#sessions[name];
   }
 
-  enterSession(name: string): void {
+  public enterSession(name: string): void {
     if (!this.sessionExists(name)) {
       throw new Error('No sessions with given name exist');
     }
@@ -46,30 +47,30 @@ class SessionStorage<T extends object> {
     this.#currentSessionName = name;
   }
 
-  exit(): void {
+  public exitSession(): void {
     this.#currentSessionName = null;
   }
 
-  addAndEnterSession(name: string): void {
+  public addAndEnterSession(name: string): void {
     this.addSession(name);
     this.enterSession(name);
   }
 
-  enterSessionAndRemoveSessionPrevious(name: string): void {
+  public enterSessionAndRemovePrevious(name: string): void {
     this.#throwIfNotInSession();
-    this.enterSession(name);
     this.removeSession(this.#currentSessionName as string);
+    this.enterSession(name);
   }
 
-  get(key: keyof T): T[typeof key] | undefined {
+  public get(key: keyof T): T[typeof key] | undefined {
     return this.session.get(key);
   }
 
-  set(key: keyof T, value: T[typeof key]): void {
+  public set(key: keyof T, value: T[typeof key]): void {
     this.session.set(key, value);
   }
 
-  remove(key: keyof T): void {
+  public remove(key: keyof T): void {
     this.session.remove(key);
   }
 
