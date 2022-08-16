@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
+import { categoryNameToImage } from '~/components/common/category/common/maps/maps';
 import { Image, Pressable, Text, View } from '~/components/common/common';
-import { categoryNameToImage } from '~/components/common/maps/maps';
 import { getImageUri } from '~/helpers/helpers';
 import { useState } from '~/hooks/hooks';
 

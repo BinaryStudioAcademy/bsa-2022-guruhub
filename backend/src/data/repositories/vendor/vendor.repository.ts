@@ -8,11 +8,11 @@ type Constructor = {
 class Vendor {
   #VendorModel: typeof VendorM;
 
-  constructor({ VendorModel }: Constructor) {
+  public constructor({ VendorModel }: Constructor) {
     this.#VendorModel = VendorModel;
   }
 
-  async getByKey(key: VendorKey): Promise<VendorM | null> {
+  public async getByKey(key: VendorKey): Promise<VendorM | null> {
     const vendor = await this.#VendorModel
       .query()
       .select()

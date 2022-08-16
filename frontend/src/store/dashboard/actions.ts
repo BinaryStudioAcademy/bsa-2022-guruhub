@@ -8,6 +8,17 @@ import {
 
 import { ActionType } from './common';
 
+const getCourses = createAsyncThunk<
+  CourseGetResponseDto[],
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_COURSES, async (_request, { extra }) => {
+  const { coursesApi } = extra;
+  const courses = await coursesApi.getAll();
+
+  return courses;
+});
+
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
   void,
@@ -18,8 +29,6 @@ const getCategories = createAsyncThunk<
 
   return categoriesDto;
 });
-
-export { getCategories };
 
 const addCourse = createAsyncThunk<
   CourseGetResponseDto,
@@ -33,4 +42,4 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse };
+export { addCourse, getCategories, getCourses };
