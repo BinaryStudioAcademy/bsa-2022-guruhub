@@ -12,8 +12,8 @@ import {
 } from '~/data/repositories/repositories';
 
 import { Auth } from './auth/auth.service';
-import { CourseCategory } from './course-category/course-category.service';
 import { Course } from './course/course.service';
+import { CourseCategory } from './course-category/course-category.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
