@@ -38,7 +38,6 @@ class AuthService {
     return this.#httpService
       .request()
       .get()
-      .authorize()
       .path(`${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`)
       .send();
   }
