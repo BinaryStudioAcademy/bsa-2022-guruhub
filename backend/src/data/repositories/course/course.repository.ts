@@ -1,7 +1,7 @@
-import { QueryBuilder } from 'objection';
-
-import { VendorKey } from '~/common/enums/enums';
-import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
+import {
+  CourseCreateRequestArgumentsDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,13 +15,12 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  async getAll(): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+  getAll(): Promise<CourseGetResponseDto[]> {
     return this.#CourseModel
       .query()
-      .joinRelated('vendor')
-      .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
-      CourseM & { vendorKey: VendorKey }
-    >;
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 
   async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {

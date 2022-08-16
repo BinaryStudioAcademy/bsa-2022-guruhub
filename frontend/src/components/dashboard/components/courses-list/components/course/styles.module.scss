@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 255px;
+  padding: 12px;
+  background-color: var(--background-gray-100);
+  border-radius: 16px;
+}
+
+.image {
+  height: 155px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.title {
+  color: white;
+}
+
+.price {
+  float: right;
+  margin: 10px 0;
+  color: var(--typography-text-100-inverse);
+}
+
+.vendor {
+  position: absolute;
+  top: 30px;
+  padding: 8px 11px;
+  background-color: var(--typography-text-100-inverse);
+  border-radius: 0 12px 12px 0;
+}

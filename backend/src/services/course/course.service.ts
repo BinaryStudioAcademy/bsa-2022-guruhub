@@ -24,7 +24,7 @@ class Course {
     this.#udemyService = udemyService;
   }
 
-  async getAll(): Promise<CourseGetResponseDto[]> {
+  getAll(): Promise<CourseGetResponseDto[]> {
     return this.#courseRepository.getAll();
   }
 
@@ -50,7 +50,7 @@ class Course {
 
     return {
       ...course,
-      vendorKey,
+      vendor,
     };
   }
 
