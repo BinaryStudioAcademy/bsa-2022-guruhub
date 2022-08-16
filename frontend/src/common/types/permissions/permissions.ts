@@ -1,4 +1,3 @@
-export { PermissionsGroupCreationDto } from './permissions-group-creation-dto.type';
 export {
   PermissionsGetAllItemResponseDto,
   PermissionsGetAllResponseDto,

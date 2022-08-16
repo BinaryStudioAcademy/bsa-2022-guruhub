@@ -28,10 +28,7 @@ const Button: FC<Props> = ({
     return (
       <Link
         to={to as AppRoute}
-        className={getValidClasses(
-          styles.button,
-          btnType === 'outlined' && styles.outlined,
-        )}
+        className={getValidClasses(styles.button, styles[`button-${btnType}`])}
       >
         {label}
       </Link>
@@ -44,7 +41,7 @@ const Button: FC<Props> = ({
       className={getValidClasses(
         styles.button,
         styles[`button-${btnColor}`],
-        btnType === 'outlined' && styles.outlined,
+        styles[`button-${btnType}`],
       )}
       onClick={onClick}
     >

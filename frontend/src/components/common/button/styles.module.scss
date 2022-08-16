@@ -30,12 +30,12 @@
   opacity: 0.7;
 }
 
-.outlined {
+.button-outlined {
   color: var(--brand-blue-100);
   background: var(--background-gray-300);
   border: 2px solid var(--brand-blue-100);
 }
 
-.outlined:hover {
+.button-outlined:hover {
   background: var(--background-gray-400);
 }
