@@ -1,11 +1,11 @@
-import { VendorKey } from '~/common/enums/enums';
+import { VendorGetResponseDto } from '~/common/types/types';
 
 type CourseGetResponseDto = {
   id: number;
   title: string;
   description: string;
   url: string;
-  vendorKey: VendorKey;
+  vendor: VendorGetResponseDto;
 };
 
 export { type CourseGetResponseDto };

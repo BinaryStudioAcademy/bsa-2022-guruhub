@@ -1,7 +1,7 @@
-import { QueryBuilder } from 'objection';
-
-import { VendorKey } from '~/common/enums/enums';
-import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
+import {
+  CourseCreateRequestArgumentsDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,9 +15,9 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public async getAll(filteringOpts: {
+  public getAll(filteringOpts: {
     categoryId: number | null;
-  }): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+  }): Promise<CourseGetResponseDto[]> {
     const { categoryId } = filteringOpts ?? {};
 
     return this.#CourseModel
@@ -27,10 +27,9 @@ class Course {
           builder.where({ courseCategoryId: categoryId });
         }
       })
-      .joinRelated('vendor')
-      .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
-      CourseM & { vendorKey: VendorKey }
-    >;
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 
   public async create(
@@ -49,14 +48,13 @@ class Course {
 
   public async getByCategoryId(
     courseCategoryId: number,
-  ): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+  ): Promise<CourseGetResponseDto[]> {
     return this.#CourseModel
       .query()
       .where({ courseCategoryId })
-      .joinRelated('vendor')
-      .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
-      CourseM & { vendorKey: VendorKey }
-    >;
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 }
 

@@ -12,13 +12,15 @@ import { dashboardActions } from 'store/actions';
 import {
   AddCourseModal,
   CategoriesList,
-  Courses,
+  CoursesList,
 } from './components/components';
 import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, dataStatus } = useAppSelector((state) => state.dashboard);
+  const { categories, dataStatus, courses } = useAppSelector(
+    (state) => state.dashboard,
+  );
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ const Dashboard: FC = () => {
     <div className={styles.dashboard}>
       <div className={styles.headerWrapper}>
         <div className={styles.header}>
-          <h1 className={styles.headingText}>Course</h1>
+          <h1 className={styles.headingText}>Courses</h1>
           <Button
             label="+ Add new course"
             onClick={handleNewCourseModalToggle}
@@ -50,7 +52,7 @@ const Dashboard: FC = () => {
         </div>
         <CategoriesList items={categories} />
       </div>
-      <Courses />
+      <CoursesList courses={courses} />
     </div>
   );
 };

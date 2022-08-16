@@ -41,7 +41,7 @@ class Course {
 
   public async getAll(filteringOpts: {
     categoryKey: string;
-  }): Promise<CourseGetResponseDto[] | null> {
+  }): Promise<CourseGetResponseDto[]> {
     const { categoryKey } = filteringOpts;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
 
@@ -72,7 +72,7 @@ class Course {
 
     return {
       ...course,
-      vendorKey,
+      vendor,
     };
   }
 

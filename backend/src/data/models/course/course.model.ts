@@ -19,7 +19,7 @@ class Course extends Abstract {
   public static override get relationMappings(): RelationMappings {
     return {
       vendor: {
-        relation: Model.HasManyRelation,
+        relation: Model.HasOneRelation,
         modelClass: Vendor,
         join: {
           from: `${DbTableName.COURSES}.vendor_id`,
