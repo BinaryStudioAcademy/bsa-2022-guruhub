@@ -9,7 +9,7 @@ import {
   useSelectedItems,
 } from 'hooks/hooks';
 import { groupsCreationActions, uamActions } from 'store/actions';
-import { groupCreateName } from 'validation-schemas/validation-schemas';
+import { groupCreate } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CREATE_GROUP_PAYLOAD } from './common/default-create-group-payload';
 import { GroupCreationFieldsName } from './common/enums/enums';
@@ -22,7 +22,7 @@ const UAMGroupsCreate: FC = () => {
   const { users, permissions } = useAppSelector((state) => state.groupsCreate);
   const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
     defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
-    validationSchema: groupCreateName,
+    validationSchema: groupCreate,
   });
   const { items: permissionIds, handleToggle: handlePermissionToggle } =
     useSelectedItems<number>([]);
@@ -49,11 +49,6 @@ const UAMGroupsCreate: FC = () => {
     dispatch(groupsCreationActions.getPermissions());
   }, []);
 
-  const useFormData = {
-    control,
-    errors,
-  };
-
   return (
     <div className={styles.groupCreationMain}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -69,15 +64,10 @@ const UAMGroupsCreate: FC = () => {
           type="text"
         />
       </form>
-      <UsersTable
-        users={users.items}
-        onCheckboxToggle={handleUserToggle}
-        useFormData={useFormData}
-      />
+      <UsersTable users={users} onCheckboxToggle={handleUserToggle} />
       <PermissionsTable
         permissions={permissions}
         onCheckboxToggle={handlePermissionToggle}
-        useFormData={useFormData}
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>

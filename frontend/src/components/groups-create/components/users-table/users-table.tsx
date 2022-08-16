@@ -1,14 +1,9 @@
-import {
-  FC,
-  FormControl,
-  FormControlErrors,
-  UsersGetResponseDto,
-} from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Table } from 'components/common/common';
+import { GroupCreationFieldsName } from 'components/groups-create/common/enums/enums';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
-import { GroupCreationFieldsName } from '../../common/enums/enums';
 import { GroupCreationUsersTableRow } from '../../common/types/types';
 import { getUserColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
@@ -16,17 +11,12 @@ import styles from './styles.module.scss';
 type Props = {
   users: UsersGetResponseDto[];
   onCheckboxToggle: (value: number) => void;
-  useFormData: {
-    control: FormControl;
-    errors: FormControlErrors;
-  };
 };
 
-const UsersTable: FC<Props> = ({ users, onCheckboxToggle, useFormData }) => {
+const UsersTable: FC<Props> = ({ users, onCheckboxToggle }) => {
   const columns = useMemo<Column<GroupCreationUsersTableRow>[]>(() => {
-    return getUserColumns(useFormData.control, {
+    return getUserColumns({
       name: GroupCreationFieldsName.USER_IDS,
-      errors: useFormData.errors,
       onCheckboxToggle,
     });
   }, []);

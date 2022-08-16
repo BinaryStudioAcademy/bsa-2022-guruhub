@@ -1,7 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
-  EntityPagination,
   PermissionsGetAllItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
@@ -11,16 +10,15 @@ import { getPermissions } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  users: EntityPagination<UsersGetResponseDto>;
+  users: UsersGetResponseDto[];
+  usersTotalCount: number;
   permissions: PermissionsGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  users: {
-    items: [],
-    total: 0,
-  },
+  users: [],
+  usersTotalCount: 0,
   permissions: [],
 };
 
@@ -30,7 +28,8 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(uamActions.getUsers.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.users = action.payload;
+    state.users = action.payload.items;
+    state.usersTotalCount = action.payload.total;
   });
   builder.addCase(uamActions.getUsers.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;

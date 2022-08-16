@@ -3,7 +3,6 @@ import { DataStatus } from 'common/enums/enums';
 import {
   EntityPagination,
   GroupsItemResponseDto,
-  PermissionsGetAllItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -14,7 +13,6 @@ type State = {
   users: EntityPagination<UsersGetResponseDto>;
   groups: GroupsItemResponseDto[];
   userDeleteDataStatus: DataStatus;
-  permissions: PermissionsGetAllItemResponseDto[];
 };
 
 const initialState: State = {
@@ -25,7 +23,6 @@ const initialState: State = {
   },
   userDeleteDataStatus: DataStatus.IDLE,
   groups: [],
-  permissions: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {

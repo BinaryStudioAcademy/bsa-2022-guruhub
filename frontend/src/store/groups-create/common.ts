@@ -1,6 +1,6 @@
 enum ActionType {
-  CREATE_GROUP = 'uam/create-group',
-  GET_PERMISSIONS = 'uam/uam-group-create/get-permissions',
+  CREATE_GROUP = 'groups-create/create-group',
+  GET_PERMISSIONS = 'groups-create/get-permissions',
 }
 
 export { ActionType };

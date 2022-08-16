@@ -1,17 +1,31 @@
-import { FC, FormControlErrors, FormControlPath } from 'common/types/types';
+import {
+  FC,
+  FormControl,
+  FormControlErrors,
+  FormControlPath,
+} from 'common/types/types';
+import { useFormControl } from 'hooks/hooks';
 
 import { ErrorMessage } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
   name: FormControlPath;
+  control: FormControl;
   errors: FormControlErrors;
 };
 
-const Checkbox: FC<Props> = ({ name, errors }) => {
+const Checkbox: FC<Props> = ({ name, control, errors }) => {
+  const { field } = useFormControl({ name, control });
+
   return (
     <div className={styles.checkboxWrapper}>
-      <input className={styles.input} type="checkbox" />
+      <input
+        {...field}
+        className={styles.input}
+        type="checkbox"
+        checked={field.value}
+      />
       <span className={styles.error}>
         <ErrorMessage errors={errors} name={name} />
       </span>

@@ -1,14 +1,9 @@
-import {
-  FC,
-  FormControl,
-  FormControlErrors,
-  PermissionsGetAllItemResponseDto,
-} from 'common/types/types';
+import { FC, PermissionsGetAllItemResponseDto } from 'common/types/types';
 import { Table } from 'components/common/common';
+import { GroupCreationFieldsName } from 'components/groups-create/common/enums/enums';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
-import { GroupCreationFieldsName } from '../../common/enums/enums';
 import { PermissionsTableRow } from '../../common/types/types';
 import { getPermissionsColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
@@ -16,21 +11,12 @@ import styles from './styles.module.scss';
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
   onCheckboxToggle: (value: number) => void;
-  useFormData: {
-    control: FormControl;
-    errors: FormControlErrors;
-  };
 };
 
-const PermissionsTable: FC<Props> = ({
-  permissions,
-  onCheckboxToggle,
-  useFormData,
-}) => {
+const PermissionsTable: FC<Props> = ({ permissions, onCheckboxToggle }) => {
   const columns = useMemo<Column<PermissionsTableRow>[]>(() => {
-    return getPermissionsColumns(useFormData.control, {
+    return getPermissionsColumns({
       name: GroupCreationFieldsName.PERMISSION_IDS,
-      errors: useFormData.errors,
       onCheckboxToggle,
     });
   }, []);
