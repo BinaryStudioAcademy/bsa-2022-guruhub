@@ -1,0 +1,30 @@
+.groupCreationMain {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin: 40px;
+  padding: 40px;
+  background-color: var(--background-gray-300);
+  border-radius: 8px;
+}
+
+.groupFormHeading {
+  color: var(--typography-text-100-inverse);
+  font-size: 30px;
+}
+
+.btnsBlock {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnsWrapper {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+}
+
+.errorMessage {
+  color: red;
+}

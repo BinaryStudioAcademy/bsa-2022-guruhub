@@ -7,6 +7,13 @@
 }
 
 .groupsTableHeading {
-  padding-left: 15px;
   color: var(--typography-text-100-inverse);
+}
+
+.groupTableHeadingPanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 15px;
+  padding-left: 15px;
 }
