@@ -11,7 +11,6 @@ export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
-  type FormControlRegister,
   type FormControlValues,
 } from './form/form';
 export { GroupsCreateRequestDto, GroupsItemResponseDto } from './groups/groups';

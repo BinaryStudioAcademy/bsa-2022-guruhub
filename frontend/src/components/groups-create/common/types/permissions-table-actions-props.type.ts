@@ -1,14 +1,14 @@
 import {
   FormControl,
+  FormControlErrors,
   FormControlPath,
-  FormControlRegister,
 } from 'common/types/types';
 
 type PermissionsTableActionsProps = {
-  id: number;
+  errors: FormControlErrors;
   name: FormControlPath;
-  register: FormControlRegister;
   control: FormControl;
+  onToggle: () => void;
 };
 
 export { type PermissionsTableActionsProps };

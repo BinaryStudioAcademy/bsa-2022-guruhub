@@ -1,14 +1,14 @@
 import {
   FormControl,
+  FormControlErrors,
   FormControlPath,
-  FormControlRegister,
 } from 'common/types/types';
 
 type GroupCreationUsersTableActionsProps = {
-  id: number;
+  errors: FormControlErrors;
   name: FormControlPath;
   control: FormControl;
-  register: FormControlRegister;
+  onToggle: () => void;
 };
 
 export { type GroupCreationUsersTableActionsProps };

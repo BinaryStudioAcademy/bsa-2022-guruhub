@@ -9,8 +9,12 @@ import {
 
 const UserActionCell: FC<
   CellProps<GroupCreationUsersTableRow, GroupCreationUsersTableActionsProps>
-> = ({ value: { id, name, register, control } }) => {
-  return <Checkbox id={id} name={name} register={register} control={control} />;
+> = ({ value: { errors, name, onToggle } }) => {
+  return (
+    <form onChange={onToggle}>
+      <Checkbox errors={errors} name={name} />
+    </form>
+  );
 };
 
 export { UserActionCell };

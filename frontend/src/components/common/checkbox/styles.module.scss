@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.checkbox {
+.input {
   width: 20px;
   height: 20px;
   border: 2px solid var(--brand-blue-100);
@@ -14,12 +14,12 @@
   appearance: none;
 }
 
-.checkbox:checked {
+.input:checked {
   position: relative;
   background-color: var(--brand-blue-100);
 }
 
-.checkbox:checked::before {
+.input:checked::before {
   content: '\2713';
   position: absolute;
   top: -4px;

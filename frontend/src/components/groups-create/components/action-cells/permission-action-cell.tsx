@@ -9,8 +9,12 @@ import {
 
 const PermissionsActionsCell: FC<
   CellProps<PermissionsTableRow, PermissionsTableActionsProps>
-> = ({ value: { id, name, register, control } }) => {
-  return <Checkbox id={id} name={name} control={control} register={register} />;
+> = ({ value: { errors, name, onToggle } }) => {
+  return (
+    <form onChange={onToggle}>
+      <Checkbox errors={errors} name={name} />
+    </form>
+  );
 };
 
 export { PermissionsActionsCell };

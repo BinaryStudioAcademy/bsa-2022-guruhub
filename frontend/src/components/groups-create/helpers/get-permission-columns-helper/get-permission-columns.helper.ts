@@ -1,7 +1,7 @@
 import {
   FormControl,
+  FormControlErrors,
   FormControlPath,
-  FormControlRegister,
 } from 'common/types/types';
 import { Column } from 'react-table';
 
@@ -14,23 +14,22 @@ import { PermissionsActionsCell } from '../../components/components';
 
 type UseFormRegisterEntities = {
   name: FormControlPath;
-  register: FormControlRegister;
+  errors: FormControlErrors;
+  onCheckboxToggle: (value: number) => void;
 };
 
 const getPermissionsColumns = (
   control: FormControl,
-  { name, register }: UseFormRegisterEntities,
+  { name, errors, onCheckboxToggle }: UseFormRegisterEntities,
 ): Column<PermissionsTableRow>[] => {
   return [
     {
       Header: 'Select',
-      accessor: ({
-        id,
-      }: PermissionsTableRow): PermissionsTableActionsProps => ({
-        register,
-        id,
+      accessor: ({ id }): PermissionsTableActionsProps => ({
+        errors,
         name,
         control,
+        onToggle: () => onCheckboxToggle(id),
       }),
       Cell: PermissionsActionsCell,
     },

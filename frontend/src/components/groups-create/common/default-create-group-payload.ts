@@ -1,9 +1,5 @@
-import { GroupsCreateRequestDto } from 'common/types/groups/groups';
-
-const DEFAULT_CREATE_GROUP_PAYLOAD: GroupsCreateRequestDto = {
+const DEFAULT_CREATE_GROUP_PAYLOAD = {
   name: '',
-  permissionIds: [],
-  userIds: [],
 };
 
 export { DEFAULT_CREATE_GROUP_PAYLOAD };

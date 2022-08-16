@@ -1,7 +1,7 @@
 import {
   FormControl,
+  FormControlErrors,
   FormControlPath,
-  FormControlRegister,
 } from 'common/types/types';
 import { UserTableAccessor } from 'components/uam/common/enums/user-table-accessor.enum';
 import { Column } from 'react-table';
@@ -14,23 +14,22 @@ import { UserActionCell } from '../../components/components';
 
 type UseFormRegisterEntities = {
   name: FormControlPath;
-  register: FormControlRegister;
+  errors: FormControlErrors;
+  onCheckboxToggle: (value: number) => void;
 };
 
 const getUserColumns = (
   control: FormControl,
-  { name, register }: UseFormRegisterEntities,
+  { name, errors, onCheckboxToggle }: UseFormRegisterEntities,
 ): Column<GroupCreationUsersTableRow>[] => {
   return [
     {
       Header: 'Select',
-      accessor: ({
-        id,
-      }: GroupCreationUsersTableRow): GroupCreationUsersTableActionsProps => ({
-        id,
+      accessor: ({ id }): GroupCreationUsersTableActionsProps => ({
+        errors,
         name,
-        register,
         control,
+        onToggle: () => onCheckboxToggle(id),
       }),
       Cell: UserActionCell,
     },

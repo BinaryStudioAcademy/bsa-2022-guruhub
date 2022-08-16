@@ -2,7 +2,6 @@ import {
   FC,
   FormControl,
   FormControlErrors,
-  FormControlRegister,
   UsersGetResponseDto,
 } from 'common/types/types';
 import { Table } from 'components/common/common';
@@ -16,18 +15,19 @@ import styles from './styles.module.scss';
 
 type Props = {
   users: UsersGetResponseDto[];
+  onCheckboxToggle: (value: number) => void;
   useFormData: {
-    register: FormControlRegister;
     control: FormControl;
     errors: FormControlErrors;
   };
 };
 
-const UsersTable: FC<Props> = ({ users, useFormData }) => {
+const UsersTable: FC<Props> = ({ users, onCheckboxToggle, useFormData }) => {
   const columns = useMemo<Column<GroupCreationUsersTableRow>[]>(() => {
     return getUserColumns(useFormData.control, {
       name: GroupCreationFieldsName.USER_IDS,
-      register: useFormData.register,
+      errors: useFormData.errors,
+      onCheckboxToggle,
     });
   }, []);
 

@@ -2,7 +2,6 @@ import {
   FC,
   FormControl,
   FormControlErrors,
-  FormControlRegister,
   PermissionsGetAllItemResponseDto,
 } from 'common/types/types';
 import { Table } from 'components/common/common';
@@ -16,18 +15,23 @@ import styles from './styles.module.scss';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
+  onCheckboxToggle: (value: number) => void;
   useFormData: {
-    register: FormControlRegister;
     control: FormControl;
     errors: FormControlErrors;
   };
 };
 
-const PermissionsTable: FC<Props> = ({ permissions, useFormData }) => {
+const PermissionsTable: FC<Props> = ({
+  permissions,
+  onCheckboxToggle,
+  useFormData,
+}) => {
   const columns = useMemo<Column<PermissionsTableRow>[]>(() => {
     return getPermissionsColumns(useFormData.control, {
-      register: useFormData.register,
       name: GroupCreationFieldsName.PERMISSION_IDS,
+      errors: useFormData.errors,
+      onCheckboxToggle,
     });
   }, []);
 

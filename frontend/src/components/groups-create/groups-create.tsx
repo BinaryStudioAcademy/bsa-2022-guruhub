@@ -6,9 +6,10 @@ import {
   useAppForm,
   useAppSelector,
   useEffect,
+  useSelectedItems,
 } from 'hooks/hooks';
 import { groupsCreationActions, uamActions } from 'store/actions';
-import { groupCreate } from 'validation-schemas/validation-schemas';
+import { groupCreateName } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CREATE_GROUP_PAYLOAD } from './common/default-create-group-payload';
 import { GroupCreationFieldsName } from './common/enums/enums';
@@ -19,15 +20,23 @@ import styles from './styles.module.scss';
 const UAMGroupsCreate: FC = () => {
   const dispatch = useAppDispatch();
   const { users, permissions } = useAppSelector((state) => state.groupsCreate);
-  const { register, control, handleSubmit, errors } =
-    useAppForm<GroupsCreateRequestDto>({
-      defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
-      validationSchema: groupCreate,
-    });
+  const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
+    defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
+    validationSchema: groupCreateName,
+  });
+  const { items: permissionIds, handleToggle: handlePermissionToggle } =
+    useSelectedItems<number>([]);
+  const { items: userIds, handleToggle: handleUserToggle } =
+    useSelectedItems<number>([]);
 
-  const onSubmit = (data: GroupsCreateRequestDto): void => {
-    alert(JSON.stringify(data));
-    //dispatch(groupsCreationActions.createGroup(data));
+  const onSubmit = (): void => {
+    dispatch(
+      groupsCreationActions.createGroup({
+        name: control._formValues.name,
+        permissionIds,
+        userIds,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -41,14 +50,13 @@ const UAMGroupsCreate: FC = () => {
   }, []);
 
   const useFormData = {
-    register,
     control,
     errors,
   };
 
   return (
     <div className={styles.groupCreationMain}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.groupForm}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.groupFormHeaderWrapper}>
           <h2 className={styles.groupFormHeading}>Create group</h2>
         </div>
@@ -60,20 +68,32 @@ const UAMGroupsCreate: FC = () => {
           placeholder="Enter group name"
           type="text"
         />
-        <UsersTable users={users.items} useFormData={useFormData} />
-        <PermissionsTable permissions={permissions} useFormData={useFormData} />
-        <div className={styles.btnsBlock}>
-          <div className={styles.btnsWrapper}>
-            <Button
-              type="button"
-              btnType="outlined"
-              label="Cancel"
-              to={AppRoute.UAM}
-            />
-            <Button type="submit" label="Create" />
-          </div>
-        </div>
       </form>
+      <UsersTable
+        users={users.items}
+        onCheckboxToggle={handleUserToggle}
+        useFormData={useFormData}
+      />
+      <PermissionsTable
+        permissions={permissions}
+        onCheckboxToggle={handlePermissionToggle}
+        useFormData={useFormData}
+      />
+      <div className={styles.btnsBlock}>
+        <div className={styles.btnsWrapper}>
+          <Button
+            type="button"
+            btnType="outlined"
+            label="Cancel"
+            to={AppRoute.UAM}
+          />
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            type="submit"
+            label="Create"
+          />
+        </div>
+      </div>
     </div>
   );
 };
