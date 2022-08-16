@@ -18,8 +18,8 @@ class Course {
   async getAll(): Promise<(CourseM & { vendorKey: VendorKey })[]> {
     return this.#CourseModel
       .query()
-      .join('vendors', 'vendors.id', 'courses.vendorId')
-      .select('courses.*', 'vendors.key as vendorKey') as QueryBuilder<
+      .joinRelated('vendor')
+      .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
       CourseM & { vendorKey: VendorKey }
     >;
   }
