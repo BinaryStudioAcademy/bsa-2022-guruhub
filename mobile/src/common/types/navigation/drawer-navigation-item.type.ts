@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-
-import { PermissionItem } from '../types';
-import { IconName } from '../ui/icon-name.type';
+import { PermissionItem } from '~/common/types/types';
+import { IconName } from '~/common/types/ui/ui';
 
 type DrawerNavigationItem = {
   name: AppScreenName;

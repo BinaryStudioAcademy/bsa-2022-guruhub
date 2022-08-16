@@ -38,7 +38,7 @@ const loadCurrentUser = createAsyncThunk<
   UserWithPermissions,
   void,
   AsyncThunkConfig
->(ActionType.LOAD_CURRENT_USER, async (_payload, { extra }) => {
+>(ActionType.LOAD_CURRENT_USER, async (_, { extra }) => {
   const { authApi } = extra;
   const user = await authApi.getCurrentUser();
 

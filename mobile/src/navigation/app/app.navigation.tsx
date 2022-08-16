@@ -22,7 +22,9 @@ const App: FC = () => {
     userPermissions: PermissionItem[] | undefined,
   ): DrawerNavigationItem[] => {
     return screens.filter((screen) => {
-      if (screen.permissions.length === 0) return true;
+      if (!screen.permissions.length) {
+        return true;
+      }
 
       return screen.permissions.some((permission) => {
         return (

@@ -1,4 +1,4 @@
-import { DrawerNavigationItem } from '~/common/types/navigation/drawer-navigation-item.type';
+import { DrawerNavigationItem } from '~/common/types/navigation/navigation';
 
 type DrawerNavigationList = {
   name: string;
