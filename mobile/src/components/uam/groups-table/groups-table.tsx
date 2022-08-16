@@ -8,7 +8,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useState,
+  usePagination,
 } from '~/hooks/hooks';
 import { uamActions } from '~/store/actions';
 
@@ -20,7 +20,7 @@ const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const { width } = useWindowDimensions();
   const { items, total } = useAppSelector((state) => state.uam.groups);
-  const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
+  const { page, handlePageChange } = usePagination();
 
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
@@ -54,7 +54,7 @@ const GroupsTable: FC = () => {
           totalCount={total}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
           currentPage={page}
-          onPageChange={setPage}
+          onPageChange={handlePageChange}
         />
       )}
     </View>
