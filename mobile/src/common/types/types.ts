@@ -4,6 +4,10 @@ export {
   type RootState,
 } from './app/app';
 export {
+  type CategoryGetAllItemResponseDto,
+  type CategoryGetAllResponseDto,
+} from './category/category';
+export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
@@ -25,7 +29,12 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
+export {
+  type AppTextStyle,
+  type CourseImageName,
+  type IconName,
+  type TableColumn,
+} from './ui/ui';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
