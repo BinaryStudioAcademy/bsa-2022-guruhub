@@ -2,7 +2,7 @@ import { Theme } from '@react-navigation/native';
 
 import { AppColor } from '~/common/enums/enums';
 
-const NavigationTheme: Theme = {
+const navigationTheme: Theme = {
   dark: false,
   colors: {
     background: AppColor.BACKGROUND.GRAY_400,
@@ -14,4 +14,4 @@ const NavigationTheme: Theme = {
   },
 };
 
-export { NavigationTheme };
+export { navigationTheme };
