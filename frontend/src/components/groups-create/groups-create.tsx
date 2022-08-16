@@ -9,7 +9,7 @@ import {
   useSelectedItems,
 } from 'hooks/hooks';
 import { groupsCreationActions, uamActions } from 'store/actions';
-import { groupCreate } from 'validation-schemas/validation-schemas';
+import { groupCreateClient } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CREATE_GROUP_PAYLOAD } from './common/default-create-group-payload';
 import { GroupCreationFieldsName } from './common/enums/enums';
@@ -22,7 +22,7 @@ const UAMGroupsCreate: FC = () => {
   const { users, permissions } = useAppSelector((state) => state.groupsCreate);
   const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
     defaultValues: DEFAULT_CREATE_GROUP_PAYLOAD,
-    validationSchema: groupCreate,
+    validationSchema: groupCreateClient,
   });
   const { items: permissionIds, handleToggle: handlePermissionToggle } =
     useSelectedItems<number>([]);
