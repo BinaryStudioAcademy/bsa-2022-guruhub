@@ -1,12 +1,11 @@
 import { FormControlPath } from 'common/types/types';
-import { Column } from 'react-table';
-
-import { PermissionTableAccessor } from '../../common/enums/enums';
+import { PermissionTableAccessor } from 'components/groups-create/common/enums/enums';
 import {
   PermissionsTableActionsProps,
   PermissionsTableRow,
-} from '../../common/types/types';
-import { PermissionsActionsCell } from '../../components/components';
+} from 'components/groups-create/common/types/types';
+import { PermissionsActionsCell } from 'components/groups-create/components/components';
+import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
   name: FormControlPath;

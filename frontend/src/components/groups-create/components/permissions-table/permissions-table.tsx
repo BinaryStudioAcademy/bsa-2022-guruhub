@@ -1,11 +1,11 @@
 import { FC, PermissionsGetAllItemResponseDto } from 'common/types/types';
 import { Table } from 'components/common/common';
 import { GroupCreationFieldsName } from 'components/groups-create/common/enums/enums';
+import { PermissionsTableRow } from 'components/groups-create/common/types/types';
+import { getPermissionsColumns } from 'components/groups-create/helpers/helpers';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
-import { PermissionsTableRow } from '../../common/types/types';
-import { getPermissionsColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {

@@ -7,7 +7,7 @@ import {
 import { GroupsCreateRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const groupCreateName = Joi.object({
+const groupCreateClient = Joi.object({
   [getNameOf<GroupsCreateRequestDto>('name')]: Joi.string()
     .trim()
     .min(GroupValidationRule.NAME_MIN_LENGTH)
@@ -20,4 +20,4 @@ const groupCreateName = Joi.object({
     }),
 });
 
-export { groupCreateName };
+export { groupCreateClient };

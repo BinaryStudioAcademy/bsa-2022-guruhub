@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { SuccessNotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   GroupsCreateRequestDto,
@@ -15,7 +16,7 @@ const createGroup = createAsyncThunk<
 >(ActionType.CREATE_GROUP, async (registerPayload, { extra }) => {
   const { groupsApi, notification } = extra;
   const groupsResponseDto = await groupsApi.create(registerPayload);
-  notification.success('Group has been succeffully created!');
+  notification.success(SuccessNotificationMessage.GROUP_CREATE);
 
   return groupsResponseDto;
 });

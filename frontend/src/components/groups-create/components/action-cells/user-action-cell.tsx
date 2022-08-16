@@ -1,12 +1,11 @@
 import { FC } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
-import { useAppForm } from 'hooks/hooks';
-import { CellProps } from 'react-table';
-
 import {
   GroupCreationUsersTableActionsProps,
   GroupCreationUsersTableRow,
-} from '../../common/types/types';
+} from 'components/groups-create/common/types/types';
+import { useAppForm } from 'hooks/hooks';
+import { CellProps } from 'react-table';
 
 const UserActionCell: FC<
   CellProps<GroupCreationUsersTableRow, GroupCreationUsersTableActionsProps>

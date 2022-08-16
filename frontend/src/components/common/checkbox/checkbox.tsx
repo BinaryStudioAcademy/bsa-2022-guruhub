@@ -25,6 +25,7 @@ const Checkbox: FC<Props> = ({ name, control, errors }) => {
         className={styles.input}
         type="checkbox"
         checked={field.value}
+        value={field.value || ''}
       />
       <span className={styles.error}>
         <ErrorMessage errors={errors} name={name} />

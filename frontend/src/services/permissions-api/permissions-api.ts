@@ -1,5 +1,5 @@
 import { ApiPath, HttpMethod } from 'common/enums/enums';
-import { PermissionsGetAllResponseDto } from 'guruhub-shared/common/types/permission/permission';
+import { PermissionsGetAllResponseDto } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {

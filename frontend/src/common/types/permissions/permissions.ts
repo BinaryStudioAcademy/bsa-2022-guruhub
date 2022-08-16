@@ -1,4 +1,4 @@
 export {
   PermissionsGetAllItemResponseDto,
   PermissionsGetAllResponseDto,
-} from 'guruhub-shared/common/types/permission/permission';
+} from 'guruhub-shared/common/types/types';

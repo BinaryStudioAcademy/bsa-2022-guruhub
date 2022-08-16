@@ -1,11 +1,11 @@
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Table } from 'components/common/common';
 import { GroupCreationFieldsName } from 'components/groups-create/common/enums/enums';
+import { GroupCreationUsersTableRow } from 'components/groups-create/common/types/types';
+import { getUserColumns } from 'components/groups-create/helpers/helpers';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
-import { GroupCreationUsersTableRow } from '../../common/types/types';
-import { getUserColumns } from '../../helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -24,7 +24,7 @@ const UsersTable: FC<Props> = ({ users, onCheckboxToggle }) => {
   return (
     <div className={styles.groupWorkers}>
       <p className={styles.groupSubHeading}>
-        Add workers to the Group - Optional
+        Add users to the Group - Optional
       </p>
       <Table data={users} columns={columns} />
       <span className={styles.groupWorkersAmount}>{users.length} results</span>
