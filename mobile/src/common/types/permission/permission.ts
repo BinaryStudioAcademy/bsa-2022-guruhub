@@ -1,1 +1,1 @@
-export { type PermissionItem } from './permission-item.type';
+export { type PermissionsGetAllItemResponseDto } from './permissions-get-all-item-response-dto.type';

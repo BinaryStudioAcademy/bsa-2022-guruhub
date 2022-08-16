@@ -1,8 +1,11 @@
-import { DrawerNavigationItem, PermissionItem } from '~/common/types/types';
+import {
+  DrawerNavigationItem,
+  PermissionsGetAllItemResponseDto,
+} from '~/common/types/types';
 
 const getAllowedScreens = (
   screens: DrawerNavigationItem[],
-  userPermissions: PermissionItem[],
+  userPermissions: PermissionsGetAllItemResponseDto[],
 ): DrawerNavigationItem[] => {
   const userPermissionKeys = userPermissions.map((item) => item.key);
 
