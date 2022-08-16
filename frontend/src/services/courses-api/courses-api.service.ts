@@ -22,6 +22,15 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
+  public getAll(): Promise<CourseGetResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public create(url: string): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,

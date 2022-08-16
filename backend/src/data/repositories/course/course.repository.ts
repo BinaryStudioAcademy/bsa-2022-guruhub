@@ -1,4 +1,7 @@
-import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
+import {
+  CourseCreateRequestArgumentsDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
 type Constructor = {
@@ -10,6 +13,14 @@ class Course {
 
   public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
+  }
+
+  public getAll(): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 
   public async create(

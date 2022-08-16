@@ -30,6 +30,10 @@ class Course {
     this.#udemyService = udemyService;
   }
 
+  public getAll(): Promise<CourseGetResponseDto[]> {
+    return this.#courseRepository.getAll();
+  }
+
   public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
@@ -50,7 +54,10 @@ class Course {
       vendorId: vendor.id,
     });
 
-    return course;
+    return {
+      ...course,
+      vendor,
+    };
   }
 
   public async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
