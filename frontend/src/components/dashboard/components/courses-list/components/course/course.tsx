@@ -1,4 +1,4 @@
-import defaultCourseImage from 'assets/img/defaultCourseImage.jpeg';
+import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { CourseGetResponseDto, FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 
