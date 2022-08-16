@@ -9,16 +9,18 @@ type Constructor = {
 
 class Udemy {
   #authorizationToken: string;
+
   #baseUrl: string;
+
   #httpService: typeof httpServ;
 
-  constructor({ httpService, baseUrl }: Constructor) {
+  public constructor({ httpService, baseUrl }: Constructor) {
     this.#authorizationToken = this.getToken();
     this.#baseUrl = baseUrl;
     this.#httpService = httpService;
   }
 
-  async getByUrl(url: URL): Promise<UdemyGetResponseDto> {
+  public async getByUrl(url: URL): Promise<UdemyGetResponseDto> {
     const courseIdOrSlug = url.pathname;
     const headers = this.getHeaders();
     const res = await this.#httpService.load<UdemyGetResponseDto>(

@@ -3,17 +3,17 @@ import { DbTableName } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 
 class Course extends Abstract {
-  'title': string;
+  public 'title': string;
 
-  'description': string;
+  public 'description': string;
 
-  'url': string;
+  public 'url': string;
 
-  'vendorId': number;
+  public 'vendorId': number;
 
-  'courseCategoryId': number;
+  public 'courseCategoryId': number;
 
-  static override get tableName(): string {
+  public static override get tableName(): string {
     return DbTableName.COURSES;
   }
 }
