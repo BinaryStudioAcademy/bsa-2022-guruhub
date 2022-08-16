@@ -1,10 +1,7 @@
+import { HttpCode } from 'guruhub-shared';
+
 import { withTestData } from '~/lib/helpers/helpers';
-//import { HttpCode } from 'guruhub-shared';
-import {
-  apiSessionStorage,
-  authService,
-  httpService,
-} from '~/lib/services/services';
+import { apiSessionStorage, authService } from '~/lib/services/services';
 import { signUpErrorResponseSchema } from '~/tests/json-schemas/shared/error/sign-up-error-response.schema';
 
 describe('Sign up negative tests', () => {
@@ -79,6 +76,11 @@ describe('Sign up negative tests', () => {
         email: 'emailIs@correct.com',
         password: 'testingmorethanthirtytwocharactez',
       },
+      {
+        fullName: '',
+        email: '',
+        password: '',
+      },
     ],
 
     ({ fullName, email, password }) => {
@@ -92,10 +94,9 @@ describe('Sign up negative tests', () => {
           password,
         });
 
-        response.should.have.status(400);
+        response.should.have.status(HttpCode.BAD_REQUEST);
         response.should.have.normalExecutionTime;
         response.body.should.have.jsonSchema(signUpErrorResponseSchema);
-        httpService.setToken(response.body.token);
       });
     },
   );
