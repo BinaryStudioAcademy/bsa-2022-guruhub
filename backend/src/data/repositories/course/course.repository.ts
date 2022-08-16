@@ -1,6 +1,10 @@
 import { raw } from 'objection';
 
-import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
+import {
+  CourseCreateRequestArgumentsDto,
+  CourseFilteringDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
 type Constructor = {
@@ -10,11 +14,35 @@ type Constructor = {
 class Course {
   #CourseModel: typeof CourseM;
 
-  constructor({ CourseModel }: Constructor) {
+  public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
   }
 
-  async create(course: CourseCreateRequestArgumentsDto): Promise<CourseM> {
+  public getAll(opts?: {
+    filtering: CourseFilteringDto;
+  }): Promise<CourseGetResponseDto[]> {
+    const { title = '' } = opts?.filtering ?? {};
+
+    return this.#CourseModel
+      .query()
+      .withGraphJoined('vendor')
+      .where((QueryBuilder) => {
+        if (!title) {
+          return;
+        }
+        QueryBuilder.where(
+          raw('LOWER(??)', 'title'),
+          'like',
+          `%${title.toLowerCase()}%`,
+        );
+      })
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
+  }
+
+  public async create(
+    course: CourseCreateRequestArgumentsDto,
+  ): Promise<CourseM> {
     const { title, description, url, vendorId, courseCategoryId } = course;
 
     return this.#CourseModel.query().insert({
@@ -24,13 +52,6 @@ class Course {
       vendorId,
       courseCategoryId,
     });
-  }
-
-  async findByName(name: string): Promise<CourseM[]> {
-    return this.#CourseModel
-      .query()
-      .where(raw('LOWER(??)', 'title'), 'like', `%${name.toLowerCase()}%`)
-      .execute();
   }
 }
 

@@ -1,16 +1,22 @@
 import { FC } from 'common/types/types';
 import { Icon } from 'components/common/common';
 import { debounce } from 'helpers/helpers';
-import { useAppForm, useEffect, useFormControl } from 'hooks/hooks';
-import { coursesApi } from 'services/services';
+import {
+  useAppDispatch,
+  useAppForm,
+  useEffect,
+  useFormControl,
+} from 'hooks/hooks';
+import { dashboardActions } from 'store/actions';
 
 import { DEFAULT_SEARCH_PAYLOAD, SEARCH_DELAY_MS } from './common/constants';
 import { SearchPayload } from './common/types/search-payload.type';
 import styles from './styles.module.scss';
 
 const SearchBar: FC = () => {
+  const dispatch = useAppDispatch();
   const onSearch = (search: string): void => {
-    coursesApi.getByName(search);
+    dispatch(dashboardActions.getCoursesByName({ title: search }));
   };
 
   const { control } = useAppForm<SearchPayload>({

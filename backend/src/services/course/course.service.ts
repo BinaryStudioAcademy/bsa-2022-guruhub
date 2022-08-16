@@ -1,6 +1,7 @@
 import { CourseHost, ExceptionMessage, VendorKey } from '~/common/enums/enums';
 import {
   CourseCreateArgumentsDto,
+  CourseFilteringDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
@@ -15,16 +16,36 @@ type Constructor = {
 
 class Course {
   #courseRepository: typeof courseRep;
+
   #vendorService: typeof vendorServ;
+
   #udemyService: typeof udemyServ;
 
-  constructor({ courseRepository, vendorService, udemyService }: Constructor) {
+  public constructor({
+    courseRepository,
+    vendorService,
+    udemyService,
+  }: Constructor) {
     this.#courseRepository = courseRepository;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
   }
 
-  async create(
+  public getAll(opts?: {
+    filtering?: CourseFilteringDto;
+  }): Promise<CourseGetResponseDto[]> {
+    if (opts?.filtering) {
+      const { filtering } = opts;
+
+      return this.#courseRepository.getAll({
+        filtering: { title: filtering.title },
+      });
+    }
+
+    return this.#courseRepository.getAll();
+  }
+
+  public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
     const { description, title, url, vendorKey } = courseRequestDto;
@@ -44,10 +65,13 @@ class Course {
       vendorId: vendor.id,
     });
 
-    return course;
+    return {
+      ...course,
+      vendor,
+    };
   }
 
-  async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
+  public async createByUrl(url: string): Promise<CourseGetResponseDto | null> {
     const urlObject = new URL(url);
     const { host } = urlObject;
 
@@ -70,12 +94,6 @@ class Course {
         });
       }
     }
-  }
-
-  async findByName(name: string): Promise<CourseGetResponseDto[] | null> {
-    const courses = await this.#courseRepository.findByName(name);
-
-    return courses ?? null;
   }
 }
 

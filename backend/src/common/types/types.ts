@@ -2,6 +2,7 @@ export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
+  type CourseFilteringDto,
   type CourseGetResponseDto,
 } from './course/course';
 export { type EncryptionData } from './encryption/encryption';

@@ -15,11 +15,11 @@ type Constructor = {
 class Http {
   #storage: Storage;
 
-  constructor({ storage }: Constructor) {
+  public constructor({ storage }: Constructor) {
     this.#storage = storage;
   }
 
-  load<T = unknown>(
+  public load<T = unknown>(
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
@@ -28,11 +28,12 @@ class Http {
       payload = null,
       contentType,
       hasAuth = true,
+      queryParams,
     } = options;
 
     const headers = this.getHeaders(contentType, hasAuth);
 
-    return fetch(url, {
+    return fetch(this.getUrlWithQueryString(url, queryParams), {
       method,
       headers,
       body: payload,
@@ -55,6 +56,20 @@ class Http {
     }
 
     return headers;
+  }
+
+  private getUrlWithQueryString(
+    url: string,
+    queryString?: Record<string, unknown>,
+  ): string {
+    if (!queryString) {
+      return url;
+    }
+    const query = new URLSearchParams(
+      queryString as Record<string, string>,
+    ).toString();
+
+    return `${url}?${query}`;
   }
 
   private async checkStatus(response: Response): Promise<Response> {

@@ -1,0 +1,5 @@
+const DEFAULT_CREATE_GROUP_PAYLOAD = {
+  name: '',
+};
+
+export { DEFAULT_CREATE_GROUP_PAYLOAD };

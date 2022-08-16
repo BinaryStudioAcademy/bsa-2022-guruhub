@@ -9,7 +9,10 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
-export { type GroupsItemResponseDto } from './groups/groups';
+export {
+  type GroupsDeleteRequestParamDto,
+  type GroupsItemResponseDto,
+} from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type AppNavigationParamList,
@@ -25,12 +28,16 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
+export { type PermissionsGetAllItemResponseDto } from './permission/permission';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
+  type UsersDeleteRequestParamsDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';

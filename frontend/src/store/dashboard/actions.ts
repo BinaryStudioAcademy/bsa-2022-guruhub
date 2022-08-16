@@ -3,10 +3,33 @@ import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
   CourseCreateRequestDto,
+  CourseFilteringDto,
   CourseGetResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
+
+const getCourses = createAsyncThunk<
+  CourseGetResponseDto[],
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_COURSES, async (_request, { extra }) => {
+  const { coursesApi } = extra;
+  const courses = await coursesApi.getAll();
+
+  return courses;
+});
+
+const getCoursesByName = createAsyncThunk<
+  CourseGetResponseDto[],
+  CourseFilteringDto,
+  AsyncThunkConfig
+>(ActionType.GET_COURSES_BY_NAME, async ({ title }, { extra }) => {
+  const { coursesApi } = extra;
+  const courses = await coursesApi.getAll({ filtering: { title } });
+
+  return courses;
+});
 
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
@@ -18,8 +41,6 @@ const getCategories = createAsyncThunk<
 
   return categoriesDto;
 });
-
-export { getCategories };
 
 const addCourse = createAsyncThunk<
   CourseGetResponseDto,
@@ -33,4 +54,4 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse };
+export { addCourse, getCategories, getCourses, getCoursesByName };

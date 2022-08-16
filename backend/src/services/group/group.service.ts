@@ -25,12 +25,16 @@ type Constructor = {
 
 class Group {
   #groupsRepository: typeof groupsRep;
+
   #permissionService: typeof permissionServ;
+
   #groupsToPermissionsService: typeof groupsToPermissionsServ;
+
   #usersToGroupsService: typeof usersToGroupsServ;
+
   #userService: typeof userServ;
 
-  constructor({
+  public constructor({
     groupsRepository,
     permissionService,
     groupsToPermissionsService,
@@ -44,7 +48,7 @@ class Group {
     this.#userService = userService;
   }
 
-  async getPaginated({
+  public async getPaginated({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
@@ -66,7 +70,7 @@ class Group {
     };
   }
 
-  async create(
+  public async create(
     groupsRequestDto: GroupsCreateRequestDto,
   ): Promise<GroupsItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
@@ -122,7 +126,7 @@ class Group {
     return group;
   }
 
-  async delete(id: number): Promise<boolean> {
+  public async delete(id: number): Promise<boolean> {
     const deletedGroupsCount = await this.#groupsRepository.delete(id);
 
     return Boolean(deletedGroupsCount);

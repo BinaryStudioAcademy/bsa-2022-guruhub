@@ -1,19 +1,37 @@
+import { Model, RelationMappings } from 'objection';
+
 import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
+import { Vendor } from '../models';
 
 class Course extends Abstract {
-  'title': string;
+  public 'title': string;
 
-  'description': string;
+  public 'description': string;
 
-  'url': string;
+  public 'url': string;
 
-  'vendorId': number;
+  public 'imageUrl': string;
 
-  'courseCategoryId': number;
+  public 'vendorId': number;
 
-  static override get tableName(): string {
+  public 'courseCategoryId': number;
+
+  public static override get relationMappings(): RelationMappings {
+    return {
+      vendor: {
+        relation: Model.HasOneRelation,
+        modelClass: Vendor,
+        join: {
+          from: `${DbTableName.COURSES}.vendor_id`,
+          to: `${DbTableName.VENDORS}.id`,
+        },
+      },
+    };
+  }
+
+  public static override get tableName(): string {
     return DbTableName.COURSES;
   }
 }
