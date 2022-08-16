@@ -3,13 +3,9 @@ import { Knex } from 'knex';
 const TableName = {
   GROUPS_TO_PERMISSIONS: 'groups_to_permissions',
   USERS_TO_GROUPS: 'users_to_groups',
-  PERMISSIONS: 'permissions',
-  GROUPS: 'groups',
-  USERS: 'users',
 } as const;
 
 const ColumnName = {
-  ID: 'id',
   PERMISSION_ID: 'permission_id',
   GROUP_ID: 'group_id',
   USER_ID: 'user_id',
