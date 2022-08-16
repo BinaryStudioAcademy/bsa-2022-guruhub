@@ -32,7 +32,10 @@ class UsersToGroups {
     return groups ?? null;
   }
 
-  public update(usersToGroups: { groupId: number; userIds: number[] }): void {
+  public async update(usersToGroups: {
+    groupId: number;
+    userIds: number[];
+  }): Promise<void> {
     const { groupId, userIds } = usersToGroups;
     this.#UsersToGroupsModel
       .query()
@@ -41,17 +44,18 @@ class UsersToGroups {
       .delete()
       .execute();
 
-    userIds.map((userId: number) => {
-      return this.#UsersToGroupsModel
-        .query()
-        .insert({
-          groupId,
-          userId,
-        })
-        .onConflict(['user_id', 'group_id'])
-        .ignore()
-        .execute();
-    });
+    await Promise.all(
+      userIds.map((userId: number) => {
+        return this.#UsersToGroupsModel
+          .query()
+          .insert({
+            groupId,
+            userId,
+          })
+          .onConflict(['user_id', 'group_id'])
+          .ignore();
+      }),
+    );
   }
 }
 
