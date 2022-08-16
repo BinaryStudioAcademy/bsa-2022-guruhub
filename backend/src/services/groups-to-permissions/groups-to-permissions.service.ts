@@ -27,7 +27,7 @@ class GroupsToPermissions {
     };
   }
 
-  public async updatePermissionsByGroupId(groupsToPermissions: {
+  public async updateGroupsToPermissions(groupsToPermissions: {
     groupId: number;
     permissionIds: number[];
   }): Promise<void> {

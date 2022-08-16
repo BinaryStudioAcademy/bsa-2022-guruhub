@@ -143,12 +143,12 @@ class Group {
       }),
     });
 
-    await this.#groupsToPermissionsService.updatePermissionsByGroupId({
+    await this.#groupsToPermissionsService.updateGroupsToPermissions({
       groupId: id,
       permissionIds,
     });
 
-    await this.#usersToGroupsService.updateUsersByGroupId({
+    await this.#usersToGroupsService.updateUsersToGroups({
       groupId: id,
       userIds,
     });

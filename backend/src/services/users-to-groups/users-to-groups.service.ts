@@ -25,7 +25,7 @@ class UsersToGroups {
     };
   }
 
-  public async updateUsersByGroupId(usersToGroups: {
+  public async updateUsersToGroups(usersToGroups: {
     groupId: number;
     userIds: number[];
   }): Promise<void> {
