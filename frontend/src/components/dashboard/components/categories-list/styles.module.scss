@@ -1,0 +1,16 @@
+.categoriesList {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  overflow-x: scroll;
+  list-style: none;
+}
+
+.categoriesList::-webkit-scrollbar {
+  display: none;
+}
+
+.category {
+  flex-shrink: 0;
+}
