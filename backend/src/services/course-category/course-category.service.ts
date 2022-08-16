@@ -12,8 +12,8 @@ class CourseCategory {
     this.#courseCategoryRepository = courseCategoryRepository;
   }
 
-  async getByName(name: string): Promise<CourseCategoryGetResponseDto | null> {
-    return this.#courseCategoryRepository.getByName(name);
+  getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
+    return this.#courseCategoryRepository.getByKey(key);
   }
 }
 

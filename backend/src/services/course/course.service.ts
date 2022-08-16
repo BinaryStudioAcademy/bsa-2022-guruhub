@@ -84,10 +84,10 @@ class Course {
     }
   }
 
-  async getByCategoryName(
-    categoryName: string,
+  async getByCategoryKey(
+    categoryKey: string,
   ): Promise<CourseGetResponseDto[] | null> {
-    const category = await this.#courseCategoryService.getByName(categoryName);
+    const category = await this.#courseCategoryService.getByKey(categoryKey);
 
     if (!category) {
       throw new CoursesError({

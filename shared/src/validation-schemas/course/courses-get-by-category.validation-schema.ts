@@ -4,7 +4,7 @@ import { CoursesGetByCategoryRequestParamsDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const coursesGetByCategory = Joi.object({
-  [getNameOf<CoursesGetByCategoryRequestParamsDto>('categoryName')]:
+  [getNameOf<CoursesGetByCategoryRequestParamsDto>('categoryKey')]:
     Joi.string().required(),
 });
 

@@ -46,8 +46,8 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       }>,
       rep,
     ) {
-      const { categoryName } = req.query;
-      const courses = await courseService.getByCategoryName(categoryName);
+      const { categoryKey } = req.query;
+      const courses = await courseService.getByCategoryKey(categoryKey);
 
       return rep.status(HttpCode.OK).send(courses);
     },

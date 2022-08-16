@@ -1,5 +1,5 @@
 type CoursesGetByCategoryRequestParamsDto = {
-  categoryName: string;
+  categoryKey: string;
 };
 
 export { type CoursesGetByCategoryRequestParamsDto };

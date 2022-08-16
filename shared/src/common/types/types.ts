@@ -3,7 +3,7 @@ export {
   type CourseGetResponseDto,
   type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
-export { type CourseCategoryGetResponseDto } from './course-category/course-category-get-response-dto.type';
+export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
