@@ -19,8 +19,6 @@ const getCategories = createAsyncThunk<
   return categoriesDto;
 });
 
-export { getCategories };
-
 const addCourse = createAsyncThunk<
   CourseGetResponseDto,
   CourseCreateRequestDto,
@@ -33,4 +31,4 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse };
+export { addCourse, getCategories };

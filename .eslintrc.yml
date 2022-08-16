@@ -91,6 +91,8 @@ rules:
     - error
   import/no-duplicates:
     - error
+  import/group-exports:
+    - error
   simple-import-sort/imports:
     - error
   simple-import-sort/exports:

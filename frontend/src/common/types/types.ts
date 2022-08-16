@@ -13,7 +13,7 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
-export { GroupsItemResponseDto } from './groups/groups';
+export { GroupsCreateRequestDto, GroupsItemResponseDto } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,
@@ -24,6 +24,10 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
+export {
+  PermissionsGetAllItemResponseDto,
+  PermissionsGetAllResponseDto,
+} from './permissions/permissions';
 export {
   type FC,
   type SVGProps,
