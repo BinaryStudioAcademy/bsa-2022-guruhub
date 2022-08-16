@@ -1,6 +1,6 @@
+import { FC } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
 import { useAppForm } from 'hooks/hooks';
-import { FC } from 'react';
 import { CellProps } from 'react-table';
 
 import {
