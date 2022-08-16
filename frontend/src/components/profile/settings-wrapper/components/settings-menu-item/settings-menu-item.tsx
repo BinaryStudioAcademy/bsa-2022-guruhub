@@ -38,7 +38,6 @@ const SettingsMenuItem: FC<Props> = ({
         <span
           className={getValidClasses(
             styles.text,
-            styles.link,
             isCurrentRoute && styles.linkSelected,
           )}
         >
