@@ -38,7 +38,7 @@ const loadCurrentUser = createAsyncThunk<
   UserWithPermissions,
   void,
   AsyncThunkConfig
->(ActionType.LOAD_CURRENT_USER, async (_, { extra }) => {
+>(ActionType.LOAD_CURRENT_USER, async (_payload, { extra }) => {
   const { authApi } = extra;
   const user = await authApi.getCurrentUser();
 
@@ -47,7 +47,7 @@ const loadCurrentUser = createAsyncThunk<
 
 const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.LOGOUT,
-  (_, { extra }) => {
+  (_payload, { extra }) => {
     const { storage } = extra;
 
     storage.delete(StorageKey.ACCESS_TOKEN);
