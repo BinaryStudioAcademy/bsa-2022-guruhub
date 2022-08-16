@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import React, { FC } from 'react';
 
 import { AuthScreenName } from '~/common/enums/enums';
 import { AuthNavigationParamList } from '~/common/types/types';

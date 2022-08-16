@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-
 import { Provider as StoreProvider } from 'react-redux';
 
 import { App } from '~/components/app/app';

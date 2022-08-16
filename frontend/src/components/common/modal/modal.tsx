@@ -1,7 +1,6 @@
-import { ReactNode } from 'react';
-
 import { FC } from 'common/types/types';
 import { useHandleClickOutside, useRef } from 'hooks/hooks';
+import { ReactNode } from 'react';
 
 import { Icon } from '../common';
 import styles from './styles.module.scss';

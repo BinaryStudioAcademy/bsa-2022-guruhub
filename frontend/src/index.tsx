@@ -1,9 +1,8 @@
 import 'assets/css/styles.scss';
 
-import { StrictMode } from 'react';
-
 import { App } from 'components/app/app';
 import { Toast } from 'components/common/common';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
