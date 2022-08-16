@@ -17,7 +17,6 @@ type Props = {
 
 const Checkbox: FC<Props> = ({ name, control, errors }) => {
   const { field } = useFormControl({ name, control });
-  field.value = field.value ? true : false;
 
   return (
     <div className={styles.checkboxWrapper}>
@@ -25,7 +24,7 @@ const Checkbox: FC<Props> = ({ name, control, errors }) => {
         {...field}
         className={styles.input}
         type="checkbox"
-        checked={field.value}
+        checked={Boolean(field.value)}
       />
       <span className={styles.error}>
         <ErrorMessage errors={errors} name={name} />
