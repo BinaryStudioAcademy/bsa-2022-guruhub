@@ -23,8 +23,17 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
-    async handler(_req, rep) {
-      const courses = await courseService.getAll();
+    schema: {
+      querystring: coursesGetByCategoryValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Querystring: CoursesGetByCategoryRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { categoryKey } = req.query;
+      const courses = await courseService.getAll({ categoryKey });
 
       return rep.status(HttpCode.OK).send(courses);
     },
@@ -41,25 +50,6 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.createByUrl(url);
 
       return rep.status(HttpCode.CREATED).send(course);
-    },
-  });
-
-  fastify.route({
-    method: HttpMethod.GET,
-    url: CoursesApiPath.ROOT,
-    schema: {
-      querystring: coursesGetByCategoryValidationSchema,
-    },
-    async handler(
-      req: FastifyRequest<{
-        Querystring: CoursesGetByCategoryRequestParamsDto;
-      }>,
-      rep,
-    ) {
-      const { categoryKey } = req.query;
-      const courses = await courseService.getByCategoryKey(categoryKey);
-
-      return rep.status(HttpCode.OK).send(courses);
     },
   });
 };

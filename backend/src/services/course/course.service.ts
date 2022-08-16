@@ -36,7 +36,13 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  async getAll(): Promise<CourseGetResponseDto[]> {
+  async getAll(filteringOpts: {
+    categoryKey: string;
+  }): Promise<CourseGetResponseDto[]> {
+    if (filteringOpts.categoryKey) {
+      return this.getByCategoryKey(filteringOpts.categoryKey);
+    }
+
     return this.#courseRepository.getAll();
   }
 
@@ -91,9 +97,7 @@ class Course {
     }
   }
 
-  async getByCategoryKey(
-    categoryKey: string,
-  ): Promise<CourseGetResponseDto[] | null> {
+  async getByCategoryKey(categoryKey: string): Promise<CourseGetResponseDto[]> {
     const category = await this.#courseCategoryService.getByKey(categoryKey);
 
     if (!category) {

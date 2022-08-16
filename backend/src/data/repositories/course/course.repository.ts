@@ -36,13 +36,16 @@ class Course {
     });
   }
 
-  async getByCategoryId(courseCategoryId: number): Promise<CourseM[] | null> {
-    const courses = await this.#CourseModel
+  async getByCategoryId(
+    courseCategoryId: number,
+  ): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+    return this.#CourseModel
       .query()
-      .select()
-      .where({ courseCategoryId });
-
-    return courses ?? null;
+      .where({ courseCategoryId })
+      .joinRelated('vendor')
+      .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
+      CourseM & { vendorKey: VendorKey }
+    >;
   }
 }
 
