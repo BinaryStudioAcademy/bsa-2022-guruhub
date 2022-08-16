@@ -27,7 +27,6 @@ class Course {
           builder.where({ courseCategoryId: categoryId });
         }
       })
-      .skipUndefined()
       .joinRelated('vendor')
       .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
       CourseM & { vendorKey: VendorKey }
