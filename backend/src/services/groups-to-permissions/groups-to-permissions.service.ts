@@ -8,11 +8,11 @@ type Constructor = {
 class GroupsToPermissions {
   #groupsToPermissionsRepository: typeof groupsToPermissionsRep;
 
-  constructor({ groupsToPermissionsRepository }: Constructor) {
+  public constructor({ groupsToPermissionsRepository }: Constructor) {
     this.#groupsToPermissionsRepository = groupsToPermissionsRepository;
   }
 
-  async createGroupsToPermissions(groupsToPermissions: {
+  public async createGroupsToPermissions(groupsToPermissions: {
     groupId: number;
     permissionId: number;
   }): Promise<GroupsToPermissionsResponseDto> {

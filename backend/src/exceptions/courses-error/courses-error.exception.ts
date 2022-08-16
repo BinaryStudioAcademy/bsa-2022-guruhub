@@ -7,7 +7,7 @@ import {
 } from '~/common/enums/enums';
 
 class CoursesError extends HttpError {
-  constructor({
+  public constructor({
     message = ExceptionMessage.INVALID_COURSE_VENDOR,
     status = HttpCode.BAD_REQUEST,
   } = {}) {

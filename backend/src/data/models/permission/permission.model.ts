@@ -3,11 +3,11 @@ import { DbTableName, PermissionKey } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 
 class Permission extends Abstract {
-  'name': string;
+  public 'name': string;
 
-  'key': PermissionKey;
+  public 'key': PermissionKey;
 
-  static override get tableName(): string {
+  public static override get tableName(): string {
     return DbTableName.PERMISSIONS;
   }
 }

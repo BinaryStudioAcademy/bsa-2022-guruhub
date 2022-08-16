@@ -7,11 +7,11 @@ type Constructor = {
 class GroupsToPermissions {
   #GroupsToPermissionsModel: typeof GroupsToPermissionsM;
 
-  constructor({ GroupsToPermissionsModel }: Constructor) {
+  public constructor({ GroupsToPermissionsModel }: Constructor) {
     this.#GroupsToPermissionsModel = GroupsToPermissionsModel;
   }
 
-  async create(groupsToPermissions: {
+  public async create(groupsToPermissions: {
     groupId: number;
     permissionId: number;
   }): Promise<GroupsToPermissionsM> {
