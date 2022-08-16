@@ -1,28 +1,43 @@
-import searchIcon from 'assets/img/search-icon.svg';
 import { FC } from 'common/types/types';
-import { useState } from 'hooks/hooks';
+import { Icon } from 'components/common/common';
+import { debounce } from 'helpers/helpers';
+import { useAppForm, useEffect, useFormControl } from 'hooks/hooks';
 import { coursesApi } from 'services/services';
 
-import { SearchIcon } from './components/search-icon/search-icon';
+import { DEFAULT_SEARCH_PAYLOAD, SEARCH_DELAY_MS } from './common/constants';
+import { SearchPayload } from './common/types/search-payload.type';
 import styles from './styles.module.scss';
 
 const SearchBar: FC = () => {
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(event.target.value);
-    coursesApi.getByName(event.target.value);
+  const onSearch = (search: string): void => {
+    coursesApi.getByName(search);
   };
+
+  const { control } = useAppForm<SearchPayload>({
+    defaultValues: DEFAULT_SEARCH_PAYLOAD,
+  });
+
+  const { field } = useFormControl({ name: 'search', control: control });
+  const { value, onChange } = field;
+
+  const handleSearch = (): void => onSearch(value);
+  const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
+
+  useEffect(() => {
+    debounceHandleSearch();
+
+    return () => debounceHandleSearch.clear();
+  }, [value]);
 
   return (
     <div className={styles.searchWrapper}>
-      <SearchIcon src={searchIcon} alt="search" />
+      <Icon name="search" className={styles.searchIcon} />
       <input
         type="text"
         className={styles.searchfield}
         placeholder="Search or type"
-        value={searchValue}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

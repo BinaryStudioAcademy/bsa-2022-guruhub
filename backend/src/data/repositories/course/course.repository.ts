@@ -1,3 +1,5 @@
+import { raw } from 'objection';
+
 import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -25,7 +27,10 @@ class Course {
   }
 
   async findByName(name: string): Promise<CourseM[]> {
-    return this.#CourseModel.query().where('title', 'like', `%${name}%`);
+    return this.#CourseModel
+      .query()
+      .where(raw('LOWER(??)', 'title'), 'like', `%${name.toLowerCase()}%`)
+      .execute();
   }
 }
 

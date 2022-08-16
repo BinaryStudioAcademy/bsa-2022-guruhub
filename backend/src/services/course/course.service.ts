@@ -75,11 +75,7 @@ class Course {
   async findByName(name: string): Promise<CourseGetResponseDto[] | null> {
     const courses = await this.#courseRepository.findByName(name);
 
-    if (!courses) {
-      return null;
-    }
-
-    return courses;
+    return courses ?? null;
   }
 }
 
