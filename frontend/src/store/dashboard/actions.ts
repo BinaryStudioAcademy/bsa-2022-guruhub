@@ -31,4 +31,4 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { getCategories, addCourse };
+export { addCourse, getCategories };
