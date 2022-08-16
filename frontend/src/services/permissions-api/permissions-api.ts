@@ -9,14 +9,15 @@ type Constructor = {
 
 class PermissionsApi {
   #http: Http;
+
   #apiPrefix: string;
 
-  constructor({ http, apiPrefix }: Constructor) {
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
   }
 
-  getAll(): Promise<PermissionsGetAllResponseDto> {
+  public getAll(): Promise<PermissionsGetAllResponseDto> {
     return this.#http.load(`${this.#apiPrefix}${ApiPath.PERMISSIONS}`, {
       method: HttpMethod.GET,
     });
