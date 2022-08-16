@@ -9,4 +9,3 @@ export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
 export { Image, Pressable, ScrollView, View } from 'react-native';
-export { MMKV } from 'react-native-mmkv';

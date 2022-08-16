@@ -9,7 +9,7 @@ import {
 import { Image, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
-import { auth as authActions } from '~/store/actions';
+import { authActions } from '~/store/actions';
 
 import { SignInForm, SignUpForm } from './components/components';
 import { styles } from './styles';
