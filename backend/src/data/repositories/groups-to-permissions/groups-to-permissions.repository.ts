@@ -29,7 +29,7 @@ class GroupsToPermissions {
   }): Promise<void> {
     const { groupId, permissionIds } = groupsToPermissions;
 
-    this.#GroupsToPermissionsModel
+    await this.#GroupsToPermissionsModel
       .query()
       .where({ groupId })
       .whereNotIn('permission_id', permissionIds)

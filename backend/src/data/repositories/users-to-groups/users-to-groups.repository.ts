@@ -37,7 +37,7 @@ class UsersToGroups {
     userIds: number[];
   }): Promise<void> {
     const { groupId, userIds } = usersToGroups;
-    this.#UsersToGroupsModel
+    await this.#UsersToGroupsModel
       .query()
       .where({ groupId })
       .whereNotIn('user_id', userIds)
