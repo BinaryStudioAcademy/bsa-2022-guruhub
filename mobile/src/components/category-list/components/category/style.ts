@@ -37,10 +37,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 100,
   },
-  logoImage: {
-    width: 20,
-    height: 20,
-  },
   logoWrapper: {
     width: 30,
     height: 30,

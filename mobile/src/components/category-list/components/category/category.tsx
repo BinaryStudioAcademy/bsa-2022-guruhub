@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 
-import { categoryNameToImage } from '~/components/common/category/common/maps/maps';
-import { Image, Pressable, Text, View } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { Icon, Pressable, Text, View } from '~/components/common/common';
+import { iconNameToIcon } from '~/components/common/icon/common/maps/icon-name-to-icon.map';
 import { useState } from '~/hooks/hooks';
 
 import { getRandomColor } from './helpers/get-random-color.helper';
@@ -18,7 +17,7 @@ const Category: FC<Props> = ({ imageName, name, onPress }) => {
   const [isActive, setIsActive] = useState(false);
 
   const borderColor = getRandomColor();
-  const imageKeys = Object.keys(categoryNameToImage);
+  const imageKeys = Object.keys(iconNameToIcon);
   const hasImage = imageKeys.includes(imageName);
 
   const handlePress = (): void => {
@@ -37,10 +36,7 @@ const Category: FC<Props> = ({ imageName, name, onPress }) => {
       >
         {hasImage ? (
           <View style={styles.logoWrapper}>
-            <Image
-              source={{ uri: getImageUri(categoryNameToImage[imageName]) }}
-              style={styles.logoImage}
-            />
+            <Icon name={imageName} width={20} height={20} />
           </View>
         ) : (
           <Text style={{ ...styles.logoText, backgroundColor: borderColor }}>
