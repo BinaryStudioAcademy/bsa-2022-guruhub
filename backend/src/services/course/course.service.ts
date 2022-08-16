@@ -38,12 +38,13 @@ class Course {
 
   async getAll(filteringOpts: {
     categoryKey: string;
-  }): Promise<CourseGetResponseDto[]> {
-    if (filteringOpts.categoryKey) {
-      return this.getByCategoryKey(filteringOpts.categoryKey);
-    }
+  }): Promise<CourseGetResponseDto[] | null> {
+    const { categoryKey } = filteringOpts;
+    const categoryId = await this.getCategoryIdByKey(categoryKey);
 
-    return this.#courseRepository.getAll();
+    return this.#courseRepository.getAll({
+      categoryId,
+    });
   }
 
   async create(
@@ -97,7 +98,11 @@ class Course {
     }
   }
 
-  async getByCategoryKey(categoryKey: string): Promise<CourseGetResponseDto[]> {
+  async getCategoryIdByKey(categoryKey: string): Promise<number | null> {
+    if (!categoryKey) {
+      return null;
+    }
+
     const category = await this.#courseCategoryService.getByKey(categoryKey);
 
     if (!category) {
@@ -106,7 +111,7 @@ class Course {
       });
     }
 
-    return this.#courseRepository.getByCategoryId(category.id);
+    return category.id;
   }
 }
 

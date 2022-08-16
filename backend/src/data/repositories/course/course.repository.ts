@@ -15,9 +15,19 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  async getAll(): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+  async getAll(filteringOpts: {
+    categoryId: number | null;
+  }): Promise<(CourseM & { vendorKey: VendorKey })[]> {
+    const { categoryId } = filteringOpts ?? {};
+
     return this.#CourseModel
       .query()
+      .where((builder) => {
+        if (categoryId) {
+          builder.where({ courseCategoryId: categoryId });
+        }
+      })
+      .skipUndefined()
       .joinRelated('vendor')
       .select('courses.*', 'vendor.key as vendorKey') as QueryBuilder<
       CourseM & { vendorKey: VendorKey }
