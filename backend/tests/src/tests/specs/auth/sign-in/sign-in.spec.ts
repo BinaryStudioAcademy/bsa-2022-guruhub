@@ -7,6 +7,7 @@ import {
   UserValidationMessage,
 } from 'guruhub-shared';
 
+import { JWT_TOKEN_REGEX } from '~/lib/common/constants/regex.constants';
 import { Response } from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {
@@ -16,7 +17,7 @@ import {
 } from '~/lib/services/services';
 import {
   currentUserResponseSchema,
-  errorSchema,
+  errorResponseSchema,
   signInResponseSchema,
 } from '~/tests/json-schemas/json-schemas';
 
@@ -34,12 +35,10 @@ describe('Sign in tests', () => {
       testsConfig.users.student,
     )) as Response<UserSignInResponseDto>;
 
-    response.should.have.status(200);
+    response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signInResponseSchema);
-    response.body.token.should.be.equal(
-      /^[a-zA-Z0-9_-+/]\.[a-zA-Z0-9_-+/]\.[a-zA-Z0-9_-+/]$/,
-    );
+    JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
     response.body.user.email.should.be.equal(testsConfig.users.student.email);
 
     httpService.setToken(response.body.token);
@@ -48,7 +47,7 @@ describe('Sign in tests', () => {
   it('should return authorized user data', async () => {
     const response = await authService.getCurrentUser();
 
-    response.should.have.status(200);
+    response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(currentUserResponseSchema);
     response.body.email.should.be.equal(testsConfig.users.student.email);
@@ -132,7 +131,7 @@ describe('Sign in tests', () => {
 
         response.should.have.status(HttpCode.BAD_REQUEST);
         response.should.have.normalExecutionTime;
-        response.body.should.have.jsonSchema(errorSchema);
+        response.body.should.have.jsonSchema(errorResponseSchema);
         response.body.error.should.be.equal(HttpStatusMessage.BAD_REQUEST);
         response.body.message.should.be.equal(message);
       });

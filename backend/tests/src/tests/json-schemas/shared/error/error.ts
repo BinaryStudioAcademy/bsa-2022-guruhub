@@ -1,1 +1,1 @@
-export { errorSchema } from './error-response.schema';
+export { errorResponseSchema } from './error-response.schema';

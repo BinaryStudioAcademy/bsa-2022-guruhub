@@ -1,4 +1,4 @@
-const errorSchema = {
+const errorResponseSchema = {
   type: 'object',
   properties: {
     statusCode: {
@@ -14,4 +14,4 @@ const errorSchema = {
   },
 };
 
-export { errorSchema };
+export { errorResponseSchema };
