@@ -15,7 +15,7 @@ import { DrawerContent } from './components/components';
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
 const App: FC = () => {
-  const permissions = useAppSelector(
+  const userPermissions = useAppSelector(
     (state) => state.auth.user?.permissions ?? [],
   );
 
@@ -24,8 +24,8 @@ const App: FC = () => {
       (item) => item.subroutes,
     );
 
-    return getAllowedScreens(screens, permissions);
-  }, [permissions]);
+    return getAllowedScreens(screens, userPermissions);
+  }, [userPermissions]);
 
   return (
     <Drawer.Navigator

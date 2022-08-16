@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { AppScreenName } from '~/common/enums/enums';
-import { PermissionItem } from '~/common/types/types';
+import { AppScreenName, PermissionKey } from '~/common/enums/enums';
 import { IconName } from '~/common/types/ui/ui';
 
 type DrawerNavigationItem = {
   name: AppScreenName;
   isFocused?: boolean;
   icon: IconName;
-  permissions: PermissionItem[];
+  permissions: PermissionKey[];
   component: React.FC;
 };
 
