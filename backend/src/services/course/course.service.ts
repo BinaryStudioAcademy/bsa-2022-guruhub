@@ -36,6 +36,10 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
+  async getAll(): Promise<CourseGetResponseDto[]> {
+    return this.#courseRepository.getAll();
+  }
+
   async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
@@ -56,7 +60,10 @@ class Course {
       vendorId: vendor.id,
     });
 
-    return course;
+    return {
+      ...course,
+      vendorKey,
+    };
   }
 
   async createByUrl(url: string): Promise<CourseGetResponseDto | null> {

@@ -1,5 +1,6 @@
+import { DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button } from 'components/common/common';
+import { Button, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -8,18 +9,26 @@ import {
 } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
-import { CategoriesList } from './components/categories-list/categories-list';
-import { AddCourseModal } from './components/components';
+import {
+  AddCourseModal,
+  CategoriesList,
+  Courses,
+} from './components/components';
 import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.dashboard);
+  const { categories, dataStatus } = useAppSelector((state) => state.dashboard);
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
 
   useEffect(() => {
+    dispatch(dashboardActions.getCourses());
     dispatch(dashboardActions.getCategories());
-  }, []);
+  }, [dispatch]);
+
+  if (dataStatus === DataStatus.PENDING) {
+    return <Spinner />;
+  }
 
   const handleNewCourseModalToggle = (): void => {
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
@@ -29,7 +38,7 @@ const Dashboard: FC = () => {
     <div className={styles.dashboard}>
       <div className={styles.headerWrapper}>
         <div className={styles.header}>
-          <h1 className={styles.headingText}>Courses</h1>
+          <h1 className={styles.headingText}>Course</h1>
           <Button
             label="+ Add new course"
             onClick={handleNewCourseModalToggle}
@@ -41,6 +50,7 @@ const Dashboard: FC = () => {
         </div>
         <CategoriesList items={categories} />
       </div>
+      <Courses />
     </div>
   );
 };
