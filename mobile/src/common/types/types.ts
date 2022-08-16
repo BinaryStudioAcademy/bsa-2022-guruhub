@@ -25,7 +25,6 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type PermissionItem } from './permission/permission';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
