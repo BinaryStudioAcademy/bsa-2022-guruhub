@@ -7,11 +7,11 @@ type Constructor = {
 class GroupsToPermissions {
   #GroupsToPermissionsModel: typeof GroupsToPermissionsM;
 
-  constructor({ GroupsToPermissionsModel }: Constructor) {
+  public constructor({ GroupsToPermissionsModel }: Constructor) {
     this.#GroupsToPermissionsModel = GroupsToPermissionsModel;
   }
 
-  async create(groupsToPermissions: {
+  public async create(groupsToPermissions: {
     groupId: number;
     permissionId: number;
   }): Promise<GroupsToPermissionsM> {
@@ -23,15 +23,7 @@ class GroupsToPermissions {
     });
   }
 
-  getByGroupId(groupId: number): Promise<GroupsToPermissionsM[]> {
-    return this.#GroupsToPermissionsModel
-      .query()
-      .where({ groupId })
-      .select()
-      .execute();
-  }
-
-  update(groupsToPermissions: {
+  public update(groupsToPermissions: {
     groupId: number;
     permissionIds: number[];
   }): void {
@@ -55,14 +47,6 @@ class GroupsToPermissions {
         .ignore()
         .execute();
     });
-  }
-
-  delete(id: number): Promise<number> {
-    return this.#GroupsToPermissionsModel
-      .query()
-      .delete()
-      .where({ id })
-      .execute();
   }
 }
 

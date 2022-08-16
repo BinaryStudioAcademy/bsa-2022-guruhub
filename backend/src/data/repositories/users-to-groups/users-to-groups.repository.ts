@@ -7,11 +7,11 @@ type Constructor = {
 class UsersToGroups {
   #UsersToGroupsModel: typeof UsersToGroupsM;
 
-  constructor({ UsersToGroupsModel }: Constructor) {
+  public constructor({ UsersToGroupsModel }: Constructor) {
     this.#UsersToGroupsModel = UsersToGroupsModel;
   }
 
-  async create(usersToGroups: {
+  public async create(usersToGroups: {
     groupId: number;
     userId: number;
   }): Promise<UsersToGroupsM> {
@@ -23,7 +23,7 @@ class UsersToGroups {
     });
   }
 
-  async getByUserId(userId: number): Promise<UsersToGroupsM[] | null> {
+  public async getByUserId(userId: number): Promise<UsersToGroupsM[] | null> {
     const groups = await this.#UsersToGroupsModel
       .query()
       .select()
@@ -32,15 +32,7 @@ class UsersToGroups {
     return groups ?? null;
   }
 
-  getByGroupId(groupId: number): Promise<UsersToGroupsM[]> {
-    return this.#UsersToGroupsModel
-      .query()
-      .where({ groupId })
-      .select()
-      .execute();
-  }
-
-  update(usersToGroups: { groupId: number; userIds: number[] }): void {
+  public update(usersToGroups: { groupId: number; userIds: number[] }): void {
     const { groupId, userIds } = usersToGroups;
     this.#UsersToGroupsModel
       .query()
@@ -60,10 +52,6 @@ class UsersToGroups {
         .ignore()
         .execute();
     });
-  }
-
-  delete(id: number): Promise<number> {
-    return this.#UsersToGroupsModel.query().delete().where({ id }).execute();
   }
 }
 

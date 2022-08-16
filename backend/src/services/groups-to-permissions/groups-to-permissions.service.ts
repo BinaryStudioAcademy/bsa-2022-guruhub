@@ -8,11 +8,11 @@ type Constructor = {
 class GroupsToPermissions {
   #groupsToPermissionsRepository: typeof groupsToPermissionsRep;
 
-  constructor({ groupsToPermissionsRepository }: Constructor) {
+  public constructor({ groupsToPermissionsRepository }: Constructor) {
     this.#groupsToPermissionsRepository = groupsToPermissionsRepository;
   }
 
-  async createGroupsToPermissions(groupsToPermissions: {
+  public async createGroupsToPermissions(groupsToPermissions: {
     groupId: number;
     permissionId: number;
   }): Promise<GroupsToPermissionsResponseDto> {
@@ -27,17 +27,7 @@ class GroupsToPermissions {
     };
   }
 
-  async getPermissionsByGroupId(
-    groupId: number,
-  ): Promise<GroupsToPermissionsResponseDto[]> {
-    const permissions = await this.#groupsToPermissionsRepository.getByGroupId(
-      groupId,
-    );
-
-    return permissions;
-  }
-
-  async updatePermissionsByGroupId(groupsToPermissions: {
+  public async updatePermissionsByGroupId(groupsToPermissions: {
     groupId: number;
     permissionIds: number[];
   }): Promise<void> {
@@ -47,13 +37,6 @@ class GroupsToPermissions {
       groupId,
       permissionIds,
     });
-  }
-
-  async delete(id: number): Promise<boolean> {
-    const deleteGroupPermission =
-      await this.#groupsToPermissionsRepository.delete(id);
-
-    return Boolean(deleteGroupPermission);
   }
 }
 

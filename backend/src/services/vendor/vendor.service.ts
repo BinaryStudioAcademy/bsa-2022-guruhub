@@ -9,11 +9,11 @@ type Constructor = {
 class Vendor {
   #vendorRepository: typeof vendorRep;
 
-  constructor({ vendorRepository }: Constructor) {
+  public constructor({ vendorRepository }: Constructor) {
     this.#vendorRepository = vendorRepository;
   }
 
-  async getByKey(key: VendorKey): Promise<VendorGetResponseDto | null> {
+  public async getByKey(key: VendorKey): Promise<VendorGetResponseDto | null> {
     const vendor = await this.#vendorRepository.getByKey(key);
 
     return vendor ?? null;

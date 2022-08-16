@@ -8,11 +8,11 @@ type Constructor = {
 class UsersToGroups {
   #usersToGroupsRepository: typeof usersToGroupsRep;
 
-  constructor({ usersToGroupsRepository }: Constructor) {
+  public constructor({ usersToGroupsRepository }: Constructor) {
     this.#usersToGroupsRepository = usersToGroupsRepository;
   }
 
-  async createUsersToGroups(usersToGroups: {
+  public async createUsersToGroups(usersToGroups: {
     groupId: number;
     userId: number;
   }): Promise<UsersToGroupsResponseDto> {
@@ -25,15 +25,7 @@ class UsersToGroups {
     };
   }
 
-  async getUsersByGroupId(
-    groupId: number,
-  ): Promise<UsersToGroupsResponseDto[]> {
-    const users = await this.#usersToGroupsRepository.getByGroupId(groupId);
-
-    return users;
-  }
-
-  async updateUsersByGroupId(usersToGroups: {
+  public async updateUsersByGroupId(usersToGroups: {
     groupId: number;
     userIds: number[];
   }): Promise<void> {
@@ -43,12 +35,6 @@ class UsersToGroups {
       groupId,
       userIds,
     });
-  }
-
-  async delete(id: number): Promise<boolean> {
-    const deleteGroupUsers = await this.#usersToGroupsRepository.delete(id);
-
-    return Boolean(deleteGroupUsers);
   }
 }
 

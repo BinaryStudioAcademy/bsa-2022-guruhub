@@ -8,6 +8,7 @@ type IconName =
   | 'mentors'
   | 'settings'
   | 'book'
-  | 'uam';
+  | 'uam'
+  | 'trash';
 
 export { type IconName };
