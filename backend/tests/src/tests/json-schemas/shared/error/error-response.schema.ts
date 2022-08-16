@@ -1,15 +1,15 @@
 const errorResponseSchema = {
-  'type': 'object',
-  'required': ['statusCode', 'error', 'message'],
-  'properties': {
-    'statusCode': {
-      'type': 'integer',
+  type: 'object',
+  required: ['statusCode', 'error', 'message'],
+  properties: {
+    statusCode: {
+      type: 'integer',
     },
-    'error': {
-      'type': 'string',
+    error: {
+      type: 'string',
     },
-    'message': {
-      'type': 'string',
+    message: {
+      type: 'string',
     },
   },
 };
