@@ -12,7 +12,6 @@ export { Pagination } from './pagination/pagination';
 export { ProtectedRoute } from './protected-route/protected-route';
 export { Spinner } from './spinner/spinner';
 export { Table } from './table/table';
-export { TablePlaceholder } from './table-placeholder/table-placeholder';
 export { Toast } from './toast/toast';
 export { ErrorMessage } from '@hookform/error-message';
 export { Navigate, Route, Routes } from 'react-router-dom';

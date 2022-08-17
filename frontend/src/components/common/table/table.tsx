@@ -1,4 +1,3 @@
-import { TablePlaceholder } from 'components/common/common';
 import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
 
@@ -65,7 +64,7 @@ const Table = <Data extends Record<string, unknown>>({
           </tbody>
         </table>
       ) : (
-        <TablePlaceholder placeholder={placeholder} />
+        <p className={styles.placeholder}>{placeholder}</p>
       )}
     </>
   );
