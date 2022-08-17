@@ -4,6 +4,7 @@ type UdemyLectureGetResponseDto = {
   title: string;
   description: string;
   asset: UdemyLectureAssetGetResponseDto;
+  sortOrder: number;
 };
 
 export { type UdemyLectureGetResponseDto };
