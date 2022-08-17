@@ -1,4 +1,4 @@
-import { userSchema } from '../../json-schemas';
+import { userWithPermissionsSchema } from '../../json-schemas';
 
 const signInResponseSchema = {
   type: 'object',
@@ -6,7 +6,7 @@ const signInResponseSchema = {
     token: {
       type: 'string',
     },
-    user: userSchema,
+    user: userWithPermissionsSchema,
     required: ['token', 'user'],
   },
 };
