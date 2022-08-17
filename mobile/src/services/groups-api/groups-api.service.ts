@@ -1,6 +1,7 @@
 import { ApiPath, GroupsApiPath, HttpMethod } from '~/common/enums/enums';
 import {
   EntityPagination,
+  EntityPaginationRequestQueryDto,
   GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
 } from '~/common/types/types';
@@ -21,11 +22,20 @@ class GroupsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<EntityPagination<GroupsItemResponseDto>> {
+  public getPage({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<GroupsItemResponseDto>
+  > {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+        queryParams: {
+          page,
+          count,
+        },
       },
     );
   }
