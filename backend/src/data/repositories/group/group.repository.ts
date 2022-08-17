@@ -19,7 +19,7 @@ class Group {
   public async getById(id: number): Promise<GroupsWithPermissionIdsDto | null> {
     const group = await this.#GroupModel
       .query()
-      .where({ groupId: id })
+      .where('groups.id', id)
       .select('groups.*')
       .withGraphJoined('permissions')
       .castTo<GroupM & { permissions: { id: number }[] }>()
