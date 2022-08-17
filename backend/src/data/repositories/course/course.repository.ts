@@ -15,9 +15,18 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAll(): Promise<CourseGetResponseDto[]> {
+  public getAll(filteringOpts: {
+    categoryId: number | null;
+  }): Promise<CourseGetResponseDto[]> {
+    const { categoryId } = filteringOpts ?? {};
+
     return this.#CourseModel
       .query()
+      .where((builder) => {
+        if (categoryId) {
+          builder.where({ courseCategoryId: categoryId });
+        }
+      })
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
@@ -35,6 +44,17 @@ class Course {
       vendorId,
       courseCategoryId,
     });
+  }
+
+  public async getByCategoryId(
+    courseCategoryId: number,
+  ): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .where({ courseCategoryId })
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 }
 

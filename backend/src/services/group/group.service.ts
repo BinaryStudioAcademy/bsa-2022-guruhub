@@ -5,6 +5,7 @@ import {
   GroupsCreateRequestDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
+  GroupsUpdateRequestDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
@@ -139,6 +140,35 @@ class Group {
         });
       }),
     );
+
+    return group;
+  }
+
+  public async update(data: {
+    id: number;
+    groupsRequestDto: GroupsUpdateRequestDto;
+  }): Promise<GroupsItemResponseDto> {
+    const { id, groupsRequestDto } = data;
+    const { name, permissionIds, userIds } = groupsRequestDto;
+
+    const group = await this.#groupsRepository.update({
+      id,
+      name,
+      key: changeStringCase({
+        stringToChange: name,
+        caseType: StringCase.SNAKE_CASE,
+      }),
+    });
+
+    await this.#groupsToPermissionsService.updateGroupsToPermissions({
+      groupId: id,
+      permissionIds,
+    });
+
+    await this.#usersToGroupsService.updateUsersToGroups({
+      groupId: id,
+      userIds,
+    });
 
     return group;
   }
