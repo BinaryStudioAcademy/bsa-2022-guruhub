@@ -1,5 +1,5 @@
 type GroupsDeleteRequestParamDto = {
-  id: string;
+  id: number;
 };
 
 export { type GroupsDeleteRequestParamDto };

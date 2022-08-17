@@ -5,6 +5,8 @@ import {
   UsersGetResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
+  UserSignUpRequestDto,
+  UserSignUpResponseDto,
 } from 'guruhub-shared';
 
 import { Response } from '~/lib/common/types/types';
@@ -29,6 +31,18 @@ class AuthService {
       .request()
       .post()
       .path(`${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`)
+      .noAutoAuth()
+      .data(data)
+      .send();
+  }
+
+  public signUp(
+    data: UserSignUpRequestDto,
+  ): Promise<Response<UserSignUpResponseDto>> {
+    return this.#httpService
+      .request()
+      .post()
+      .path(`${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`)
       .noAutoAuth()
       .data(data)
       .send();

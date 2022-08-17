@@ -1,18 +1,18 @@
 import { Model } from 'objection';
 
 class Abstract extends Model {
-  'id': number;
+  public 'id': number;
 
-  'createdAt': string;
+  public 'createdAt': string;
 
-  'updatedAt': string;
+  public 'updatedAt': string;
 
-  override $beforeInsert(): void {
+  public override $beforeInsert(): void {
     this.createdAt = new Date().toISOString();
     this.updatedAt = new Date().toISOString();
   }
 
-  override $beforeUpdate(): void {
+  public override $beforeUpdate(): void {
     this.updatedAt = new Date().toISOString();
   }
 }

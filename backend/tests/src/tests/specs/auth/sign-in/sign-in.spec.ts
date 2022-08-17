@@ -7,7 +7,7 @@ import {
   UserValidationMessage,
 } from 'guruhub-shared';
 
-import { JWT_TOKEN_REGEX } from '~/lib/common/constants/regex.constants';
+import { JWT_TOKEN_REGEX } from '~/lib/common/constants/constants';
 import { Response } from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {

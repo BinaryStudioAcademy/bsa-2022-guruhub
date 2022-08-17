@@ -1,1 +1,1 @@
-export { userSchema } from './user-by-id/user-by-id';
+export { userWithPermissionsSchema } from './user-with-permissions/user-with-permissions';

@@ -1,6 +1,7 @@
 export { AuthorizedMenu } from './authorized-menu/authorized-menu';
 export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
 export { Button } from './button/button';
+export { Checkbox } from './checkbox/checkbox';
 export { Header } from './header/header';
 export { Icon } from './icon/icon';
 export { Image } from './image/image';

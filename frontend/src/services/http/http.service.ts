@@ -15,11 +15,11 @@ type Constructor = {
 class Http {
   #storage: Storage;
 
-  constructor({ storage }: Constructor) {
+  public constructor({ storage }: Constructor) {
     this.#storage = storage;
   }
 
-  async load<T = unknown>(
+  public load<T = unknown>(
     url: string,
     options: Partial<HttpOptions> = {},
   ): Promise<T> {
