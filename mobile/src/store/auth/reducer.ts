@@ -40,7 +40,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(logout.fulfilled, (state) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.user = null;
+    state = initialState;
   });
 
   builder.addCase(signUp.rejected, (state) => {
@@ -57,7 +57,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(logout.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
-    state.user = null;
+    state = initialState;
   });
 });
 
