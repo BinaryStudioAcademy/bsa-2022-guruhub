@@ -27,7 +27,8 @@ class Course {
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
         }
-
+      })
+      .andWhere((builder) => {
         if (title) {
           builder.where('title', 'ilike', `%${title}%`);
         }
