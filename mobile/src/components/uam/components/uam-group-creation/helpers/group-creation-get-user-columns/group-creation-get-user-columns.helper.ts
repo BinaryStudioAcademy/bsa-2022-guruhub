@@ -1,16 +1,8 @@
-import { ReactElement } from 'react';
-
 import { TableColumn } from '~/common/types/ui/table-column.type';
 import { UserTableAccessor } from '~/components/uam/components/uam-group-creation/common/enums/enums';
+import { UsersTableRow } from '~/components/uam/components/uam-group-creation/common/types/types';
 
-type UsersTableData = {
-  id: number;
-  email: string;
-  fullName: string;
-  checkbox: JSX.Element | string | ReactElement;
-};
-
-const getUserColumns = (): TableColumn<UsersTableData>[] => {
+const getUserColumns = (): TableColumn<UsersTableRow>[] => {
   return [
     {
       header: '',

@@ -4,7 +4,7 @@ type UsersTableRow = {
   id: number;
   email: string;
   fullName: string;
-  checkbox: JSX.Element | string | ReactElement;
+  checkbox: ReactElement;
 };
 
 export { type UsersTableRow };

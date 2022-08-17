@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 type PermissionsGroupCreationDto = {
-  checkbox: JSX.Element | string | ReactElement;
+  checkbox: ReactElement;
   name: string;
   id: number;
 };
