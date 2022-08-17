@@ -19,6 +19,7 @@ const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
+  const usersTotalCount = users.total;
 
   useEffect(() => {
     dispatch(
@@ -27,7 +28,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page, users.total]);
+  }, [page, usersTotalCount]);
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
