@@ -33,12 +33,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export { type PermissionsGetAllItemResponseDto } from './permission/permission';
-export {
-  type AppTextStyle,
-  type CourseImageName,
-  type IconName,
-  type TableColumn,
-} from './ui/ui';
+export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+
+import { View } from '~/components/common/common';
 
 import { categoryKeyToImage } from '../../common/maps/maps';
 import { styles } from './style';
