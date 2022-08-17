@@ -125,7 +125,7 @@ class RequestBuilder {
   }
 
   public async send<T>(): Promise<Response<T>> {
-    if (!(this.#options.hasAutoAuth ?? true)) {
+    if (this.#options.hasAutoAuth ?? true) {
       this.authorize();
     }
 
