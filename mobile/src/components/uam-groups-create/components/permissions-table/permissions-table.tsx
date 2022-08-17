@@ -6,24 +6,19 @@ import { Table, View } from '~/components/common/common';
 import {
   getPermissionsColumns,
   getPermissionsRows,
-} from '~/components/uam/components/uam-group-creation/helpers/helpers';
+} from '~/components/uam-groups-create/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
 type Props = {
-  permissions: {
-    items: PermissionsGetAllItemResponseDto[];
-  };
+  permissions: PermissionsGetAllItemResponseDto[];
   onCheckbox: (id: number) => void;
 };
 
-const GroupCreationPermissionsTable: FC<Props> = ({
-  permissions,
-  onCheckbox,
-}) => {
+const GroupsTable: FC<Props> = ({ permissions, onCheckbox }) => {
   const { control } = useAppForm({ defaultValues: {} });
 
   const permissionRows = getPermissionsRows({
-    permissions: permissions.items,
+    permissions: permissions,
     onCheckbox,
     control,
   });
@@ -41,4 +36,4 @@ const GroupCreationPermissionsTable: FC<Props> = ({
   );
 };
 
-export { GroupCreationPermissionsTable };
+export { GroupsTable };

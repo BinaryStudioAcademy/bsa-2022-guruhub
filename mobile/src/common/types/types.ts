@@ -32,7 +32,6 @@ export {
 export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
-  type PermissionsGroupCreationDto,
 } from './permissions/permissions';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {

@@ -7,7 +7,7 @@ import { Pagination, Table, View } from '~/components/common/common';
 import {
   getUserColumns,
   getUserRows,
-} from '~/components/uam/components/uam-group-creation/helpers/helpers';
+} from '~/components/uam-groups-create/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
 import { styles } from './styles';
@@ -24,11 +24,7 @@ type Props = {
   };
 };
 
-const GroupCreationUsersTable: FC<Props> = ({
-  users,
-  onCheckbox,
-  pagination,
-}) => {
+const UsersTable: FC<Props> = ({ users, onCheckbox, pagination }) => {
   const { control } = useAppForm({ defaultValues: {} });
   const userRows = getUserRows({ users: users.items, onCheckbox, control });
   const userColumns = getUserColumns();
@@ -51,4 +47,4 @@ const GroupCreationUsersTable: FC<Props> = ({
   );
 };
 
-export { GroupCreationUsersTable };
+export { UsersTable };

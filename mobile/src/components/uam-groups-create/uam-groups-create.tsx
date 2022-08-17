@@ -4,11 +4,11 @@ import { ScrollView, View } from 'react-native';
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { GroupsCreateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
-import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam/components/uam-group-creation/common/types/types';
+import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam-groups-create/common/types/types';
 import {
-  GroupCreationPermissionsTable,
-  GroupCreationUsersTable,
-} from '~/components/uam/components/uam-group-creation/components/conponents';
+  GroupsTable,
+  UsersTable,
+} from '~/components/uam-groups-create/components/conponents';
 import {
   useAppDispatch,
   useAppForm,
@@ -23,7 +23,7 @@ import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 
 import { styles } from './styles';
 
-const UamGroupCreation: FC = () => {
+const UAMGroupsCreate: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { page: usersPage, handlePageChange } = usePagination();
@@ -86,14 +86,14 @@ const UamGroupCreation: FC = () => {
         </View>
 
         <Text style={styles.title}>Add workers to the Group - Optional</Text>
-        <GroupCreationUsersTable
+        <UsersTable
           users={users}
           onCheckbox={handleToggleUsers}
           pagination={paginationForUsersTable}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
-        <GroupCreationPermissionsTable
-          permissions={permissions}
+        <GroupsTable
+          permissions={permissions.items}
           onCheckbox={handleTogglePermissions}
         />
         <View style={styles.buttonsContainer}>
@@ -107,4 +107,4 @@ const UamGroupCreation: FC = () => {
   );
 };
 
-export { UamGroupCreation };
+export { UAMGroupsCreate };

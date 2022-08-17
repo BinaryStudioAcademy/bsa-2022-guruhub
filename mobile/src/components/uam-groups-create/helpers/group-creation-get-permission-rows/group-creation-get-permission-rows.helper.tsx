@@ -3,10 +3,10 @@ import React from 'react';
 import {
   FormControl,
   PermissionsGetAllItemResponseDto,
-  PermissionsGroupCreationDto,
 } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
-import { PermissionTableAccessor } from '~/components/uam/components/uam-group-creation/common/enums/enums';
+import { PermissionTableAccessor } from '~/components/uam-groups-create/common/enums/enums';
+import { PermissionsTableRow } from '~/components/uam-groups-create/common/types/types';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
@@ -18,7 +18,7 @@ const getPermissionsRows = ({
   permissions,
   control,
   onCheckbox,
-}: Props): PermissionsGroupCreationDto[] => {
+}: Props): PermissionsTableRow[] => {
   return permissions.map((permission) => {
     return {
       [PermissionTableAccessor.CHECKBOX]: (

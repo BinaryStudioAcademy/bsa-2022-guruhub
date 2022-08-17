@@ -1,1 +1,1 @@
-export { UamGroupCreation } from './uam-group-creation/uam-group-creation';
+export { UAMGroupsCreate } from '../../uam-groups-create/uam-groups-create';

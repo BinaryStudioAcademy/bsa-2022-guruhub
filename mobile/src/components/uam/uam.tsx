@@ -11,15 +11,15 @@ import { UsersTable } from './users-table/users-table';
 const UAM: FC = () => {
   const navigate = useAppNavigate();
 
-  const handleOnCreateGroup = (): void => {
-    navigate.navigate(AppScreenName.UAM_GROUP_CREATION);
+  const handleGroupCreate = (): void => {
+    navigate.navigate(AppScreenName.UAM_GROUPS_CREATE);
   };
 
   return (
     <ScrollView>
       <UsersTable />
       <GroupsTable />
-      <Button label="Create group" onPress={handleOnCreateGroup} />
+      <Button label="Create group" onPress={handleGroupCreate} />
     </ScrollView>
   );
 };
