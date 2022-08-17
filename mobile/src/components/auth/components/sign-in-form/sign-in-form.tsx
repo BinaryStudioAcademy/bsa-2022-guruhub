@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 
 import { UserSignInRequestDto } from '~/common/types/types';
-import { Button, Input, Text, View } from '~/components/common/common';
+import {
+  Button,
+  Input,
+  ScrollView,
+  Text,
+  View,
+} from '~/components/common/common';
 import { useAppForm } from '~/hooks/hooks';
 import { userSignIn as userSignInValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -19,7 +25,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
   });
 
   return (
-    <>
+    <ScrollView>
       <Text style={styles.title}>Sign in</Text>
       <View>
         <View style={styles.inputWrapper}>
@@ -44,7 +50,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
           <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 };
 
