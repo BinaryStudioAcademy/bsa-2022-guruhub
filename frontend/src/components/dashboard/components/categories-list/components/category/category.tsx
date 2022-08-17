@@ -15,7 +15,7 @@ const Category: FC<Props> = ({ keyName, name }) => {
       <Image
         width="30px"
         height="30px"
-        src={`/${keyName}.svg`}
+        src={`/category-icons/${keyName}.svg`}
         alt={`${keyName} img`}
         isCircular
       />
