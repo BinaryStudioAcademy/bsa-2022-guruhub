@@ -10,7 +10,7 @@ import {
 import { dashboardActions } from 'store/actions';
 
 import { DEFAULT_SEARCH_PAYLOAD, SEARCH_DELAY_MS } from './common/constants';
-import { SearchPayload } from './common/types/search-payload.type';
+import { SearchPayload } from './common/types/types';
 import styles from './styles.module.scss';
 
 const SearchBar: FC = () => {
