@@ -1,5 +1,6 @@
 import { FC } from 'common/types/types';
-import { Icon, Input } from 'components/common/common';
+import { Icon } from 'components/common/common';
+import { Input } from 'components/common/input/input';
 import { debounce } from 'helpers/helpers';
 import {
   useAppDispatch,
