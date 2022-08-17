@@ -26,6 +26,18 @@ class GroupsToPermissions {
       permissionId: model.permissionId,
     };
   }
+
+  public async updateGroupsToPermissions(groupsToPermissions: {
+    groupId: number;
+    permissionIds: number[];
+  }): Promise<void> {
+    const { groupId, permissionIds } = groupsToPermissions;
+
+    return this.#groupsToPermissionsRepository.update({
+      groupId,
+      permissionIds,
+    });
+  }
 }
 
 export { GroupsToPermissions };
