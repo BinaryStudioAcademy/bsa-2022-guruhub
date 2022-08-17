@@ -36,5 +36,6 @@ export {
 export {
   type UserDetailsCreateRequestDto,
   type UserDetailsItemDto,
+  type UserDetailsUpdateImage,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

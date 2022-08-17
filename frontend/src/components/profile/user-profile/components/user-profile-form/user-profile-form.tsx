@@ -1,6 +1,10 @@
-import { FC, FormEvent, UserDetailsCreateRequestDto } from 'common/types/types';
+import {
+  FC,
+  FormEvent,
+  UserDetailsCreateRequestDto,
+  UserDetailsItemDto,
+} from 'common/types/types';
 import { Button, Input, Switcher } from 'components/common/common';
-import { UserDetailsItemDto } from 'guruhub-shared';
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { userDetailsUpdate as userDetailsUpdateValidationSchema } from 'validation-schemas/validation-schemas';
@@ -27,9 +31,9 @@ const UserProfileForm: FC<Props> = ({ userDetails, onHandleUpdateProfile }) => {
   };
 
   const date = getValues(getNameOf<UserDetailsCreateRequestDto>('dateOfBirth'))
-    ? (getValues(getNameOf<UserDetailsCreateRequestDto>('dateOfBirth')).split(
+    ? getValues(getNameOf<UserDetailsCreateRequestDto>('dateOfBirth')).split(
         'T',
-      )[0] as string)
+      )[0]
     : '';
 
   const handleUpdateProfile = (e: FormEvent): void => {

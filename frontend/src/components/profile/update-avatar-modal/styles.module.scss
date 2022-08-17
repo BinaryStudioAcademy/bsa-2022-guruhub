@@ -1,0 +1,26 @@
+.modalWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.displayNone {
+  display: none;
+}
+
+.modalInputWrapper {
+  margin-top: 40px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cancelBtn {
+  margin-right: 15px;
+  background-color: var(--background-gray-200);
+}

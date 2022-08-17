@@ -1,7 +1,12 @@
 .imageWrapper {
   width: 100%;
   max-width: 136px;
+  height: 100%;
   margin-right: 17px;
+}
+
+.imageWrapper img {
+  height: 136px;
 }
 
 .btn {
@@ -24,5 +29,6 @@
 .flex {
   display: flex;
   align-items: center;
+  min-height: 136px;
   margin-top: 30px;
 }

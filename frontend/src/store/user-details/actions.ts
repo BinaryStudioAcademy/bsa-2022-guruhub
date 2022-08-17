@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AsyncThunkConfig, UserDetailsItemDto } from 'common/types/types';
-import { UserDetailsCreateRequestDto } from 'guruhub-shared';
+import {
+  AsyncThunkConfig,
+  UserDetailsCreateRequestDto,
+  UserDetailsItemDto,
+  UserDetailsUpdateImage,
+} from 'common/types/types';
 
 import { ActionType } from './common';
 
@@ -23,10 +27,27 @@ const updateUserDetails = createAsyncThunk<
   ActionType.UPDATE_USER_DETAILS,
   async (updateUserDetailsPayload, { extra }) => {
     const { userDetailsApi } = extra;
-    const userDetails = await userDetailsApi.update(updateUserDetailsPayload);
+    const userDetails = await userDetailsApi.updateUserDetails(
+      updateUserDetailsPayload,
+    );
 
     return userDetails;
   },
 );
 
-export { getUserDetails, updateUserDetails };
+const updateUserDetailsAvatar = createAsyncThunk<
+  UserDetailsUpdateImage,
+  UserDetailsUpdateImage,
+  AsyncThunkConfig
+>(
+  ActionType.UPDATE_USER_DETAILS_AVATAR,
+  async (updateUserDetailsAvatarPayload, { extra }) => {
+    const { userDetailsApi } = extra;
+    const userDetails = await userDetailsApi.updateAvatar(
+      updateUserDetailsAvatarPayload,
+    );
+
+    return userDetails;
+  },
+);
+export { getUserDetails, updateUserDetails, updateUserDetailsAvatar };

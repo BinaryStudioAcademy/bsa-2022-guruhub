@@ -1,4 +1,7 @@
-import { UserDetailsCreateRequestDto } from '~/common/types/types';
+import {
+  UserDetailsCreateRequestDto,
+  UserDetailsUpdateImage,
+} from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
 type Constructor = {
@@ -12,7 +15,7 @@ class UserDetails {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  async create(
+  async createUserDetails(
     userId: number,
     userDetails: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
@@ -30,13 +33,34 @@ class UserDetails {
       });
   }
 
-  async update(
+  async createAvatar(
+    userId: number,
+    userDetails: UserDetailsUpdateImage,
+  ): Promise<UserDetailsM> {
+    const { avatarUrl } = userDetails;
+
+    return this.#UserDetailsModel.query().select('avatarUrl').insert({
+      avatarUrl,
+    });
+  }
+
+  async updateUserDetails(
     userId: number,
     userDetails: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
     return this.#UserDetailsModel
       .query()
       .select('firstName', 'lastName', 'gender', 'dateOfBirth')
+      .patchAndFetchById(userId, userDetails);
+  }
+
+  async updateAvatar(
+    userId: number,
+    userDetails: UserDetailsUpdateImage,
+  ): Promise<UserDetailsM> {
+    return this.#UserDetailsModel
+      .query()
+      .select('avatarUrl')
       .patchAndFetchById(userId, userDetails);
   }
 

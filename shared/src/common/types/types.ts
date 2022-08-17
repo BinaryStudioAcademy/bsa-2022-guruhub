@@ -25,6 +25,7 @@ export {
 export {
   type UserDetailsCreateRequestDto,
   type UserDetailsItemDto,
+  type UserDetailsUpdateImage,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

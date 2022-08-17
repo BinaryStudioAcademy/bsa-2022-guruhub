@@ -1,4 +1,5 @@
 .wrapper {
+  position: relative;
   padding: 40px;
   background-color: var(--background-gray-400);
 }
@@ -13,6 +14,18 @@
   font-weight: 600;
   font-size: 30px;
   line-height: 48px;
+}
+
+.modalWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+}
+
+.displayNone {
+  display: none;
 }
 
 .subtitle {

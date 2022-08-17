@@ -1,20 +1,36 @@
 import defaultUserAvatar from 'assets/img/avatar-default.jpg';
 import { FC } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
+import { UserDetailsUpdateImage } from 'guruhub-shared';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  avatarUrl: string | undefined;
+  avatarUrl: string | null;
+  onHandleModal: (val: boolean) => void;
+  onHandleSaveAvatar: (payload: UserDetailsUpdateImage) => void;
 };
-const AvatarWrapper: FC<Props> = ({ avatarUrl }) => {
+
+const AvatarWrapper: FC<Props> = ({
+  avatarUrl,
+  onHandleModal,
+  onHandleSaveAvatar,
+}) => {
+  const handleSaveAvatar = (): void => {
+    if (avatarUrl) {
+      onHandleSaveAvatar({
+        avatarUrl: avatarUrl,
+      });
+    }
+  };
+
   return (
     <>
       <div className={styles.flex}>
         <div className={styles.imageWrapper}>
           <Image
-            width={'136'}
-            height={'136'}
+            width="136"
+            height="136"
             src={avatarUrl || defaultUserAvatar}
             alt="user avatar"
             isCircular
@@ -23,10 +39,14 @@ const AvatarWrapper: FC<Props> = ({ avatarUrl }) => {
         <div>
           <Button
             classes={`${styles.btn} ${styles.btnUpdate}`}
-            type="submit"
             label="Update File"
+            onClick={(): void => onHandleModal(true)}
           />
-          <Button classes={styles.btn} type="submit" label="Save" />
+          <Button
+            classes={styles.btn}
+            onClick={handleSaveAvatar}
+            label="Save"
+          />
         </div>
       </div>
     </>
