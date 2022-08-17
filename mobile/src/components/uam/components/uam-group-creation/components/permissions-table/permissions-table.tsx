@@ -1,34 +1,31 @@
 import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
-import {
-  FormControl,
-  GroupsCreateRequestDto,
-  PermissionsGetAllItemResponseDto,
-} from '~/common/types/types';
+import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
 import { Table, View } from '~/components/common/common';
 import {
   getPermissionsColumns,
   getPermissionsRows,
 } from '~/components/uam/components/uam-group-creation/helpers/helpers';
+import { useAppForm } from '~/hooks/hooks';
 
 type Props = {
   permissions: {
     items: PermissionsGetAllItemResponseDto[];
   };
-  control: FormControl<GroupsCreateRequestDto>;
   onCheckbox: (id: number) => void;
 };
 
 const GroupCreationPermissionsTable: FC<Props> = ({
   permissions,
-  control,
   onCheckbox,
 }) => {
+  const { control } = useAppForm({ defaultValues: {} });
+
   const permissionRows = getPermissionsRows({
     permissions: permissions.items,
-    control,
     onCheckbox,
+    control,
   });
   const permissionColumns = getPermissionsColumns();
   const { width } = useWindowDimensions();

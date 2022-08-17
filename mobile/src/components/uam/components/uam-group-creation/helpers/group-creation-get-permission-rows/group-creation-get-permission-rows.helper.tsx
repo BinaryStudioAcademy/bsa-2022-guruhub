@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   FormControl,
-  GroupsCreateRequestDto,
   PermissionsGetAllItemResponseDto,
   PermissionsGroupCreationDto,
 } from '~/common/types/types';
@@ -11,7 +10,7 @@ import { PermissionTableAccessor } from '~/components/uam/components/uam-group-c
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
-  control: FormControl<GroupsCreateRequestDto>;
+  control: FormControl;
   onCheckbox: (id: number) => void;
 };
 

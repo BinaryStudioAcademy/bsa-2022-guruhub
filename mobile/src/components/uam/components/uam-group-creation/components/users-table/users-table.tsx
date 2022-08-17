@@ -2,16 +2,13 @@ import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
-import {
-  FormControl,
-  GroupsCreateRequestDto,
-  UsersGetResponseDto,
-} from '~/common/types/types';
+import { UsersGetResponseDto } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
 import {
   getUserColumns,
   getUserRows,
 } from '~/components/uam/components/uam-group-creation/helpers/helpers';
+import { useAppForm } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -20,7 +17,6 @@ type Props = {
     items: UsersGetResponseDto[];
     total: number;
   };
-  control: FormControl<GroupsCreateRequestDto>;
   onCheckbox: (id: number) => void;
   pagination: {
     page: number;
@@ -30,11 +26,11 @@ type Props = {
 
 const GroupCreationUsersTable: FC<Props> = ({
   users,
-  control,
   onCheckbox,
   pagination,
 }) => {
-  const userRows = getUserRows({ users: users.items, control, onCheckbox });
+  const { control } = useAppForm({ defaultValues: {} });
+  const userRows = getUserRows({ users: users.items, onCheckbox, control });
   const userColumns = getUserColumns();
   const { width } = useWindowDimensions();
 

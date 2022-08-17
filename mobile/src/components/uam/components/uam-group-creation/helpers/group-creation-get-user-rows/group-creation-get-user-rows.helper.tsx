@@ -1,17 +1,13 @@
 import React from 'react';
 
-import {
-  FormControl,
-  GroupsCreateRequestDto,
-  UsersGetResponseDto,
-} from '~/common/types/types';
+import { FormControl, UsersGetResponseDto } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
 import { UserTableAccessor } from '~/components/uam/components/uam-group-creation/common/enums/enums';
 import { UsersTableRow } from '~/components/uam/components/uam-group-creation/common/types/types';
 
 type Props = {
   users: UsersGetResponseDto[];
-  control: FormControl<GroupsCreateRequestDto>;
+  control: FormControl;
   onCheckbox: (id: number) => void;
 };
 

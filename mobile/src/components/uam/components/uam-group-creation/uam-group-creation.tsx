@@ -42,6 +42,7 @@ const UamGroupCreation: FC = () => {
     page: usersPage,
     setPage: setUsersPage,
   };
+
   const { users, permissions } = useAppSelector(
     (state) => state.uamGroupCreation,
   );
@@ -87,14 +88,12 @@ const UamGroupCreation: FC = () => {
         <Text style={styles.title}>Add workers to the Group - Optional</Text>
         <GroupCreationUsersTable
           users={users}
-          control={control}
           onCheckbox={handleToggleUsers}
           pagination={paginationForUsersTable}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <GroupCreationPermissionsTable
           permissions={permissions}
-          control={control}
           onCheckbox={handleTogglePermissions}
         />
         <View style={styles.buttonsContainer}>
