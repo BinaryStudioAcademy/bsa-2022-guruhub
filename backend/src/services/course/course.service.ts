@@ -5,12 +5,17 @@ import {
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
-import { udemy as udemyServ, vendor as vendorServ } from '~/services/services';
+import {
+  courseCategory as courseCategoryServ,
+  udemy as udemyServ,
+  vendor as vendorServ,
+} from '~/services/services';
 
 type Constructor = {
   courseRepository: typeof courseRep;
   vendorService: typeof vendorServ;
   udemyService: typeof udemyServ;
+  courseCategoryService: typeof courseCategoryServ;
 };
 
 class Course {
@@ -20,18 +25,29 @@ class Course {
 
   #udemyService: typeof udemyServ;
 
+  #courseCategoryService: typeof courseCategoryServ;
+
   public constructor({
     courseRepository,
     vendorService,
     udemyService,
+    courseCategoryService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
+    this.#courseCategoryService = courseCategoryService;
   }
 
-  public getAll(): Promise<CourseGetResponseDto[]> {
-    return this.#courseRepository.getAll();
+  public async getAll(filteringOpts: {
+    categoryKey: string;
+  }): Promise<CourseGetResponseDto[]> {
+    const { categoryKey } = filteringOpts;
+    const categoryId = await this.getCategoryIdByKey(categoryKey);
+
+    return this.#courseRepository.getAll({
+      categoryId,
+    });
   }
 
   public async create(
@@ -83,6 +99,22 @@ class Course {
         });
       }
     }
+  }
+
+  public async getCategoryIdByKey(categoryKey: string): Promise<number | null> {
+    if (!categoryKey) {
+      return null;
+    }
+
+    const category = await this.#courseCategoryService.getByKey(categoryKey);
+
+    if (!category) {
+      throw new CoursesError({
+        message: ExceptionMessage.INVALID_COURSE_CATEGORY,
+      });
+    }
+
+    return category.id;
   }
 }
 
