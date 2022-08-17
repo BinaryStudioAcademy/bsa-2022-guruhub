@@ -3,6 +3,7 @@ export { CourseCategory } from './course-category/course-category.model';
 export {
   CourseChapterModule,
   CourseLectureModule,
+  CourseLectureModuleAsset,
   CoursePracticeModule,
   CourseQuizModule,
 } from './course-modules/course-modules';

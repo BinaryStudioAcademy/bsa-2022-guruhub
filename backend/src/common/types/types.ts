@@ -6,6 +6,13 @@ export {
   type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
+export {
+  CourseChapterModuleCreateArgumentsDto,
+  CourseLectureAssetModuleCreateArgumentsDto,
+  CourseLectureModuleCreateArgumentsDto,
+  CoursePracticeModuleCreateArgumentsDto,
+  CourseQuizModuleCreateArgumentsDto,
+} from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
@@ -23,8 +30,12 @@ export {
 } from './permission/permission';
 export { type TokenPayload } from './token/token';
 export {
+  type UdemyChapterGetResponseDto,
   type UdemyCourseGetResponseDto,
-  type UdemyModuleGetResponseDto,
+  type UdemyLectureGetResponseDto,
+  type UdemyModulesGetResponseDto,
+  type UdemyPracticeGetResponseDto,
+  type UdemyQuizGetResponseDto,
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,

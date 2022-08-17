@@ -1,6 +1,6 @@
 import { Model, RelationMappings } from 'objection';
 import { Abstract } from 'src/data/models/abstract/abstract.model';
-import { Course } from 'src/data/models/models';
+import { Course, CourseLectureModuleAsset } from 'src/data/models/models';
 
 import { DbTableName } from '~/common/enums/enums';
 
@@ -23,6 +23,14 @@ class CourseLectureModule extends Abstract {
         join: {
           from: `${DbTableName.COURSES_LECTURE_MODULES}.course_id`,
           to: `${DbTableName.COURSES}.id`,
+        },
+      },
+      courseLectureModuleAsset: {
+        relation: Model.HasOneRelation,
+        modelClass: CourseLectureModuleAsset,
+        join: {
+          from: `${DbTableName.COURSES_LECTURE_MODULES}.asset_id`,
+          to: `${DbTableName.COURSES_LECTURE_MODULES_ASSET}.id`,
         },
       },
     };
