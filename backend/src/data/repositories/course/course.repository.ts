@@ -19,8 +19,7 @@ class Course {
     categoryId: number | null;
     title: string;
   }): Promise<CourseGetResponseDto[]> {
-    const { categoryId } = filteringOpts ?? {};
-    const { title = '' } = filteringOpts ?? {};
+    const { categoryId, title = '' } = filteringOpts ?? {};
 
     return this.#CourseModel
       .query()
