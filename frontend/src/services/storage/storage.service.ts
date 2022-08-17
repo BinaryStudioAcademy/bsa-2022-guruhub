@@ -7,7 +7,7 @@ type Constructor = {
 class Storage {
   #storage: globalThis.Storage;
 
-  constructor({ storage }: Constructor) {
+  public constructor({ storage }: Constructor) {
     this.#storage = storage;
   }
 

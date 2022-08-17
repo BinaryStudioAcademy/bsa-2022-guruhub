@@ -6,15 +6,15 @@ import { Abstract } from '../abstract/abstract.model';
 import { Group } from '../models';
 
 class User extends Abstract {
-  'email': string;
+  public 'email': string;
 
-  'fullName': string;
+  public 'fullName': string;
 
-  'passwordHash': string;
+  public 'passwordHash': string;
 
-  'passwordSalt': string;
+  public 'passwordSalt': string;
 
-  static override get relationMappings(): RelationMappings {
+  public static override get relationMappings(): RelationMappings {
     return {
       groups: {
         relation: Model.ManyToManyRelation,
@@ -31,7 +31,7 @@ class User extends Abstract {
     };
   }
 
-  static override get tableName(): string {
+  public static override get tableName(): string {
     return DbTableName.USERS;
   }
 }

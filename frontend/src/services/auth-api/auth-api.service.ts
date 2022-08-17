@@ -5,14 +5,13 @@ import {
   HttpMethod,
 } from 'common/enums/enums';
 import {
-  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserWithPermissions,
 } from 'common/types/types';
-
-import { Http } from '../http/http.service';
+import { Http } from 'services/http/http.service';
 
 type Constructor = {
   http: Http;
@@ -21,10 +20,12 @@ type Constructor = {
 
 class AuthApi {
   #http: Http;
+
   #apiPrefix: string;
 
-  constructor({ http, apiPrefix }: Constructor) {
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
+
     this.#apiPrefix = apiPrefix;
   }
 
@@ -52,7 +53,7 @@ class AuthApi {
     );
   }
 
-  public getCurrentUser(): Promise<UsersByIdResponseDto> {
+  public getCurrentUser(): Promise<UserWithPermissions> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
       {

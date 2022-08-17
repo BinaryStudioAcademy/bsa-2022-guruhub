@@ -1,11 +1,13 @@
 .content {
   display: flex;
   flex-grow: 1;
-  min-height: 0;
+  background: var(--background-gray-400);
 }
 
 .mainContent {
   display: flex;
   flex-grow: 1;
+  width: 100%;
   overflow-y: auto;
+  background-color: var(--background-gray-400);
 }

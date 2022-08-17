@@ -39,6 +39,8 @@ rules:
   max-params:
     - error
     - 2
+  lines-between-class-members:
+    - error
   '@typescript-eslint/explicit-function-return-type':
     - error
     - allowTypedFunctionExpressions: true
@@ -76,6 +78,8 @@ rules:
         - try
         - interface
         - type
+  '@typescript-eslint/explicit-member-accessibility':
+    - error
   import/no-unresolved:
     - off
   import/no-default-export:
@@ -86,6 +90,8 @@ rules:
   import/first:
     - error
   import/no-duplicates:
+    - error
+  import/group-exports:
     - error
   simple-import-sort/imports:
     - error

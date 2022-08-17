@@ -7,12 +7,13 @@ import { AppScreenName } from '~/common/enums/enums';
 import { Button, Image, ScrollView, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
+import { DrawerList } from '~/navigation/app/components/components';
 
-import { DrawerList } from '../drawer-list/drawer-list';
 import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
+  const allowedRoutes = state.routes.map((item) => item.name);
 
   const handleBecomeMentor = (): void => {
     // TODO: navigate to application screen
@@ -28,7 +29,9 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
           {Boolean(index) && <View style={styles.listBorder} />}
           <DrawerList
             name={name}
-            subroutes={subroutes}
+            subroutes={subroutes.filter((item) =>
+              allowedRoutes.includes(item.name),
+            )}
             focusedRouteName={focusedRouteName}
           />
         </View>

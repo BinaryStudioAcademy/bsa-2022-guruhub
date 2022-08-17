@@ -3,19 +3,19 @@ import { DbTableName } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 
 class UserDetails extends Abstract {
-  'firstName': string;
+  public 'firstName': string;
 
-  'lastName': string;
+  public 'lastName': string;
 
-  'gender': string;
+  public 'gender': string;
 
-  'avatarUrl': string;
+  public 'avatarUrl': string;
 
-  'dateOfBirth': string;
+  public 'dateOfBirth': string;
 
-  'userId': number;
+  public 'userId': number;
 
-  static override get tableName(): string {
+  public static override get tableName(): string {
     return DbTableName.USER_DETAILS;
   }
 }

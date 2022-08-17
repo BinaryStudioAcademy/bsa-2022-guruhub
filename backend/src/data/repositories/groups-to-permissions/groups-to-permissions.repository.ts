@@ -7,11 +7,11 @@ type Constructor = {
 class GroupsToPermissions {
   #GroupsToPermissionsModel: typeof GroupsToPermissionsM;
 
-  constructor({ GroupsToPermissionsModel }: Constructor) {
+  public constructor({ GroupsToPermissionsModel }: Constructor) {
     this.#GroupsToPermissionsModel = GroupsToPermissionsModel;
   }
 
-  async create(groupsToPermissions: {
+  public async create(groupsToPermissions: {
     groupId: number;
     permissionId: number;
   }): Promise<GroupsToPermissionsM> {
@@ -21,6 +21,33 @@ class GroupsToPermissions {
       groupId,
       permissionId,
     });
+  }
+
+  public async update(groupsToPermissions: {
+    groupId: number;
+    permissionIds: number[];
+  }): Promise<void> {
+    const { groupId, permissionIds } = groupsToPermissions;
+
+    await this.#GroupsToPermissionsModel
+      .query()
+      .where({ groupId })
+      .whereNotIn('permission_id', permissionIds)
+      .delete()
+      .execute();
+
+    await Promise.all(
+      permissionIds.map((permissionId: number) => {
+        return this.#GroupsToPermissionsModel
+          .query()
+          .insert({
+            groupId,
+            permissionId,
+          })
+          .onConflict(['permission_id', 'group_id'])
+          .ignore();
+      }),
+    );
   }
 }
 

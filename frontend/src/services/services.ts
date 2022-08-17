@@ -1,16 +1,23 @@
 import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
-import { GroupsApi } from './groups/groups.service';
+import { CategoriesApi } from './categories-api/categories-api.service';
+import { Courses } from './courses-api/courses-api.service';
+import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
+import { PermissionsApi } from './permissions-api/permissions-api';
 import { Storage } from './storage/storage.service';
 import { UserDetailsApi } from './user-details/user-details.service';
-import { UsersApi } from './users/users.service';
+import { UsersApi } from './users-api/users-api.service';
 
-const storage = new Storage({ storage: localStorage });
+const storage = new Storage({
+  storage: localStorage,
+});
 
-const http = new Http({ storage });
+const http = new Http({
+  storage,
+});
 
 const authApi = new AuthApi({
   apiPrefix: ENV.API_PATH,
@@ -32,6 +39,31 @@ const groupsApi = new GroupsApi({
   http,
 });
 
+const permissionsApi = new PermissionsApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
+const coursesApi = new Courses({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
+const categoriesApi = new CategoriesApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const notification = new Notification();
 
-export { authApi, groupsApi, notification, storage, userDetailsApi, usersApi };
+export {
+  authApi,
+  categoriesApi,
+  coursesApi,
+  groupsApi,
+  notification,
+  permissionsApi,
+  storage,
+  userDetailsApi,
+  usersApi,
+};

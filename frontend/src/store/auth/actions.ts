@@ -2,15 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { StorageKey } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
-  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignUpRequestDto,
+  UserWithPermissions,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const signUp = createAsyncThunk<
-  UsersByIdResponseDto,
+  UserWithPermissions,
   UserSignUpRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_UP, async (registerPayload, { extra }) => {
@@ -23,7 +23,7 @@ const signUp = createAsyncThunk<
 });
 
 const signIn = createAsyncThunk<
-  UsersByIdResponseDto,
+  UserWithPermissions,
   UserSignInRequestDto,
   AsyncThunkConfig
 >(ActionType.SIGN_IN, async (loginPayload, { extra }) => {
@@ -45,7 +45,7 @@ const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
 );
 
 const getCurrentUser = createAsyncThunk<
-  UsersByIdResponseDto,
+  UserWithPermissions,
   void,
   AsyncThunkConfig
 >(ActionType.LOAD_CURRENT_USER, async (_payload, { extra }) => {

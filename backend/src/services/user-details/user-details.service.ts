@@ -14,11 +14,11 @@ type Constructor = {
 class UserDetails {
   #userDetailsRepository: typeof userDetailsRep;
 
-  constructor({ userDetailsRepository }: Constructor) {
+  public constructor({ userDetailsRepository }: Constructor) {
     this.#userDetailsRepository = userDetailsRepository;
   }
 
-  async updateUserDetails(
+  public async updateUserDetails(
     userId: number,
     userDetailsCreateRequestDto: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsResponseDto> {
@@ -48,7 +48,7 @@ class UserDetails {
     };
   }
 
-  async updateAvatar(
+  public async updateAvatar(
     userId: number,
     userDetailsUpdateAvatar: UserDetailsUpdateImage,
   ): Promise<UserDetailsResponseDto> {
@@ -79,7 +79,7 @@ class UserDetails {
     };
   }
 
-  async getByUserId(userId: number): Promise<UserDetailsItemDto | null> {
+  public async getByUserId(userId: number): Promise<UserDetailsItemDto | null> {
     const userDetails = await this.#userDetailsRepository.getByUserId(userId);
 
     if (!userDetails) {

@@ -4,6 +4,7 @@ import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsItemResponseDto,
+  GroupsUpdateRequestDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
@@ -25,12 +26,16 @@ type Constructor = {
 
 class Group {
   #groupsRepository: typeof groupsRep;
+
   #permissionService: typeof permissionServ;
+
   #groupsToPermissionsService: typeof groupsToPermissionsServ;
+
   #usersToGroupsService: typeof usersToGroupsServ;
+
   #userService: typeof userServ;
 
-  constructor({
+  public constructor({
     groupsRepository,
     permissionService,
     groupsToPermissionsService,
@@ -44,7 +49,7 @@ class Group {
     this.#userService = userService;
   }
 
-  async getPaginated({
+  public async getPaginated({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
@@ -66,7 +71,7 @@ class Group {
     };
   }
 
-  async create(
+  public async create(
     groupsRequestDto: GroupsCreateRequestDto,
   ): Promise<GroupsItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
@@ -122,7 +127,36 @@ class Group {
     return group;
   }
 
-  async delete(id: number): Promise<boolean> {
+  public async update(data: {
+    id: number;
+    groupsRequestDto: GroupsUpdateRequestDto;
+  }): Promise<GroupsItemResponseDto> {
+    const { id, groupsRequestDto } = data;
+    const { name, permissionIds, userIds } = groupsRequestDto;
+
+    const group = await this.#groupsRepository.update({
+      id,
+      name,
+      key: changeStringCase({
+        stringToChange: name,
+        caseType: StringCase.SNAKE_CASE,
+      }),
+    });
+
+    await this.#groupsToPermissionsService.updateGroupsToPermissions({
+      groupId: id,
+      permissionIds,
+    });
+
+    await this.#usersToGroupsService.updateUsersToGroups({
+      groupId: id,
+      userIds,
+    });
+
+    return group;
+  }
+
+  public async delete(id: number): Promise<boolean> {
     const deletedGroupsCount = await this.#groupsRepository.delete(id);
 
     return Boolean(deletedGroupsCount);

@@ -5,6 +5,7 @@ enum AppScreenName {
   MY_EDUCATION = 'My Education',
   BILLING = 'Billing',
   SETTINGS = 'Settings',
+  UAM = 'User Access Managment',
 }
 
 export { AppScreenName };

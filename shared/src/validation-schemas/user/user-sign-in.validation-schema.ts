@@ -24,7 +24,12 @@ const userSignIn = Joi.object({
     .trim()
     .min(UserValidationRule.PASSWORD_MIN_LENGTH)
     .max(UserValidationRule.PASSWORD_MAX_LENGTH)
-    .required(),
+    .required()
+    .messages({
+      'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
+      'string.min': UserValidationMessage.PASSWORD_MIN_LENGTH,
+      'string.max': UserValidationMessage.PASSWORD_MAX_LENGTH,
+    }),
 });
 
 export { userSignIn };

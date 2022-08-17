@@ -11,11 +11,11 @@ type Constructor = {
 class UserDetails {
   #UserDetailsModel: typeof UserDetailsM;
 
-  constructor({ UserDetailsModel }: Constructor) {
+  public constructor({ UserDetailsModel }: Constructor) {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  async createUserDetails(
+  public async createUserDetails(
     userId: number,
     userDetails: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
@@ -33,7 +33,7 @@ class UserDetails {
       });
   }
 
-  async createAvatar(
+  public async createAvatar(
     userId: number,
     userDetails: UserDetailsUpdateImage,
   ): Promise<UserDetailsM> {
@@ -44,7 +44,7 @@ class UserDetails {
     });
   }
 
-  async updateUserDetails(
+  public async updateUserDetails(
     userId: number,
     userDetails: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsM> {
@@ -54,7 +54,7 @@ class UserDetails {
       .patchAndFetchById(userId, userDetails);
   }
 
-  async updateAvatar(
+  public async updateAvatar(
     userId: number,
     userDetails: UserDetailsUpdateImage,
   ): Promise<UserDetailsM> {
@@ -64,7 +64,7 @@ class UserDetails {
       .patchAndFetchById(userId, userDetails);
   }
 
-  async getByUserId(userId: number): Promise<UserDetailsM | null> {
+  public async getByUserId(userId: number): Promise<UserDetailsM | null> {
     const userDetails = await this.#UserDetailsModel
       .query()
       .select()

@@ -18,9 +18,10 @@ type Constructor = {
 
 class UserDetailsApi {
   #http: Http;
+
   #apiPrefix: string;
 
-  constructor({ http, apiPrefix }: Constructor) {
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
   }
@@ -33,6 +34,7 @@ class UserDetailsApi {
       },
     );
   }
+
   public updateUserDetails(
     payload: UserDetailsCreateRequestDto,
   ): Promise<UserDetailsItemDto> {
@@ -46,6 +48,7 @@ class UserDetailsApi {
       },
     );
   }
+
   public updateAvatar(
     payload: UserDetailsUpdateImage,
   ): Promise<UserDetailsItemDto> {

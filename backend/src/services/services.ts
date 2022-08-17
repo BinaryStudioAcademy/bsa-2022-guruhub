@@ -1,23 +1,31 @@
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
+  course as courseRepository,
+  courseCategory as courseCategoryRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
+  vendor as vendorRepository,
 } from '~/data/repositories/repositories';
 
 import { Auth } from './auth/auth.service';
+import { Course } from './course/course.service';
+import { CourseCategory } from './course-category/course-category.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
+import { Http } from './http/http.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
+import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
+import { Vendor } from './vendor/vendor.service';
 
 const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
@@ -60,14 +68,37 @@ const group = new Group({
   userService: user,
 });
 
+const vendor = new Vendor({ vendorRepository });
+
+const http = new Http();
+
+const udemy = new Udemy({
+  httpService: http,
+  baseUrl: ENV.UDEMY.BASE_URL,
+});
+
+const courseCategory = new CourseCategory({ courseCategoryRepository });
+
+const course = new Course({
+  courseRepository,
+  vendorService: vendor,
+  udemyService: udemy,
+  courseCategoryService: courseCategory,
+});
+
 export {
   auth,
+  course,
+  courseCategory,
   encrypt,
   group,
   groupsToPermissions,
+  http,
   permission,
   token,
+  udemy,
   user,
   userDetails,
   usersToGroups,
+  vendor,
 };

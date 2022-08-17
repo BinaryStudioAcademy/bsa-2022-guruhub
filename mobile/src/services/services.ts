@@ -1,10 +1,13 @@
+import { MMKV } from 'react-native-mmkv';
+
 import { ENV } from '~/common/enums/enums';
 
-import { MMKV } from '../components/common/common';
 import { AuthApi } from './auth-api/auth-api.service';
+import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
 import { Storage } from './storage/storage.service';
+import { UsersApi } from './users-api/users-api.service';
 
 const storage = new Storage({
   storage: new MMKV(),
@@ -17,6 +20,16 @@ const authApi = new AuthApi({
   apiPrefix: ENV.APP.API_PATH,
 });
 
+const groupsApi = new GroupsApi({
+  http,
+  apiPrefix: ENV.APP.API_PATH,
+});
+
+const usersApi = new UsersApi({
+  http,
+  apiPrefix: ENV.APP.API_PATH,
+});
+
 const notification = new Notification();
 
-export { authApi, notification, storage };
+export { authApi, groupsApi, notification, storage, usersApi };

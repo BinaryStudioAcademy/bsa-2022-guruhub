@@ -9,6 +9,7 @@ enum AppRoute {
   SETTINGS = '/settings',
   UAM = '/uam',
   PROFILE = '/profile',
+  UAM_CREATE_GROUP = '/uam/groups/create',
   ANY = '*',
 }
 

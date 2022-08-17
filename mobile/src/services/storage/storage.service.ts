@@ -9,7 +9,7 @@ type Constructor = {
 class Storage {
   #storage: NativeMMKV;
 
-  constructor({ storage }: Constructor) {
+  public constructor({ storage }: Constructor) {
     this.#storage = storage;
   }
 

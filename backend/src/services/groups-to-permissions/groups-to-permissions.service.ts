@@ -8,11 +8,11 @@ type Constructor = {
 class GroupsToPermissions {
   #groupsToPermissionsRepository: typeof groupsToPermissionsRep;
 
-  constructor({ groupsToPermissionsRepository }: Constructor) {
+  public constructor({ groupsToPermissionsRepository }: Constructor) {
     this.#groupsToPermissionsRepository = groupsToPermissionsRepository;
   }
 
-  async createGroupsToPermissions(groupsToPermissions: {
+  public async createGroupsToPermissions(groupsToPermissions: {
     groupId: number;
     permissionId: number;
   }): Promise<GroupsToPermissionsResponseDto> {
@@ -25,6 +25,18 @@ class GroupsToPermissions {
       groupId: model.groupId,
       permissionId: model.permissionId,
     };
+  }
+
+  public async updateGroupsToPermissions(groupsToPermissions: {
+    groupId: number;
+    permissionIds: number[];
+  }): Promise<void> {
+    const { groupId, permissionIds } = groupsToPermissions;
+
+    return this.#groupsToPermissionsRepository.update({
+      groupId,
+      permissionIds,
+    });
   }
 }
 

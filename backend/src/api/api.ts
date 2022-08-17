@@ -6,6 +6,7 @@ import { ValidationSchema } from '~/common/types/types';
 import { authorization as authorizationPlugin } from '~/plugins/plugins';
 import {
   auth,
+  course,
   group,
   permission,
   token,
@@ -14,6 +15,7 @@ import {
 } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
+import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initPermissionsApi } from './permissions/permissions.api';
 import { initUserDetailsApi } from './user-details/user-details.api';
@@ -67,6 +69,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       userDetails,
     },
     prefix: ApiPath.USERS,
+  });
+
+  fastify.register(initCoursesApi, {
+    services: {
+      course,
+    },
+    prefix: ApiPath.COURSES,
   });
 };
 
