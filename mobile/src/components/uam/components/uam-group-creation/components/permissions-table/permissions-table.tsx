@@ -7,11 +7,10 @@ import {
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { Table, View } from '~/components/common/common';
-
 import {
   getPermissionsColumns,
   getPermissionsRows,
-} from '../../helpers/helpers';
+} from '~/components/uam/components/uam-group-creation/helpers/helpers';
 
 type Props = {
   permissions: {

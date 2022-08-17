@@ -4,6 +4,11 @@ import { ScrollView, View } from 'react-native';
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { GroupsCreateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
+import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam/components/uam-group-creation/common/types/types';
+import {
+  GroupCreationPermissionsTable,
+  GroupCreationUsersTable,
+} from '~/components/uam/components/uam-group-creation/components/conponents';
 import {
   useAppDispatch,
   useAppForm,
@@ -16,11 +21,6 @@ import { getUsers } from '~/store/uam/actions';
 import { createGroup, getPermissions } from '~/store/uam-groups-create/actions';
 import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 
-import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/types/types';
-import {
-  GroupCreationPermissionsTable,
-  GroupCreationUsersTable,
-} from './components/conponents';
 import { styles } from './styles';
 
 const UamGroupCreation: FC = () => {
@@ -35,10 +35,9 @@ const UamGroupCreation: FC = () => {
   });
 
   const { items: permissionIds, handleToggle: handleTogglePermissions } =
-    useSelectedItems([]);
-  const { items: userIds, handleToggle: handleToggleUsers } = useSelectedItems(
-    [],
-  );
+    useSelectedItems<number>([]);
+  const { items: userIds, handleToggle: handleToggleUsers } =
+    useSelectedItems<number>([]);
   const paginationForUsersTable = {
     page: usersPage,
     setPage: setUsersPage,

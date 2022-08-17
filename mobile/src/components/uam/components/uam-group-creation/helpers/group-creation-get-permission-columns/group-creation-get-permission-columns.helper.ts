@@ -1,7 +1,6 @@
 import { PermissionsGroupCreationDto } from '~/common/types/permissions/permissions';
 import { TableColumn } from '~/common/types/types';
-
-import { PermissionTableAccessor } from '../../common/enums/enums';
+import { PermissionTableAccessor } from '~/components/uam/components/uam-group-creation/common/enums/enums';
 
 const getPermissionsColumns =
   (): TableColumn<PermissionsGroupCreationDto>[] => {

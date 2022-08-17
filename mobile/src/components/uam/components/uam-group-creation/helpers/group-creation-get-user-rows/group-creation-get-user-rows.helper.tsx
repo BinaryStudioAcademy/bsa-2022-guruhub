@@ -3,12 +3,11 @@ import React from 'react';
 import {
   FormControl,
   GroupsCreateRequestDto,
-  GroupsItemResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
-
-import { UserTableAccessor } from '../../common/enums/user-table-accessor.enum';
+import { UserTableAccessor } from '~/components/uam/components/uam-group-creation/common/enums/enums';
+import { UsersTableRow } from '~/components/uam/components/uam-group-creation/common/types/types';
 
 type Props = {
   users: UsersGetResponseDto[];
@@ -20,14 +19,16 @@ const getUserRows = ({
   users,
   control,
   onCheckbox,
-}: Props): GroupsItemResponseDto[] => {
+}: Props): UsersTableRow[] => {
   return users.map((user) => {
+    const handleCheckbox = (): void => onCheckbox(user.id);
+
     return {
       [UserTableAccessor.CHECKBOX]: (
         <Checkbox
-          name={user.email}
+          name={`userIds.${user.id}`}
           control={control}
-          onCheckbox={(): void => onCheckbox(user.id)}
+          onCheckbox={handleCheckbox}
         />
       ),
       [UserTableAccessor.ID]: user.id,

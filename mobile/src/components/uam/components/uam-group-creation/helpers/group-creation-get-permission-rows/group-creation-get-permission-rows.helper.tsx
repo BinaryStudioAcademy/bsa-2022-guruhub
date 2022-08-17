@@ -7,8 +7,7 @@ import {
   PermissionsGroupCreationDto,
 } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
-
-import { PermissionTableAccessor } from '../../common/enums/enums';
+import { PermissionTableAccessor } from '~/components/uam/components/uam-group-creation/common/enums/enums';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
@@ -25,7 +24,7 @@ const getPermissionsRows = ({
     return {
       [PermissionTableAccessor.CHECKBOX]: (
         <Checkbox
-          name={permission.name}
+          name={`permissionIds.${permission.id}`}
           control={control}
           onCheckbox={(): void => onCheckbox(permission.id)}
         />

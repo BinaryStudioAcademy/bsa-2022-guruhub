@@ -8,8 +8,11 @@ import {
   UsersGetResponseDto,
 } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
+import {
+  getUserColumns,
+  getUserRows,
+} from '~/components/uam/components/uam-group-creation/helpers/helpers';
 
-import { getUserColumns, getUserRows } from '../../helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
