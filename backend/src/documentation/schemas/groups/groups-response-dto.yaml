@@ -1,0 +1,15 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  name:
+    type: string
+    example: "Group name"
+  key:
+    type: string
+    example: "group_name"
+  createdAt:
+    type: string
+  updatedAt:
+    type: string

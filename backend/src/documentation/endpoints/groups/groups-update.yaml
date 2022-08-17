@@ -1,0 +1,21 @@
+summary: Update group data
+tags:
+  - groups
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: integer
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/groups/groups-update-request-dto.yaml'
+responses:
+  '200':
+    description: Group was updated successfully
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/groups-response-dto.yaml'
