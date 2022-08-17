@@ -37,9 +37,7 @@ const Input: FC<Props> = ({
 
   return (
     <label className={getValidClasses(styles.label, labelClass)}>
-      <span className={getValidClasses(titleClass ?? styles.title)}>
-        {label}
-      </span>
+      <span className={getValidClasses(styles.title, titleClass)}>{label}</span>
       <input
         {...field}
         type={type}

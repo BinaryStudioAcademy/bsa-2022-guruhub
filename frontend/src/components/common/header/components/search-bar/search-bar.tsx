@@ -16,9 +16,7 @@ import styles from './styles.module.scss';
 const SearchBar: FC = () => {
   const dispatch = useAppDispatch();
   const onSearch = (search: string): void => {
-    dispatch(
-      dashboardActions.getCoursesByName({ title: search, categoryKey: '' }),
-    );
+    dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
   };
 
   const { control, errors } = useAppForm<SearchPayload>({

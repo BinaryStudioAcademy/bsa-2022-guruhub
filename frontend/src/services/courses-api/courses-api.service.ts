@@ -22,16 +22,16 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(opts?: {
-    filtering?: CourseFilteringDto;
+  public getAll(opts: {
+    filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
         queryString: {
-          title: opts?.filtering?.title,
-          categoryKey: opts?.filtering?.categoryKey,
+          title: opts.filtering.title,
+          categoryKey: opts.filtering.categoryKey,
         },
       },
     );

@@ -11,22 +11,9 @@ import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
   CourseGetResponseDto[],
-  void,
-  AsyncThunkConfig
->(ActionType.GET_COURSES, async (_request, { extra }) => {
-  const { coursesApi } = extra;
-  const courses = await coursesApi.getAll({
-    filtering: { title: '', categoryKey: '' },
-  });
-
-  return courses;
-});
-
-const getCoursesByName = createAsyncThunk<
-  CourseGetResponseDto[],
   CourseFilteringDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES_BY_NAME, async ({ title, categoryKey }, { extra }) => {
+>(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
   const { coursesApi } = extra;
   const courses = await coursesApi.getAll({
     filtering: { title, categoryKey },
@@ -58,4 +45,4 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse, getCategories, getCourses, getCoursesByName };
+export { addCourse, getCategories, getCourses };
