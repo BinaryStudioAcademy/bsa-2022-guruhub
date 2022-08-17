@@ -1,7 +1,7 @@
+import { TablePlaceholder } from 'components/common/common';
 import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
 
-import { TablePlaceholder } from '../common';
 import styles from './styles.module.scss';
 
 type Props<Data extends Record<string, unknown>> = {
@@ -59,7 +59,7 @@ const Table = <Data extends Record<string, unknown>>({
           })}
         </tbody>
       </table>
-      {rows.length === 0 && <TablePlaceholder />}
+      {!rows.length && <TablePlaceholder />}
     </>
   );
 };
