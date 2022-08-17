@@ -8,6 +8,7 @@ type AppNavigationParamList = {
   [AppScreenName.BILLING]: undefined;
   [AppScreenName.SETTINGS]: undefined;
   [AppScreenName.UAM]: undefined;
+  [AppScreenName.UAM_GROUP_CREATION]: undefined;
 };
 
 export { type AppNavigationParamList };

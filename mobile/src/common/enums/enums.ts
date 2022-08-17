@@ -11,3 +11,7 @@ export { NotificationType } from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permission/permission';
 export { AppColor, AppFontFamily } from './ui/ui';
+export {
+  GroupValidationMessage,
+  GroupValidationRule,
+} from 'guruhub-shared/common/enums/group/group';

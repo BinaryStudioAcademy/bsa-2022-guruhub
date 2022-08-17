@@ -6,6 +6,7 @@ import {
   AppNavigationParamList,
   DrawerNavigationItem,
 } from '~/common/types/types';
+import { UamGroupCreation } from '~/components/uam/components/components';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 
@@ -42,6 +43,11 @@ const App: FC = () => {
           />
         );
       })}
+
+      <Drawer.Screen
+        name={AppScreenName.UAM_GROUP_CREATION}
+        component={UamGroupCreation}
+      />
     </Drawer.Navigator>
   );
 };

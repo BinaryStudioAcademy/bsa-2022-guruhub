@@ -1,3 +1,4 @@
+export { type UsersGroupCreationDto } from './user-group-creation.dto.type';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,

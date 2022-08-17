@@ -1,0 +1,112 @@
+import React, { FC, useEffect } from 'react';
+import { ScrollView, View } from 'react-native';
+
+import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import { GroupsCreateRequestDto } from '~/common/types/types';
+import { Button, Input, Text } from '~/components/common/common';
+import {
+  useAppDispatch,
+  useAppForm,
+  useAppNavigate,
+  useAppSelector,
+  useSelectedItems,
+  useState,
+} from '~/hooks/hooks';
+import { getUsers } from '~/store/uam/actions';
+import { createGroup, getPermissions } from '~/store/uam-groups-create/actions';
+import { groupCreateClient } from '~/validation-schemas/validation-schemas';
+
+import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/types/types';
+import {
+  GroupCreationPermissionsTable,
+  GroupCreationUsersTable,
+} from './components/conponents';
+import { styles } from './styles';
+
+const UamGroupCreation: FC = () => {
+  const navigation = useAppNavigate();
+  const dispatch = useAppDispatch();
+  const [usersPage, setUsersPage] = useState<number>(
+    PaginationDefaultValue.DEFAULT_PAGE,
+  );
+  const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
+    defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
+    validationSchema: groupCreateClient,
+  });
+
+  const { items: permissionIds, handleToggle: handleTogglePermissions } =
+    useSelectedItems([]);
+  const { items: userIds, handleToggle: handleToggleUsers } = useSelectedItems(
+    [],
+  );
+  const paginationForUsersTable = {
+    page: usersPage,
+    setPage: setUsersPage,
+  };
+  const { users, permissions } = useAppSelector(
+    (state) => state.uamGroupCreation,
+  );
+
+  const handleCreateGroup = (): void => {
+    dispatch(
+      createGroup({
+        name: control._formValues.name,
+        permissionIds,
+        userIds,
+      }),
+    );
+    navigation.navigate(AppScreenName.UAM);
+  };
+
+  const handleGetUsers = (page: number): void => {
+    dispatch(
+      getUsers({
+        page: page,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  };
+
+  useEffect(() => {
+    handleGetUsers(usersPage);
+    dispatch(getPermissions());
+  }, [usersPage]);
+
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.inputContainer}>
+          <Input
+            name="name"
+            placeholder="Enter group name"
+            label="Group name"
+            control={control}
+            errors={errors}
+          />
+        </View>
+
+        <Text style={styles.title}>Add workers to the Group - Optional</Text>
+        <GroupCreationUsersTable
+          users={users}
+          control={control}
+          onCheckbox={handleToggleUsers}
+          pagination={paginationForUsersTable}
+        />
+        <Text style={styles.title}>Attach permissions policies</Text>
+        <GroupCreationPermissionsTable
+          permissions={permissions}
+          control={control}
+          onCheckbox={handleTogglePermissions}
+        />
+        <View style={styles.buttonsContainer}>
+          <Button
+            label="Create group"
+            onPress={handleSubmit(handleCreateGroup)}
+          />
+        </View>
+      </ScrollView>
+    </View>
+  );
+};
+
+export { UamGroupCreation };
