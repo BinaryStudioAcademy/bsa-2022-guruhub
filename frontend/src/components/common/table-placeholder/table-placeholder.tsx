@@ -1,9 +1,13 @@
-import { ReactElement } from 'react';
+import { FC } from 'common/types/types';
 
 import styles from './styles.module.scss';
 
-const TablePlaceholder = (): ReactElement => {
-  return <p className={styles.placeholder}>No data to display</p>;
+type Props = {
+  placeholder: string;
+};
+
+const TablePlaceholder: FC<Props> = ({ placeholder }) => {
+  return <p className={styles.placeholder}>{placeholder}</p>;
 };
 
 export { TablePlaceholder };

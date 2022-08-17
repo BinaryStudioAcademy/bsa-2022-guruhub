@@ -7,11 +7,13 @@ import styles from './styles.module.scss';
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
+  placeholder?: string;
 };
 
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
+  placeholder = 'No data to display',
 }: Props<Data>): ReactElement => {
   const tableInstance = useTable({
     columns,
@@ -21,45 +23,50 @@ const Table = <Data extends Record<string, unknown>>({
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
+  const hasData = Boolean(data.length);
+
   return (
     <>
-      <table {...getTableProps()} className={styles.table}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className={styles.tableHeadRowHeader}
-                >
-                  {column.render('Header')}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      className={styles.tableBodyRowData}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  );
-                })}
+      {hasData ? (
+        <table {...getTableProps()} className={styles.table}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps()}
+                    className={styles.tableHeadRowHeader}
+                  >
+                    {column.render('Header')}
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {!rows.length && <TablePlaceholder />}
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        className={styles.tableBodyRowData}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <TablePlaceholder placeholder={placeholder} />
+      )}
     </>
   );
 };
