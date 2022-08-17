@@ -1,6 +1,12 @@
-import { ApiPath, GroupsApiPath, HttpMethod } from 'common/enums/enums';
+import {
+  ApiPath,
+  ContentType,
+  GroupsApiPath,
+  HttpMethod,
+} from 'common/enums/enums';
 import {
   EntityPagination,
+  GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
 } from 'common/types/types';
@@ -26,6 +32,19 @@ class GroupsApi {
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public create(
+    payload: GroupsCreateRequestDto,
+  ): Promise<GroupsItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
       },
     );
   }

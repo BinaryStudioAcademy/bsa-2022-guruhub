@@ -9,14 +9,16 @@ type Props = {
   label: string;
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
+  btnType?: 'filled' | 'outlined';
   to?: AppRoute;
   onClick?: () => void;
 };
 
 const Button: FC<Props> = ({
+  btnType = 'filled',
   type = 'button',
-  label,
   btnColor = 'blue',
+  label,
   to,
   onClick,
 }) => {
@@ -26,7 +28,7 @@ const Button: FC<Props> = ({
     return (
       <Link
         to={to as AppRoute}
-        className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
+        className={getValidClasses(styles.button, styles[`button-${btnType}`])}
       >
         {label}
       </Link>
@@ -36,7 +38,11 @@ const Button: FC<Props> = ({
   return (
     <button
       type={type}
-      className={getValidClasses(styles.button, styles[`button-${btnColor}`])}
+      className={getValidClasses(
+        styles.button,
+        styles[`button-${btnColor}`],
+        styles[`button-${btnType}`],
+      )}
       onClick={onClick}
     >
       {label}

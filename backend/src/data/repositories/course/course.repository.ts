@@ -1,4 +1,7 @@
-import { CourseCreateRequestArgumentsDto } from '~/common/types/types';
+import {
+  CourseCreateRequestArgumentsDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
 type Constructor = {
@@ -10,6 +13,23 @@ class Course {
 
   public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
+  }
+
+  public getAll(filteringOpts: {
+    categoryId: number | null;
+  }): Promise<CourseGetResponseDto[]> {
+    const { categoryId } = filteringOpts ?? {};
+
+    return this.#CourseModel
+      .query()
+      .where((builder) => {
+        if (categoryId) {
+          builder.where({ courseCategoryId: categoryId });
+        }
+      })
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 
   public async create(
@@ -24,6 +44,17 @@ class Course {
       vendorId,
       courseCategoryId,
     });
+  }
+
+  public async getByCategoryId(
+    courseCategoryId: number,
+  ): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .where({ courseCategoryId })
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 }
 

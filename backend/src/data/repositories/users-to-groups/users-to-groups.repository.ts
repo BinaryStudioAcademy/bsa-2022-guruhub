@@ -31,6 +31,32 @@ class UsersToGroups {
 
     return groups ?? null;
   }
+
+  public async update(usersToGroups: {
+    groupId: number;
+    userIds: number[];
+  }): Promise<void> {
+    const { groupId, userIds } = usersToGroups;
+    await this.#UsersToGroupsModel
+      .query()
+      .where({ groupId })
+      .whereNotIn('user_id', userIds)
+      .delete()
+      .execute();
+
+    await Promise.all(
+      userIds.map((userId: number) => {
+        return this.#UsersToGroupsModel
+          .query()
+          .insert({
+            groupId,
+            userId,
+          })
+          .onConflict(['user_id', 'group_id'])
+          .ignore();
+      }),
+    );
+  }
 }
 
 export { UsersToGroups };

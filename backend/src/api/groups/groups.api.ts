@@ -11,12 +11,16 @@ import {
   EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
+  GroupsUpdateRequestDto,
+  GroupsUpdateRequestParamsDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import { group as groupService } from '~/services/services';
 import {
   groupCreate as groupCreateValidationSchema,
   groupDelete as groupsDeleteValidationSchema,
+  groupUpdate as groupUpdateValidationSchema,
+  groupUpdateParams as groupUpdateParamsValidationSchema,
   pagination as paginationQueryValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -65,6 +69,29 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(groups);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PUT,
+    url: GroupsApiPath.$ID,
+    schema: {
+      body: groupUpdateValidationSchema,
+      params: groupUpdateParamsValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Body: GroupsUpdateRequestDto;
+        Params: GroupsUpdateRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const group = await groupService.update({
+        id: req.params.id,
+        groupsRequestDto: req.body,
+      });
+
+      return rep.status(HttpCode.OK).send(group);
     },
   });
 

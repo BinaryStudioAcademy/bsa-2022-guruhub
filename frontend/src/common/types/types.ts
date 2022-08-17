@@ -14,6 +14,7 @@ export {
   type FormControlValues,
 } from './form/form';
 export {
+  GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
 } from './groups/groups';
@@ -27,6 +28,10 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
+export {
+  PermissionsGetAllItemResponseDto,
+  PermissionsGetAllResponseDto,
+} from './permissions/permissions';
 export {
   type FC,
   type SVGProps,
@@ -44,3 +49,4 @@ export {
   type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';
+export { type VendorGetResponseDto } from './vendor/vendor';
