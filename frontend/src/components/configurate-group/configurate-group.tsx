@@ -28,10 +28,11 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
   const { users, permissions, group } = useAppSelector(
     (state) => state.configurateGroup,
   );
-  const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
-    defaultValues: DEFAULT_CONFIGURATE_GROUP_PAYLOAD,
-    validationSchema: groupCreateClient,
-  });
+  const { control, handleSubmit, errors, reset } =
+    useAppForm<GroupsCreateRequestDto>({
+      defaultValues: DEFAULT_CONFIGURATE_GROUP_PAYLOAD,
+      validationSchema: groupCreateClient,
+    });
   const {
     items: permissionIds,
     handleToggle: handlePermissionToggle,
@@ -44,13 +45,26 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
   } = useSelectedItems<number>(group?.users ?? []);
 
   const onSubmit = (): void => {
-    dispatch(
-      configurateGroupActions.createGroup({
-        name: control._formValues.name,
-        permissionIds,
-        userIds,
-      }),
-    );
+    if (mode === 'create') {
+      dispatch(
+        configurateGroupActions.createGroup({
+          name: control._formValues.name,
+          permissionIds,
+          userIds,
+        }),
+      );
+    } else {
+      dispatch(
+        configurateGroupActions.updateGroup({
+          id: Number(id),
+          payload: {
+            name: control._formValues.name,
+            permissionIds,
+            userIds,
+          },
+        }),
+      );
+    }
   };
 
   useEffect(() => {
@@ -71,6 +85,7 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
     if (group) {
       setDefaultPermissionIds(group.permissions);
       setDefaultUserIds(group.users);
+      reset({ name: group.name });
     }
   }, [group]);
 

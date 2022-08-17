@@ -6,6 +6,7 @@ import {
   GroupsGetByIdRequestDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
+  GroupUpdateRequestArgumentsDto,
   PermissionsGetAllResponseDto,
 } from 'common/types/types';
 
@@ -45,4 +46,16 @@ const getGroupById = createAsyncThunk<
   return group;
 });
 
-export { createGroup, getGroupById, getPermissions };
+const updateGroup = createAsyncThunk<
+  GroupsItemResponseDto,
+  GroupUpdateRequestArgumentsDto,
+  AsyncThunkConfig
+>(ActionType.UPDATE_GROUP, async (updatePayload, { extra }) => {
+  const { groupsApi, notification } = extra;
+  const group = await groupsApi.update(updatePayload);
+  notification.success(NotificationMessage.GROUP_UPDATE);
+
+  return group;
+});
+
+export { createGroup, getGroupById, getPermissions, updateGroup };

@@ -9,6 +9,7 @@ import {
   GroupsCreateRequestDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
+  GroupUpdateRequestArgumentsDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -52,6 +53,20 @@ class GroupsApi {
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
         method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public update({
+    payload,
+    id,
+  }: GroupUpdateRequestArgumentsDto): Promise<GroupsItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },

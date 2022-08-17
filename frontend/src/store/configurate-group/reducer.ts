@@ -7,7 +7,7 @@ import {
 } from 'common/types/types';
 
 import { uamActions } from '../actions';
-import { getGroupById, getPermissions } from './actions';
+import { getGroupById, getPermissions, updateGroup } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -15,6 +15,7 @@ type State = {
   usersTotalCount: number;
   permissions: PermissionsGetAllItemResponseDto[];
   group: GroupsGetByIdResponseDto | null;
+  groupUpdateDataStatus: DataStatus;
 };
 
 const initialState: State = {
@@ -23,6 +24,7 @@ const initialState: State = {
   usersTotalCount: 0,
   permissions: [],
   group: null,
+  groupUpdateDataStatus: DataStatus.IDLE,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -58,6 +60,15 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getGroupById.rejected, (state) => {
     state.group = null;
     state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(updateGroup.pending, (state) => {
+    state.groupUpdateDataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(updateGroup.fulfilled, (state) => {
+    state.groupUpdateDataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(updateGroup.rejected, (state) => {
+    state.groupUpdateDataStatus = DataStatus.REJECTED;
   });
 });
 
