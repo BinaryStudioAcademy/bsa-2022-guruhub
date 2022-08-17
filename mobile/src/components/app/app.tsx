@@ -2,6 +2,7 @@ import 'fast-text-encoding';
 
 import { NavigationContainer } from '@react-navigation/native';
 import React, { FC } from 'react';
+import { StatusBar } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -18,6 +19,7 @@ const App: FC = () => {
 
   return (
     <GestureHandlerRootView style={styles.rootView}>
+      <StatusBar translucent={true} backgroundColor="transparent" />
       <NavigationContainer
         theme={navigationTheme}
         linking={linking}

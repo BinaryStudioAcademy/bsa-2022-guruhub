@@ -6,6 +6,7 @@ import saly from '~/assets/images/saly.png';
 import { AppScreenName } from '~/common/enums/enums';
 import { Button, Image, ScrollView, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
+import { useSafeAreaInsets } from '~/hooks/hooks';
 import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
 import { DrawerList } from '~/navigation/app/components/components';
 
@@ -15,12 +16,14 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
 
+  const insets = useSafeAreaInsets();
+
   const handleBecomeMentor = (): void => {
     // TODO: navigate to application screen
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
       </View>
