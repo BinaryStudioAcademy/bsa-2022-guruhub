@@ -5,6 +5,7 @@ import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { useState } from '~/hooks/hooks';
 
 import { Category } from './components/category/category';
+import { styles } from './style';
 
 type Props = {
   items: CategoryGetAllItemResponseDto[];
@@ -24,12 +25,16 @@ const CategoryList: FC<Props> = ({ items }) => {
     <Category
       key={category.id}
       name={category.name}
-      imageName={category.key}
+      keyName={category.key}
       onPress={(): void => handlePress(index)}
     />
   ));
 
-  return <ScrollView horizontal={true}>{renderCategories}</ScrollView>;
+  return (
+    <ScrollView horizontal={true} style={styles.container}>
+      {renderCategories}
+    </ScrollView>
+  );
 };
 
 export { CategoryList };

@@ -1,24 +1,25 @@
 import React, { FC } from 'react';
 
-import { Icon, Pressable, Text, View } from '~/components/common/common';
-import { iconNameToIcon } from '~/components/common/icon/common/maps/maps';
+import { Pressable, Text, View } from '~/components/common/common';
 import { useState } from '~/hooks/hooks';
 
+import { categoryKeyToImage } from '../../common/maps/maps';
+import { CategoryImage } from '../category-image/category-image';
 import { getRandomColor } from './helpers/get-random-color.helper';
 import { styles } from './style';
 
 type Props = {
-  imageName: string;
+  keyName: string;
   name: string;
   onPress: () => void;
 };
 
-const Category: FC<Props> = ({ imageName, name, onPress }) => {
+const Category: FC<Props> = ({ keyName, name, onPress }) => {
   const [isActive, setIsActive] = useState(false);
 
   const borderColor = getRandomColor();
-  const imageKeys = Object.keys(iconNameToIcon);
-  const hasImage = imageKeys.includes(imageName);
+  const imageKeys = Object.keys(categoryKeyToImage);
+  const hasImage = imageKeys.includes(keyName);
 
   const handlePress = (): void => {
     setIsActive(!isActive);
@@ -31,13 +32,11 @@ const Category: FC<Props> = ({ imageName, name, onPress }) => {
         style={{
           ...styles.container,
           ...(isActive && styles.activeItem),
-          borderColor: borderColor,
+          borderColor,
         }}
       >
         {hasImage ? (
-          <View style={styles.logoWrapper}>
-            <Icon name={imageName} width={20} height={20} />
-          </View>
+          <CategoryImage name={keyName} />
         ) : (
           <Text style={{ ...styles.logoText, backgroundColor: borderColor }}>
             {name[0].toUpperCase()}

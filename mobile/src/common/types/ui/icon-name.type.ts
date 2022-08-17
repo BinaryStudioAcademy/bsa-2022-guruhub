@@ -1,5 +1,3 @@
-import { CategoryName } from './category-name.type';
-
 type IconName =
   | 'voice'
   | 'search'
@@ -11,7 +9,6 @@ type IconName =
   | 'settings'
   | 'book'
   | 'uam'
-  | 'trash'
-  | CategoryName;
+  | 'trash';
 
 export { type IconName };

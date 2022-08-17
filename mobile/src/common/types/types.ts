@@ -35,7 +35,6 @@ export {
 export { type PermissionsGetAllItemResponseDto } from './permission/permission';
 export {
   type AppTextStyle,
-  type CategoryName,
   type CourseImageName,
   type IconName,
   type TableColumn,
