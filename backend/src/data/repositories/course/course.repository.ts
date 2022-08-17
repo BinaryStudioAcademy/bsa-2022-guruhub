@@ -1,5 +1,3 @@
-import { raw } from 'objection';
-
 import {
   CourseCreateRequestArgumentsDto,
   CourseFilteringDto,
@@ -30,11 +28,7 @@ class Course {
         if (!title) {
           return;
         }
-        QueryBuilder.where(
-          raw('LOWER(??)', 'title'),
-          'like',
-          `%${title.toLowerCase()}%`,
-        );
+        QueryBuilder.where('title', 'ilike', `%${title}%`);
       })
       .castTo<CourseGetResponseDto[]>()
       .execute();

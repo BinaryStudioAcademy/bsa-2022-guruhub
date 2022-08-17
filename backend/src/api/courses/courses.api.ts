@@ -1,9 +1,15 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { CoursesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
-import { CourseCreateRequestDto } from '~/common/types/types';
+import {
+  CourseCreateRequestDto,
+  CourseFilteringDto,
+} from '~/common/types/types';
 import { course as courseService } from '~/services/services';
-import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  courseCreate as courseCreateValidationSchema,
+  filtering as filteringValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -17,18 +23,14 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
+    schema: {
+      querystring: filteringValidationSchema,
+    },
     async handler(
-      req: FastifyRequest<{ Querystring: { title: string } }>,
+      req: FastifyRequest<{ Querystring: CourseFilteringDto }>,
       rep,
     ) {
       const { title } = req.query;
-
-      if (!title) {
-        const courses = await courseService.getAll();
-
-        return rep.status(HttpCode.OK).send(courses);
-      }
-
       const courses = await courseService.getAll({ filtering: { title } });
 
       return rep.status(HttpCode.OK).send(courses);
