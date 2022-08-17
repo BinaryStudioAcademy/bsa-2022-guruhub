@@ -1,1 +1,4 @@
-export { courseCreate } from 'guruhub-shared/validation-schemas/validation-schemas';
+export {
+  courseCreate,
+  coursesGetByCategory,
+} from 'guruhub-shared/validation-schemas/validation-schemas';

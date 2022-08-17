@@ -3,7 +3,9 @@ export {
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
   type CourseGetResponseDto,
+  type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
+export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
