@@ -66,7 +66,7 @@ const App: FC = () => {
           path={AppRoute.UAM_CONFIGURATE_GROUP}
           element={
             <AuthorizedWrapper>
-              <UAMConfigurateGroup mode="create" />
+              <UAMConfigurateGroup mode="create" name="Create" />
             </AuthorizedWrapper>
           }
         />
@@ -74,7 +74,7 @@ const App: FC = () => {
           path={AppRoute.UAM_CONFIGURATE_GROUP_EDIT}
           element={
             <AuthorizedWrapper>
-              <UAMConfigurateGroup mode="edit" />
+              <UAMConfigurateGroup mode="edit" name="Edit" />
             </AuthorizedWrapper>
           }
         />

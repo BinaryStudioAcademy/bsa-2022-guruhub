@@ -1,4 +1,4 @@
-import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
+import { AppRoute } from 'common/enums/enums';
 import { FC, GroupsCreateRequestDto } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
 import {
@@ -9,7 +9,7 @@ import {
   useParams,
   useSelectedItems,
 } from 'hooks/hooks';
-import { configurateGroupActions, uamActions } from 'store/actions';
+import { configurateGroupActions } from 'store/actions';
 import { groupCreateClient } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CONFIGURATE_GROUP_PAYLOAD } from './common/default-configurate-group-payload';
@@ -20,12 +20,13 @@ import styles from './styles.module.scss';
 
 type Props = {
   mode: 'create' | 'edit';
+  name: 'Create' | 'Edit';
 };
 
-const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
+const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { users, permissions, group } = useAppSelector(
+  const { permissions, group } = useAppSelector(
     (state) => state.configurateGroup,
   );
   const { control, handleSubmit, errors, reset } =
@@ -68,12 +69,6 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
   };
 
   useEffect(() => {
-    dispatch(
-      uamActions.getUsers({
-        page: PaginationDefaultValue.DEFAULT_PAGE,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
-      }),
-    );
     dispatch(configurateGroupActions.getPermissions());
 
     if (mode === 'edit') {
@@ -93,7 +88,7 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
     <div className={styles.groupCreationMain}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.groupFormHeaderWrapper}>
-          <h2 className={styles.groupFormHeading}>Create group</h2>
+          <h2 className={styles.groupFormHeading}>{name} group</h2>
         </div>
         <Input
           control={control}
@@ -105,7 +100,6 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
         />
       </form>
       <UsersTable
-        users={users}
         onCheckboxToggle={handleUserToggle}
         defaultSelectedUserIds={userIds}
       />
@@ -122,11 +116,7 @@ const UAMConfigurateGroup: FC<Props> = ({ mode }) => {
             label="Cancel"
             to={AppRoute.UAM}
           />
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            type="submit"
-            label="Create"
-          />
+          <Button onClick={handleSubmit(onSubmit)} type="submit" label={name} />
         </div>
       </div>
     </div>
