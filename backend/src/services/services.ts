@@ -20,7 +20,7 @@ import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissio
 import { Http } from './http/http.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
-import { Udemy } from './udemy/udemy.service';
+import { UdemyCourse } from './udemy/udemy-course.service';
 import { User } from './user/user.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 import { Vendor } from './vendor/vendor.service';
@@ -66,7 +66,7 @@ const vendor = new Vendor({ vendorRepository });
 
 const http = new Http();
 
-const udemy = new Udemy({
+const udemyCourse = new UdemyCourse({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
 });
@@ -76,7 +76,7 @@ const courseCategory = new CourseCategory({ courseCategoryRepository });
 const course = new Course({
   courseRepository,
   vendorService: vendor,
-  udemyService: udemy,
+  udemyService: udemyCourse,
   courseCategoryService: courseCategory,
 });
 
@@ -90,7 +90,7 @@ export {
   http,
   permission,
   token,
-  udemy,
+  udemyCourse,
   user,
   usersToGroups,
   vendor,

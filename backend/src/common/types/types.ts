@@ -22,7 +22,10 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export { type TokenPayload } from './token/token';
-export { type UdemyGetResponseDto } from './udemy/udemy';
+export {
+  type UdemyCourseGetResponseDto,
+  type UdemyModuleGetResponseDto,
+} from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
   type UsersByEmailResponseDto,

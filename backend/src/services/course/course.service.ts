@@ -7,7 +7,7 @@ import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
 import {
   courseCategory as courseCategoryServ,
-  udemy as udemyServ,
+  udemyCourse as udemyServ,
   vendor as vendorServ,
 } from '~/services/services';
 
