@@ -1,4 +1,5 @@
 export { Course } from './course/course.model';
+export { CourseCategory } from './course-category/course-category.model';
 export { Group } from './group/group.model';
 export { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.model';
 export { Permission } from './permission/permission.model';
