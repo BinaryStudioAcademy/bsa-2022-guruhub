@@ -38,7 +38,7 @@ const UpdateAvatarModal: FC<Props> = ({
         onTop
         isOpen={modalIsOpen}
         onClose={(): void => onHandleCloseModal(false)}
-        title={'Update your user-details image'}
+        title={'Update your profile image'}
       >
         <form
           className={styles.formWrapper}
