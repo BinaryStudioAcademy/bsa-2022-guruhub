@@ -22,13 +22,9 @@ import {
 } from '~/tests/json-schemas/json-schemas';
 
 describe('Sign in tests', () => {
-  before(() => {
-    apiSessionStorage.addAndEnterSession('default');
-  });
+  before(() => apiSessionStorage.addAndEnterSession('default'));
 
-  after(() => {
-    apiSessionStorage.removeSession('default');
-  });
+  after(() => apiSessionStorage.removeSession('default'));
 
   it('should sign in with valid data', async () => {
     const response = (await authService.signIn(

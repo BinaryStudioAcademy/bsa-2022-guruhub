@@ -38,7 +38,7 @@ class AuthService {
 
   public signUp(
     data: UserSignUpRequestDto,
-  ): Promise<Response<UserSignUpResponseDto>> {
+  ): Promise<Response<UserSignUpResponseDto | HttpErrorDto>> {
     return this.#httpService
       .request()
       .post()

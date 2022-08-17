@@ -1,6 +1,6 @@
 import { userWithPermissionsSchema } from '../../json-schemas';
 
-const signInResponseSchema = {
+const signUpResponseSchema = {
   type: 'object',
   properties: {
     token: {
@@ -11,4 +11,4 @@ const signInResponseSchema = {
   required: ['token', 'user'],
 };
 
-export { signInResponseSchema };
+export { signUpResponseSchema };
