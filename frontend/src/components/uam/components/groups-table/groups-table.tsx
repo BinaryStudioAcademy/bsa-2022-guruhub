@@ -18,7 +18,7 @@ const GroupsTable: FC<Props> = ({ columns, data }: Props) => {
         <Button
           label="Add Group"
           type="button"
-          to={AppRoute.UAM_CREATE_GROUP}
+          to={AppRoute.UAM_CONFIGURATE_GROUP}
         />
       </div>
       <Table data={data} columns={columns} />

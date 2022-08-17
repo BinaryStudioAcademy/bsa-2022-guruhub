@@ -8,8 +8,8 @@ enum AppRoute {
   BILLING = '/billing',
   SETTINGS = '/settings',
   UAM = '/uam',
-  UAM_CREATE_GROUP = '/uam/groups/create',
-  UAM_EDIT_GROUP = '/uam/groups/edit/:id',
+  UAM_CONFIGURATE_GROUP = '/uam/configurate-group',
+  UAM_CONFIGURATE_GROUP_EDIT = '/uam/configurate-group/:id',
   ANY = '*',
 }
 
