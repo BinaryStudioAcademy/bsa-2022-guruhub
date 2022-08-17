@@ -1,6 +1,5 @@
 const errorResponseSchema = {
   type: 'object',
-  required: ['statusCode', 'error', 'message'],
   properties: {
     statusCode: {
       type: 'integer',
@@ -11,6 +10,7 @@ const errorResponseSchema = {
     message: {
       type: 'string',
     },
+    required: ['statusCode', 'error', 'message'],
   },
 };
 
