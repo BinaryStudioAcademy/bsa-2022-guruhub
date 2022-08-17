@@ -14,8 +14,8 @@ import {
   useAppForm,
   useAppNavigate,
   useAppSelector,
+  usePagination,
   useSelectedItems,
-  useState,
 } from '~/hooks/hooks';
 import { getUsers } from '~/store/uam/actions';
 import { createGroup, getPermissions } from '~/store/uam-groups-create/actions';
@@ -26,9 +26,7 @@ import { styles } from './styles';
 const UamGroupCreation: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
-  const [usersPage, setUsersPage] = useState<number>(
-    PaginationDefaultValue.DEFAULT_PAGE,
-  );
+  const { page: usersPage, handlePageChange } = usePagination();
   const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
     defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
     validationSchema: groupCreateClient,
@@ -36,11 +34,13 @@ const UamGroupCreation: FC = () => {
 
   const { items: permissionIds, handleToggle: handleTogglePermissions } =
     useSelectedItems<number>([]);
+
   const { items: userIds, handleToggle: handleToggleUsers } =
     useSelectedItems<number>([]);
+
   const paginationForUsersTable = {
     page: usersPage,
-    setPage: setUsersPage,
+    setPage: handlePageChange,
   };
 
   const { users, permissions } = useAppSelector(
