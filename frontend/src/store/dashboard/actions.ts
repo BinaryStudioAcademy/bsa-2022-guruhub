@@ -15,7 +15,9 @@ const getCourses = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_COURSES, async (_request, { extra }) => {
   const { coursesApi } = extra;
-  const courses = await coursesApi.getAll();
+  const courses = await coursesApi.getAll({
+    filtering: { title: '', categoryKey: '' },
+  });
 
   return courses;
 });
