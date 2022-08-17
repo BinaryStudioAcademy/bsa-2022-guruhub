@@ -27,7 +27,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page, users]);
+  }, [page, users.total]);
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
