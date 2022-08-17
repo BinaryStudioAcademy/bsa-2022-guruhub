@@ -1,7 +1,6 @@
 export { ApiPath, AuthApiPath, GroupsApiPath, UsersApiPath } from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
 export { ContentType } from './file/file';
-export { GroupValidationMessage, GroupValidationRule } from './group/group';
 export { HttpHeader, HttpMethod } from './http/http';
 export {
   AppScreenName,
