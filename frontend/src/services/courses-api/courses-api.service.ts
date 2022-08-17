@@ -4,7 +4,7 @@ import {
   CoursesApiPath,
   HttpMethod,
 } from 'common/enums/enums';
-import { CourseFilteringDto, CourseGetResponseDto } from 'common/types/types';
+import { CourseByName, CourseGetResponseDto } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -23,7 +23,7 @@ class Courses {
   }
 
   public getAll(opts?: {
-    filtering?: CourseFilteringDto;
+    filtering?: CourseByName;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,

@@ -25,12 +25,6 @@ class Course {
     return this.#CourseModel
       .query()
       .where((builder) => {
-        if (title && categoryId) {
-          builder
-            .where('title', 'ilike', `%${title}%`)
-            .where({ courseCategoryId: categoryId });
-        }
-
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
         }
