@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { ScrollView } from 'react-native';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
+import { ScrollView } from '~/components/common/common';
 import { useState } from '~/hooks/hooks';
 
 import { Category } from './components/category/category';

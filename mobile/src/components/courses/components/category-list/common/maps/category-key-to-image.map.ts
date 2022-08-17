@@ -1,15 +1,15 @@
 import { FC } from 'react';
 import { SvgProps } from 'react-native-svg';
 
-import C from '~/assets/icons/c.svg';
-import CSS from '~/assets/icons/css.svg';
-import HTML from '~/assets/icons/html.svg';
-import Java from '~/assets/icons/java.svg';
-import JavaScript from '~/assets/icons/javascript.svg';
-import NodeJS from '~/assets/icons/nodejs.svg';
-import Python from '~/assets/icons/python.svg';
-import React from '~/assets/icons/react.svg';
-import Typescript from '~/assets/icons/typescript.svg';
+import C from '~/assets/images/categories/c.svg';
+import CSS from '~/assets/images/categories/css.svg';
+import HTML from '~/assets/images/categories/html.svg';
+import Java from '~/assets/images/categories/java.svg';
+import JavaScript from '~/assets/images/categories/javascript.svg';
+import NodeJS from '~/assets/images/categories/nodejs.svg';
+import Python from '~/assets/images/categories/python.svg';
+import React from '~/assets/images/categories/react.svg';
+import Typescript from '~/assets/images/categories/typescript.svg';
 
 const categoryKeyToImage: Record<string, FC<SvgProps>> = {
   c: C,
