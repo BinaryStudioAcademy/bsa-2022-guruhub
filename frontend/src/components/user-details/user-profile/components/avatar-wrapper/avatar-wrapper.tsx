@@ -1,14 +1,13 @@
 import defaultUserAvatar from 'assets/img/avatar-default.jpg';
-import { FC } from 'common/types/types';
+import { FC, UserDetailsUpdateImageRequestDto } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { UserDetailsUpdateImage } from 'guruhub-shared';
 
 import styles from './styles.module.scss';
 
 type Props = {
   avatarUrl: string | null;
   onHandleModal: (val: boolean) => void;
-  onHandleSaveAvatar: (payload: UserDetailsUpdateImage) => void;
+  onHandleSaveAvatar: (payload: UserDetailsUpdateImageRequestDto) => void;
 };
 
 const AvatarWrapper: FC<Props> = ({

@@ -1,3 +1,4 @@
+import { getValidClasses } from 'helpers/helpers';
 import { useState } from 'hooks/hooks';
 import { FC } from 'react';
 
@@ -22,24 +23,25 @@ const Switcher: FC<Props> = ({ name, setGenderValue, selected }) => {
     setActiveOption(option);
   };
 
-  const leftClasses = `${activeOption === 'male' && styles.selected} ${
-    styles.toggleItem
-  } ${styles.toggleLeft}`;
-  const rightClasses = `${activeOption === 'female' && styles.selected} ${
-    styles.toggleItem
-  } ${styles.toggleRight}`;
-
   return (
     <div>
       <div className={styles.switchContainer}>
         <div
-          className={leftClasses}
+          className={getValidClasses(
+            activeOption === GENDER.MALE && styles.selected,
+            styles.toggleItem,
+            styles.toggleLeft,
+          )}
           onClick={(): void => handleSwitchClick(GENDER.MALE)}
         >
           <div className={styles.text}>{GENDER.MALE}</div>
         </div>
         <div
-          className={rightClasses}
+          className={getValidClasses(
+            activeOption === GENDER.FEMALE && styles.selected,
+            styles.toggleItem,
+            styles.toggleRight,
+          )}
           onClick={(): void => handleSwitchClick(GENDER.FEMALE)}
         >
           <div className={styles.text}>{GENDER.FEMALE}</div>

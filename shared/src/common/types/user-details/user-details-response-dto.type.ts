@@ -1,4 +1,4 @@
-type UserDetailsItemDto = {
+type UserDetailsResponseDto = {
   id: number;
   firstName: string;
   lastName: string;
@@ -7,4 +7,4 @@ type UserDetailsItemDto = {
   dateOfBirth: string;
 };
 
-export { type UserDetailsItemDto };
+export { type UserDetailsResponseDto };

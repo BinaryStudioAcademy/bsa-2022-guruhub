@@ -1,9 +1,9 @@
 import { HttpCode } from '~/common/enums/enums';
 import {
-  UserDetailsCreateRequestDto,
-  UserDetailsItemDto,
   UserDetailsResponseDto,
-  UserDetailsUpdateImage,
+  UserDetailsUpdateImageRequestDto,
+  UserDetailsUpdateInfoRequestDto,
+  UserDetailsWithStatusResponseDto,
 } from '~/common/types/types';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
 
@@ -20,8 +20,8 @@ class UserDetails {
 
   public async updateUserDetails(
     userId: number,
-    userDetailsCreateRequestDto: UserDetailsCreateRequestDto,
-  ): Promise<UserDetailsResponseDto> {
+    userDetailsUpdateRequestDto: UserDetailsUpdateInfoRequestDto,
+  ): Promise<UserDetailsWithStatusResponseDto> {
     const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
       userId,
     );
@@ -29,7 +29,7 @@ class UserDetails {
     if (userDetailsByUserId) {
       const userDetails = await this.#userDetailsRepository.updateUserDetails(
         userDetailsByUserId.id,
-        userDetailsCreateRequestDto,
+        userDetailsUpdateRequestDto,
       );
 
       return {
@@ -39,7 +39,7 @@ class UserDetails {
     }
     const userDetails = await this.#userDetailsRepository.createUserDetails(
       userId,
-      userDetailsCreateRequestDto,
+      userDetailsUpdateRequestDto,
     );
 
     return {
@@ -50,14 +50,14 @@ class UserDetails {
 
   public async updateAvatar(
     userId: number,
-    userDetailsUpdateAvatar: UserDetailsUpdateImage,
-  ): Promise<UserDetailsResponseDto> {
+    userDetailsUpdateAvatar: UserDetailsUpdateImageRequestDto,
+  ): Promise<UserDetailsWithStatusResponseDto> {
     const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
       userId,
     );
 
     if (userDetailsByUserId) {
-      const userDetails = await this.#userDetailsRepository.updateAvatar(
+      const userDetails = await this.#userDetailsRepository.updateUserDetails(
         userDetailsByUserId.id,
         userDetailsUpdateAvatar,
       );
@@ -79,7 +79,9 @@ class UserDetails {
     };
   }
 
-  public async getByUserId(userId: number): Promise<UserDetailsItemDto | null> {
+  public async getByUserId(
+    userId: number,
+  ): Promise<UserDetailsResponseDto | null> {
     const userDetails = await this.#userDetailsRepository.getByUserId(userId);
 
     if (!userDetails) {

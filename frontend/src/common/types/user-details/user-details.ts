@@ -1,5 +1,5 @@
 export {
-  type UserDetailsCreateRequestDto,
-  type UserDetailsItemDto,
-  type UserDetailsUpdateImage,
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateImageRequestDto,
+  type UserDetailsUpdateInfoRequestDto,
 } from 'guruhub-shared/common/types/types';

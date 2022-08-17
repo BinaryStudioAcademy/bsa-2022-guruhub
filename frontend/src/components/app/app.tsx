@@ -16,8 +16,8 @@ import {
 import { Dashboard } from 'components/dashboard/dashboard';
 import { UAMGroupsCreate } from 'components/groups-create/groups-create';
 import { NotFound } from 'components/not-found/not-found';
-import { Profile } from 'components/profile/profile';
 import { UAM } from 'components/uam/uam';
+import { UserDetails } from 'components/user-details/user-details';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
@@ -75,7 +75,7 @@ const App: FC = () => {
           path={AppRoute.PROFILE}
           element={
             <AuthorizedWrapper>
-              <ProtectedRoute component={<Profile />} />
+              <ProtectedRoute component={<UserDetails />} />
             </AuthorizedWrapper>
           }
         />

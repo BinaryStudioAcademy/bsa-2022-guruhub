@@ -6,12 +6,12 @@ import { SettingsWrapper } from './settings-wrapper/settings-wrapper';
 import styles from './styles.module.scss';
 import { UserProfile } from './user-profile/user-profile';
 
-const Profile: FC = () => {
-  const [tab, setTab] = useState<string>(
+const UserDetails: FC = () => {
+  const [tab, setTab] = useState<number>(
     SettingsWrapperType.PERSONAL_INFORMATION,
   );
 
-  const handleChangeTab = (tab: string): void => {
+  const handleChangeTab = (tab: SettingsWrapperType): void => {
     setTab(tab);
   };
 
@@ -23,4 +23,4 @@ const Profile: FC = () => {
   );
 };
 
-export { Profile };
+export { UserDetails };

@@ -47,9 +47,9 @@ export {
   type UserWithPermissions,
 } from './user/user';
 export {
-  type UserDetailsCreateRequestDto,
-  type UserDetailsItemDto,
-  type UserDetailsUpdateImage,
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateImageRequestDto,
+  type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';

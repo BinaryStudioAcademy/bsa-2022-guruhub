@@ -1,6 +1,6 @@
-export { type UserDetailsResponseDto } from './user-details-response-dto.type';
+export { type UserDetailsWithStatusResponseDto } from './user-details-with-status-response-dto.type';
 export {
-  type UserDetailsCreateRequestDto,
-  type UserDetailsItemDto,
-  type UserDetailsUpdateImage,
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateImageRequestDto,
+  type UserDetailsUpdateInfoRequestDto,
 } from 'guruhub-shared/common/types/types';

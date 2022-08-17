@@ -1,19 +1,16 @@
-import { FC, UserDetailsUpdateImage } from 'common/types/types';
-import { getNameOf } from 'helpers/helpers';
+import { FC, UserDetailsUpdateImageRequestDto } from 'common/types/types';
+import { Button, Input, Modal } from 'components/common/common';
+import { getNameOf, getValidClasses } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
-import { userDetailsAvatarUpdate as userDetailsAvatarUpdateValidationSchema } from 'validation-schemas/validation-schemas';
+import { userDetailsUpdateAvatar as userDetailsUpdateAvatarValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { getValidClasses } from '../../../helpers/dom/get-valid-classes/get-valid-classes.helper';
-import { Button } from '../../common/button/button';
-import { Input } from '../../common/input/input';
-import { Modal } from '../../common/modal/modal';
 import styles from './styles.module.scss';
 
 type Props = {
   avatarUrl: string | null;
   modalIsOpen: boolean;
   onHandleCloseModal: (val: boolean) => void;
-  onHandleUpdateAvatar: (payload: UserDetailsUpdateImage) => void;
+  onHandleUpdateAvatar: (payload: UserDetailsUpdateImageRequestDto) => void;
 };
 
 const UpdateAvatarModal: FC<Props> = ({
@@ -23,11 +20,11 @@ const UpdateAvatarModal: FC<Props> = ({
   onHandleUpdateAvatar,
 }) => {
   const { control, errors, handleSubmit, getValues } =
-    useAppForm<UserDetailsUpdateImage>({
+    useAppForm<UserDetailsUpdateImageRequestDto>({
       defaultValues: {
         avatarUrl: avatarUrl ? avatarUrl : '',
       },
-      validationSchema: userDetailsAvatarUpdateValidationSchema,
+      validationSchema: userDetailsUpdateAvatarValidationSchema,
     });
 
   return (
@@ -41,7 +38,7 @@ const UpdateAvatarModal: FC<Props> = ({
         onTop
         isOpen={modalIsOpen}
         onClose={(): void => onHandleCloseModal(false)}
-        title={'Update your profile image'}
+        title={'Update your user-details image'}
       >
         <form
           className={styles.formWrapper}
@@ -53,9 +50,9 @@ const UpdateAvatarModal: FC<Props> = ({
               label="Avatar"
               control={control}
               errors={errors}
-              name={getNameOf<UserDetailsUpdateImage>('avatarUrl')}
+              name={getNameOf<UserDetailsUpdateImageRequestDto>('avatarUrl')}
               defaultValue={getValues(
-                getNameOf<UserDetailsUpdateImage>('avatarUrl'),
+                getNameOf<UserDetailsUpdateImageRequestDto>('avatarUrl'),
               )}
             />
           </div>

@@ -1,45 +1,47 @@
 import {
   FC,
   FormEvent,
-  UserDetailsCreateRequestDto,
-  UserDetailsItemDto,
+  UserDetailsResponseDto,
+  UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Input, Switcher } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
-import { userDetailsUpdate as userDetailsUpdateValidationSchema } from 'validation-schemas/validation-schemas';
+import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
 import styles from './styles.module.scss';
 
 type Props = {
-  userDetails: UserDetailsItemDto | null;
-  onHandleUpdateProfile: (payload: UserDetailsCreateRequestDto) => void;
+  userDetails: UserDetailsResponseDto | null;
+  onHandleUpdateProfile: (payload: UserDetailsUpdateInfoRequestDto) => void;
 };
 
 const UserProfileForm: FC<Props> = ({ userDetails, onHandleUpdateProfile }) => {
   const { control, errors, setValue, getValues } =
-    useAppForm<UserDetailsCreateRequestDto>({
+    useAppForm<UserDetailsUpdateInfoRequestDto>({
       defaultValues: userDetails
         ? userDetails
         : DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
-      validationSchema: userDetailsUpdateValidationSchema,
+      validationSchema: userDetailsUpdateInfoValidationSchema,
     });
 
   const setFormValue = (name: string, value: string): void => {
     setValue(name, value);
   };
 
-  const date = getValues(getNameOf<UserDetailsCreateRequestDto>('dateOfBirth'))
-    ? getValues(getNameOf<UserDetailsCreateRequestDto>('dateOfBirth')).split(
-        'T',
-      )[0]
+  const date = getValues(
+    getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth'),
+  )
+    ? getValues(
+        getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth'),
+      ).split('T')[0]
     : '';
 
   const handleUpdateProfile = (e: FormEvent): void => {
     e.preventDefault();
 
-    const res: UserDetailsCreateRequestDto = {
+    const res: UserDetailsUpdateInfoRequestDto = {
       firstName: getValues('firstName'),
       lastName: getValues('lastName'),
       gender: getValues('gender'),
@@ -55,30 +57,30 @@ const UserProfileForm: FC<Props> = ({ userDetails, onHandleUpdateProfile }) => {
           <Input
             type="text"
             label="Name"
-            name={getNameOf<UserDetailsCreateRequestDto>('firstName')}
+            name={getNameOf<UserDetailsUpdateInfoRequestDto>('firstName')}
             control={control}
             errors={errors}
             defaultValue={getValues(
-              getNameOf<UserDetailsCreateRequestDto>('firstName'),
+              getNameOf<UserDetailsUpdateInfoRequestDto>('firstName'),
             )}
           />
 
           <Input
             type="text"
             label="Surname"
-            name={getNameOf<UserDetailsCreateRequestDto>('lastName')}
+            name={getNameOf<UserDetailsUpdateInfoRequestDto>('lastName')}
             control={control}
             errors={errors}
             placeholder={userDetails?.lastName}
             defaultValue={getValues(
-              getNameOf<UserDetailsCreateRequestDto>('lastName'),
+              getNameOf<UserDetailsUpdateInfoRequestDto>('lastName'),
             )}
           />
         </div>
       </div>
       <Switcher
         setGenderValue={setFormValue}
-        name={getNameOf<UserDetailsCreateRequestDto>('gender')}
+        name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
         selected={userDetails?.gender || 'male'}
       />
       <div className={styles.personalInfo}>
@@ -92,7 +94,7 @@ const UserProfileForm: FC<Props> = ({ userDetails, onHandleUpdateProfile }) => {
         <Input
           type="date"
           label="Date of birth"
-          name={getNameOf<UserDetailsCreateRequestDto>('dateOfBirth')}
+          name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
           control={control}
           errors={errors}
           defaultValue={date}

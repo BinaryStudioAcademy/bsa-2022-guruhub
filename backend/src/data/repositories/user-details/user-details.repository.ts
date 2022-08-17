@@ -1,6 +1,6 @@
 import {
-  UserDetailsCreateRequestDto,
-  UserDetailsUpdateImage,
+  UserDetailsUpdateImageRequestDto,
+  UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
@@ -17,25 +17,22 @@ class UserDetails {
 
   public async createUserDetails(
     userId: number,
-    userDetails: UserDetailsCreateRequestDto,
+    userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
     const { lastName, firstName, gender, dateOfBirth } = userDetails;
 
-    return this.#UserDetailsModel
-      .query()
-      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
-      .insert({
-        firstName,
-        lastName,
-        gender,
-        dateOfBirth,
-        userId,
-      });
+    return this.#UserDetailsModel.query().insert({
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      userId,
+    });
   }
 
   public async createAvatar(
     userId: number,
-    userDetails: UserDetailsUpdateImage,
+    userDetails: UserDetailsUpdateImageRequestDto,
   ): Promise<UserDetailsM> {
     const { avatarUrl } = userDetails;
 
@@ -46,21 +43,12 @@ class UserDetails {
 
   public async updateUserDetails(
     userId: number,
-    userDetails: UserDetailsCreateRequestDto,
+    userDetails:
+      | UserDetailsUpdateInfoRequestDto
+      | UserDetailsUpdateImageRequestDto,
   ): Promise<UserDetailsM> {
     return this.#UserDetailsModel
       .query()
-      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
-      .patchAndFetchById(userId, userDetails);
-  }
-
-  public async updateAvatar(
-    userId: number,
-    userDetails: UserDetailsUpdateImage,
-  ): Promise<UserDetailsM> {
-    return this.#UserDetailsModel
-      .query()
-      .select('avatarUrl')
       .patchAndFetchById(userId, userDetails);
   }
 

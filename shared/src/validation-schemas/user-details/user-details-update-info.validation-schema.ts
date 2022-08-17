@@ -4,11 +4,11 @@ import {
   UserDetailsValidationMessage,
   UserDetailsValidationRule,
 } from '~/common/enums/enums';
-import { UserDetailsCreateRequestDto } from '~/common/types/types';
+import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const userDetailsUpdate = Joi.object({
-  [getNameOf<UserDetailsCreateRequestDto>('firstName')]: Joi.string()
+const userDetailsUpdateInfo = Joi.object({
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('firstName')]: Joi.string()
     .trim()
     .min(UserDetailsValidationRule.FIRST_NAME_MIN_LENGTH)
     .max(UserDetailsValidationRule.FIRST_NAME_MAX_LENGTH)
@@ -20,7 +20,7 @@ const userDetailsUpdate = Joi.object({
       'string.max': UserDetailsValidationMessage.FIRST_NAME_MAX_LENGTH,
       'string.pattern.base': UserDetailsValidationMessage.FIRST_NAME_WRONG,
     }),
-  [getNameOf<UserDetailsCreateRequestDto>('lastName')]: Joi.string()
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('lastName')]: Joi.string()
     .trim()
     .min(UserDetailsValidationRule.LAST_NAME_MIN_LENGTH)
     .max(UserDetailsValidationRule.LAST_NAME_MAX_LENGTH)
@@ -32,14 +32,14 @@ const userDetailsUpdate = Joi.object({
       'string.max': UserDetailsValidationMessage.LAST_NAME_MAX_LENGTH,
       'string.pattern.base': UserDetailsValidationMessage.LAST_NAME_WRONG,
     }),
-  [getNameOf<UserDetailsCreateRequestDto>('gender')]: Joi.string()
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('gender')]: Joi.string()
     .trim()
     .required()
     .messages({
       'string.empty': UserDetailsValidationMessage.GENDER_REQUIRE,
     }),
-  [getNameOf<UserDetailsCreateRequestDto>('dateOfBirth')]:
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')]:
     Joi.date().less('now'),
 });
 
-export { userDetailsUpdate };
+export { userDetailsUpdateInfo };

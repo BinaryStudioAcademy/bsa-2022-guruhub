@@ -36,10 +36,10 @@ export {
   type UserWithPermissions,
 } from './user/user';
 export {
-  type UserDetailsCreateRequestDto,
-  type UserDetailsItemDto,
   type UserDetailsResponseDto,
-  type UserDetailsUpdateImage,
+  type UserDetailsUpdateImageRequestDto,
+  type UserDetailsUpdateInfoRequestDto,
+  type UserDetailsWithStatusResponseDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

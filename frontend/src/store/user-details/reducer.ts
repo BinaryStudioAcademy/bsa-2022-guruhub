@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import { UserDetailsItemDto } from 'common/types/types';
+import { UserDetailsResponseDto } from 'common/types/types';
 
 import {
   getUserDetails,
@@ -10,7 +10,7 @@ import {
 
 type State = {
   dataStatus: DataStatus;
-  userDetails: UserDetailsItemDto | null;
+  userDetails: UserDetailsResponseDto | null;
   avatarUrl: string | null;
 };
 

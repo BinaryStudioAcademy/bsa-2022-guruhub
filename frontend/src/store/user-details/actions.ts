@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
-  UserDetailsCreateRequestDto,
-  UserDetailsItemDto,
-  UserDetailsUpdateImage,
+  UserDetailsResponseDto,
+  UserDetailsUpdateImageRequestDto,
+  UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getUserDetails = createAsyncThunk<
-  UserDetailsItemDto,
+  UserDetailsResponseDto,
   void,
   AsyncThunkConfig
 >(ActionType.GET_USER_DETAILS, async (_, { extra }) => {
@@ -20,8 +20,8 @@ const getUserDetails = createAsyncThunk<
 });
 
 const updateUserDetails = createAsyncThunk<
-  UserDetailsItemDto,
-  UserDetailsCreateRequestDto,
+  UserDetailsResponseDto,
+  UserDetailsUpdateInfoRequestDto,
   AsyncThunkConfig
 >(
   ActionType.UPDATE_USER_DETAILS,
@@ -36,8 +36,8 @@ const updateUserDetails = createAsyncThunk<
 );
 
 const updateUserDetailsAvatar = createAsyncThunk<
-  UserDetailsUpdateImage,
-  UserDetailsUpdateImage,
+  UserDetailsResponseDto,
+  UserDetailsUpdateImageRequestDto,
   AsyncThunkConfig
 >(
   ActionType.UPDATE_USER_DETAILS_AVATAR,

@@ -1,8 +1,8 @@
 import { DataStatus } from 'common/enums/enums';
 import {
   FC,
-  UserDetailsCreateRequestDto,
-  UserDetailsUpdateImage,
+  UserDetailsUpdateImageRequestDto,
+  UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import {
   useAppDispatch,
@@ -30,16 +30,22 @@ const UserProfile: FC = () => {
     setCurrentAvatar(avatarUrl);
   }, [avatarUrl]);
 
-  const handleUpdateProfile = (payload: UserDetailsCreateRequestDto): void => {
+  const handleUpdateProfile = (
+    payload: UserDetailsUpdateInfoRequestDto,
+  ): void => {
     dispatch(userDetailsActions.updateUserDetails(payload));
   };
 
-  const handleUpdateAvatar = (payload: UserDetailsUpdateImage): void => {
+  const handleUpdateAvatar = (
+    payload: UserDetailsUpdateImageRequestDto,
+  ): void => {
     handleModal(false);
     setCurrentAvatar(payload.avatarUrl);
   };
 
-  const handleSaveAvatar = (payload: UserDetailsUpdateImage): void => {
+  const handleSaveAvatar = (
+    payload: UserDetailsUpdateImageRequestDto,
+  ): void => {
     dispatch(userDetailsActions.updateUserDetailsAvatar(payload));
   };
 

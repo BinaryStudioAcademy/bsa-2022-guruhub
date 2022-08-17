@@ -5,10 +5,10 @@ import {
   UsersApiPath,
 } from 'common/enums/enums';
 import {
-  UserDetailsCreateRequestDto,
-  UserDetailsItemDto,
+  UserDetailsResponseDto,
+  UserDetailsUpdateImageRequestDto,
+  UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
-import { UserDetailsUpdateImage } from 'guruhub-shared';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -26,7 +26,7 @@ class UserDetailsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public get(): Promise<UserDetailsItemDto> {
+  public get(): Promise<UserDetailsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.DETAILS}`,
       {
@@ -36,8 +36,8 @@ class UserDetailsApi {
   }
 
   public updateUserDetails(
-    payload: UserDetailsCreateRequestDto,
-  ): Promise<UserDetailsItemDto> {
+    payload: UserDetailsUpdateInfoRequestDto,
+  ): Promise<UserDetailsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.DETAILS}`,
       {
@@ -50,8 +50,8 @@ class UserDetailsApi {
   }
 
   public updateAvatar(
-    payload: UserDetailsUpdateImage,
-  ): Promise<UserDetailsItemDto> {
+    payload: UserDetailsUpdateImageRequestDto,
+  ): Promise<UserDetailsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.DETAILS_AVATAR}`,
       {
