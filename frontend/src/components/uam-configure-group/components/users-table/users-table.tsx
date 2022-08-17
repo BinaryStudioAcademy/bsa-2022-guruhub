@@ -1,9 +1,9 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
-import { GroupConfigurateFieldsName } from 'components/uam-configurate-group/common/enums/enums';
-import { GroupConfigurateUsersTableRow } from 'components/uam-configurate-group/common/types/types';
-import { getUserColumns } from 'components/uam-configurate-group/helpers/helpers';
+import { GroupConfigureFieldsName } from 'components/uam-configure-group/common/enums/enums';
+import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/common/types/types';
+import { getUserColumns } from 'components/uam-configure-group/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -23,13 +23,13 @@ type Props = {
 
 const UsersTable: FC<Props> = ({ onCheckboxToggle, selectedUserIds }) => {
   const { users, usersTotalCount } = useAppSelector(
-    (state) => state.uamConfigurateGroup,
+    (state) => state.uamConfigureGroup,
   );
   const dispatch = useAppDispatch();
   const { page, handlePageChange } = usePagination({ queryName: 'users' });
-  const columns = useMemo<Column<GroupConfigurateUsersTableRow>[]>(() => {
+  const columns = useMemo<Column<GroupConfigureUsersTableRow>[]>(() => {
     return getUserColumns({
-      name: GroupConfigurateFieldsName.USER_IDS,
+      name: GroupConfigureFieldsName.USER_IDS,
       onCheckboxToggle,
       selectedUserIds,
     });

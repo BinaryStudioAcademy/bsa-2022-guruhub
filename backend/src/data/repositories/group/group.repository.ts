@@ -2,6 +2,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   GroupsWithPermissionIdsDto,
+  GroupsWithPermissionsDto,
 } from '~/common/types/types';
 import { Group as GroupM } from '~/data/models/models';
 
@@ -22,9 +23,13 @@ class Group {
       .where('groups.id', id)
       .select('groups.*')
       .withGraphJoined('permissions')
-      .castTo<GroupM & { permissions: { id: number }[] }>()
+      .castTo<GroupsWithPermissionsDto>()
       .first()
       .then((data) => {
+        if (!data) {
+          return null;
+        }
+
         return {
           ...data,
           permissionIds: data.permissions.map((permission) => permission.id),

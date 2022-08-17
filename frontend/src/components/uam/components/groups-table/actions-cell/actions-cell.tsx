@@ -10,7 +10,7 @@ const ActionsCell: FC<
   const navigate = useNavigate();
 
   const handleNavigateToEdit = (): void => {
-    navigate(`/uam/configurate-group/${id}`);
+    navigate(`/uam/configure-group/${id}`);
   };
 
   return <IconButton iconName="settings" onClick={handleNavigateToEdit} />;

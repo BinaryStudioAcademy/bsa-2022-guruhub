@@ -15,6 +15,7 @@ export {
   type GroupsUpdateRequestDto,
   type GroupsUpdateRequestParamsDto,
   type GroupsWithPermissionIdsDto,
+  type GroupsWithPermissionsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';

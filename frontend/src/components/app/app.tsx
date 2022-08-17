@@ -16,7 +16,7 @@ import {
 import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
-import { UAMConfigurateGroup } from 'components/uam-configurate-group/uam-configurate-group';
+import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
@@ -63,18 +63,18 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.UAM_CONFIGURATE_GROUP}
+          path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
             <AuthorizedWrapper>
-              <UAMConfigurateGroup />
+              <UAMConfigureGroup />
             </AuthorizedWrapper>
           }
         />
         <Route
-          path={AppRoute.UAM_CONFIGURATE_GROUP_$ID}
+          path={AppRoute.UAM_CONFIGURE_GROUP_$ID}
           element={
             <AuthorizedWrapper>
-              <UAMConfigurateGroup />
+              <UAMConfigureGroup />
             </AuthorizedWrapper>
           }
         />

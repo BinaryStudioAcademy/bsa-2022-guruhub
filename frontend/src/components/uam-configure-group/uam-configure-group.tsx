@@ -9,25 +9,25 @@ import {
   useParams,
   useSelectedItems,
 } from 'hooks/hooks';
-import { uamConfigurateGroupActions } from 'store/actions';
+import { uamConfigureGroupActions } from 'store/actions';
 import { groupCreateClient } from 'validation-schemas/validation-schemas';
 
-import { DEFAULT_CONFIGURATE_GROUP_PAYLOAD } from './common/default-configurate-group-payload';
-import { GroupConfigurateFieldsName } from './common/enums/enums';
+import { DEFAULT_CONFIGURE_GROUP_PAYLOAD } from './common/default-configure-group-payload';
+import { GroupConfigureFieldsName } from './common/enums/enums';
 import { PermissionsTable } from './components/permissions-table/permissions-table';
 import { UsersTable } from './components/users-table/users-table';
 import styles from './styles.module.scss';
 
-const UAMConfigurateGroup: FC = () => {
+const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const isEdit = Boolean(id);
   const { permissions, group } = useAppSelector(
-    (state) => state.uamConfigurateGroup,
+    (state) => state.uamConfigureGroup,
   );
   const { control, handleSubmit, errors, reset } =
     useAppForm<GroupsCreateRequestDto>({
-      defaultValues: DEFAULT_CONFIGURATE_GROUP_PAYLOAD,
+      defaultValues: DEFAULT_CONFIGURE_GROUP_PAYLOAD,
       validationSchema: groupCreateClient,
     });
   const {
@@ -44,7 +44,7 @@ const UAMConfigurateGroup: FC = () => {
   const onSubmit = (): void => {
     if (!isEdit) {
       dispatch(
-        uamConfigurateGroupActions.createGroup({
+        uamConfigureGroupActions.createGroup({
           name: control._formValues.name,
           permissionIds,
           userIds,
@@ -52,7 +52,7 @@ const UAMConfigurateGroup: FC = () => {
       );
     } else {
       dispatch(
-        uamConfigurateGroupActions.updateGroup({
+        uamConfigureGroupActions.updateGroup({
           id: Number(id),
           payload: {
             name: control._formValues.name,
@@ -65,10 +65,10 @@ const UAMConfigurateGroup: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(uamConfigurateGroupActions.getPermissions());
+    dispatch(uamConfigureGroupActions.getPermissions());
 
     if (isEdit) {
-      dispatch(uamConfigurateGroupActions.getGroupById({ id: Number(id) }));
+      dispatch(uamConfigureGroupActions.getGroupById({ id: Number(id) }));
     }
   }, []);
 
@@ -92,7 +92,7 @@ const UAMConfigurateGroup: FC = () => {
           control={control}
           errors={errors}
           label="Group name"
-          name={GroupConfigurateFieldsName.NAME}
+          name={GroupConfigureFieldsName.NAME}
           placeholder="Enter group name"
           type="text"
         />
@@ -125,4 +125,4 @@ const UAMConfigurateGroup: FC = () => {
   );
 };
 
-export { UAMConfigurateGroup };
+export { UAMConfigureGroup };

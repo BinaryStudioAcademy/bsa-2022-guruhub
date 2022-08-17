@@ -1,9 +1,9 @@
 import { FormControlPath } from 'common/types/types';
 
-type GroupConfigurateUsersTableActionsProps = {
+type GroupConfigureUsersTableActionsProps = {
   name: FormControlPath;
   onToggle: () => void;
   isChecked: boolean;
 };
 
-export { type GroupConfigurateUsersTableActionsProps };
+export { type GroupConfigureUsersTableActionsProps };

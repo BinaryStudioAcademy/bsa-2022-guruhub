@@ -1,4 +1,5 @@
 export { type GroupsWithPermissionIdsDto } from './groups-with-permission-ids-dto.type';
+export { type GroupsWithPermissionsDto } from './groups-with-permissions-dto.type';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,

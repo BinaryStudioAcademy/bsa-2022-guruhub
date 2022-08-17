@@ -1,10 +1,10 @@
 import { FormControlPath } from 'common/types/types';
 import { UserTableAccessor } from 'components/uam/common/enums/user-table-accessor.enum';
 import {
-  GroupConfigurateUsersTableActionsProps,
-  GroupConfigurateUsersTableRow,
-} from 'components/uam-configurate-group/common/types/types';
-import { UserActionCell } from 'components/uam-configurate-group/components/components';
+  GroupConfigureUsersTableActionsProps,
+  GroupConfigureUsersTableRow,
+} from 'components/uam-configure-group/common/types/types';
+import { UserActionCell } from 'components/uam-configure-group/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
@@ -17,11 +17,11 @@ const getUserColumns = ({
   name,
   onCheckboxToggle,
   selectedUserIds,
-}: UseFormRegisterEntities): Column<GroupConfigurateUsersTableRow>[] => {
+}: UseFormRegisterEntities): Column<GroupConfigureUsersTableRow>[] => {
   return [
     {
       Header: 'Select',
-      accessor: ({ id }): GroupConfigurateUsersTableActionsProps => ({
+      accessor: ({ id }): GroupConfigureUsersTableActionsProps => ({
         name,
         onToggle: () => onCheckboxToggle(id),
         isChecked: selectedUserIds.includes(id),
