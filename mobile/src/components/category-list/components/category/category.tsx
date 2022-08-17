@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Icon, Pressable, Text, View } from '~/components/common/common';
-import { iconNameToIcon } from '~/components/common/icon/common/maps/icon-name-to-icon.map';
+import { iconNameToIcon } from '~/components/common/icon/common/maps/maps';
 import { useState } from '~/hooks/hooks';
 
 import { getRandomColor } from './helpers/get-random-color.helper';
