@@ -62,8 +62,8 @@ class Group {
       .execute();
   }
 
-  public async delete(groupId: number): Promise<number> {
-    return await this.#GroupModel.query().delete().where({ id: groupId });
+  public delete(groupId: number): Promise<number> {
+    return this.#GroupModel.query().delete().where({ id: groupId }).execute();
   }
 }
 

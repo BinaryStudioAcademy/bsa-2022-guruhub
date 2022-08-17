@@ -109,8 +109,8 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const isDeleted = await groupService.delete(Number(id));
 
       return rep
-        .status(isDeleted ? HttpCode.OK : HttpCode.NOT_FOUND)
-        .send(isDeleted);
+        .status(isDeleted ? HttpCode.NO_CONTENT : HttpCode.NOT_FOUND)
+        .send();
     },
   });
 };
