@@ -1,0 +1,15 @@
+.editBtn {
+  display: flex;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.editIcon {
+  fill: var(--typography-text-gray-200);
+}
+
+.editBtn:hover > .deleteIcon {
+  fill: var(--typography-text-100-inverse);
+}
