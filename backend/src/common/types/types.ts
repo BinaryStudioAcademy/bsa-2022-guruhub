@@ -7,11 +7,16 @@ export {
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export {
-  CourseChapterModuleCreateArgumentsDto,
-  CourseLectureAssetModuleCreateArgumentsDto,
-  CourseLectureModuleCreateArgumentsDto,
-  CoursePracticeModuleCreateArgumentsDto,
-  CourseQuizModuleCreateArgumentsDto,
+  type CourseChapterModuleCreateArgumentsDto,
+  type CourseChapterModuleResponseDto,
+  type CourseLectureAssetModuleCreateArgumentsDto,
+  type CourseLectureModuleAssetResponseDto,
+  type CourseLectureModuleCreateArgumentsDto,
+  type CourseLectureModuleResponseDto,
+  type CoursePracticeModuleCreateArgumentsDto,
+  type CoursePracticeModuleResponseDto,
+  type CourseQuizModuleCreateArgumentsDto,
+  type CourseQuizModuleResponseDto,
 } from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {

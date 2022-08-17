@@ -9,6 +9,13 @@ export {
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export {
+  type CourseChapterModuleResponseDto,
+  type CourseLectureModuleAssetResponseDto,
+  type CourseLectureModuleResponseDto,
+  type CoursePracticeModuleResponseDto,
+  type CourseQuizModuleResponseDto,
+} from './course-module/course-module';
+export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
