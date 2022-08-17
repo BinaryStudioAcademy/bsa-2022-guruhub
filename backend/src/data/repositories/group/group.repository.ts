@@ -27,7 +27,7 @@ class Group {
       .then((data) => {
         return {
           ...data,
-          permissions: data.permissions.map((permission) => permission.id),
+          permissionIds: data.permissions.map((permission) => permission.id),
         };
       });
 

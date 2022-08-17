@@ -38,12 +38,12 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
     items: permissionIds,
     handleToggle: handlePermissionToggle,
     setItems: setDefaultPermissionIds,
-  } = useSelectedItems<number>(group?.permissions ?? []);
+  } = useSelectedItems<number>(group?.permissionIds ?? []);
   const {
     items: userIds,
     handleToggle: handleUserToggle,
     setItems: setDefaultUserIds,
-  } = useSelectedItems<number>(group?.users ?? []);
+  } = useSelectedItems<number>(group?.userIds ?? []);
 
   const onSubmit = (): void => {
     if (mode === 'create') {
@@ -78,8 +78,8 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
 
   useEffect(() => {
     if (group) {
-      setDefaultPermissionIds(group.permissions);
-      setDefaultUserIds(group.users);
+      setDefaultPermissionIds(group.permissionIds);
+      setDefaultUserIds(group.userIds);
       reset({ name: group.name });
     }
   }, [group]);

@@ -2,7 +2,7 @@ type GroupsWithPermissionIdsDto = {
   id: number;
   name: string;
   key: string;
-  permissions: number[];
+  permissionIds: number[];
 };
 
 export { type GroupsWithPermissionIdsDto };

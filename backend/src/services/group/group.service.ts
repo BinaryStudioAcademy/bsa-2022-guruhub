@@ -58,11 +58,11 @@ class Group {
     }
 
     const users = await this.#usersToGroupsService.getUsersByGroupId(id);
-    const userIds = users?.map((user) => user.userId);
+    const userIds = users?.map((user) => user.userId) ?? [];
 
     return {
       ...groupWithPermissions,
-      users: userIds ?? [],
+      userIds,
     };
   }
 
