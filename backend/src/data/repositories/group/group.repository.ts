@@ -20,18 +20,14 @@ class Group {
     const group = await this.#GroupModel
       .query()
       .where({ groupId: id })
-      .select('groups.*', 'permissions.id as permissions')
-      .joinRelated('permissions')
-      .castTo<(GroupM & { permissions: number })[]>()
-      .then((records) => {
-        const permissions: number[] = [];
-        records.forEach((record) => {
-          permissions.push(record.permissions);
-        });
-
+      .select('groups.*')
+      .withGraphJoined('permissions')
+      .castTo<GroupM & { permissions: { id: number }[] }>()
+      .first()
+      .then((data) => {
         return {
-          ...records[0],
-          permissions,
+          ...data,
+          permissions: data.permissions.map((permission) => permission.id),
         };
       });
 
