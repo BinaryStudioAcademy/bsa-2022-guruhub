@@ -4,7 +4,6 @@ export {
   CategoryGetAllResponseDto,
 } from './category/category';
 export {
-  type CourseByName,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetResponseDto,

@@ -1,5 +1,4 @@
-export { courseCreate } from './course/course';
-export { filtering } from './filtering/filtering';
+export { courseCreate, courseFiltering } from './course/course';
 export {
   groupCreate,
   groupDelete,

@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { Icon } from 'components/common/common';
+import { Icon, Input } from 'components/common/common';
 import { debounce } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -16,15 +16,17 @@ import styles from './styles.module.scss';
 const SearchBar: FC = () => {
   const dispatch = useAppDispatch();
   const onSearch = (search: string): void => {
-    dispatch(dashboardActions.getCoursesByName({ title: search }));
+    dispatch(
+      dashboardActions.getCoursesByName({ title: search, categoryKey: '' }),
+    );
   };
 
-  const { control } = useAppForm<SearchPayload>({
+  const { control, errors } = useAppForm<SearchPayload>({
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
   const { field } = useFormControl({ name: 'search', control: control });
-  const { value, onChange } = field;
+  const { value } = field;
 
   const handleSearch = (): void => onSearch(value);
   const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
@@ -38,12 +40,15 @@ const SearchBar: FC = () => {
   return (
     <div className={styles.searchWrapper}>
       <Icon name="search" className={styles.searchIcon} />
-      <input
-        type="text"
-        className={styles.searchfield}
+      <Input
+        control={control}
+        errors={errors}
+        name="search"
+        label="search"
         placeholder="Search or type"
-        value={value}
-        onChange={onChange}
+        titleClass={styles.hidden}
+        labelClass={styles.label}
+        inputClass={styles.searchfield}
       />
     </div>
   );

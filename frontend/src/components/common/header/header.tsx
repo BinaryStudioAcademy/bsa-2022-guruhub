@@ -13,6 +13,7 @@ const Header: FC = () => {
   const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
+  const isRoot = location.pathname === AppRoute.ROOT;
   const hasUser = Boolean(user);
 
   const handlePopupOpen = (): void =>
@@ -24,7 +25,7 @@ const Header: FC = () => {
         <div className={styles.logoWrapper}>
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
-        {location.pathname === '/' && <SearchBar />}
+        {isRoot && <SearchBar />}
         <div className={styles.userWrapper}>
           {hasUser ? (
             <button onClick={handlePopupOpen} className={styles.button}>

@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
-  CourseByName,
   CourseCreateRequestDto,
+  CourseFilteringDto,
   CourseGetResponseDto,
 } from 'common/types/types';
 
@@ -22,12 +22,12 @@ const getCourses = createAsyncThunk<
 
 const getCoursesByName = createAsyncThunk<
   CourseGetResponseDto[],
-  CourseByName,
+  CourseFilteringDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES_BY_NAME, async ({ title }, { extra }) => {
+>(ActionType.GET_COURSES_BY_NAME, async ({ title, categoryKey }, { extra }) => {
   const { coursesApi } = extra;
   const courses = await coursesApi.getAll({
-    filtering: { title },
+    filtering: { title, categoryKey },
   });
 
   return courses;
