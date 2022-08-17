@@ -26,7 +26,7 @@ const Checkbox = <T extends FormControlValues>({
   const { field } = useFormControl({ name, control });
   const { value, onChange } = field;
 
-  const handleToggle = (e): void => {
+  const handleToggle = (e: boolean): void => {
     onChange(e);
     onCheckbox();
   };

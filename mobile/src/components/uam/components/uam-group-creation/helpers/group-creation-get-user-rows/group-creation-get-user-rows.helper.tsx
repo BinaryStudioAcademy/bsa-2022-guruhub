@@ -4,13 +4,14 @@ import {
   FormControl,
   GroupsCreateRequestDto,
   GroupsItemResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
 
 import { UserTableAccessor } from '../../common/enums/user-table-accessor.enum';
 
 type Props = {
-  users: GroupsItemResponseDto[];
+  users: UsersGetResponseDto[];
   control: FormControl<GroupsCreateRequestDto>;
   onCheckbox: (id: number) => void;
 };
