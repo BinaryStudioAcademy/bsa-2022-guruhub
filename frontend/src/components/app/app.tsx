@@ -66,15 +66,15 @@ const App: FC = () => {
           path={AppRoute.UAM_CONFIGURATE_GROUP}
           element={
             <AuthorizedWrapper>
-              <UAMConfigurateGroup mode="create" name="Create" />
+              <UAMConfigurateGroup />
             </AuthorizedWrapper>
           }
         />
         <Route
-          path={AppRoute.UAM_CONFIGURATE_GROUP_EDIT}
+          path={AppRoute.UAM_CONFIGURATE_GROUP_$ID}
           element={
             <AuthorizedWrapper>
-              <UAMConfigurateGroup mode="edit" name="Edit" />
+              <UAMConfigurateGroup />
             </AuthorizedWrapper>
           }
         />

@@ -10,13 +10,13 @@ import { Column } from 'react-table';
 type UseFormRegisterEntities = {
   name: FormControlPath;
   onCheckboxToggle: (value: number) => void;
-  defaultSelectedPermissionIds?: number[];
+  selectedPermissionIds: number[];
 };
 
 const getPermissionsColumns = ({
   name,
   onCheckboxToggle,
-  defaultSelectedPermissionIds = [],
+  selectedPermissionIds,
 }: UseFormRegisterEntities): Column<PermissionsTableRow>[] => {
   return [
     {
@@ -24,7 +24,7 @@ const getPermissionsColumns = ({
       accessor: ({ id }): PermissionsTableActionsProps => ({
         name,
         onToggle: () => onCheckboxToggle(id),
-        isChecked: defaultSelectedPermissionIds?.includes(id),
+        isChecked: selectedPermissionIds.includes(id),
       }),
       Cell: PermissionsActionsCell,
     },

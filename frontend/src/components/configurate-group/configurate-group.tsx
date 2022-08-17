@@ -18,14 +18,10 @@ import { PermissionsTable } from './components/permissions-table/permissions-tab
 import { UsersTable } from './components/users-table/users-table';
 import styles from './styles.module.scss';
 
-type Props = {
-  mode: 'create' | 'edit';
-  name: 'Create' | 'Edit';
-};
-
-const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
+const UAMConfigurateGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const isEdit = Boolean(id);
   const { permissions, group } = useAppSelector(
     (state) => state.configurateGroup,
   );
@@ -46,7 +42,7 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
   } = useSelectedItems<number>(group?.userIds ?? []);
 
   const onSubmit = (): void => {
-    if (mode === 'create') {
+    if (!isEdit) {
       dispatch(
         configurateGroupActions.createGroup({
           name: control._formValues.name,
@@ -71,7 +67,7 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
   useEffect(() => {
     dispatch(configurateGroupActions.getPermissions());
 
-    if (mode === 'edit') {
+    if (isEdit) {
       dispatch(configurateGroupActions.getGroupById({ id: Number(id) }));
     }
   }, []);
@@ -88,7 +84,9 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
     <div className={styles.groupCreationMain}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.groupFormHeaderWrapper}>
-          <h2 className={styles.groupFormHeading}>{name} group</h2>
+          <h2 className={styles.groupFormHeading}>
+            {isEdit ? 'Edit' : 'Create'} group
+          </h2>
         </div>
         <Input
           control={control}
@@ -101,12 +99,12 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
       </form>
       <UsersTable
         onCheckboxToggle={handleUserToggle}
-        defaultSelectedUserIds={userIds}
+        selectedUserIds={userIds}
       />
       <PermissionsTable
         permissions={permissions}
         onCheckboxToggle={handlePermissionToggle}
-        defaultSelectedPermissionIds={permissionIds}
+        selectedPermissionIds={permissionIds}
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>
@@ -116,7 +114,11 @@ const UAMConfigurateGroup: FC<Props> = ({ mode, name }) => {
             label="Cancel"
             to={AppRoute.UAM}
           />
-          <Button onClick={handleSubmit(onSubmit)} type="submit" label={name} />
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            type="submit"
+            label={isEdit ? 'Edit' : 'Create'}
+          />
         </div>
       </div>
     </div>

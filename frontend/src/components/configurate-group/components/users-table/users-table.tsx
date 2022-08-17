@@ -18,13 +18,10 @@ import styles from './styles.module.scss';
 
 type Props = {
   onCheckboxToggle: (value: number) => void;
-  defaultSelectedUserIds?: number[];
+  selectedUserIds: number[];
 };
 
-const UsersTable: FC<Props> = ({
-  onCheckboxToggle,
-  defaultSelectedUserIds = [],
-}) => {
+const UsersTable: FC<Props> = ({ onCheckboxToggle, selectedUserIds }) => {
   const { users, usersTotalCount } = useAppSelector(
     (state) => state.configurateGroup,
   );
@@ -34,9 +31,9 @@ const UsersTable: FC<Props> = ({
     return getUserColumns({
       name: GroupConfigurateFieldsName.USER_IDS,
       onCheckboxToggle,
-      defaultSelectedUserIds,
+      selectedUserIds,
     });
-  }, [defaultSelectedUserIds]);
+  }, [selectedUserIds]);
 
   useEffect(() => {
     dispatch(

@@ -10,13 +10,13 @@ import { Column } from 'react-table';
 type UseFormRegisterEntities = {
   name: FormControlPath;
   onCheckboxToggle: (value: number) => void;
-  defaultSelectedUserIds?: number[];
+  selectedUserIds: number[];
 };
 
 const getUserColumns = ({
   name,
   onCheckboxToggle,
-  defaultSelectedUserIds = [],
+  selectedUserIds,
 }: UseFormRegisterEntities): Column<GroupConfigurateUsersTableRow>[] => {
   return [
     {
@@ -24,7 +24,7 @@ const getUserColumns = ({
       accessor: ({ id }): GroupConfigurateUsersTableActionsProps => ({
         name,
         onToggle: () => onCheckboxToggle(id),
-        isChecked: defaultSelectedUserIds?.includes(id),
+        isChecked: selectedUserIds.includes(id),
       }),
       Cell: UserActionCell,
     },

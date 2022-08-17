@@ -27,7 +27,7 @@ class UsersToGroups {
 
   public getUsersByGroupId(
     groupId: number,
-  ): Promise<UsersToGroupsResponseDto[] | null> {
+  ): Promise<UsersToGroupsResponseDto[]> {
     return this.#usersToGroupsRepository.getUsersByGroupId(groupId);
   }
 

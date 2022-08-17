@@ -11,21 +11,21 @@ import styles from './styles.module.scss';
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
   onCheckboxToggle: (value: number) => void;
-  defaultSelectedPermissionIds?: number[];
+  selectedPermissionIds: number[];
 };
 
 const PermissionsTable: FC<Props> = ({
   permissions,
   onCheckboxToggle,
-  defaultSelectedPermissionIds = [],
+  selectedPermissionIds,
 }) => {
   const columns = useMemo<Column<PermissionsTableRow>[]>(() => {
     return getPermissionsColumns({
       name: GroupConfigurateFieldsName.PERMISSION_IDS,
       onCheckboxToggle,
-      defaultSelectedPermissionIds,
+      selectedPermissionIds,
     });
-  }, [defaultSelectedPermissionIds]);
+  }, [selectedPermissionIds]);
 
   return (
     <div className={styles.groupPermissions}>
