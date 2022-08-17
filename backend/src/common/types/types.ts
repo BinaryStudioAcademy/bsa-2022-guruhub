@@ -5,11 +5,14 @@ export {
   type CourseFilteringDto,
   type CourseGetResponseDto,
 } from './course/course';
+export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
+  type GroupsUpdateRequestDto,
+  type GroupsUpdateRequestParamsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';

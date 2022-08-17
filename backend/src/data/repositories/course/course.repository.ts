@@ -1,6 +1,5 @@
 import {
   CourseCreateRequestArgumentsDto,
-  CourseFilteringDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
@@ -16,20 +15,31 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAll(opts?: {
-    filtering: CourseFilteringDto;
+  public getAll(filteringOpts: {
+    categoryId: number | null;
+    title: string;
   }): Promise<CourseGetResponseDto[]> {
-    const { title = '' } = opts?.filtering ?? {};
+    const { categoryId } = filteringOpts ?? {};
+    const { title = '' } = filteringOpts ?? {};
 
     return this.#CourseModel
       .query()
-      .withGraphJoined('vendor')
-      .where((QueryBuilder) => {
-        if (!title) {
-          return;
+      .where((builder) => {
+        if (title && categoryId) {
+          builder
+            .where('title', 'ilike', `%${title}%`)
+            .where({ courseCategoryId: categoryId });
         }
-        QueryBuilder.where('title', 'ilike', `%${title}%`);
+
+        if (categoryId) {
+          builder.where({ courseCategoryId: categoryId });
+        }
+
+        if (title) {
+          builder.where('title', 'ilike', `%${title}%`);
+        }
       })
+      .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
   }
@@ -46,6 +56,17 @@ class Course {
       vendorId,
       courseCategoryId,
     });
+  }
+
+  public async getByCategoryId(
+    courseCategoryId: number,
+  ): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .where({ courseCategoryId })
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
   }
 }
 

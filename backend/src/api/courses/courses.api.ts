@@ -8,7 +8,7 @@ import {
 import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
-  filtering as filteringValidationSchema,
+  filtering as courseFilteringValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -24,14 +24,16 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
     schema: {
-      querystring: filteringValidationSchema,
+      querystring: courseFilteringValidationSchema,
     },
     async handler(
-      req: FastifyRequest<{ Querystring: CourseFilteringDto }>,
+      req: FastifyRequest<{
+        Querystring: CourseFilteringDto;
+      }>,
       rep,
     ) {
-      const { title } = req.query;
-      const courses = await courseService.getAll({ filtering: { title } });
+      const { categoryKey, title } = req.query;
+      const courses = await courseService.getAll({ categoryKey, title });
 
       return rep.status(HttpCode.OK).send(courses);
     },

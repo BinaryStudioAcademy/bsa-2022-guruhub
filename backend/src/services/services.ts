@@ -2,6 +2,7 @@ import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
   course as courseRepository,
+  courseCategory as courseCategoryRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -12,6 +13,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { Course } from './course/course.service';
+import { CourseCategory } from './course-category/course-category.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -69,15 +71,19 @@ const udemy = new Udemy({
   baseUrl: ENV.UDEMY.BASE_URL,
 });
 
+const courseCategory = new CourseCategory({ courseCategoryRepository });
+
 const course = new Course({
   courseRepository,
   vendorService: vendor,
   udemyService: udemy,
+  courseCategoryService: courseCategory,
 });
 
 export {
   auth,
   course,
+  courseCategory,
   encrypt,
   group,
   groupsToPermissions,

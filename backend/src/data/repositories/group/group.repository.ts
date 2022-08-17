@@ -46,6 +46,22 @@ class Group {
     return group ?? null;
   }
 
+  public update(group: {
+    id: number;
+    name: string;
+    key: string;
+  }): Promise<GroupM> {
+    const { id, name, key } = group;
+
+    return this.#GroupModel
+      .query()
+      .patchAndFetchById(id, {
+        name,
+        key,
+      })
+      .execute();
+  }
+
   public async delete(groupId: number): Promise<number> {
     return this.#GroupModel.query().delete().where({ id: groupId });
   }

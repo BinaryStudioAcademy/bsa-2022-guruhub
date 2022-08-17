@@ -22,6 +22,33 @@ class GroupsToPermissions {
       permissionId,
     });
   }
+
+  public async update(groupsToPermissions: {
+    groupId: number;
+    permissionIds: number[];
+  }): Promise<void> {
+    const { groupId, permissionIds } = groupsToPermissions;
+
+    await this.#GroupsToPermissionsModel
+      .query()
+      .where({ groupId })
+      .whereNotIn('permission_id', permissionIds)
+      .delete()
+      .execute();
+
+    await Promise.all(
+      permissionIds.map((permissionId: number) => {
+        return this.#GroupsToPermissionsModel
+          .query()
+          .insert({
+            groupId,
+            permissionId,
+          })
+          .onConflict(['permission_id', 'group_id'])
+          .ignore();
+      }),
+    );
+  }
 }
 
 export { GroupsToPermissions };

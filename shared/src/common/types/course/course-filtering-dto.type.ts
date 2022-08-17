@@ -1,4 +1,5 @@
 type CourseFilteringDto = {
+  categoryKey: string;
   title: string;
 };
 
