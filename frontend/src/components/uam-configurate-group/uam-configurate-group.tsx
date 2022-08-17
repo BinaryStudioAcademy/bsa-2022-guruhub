@@ -9,7 +9,7 @@ import {
   useParams,
   useSelectedItems,
 } from 'hooks/hooks';
-import { configurateGroupActions } from 'store/actions';
+import { uamConfigurateGroupActions } from 'store/actions';
 import { groupCreateClient } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CONFIGURATE_GROUP_PAYLOAD } from './common/default-configurate-group-payload';
@@ -23,7 +23,7 @@ const UAMConfigurateGroup: FC = () => {
   const { id } = useParams();
   const isEdit = Boolean(id);
   const { permissions, group } = useAppSelector(
-    (state) => state.configurateGroup,
+    (state) => state.uamConfigurateGroup,
   );
   const { control, handleSubmit, errors, reset } =
     useAppForm<GroupsCreateRequestDto>({
@@ -44,7 +44,7 @@ const UAMConfigurateGroup: FC = () => {
   const onSubmit = (): void => {
     if (!isEdit) {
       dispatch(
-        configurateGroupActions.createGroup({
+        uamConfigurateGroupActions.createGroup({
           name: control._formValues.name,
           permissionIds,
           userIds,
@@ -52,7 +52,7 @@ const UAMConfigurateGroup: FC = () => {
       );
     } else {
       dispatch(
-        configurateGroupActions.updateGroup({
+        uamConfigurateGroupActions.updateGroup({
           id: Number(id),
           payload: {
             name: control._formValues.name,
@@ -65,10 +65,10 @@ const UAMConfigurateGroup: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(configurateGroupActions.getPermissions());
+    dispatch(uamConfigurateGroupActions.getPermissions());
 
     if (isEdit) {
-      dispatch(configurateGroupActions.getGroupById({ id: Number(id) }));
+      dispatch(uamConfigurateGroupActions.getGroupById({ id: Number(id) }));
     }
   }, []);
 

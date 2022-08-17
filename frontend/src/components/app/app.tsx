@@ -13,10 +13,10 @@ import {
   Routes,
   Spinner,
 } from 'components/common/common';
-import { UAMConfigurateGroup } from 'components/configurate-group/configurate-group';
 import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
+import { UAMConfigurateGroup } from 'components/uam-configurate-group/uam-configurate-group';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';

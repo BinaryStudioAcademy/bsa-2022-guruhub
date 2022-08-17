@@ -1,4 +1,4 @@
-.editBtn {
+.btn {
   display: flex;
   padding: 5px;
   background-color: transparent;
@@ -6,10 +6,10 @@
   cursor: pointer;
 }
 
-.editIcon {
+.icon {
   fill: var(--typography-text-gray-200);
 }
 
-.editBtn:hover > .deleteIcon {
+.btn:hover > .icon {
   fill: var(--typography-text-100-inverse);
 }

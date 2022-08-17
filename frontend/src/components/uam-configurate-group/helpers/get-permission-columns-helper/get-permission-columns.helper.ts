@@ -1,10 +1,10 @@
 import { FormControlPath } from 'common/types/types';
-import { PermissionTableAccessor } from 'components/configurate-group/common/enums/enums';
+import { PermissionTableAccessor } from 'components/uam-configurate-group/common/enums/enums';
 import {
   PermissionsTableActionsProps,
   PermissionsTableRow,
-} from 'components/configurate-group/common/types/types';
-import { PermissionsActionsCell } from 'components/configurate-group/components/components';
+} from 'components/uam-configurate-group/common/types/types';
+import { PermissionsActionsCell } from 'components/uam-configurate-group/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {

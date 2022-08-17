@@ -1,9 +1,9 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
-import { GroupConfigurateFieldsName } from 'components/configurate-group/common/enums/enums';
-import { GroupConfigurateUsersTableRow } from 'components/configurate-group/common/types/types';
-import { getUserColumns } from 'components/configurate-group/helpers/helpers';
+import { GroupConfigurateFieldsName } from 'components/uam-configurate-group/common/enums/enums';
+import { GroupConfigurateUsersTableRow } from 'components/uam-configurate-group/common/types/types';
+import { getUserColumns } from 'components/uam-configurate-group/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -23,7 +23,7 @@ type Props = {
 
 const UsersTable: FC<Props> = ({ onCheckboxToggle, selectedUserIds }) => {
   const { users, usersTotalCount } = useAppSelector(
-    (state) => state.configurateGroup,
+    (state) => state.uamConfigurateGroup,
   );
   const dispatch = useAppDispatch();
   const { page, handlePageChange } = usePagination({ queryName: 'users' });

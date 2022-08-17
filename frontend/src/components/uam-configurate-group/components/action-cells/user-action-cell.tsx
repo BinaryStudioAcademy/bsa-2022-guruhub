@@ -1,14 +1,17 @@
 import { FC } from 'common/types/types';
 import { Checkbox } from 'components/common/common';
 import {
-  PermissionsTableActionsProps,
-  PermissionsTableRow,
-} from 'components/configurate-group/common/types/types';
+  GroupConfigurateUsersTableActionsProps,
+  GroupConfigurateUsersTableRow,
+} from 'components/uam-configurate-group/common/types/types';
 import { useAppForm, useEffect } from 'hooks/hooks';
 import { CellProps } from 'react-table';
 
-const PermissionsActionsCell: FC<
-  CellProps<PermissionsTableRow, PermissionsTableActionsProps>
+const UserActionCell: FC<
+  CellProps<
+    GroupConfigurateUsersTableRow,
+    GroupConfigurateUsersTableActionsProps
+  >
 > = ({ value: { name, onToggle, isChecked } }) => {
   const { control, errors, reset } = useAppForm({
     defaultValues: {
@@ -29,4 +32,4 @@ const PermissionsActionsCell: FC<
   );
 };
 
-export { PermissionsActionsCell };
+export { UserActionCell };

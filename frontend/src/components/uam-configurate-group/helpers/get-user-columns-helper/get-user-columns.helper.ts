@@ -1,10 +1,10 @@
 import { FormControlPath } from 'common/types/types';
+import { UserTableAccessor } from 'components/uam/common/enums/user-table-accessor.enum';
 import {
   GroupConfigurateUsersTableActionsProps,
   GroupConfigurateUsersTableRow,
-} from 'components/configurate-group/common/types/types';
-import { UserActionCell } from 'components/configurate-group/components/components';
-import { UserTableAccessor } from 'components/uam/common/enums/user-table-accessor.enum';
+} from 'components/uam-configurate-group/common/types/types';
+import { UserActionCell } from 'components/uam-configurate-group/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {

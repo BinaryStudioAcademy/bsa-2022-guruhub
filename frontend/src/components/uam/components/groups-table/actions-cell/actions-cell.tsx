@@ -1,10 +1,8 @@
 import { FC, GroupsItemResponseDto } from 'common/types/types';
-import { Icon } from 'components/common/common';
+import { IconButton } from 'components/common/common';
 import { GroupsTableActionsProps } from 'components/uam/common/types/types';
 import { useNavigate } from 'hooks/hooks';
 import { CellProps } from 'react-table';
-
-import styles from './styles.module.scss';
 
 const ActionsCell: FC<
   CellProps<GroupsItemResponseDto, GroupsTableActionsProps>
@@ -15,15 +13,7 @@ const ActionsCell: FC<
     navigate(`/uam/configurate-group/${id}`);
   };
 
-  return (
-    <button
-      className={styles.editBtn}
-      type="button"
-      onClick={handleNavigateToEdit}
-    >
-      <Icon name="settings" className={styles.editIcon} />
-    </button>
-  );
+  return <IconButton iconName="settings" onClick={handleNavigateToEdit} />;
 };
 
 export { ActionsCell };

@@ -1,8 +1,8 @@
 import { FC, PermissionsGetAllItemResponseDto } from 'common/types/types';
 import { Table } from 'components/common/common';
-import { GroupConfigurateFieldsName } from 'components/configurate-group/common/enums/enums';
-import { PermissionsTableRow } from 'components/configurate-group/common/types/types';
-import { getPermissionsColumns } from 'components/configurate-group/helpers/helpers';
+import { GroupConfigurateFieldsName } from 'components/uam-configurate-group/common/enums/enums';
+import { PermissionsTableRow } from 'components/uam-configurate-group/common/types/types';
+import { getPermissionsColumns } from 'components/uam-configurate-group/helpers/helpers';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
