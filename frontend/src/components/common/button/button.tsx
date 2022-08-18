@@ -32,25 +32,29 @@ const Button: FC<Props> = ({
   const getContent = (): ReactElement | string => {
     const hasIcon = Boolean(iconName);
 
-    if (hasIcon) {
-      return (<Icon name={iconName as IconName} />) as ReactElement;
-    }
-
-    return label as string;
+    return (
+      <>
+        {hasIcon && <Icon name={iconName as IconName} />}
+        {
+          <span
+            className={getValidClasses(
+              hasVisuallyHiddenLabel && 'visually-hidden',
+            )}
+          >
+            {label}
+          </span>
+        }
+      </>
+    );
   };
 
   if (isLink) {
     return (
       <Link
         to={to as AppRoute}
-        className={getValidClasses(
-          btnType !== 'icon' && [styles.button, styles[`button-${btnType}`]],
-        )}
+        className={getValidClasses(styles.button, styles[`button-${btnType}`])}
       >
         {getContent()}
-        {hasVisuallyHiddenLabel && (
-          <span className={styles.visuallyHidden}>{label}</span>
-        )}
       </Link>
     );
   }
@@ -66,9 +70,6 @@ const Button: FC<Props> = ({
       onClick={onClick}
     >
       {getContent()}
-      {hasVisuallyHiddenLabel && (
-        <span className={styles.visuallyHidden}>{label}</span>
-      )}
     </button>
   );
 };
