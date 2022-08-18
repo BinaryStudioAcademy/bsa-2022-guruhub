@@ -26,42 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   title: {
-    marginVertical: 12,
-    fontFamily: AppFontFamily.INTER_600,
-    fontSize: 16,
-    color: 'white',
-  },
-  author_container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 18,
-  },
-  author_name: {
-    fontFamily: AppFontFamily.INTER_600,
-    fontSize: 12,
-    color: '#E3E3E3',
-  },
-  avatar_container: {
-    width: 25,
-    height: 25,
-    marginRight: 8,
-    borderRadius: 50,
-    backgroundColor: '#C4C4C4',
-  },
-  footer: {
-    paddingTop: 9,
-    paddingBottom: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderTopWidth: 1,
-    borderColor: AppColor.TEXT.GRAY_200,
-  },
-  footer_bestseller: {
-    width: 79,
-    height: 25,
-  },
-  footer_price: {
+    marginVertical: 6,
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 16,
     color: 'white',

@@ -1,2 +1,5 @@
-export { type CoursesGetAllItemResponseDto } from './course-item.type';
-export { type CoursesGetAllResponseDto } from './courses.type';
+export {
+  type CourseCreateRequestDto,
+  type CourseFilteringDto,
+  type CourseGetResponseDto,
+} from 'guruhub-shared/common/types/types';
