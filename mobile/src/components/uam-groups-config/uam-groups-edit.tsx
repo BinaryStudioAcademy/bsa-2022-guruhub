@@ -44,20 +44,13 @@ const UAMGroupsEdit: FC = () => {
     (state) => state.uamGroupCreation,
   );
 
-  //   const { group } = useAppSelector((state) => state.uamGroupEdit);
-  const group = {
-    id: 1,
-    name: 'Test group',
-    key: 'test',
-    permissionIds: [1, 2],
-    userIds: [18, 21],
-  };
+  const { group } = useAppSelector((state) => state.uamGroupEdit);
 
   const { items: permissionIds, handleToggle: handleTogglePermissions } =
-    useSelectedItems<number>(group?.permissionIds || []);
+    useSelectedItems<number>(group?.permissionIds as number[]);
 
   const { items: userIds, handleToggle: handleToggleUsers } =
-    useSelectedItems<number>(group?.userIds || []);
+    useSelectedItems<number>(group?.userIds as number[]);
 
   const paginationForUsersTable = {
     page: usersPage,
