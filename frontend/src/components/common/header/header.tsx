@@ -26,7 +26,7 @@ const Header: FC = () => {
   const handlePopupOpen = (): void =>
     setIsMenuPopupVisible(!isMenuPopupVisible);
 
-  const onSearch = (search: string): void => {
+  const handleSearch = (search: string): void => {
     dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
   };
 
@@ -36,7 +36,7 @@ const Header: FC = () => {
         <div className={styles.logoWrapper}>
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
-        {isRoot && <SearchBar onSearch={onSearch} />}
+        {isRoot && <SearchBar onSearch={handleSearch} />}
         <div className={styles.userWrapper}>
           {hasUser ? (
             <button onClick={handlePopupOpen} className={styles.button}>
