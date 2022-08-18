@@ -25,12 +25,12 @@ class CourseModule {
   public create(
     moduleRequestDto: CourseModuleCreateArgumentsDto,
   ): Promise<CourseModuleGetResponseDto> {
-    const { title, description, sortOrder, courseId } = moduleRequestDto;
+    const { title, description, moduleIndex, courseId } = moduleRequestDto;
 
     return this.#moduleRepository.create({
       title,
       description,
-      sortOrder,
+      moduleIndex,
       courseId,
     });
   }
@@ -54,7 +54,7 @@ class CourseModule {
       courseData.map((course) => {
         return this.create({
           ...course,
-          sortOrder: course.sort_order,
+          moduleIndex: course.sort_order,
           courseId: dbCourseId,
         });
       }),

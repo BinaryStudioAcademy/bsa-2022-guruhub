@@ -12,12 +12,11 @@ enum ColumnName {
 
 enum TableName {
   COURSES = 'courses',
+  COURSE_MODULES = 'course_modules',
 }
 
-const TABLE_NAME = 'course_modules';
-
 async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable(TABLE_NAME, (table) => {
+  return knex.schema.createTable(TableName.COURSE_MODULES, (table) => {
     table.increments(ColumnName.ID).primary();
     table
       .dateTime(ColumnName.CREATED_AT)
@@ -38,7 +37,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable(TABLE_NAME);
+  await knex.schema.dropTable(TableName.COURSE_MODULES);
 }
 
 export { down, up };

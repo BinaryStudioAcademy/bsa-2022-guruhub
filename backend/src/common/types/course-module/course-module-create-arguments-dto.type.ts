@@ -1,6 +1,6 @@
 type CourseModuleCreateArgumentsDto = {
   title: string;
-  sortOrder: number;
+  moduleIndex: number;
   courseId: number;
   description?: string;
 };
