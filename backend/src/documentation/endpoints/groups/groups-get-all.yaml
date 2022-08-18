@@ -1,7 +1,22 @@
 get:
-  summary: Get all groups
+  summary: Get groups for a page
   tags:
     - groups
+  parameters:
+    - in: query
+      name: page
+      schema:
+        type: integer
+      default: 1
+      required: false
+      description: The number of page to be returned
+    - in: query
+      name: count
+      schema:
+        type: integer
+      default: 10
+      required: false
+      description: The number of groups to be returned for request
   responses:
     '200':
       content:
