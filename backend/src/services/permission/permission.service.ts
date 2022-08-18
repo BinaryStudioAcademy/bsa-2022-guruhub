@@ -8,12 +8,24 @@ type Constructor = {
 class Permission {
   #permissionRepository: typeof permissionRep;
 
-  constructor({ permissionRepository }: Constructor) {
+  public constructor({ permissionRepository }: Constructor) {
     this.#permissionRepository = permissionRepository;
   }
 
-  async getAll(): Promise<PermissionsGetAllResponseDto> {
+  public async getAll(): Promise<PermissionsGetAllResponseDto> {
     const permissions = await this.#permissionRepository.getAll();
+
+    return {
+      items: permissions.map((permission) => ({
+        id: permission.id,
+        key: permission.key,
+        name: permission.name,
+      })),
+    };
+  }
+
+  public async getByIds(ids: number[]): Promise<PermissionsGetAllResponseDto> {
+    const permissions = await this.#permissionRepository.getByIds(ids);
 
     return {
       items: permissions.map((permission) => ({

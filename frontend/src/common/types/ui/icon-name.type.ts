@@ -5,6 +5,8 @@ type IconName =
   | 'education'
   | 'billing'
   | 'settings'
-  | 'cross';
+  | 'cross'
+  | 'delete'
+  | 'search';
 
 export { IconName };

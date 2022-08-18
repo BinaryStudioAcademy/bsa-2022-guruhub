@@ -20,6 +20,14 @@ paths:
   # Groups
   /groups:
     $ref: './endpoints/groups/groups-get-all.yaml'
+  /groups/:id:
+    put:
+      $ref: './endpoints/groups/groups-update.yaml'
+    delete:
+      $ref: './endpoints/groups/groups-delete.yaml'
+  # Courses
+  /courses:
+    $ref: './endpoints/courses/courses.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -38,6 +46,10 @@ components:
       $ref: './schemas/auth/current-user-response-dto.yaml'
     GroupsGetAllResponseDto:
       $ref: './schemas/groups/groups-get-all-response-dto.yaml'
+    GroupsUpdateRequestDto:
+      $ref: './schemas/groups/groups-update-request-dto.yaml'
+    CourseCreateRequestDto:
+      $ref: './schemas/courses/course-add-request-dto.yaml'
     securitySchemes:
       bearerAuth:
         type: http

@@ -1,0 +1,5 @@
+type: object
+properties:
+  url:
+    type: string
+    example: https://www.udemy.com/24823

@@ -14,12 +14,13 @@
     "lint:js": "npx eslint \"src/**/*.ts\"",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:js && npm run lint:type",
-    "start:dev": "nodemon --exec ts-node --files -r tsconfig-paths/register ./src/server.ts",
+    "start:dev": "nodemon --ignore ./tests --exec ts-node --files -r tsconfig-paths/register ./src/server.ts",
     "prestart": "npm run migrate",
     "start": "node ./src/server.js",
     "build:ts": "tsc && tsc-alias -p tsconfig.json",
     "build:copy": "cp -r package.json package-lock.json build && cp -r src/documentation build/src",
-    "build": "npm run build:ts && npm run build:copy"
+    "build": "npm run build:ts && npm run build:copy",
+    "update:guruhub-shared": "rm -r node_modules/guruhub-shared && npm i -ES guruhub-shared"
   },
   "devDependencies": {
     "@types/bcrypt": "5.0.0",
@@ -31,6 +32,7 @@
   "dependencies": {
     "@fastify/static": "6.5.0",
     "@fastify/swagger": "7.4.1",
+    "axios": "0.27.2",
     "bcrypt": "5.0.1",
     "dotenv": "16.0.1",
     "fastify": "4.2.1",

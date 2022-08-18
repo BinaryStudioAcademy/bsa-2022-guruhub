@@ -3,9 +3,9 @@ import { HttpCode } from '~/common/enums/enums';
 const DEFAULT_SERVER_ERROR = 'Network Error';
 
 class HttpError extends Error {
-  status: HttpCode;
+  public status: HttpCode;
 
-  constructor({
+  public constructor({
     message = DEFAULT_SERVER_ERROR,
     status = HttpCode.INTERNAL_SERVER_ERROR,
   } = {}) {

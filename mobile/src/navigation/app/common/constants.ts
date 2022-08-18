@@ -1,16 +1,24 @@
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
 
-import { AppColor, AppScreenName } from '~/common/enums/enums';
+import { AppColor, AppFontFamily, AppScreenName } from '~/common/enums/enums';
+import { DrawerNavigationList } from '~/common/types/types';
+import { Billing } from '~/components/billing/billing';
+import { Courses } from '~/components/courses/courses';
+import { Mentors } from '~/components/mentors/mentors';
+import { MyEducation } from '~/components/my-education/my-education';
+import { Overview } from '~/components/overview/overview';
+import { Settings } from '~/components/setting/setting';
+import { UAM } from '~/components/uam/uam';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
-  swipeEdgeWidth: 100,
+  swipeEdgeWidth: 70,
   headerStyle: {
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
   headerTintColor: AppColor.TEXT.GRAY_100,
   headerTitleStyle: {
+    fontFamily: AppFontFamily.INTER_500,
     fontSize: 20,
-    fontWeight: '500',
     letterSpacing: 0.5,
   },
   drawerStyle: {
@@ -19,26 +27,33 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
   },
 };
 
-const NAVIGATION_ITEMS = [
+const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   {
     name: 'Menu',
-    border: true,
     subroutes: [
       {
         name: AppScreenName.OVERVIEW,
-        iconName: '',
+        icon: 'home',
+        component: Overview,
+        permissions: [],
       },
       {
         name: AppScreenName.COURSES,
-        iconName: '',
+        icon: 'book',
+        component: Courses,
+        permissions: [],
       },
       {
         name: AppScreenName.MENTORS,
-        iconName: '',
+        icon: 'mentors',
+        component: Mentors,
+        permissions: [],
       },
       {
         name: AppScreenName.MY_EDUCATION,
-        iconName: '',
+        icon: 'education',
+        component: MyEducation,
+        permissions: [],
       },
     ],
   },
@@ -47,11 +62,21 @@ const NAVIGATION_ITEMS = [
     subroutes: [
       {
         name: AppScreenName.BILLING,
-        iconName: '',
+        icon: 'billing',
+        component: Billing,
+        permissions: [],
       },
       {
         name: AppScreenName.SETTINGS,
-        iconName: '',
+        icon: 'settings',
+        component: Settings,
+        permissions: [],
+      },
+      {
+        name: AppScreenName.UAM,
+        icon: 'uam',
+        component: UAM,
+        permissions: [],
       },
     ],
   },

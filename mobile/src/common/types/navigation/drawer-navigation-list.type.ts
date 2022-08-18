@@ -1,9 +1,8 @@
-import { DrawerNavigationItem } from './drawer-navigation-item.type';
+import { DrawerNavigationItem } from '~/common/types/navigation/navigation';
 
 type DrawerNavigationList = {
   name: string;
   subroutes: DrawerNavigationItem[];
-  focusedRouteName: string;
 };
 
 export { type DrawerNavigationList };

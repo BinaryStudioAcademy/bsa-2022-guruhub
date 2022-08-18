@@ -1,25 +1,29 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
-  GroupsGetAllResponseDto,
-  UsersGetAllResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  GroupsDeleteRequestParamDto,
+  GroupsItemResponseDto,
+  UsersDeleteRequestParamsDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getUsers = createAsyncThunk<
-  UsersGetAllResponseDto,
-  void,
+  EntityPagination<UsersGetResponseDto>,
+  EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_USERS, async (_, { extra }) => {
+>(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
   const { usersApi } = extra;
-  const usersDto = await usersApi.getAll();
+  const usersDto = await usersApi.getPaginated({ page, count });
 
   return usersDto;
 });
 
 const getGroups = createAsyncThunk<
-  GroupsGetAllResponseDto,
+  EntityPagination<GroupsItemResponseDto>,
   void,
   AsyncThunkConfig
 >(ActionType.GET_GROUPS, async (_, { extra }) => {
@@ -29,4 +33,32 @@ const getGroups = createAsyncThunk<
   return groups;
 });
 
-export { getGroups, getUsers };
+const deleteUser = createAsyncThunk<
+  number,
+  UsersDeleteRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.DELETE_USER, async (payload, { extra }) => {
+  const { usersApi } = extra;
+
+  await usersApi.delete(payload);
+
+  const { id } = payload;
+
+  return id;
+});
+
+const deleteGroup = createAsyncThunk<
+  number,
+  GroupsDeleteRequestParamDto,
+  AsyncThunkConfig
+>(ActionType.DELETE_GROUP, async (payload, { extra }) => {
+  const { groupsApi } = extra;
+
+  await groupsApi.delete(payload);
+
+  const { id } = payload;
+
+  return id;
+});
+
+export { deleteGroup, deleteUser, getGroups, getUsers };

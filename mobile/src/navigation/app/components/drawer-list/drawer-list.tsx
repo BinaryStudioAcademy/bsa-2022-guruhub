@@ -1,26 +1,29 @@
 import React, { FC } from 'react';
 
-import { DrawerNavigationList } from '~/common/types/types';
+import { AppScreenName } from '~/common/enums/enums';
+import { DrawerNavigationItem } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
-import { CustomDrawerItem } from '~/navigation/app/components/drawer-item/drawer-item';
+import { DrawerItem } from '~/navigation/app/components/components';
 
 import { styles } from './styles';
 
-const CustomDrawerList: FC<DrawerNavigationList> = ({
-  name,
-  subroutes,
-  focusedRouteName,
-}) => {
+type Props = {
+  name: string;
+  subroutes: DrawerNavigationItem[];
+  focusedRouteName: AppScreenName;
+};
+
+const DrawerList: FC<Props> = ({ name, subroutes, focusedRouteName }) => {
   return (
     <View style={styles.list}>
       <Text style={styles.listTitle}>{name}</Text>
-      {subroutes.map(({ name, iconName }) => {
+      {subroutes.map(({ name, icon }) => {
         return (
-          <CustomDrawerItem
+          <DrawerItem
             key={name}
             name={name}
-            iconName={iconName}
             isFocused={focusedRouteName === name}
+            icon={icon}
           />
         );
       })}
@@ -28,4 +31,4 @@ const CustomDrawerList: FC<DrawerNavigationList> = ({
   );
 };
 
-export { CustomDrawerList };
+export { DrawerList };

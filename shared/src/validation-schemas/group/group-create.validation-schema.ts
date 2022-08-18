@@ -17,7 +17,7 @@ const groupCreate = Joi.object({
       'string.max': GroupValidationMessage.NAME_MAX_LENGTH,
     }),
   [getNameOf<GroupsCreateRequestDto>('permissionIds')]: Joi.array()
-    .items(Joi.number())
+    .items(Joi.number().integer())
     .min(GroupValidationRule.PERMISSION_IDS_MIN_LENGTH)
     .required()
     .messages({
@@ -25,7 +25,7 @@ const groupCreate = Joi.object({
       'array.min': GroupValidationMessage.PERMISSION_IDS_MIN_LENGTH,
     }),
   [getNameOf<GroupsCreateRequestDto>('userIds')]: Joi.array().items(
-    Joi.number(),
+    Joi.number().integer(),
   ),
 });
 

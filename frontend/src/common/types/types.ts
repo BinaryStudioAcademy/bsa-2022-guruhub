@@ -1,13 +1,23 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  CategoryGetAllItemResponseDto,
+  CategoryGetAllResponseDto,
+} from './category/category';
+export {
+  type CourseCreateRequestDto,
+  type CourseFilteringDto,
+  type CourseGetResponseDto,
+} from './course/course';
+export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
 export {
-  GroupsGetAllItemResponseDto,
-  GroupsGetAllResponseDto,
+  GroupsCreateRequestDto,
+  GroupsDeleteRequestParamDto,
+  GroupsItemResponseDto,
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
@@ -15,15 +25,29 @@ export {
   type SubNavigationMenuItem,
 } from './navigation-menu/navigation-menu';
 export { type NotificationPayload } from './notification/notification';
-export { type FC, type SVGProps } from './react/react';
+export {
+  type EntityPagination,
+  type EntityPaginationRequestQueryDto,
+} from './pagination/pagination';
+export {
+  PermissionsGetAllItemResponseDto,
+  PermissionsGetAllResponseDto,
+} from './permissions/permissions';
+export {
+  type FC,
+  type SVGProps,
+  type URLSearchParamsInit,
+} from './react/react';
 export { type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
-  type UsersGetAllItemResponseDto,
-  type UsersGetAllResponseDto,
+  type UsersDeleteRequestParamsDto,
+  type UsersGetResponseDto,
   type UserSignInRequestDto,
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithPermissions,
 } from './user/user';
 export { type ValidationSchema } from './validation/validation';
+export { type VendorGetResponseDto } from './vendor/vendor';

@@ -5,8 +5,11 @@ import {
   HttpMethod,
 } from '~/common/enums/enums';
 import {
+  UserSignInRequestDto,
+  UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -18,21 +21,41 @@ type Constructor = {
 
 class AuthApi {
   #http: Http;
+
   #apiPrefix: string;
 
-  constructor({ http, apiPrefix }: Constructor) {
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
   }
 
-  signUp(payload: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
+  public signUp(payload: UserSignUpRequestDto): Promise<UserSignUpResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
       {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+        hasAuth: false,
       },
+    );
+  }
+
+  public signIn(payload: UserSignInRequestDto): Promise<UserSignInResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+        hasAuth: false,
+      },
+    );
+  }
+
+  public getCurrentUser(): Promise<UserWithPermissions> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.AUTH}${AuthApiPath.CURRENT_USER}`,
     );
   }
 }

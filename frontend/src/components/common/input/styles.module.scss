@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 9px;
+  width: 100%;
+  color: var(--typography-text-100-inverse);
 }
 
 .input {
@@ -46,4 +48,8 @@
 .input[type='password'] {
   color: var(--text-gray-200);
   letter-spacing: 4px;
+}
+
+.visuallyHidden {
+  visibility: hidden;
 }

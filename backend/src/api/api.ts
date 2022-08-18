@@ -4,9 +4,19 @@ import { WHITE_ROUTES } from '~/common/constants/constants';
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
 import { authorization as authorizationPlugin } from '~/plugins/plugins';
-import { auth, group, permission, token, user } from '~/services/services';
+import {
+  auth,
+  course,
+  courseCategory,
+  group,
+  permission,
+  token,
+  user,
+} from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
+import { initCategoriesApi } from './categories/categories.api';
+import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initPermissionsApi } from './permissions/permissions.api';
 import { initUsersApi } from './users/users.api';
@@ -52,6 +62,18 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       user,
     },
     prefix: ApiPath.USERS,
+  });
+  fastify.register(initCoursesApi, {
+    services: {
+      course,
+    },
+    prefix: ApiPath.COURSES,
+  });
+  fastify.register(initCategoriesApi, {
+    services: {
+      courseCategory,
+    },
+    prefix: ApiPath.CATEGORIES,
   });
 };
 

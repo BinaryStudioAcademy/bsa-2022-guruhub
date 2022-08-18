@@ -1,10 +1,10 @@
 import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
-  UsersByIdResponseDto,
   UserSignInRequestDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { AuthError } from '~/exceptions/exceptions';
 import {
@@ -21,16 +21,22 @@ type Constructor = {
 
 class Auth {
   #userService: typeof userServ;
+
   #tokenService: typeof tokenServ;
+
   #encryptService: typeof encryptServ;
 
-  constructor({ userService, encryptService, tokenService }: Constructor) {
+  public constructor({
+    userService,
+    encryptService,
+    tokenService,
+  }: Constructor) {
     this.#userService = userService;
     this.#encryptService = encryptService;
     this.#tokenService = tokenService;
   }
 
-  async signUp(
+  public async signUp(
     userRequestDto: UserSignUpRequestDto,
   ): Promise<UserSignUpResponseDto> {
     const { email } = userRequestDto;
@@ -52,9 +58,9 @@ class Auth {
     };
   }
 
-  async verifySignIn(
+  public async verifySignIn(
     signInUserDto: UserSignInRequestDto,
-  ): Promise<UsersByIdResponseDto> {
+  ): Promise<UserWithPermissions> {
     const user = await this.#userService.getByEmail(signInUserDto.email);
 
     if (!user) {
@@ -79,15 +85,18 @@ class Auth {
       });
     }
 
+    const permissions = await this.#userService.getUserPermissions(user.id);
+
     return {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions,
     };
   }
 
-  async signIn(
+  public async signIn(
     userRequestDto: UserSignInRequestDto,
   ): Promise<UserSignInResponseDto> {
     const user = await this.verifySignIn(userRequestDto);
@@ -99,7 +108,9 @@ class Auth {
     };
   }
 
-  async getCurrentUser(token: string): Promise<UsersByIdResponseDto | null> {
+  public async getCurrentUser(
+    token: string,
+  ): Promise<UserWithPermissions | null> {
     try {
       const { userId } = await this.#tokenService.decode(token);
       const user = await this.#userService.getById(userId);

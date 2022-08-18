@@ -1,7 +1,12 @@
 export { Button } from './button/button';
+export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';
+export { Pagination } from './pagination/pagination';
+export { Search } from './search/search';
 export { Spinner } from './spinner/spinner';
+export { Stack } from './stack/stack';
+export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
-export { Image, ScrollView, View } from 'react-native';
+export { Image, Pressable, ScrollView, View } from 'react-native';

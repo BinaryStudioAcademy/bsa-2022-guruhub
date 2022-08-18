@@ -1,8 +1,12 @@
 import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  PermissionsGetAllItemResponseDto,
   UsersByEmailResponseDto,
   UsersByIdResponseDto,
-  UsersGetAllResponseDto,
+  UsersGetResponseDto,
   UserSignUpRequestDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
@@ -14,31 +18,42 @@ type Constructor = {
 
 class User {
   #userRepository: typeof userRep;
+
   #encryptService: Encrypt;
 
-  constructor({ userRepository, encryptService }: Constructor) {
+  public constructor({ userRepository, encryptService }: Constructor) {
     this.#userRepository = userRepository;
     this.#encryptService = encryptService;
   }
 
-  async getAll(): Promise<UsersGetAllResponseDto> {
-    const users = await this.#userRepository.getAll();
+  public async getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<UsersGetResponseDto>
+  > {
+    const ZERO_INDEXED_PAGE = page - 1;
+    const result = await this.#userRepository.getPaginated({
+      page: ZERO_INDEXED_PAGE,
+      count,
+    });
 
     return {
-      items: users.map((user) => ({
+      items: result.items.map((user) => ({
         id: user.id,
         email: user.email,
         fullName: user.fullName,
         createdAt: user.createdAt,
       })),
+      total: result.total,
     };
   }
 
-  async create({
+  public async create({
     email,
     fullName,
     password,
-  }: UserSignUpRequestDto): Promise<UsersByIdResponseDto> {
+  }: UserSignUpRequestDto): Promise<UserWithPermissions> {
     const passwordSalt = await this.#encryptService.generateSalt();
     const passwordHash = await this.#encryptService.encrypt(
       password,
@@ -57,10 +72,13 @@ class User {
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions: [],
     };
   }
 
-  async getByEmail(email: string): Promise<UsersByEmailResponseDto | null> {
+  public async getByEmail(
+    email: string,
+  ): Promise<UsersByEmailResponseDto | null> {
     const user = await this.#userRepository.getByEmail(email);
 
     if (!user) {
@@ -77,22 +95,41 @@ class User {
     };
   }
 
-  async getById(id: string): Promise<UsersByIdResponseDto | null> {
+  public getUserPermissions(
+    id: number,
+  ): Promise<PermissionsGetAllItemResponseDto[]> {
+    return this.#userRepository.getUserPermissions(id);
+  }
+
+  public async getById(id: string): Promise<UserWithPermissions | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {
       return null;
     }
+    const permissions = await this.#userRepository.getUserPermissions(user.id);
 
     return {
       id: user.id,
       email: user.email,
       fullName: user.fullName,
       createdAt: user.createdAt,
+      permissions,
     };
   }
 
-  async delete(id: number): Promise<boolean> {
+  public async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
+    const users = await this.#userRepository.getByIds(ids);
+
+    return users.map((user) => ({
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      createdAt: user.createdAt,
+    }));
+  }
+
+  public async delete(id: number): Promise<boolean> {
     const deletedUsersCount = await this.#userRepository.delete(id);
 
     return Boolean(deletedUsersCount);

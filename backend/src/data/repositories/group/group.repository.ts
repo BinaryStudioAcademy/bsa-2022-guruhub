@@ -1,3 +1,7 @@
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import { Group as GroupM } from '~/data/models/models';
 
 type Constructor = {
@@ -7,11 +11,23 @@ type Constructor = {
 class Group {
   #GroupModel: typeof GroupM;
 
-  constructor({ GroupModel }: Constructor) {
+  public constructor({ GroupModel }: Constructor) {
     this.#GroupModel = GroupModel;
   }
 
-  async create(group: { name: string; key: string }): Promise<GroupM> {
+  public async getPaginated({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
+    const result = await this.#GroupModel.query().page(page, count);
+
+    return {
+      items: result.results,
+      total: result.total,
+    };
+  }
+
+  public async create(group: { name: string; key: string }): Promise<GroupM> {
     const { name, key } = group;
 
     return this.#GroupModel.query().insert({
@@ -20,8 +36,34 @@ class Group {
     });
   }
 
-  async getAll(): Promise<GroupM[]> {
-    return this.#GroupModel.query();
+  public async getByName(name: string): Promise<GroupM | null> {
+    const group = await this.#GroupModel
+      .query()
+      .select()
+      .where({ name })
+      .first();
+
+    return group ?? null;
+  }
+
+  public update(group: {
+    id: number;
+    name: string;
+    key: string;
+  }): Promise<GroupM> {
+    const { id, name, key } = group;
+
+    return this.#GroupModel
+      .query()
+      .patchAndFetchById(id, {
+        name,
+        key,
+      })
+      .execute();
+  }
+
+  public delete(groupId: number): Promise<number> {
+    return this.#GroupModel.query().delete().where({ id: groupId }).execute();
   }
 }
 

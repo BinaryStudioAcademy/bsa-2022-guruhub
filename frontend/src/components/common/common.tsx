@@ -1,12 +1,14 @@
 export { AuthorizedMenu } from './authorized-menu/authorized-menu';
 export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
 export { Button } from './button/button';
+export { Checkbox } from './checkbox/checkbox';
 export { Header } from './header/header';
 export { Icon } from './icon/icon';
 export { Image } from './image/image';
 export { Input } from './input/input';
 export { Link } from './link/link';
 export { Modal } from './modal/modal';
+export { Pagination } from './pagination/pagination';
 export { ProtectedRoute } from './protected-route/protected-route';
 export { Spinner } from './spinner/spinner';
 export { Table } from './table/table';

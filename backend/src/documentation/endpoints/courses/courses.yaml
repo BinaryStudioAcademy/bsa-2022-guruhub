@@ -1,0 +1,25 @@
+post:
+  summary: Add new course
+  tags:
+    - courses
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/courses/course-add-request-dto.yaml'
+  responses:
+    '201':
+      description: Course was successfully added
+    '400':
+      description: URL is invalid
+get:
+  summary: Get All Courses
+  tags:
+    - courses
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses/courses-get-all-response-dto.yaml'
