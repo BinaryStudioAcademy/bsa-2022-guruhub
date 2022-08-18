@@ -8,17 +8,15 @@ import { AsyncThunkConfig } from '~/common/types/types';
 
 import { ActionType } from './common';
 
-type PayloadType = {
-  payload?: CourseFilteringDto;
-};
-
 const getCourses = createAsyncThunk<
   CourseGetResponseDto[],
-  PayloadType,
+  CourseFilteringDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES, async (payload, { extra }) => {
+>(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
   const { coursesApi } = extra;
-  const courses = await coursesApi.getAll(payload);
+  const courses = await coursesApi.getAll({
+    filtering: { title, categoryKey },
+  });
 
   return courses;
 });

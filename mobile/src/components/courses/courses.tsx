@@ -16,7 +16,7 @@ const Courses: FC = (): ReactElement => {
 
   const handleCoursesLoad = async (): Promise<void> => {
     setIsLoading(true);
-    await dispatch(coursesActions.getCourses({}))
+    await dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }))
       .unwrap()
       .finally(() => {
         setIsLoading(false);
