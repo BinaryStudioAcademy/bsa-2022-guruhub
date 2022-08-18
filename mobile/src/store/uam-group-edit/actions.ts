@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
@@ -34,4 +34,6 @@ const editGroup = createAsyncThunk<
   return group;
 });
 
-export { editGroup, getGroupById };
+const cancelEdit = createAction(ActionType.CANCEL_EDIT);
+
+export { cancelEdit, editGroup, getGroupById };

@@ -3,7 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import { GroupGetByIdResponseDto } from '~/common/types/types';
 
-import { editGroup, getGroupById } from './actions';
+import { cancelEdit, editGroup, getGroupById } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -36,6 +36,10 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(editGroup.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+    state.group = null;
+  });
+
+  builder.addCase(cancelEdit, (state) => {
     state.group = null;
   });
 });
