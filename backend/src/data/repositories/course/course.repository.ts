@@ -1,3 +1,4 @@
+import { CourseGetByIdAndVendorKeyArgumentsDto } from '~/common/types/course/course-get-by-id-and-vendor-key-arguments-dto.type';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetResponseDto,
@@ -41,7 +42,8 @@ class Course {
   public async create(
     course: CourseCreateRequestArgumentsDto,
   ): Promise<CourseM> {
-    const { title, description, url, vendorId, courseCategoryId } = course;
+    const { title, description, url, vendorId, courseCategoryId, originalId } =
+      course;
 
     return this.#CourseModel.query().insert({
       title,
@@ -49,6 +51,7 @@ class Course {
       url,
       vendorId,
       courseCategoryId,
+      originalId,
     });
   }
 
@@ -61,6 +64,21 @@ class Course {
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
+  }
+
+  public async getByOriginalIdAndVendorKey({
+    originalId,
+    vendorKey,
+  }: CourseGetByIdAndVendorKeyArgumentsDto): Promise<CourseGetResponseDto | null> {
+    const course = await this.#CourseModel
+      .query()
+      .where('courses.original_id', originalId)
+      .andWhere('vendor.key', vendorKey)
+      .withGraphJoined('vendor')
+      .castTo<CourseGetResponseDto>()
+      .first();
+
+    return course ?? null;
   }
 }
 

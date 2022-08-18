@@ -5,6 +5,7 @@ type CourseCreateArgumentsDto = {
   description: string;
   url: string;
   vendorKey: VendorKey;
+  originalId: number;
 };
 
 export { type CourseCreateArgumentsDto };
