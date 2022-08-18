@@ -51,13 +51,13 @@ class CourseModule {
     }
 
     await Promise.all(
-      courseData.map((course) =>
-        this.create({
+      courseData.map((course) => {
+        return this.create({
           ...course,
           sortOrder: course.sort_order,
           courseId: dbCourseId,
-        }),
-      ),
+        });
+      }),
     );
   }
 }
