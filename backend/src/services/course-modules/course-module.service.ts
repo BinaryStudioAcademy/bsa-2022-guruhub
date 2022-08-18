@@ -22,12 +22,12 @@ class CourseModule {
     this.#udemyService = udemyService;
   }
 
-  public async create(
+  public create(
     moduleRequestDto: CourseModuleCreateArgumentsDto,
   ): Promise<CourseModuleGetResponseDto> {
     const { title, description, sortOrder, courseId } = moduleRequestDto;
 
-    return await this.#moduleRepository.create({
+    return this.#moduleRepository.create({
       title,
       description,
       sortOrder,
@@ -43,20 +43,22 @@ class CourseModule {
       serviceCourseId,
     );
 
-    if (courseData.length === 0) {
+    if (!courseData.length) {
       throw new CoursesModulesError({
         status: HttpCode.BAD_GATEWAY,
         message: ExceptionMessage.UDEMY_SERVER_RETURNED_AN_INVALID_RESPONSE,
       });
     }
 
-    courseData.forEach((course) => {
-      this.create({
-        ...course,
-        sortOrder: course.sort_order,
-        courseId: dbCourseId,
-      });
-    });
+    await Promise.all(
+      courseData.map((course) =>
+        this.create({
+          ...course,
+          sortOrder: course.sort_order,
+          courseId: dbCourseId,
+        }),
+      ),
+    );
   }
 }
 
