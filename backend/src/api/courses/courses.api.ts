@@ -3,12 +3,12 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { CoursesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
   CourseCreateRequestDto,
-  CoursesGetByCategoryRequestParamsDto,
+  CourseFilteringDto,
 } from '~/common/types/types';
 import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
-  coursesGetByCategory as coursesGetByCategoryValidationSchema,
+  courseFiltering as courseFilteringValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -24,16 +24,16 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
     schema: {
-      querystring: coursesGetByCategoryValidationSchema,
+      querystring: courseFilteringValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
-        Querystring: CoursesGetByCategoryRequestParamsDto;
+        Querystring: CourseFilteringDto;
       }>,
       rep,
     ) {
-      const { categoryKey } = req.query;
-      const courses = await courseService.getAll({ categoryKey });
+      const { categoryKey, title } = req.query;
+      const courses = await courseService.getAll({ categoryKey, title });
 
       return rep.status(HttpCode.OK).send(courses);
     },
