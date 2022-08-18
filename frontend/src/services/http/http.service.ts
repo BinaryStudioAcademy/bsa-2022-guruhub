@@ -71,7 +71,7 @@ class Http {
     return `${url}?${query}`;
   }
 
-  private async checkStatus(response: Response): Promise<Response | null> {
+  private async checkStatus(response: Response): Promise<Response> {
     if (!response.ok) {
       const parsedException = await response.json().catch(() => ({
         message: response.statusText,
@@ -83,19 +83,11 @@ class Http {
       });
     }
 
-    if (response.status === 204) {
-      return null;
-    }
-
     return response;
   }
 
-  private async parseJSON<T>(response: Response | null): Promise<T> {
-    if (response) {
-      return response.json();
-    }
-
-    return null as unknown as T;
+  private async parseJSON<T>(response: Response): Promise<T> {
+    return response.json();
   }
 
   private throwError(err: Error): never {

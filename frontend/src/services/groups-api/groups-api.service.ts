@@ -49,8 +49,8 @@ class GroupsApi {
     );
   }
 
-  public delete({ id }: GroupsDeleteRequestParamDto): Promise<null> {
-    return this.#http.load<null>(
+  public delete({ id }: GroupsDeleteRequestParamDto): Promise<boolean> {
+    return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
       { method: HttpMethod.DELETE },
     );
