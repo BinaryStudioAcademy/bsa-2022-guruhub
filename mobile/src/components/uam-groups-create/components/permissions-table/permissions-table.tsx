@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
+import { PaginationDefaultValue } from '~/common/enums/enums';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
-import { Table, View } from '~/components/common/common';
+import { Pagination, Table, View } from '~/components/common/common';
 import {
   getPermissionsColumns,
   getPermissionsRows,
@@ -12,9 +13,17 @@ import { useAppForm } from '~/hooks/hooks';
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
   onCheckbox: (id: number) => void;
+  pagination: {
+    page: number;
+    setPage: (page: number) => void;
+  };
 };
 
-const GroupsTable: FC<Props> = ({ permissions, onCheckbox }) => {
+const PermissionsTable: FC<Props> = ({
+  permissions,
+  onCheckbox,
+  pagination,
+}) => {
   const { control } = useAppForm({ defaultValues: {} });
 
   const permissionRows = getPermissionsRows({
@@ -32,8 +41,14 @@ const GroupsTable: FC<Props> = ({ permissions, onCheckbox }) => {
         data={permissionRows}
         columnWidthArr={[width * 0.1, width * 0.5, width * 0.3]}
       />
+      <Pagination
+        totalCount={permissions.length}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        currentPage={pagination.page}
+        onPageChange={pagination.setPage}
+      />
     </View>
   );
 };
 
-export { GroupsTable };
+export { PermissionsTable };

@@ -6,9 +6,9 @@ import { GroupsCreateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
 import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam-groups-create/common/constants/constants';
 import {
-  GroupsTable,
+  PermissionsTable,
   UsersTable,
-} from '~/components/uam-groups-create/components/conponents';
+} from '~/components/uam-groups-create/components/components';
 import {
   useAppDispatch,
   useAppForm,
@@ -26,7 +26,12 @@ import { styles } from './styles';
 const UAMGroupsCreate: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
-  const { page: usersPage, handlePageChange } = usePagination();
+  const { page: usersPage, handlePageChange: handleUserPageChange } =
+    usePagination();
+  const {
+    page: permissionsPage,
+    handlePageChange: handlePermissionsPageChange,
+  } = usePagination();
   const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
     defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
     validationSchema: groupCreateClient,
@@ -40,7 +45,12 @@ const UAMGroupsCreate: FC = () => {
 
   const paginationForUsersTable = {
     page: usersPage,
-    setPage: handlePageChange,
+    setPage: handleUserPageChange,
+  };
+
+  const paginationForPermissionsTable = {
+    page: permissionsPage,
+    setPage: handlePermissionsPageChange,
   };
 
   const { users, permissions } = useAppSelector(
@@ -88,9 +98,10 @@ const UAMGroupsCreate: FC = () => {
           pagination={paginationForUsersTable}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
-        <GroupsTable
+        <PermissionsTable
           permissions={permissions.items}
           onCheckbox={handleTogglePermissions}
+          pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
           <Button
