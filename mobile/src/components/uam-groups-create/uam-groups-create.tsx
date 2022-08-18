@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
-import { GroupsConfigureRequestDto } from '~/common/types/types';
+import { GroupsCreateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
 import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam-groups-create/common/constants/constants';
 import {
@@ -27,11 +27,10 @@ const UAMGroupsCreate: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { page: usersPage, handlePageChange } = usePagination();
-  const { control, handleSubmit, errors } =
-    useAppForm<GroupsConfigureRequestDto>({
-      defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
-      validationSchema: groupCreateClient,
-    });
+  const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
+    defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
+    validationSchema: groupCreateClient,
+  });
 
   const { items: permissionIds, handleToggle: handleTogglePermissions } =
     useSelectedItems<number>([]);

@@ -10,6 +10,7 @@ export {
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export {
   type GroupsConfigureRequestDto,
+  type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsGetByIdRequestDto,
   type GroupsGetByIdResponseDto,

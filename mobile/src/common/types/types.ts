@@ -14,7 +14,7 @@ export {
   type FormControlValues,
 } from './form/form';
 export {
-  type GroupsConfigureRequestDto,
+  type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
 } from './groups/groups';
