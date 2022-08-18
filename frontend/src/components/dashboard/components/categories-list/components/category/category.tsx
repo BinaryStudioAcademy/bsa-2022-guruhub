@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Category: FC<Props> = ({ keyName, name }) => {
-  const keyNameSnakeCase = changeStringCase({
+  const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
   });
@@ -22,7 +22,7 @@ const Category: FC<Props> = ({ keyName, name }) => {
       <Image
         width="30px"
         height="30px"
-        src={`/category-icons/${keyNameSnakeCase}.svg`}
+        src={`/category-icons/${keyNameKebabCase}.svg`}
         alt={`${keyName} img`}
         isCircular
       />
