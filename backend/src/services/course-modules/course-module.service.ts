@@ -1,11 +1,10 @@
-// import { ExceptionMessage } from '~/common/enums/enums';
+import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
   CourseModuleCreateArgumentsDto,
   CourseModuleGetResponseDto,
-  // UdemyModulesGetResponseDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
-// import { CoursesModulesError } from '~/exceptions/exceptions';
+import { CoursesModulesError } from '~/exceptions/exceptions';
 import { udemyCourseModule as udemyServ } from '~/services/services';
 
 type Constructor = {
@@ -38,6 +37,13 @@ class CourseModule {
 
   public async createModulesByCourseId(courseId: number): Promise<void> {
     const courseData = await this.#udemyService.getModulesByCourseId(courseId);
+
+    if (courseData.length === 0) {
+      throw new CoursesModulesError({
+        status: HttpCode.BAD_GATEWAY,
+        message: ExceptionMessage.UDEMY_SERVER_RETURNED_AN_INVALID_RESPONSE,
+      });
+    }
 
     courseData.forEach((course) => {
       this.create({

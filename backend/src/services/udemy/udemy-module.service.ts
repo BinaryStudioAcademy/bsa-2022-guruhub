@@ -29,7 +29,7 @@ class UdemyCourseModule extends Udemy {
     courseId: number,
   ): Promise<UdemyModuleGetResponseDto[]> {
     const initialPage = 1;
-    const modules = this.fetchAllCourseModules(initialPage, courseId);
+    const modules = await this.fetchAllCourseModules(initialPage, courseId);
 
     return modules;
   }
