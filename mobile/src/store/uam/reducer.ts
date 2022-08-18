@@ -88,11 +88,13 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(logout.fulfilled, (state) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state = initialState;
+
+    return initialState;
   });
   builder.addCase(logout.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
-    state = initialState;
+
+    return initialState;
   });
 });
 
