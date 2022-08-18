@@ -14,6 +14,7 @@ export {
   type FormControlValues,
 } from './form/form';
 export {
+  type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
 } from './groups/groups';
@@ -32,7 +33,10 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type PermissionsGetAllItemResponseDto } from './permission/permission';
+export {
+  type PermissionsGetAllItemResponseDto,
+  type PermissionsGetAllResponseDto,
+} from './permissions/permissions';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
