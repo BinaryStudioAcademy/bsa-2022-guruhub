@@ -83,8 +83,14 @@ class Group {
     const permissions = await this.#permissionService.getByIds(permissionIds);
 
     if (permissions.items.length !== permissionIds.length) {
+      const permissionsNotExist = permissionIds.filter((id) => {
+        return !permissions.items.find((p) => p.id === id);
+      });
+      const message = `Permission with id ${permissionsNotExist.join(
+        ', ',
+      )} doesn't exist.` as ExceptionMessage;
       throw new GroupsError({
-        message: ExceptionMessage.INVALID_GROUP_PERMISSIONS,
+        message,
       });
     }
 
@@ -92,8 +98,14 @@ class Group {
       const users = await this.#userService.getByIds(userIds);
 
       if (users.length !== userIds.length) {
+        const usersNotExist = userIds.filter((id) => {
+          return !users.find((user) => user.id === id);
+        });
+        const message = `User with id ${usersNotExist.join(
+          ', ',
+        )} doesn't exist.` as ExceptionMessage;
         throw new GroupsError({
-          message: ExceptionMessage.INVALID_GROUP_USERS,
+          message,
         });
       }
     }
