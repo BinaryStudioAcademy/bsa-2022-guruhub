@@ -17,9 +17,8 @@ type Props = {
   name: FormControlPath;
   placeholder?: string;
   type?: 'text' | 'email' | 'date' | 'password';
-  titleClass?: string;
-  labelClass?: string;
-  inputClass?: string;
+  hasVisuallyHiddenLabel?: boolean;
+  inputClassName?: string;
 };
 
 const Input: FC<Props> = ({
@@ -29,20 +28,26 @@ const Input: FC<Props> = ({
   name,
   placeholder = '',
   type = 'text',
-  titleClass = '',
-  labelClass = '',
-  inputClass = '',
+  hasVisuallyHiddenLabel = false,
+  inputClassName = '',
 }) => {
   const { field } = useFormControl({ name, control });
 
   return (
-    <label className={getValidClasses(styles.label, labelClass)}>
-      <span className={getValidClasses(styles.title, titleClass)}>{label}</span>
+    <label className={getValidClasses(styles.label)}>
+      <span
+        className={getValidClasses(
+          styles.title,
+          hasVisuallyHiddenLabel && styles.visuallyHidden,
+        )}
+      >
+        {label}
+      </span>
       <input
         {...field}
         type={type}
         placeholder={placeholder}
-        className={getValidClasses(styles.input, inputClass)}
+        className={getValidClasses(styles.input, inputClassName)}
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />

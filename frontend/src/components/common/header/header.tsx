@@ -3,13 +3,20 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { useAppSelector, useLocation, useState } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLocation,
+  useState,
+} from 'hooks/hooks';
+import { dashboardActions } from 'store/actions';
 
 import { Popup, SearchBar } from './components/components';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
@@ -19,13 +26,17 @@ const Header: FC = () => {
   const handlePopupOpen = (): void =>
     setIsMenuPopupVisible(!isMenuPopupVisible);
 
+  const onSearch = (search: string): void => {
+    dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
+  };
+
   return (
     <header>
       <div className={styles.headerWrapper}>
         <div className={styles.logoWrapper}>
           <Image width="150" height="94" src={logo} alt="logo" />
         </div>
-        {isRoot && <SearchBar />}
+        {isRoot && <SearchBar onSearch={onSearch} />}
         <div className={styles.userWrapper}>
           {hasUser ? (
             <button onClick={handlePopupOpen} className={styles.button}>
