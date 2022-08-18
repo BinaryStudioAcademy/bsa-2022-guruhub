@@ -40,8 +40,8 @@ class Course {
     courseCategoryService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
-    (this.#courseModuleService = courseModuleService),
-      (this.#vendorService = vendorService);
+    this.#courseModuleService = courseModuleService;
+    this.#vendorService = vendorService;
     this.#udemyService = udemyService;
     this.#courseCategoryService = courseCategoryService;
   }
