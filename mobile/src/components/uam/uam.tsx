@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import { ScrollView } from '~/components/common/common';
+import { ScrollView, View } from '~/components/common/common';
 import { useAppNavigate } from '~/hooks/hooks';
 
 import { Button } from '../common/common';
 import { GroupsTable } from './groups-table/groups-table';
+import { styles } from './style';
 import { UsersTable } from './users-table/users-table';
 
 const UAM: FC = () => {
@@ -19,7 +20,9 @@ const UAM: FC = () => {
     <ScrollView>
       <UsersTable />
       <GroupsTable />
-      <Button label="Create group" onPress={handleGroupCreate} />
+      <View style={styles.buttonWrapper}>
+        <Button label="Create group" onPress={handleGroupCreate} />
+      </View>
     </ScrollView>
   );
 };
