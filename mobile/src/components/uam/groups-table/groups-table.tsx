@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
-import { PaginationDefaultValue } from '~/common/enums/enums';
+import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
+  useAppNavigate,
   useAppSelector,
   useEffect,
   usePagination,
 } from '~/hooks/hooks';
-import { uamActions } from '~/store/actions';
+import { uamActions, uamGroupEditActions } from '~/store/actions';
 
 import { ActionCell } from './components/components';
 import { getGroupsColumns } from './helpers/helpers';
@@ -17,6 +18,7 @@ import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const { items, total } = useAppSelector((state) => state.uam.groups);
   const { page, handlePageChange } = usePagination();
@@ -25,8 +27,9 @@ const GroupsTable: FC = () => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
-  const handleGroupsItemEdit = (): void => {
-    // TODO: navigate to edit-group screen
+  const handleGroupsItemEdit = (groupId: number): void => {
+    dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
+    navigation.navigate(AppScreenName.UAM_GROUPS_EDIT);
   };
 
   const groupsColumns = getGroupsColumns();
