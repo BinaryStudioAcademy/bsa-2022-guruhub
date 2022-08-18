@@ -13,3 +13,13 @@ post:
       description: Course was successfully added
     '400':
       description: URL is invalid
+get:
+  summary: Get All Courses
+  tags:
+    - courses
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses/courses-get-all-response-dto.yaml'

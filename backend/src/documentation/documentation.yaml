@@ -24,7 +24,7 @@ paths:
     $ref: './endpoints/groups/groups-delete.yaml'
   # Courses
   /courses:
-    $ref: './endpoints/courses/course-add.yaml'
+    $ref: './endpoints/courses/courses.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
