@@ -1,5 +1,0 @@
-const CREATE_GROUP_DEFAULT_PAYLOAD = {
-  name: '',
-};
-
-export { CREATE_GROUP_DEFAULT_PAYLOAD };
