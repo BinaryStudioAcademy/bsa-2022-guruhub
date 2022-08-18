@@ -18,7 +18,7 @@ import styles from './styles.module.scss';
 const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.uam);
+  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
 
   useEffect(() => {
     dispatch(
@@ -27,7 +27,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page]);
+  }, [page, usersTotalCount]);
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -40,12 +40,12 @@ const UsersTable: FC = () => {
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={users.items} columns={columns} />
+      <Table data={users} columns={columns} />
       <Pagination
         currentPage={page}
         onPageChange={handlePageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-        totalCount={users.total}
+        totalCount={usersTotalCount}
       />
     </div>
   );
