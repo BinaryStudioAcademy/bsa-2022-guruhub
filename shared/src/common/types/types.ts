@@ -8,13 +8,7 @@ export {
   type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
-export {
-  type CourseChapterModuleResponseDto,
-  type CourseLectureModuleAssetResponseDto,
-  type CourseLectureModuleResponseDto,
-  type CoursePracticeModuleResponseDto,
-  type CourseQuizModuleResponseDto,
-} from './course-module/course-module';
+export { type CourseModuleGetResponseDto } from './course-module/course-module';
 export {
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
