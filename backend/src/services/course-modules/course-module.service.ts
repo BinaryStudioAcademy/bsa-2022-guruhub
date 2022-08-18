@@ -24,9 +24,9 @@ class CourseModule {
   }
 
   public async create(
-    quizRequestDto: CourseModuleCreateArgumentsDto,
+    moduleRequestDto: CourseModuleCreateArgumentsDto,
   ): Promise<CourseModuleGetResponseDto> {
-    const { title, description, sortOrder, courseId } = quizRequestDto;
+    const { title, description, sortOrder, courseId } = moduleRequestDto;
 
     return await this.#moduleRepository.create({
       title,
@@ -37,12 +37,15 @@ class CourseModule {
   }
 
   public async createModulesByCourseId(courseId: number): Promise<void> {
-    try {
-      const courseData = await this.#udemyService.getByCourseId(courseId);
-      JSON.stringify(courseData);
-    } catch (err) {
-      JSON.stringify(err);
-    }
+    const courseData = await this.#udemyService.getModulesByCourseId(courseId);
+
+    courseData.forEach((course) => {
+      this.create({
+        ...course,
+        sortOrder: course.sort_order,
+        courseId,
+      });
+    });
   }
 }
 

@@ -19,7 +19,7 @@ class CourseModule extends Abstract {
         relation: Model.HasOneRelation,
         modelClass: Course,
         join: {
-          from: `${DbTableName.COURSES_MODULES}.course_id`,
+          from: `${DbTableName.COURSE_MODULES}.course_id`,
           to: `${DbTableName.COURSES}.id`,
         },
       },
@@ -27,7 +27,7 @@ class CourseModule extends Abstract {
   }
 
   public static override get tableName(): string {
-    return DbTableName.COURSES_MODULES;
+    return DbTableName.COURSE_MODULES;
   }
 }
 

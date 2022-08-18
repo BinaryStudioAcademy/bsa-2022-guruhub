@@ -1,6 +1,6 @@
 type UdemyModuleGetResponseDto = {
   title: string;
-  sortOrder: number;
+  sort_order: number;
   description?: string;
 };
 
