@@ -1,32 +1,32 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
 import { GroupConfigureFieldsName } from 'components/uam-configure-group/common/enums/enums';
 import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/common/types/types';
 import { getUserColumns } from 'components/uam-configure-group/helpers/helpers';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useMemo,
-  usePagination,
-} from 'hooks/hooks';
+import { useAppSelector, useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
-import { uamActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
 type Props = {
+  users: UsersGetResponseDto[];
   onCheckboxToggle: (value: number) => void;
   selectedUserIds: number[];
+  page: number;
+  onPageChange: (page: number) => void;
 };
 
-const UsersTable: FC<Props> = ({ onCheckboxToggle, selectedUserIds }) => {
-  const { users, usersTotalCount } = useAppSelector(
+const UsersTable: FC<Props> = ({
+  users,
+  onCheckboxToggle,
+  selectedUserIds,
+  page,
+  onPageChange,
+}) => {
+  const { usersTotalCount } = useAppSelector(
     (state) => state.uamConfigureGroup,
   );
-  const dispatch = useAppDispatch();
-  const { page, handlePageChange } = usePagination({ queryName: 'users' });
   const columns = useMemo<Column<GroupConfigureUsersTableRow>[]>(() => {
     return getUserColumns({
       name: GroupConfigureFieldsName.USER_IDS,
@@ -34,15 +34,6 @@ const UsersTable: FC<Props> = ({ onCheckboxToggle, selectedUserIds }) => {
       selectedUserIds,
     });
   }, [selectedUserIds]);
-
-  useEffect(() => {
-    dispatch(
-      uamActions.getUsers({
-        page: page,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
-      }),
-    );
-  }, [page]);
 
   return (
     <div className={styles.groupWorkers}>
@@ -52,7 +43,7 @@ const UsersTable: FC<Props> = ({ onCheckboxToggle, selectedUserIds }) => {
       <Table data={users} columns={columns} />
       <Pagination
         currentPage={page}
-        onPageChange={handlePageChange}
+        onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         totalCount={usersTotalCount}
       />

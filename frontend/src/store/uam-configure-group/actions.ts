@@ -2,12 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   GroupsConfigureRequestDto,
   GroupsGetByIdRequestDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
   GroupUpdateRequestArgumentsDto,
   PermissionsGetAllResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -58,4 +61,15 @@ const updateGroup = createAsyncThunk<
   return group;
 });
 
-export { createGroup, getGroupById, getPermissions, updateGroup };
+const getUsers = createAsyncThunk<
+  EntityPagination<UsersGetResponseDto>,
+  EntityPaginationRequestQueryDto,
+  AsyncThunkConfig
+>(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
+  const { usersApi } = extra;
+  const usersDto = await usersApi.getPaginated({ page, count });
+
+  return usersDto;
+});
+
+export { createGroup, getGroupById, getPermissions, getUsers, updateGroup };

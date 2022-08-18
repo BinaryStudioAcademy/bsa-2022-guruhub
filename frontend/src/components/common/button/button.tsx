@@ -1,15 +1,25 @@
 import { AppRoute } from 'common/enums/enums';
-import { ButtonProps, FC, IconName } from 'common/types/types';
+import { FC, IconName } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
 import { ReactElement } from 'react';
 
 import { Icon, Link } from '../common';
 import styles from './styles.module.scss';
 
-const Button: FC<ButtonProps> = ({
+type Props = {
+  label?: string;
+  btnColor?: 'blue' | 'gray' | 'transparent';
+  type?: 'button' | 'submit';
+  btnType?: 'filled' | 'outlined' | 'icon';
+  to?: AppRoute | string;
+  onClick?: () => void;
+  iconName?: IconName;
+};
+
+const Button: FC<Props> = ({
   btnType = 'filled',
   type = 'button',
-  btnColor = 'blue',
+  btnColor = 'transparent',
   label,
   to,
   onClick,
@@ -18,9 +28,9 @@ const Button: FC<ButtonProps> = ({
   const isLink = Boolean(to);
 
   const getContent = (): ReactElement | string => {
-    const isIcon = Boolean(iconName);
+    const hasIcon = Boolean(iconName);
 
-    if (isIcon) {
+    if (hasIcon) {
       return (<Icon name={iconName as IconName} />) as ReactElement;
     }
 
@@ -55,4 +65,4 @@ const Button: FC<ButtonProps> = ({
   );
 };
 
-export { Button };
+export { Button, Props };

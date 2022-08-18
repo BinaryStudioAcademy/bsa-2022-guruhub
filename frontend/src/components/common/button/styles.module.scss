@@ -8,6 +8,7 @@
   letter-spacing: 0.5px;
   white-space: nowrap;
   text-decoration: none;
+  background-color: transparent;
   border: none;
   border-radius: 28px;
   outline: none;
@@ -41,9 +42,4 @@
 
 .button-outlined:hover {
   background: var(--background-gray-400);
-}
-
-.button-icon {
-  background-color: transparent;
-  border: none;
 }

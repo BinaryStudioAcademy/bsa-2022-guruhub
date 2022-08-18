@@ -1,4 +1,4 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
 import { FC, GroupsConfigureRequestDto } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
 import {
@@ -6,6 +6,7 @@ import {
   useAppForm,
   useAppSelector,
   useEffect,
+  usePagination,
   useParams,
   useSelectedItems,
 } from 'hooks/hooks';
@@ -22,7 +23,7 @@ const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const isEdit = Boolean(id);
-  const { permissions, group } = useAppSelector(
+  const { permissions, group, users } = useAppSelector(
     (state) => state.uamConfigureGroup,
   );
   const { control, handleSubmit, errors, reset } =
@@ -40,6 +41,8 @@ const UAMConfigureGroup: FC = () => {
     handleToggle: handleUserToggle,
     setItems: setDefaultUserIds,
   } = useSelectedItems<number>(group?.userIds ?? []);
+  const { page: usersPage, handlePageChange: handleUsersPageChange } =
+    usePagination({ queryName: 'users' });
 
   const onSubmit = (): void => {
     if (!isEdit) {
@@ -75,6 +78,15 @@ const UAMConfigureGroup: FC = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(
+      uamConfigureGroupActions.getUsers({
+        page: usersPage,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [usersPage]);
+
+  useEffect(() => {
     if (group) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
@@ -100,8 +112,11 @@ const UAMConfigureGroup: FC = () => {
         />
       </form>
       <UsersTable
+        users={users}
         onCheckboxToggle={handleUserToggle}
         selectedUserIds={userIds}
+        page={usersPage}
+        onPageChange={handleUsersPageChange}
       />
       <PermissionsTable
         permissions={permissions}
