@@ -7,6 +7,7 @@ import {
   DrawerNavigationItem,
 } from '~/common/types/types';
 import { UAMGroupsCreate } from '~/components/uam/components/components';
+import { UAMGroupsEdit } from '~/components/uam-groups-config/uam-groups-edit';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 
@@ -47,6 +48,10 @@ const App: FC = () => {
       <Drawer.Screen
         name={AppScreenName.UAM_GROUPS_CREATE}
         component={UAMGroupsCreate}
+      />
+      <Drawer.Screen
+        name={AppScreenName.UAM_GROUPS_EDIT}
+        component={UAMGroupsEdit}
       />
     </Drawer.Navigator>
   );

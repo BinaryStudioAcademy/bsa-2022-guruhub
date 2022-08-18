@@ -9,6 +9,7 @@ type AppNavigationParamList = {
   [AppScreenName.SETTINGS]: undefined;
   [AppScreenName.UAM]: undefined;
   [AppScreenName.UAM_GROUPS_CREATE]: undefined;
+  [AppScreenName.UAM_GROUPS_EDIT]: undefined;
 };
 
 export { type AppNavigationParamList };
