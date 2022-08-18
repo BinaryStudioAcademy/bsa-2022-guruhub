@@ -19,8 +19,8 @@ const UsersTable: FC = () => {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.uam);
 
-  const handleUserDelete = (userId: number): void => {
-    dispatch(uamActions.deleteUser({ id: userId }));
+  const handleUserDelete = async (userId: number): Promise<void> => {
+    await dispatch(uamActions.deleteUser({ id: userId }));
   };
 
   const usersColumns = getUsersColumns();
@@ -37,7 +37,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page]);
+  }, [page, users]);
 
   return (
     <View>
