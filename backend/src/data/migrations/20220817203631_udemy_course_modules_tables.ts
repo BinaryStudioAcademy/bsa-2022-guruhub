@@ -33,7 +33,7 @@ async function up(knex: Knex): Promise<void> {
       .inTable(TableName.COURSES);
     table.integer(ColumnName.MODULE_INDEX).notNullable();
     table.string(ColumnName.TITLE).notNullable();
-    table.string(ColumnName.DESCRIPTION).nullable();
+    table.text(ColumnName.DESCRIPTION).nullable();
   });
 }
 
