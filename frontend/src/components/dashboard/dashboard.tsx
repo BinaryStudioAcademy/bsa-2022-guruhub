@@ -24,7 +24,7 @@ const Dashboard: FC = () => {
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(dashboardActions.getCourses());
+    dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 

@@ -7,8 +7,8 @@ const signInResponseSchema = {
       type: 'string',
     },
     user: userWithPermissionsSchema,
-    required: ['token', 'user'],
   },
+  required: ['token', 'user'],
 };
 
 export { signInResponseSchema };

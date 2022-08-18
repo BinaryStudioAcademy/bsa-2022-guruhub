@@ -2,10 +2,13 @@ export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
+  type CourseFilteringDto,
   type CourseGetResponseDto,
-  type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
-export { type CourseCategoryGetResponseDto } from './course-category/course-category';
+export {
+  type CategoryGetAllResponseDto,
+  type CourseCategoryGetResponseDto,
+} from './course-category/course-category';
 export {
   type CourseModuleCreateArgumentsDto,
   type CourseModuleGetResponseDto,

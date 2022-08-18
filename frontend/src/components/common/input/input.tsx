@@ -5,6 +5,7 @@ import {
   FormControlPath,
 } from 'common/types/types';
 import { ErrorMessage } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
@@ -16,6 +17,8 @@ type Props = {
   name: FormControlPath;
   placeholder?: string;
   type?: 'text' | 'email' | 'date' | 'password';
+  hasVisuallyHiddenLabel?: boolean;
+  inputClassName?: string;
 };
 
 const Input: FC<Props> = ({
@@ -25,17 +28,26 @@ const Input: FC<Props> = ({
   name,
   placeholder = '',
   type = 'text',
+  hasVisuallyHiddenLabel = false,
+  inputClassName = '',
 }) => {
   const { field } = useFormControl({ name, control });
 
   return (
-    <label className={styles.label}>
-      <span className={styles.title}>{label}</span>
+    <label className={getValidClasses(styles.label)}>
+      <span
+        className={getValidClasses(
+          styles.title,
+          hasVisuallyHiddenLabel && styles.visuallyHidden,
+        )}
+      >
+        {label}
+      </span>
       <input
         {...field}
         type={type}
         placeholder={placeholder}
-        className={styles.input}
+        className={getValidClasses(styles.input, inputClassName)}
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />

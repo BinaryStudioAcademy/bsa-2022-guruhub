@@ -1,4 +1,5 @@
 export { Button } from './button/button';
+export { Checkbox } from './checkbox/checkbox';
 export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';

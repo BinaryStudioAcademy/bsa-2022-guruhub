@@ -6,11 +6,13 @@ import styles from './styles.module.scss';
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
+  placeholder?: string;
 };
 
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
+  placeholder = 'No data to display',
 }: Props<Data>): ReactElement => {
   const tableInstance = useTable({
     columns,
@@ -19,6 +21,12 @@ const Table = <Data extends Record<string, unknown>>({
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
+
+  const hasData = Boolean(data.length);
+
+  if (!hasData) {
+    return <p className={styles.placeholder}>{placeholder}</p>;
+  }
 
   return (
     <table {...getTableProps()} className={styles.table}>
