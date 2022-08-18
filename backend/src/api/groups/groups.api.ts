@@ -9,7 +9,7 @@ import {
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsUpdateRequestDto,
   GroupsUpdateRequestParamsDto,
@@ -41,7 +41,10 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: groupCreateValidationSchema,
     },
     preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
-    async handler(req: FastifyRequest<{ Body: GroupsCreateRequestDto }>, rep) {
+    async handler(
+      req: FastifyRequest<{ Body: GroupsConfigureRequestDto }>,
+      rep,
+    ) {
       const group = await groupService.create(req.body);
 
       return rep.status(HttpCode.CREATED).send(group);

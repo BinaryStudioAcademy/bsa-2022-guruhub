@@ -2,7 +2,7 @@ import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
   GroupsUpdateRequestDto,
@@ -89,7 +89,7 @@ class Group {
   }
 
   public async create(
-    groupsRequestDto: GroupsCreateRequestDto,
+    groupsRequestDto: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const groupByName = await this.#groupsRepository.getByName(name);

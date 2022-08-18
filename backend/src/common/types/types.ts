@@ -11,7 +11,7 @@ export {
 } from './course-category/course-category';
 export { type EncryptionData } from './encryption/encryption';
 export {
-  type GroupsCreateRequestDto,
+  type GroupsConfigureRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
