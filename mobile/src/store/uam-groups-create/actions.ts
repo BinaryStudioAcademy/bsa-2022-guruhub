@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   GroupsItemResponseDto,
   PermissionsGetAllResponseDto,
 } from '~/common/types/types';
@@ -22,7 +22,7 @@ const getPermissions = createAsyncThunk<
 
 const createGroup = createAsyncThunk<
   GroupsItemResponseDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   AsyncThunkConfig
 >(ActionType.CREATE_GROUP, async (payload, { extra }) => {
   const { groupsApi } = extra;

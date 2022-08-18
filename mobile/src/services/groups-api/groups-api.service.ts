@@ -7,7 +7,7 @@ import {
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
 } from '~/common/types/types';
@@ -56,7 +56,7 @@ class GroupsApi {
   }
 
   public create(
-    payload: GroupsCreateRequestDto,
+    payload: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
