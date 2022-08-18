@@ -6,13 +6,14 @@ import {
   UsersGetResponseDto,
 } from 'common/types/types';
 
-import { deleteUser, getGroups, getUsers } from './actions';
+import { deleteGroup, deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   users: EntityPagination<UsersGetResponseDto>;
   groups: GroupsItemResponseDto[];
   userDeleteDataStatus: DataStatus;
+  groupDeleteDataStatus: DataStatus;
 };
 
 const initialState: State = {
@@ -23,6 +24,7 @@ const initialState: State = {
   },
   userDeleteDataStatus: DataStatus.IDLE,
   groups: [],
+  groupDeleteDataStatus: DataStatus.IDLE,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,6 +62,19 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(deleteUser.rejected, (state) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(deleteGroup.pending, (state) => {
+    state.groupDeleteDataStatus = DataStatus.PENDING;
+  });
+
+  builder.addCase(deleteGroup.fulfilled, (state, { payload }) => {
+    state.groups = state.groups.filter((group) => group.id !== payload);
+    state.groupDeleteDataStatus = DataStatus.FULFILLED;
+  });
+
+  builder.addCase(deleteGroup.rejected, (state) => {
+    state.groupDeleteDataStatus = DataStatus.REJECTED;
   });
 });
 
