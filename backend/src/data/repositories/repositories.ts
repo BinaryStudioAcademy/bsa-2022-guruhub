@@ -3,6 +3,7 @@ import {
   CourseCategory as CourseCategoryModel,
   CourseChapterModule as CourseChapterModuleModel,
   CourseLectureModule as CourseLectureModuleModel,
+  CourseLectureModuleAsset as CourseLectureModuleAssetModel,
   CoursePracticeModule as CoursePracticeModuleModel,
   CourseQuizModule as CourseQuizModuleModel,
   Group as GroupModel,
@@ -17,6 +18,7 @@ import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
 import {
   CourseChapterModule,
+  CourseLectureAssetModule,
   CourseLectureModule,
   CoursePracticeModule,
   CourseQuizModule,
@@ -59,6 +61,9 @@ const courseQuizModule = new CourseQuizModule({
 const coursePracticeModule = new CoursePracticeModule({
   ModuleModel: CoursePracticeModuleModel,
 });
+const courseLectureAssetModule = new CourseLectureAssetModule({
+  AssetModel: CourseLectureModuleAssetModel,
+});
 const courseLectureModule = new CourseLectureModule({
   ModuleModel: CourseLectureModuleModel,
 });
@@ -71,6 +76,7 @@ export {
   course,
   courseCategory,
   courseChapterModule,
+  courseLectureAssetModule,
   courseLectureModule,
   coursePracticeModule,
   courseQuizModule,

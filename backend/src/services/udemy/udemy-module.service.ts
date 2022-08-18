@@ -1,5 +1,5 @@
 import { HttpMethod } from '~/common/enums/enums';
-import { UdemyModuleGetResponseDto } from '~/common/types/types';
+import { UdemyModulesGetResponseDto } from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
 
 import { Udemy } from './udemy.service';
@@ -20,19 +20,21 @@ class UdemyCourseModule extends Udemy {
     this.#httpService = httpService;
   }
 
-  public async getByUrl(url: URL): Promise<UdemyModuleGetResponseDto> {
-    const courseIdOrSlug = url.pathname;
+  public async getByCourseId(
+    courseId: number,
+  ): Promise<UdemyModulesGetResponseDto> {
     const headers = this.getHeaders();
-    const res = await this.#httpService.load<UdemyModuleGetResponseDto>(
-      this.getRequestUrl(courseIdOrSlug),
+
+    const res = await this.#httpService.load<UdemyModulesGetResponseDto>(
+      this.getRequestUrl(courseId),
       { headers, method: HttpMethod.GET },
     );
 
     return res;
   }
 
-  private getRequestUrl(courseIdOrSlug: string): string {
-    return `${this.#baseUrl}courses${courseIdOrSlug}/public-curriculum-items/`;
+  private getRequestUrl(courseId: number): string {
+    return `${this.#baseUrl}courses/${courseId}/public-curriculum-items/`;
   }
 }
 

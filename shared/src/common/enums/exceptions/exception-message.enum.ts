@@ -8,6 +8,8 @@ enum ExceptionMessage {
   INVALID_GROUP_USERS = 'Group users are invalid.',
   INVALID_COURSE_VENDOR = 'Course vendor is invalid.',
   INVALID_COURSE_CATEGORY = 'Course category is invalid.',
+  INVALID_COURSE_MODULE_FORMAT = 'Course module invalid format.',
+  COURSE_MODULES_NOT_FOUND = 'Course modules not found.',
   COURSE_NOT_FOUND = 'Course not found.',
   INVALID_URL_HOST = 'URL is invalid. Only courses from Udemy are supported.',
   PERMISSION_LACK = 'You do not have permission to access this resource.',

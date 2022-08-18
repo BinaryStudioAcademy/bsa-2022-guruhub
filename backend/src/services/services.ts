@@ -3,6 +3,11 @@ import { ENV } from '~/common/enums/enums';
 import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
+  courseChapterModule as courseChapterModuleRepository,
+  courseLectureAssetModule as courseLectureAssetModuleRepository,
+  courseLectureModule as courseLectureModuleRepository,
+  coursePracticeModule as coursePracticeModuleRepository,
+  courseQuizModule as courseQuizModuleRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -14,6 +19,7 @@ import {
 import { Auth } from './auth/auth.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
+import { CourseModule } from './course-modules/course-module.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -21,6 +27,7 @@ import { Http } from './http/http.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { UdemyCourse } from './udemy/udemy-course.service';
+import { UdemyCourseModule } from './udemy/udemy-module.service';
 import { User } from './user/user.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 import { Vendor } from './vendor/vendor.service';
@@ -71,11 +78,26 @@ const udemyCourse = new UdemyCourse({
   baseUrl: ENV.UDEMY.BASE_URL,
 });
 
+const udemyCourseModule = new UdemyCourseModule({
+  httpService: http,
+  baseUrl: ENV.UDEMY.BASE_URL,
+});
+
 const courseCategory = new CourseCategory({ courseCategoryRepository });
+
+const courseModule = new CourseModule({
+  chapterModuleRepository: courseChapterModuleRepository,
+  lectureModuleRepository: courseLectureModuleRepository,
+  lectureModuleAssetRepository: courseLectureAssetModuleRepository,
+  practiceModuleRepository: coursePracticeModuleRepository,
+  quizModuleRepository: courseQuizModuleRepository,
+  udemyService: udemyCourseModule,
+});
 
 const course = new Course({
   courseRepository,
   vendorService: vendor,
+  courseModuleService: courseModule,
   udemyService: udemyCourse,
   courseCategoryService: courseCategory,
 });
@@ -84,6 +106,7 @@ export {
   auth,
   course,
   courseCategory,
+  courseModule,
   encrypt,
   group,
   groupsToPermissions,
@@ -91,6 +114,7 @@ export {
   permission,
   token,
   udemyCourse,
+  udemyCourseModule,
   user,
   usersToGroups,
   vendor,

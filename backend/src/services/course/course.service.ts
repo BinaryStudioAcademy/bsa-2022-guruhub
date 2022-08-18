@@ -7,12 +7,14 @@ import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
 import {
   courseCategory as courseCategoryServ,
+  courseModule as courseModuleServ,
   udemyCourse as udemyServ,
   vendor as vendorServ,
 } from '~/services/services';
 
 type Constructor = {
   courseRepository: typeof courseRep;
+  courseModuleService: typeof courseModuleServ;
   vendorService: typeof vendorServ;
   udemyService: typeof udemyServ;
   courseCategoryService: typeof courseCategoryServ;
@@ -20,6 +22,8 @@ type Constructor = {
 
 class Course {
   #courseRepository: typeof courseRep;
+
+  #courseModuleService: typeof courseModuleServ;
 
   #vendorService: typeof vendorServ;
 
@@ -29,12 +33,14 @@ class Course {
 
   public constructor({
     courseRepository,
+    courseModuleService,
     vendorService,
     udemyService,
     courseCategoryService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
-    this.#vendorService = vendorService;
+    (this.#courseModuleService = courseModuleService),
+      (this.#vendorService = vendorService);
     this.#udemyService = udemyService;
     this.#courseCategoryService = courseCategoryService;
   }
@@ -84,7 +90,10 @@ class Course {
       case CourseHost.UDEMY:
       case CourseHost.W_UDEMY: {
         const courseData = await this.#udemyService.getByUrl(urlObject);
-        const { description, title, url } = courseData;
+
+        const { id, description, title, url } = courseData;
+
+        await this.#courseModuleService.createModulesByCourseId(id);
 
         return this.create({
           description,
