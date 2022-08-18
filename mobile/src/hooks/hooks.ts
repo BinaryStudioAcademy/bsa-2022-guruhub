@@ -6,4 +6,3 @@ export { useAppSelector } from './use-app-selector/use-app-selector.hook';
 export { usePagination } from './use-pagination/use-pagination.hook';
 export { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 export { useController as useFormControl } from 'react-hook-form';
-export { useSafeAreaInsets } from 'react-native-safe-area-context';
