@@ -91,16 +91,21 @@ class Course {
       case CourseHost.W_UDEMY: {
         const courseData = await this.#udemyService.getByUrl(urlObject);
 
-        const { id, description, title, url } = courseData;
+        const { id: udemyCourseId, description, title, url } = courseData;
 
-        await this.#courseModuleService.createModulesByCourseId(id);
-
-        return this.create({
+        const course = await this.create({
           description,
           title,
           url,
           vendorKey: VendorKey.UDEMY,
         });
+
+        await this.#courseModuleService.createModulesByCourseId(
+          udemyCourseId,
+          course.id,
+        );
+
+        return course;
       }
       default: {
         throw new CoursesError({

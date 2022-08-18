@@ -35,8 +35,13 @@ class CourseModule {
     });
   }
 
-  public async createModulesByCourseId(courseId: number): Promise<void> {
-    const courseData = await this.#udemyService.getModulesByCourseId(courseId);
+  public async createModulesByCourseId(
+    serviceCourseId: number,
+    dbCourseId: number,
+  ): Promise<void> {
+    const courseData = await this.#udemyService.getModulesByCourseId(
+      serviceCourseId,
+    );
 
     if (courseData.length === 0) {
       throw new CoursesModulesError({
@@ -49,7 +54,7 @@ class CourseModule {
       this.create({
         ...course,
         sortOrder: course.sort_order,
-        courseId,
+        courseId: dbCourseId,
       });
     });
   }

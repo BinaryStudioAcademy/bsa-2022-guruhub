@@ -8,7 +8,7 @@ import {
 
 class CoursesModulesError extends HttpError {
   public constructor({
-    message = ExceptionMessage.INVALID_COURSE_MODULE_FORMAT,
+    message = ExceptionMessage.UDEMY_SERVER_RETURNED_AN_INVALID_RESPONSE,
     status = HttpCode.BAD_REQUEST,
   } = {}) {
     super({ message, status });
