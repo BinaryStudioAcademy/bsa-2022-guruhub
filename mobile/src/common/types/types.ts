@@ -10,8 +10,12 @@ export {
   type FormControlValues,
 } from './form/form';
 export {
+  type GroupGetByIdResponseDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
+  type GroupsUpdateRequestDto,
+  type GroupsUpdateRequestParamsDto,
+  type GroupUpdateRequestParamsDto,
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
@@ -28,7 +32,10 @@ export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
-export { type PermissionsGetAllItemResponseDto } from './permission/permission';
+export {
+  type PermissionsGetAllItemResponseDto,
+  type PermissionsGetAllResponseDto,
+} from './permission/permission';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
