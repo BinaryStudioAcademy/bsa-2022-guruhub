@@ -1,11 +1,7 @@
 import {
   Course as CourseModel,
   CourseCategory as CourseCategoryModel,
-  CourseChapterModule as CourseChapterModuleModel,
-  CourseLectureModule as CourseLectureModuleModel,
-  CourseLectureModuleAsset as CourseLectureModuleAssetModel,
-  CoursePracticeModule as CoursePracticeModuleModel,
-  CourseQuizModule as CourseQuizModuleModel,
+  CourseModule as CourseModuleModel,
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   Permission as PermissionModel,
@@ -16,13 +12,7 @@ import {
 
 import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
-import {
-  CourseChapterModule,
-  CourseLectureAssetModule,
-  CourseLectureModule,
-  CoursePracticeModule,
-  CourseQuizModule,
-} from './course-module/course-module';
+import { CourseModule } from './course-module/course-module.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Permission } from './permission/permission.repository';
@@ -52,20 +42,8 @@ const usersToGroups = new UsersToGroups({
 
 const course = new Course({ CourseModel });
 
-const courseChapterModule = new CourseChapterModule({
-  ModuleModel: CourseChapterModuleModel,
-});
-const courseQuizModule = new CourseQuizModule({
-  ModuleModel: CourseQuizModuleModel,
-});
-const coursePracticeModule = new CoursePracticeModule({
-  ModuleModel: CoursePracticeModuleModel,
-});
-const courseLectureAssetModule = new CourseLectureAssetModule({
-  AssetModel: CourseLectureModuleAssetModel,
-});
-const courseLectureModule = new CourseLectureModule({
-  ModuleModel: CourseLectureModuleModel,
+const courseModule = new CourseModule({
+  ModuleModel: CourseModuleModel,
 });
 
 const vendor = new Vendor({ VendorModel });
@@ -75,11 +53,7 @@ const courseCategory = new CourseCategory({ CourseCategoryModel });
 export {
   course,
   courseCategory,
-  courseChapterModule,
-  courseLectureAssetModule,
-  courseLectureModule,
-  coursePracticeModule,
-  courseQuizModule,
+  courseModule,
   group,
   groupsToPermissions,
   permission,

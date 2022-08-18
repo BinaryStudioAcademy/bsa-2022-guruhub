@@ -3,11 +3,7 @@ import { ENV } from '~/common/enums/enums';
 import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
-  courseChapterModule as courseChapterModuleRepository,
-  courseLectureAssetModule as courseLectureAssetModuleRepository,
-  courseLectureModule as courseLectureModuleRepository,
-  coursePracticeModule as coursePracticeModuleRepository,
-  courseQuizModule as courseQuizModuleRepository,
+  courseModule as courseModuleRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -86,11 +82,7 @@ const udemyCourseModule = new UdemyCourseModule({
 const courseCategory = new CourseCategory({ courseCategoryRepository });
 
 const courseModule = new CourseModule({
-  chapterModuleRepository: courseChapterModuleRepository,
-  lectureModuleRepository: courseLectureModuleRepository,
-  lectureModuleAssetRepository: courseLectureAssetModuleRepository,
-  practiceModuleRepository: coursePracticeModuleRepository,
-  quizModuleRepository: courseQuizModuleRepository,
+  moduleRepository: courseModuleRepository,
   udemyService: udemyCourseModule,
 });
 

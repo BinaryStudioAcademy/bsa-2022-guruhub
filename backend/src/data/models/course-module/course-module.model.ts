@@ -4,10 +4,12 @@ import { Course } from 'src/data/models/models';
 
 import { DbTableName } from '~/common/enums/enums';
 
-class CoursePracticeModule extends Abstract {
+class CourseModule extends Abstract {
   public 'title': string;
 
-  public 'sortOrder': number;
+  public 'description': string;
+
+  public 'moduleIndex': number;
 
   public 'courseId': number;
 
@@ -17,7 +19,7 @@ class CoursePracticeModule extends Abstract {
         relation: Model.HasOneRelation,
         modelClass: Course,
         join: {
-          from: `${DbTableName.COURSES_PRACTICE_MODULES}.course_id`,
+          from: `${DbTableName.COURSES_MODULES}.course_id`,
           to: `${DbTableName.COURSES}.id`,
         },
       },
@@ -25,8 +27,8 @@ class CoursePracticeModule extends Abstract {
   }
 
   public static override get tableName(): string {
-    return DbTableName.COURSES_PRACTICE_MODULES;
+    return DbTableName.COURSES_MODULES;
   }
 }
 
-export { CoursePracticeModule };
+export { CourseModule };
