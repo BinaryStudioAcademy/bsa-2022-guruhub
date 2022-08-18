@@ -1,4 +1,5 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
+export { type ButtonProps } from './button/button';
 export {
   CategoryGetAllItemResponseDto,
   CategoryGetAllResponseDto,

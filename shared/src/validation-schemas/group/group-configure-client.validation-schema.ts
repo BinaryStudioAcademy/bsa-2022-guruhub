@@ -4,11 +4,11 @@ import {
   GroupValidationMessage,
   GroupValidationRule,
 } from '~/common/enums/enums';
-import { GroupsCreateRequestDto } from '~/common/types/types';
+import { GroupsConfigureRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const groupCreateClient = Joi.object({
-  [getNameOf<GroupsCreateRequestDto>('name')]: Joi.string()
+const groupConfigureClient = Joi.object({
+  [getNameOf<GroupsConfigureRequestDto>('name')]: Joi.string()
     .trim()
     .min(GroupValidationRule.NAME_MIN_LENGTH)
     .max(GroupValidationRule.NAME_MAX_LENGTH)
@@ -20,4 +20,4 @@ const groupCreateClient = Joi.object({
     }),
 });
 
-export { groupCreateClient };
+export { groupConfigureClient };

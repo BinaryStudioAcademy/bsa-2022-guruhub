@@ -10,7 +10,7 @@ import {
   useSelectedItems,
 } from 'hooks/hooks';
 import { uamConfigureGroupActions } from 'store/actions';
-import { groupCreateClient } from 'validation-schemas/validation-schemas';
+import { groupConfigureClient as groupConfigureClientSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_CONFIGURE_GROUP_PAYLOAD } from './common/default-configure-group-payload';
 import { GroupConfigureFieldsName } from './common/enums/enums';
@@ -28,7 +28,7 @@ const UAMConfigureGroup: FC = () => {
   const { control, handleSubmit, errors, reset } =
     useAppForm<GroupsCreateRequestDto>({
       defaultValues: DEFAULT_CONFIGURE_GROUP_PAYLOAD,
-      validationSchema: groupCreateClient,
+      validationSchema: groupConfigureClientSchema,
     });
   const {
     items: permissionIds,
@@ -50,18 +50,20 @@ const UAMConfigureGroup: FC = () => {
           userIds,
         }),
       );
-    } else {
-      dispatch(
-        uamConfigureGroupActions.updateGroup({
-          id: Number(id),
-          payload: {
-            name: control._formValues.name,
-            permissionIds,
-            userIds,
-          },
-        }),
-      );
+
+      return;
     }
+
+    dispatch(
+      uamConfigureGroupActions.updateGroup({
+        id: Number(id),
+        payload: {
+          name: control._formValues.name,
+          permissionIds,
+          userIds,
+        },
+      }),
+    );
   };
 
   useEffect(() => {

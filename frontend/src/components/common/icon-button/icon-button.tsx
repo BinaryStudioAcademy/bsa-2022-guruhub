@@ -1,19 +1,11 @@
-import { FC, IconName } from 'common/types/types';
+import { ButtonProps, FC } from 'common/types/types';
 
-import { Icon } from '../common';
-import styles from './styles.module.scss';
+import { Button } from '../common';
 
-type Props = {
-  iconName: IconName;
-  onClick: () => void;
-};
+type Props = Omit<ButtonProps, 'btnType'>;
 
-const IconButton: FC<Props> = ({ iconName, onClick }) => {
-  return (
-    <button className={styles.btn} type="button" onClick={onClick}>
-      <Icon name={iconName} className={styles.icon} />
-    </button>
-  );
+const IconButton: FC<Props> = (props) => {
+  return <Button {...props} btnType="icon" iconName="settings" />;
 };
 
 export { IconButton };

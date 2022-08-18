@@ -1,7 +1,7 @@
 export { courseCreate, coursesGetByCategory } from './course/course';
 export {
+  groupConfigureClient,
   groupCreate,
-  groupCreateClient,
   groupDelete,
   groupGetById,
   groupUpdate,

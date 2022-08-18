@@ -1,36 +1,41 @@
 import { AppRoute } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { ButtonProps, FC, IconName } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
+import { ReactElement } from 'react';
 
-import { Link } from '../common';
+import { Icon, Link } from '../common';
 import styles from './styles.module.scss';
 
-type Props = {
-  label: string;
-  btnColor?: 'blue' | 'gray';
-  type?: 'button' | 'submit';
-  btnType?: 'filled' | 'outlined';
-  to?: AppRoute;
-  onClick?: () => void;
-};
-
-const Button: FC<Props> = ({
+const Button: FC<ButtonProps> = ({
   btnType = 'filled',
   type = 'button',
   btnColor = 'blue',
   label,
   to,
   onClick,
+  iconName,
 }) => {
   const isLink = Boolean(to);
+
+  const getContent = (): ReactElement | string => {
+    const isIcon = Boolean(iconName);
+
+    if (isIcon) {
+      return (<Icon name={iconName as IconName} />) as ReactElement;
+    }
+
+    return label as string;
+  };
 
   if (isLink) {
     return (
       <Link
         to={to as AppRoute}
-        className={getValidClasses(styles.button, styles[`button-${btnType}`])}
+        className={getValidClasses(
+          btnType !== 'icon' && [styles.button, styles[`button-${btnType}`]],
+        )}
       >
-        {label}
+        {getContent()}
       </Link>
     );
   }
@@ -39,13 +44,15 @@ const Button: FC<Props> = ({
     <button
       type={type}
       className={getValidClasses(
-        styles.button,
-        styles[`button-${btnColor}`],
-        styles[`button-${btnType}`],
+        btnType !== 'icon' && [
+          styles.button,
+          styles[`button-${btnColor}`],
+          styles[`button-${btnType}`],
+        ],
       )}
       onClick={onClick}
     >
-      {label}
+      {getContent()}
     </button>
   );
 };
