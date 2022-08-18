@@ -48,7 +48,7 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
         req.body,
       );
 
-      return rep.status(userDetails.status).send(userDetails.userDetails);
+      return rep.send(userDetails);
     },
   });
 

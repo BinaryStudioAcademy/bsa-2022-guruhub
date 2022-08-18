@@ -21,13 +21,16 @@ class UserDetails {
   ): Promise<UserDetailsM> {
     const { lastName, firstName, gender, dateOfBirth } = userDetails;
 
-    return this.#UserDetailsModel.query().insert({
-      firstName,
-      lastName,
-      gender,
-      dateOfBirth,
-      userId,
-    });
+    return this.#UserDetailsModel
+      .query()
+      .insert({
+        firstName,
+        lastName,
+        gender,
+        dateOfBirth,
+        userId,
+      })
+      .execute();
   }
 
   public async createAvatar(

@@ -21,7 +21,7 @@ class UserDetails {
   public async updateUserDetails(
     userId: number,
     userDetailsUpdateRequestDto: UserDetailsUpdateInfoRequestDto,
-  ): Promise<UserDetailsWithStatusResponseDto> {
+  ): Promise<UserDetailsResponseDto> {
     const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
       userId,
     );
@@ -32,20 +32,22 @@ class UserDetails {
         userDetailsUpdateRequestDto,
       );
 
-      return {
-        status: HttpCode.OK,
-        userDetails: userDetails,
-      };
+      // return {
+      //   status: HttpCode.OK,
+      //   userDetails: userDetails,
+      // };
+      return userDetails;
     }
     const userDetails = await this.#userDetailsRepository.createUserDetails(
       userId,
       userDetailsUpdateRequestDto,
     );
 
-    return {
-      status: HttpCode.CREATED,
-      userDetails,
-    };
+    return userDetails;
+    // return {
+    //   status: HttpCode.CREATED,
+    //   userDetails,
+    // };
   }
 
   public async updateAvatar(
