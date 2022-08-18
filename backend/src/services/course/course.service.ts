@@ -1,6 +1,7 @@
 import { CourseHost, ExceptionMessage, VendorKey } from '~/common/enums/enums';
 import {
   CourseCreateArgumentsDto,
+  CourseFilteringDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
@@ -39,14 +40,15 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  public async getAll(filteringOpts: {
-    categoryKey: string;
-  }): Promise<CourseGetResponseDto[]> {
-    const { categoryKey } = filteringOpts;
+  public async getAll(
+    filteringOpts: CourseFilteringDto,
+  ): Promise<CourseGetResponseDto[]> {
+    const { categoryKey, title } = filteringOpts;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
 
     return this.#courseRepository.getAll({
       categoryId,
+      title,
     });
   }
 

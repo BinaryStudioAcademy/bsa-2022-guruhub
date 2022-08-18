@@ -1,4 +1,4 @@
 export {
   courseCreate,
-  coursesGetByCategory,
+  courseFiltering,
 } from 'guruhub-shared/validation-schemas/validation-schemas';

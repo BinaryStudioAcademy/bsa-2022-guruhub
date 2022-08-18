@@ -7,6 +7,7 @@ import {
 import {
   EntityPagination,
   GroupsCreateRequestDto,
+  GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -45,6 +46,13 @@ class GroupsApi {
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },
+    );
+  }
+
+  public delete({ id }: GroupsDeleteRequestParamDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      { method: HttpMethod.DELETE },
     );
   }
 }

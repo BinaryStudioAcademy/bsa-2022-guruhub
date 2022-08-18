@@ -11,6 +11,10 @@ class CourseCategory {
     this.#CourseCategoryModel = CourseCategoryModel;
   }
 
+  public async getAll(): Promise<CourseCategoryM[]> {
+    return this.#CourseCategoryModel.query();
+  }
+
   public async getByKey(key: string): Promise<CourseCategoryM | null> {
     const courseCategory = await this.#CourseCategoryModel
       .query()

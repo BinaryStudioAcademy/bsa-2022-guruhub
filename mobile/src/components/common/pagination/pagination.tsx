@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pressable, Text, View } from '~/components/common/common';
 
 import { styles } from './styles';
@@ -17,7 +18,9 @@ const Pagination: FC<Props> = ({
   currentPage,
   onPageChange,
 }) => {
-  const totalPages = Math.ceil(totalCount / pageSize);
+  const totalPages = !totalCount
+    ? PaginationDefaultValue.DEFAULT_PAGE
+    : Math.ceil(totalCount / pageSize);
   const isDisabledBack = currentPage === 1;
   const isDisabledNext = currentPage === totalPages;
 

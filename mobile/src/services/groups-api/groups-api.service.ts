@@ -8,6 +8,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   GroupGetByIdResponseDto,
+  GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
   GroupsUpdateRequestParamsDto,
@@ -76,6 +77,19 @@ class GroupsApi {
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
       {
         method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public create(
+    payload: GroupsCreateRequestDto,
+  ): Promise<GroupsItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
+      {
+        method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },

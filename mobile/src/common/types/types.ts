@@ -4,6 +4,10 @@ export {
   type RootState,
 } from './app/app';
 export {
+  type CategoryGetAllItemResponseDto,
+  type CategoryGetAllResponseDto,
+} from './category/category';
+export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
@@ -11,6 +15,7 @@ export {
 } from './form/form';
 export {
   type GroupGetByIdResponseDto,
+  type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
   type GroupsUpdateRequestDto,
@@ -35,7 +40,7 @@ export {
 export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
-} from './permission/permission';
+} from './permissions/permissions';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersByIdResponseDto,
