@@ -25,10 +25,20 @@ const GroupsTable: FC = () => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
+  const handleGroupsItemEdit = (): void => {
+    // TODO: navigate to edit-group screen
+  };
+
   const groupsColumns = getGroupsColumns();
   const groupsRows = items.map((group) => ({
     ...group,
-    action: <ActionCell id={group.id} onDelete={handleGroupsItemDelete} />,
+    action: (
+      <ActionCell
+        id={group.id}
+        onDelete={handleGroupsItemDelete}
+        onEdit={handleGroupsItemEdit}
+      />
+    ),
   }));
 
   useEffect(() => {

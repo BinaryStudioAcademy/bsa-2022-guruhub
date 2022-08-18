@@ -8,15 +8,16 @@ import { styles } from './styles';
 type Props = {
   id: number;
   onDelete: (id: number) => void;
+  onEdit: (id: number) => void;
 };
 
-const ActionCell: FC<Props> = ({ id, onDelete }) => {
+const ActionCell: FC<Props> = ({ id, onDelete, onEdit }) => {
   const handleDelete = (): void => {
     onDelete(id);
   };
 
   const handleSetting = (): void => {
-    // TODO: edit group functionality
+    onEdit(id);
   };
 
   return (
