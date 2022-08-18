@@ -6,7 +6,8 @@ import {
 } from 'common/enums/enums';
 import {
   EntityPagination,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
+  GroupsDeleteRequestParamDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
   GroupUpdateRequestArgumentsDto,
@@ -47,7 +48,7 @@ class GroupsApi {
   }
 
   public create(
-    payload: GroupsCreateRequestDto,
+    payload: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
@@ -70,6 +71,13 @@ class GroupsApi {
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },
+    );
+  }
+
+  public delete({ id }: GroupsDeleteRequestParamDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      { method: HttpMethod.DELETE },
     );
   }
 }

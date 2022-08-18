@@ -18,7 +18,7 @@ export {
   type GroupsUpdateRequestParamsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
-export { type HttpOptions } from './http/http';
+export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,

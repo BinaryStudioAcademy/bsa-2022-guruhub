@@ -4,6 +4,10 @@ export {
   type RootState,
 } from './app/app';
 export {
+  type CategoryGetAllItemResponseDto,
+  type CategoryGetAllResponseDto,
+} from './category/category';
+export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,

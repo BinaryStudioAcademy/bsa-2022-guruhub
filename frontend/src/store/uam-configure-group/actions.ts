@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   GroupsGetByIdRequestDto,
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
@@ -14,7 +14,7 @@ import { ActionType } from './common';
 
 const createGroup = createAsyncThunk<
   GroupsItemResponseDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   AsyncThunkConfig
 >(ActionType.CREATE_GROUP, async (registerPayload, { extra }) => {
   const { groupsApi, notification } = extra;

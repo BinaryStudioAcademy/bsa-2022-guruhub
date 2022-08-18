@@ -1,8 +1,14 @@
 import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 
-import { Table, Text, View } from '~/components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
+import { PaginationDefaultValue } from '~/common/enums/enums';
+import { Pagination, Table, Text, View } from '~/components/common/common';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  usePagination,
+} from '~/hooks/hooks';
 import { uamActions } from '~/store/actions';
 
 import { ActionCell } from './components/components';
@@ -12,7 +18,8 @@ import { styles } from './styles';
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const { width } = useWindowDimensions();
-  const { items } = useAppSelector((state) => state.uam.groups);
+  const { items, total } = useAppSelector((state) => state.uam.groups);
+  const { page, handlePageChange } = usePagination();
 
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
@@ -25,8 +32,13 @@ const GroupsTable: FC = () => {
   }));
 
   useEffect(() => {
-    dispatch(uamActions.getGroups());
-  }, [dispatch]);
+    dispatch(
+      uamActions.getGroups({
+        page,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [page]);
 
   return (
     <View style={styles.container}>
@@ -36,6 +48,14 @@ const GroupsTable: FC = () => {
         columns={groupsColumns}
         data={groupsRows}
       />
+      {total > 0 && (
+        <Pagination
+          totalCount={total}
+          pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+          currentPage={page}
+          onPageChange={handlePageChange}
+        />
+      )}
     </View>
   );
 };

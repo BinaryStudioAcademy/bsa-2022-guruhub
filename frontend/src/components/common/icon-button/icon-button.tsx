@@ -4,8 +4,8 @@ import { Button } from '../common';
 
 type Props = Omit<ButtonProps, 'btnType'>;
 
-const IconButton: FC<Props> = (props) => {
-  return <Button {...props} btnType="icon" iconName="settings" />;
+const IconButton: FC<Props> = ({ iconName, ...props }) => {
+  return <Button {...props} btnType="icon" iconName={iconName} />;
 };
 
 export { IconButton };

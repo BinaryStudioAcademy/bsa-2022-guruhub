@@ -1,5 +1,5 @@
 import { AppRoute } from 'common/enums/enums';
-import { FC, GroupsCreateRequestDto } from 'common/types/types';
+import { FC, GroupsConfigureRequestDto } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
 import {
   useAppDispatch,
@@ -26,7 +26,7 @@ const UAMConfigureGroup: FC = () => {
     (state) => state.uamConfigureGroup,
   );
   const { control, handleSubmit, errors, reset } =
-    useAppForm<GroupsCreateRequestDto>({
+    useAppForm<GroupsConfigureRequestDto>({
       defaultValues: DEFAULT_CONFIGURE_GROUP_PAYLOAD,
       validationSchema: groupConfigureClientSchema,
     });

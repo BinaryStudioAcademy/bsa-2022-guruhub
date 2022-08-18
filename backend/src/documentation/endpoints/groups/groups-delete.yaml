@@ -1,0 +1,17 @@
+delete:
+  summary: Group Delete
+  tags:
+    - groups
+  parameters:
+    - name: id
+      in: path
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/groups/groups-delete-request-dto.yaml'
+  responses:
+    '200':
+      description: Group successfully deleted
+    '404':
+      description: Group to delete not found

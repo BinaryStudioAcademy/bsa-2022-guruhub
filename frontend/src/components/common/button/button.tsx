@@ -44,11 +44,9 @@ const Button: FC<ButtonProps> = ({
     <button
       type={type}
       className={getValidClasses(
-        btnType !== 'icon' && [
-          styles.button,
-          styles[`button-${btnColor}`],
-          styles[`button-${btnType}`],
-        ],
+        styles.button,
+        styles[`button-${btnColor}`],
+        styles[`button-${btnType}`],
       )}
       onClick={onClick}
     >
