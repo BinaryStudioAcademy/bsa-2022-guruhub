@@ -1,0 +1,15 @@
+type: object
+properties:
+  name:
+    type: string
+    example: "Group name"
+  permissionIds:
+    type: array
+    items:
+      type: integer
+      example: [1, 2, 3]
+  userIds:
+    type: array
+    items:
+      type: integer
+      example: [1, 2, 3]

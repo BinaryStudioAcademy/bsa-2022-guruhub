@@ -1,4 +1,4 @@
-export { courseCreate, coursesGetByCategory } from './course/course';
+export { courseCreate, courseFiltering } from './course/course';
 export {
   groupConfigureClient,
   groupCreate,

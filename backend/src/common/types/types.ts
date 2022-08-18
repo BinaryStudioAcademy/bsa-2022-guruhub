@@ -2,8 +2,8 @@ export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
+  type CourseFilteringDto,
   type CourseGetResponseDto,
-  type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
 export {
   type CategoryGetAllResponseDto,

@@ -21,7 +21,12 @@ paths:
   /groups:
     $ref: './endpoints/groups/groups-get-all.yaml'
   /groups/:id:
-    $ref: './endpoints/groups/groups-by-id.yaml'
+    get:
+      $ref: './endpoints/groups/groups-get-by-id.yaml'
+    put:
+      $ref: './endpoints/groups/groups-update.yaml'
+    delete:
+      $ref: './endpoints/groups/groups-delete.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
@@ -43,6 +48,8 @@ components:
       $ref: './schemas/auth/current-user-response-dto.yaml'
     GroupsGetAllResponseDto:
       $ref: './schemas/groups/groups-get-all-response-dto.yaml'
+    GroupsUpdateRequestDto:
+      $ref: './schemas/groups/groups-update-request-dto.yaml'
     CourseCreateRequestDto:
       $ref: './schemas/courses/course-add-request-dto.yaml'
     securitySchemes:

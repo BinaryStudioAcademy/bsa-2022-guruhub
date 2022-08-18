@@ -17,14 +17,20 @@ class Course {
 
   public getAll(filteringOpts: {
     categoryId: number | null;
+    title: string;
   }): Promise<CourseGetResponseDto[]> {
-    const { categoryId } = filteringOpts ?? {};
+    const { categoryId, title } = filteringOpts ?? {};
 
     return this.#CourseModel
       .query()
       .where((builder) => {
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
+        }
+      })
+      .andWhere((builder) => {
+        if (title) {
+          builder.where('title', 'ilike', `%${title}%`);
         }
       })
       .withGraphJoined('vendor')

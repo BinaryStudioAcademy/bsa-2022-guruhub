@@ -4,6 +4,7 @@ import { ReactComponent as CrossIcon } from 'assets/icons/cross.svg';
 import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
 import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
+import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/trash-can-solid.svg';
 import { FC, IconName, SVGProps } from 'common/types/types';
@@ -20,6 +21,7 @@ const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   settings: SettingsIcon,
   cross: CrossIcon,
   delete: DeleteIcon,
+  search: SearchIcon,
 };
 
 type Props = {
