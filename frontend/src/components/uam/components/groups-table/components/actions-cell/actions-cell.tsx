@@ -18,8 +18,15 @@ const ActionsCell: FC<
       <IconButton
         iconName="settings"
         to={`${AppRoute.UAM_CONFIGURE_GROUP}/${id}`}
+        label="Edit"
+        hasVisuallyHiddenLabel
       />
-      <IconButton iconName="delete" onClick={handleDelete} />
+      <IconButton
+        iconName="delete"
+        onClick={handleDelete}
+        label="Delete"
+        hasVisuallyHiddenLabel
+      />
     </div>
   );
 };

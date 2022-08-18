@@ -128,6 +128,7 @@ const UAMConfigureGroup: FC = () => {
           <Button
             type="button"
             btnType="outlined"
+            btnColor="blue"
             label="Cancel"
             to={AppRoute.UAM}
           />
@@ -135,6 +136,7 @@ const UAMConfigureGroup: FC = () => {
             onClick={handleSubmit(onSubmit)}
             type="submit"
             label={isEdit ? 'Edit' : 'Create'}
+            btnColor="blue"
           />
         </div>
       </div>

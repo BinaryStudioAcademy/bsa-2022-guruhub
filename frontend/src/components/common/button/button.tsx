@@ -7,8 +7,9 @@ import { Icon, Link } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
-  label?: string;
-  btnColor?: 'blue' | 'gray' | 'transparent';
+  label: string;
+  hasVisuallyHiddenLabel?: boolean;
+  btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
   btnType?: 'filled' | 'outlined' | 'icon';
   to?: AppRoute | string;
@@ -18,8 +19,9 @@ type Props = {
 
 const Button: FC<Props> = ({
   btnType = 'filled',
+  hasVisuallyHiddenLabel = false,
   type = 'button',
-  btnColor = 'transparent',
+  btnColor,
   label,
   to,
   onClick,
@@ -46,6 +48,9 @@ const Button: FC<Props> = ({
         )}
       >
         {getContent()}
+        {hasVisuallyHiddenLabel && (
+          <span className={styles.visuallyHidden}>{label}</span>
+        )}
       </Link>
     );
   }
@@ -61,6 +66,9 @@ const Button: FC<Props> = ({
       onClick={onClick}
     >
       {getContent()}
+      {hasVisuallyHiddenLabel && (
+        <span className={styles.visuallyHidden}>{label}</span>
+      )}
     </button>
   );
 };

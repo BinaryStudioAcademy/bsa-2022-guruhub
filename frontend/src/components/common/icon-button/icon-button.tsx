@@ -5,15 +5,8 @@ import { Button } from '../common';
 
 type Props = Omit<ButtonProps, 'btnType'>;
 
-const IconButton: FC<Props> = ({ iconName, ...props }) => {
-  return (
-    <Button
-      {...props}
-      btnType="icon"
-      iconName={iconName}
-      btnColor="transparent"
-    />
-  );
+const IconButton: FC<Props> = ({ ...props }) => {
+  return <Button {...props} btnType="icon" />;
 };
 
 export { IconButton };
