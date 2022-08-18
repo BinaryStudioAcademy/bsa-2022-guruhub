@@ -4,6 +4,7 @@ import {
   authApi,
   groupsApi,
   notification,
+  permissionsApi,
   storage,
   usersApi,
 } from '~/services/services';
@@ -17,6 +18,7 @@ const extraArgument = {
   notification,
   storage,
   usersApi,
+  permissionsApi,
 };
 
 const store = configureStore({
