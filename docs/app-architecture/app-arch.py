@@ -10,7 +10,6 @@ from diagrams.programming.language import Nodejs
 with Diagram('Guruhub', direction='LR', filename='app-arch', curvestyle='curved'):
     mobile = Mobile('Mobile')
     desktop = Custom('Desktop', './resources/desktop.png')
-    node_js = Nodejs
 
     with Cluster('AWS'):
       elb = ELB('ELB')
