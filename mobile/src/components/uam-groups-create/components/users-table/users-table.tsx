@@ -26,7 +26,11 @@ type Props = {
 
 const UsersTable: FC<Props> = ({ users, onCheckbox, pagination }) => {
   const { control } = useAppForm({ defaultValues: {} });
-  const userRows = getUserRows({ users: users.items, onCheckbox, control });
+  const userRows = getUserRows({
+    users: users.items,
+    onToggle: onCheckbox,
+    control,
+  });
   const userColumns = getUserColumns();
   const { width } = useWindowDimensions();
 

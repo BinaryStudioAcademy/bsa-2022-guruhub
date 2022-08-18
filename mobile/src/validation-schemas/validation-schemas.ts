@@ -1,5 +1,2 @@
-export {
-  groupCreate,
-  groupCreateClient,
-} from './group/group-create.validation-schema';
+export { groupCreate, groupCreateClient } from './group/group';
 export { userSignIn, userSignUp } from './user/user';

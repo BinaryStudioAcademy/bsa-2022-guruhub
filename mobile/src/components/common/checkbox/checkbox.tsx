@@ -15,20 +15,20 @@ import { styles } from './styles';
 type Props<T extends FormControlValues> = {
   name: FormControlPath<T>;
   control: FormControl<T>;
-  onCheckbox: () => void;
+  onToggle: () => void;
 };
 
 const Checkbox = <T extends FormControlValues>({
   name,
   control,
-  onCheckbox,
+  onToggle,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
   const { value, onChange } = field;
 
   const handleToggle = (e: boolean): void => {
     onChange(e);
-    onCheckbox();
+    onToggle();
   };
 
   return (

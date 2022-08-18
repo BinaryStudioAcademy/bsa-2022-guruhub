@@ -8,23 +8,19 @@ import { UsersTableRow } from '~/components/uam-groups-create/common/types/types
 type Props = {
   users: UsersGetResponseDto[];
   control: FormControl;
-  onCheckbox: (id: number) => void;
+  onToggle: (id: number) => void;
 };
 
-const getUserRows = ({
-  users,
-  control,
-  onCheckbox,
-}: Props): UsersTableRow[] => {
+const getUserRows = ({ users, control, onToggle }: Props): UsersTableRow[] => {
   return users.map((user) => {
-    const handleCheckbox = (): void => onCheckbox(user.id);
+    const handleCheckbox = (): void => onToggle(user.id);
 
     return {
       [UserTableAccessor.CHECKBOX]: (
         <Checkbox
           name={`userIds.${user.id}`}
           control={control}
-          onCheckbox={handleCheckbox}
+          onToggle={handleCheckbox}
         />
       ),
       [UserTableAccessor.ID]: user.id,

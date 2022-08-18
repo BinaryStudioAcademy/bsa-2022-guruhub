@@ -11,13 +11,13 @@ import { PermissionsTableRow } from '~/components/uam-groups-create/common/types
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
   control: FormControl;
-  onCheckbox: (id: number) => void;
+  onToggle: (id: number) => void;
 };
 
 const getPermissionsRows = ({
   permissions,
   control,
-  onCheckbox,
+  onToggle,
 }: Props): PermissionsTableRow[] => {
   return permissions.map((permission) => {
     return {
@@ -25,7 +25,7 @@ const getPermissionsRows = ({
         <Checkbox
           name={`permissionIds.${permission.id}`}
           control={control}
-          onCheckbox={(): void => onCheckbox(permission.id)}
+          onToggle={(): void => onToggle(permission.id)}
         />
       ),
       [PermissionTableAccessor.NAME]: permission.name,

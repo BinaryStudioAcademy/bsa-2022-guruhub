@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { GroupsCreateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
-import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam-groups-create/common/types/types';
+import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam-groups-create/common/constants/constants';
 import {
   GroupsTable,
   UsersTable,
@@ -17,8 +17,8 @@ import {
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
+import { groupsCreationActions } from '~/store/actions';
 import { getUsers } from '~/store/uam/actions';
-import { createGroup, getPermissions } from '~/store/uam-groups-create/actions';
 import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 
 import { styles } from './styles';
@@ -47,29 +47,25 @@ const UAMGroupsCreate: FC = () => {
     (state) => state.uamGroupCreation,
   );
 
-  const handleCreateGroup = (): void => {
-    dispatch(
-      createGroup({
+  const handleCreateGroup = async (): Promise<void> => {
+    await dispatch(
+      groupsCreationActions.createGroup({
         name: control._formValues.name,
         permissionIds,
         userIds,
       }),
-    );
+    ).unwrap();
     navigation.navigate(AppScreenName.UAM);
   };
 
-  const handleGetUsers = (page: number): void => {
+  useEffect(() => {
     dispatch(
       getUsers({
-        page: page,
+        page: usersPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  };
-
-  useEffect(() => {
-    handleGetUsers(usersPage);
-    dispatch(getPermissions());
+    dispatch(groupsCreationActions.getPermissions());
   }, [usersPage]);
 
   return (

@@ -19,7 +19,7 @@ const GroupsTable: FC<Props> = ({ permissions, onCheckbox }) => {
 
   const permissionRows = getPermissionsRows({
     permissions: permissions,
-    onCheckbox,
+    onToggle: onCheckbox,
     control,
   });
   const permissionColumns = getPermissionsColumns();
