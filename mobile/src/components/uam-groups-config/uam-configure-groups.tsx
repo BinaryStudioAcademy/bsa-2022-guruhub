@@ -115,7 +115,7 @@ const UAMGroupsConfigure: FC = () => {
           />
         </View>
 
-        <Text style={styles.title}>Add workers to the Group - Optional</Text>
+        <Text style={styles.title}>Add users to the Group - Optional</Text>
         <UsersTable
           users={users}
           onCheckbox={handleToggleUsers}
