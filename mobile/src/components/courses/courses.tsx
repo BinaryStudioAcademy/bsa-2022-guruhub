@@ -14,10 +14,8 @@ const Courses: FC = (): ReactElement => {
   const dispatch = useAppDispatch();
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
 
-  const handleCoursesLoad = async (): Promise<void> => {
-    await dispatch(
-      coursesActions.getCourses({ title: '', categoryKey: '' }),
-    ).unwrap();
+  const handleCoursesLoad = (): void => {
+    dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
   };
 
   const handleCourseCard = (): void => {
