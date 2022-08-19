@@ -15,11 +15,11 @@ type Props = {
 
 const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
   const { title, imageUrl, vendor } = course;
-  const { name: vendorName } = vendor;
+  const { key: vendorKey } = vendor;
 
   return (
     <Pressable onPress={onCoursePress} style={styles.container}>
-      {vendorName && <VendorLabel vendorKey={vendorName} />}
+      {vendorKey && <VendorLabel vendorKey={vendorKey} />}
       <View style={styles.imageContainer}>
         <Image
           style={styles.courseImage}

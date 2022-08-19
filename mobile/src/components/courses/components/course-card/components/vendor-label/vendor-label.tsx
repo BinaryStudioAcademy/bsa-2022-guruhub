@@ -10,7 +10,7 @@ type Props = {
 };
 
 const VendorLabel: FC<Props> = ({ vendorKey }) => {
-  const Image = vendorsKeyToImage[vendorKey.toLowerCase()];
+  const Image = vendorsKeyToImage[vendorKey];
 
   return (
     <View style={styles.container}>
