@@ -22,7 +22,7 @@ import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/constants/create-group-default.constants';
 import { styles } from './styles';
 
-const UAMGroupsConfigure: FC = () => {
+const UAMConfigureGroup: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
@@ -162,4 +162,4 @@ const UAMGroupsConfigure: FC = () => {
   );
 };
 
-export { UAMGroupsConfigure };
+export { UAMConfigureGroup };
