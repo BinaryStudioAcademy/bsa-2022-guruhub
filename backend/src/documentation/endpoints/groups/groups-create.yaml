@@ -1,0 +1,13 @@
+post:
+  summary: Add new group
+  tags:
+    - groups
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/groups/groups-create-request-dto.yaml'
+  responses:
+    '201':
+      description: Group was successfully added
