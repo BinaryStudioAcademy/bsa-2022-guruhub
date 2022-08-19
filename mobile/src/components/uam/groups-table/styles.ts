@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   container: {
     maxHeight: '100%',
     marginTop: 20,
+    paddingBottom: 10,
     paddingHorizontal: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 6,

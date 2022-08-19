@@ -26,7 +26,7 @@ const Popup: FC<Props> = ({ onClose }) => {
       <ul className={styles.ul}>
         <li>
           <div>
-            <Button label="Logout" onClick={handleLogout} />
+            <Button label="Sign Out" onClick={handleLogout} />
           </div>
         </li>
       </ul>

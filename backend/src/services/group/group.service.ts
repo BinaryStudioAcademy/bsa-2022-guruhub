@@ -2,7 +2,8 @@ import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
+  GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
   GroupsUpdateRequestDto,
 } from '~/common/types/types';
@@ -49,6 +50,22 @@ class Group {
     this.#userService = userService;
   }
 
+  public async getById(id: number): Promise<GroupsGetByIdResponseDto | null> {
+    const groupWithPermissions = await this.#groupsRepository.getById(id);
+
+    if (!groupWithPermissions) {
+      throw new GroupsError({ message: ExceptionMessage.INVALID_GROUP_ID });
+    }
+
+    const users = await this.#usersToGroupsService.getUsersByGroupId(id);
+    const userIds = users?.map((user) => user.userId) ?? [];
+
+    return {
+      ...groupWithPermissions,
+      userIds,
+    };
+  }
+
   public async getPaginated({
     page,
     count,
@@ -72,7 +89,7 @@ class Group {
   }
 
   public async create(
-    groupsRequestDto: GroupsCreateRequestDto,
+    groupsRequestDto: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const groupByName = await this.#groupsRepository.getByName(name);
