@@ -22,10 +22,23 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
+  checkedUsersIds?: number[];
 };
 
-const UsersTable: FC<Props> = ({ users, onCheckbox, pagination }) => {
-  const { control } = useAppForm({ defaultValues: {} });
+const UsersTable: FC<Props> = ({
+  users,
+  onCheckbox,
+  pagination,
+  checkedUsersIds,
+}) => {
+  const checkedIds: Record<string, boolean> = {};
+  const { control } = useAppForm({
+    defaultValues: checkedUsersIds?.length
+      ? checkedUsersIds.map(
+          (checkedId) => (checkedIds[`userIds.${checkedId}`] = true),
+        )
+      : {},
+  });
   const userRows = getUserRows({
     users: users.items,
     onToggle: onCheckbox,

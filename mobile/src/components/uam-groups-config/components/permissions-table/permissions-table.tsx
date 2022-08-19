@@ -17,14 +17,23 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
+  checkedPermissionsIds?: number[];
 };
 
 const PermissionsTable: FC<Props> = ({
   permissions,
   onCheckbox,
   pagination,
+  checkedPermissionsIds,
 }) => {
-  const { control } = useAppForm({ defaultValues: {} });
+  const checkedIds: Record<string, boolean> = {};
+  const { control } = useAppForm({
+    defaultValues: checkedPermissionsIds?.length
+      ? checkedPermissionsIds.map(
+          (checkedId) => (checkedIds[`userIds.${checkedId}`] = true),
+        )
+      : {},
+  });
 
   const permissionRows = getPermissionsRows({
     permissions: permissions,
