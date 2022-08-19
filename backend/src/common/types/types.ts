@@ -3,6 +3,7 @@ export {
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetResponseDto,
 } from './course/course';
 export {
