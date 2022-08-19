@@ -44,7 +44,7 @@ const Auth: FC = () => {
       <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
       <View style={styles.circle1} />
       <View style={styles.circle2} />
-      <ScrollView keyboardShouldPersistTaps="never">
+      <ScrollView keyboardShouldPersistTaps="handled">
         {getScreen(name)}
       </ScrollView>
     </View>
