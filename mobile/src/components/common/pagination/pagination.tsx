@@ -35,16 +35,30 @@ const Pagination: FC<Props> = ({
   return (
     <View style={styles.container}>
       <Pressable
-        style={[styles.back, isDisabledBack ? styles.disabled : styles.enabled]}
+        style={styles.pressable}
         onPress={handlePreviousPageChange}
         disabled={isDisabledBack}
-      />
+      >
+        <View
+          style={[
+            styles.back,
+            isDisabledBack ? styles.disabled : styles.enabled,
+          ]}
+        />
+      </Pressable>
       <Text style={styles.textCount}>{`${currentPage} of ${totalPages}`}</Text>
       <Pressable
-        style={[styles.next, isDisabledNext ? styles.disabled : styles.enabled]}
+        style={styles.pressable}
         onPress={handleNextPageChange}
         disabled={isDisabledNext}
-      />
+      >
+        <View
+          style={[
+            styles.next,
+            isDisabledNext ? styles.disabled : styles.enabled,
+          ]}
+        />
+      </Pressable>
     </View>
   );
 };
