@@ -7,8 +7,7 @@ import {
   UsersGetResponseDto,
 } from '~/common/types/types';
 
-import { uamActions } from '../actions';
-import { getPermissions } from './actions';
+import { getPermissions, getUsersForCreation } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -28,14 +27,14 @@ const initialState: State = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(uamActions.getUsers.pending, (state) => {
+  builder.addCase(getUsersForCreation.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(uamActions.getUsers.fulfilled, (state, action) => {
+  builder.addCase(getUsersForCreation.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.users = action.payload;
   });
-  builder.addCase(uamActions.getUsers.rejected, (state) => {
+  builder.addCase(getUsersForCreation.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
