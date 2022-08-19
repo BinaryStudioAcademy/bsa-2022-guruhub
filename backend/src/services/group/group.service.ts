@@ -8,7 +8,7 @@ import {
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
-import { changeStringCase } from '~/helpers/helpers';
+import { changeStringCase, getItemsNotExistMessage } from '~/helpers/helpers';
 import {
   groupsToPermissions as groupsToPermissionsServ,
   permission as permissionServ,
@@ -86,9 +86,10 @@ class Group {
       const permissionsNotExist = permissionIds.filter((id) => {
         return !permissions.items.find((p) => p.id === id);
       });
-      const message = `Permission with id ${permissionsNotExist.join(
-        ', ',
-      )} doesn't exist.` as ExceptionMessage;
+      const message = getItemsNotExistMessage(
+        permissionsNotExist,
+        'Permission',
+      ) as ExceptionMessage;
       throw new GroupsError({
         message,
       });
@@ -101,9 +102,10 @@ class Group {
         const usersNotExist = userIds.filter((id) => {
           return !users.find((user) => user.id === id);
         });
-        const message = `User with id ${usersNotExist.join(
-          ', ',
-        )} doesn't exist.` as ExceptionMessage;
+        const message = getItemsNotExistMessage(
+          usersNotExist,
+          'User',
+        ) as ExceptionMessage;
         throw new GroupsError({
           message,
         });
