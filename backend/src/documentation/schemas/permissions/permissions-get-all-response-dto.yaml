@@ -1,0 +1,16 @@
+type: object
+properties:
+  items:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        key:
+          type: string
+          example: manage_test
+        name:
+          type: string
+          example: Manage Test

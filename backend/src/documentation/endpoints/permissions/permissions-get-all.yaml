@@ -1,0 +1,10 @@
+get:
+  summary: Get All Permissions
+  tags:
+    - permissons
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/permissions/permissions-get-all-response-dto.yaml'

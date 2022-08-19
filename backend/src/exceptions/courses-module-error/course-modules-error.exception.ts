@@ -12,7 +12,7 @@ class CoursesModulesError extends HttpError {
     status = HttpCode.BAD_REQUEST,
   } = {}) {
     super({ message, status });
-    this.name = CustomExceptionName.INVALID_COURSE_MODULE;
+    this.name = CustomExceptionName.COURSE_MODULE_ERROR;
   }
 }
 

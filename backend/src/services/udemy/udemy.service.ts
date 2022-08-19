@@ -54,7 +54,7 @@ class Udemy {
     page: number,
     courseId: number,
   ): Promise<UdemyModuleGetResponseDto[]> {
-    let modules: UdemyModuleGetResponseDto[] = [];
+    const modules: UdemyModuleGetResponseDto[] = [];
 
     let fetchedModules: UdemyModuleGetResponseDto[] =
       await this.fetchModulesPage(
@@ -62,13 +62,14 @@ class Udemy {
         this.getHeaders(),
       );
     while (fetchedModules.length === this.#MODULE_API_PAGE_SIZE) {
-      modules = modules.concat(fetchedModules);
+      modules.push(...fetchedModules);
+      const nextPage = page + 1;
       fetchedModules = await this.fetchModulesPage(
-        this.getModuleRequestUrl(courseId, ++page),
+        this.getModuleRequestUrl(courseId, nextPage),
         this.getHeaders(),
       );
     }
-    modules = modules.concat(fetchedModules);
+    modules.push(...fetchedModules);
 
     return modules;
   }
