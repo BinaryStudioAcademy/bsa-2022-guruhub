@@ -33,7 +33,7 @@ const Root: FC = () => {
   }, [dispatch, hasToken]);
 
   if (!hasUser && hasToken && dataStatus !== DataStatus.REJECTED) {
-    return <Spinner />;
+    return <Spinner isOverflow />;
   }
 
   return (
