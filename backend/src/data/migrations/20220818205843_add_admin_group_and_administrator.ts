@@ -22,7 +22,8 @@ async function up(knex: Knex): Promise<void> {
   const { email, fullName, password } = adminCridentials;
   const passwordSalt = await genSalt(USER_PASSWORD_SALT_ROUNDS);
   const passwordHash = await hash(password, passwordSalt);
-  const insertedAdmin = await knex(TableName.USERS)
+
+  const insertedAdmins = await knex(TableName.USERS)
     .insert({
       email,
       fullName,
@@ -31,43 +32,47 @@ async function up(knex: Knex): Promise<void> {
     })
     .returning('*');
 
-  const { id: adminId } = insertedAdmin[0];
+  const [insertedAdmin] = insertedAdmins;
+  const { id: adminId } = insertedAdmin;
 
-  if (adminId) {
-    const permissionIds = await knex(TableName.PERMISSIONS).select('id');
-    const premissionIdsToGive = permissionIds.map(
-      (permission) => permission.id,
-    );
+  const hasAdminId = Boolean(adminId);
 
-    const adminPermissionsDto = {
-      name: ADMIN_GROUP_NAME,
-      permissionIds: premissionIdsToGive,
-      userIds: [adminId],
-    };
-
-    const adminGroup = await knex(TableName.GROUPS)
-      .insert({
-        name: ADMIN_GROUP_NAME,
-        key: ADMIN_GROUP_NAME.toLowerCase(),
-      })
-      .returning('*');
-
-    const { id: groupId } = adminGroup[0];
-
-    await knex(TableName.USERS_TO_GROUPS).insert({
-      groupId,
-      userId: adminId,
-    });
-
-    await Promise.all(
-      adminPermissionsDto.permissionIds.map((permissionId) => {
-        return knex(TableName.GROUPS_TO_PERMISSIONS).insert({
-          groupId,
-          permissionId,
-        });
-      }),
-    );
+  if (!hasAdminId) {
+    return;
   }
+
+  const permissionIds = await knex(TableName.PERMISSIONS).select('id');
+  const premissionIdsToGive = permissionIds.map((permission) => permission.id);
+
+  const adminPermissionsDto = {
+    name: ADMIN_GROUP_NAME,
+    permissionIds: premissionIdsToGive,
+    userIds: [adminId],
+  };
+
+  const insertedAdminGroups = await knex(TableName.GROUPS)
+    .insert({
+      name: ADMIN_GROUP_NAME,
+      key: ADMIN_GROUP_NAME.toLowerCase(),
+    })
+    .returning('*');
+
+  const [adminGroup] = insertedAdminGroups;
+  const { id: groupId } = adminGroup;
+
+  await knex(TableName.USERS_TO_GROUPS).insert({
+    groupId,
+    userId: adminId,
+  });
+
+  await Promise.all(
+    adminPermissionsDto.permissionIds.map((permissionId) => {
+      return knex(TableName.GROUPS_TO_PERMISSIONS).insert({
+        groupId,
+        permissionId,
+      });
+    }),
+  );
 }
 
 async function down(knex: Knex): Promise<void> {
