@@ -20,6 +20,7 @@ paths:
   # Groups
   /groups:
     $ref: './endpoints/groups/groups-get-all.yaml'
+  /groups/:
     $ref: './endpoints/groups/groups-create.yaml'
   /groups/:id:
     $ref: './endpoints/groups/groups-manipulate.yaml'
