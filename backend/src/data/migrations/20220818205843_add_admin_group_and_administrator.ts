@@ -57,8 +57,8 @@ async function up(knex: Knex): Promise<void> {
     })
     .returning('*');
 
-  const [adminGroup] = insertedAdminGroups;
-  const { id: groupId } = adminGroup;
+  const [insertedAdminGroup] = insertedAdminGroups;
+  const { id: groupId } = insertedAdminGroup;
 
   await knex(TableName.USERS_TO_GROUPS).insert({
     groupId,
