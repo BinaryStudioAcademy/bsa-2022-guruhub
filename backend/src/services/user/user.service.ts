@@ -26,12 +26,25 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  public async getPaginated({
-    page,
-    count,
-  }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<UsersGetResponseDto>
-  > {
+  public async getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<UsersGetResponseDto>> {
+    const { page, count } = paginationData ?? {};
+
+    if (!page || !count) {
+      const result = await this.#userRepository.getAll();
+
+      return {
+        items: result.items.map((user) => ({
+          id: user.id,
+          email: user.email,
+          fullName: user.fullName,
+          createdAt: user.createdAt,
+        })),
+        total: result.total,
+      };
+    }
+
     const ZERO_INDEXED_PAGE = page - 1;
     const result = await this.#userRepository.getPaginated({
       page: ZERO_INDEXED_PAGE,

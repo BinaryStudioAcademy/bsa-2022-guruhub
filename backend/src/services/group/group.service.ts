@@ -66,12 +66,24 @@ class Group {
     };
   }
 
-  public async getPaginated({
-    page,
-    count,
-  }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<GroupsItemResponseDto>
-  > {
+  public async getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<GroupsItemResponseDto>> {
+    const { page, count } = paginationData ?? {};
+
+    if (!page || !count) {
+      const result = await this.#groupsRepository.getAll();
+
+      return {
+        items: result.items.map((group) => ({
+          id: group.id,
+          name: group.name,
+          key: group.key,
+        })),
+        total: result.total,
+      };
+    }
+
     const ZERO_INDEXED_PAGE = page - 1;
     const result = await this.#groupsRepository.getPaginated({
       page: ZERO_INDEXED_PAGE,

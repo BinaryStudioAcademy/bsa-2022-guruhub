@@ -4,7 +4,6 @@ import {
   GroupsApiPath,
   HttpCode,
   HttpMethod,
-  PaginationDefaultValue,
   PermissionKey,
 } from '~/common/enums/enums';
 import {
@@ -62,12 +61,9 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       rep,
     ) {
-      const {
-        page = PaginationDefaultValue.DEFAULT_PAGE,
-        count = PaginationDefaultValue.DEFAULT_COUNT,
-      } = req.query;
+      const { page, count } = req.query;
 
-      const groups = await groupService.getPaginated({
+      const groups = await groupService.getAll({
         page,
         count,
       });

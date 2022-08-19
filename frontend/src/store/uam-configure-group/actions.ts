@@ -67,7 +67,7 @@ const getUsers = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
   const { usersApi } = extra;
-  const usersDto = await usersApi.getPaginated({ page, count });
+  const usersDto = await usersApi.getAll({ page, count });
 
   return usersDto;
 });

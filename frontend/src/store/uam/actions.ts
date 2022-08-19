@@ -17,7 +17,7 @@ const getUsers = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
   const { usersApi } = extra;
-  const usersDto = await usersApi.getPaginated({ page, count });
+  const usersDto = await usersApi.getAll({ page, count });
 
   return usersDto;
 });
@@ -28,7 +28,7 @@ const getGroups = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_GROUPS, async ({ page, count }, { extra }) => {
   const { groupsApi } = extra;
-  const groups = await groupsApi.getPaginated({ page, count });
+  const groups = await groupsApi.getAll({ page, count });
 
   return groups;
 });

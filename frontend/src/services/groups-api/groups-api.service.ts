@@ -30,12 +30,11 @@ class GroupsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getPaginated({
-    page,
-    count,
-  }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<GroupsItemResponseDto>
-  > {
+  public getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<GroupsItemResponseDto>> {
+    const { count, page } = paginationData ?? {};
+
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
