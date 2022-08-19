@@ -9,8 +9,11 @@ export {
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export {
+  type GroupsConfigureRequestDto,
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdRequestDto,
+  type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
   type GroupsUpdateRequestDto,
   type GroupsUpdateRequestParamsDto,

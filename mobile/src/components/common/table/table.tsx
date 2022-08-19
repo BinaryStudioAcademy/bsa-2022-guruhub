@@ -23,7 +23,7 @@ const Table = <Data extends Record<string, unknown>>({
   );
 
   return (
-    <ScrollView horizontal={true}>
+    <ScrollView horizontal={true} contentContainerStyle={styles.scrollView}>
       <View style={styles.container}>
         <UITable style={styles.header}>
           {headers.map((cellData, cellIndex) => (
@@ -39,15 +39,13 @@ const Table = <Data extends Record<string, unknown>>({
             />
           ))}
         </UITable>
-        <ScrollView>
-          <UITable>
-            <Rows
-              data={tableData}
-              widthArr={columnWidthArr}
-              textStyle={styles.dataText}
-            />
-          </UITable>
-        </ScrollView>
+        <UITable>
+          <Rows
+            data={tableData}
+            widthArr={columnWidthArr}
+            textStyle={styles.dataText}
+          />
+        </UITable>
       </View>
     </ScrollView>
   );
