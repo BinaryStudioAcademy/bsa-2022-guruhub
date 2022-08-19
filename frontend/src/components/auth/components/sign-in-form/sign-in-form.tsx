@@ -47,7 +47,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
           />
         </div>
         <div className={styles.buttonWrapper}>
-          <Button type="submit" label="Sign In" />
+          <Button type="submit" label="Sign In" btnColor="blue" />
         </div>
       </form>
     </div>
