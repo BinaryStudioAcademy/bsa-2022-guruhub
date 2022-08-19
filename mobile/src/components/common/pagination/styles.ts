@@ -36,12 +36,6 @@ const styles = StyleSheet.create({
   enabled: {
     borderColor: 'white',
   },
-  pressable: {
-    height: 48,
-    width: 48,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 });
 
 export { styles };

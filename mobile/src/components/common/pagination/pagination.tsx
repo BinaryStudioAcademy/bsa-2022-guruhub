@@ -12,6 +12,8 @@ type Props = {
   onPageChange: (page: number) => void;
 };
 
+const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
+
 const Pagination: FC<Props> = ({
   totalCount,
   pageSize,
@@ -35,30 +37,18 @@ const Pagination: FC<Props> = ({
   return (
     <View style={styles.container}>
       <Pressable
-        style={styles.pressable}
+        style={[styles.back, isDisabledBack ? styles.disabled : styles.enabled]}
+        hitSlop={hitSlop}
         onPress={handlePreviousPageChange}
         disabled={isDisabledBack}
-      >
-        <View
-          style={[
-            styles.back,
-            isDisabledBack ? styles.disabled : styles.enabled,
-          ]}
-        />
-      </Pressable>
+      ></Pressable>
       <Text style={styles.textCount}>{`${currentPage} of ${totalPages}`}</Text>
       <Pressable
-        style={styles.pressable}
+        style={[styles.next, isDisabledNext ? styles.disabled : styles.enabled]}
+        hitSlop={hitSlop}
         onPress={handleNextPageChange}
         disabled={isDisabledNext}
-      >
-        <View
-          style={[
-            styles.next,
-            isDisabledNext ? styles.disabled : styles.enabled,
-          ]}
-        />
-      </Pressable>
+      ></Pressable>
     </View>
   );
 };
