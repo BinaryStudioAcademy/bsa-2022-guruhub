@@ -1,4 +1,4 @@
-import defaultUserAvatar from 'assets/img/avatar-default.svg';
+import defaultUserAvatar from 'assets/img/avatar-default-rounded.svg';
 import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
