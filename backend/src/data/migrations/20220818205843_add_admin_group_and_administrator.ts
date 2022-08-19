@@ -2,7 +2,7 @@ import { genSalt, hash } from 'bcrypt';
 import { Knex } from 'knex';
 
 import {
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
 
@@ -46,7 +46,7 @@ async function up(knex: Knex): Promise<void> {
       (permission) => permission.id,
     );
 
-    const adminPermissionsDto: GroupsCreateRequestDto = {
+    const adminPermissionsDto: GroupsConfigureRequestDto = {
       name: ADMIN_GROUP_NAME,
       permissionIds: premissionIdsToGive,
       userIds: [adminId],
