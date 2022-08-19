@@ -21,22 +21,6 @@
   background-color: var(--background-gray-400);
 }
 
-.modalClose {
-  width: 20px;
-  margin-right: 20px;
-  margin-left: auto;
-  padding-top: 5px;
-  color: var(--background-gray-200);
-  font-size: 25px;
-  background: none;
-  border: none;
-}
-
-.modalClose:hover {
-  color: white;
-  cursor: pointer;
-}
-
 .mainContent {
   display: flex;
   flex-direction: column;
