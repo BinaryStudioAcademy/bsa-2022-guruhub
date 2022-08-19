@@ -3,6 +3,7 @@ import { useState } from '~/hooks/hooks';
 type UseSelectedItemsHook<T> = {
   handleToggle: (item: T) => void;
   items: T[];
+  setItems: (items: T[]) => void;
 };
 
 const useSelectedItems = <T>(items: T[]): UseSelectedItemsHook<T> => {
@@ -20,7 +21,7 @@ const useSelectedItems = <T>(items: T[]): UseSelectedItemsHook<T> => {
     selectedItems.includes(id) ? handleRemove(id) : handleAdd(id);
   };
 
-  return { handleToggle, items: selectedItems };
+  return { handleToggle, items: selectedItems, setItems: setSelectedItems };
 };
 
 export { useSelectedItems };
