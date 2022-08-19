@@ -15,8 +15,11 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-  return knex.schema.table(TABLE_NAME, (table) => {
+  await knex.schema.table(TABLE_NAME, (table) => {
     table.dropColumn(ColumnName.ORIGINAL_ID);
+  });
+  await knex.schema.alterTable(TABLE_NAME, (table) => {
+    table.dropUnique([ColumnName.ORIGINAL_ID, ColumnName.VENDOR_ID]);
   });
 }
 
