@@ -2,17 +2,12 @@
   display: flex;
   align-items: center;
   height: 40px;
-  margin-left: 10px;
   padding: 10px;
   color: var(--typography-text-100-inverse);
   background: var(--background-gray-400);
   border: 2px solid;
   border-radius: 20px;
   cursor: pointer;
-}
-
-.category:nth-of-type(1) {
-  margin-left: 0;
 }
 
 .categoryName {
