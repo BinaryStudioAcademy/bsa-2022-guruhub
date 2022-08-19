@@ -1,5 +1,6 @@
+import { AppRoute } from 'common/enums/enums';
 import { FC, GroupsItemResponseDto } from 'common/types/types';
-import { Icon } from 'components/common/common';
+import { IconButton } from 'components/common/common';
 import { GroupsTableActionsProps } from 'components/uam/common/types/types';
 import { CellProps } from 'react-table';
 
@@ -13,9 +14,14 @@ const ActionsCell: FC<
   };
 
   return (
-    <button className={styles.deleteBtn} type="button" onClick={handleDelete}>
-      <Icon name="delete" className={styles.deleteIcon} />
-    </button>
+    <div className={styles.container}>
+      <IconButton
+        iconName="settings"
+        to={`${AppRoute.UAM_CONFIGURE_GROUP}/${id}` as AppRoute}
+        label="Edit"
+      />
+      <IconButton iconName="delete" onClick={handleDelete} label="Delete" />
+    </div>
   );
 };
 

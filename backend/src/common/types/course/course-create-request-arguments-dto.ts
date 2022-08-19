@@ -4,6 +4,7 @@ type CourseCreateRequestArgumentsDto = {
   url: string;
   vendorId: number;
   courseCategoryId?: number;
+  originalId: string;
 };
 
 export { type CourseCreateRequestArgumentsDto };
