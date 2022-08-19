@@ -17,9 +17,9 @@ import {
   useSelectedItems,
 } from '~/hooks/hooks';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
-import { getUsers } from '~/store/uam/actions';
 import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 
+import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/constants/create-group-default.constants';
 import { styles } from './styles';
 
 const UAMGroupsConfigure: FC = () => {
@@ -27,6 +27,10 @@ const UAMGroupsConfigure: FC = () => {
   const dispatch = useAppDispatch();
 
   const { group } = useAppSelector((state) => state.uamGroupEdit);
+
+  const { users, permissions } = useAppSelector(
+    (state) => state.uamGroupCreation,
+  );
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
     usePagination();
@@ -36,16 +40,23 @@ const UAMGroupsConfigure: FC = () => {
     handlePageChange: handlePermissionsPageChange,
   } = usePagination();
 
-  const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
-    defaultValues: { name: group ? group.name : '' },
-    validationSchema: groupCreateClient,
-  });
+  const { control, handleSubmit, errors, reset } =
+    useAppForm<GroupsCreateRequestDto>({
+      defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
+      validationSchema: groupCreateClient,
+    });
 
-  const { items: permissionIds, handleToggle: handleTogglePermissions } =
-    useSelectedItems<number>([]);
+  const {
+    items: permissionIds,
+    handleToggle: handleTogglePermissions,
+    setItems: setDefaultPermissionIds,
+  } = useSelectedItems<number>(group?.permissionIds ?? []);
 
-  const { items: userIds, handleToggle: handleToggleUsers } =
-    useSelectedItems<number>([]);
+  const {
+    items: userIds,
+    handleToggle: handleToggleUsers,
+    setItems: setDefaultUserIds,
+  } = useSelectedItems<number>(group?.userIds ?? []);
 
   const paginationForUsersTable = {
     page: usersPage,
@@ -56,10 +67,6 @@ const UAMGroupsConfigure: FC = () => {
     page: permissionsPage,
     setPage: handlePermissionsPageChange,
   };
-
-  const { users, permissions } = useAppSelector(
-    (state) => state.uamGroupCreation,
-  );
 
   const handleCreateGroup = async (): Promise<void> => {
     await dispatch(
@@ -73,17 +80,20 @@ const UAMGroupsConfigure: FC = () => {
   };
 
   const handleEditGroup = async (): Promise<void> => {
-    group &&
-      (await dispatch(
-        uamGroupEditActions.editGroup({
-          id: group.id,
-          payload: {
-            name: control._formValues.name,
-            permissionIds,
-            userIds,
-          },
-        }),
-      ).unwrap());
+    if (!group) {
+      return;
+    }
+
+    await dispatch(
+      uamGroupEditActions.editGroup({
+        id: group.id,
+        payload: {
+          name: control._formValues.name,
+          permissionIds,
+          userIds,
+        },
+      }),
+    ).unwrap();
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -93,14 +103,25 @@ const UAMGroupsConfigure: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(groupsCreationActions.getPermissions());
+  }, []);
+
+  useEffect(() => {
     dispatch(
-      getUsers({
+      groupsCreationActions.getUsersForCreation({
         page: usersPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-    dispatch(groupsCreationActions.getPermissions());
   }, [usersPage]);
+
+  useEffect(() => {
+    if (group) {
+      setDefaultPermissionIds(group.permissionIds);
+      setDefaultUserIds(group.userIds);
+      reset({ name: group.name });
+    }
+  }, [group]);
 
   return (
     <View style={styles.container}>
@@ -118,16 +139,14 @@ const UAMGroupsConfigure: FC = () => {
         <Text style={styles.title}>Add users to the Group - Optional</Text>
         <UsersTable
           users={users}
-          onCheckbox={handleToggleUsers}
+          onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
-          checkedUsersIds={group ? group.userIds : []}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
-          onCheckbox={handleTogglePermissions}
+          onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
-          checkedPermissionsIds={group ? group.permissionIds : []}
         />
         <View style={styles.buttonsContainer}>
           {group && (

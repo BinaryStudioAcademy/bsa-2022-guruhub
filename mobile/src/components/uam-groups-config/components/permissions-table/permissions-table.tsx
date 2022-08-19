@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
@@ -12,7 +11,7 @@ import { useAppForm } from '~/hooks/hooks';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
-  onCheckbox: (id: number) => void;
+  onCheckboxToggle: (id: number) => void;
   pagination: {
     page: number;
     setPage: (page: number) => void;
@@ -22,33 +21,24 @@ type Props = {
 
 const PermissionsTable: FC<Props> = ({
   permissions,
-  onCheckbox,
+  onCheckboxToggle,
   pagination,
-  checkedPermissionsIds,
 }) => {
-  const checkedIds: Record<string, boolean> = {};
-  const { control } = useAppForm({
-    defaultValues: checkedPermissionsIds?.length
-      ? checkedPermissionsIds.map(
-          (checkedId) => (checkedIds[`userIds.${checkedId}`] = true),
-        )
-      : {},
-  });
+  const { control } = useAppForm({ defaultValues: {} });
 
   const permissionRows = getPermissionsRows({
     permissions: permissions,
-    onToggle: onCheckbox,
+    onToggle: onCheckboxToggle,
     control,
   });
   const permissionColumns = getPermissionsColumns();
-  const { width } = useWindowDimensions();
 
   return (
     <View>
       <Table
         columns={permissionColumns}
         data={permissionRows}
-        columnWidthArr={[width * 0.1, width * 0.5, width * 0.3]}
+        columnWidthArr={[60, 200, 100]}
       />
       <Pagination
         totalCount={permissions.length}
