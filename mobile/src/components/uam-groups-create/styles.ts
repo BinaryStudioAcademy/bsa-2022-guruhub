@@ -4,9 +4,11 @@ import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
     flex: 1,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
+  },
+  innerContainer: {
+    padding: 16,
   },
   title: {
     marginBottom: 16,
