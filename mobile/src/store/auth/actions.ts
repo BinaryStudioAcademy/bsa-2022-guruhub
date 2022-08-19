@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { StorageKey } from '~/common/enums/enums';
+import { ExceptionMessage, HttpCode, StorageKey } from '~/common/enums/enums';
 import {
   AsyncThunkConfig,
   UserSignInRequestDto,
   UserSignUpRequestDto,
   UserWithPermissions,
 } from '~/common/types/types';
+import { HttpError } from '~/exceptions/exceptions';
 
 import { ActionType } from './common';
 
@@ -38,12 +39,25 @@ const loadCurrentUser = createAsyncThunk<
   UserWithPermissions,
   void,
   AsyncThunkConfig
->(ActionType.LOAD_CURRENT_USER, async (_payload, { extra }) => {
-  const { authApi } = extra;
-  const user = await authApi.getCurrentUser();
+>(
+  ActionType.LOAD_CURRENT_USER,
+  async (_payload, { dispatch, rejectWithValue, extra }) => {
+    try {
+      const { authApi } = extra;
+      const user = await authApi.getCurrentUser();
 
-  return user;
-});
+      return user;
+    } catch (err: any) {
+      const isHttpError = err instanceof HttpError;
+
+      if (isHttpError && err.status === HttpCode.UNAUTHORIZED) {
+        dispatch(logout());
+      }
+
+      return rejectWithValue(err?.message ?? ExceptionMessage.UNKNOWN_ERROR);
+    }
+  },
+);
 
 const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.LOGOUT,
