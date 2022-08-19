@@ -6,7 +6,6 @@ import {
   useAppForm,
   useAppSelector,
   useEffect,
-  useNavigate,
   usePagination,
   useParams,
   useSelectedItems,
@@ -22,7 +21,6 @@ import styles from './styles.module.scss';
 
 const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
   const isEdit = Boolean(id);
   const { permissions, group, users } = useAppSelector(
@@ -46,10 +44,6 @@ const UAMConfigureGroup: FC = () => {
   const { page: usersPage, handlePageChange: handleUsersPageChange } =
     usePagination({ queryName: 'users' });
 
-  const handleRedirectToUam = (): void => {
-    navigate(AppRoute.UAM);
-  };
-
   const handleCreateOrEdit = (): void => {
     if (!isEdit) {
       dispatch(
@@ -58,9 +52,7 @@ const UAMConfigureGroup: FC = () => {
           permissionIds,
           userIds,
         }),
-      )
-        .unwrap()
-        .then(handleRedirectToUam);
+      );
 
       return;
     }
@@ -74,9 +66,7 @@ const UAMConfigureGroup: FC = () => {
           userIds,
         },
       }),
-    )
-      .unwrap()
-      .then(handleRedirectToUam);
+    );
   };
 
   useEffect(() => {
