@@ -23,7 +23,7 @@ const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.courseImage}
-          source={{ uri: imageUrl || getImageUri(defaultCourseImage) }}
+          source={{ uri: imageUrl ?? getImageUri(defaultCourseImage) }}
         />
       </View>
       <View style={styles.innerContainer}>
