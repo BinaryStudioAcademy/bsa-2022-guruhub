@@ -17,13 +17,13 @@ const UAM: FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <ScrollView>
+      <View style={styles.container}>
         <UsersTable />
         <GroupsTable />
         <Button label="Create group" onPress={handleGroupCreate} />
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
