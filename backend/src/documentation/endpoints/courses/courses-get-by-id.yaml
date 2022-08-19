@@ -1,0 +1,18 @@
+get:
+  summary: Get Course By Id
+  tags:
+    - courses
+  parameters:
+    - name: id
+      in: path
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses/course-get-by-id-request-dto.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses/course-get-by-id-response-dto.yaml'
