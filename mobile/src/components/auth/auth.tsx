@@ -6,7 +6,7 @@ import {
   UserSignInRequestDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
-import { CustomScrollView, Image, View } from '~/components/common/common';
+import { Image, ScrollView, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
 import { authActions } from '~/store/actions';
@@ -44,7 +44,9 @@ const Auth: FC = () => {
       <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
       <View style={styles.circle1} />
       <View style={styles.circle2} />
-      <CustomScrollView>{getScreen(name)}</CustomScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        {getScreen(name)}
+      </ScrollView>
     </View>
   );
 };
