@@ -6,7 +6,6 @@ import {
 } from 'common/enums/enums';
 import {
   UserDetailsResponseDto,
-  UserDetailsUpdateImageRequestDto,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -44,21 +43,6 @@ class UserDetailsApi {
         method: HttpMethod.PUT,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
-        hasAuth: true,
-      },
-    );
-  }
-
-  public updateAvatar(
-    payload: UserDetailsUpdateImageRequestDto,
-  ): Promise<UserDetailsResponseDto> {
-    return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.DETAILS_AVATAR}`,
-      {
-        method: HttpMethod.PUT,
-        contentType: ContentType.JSON,
-        payload: JSON.stringify(payload),
-        hasAuth: true,
       },
     );
   }

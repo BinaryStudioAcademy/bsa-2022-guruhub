@@ -1,4 +1,1 @@
-export {
-  userDetailsUpdateAvatar,
-  userDetailsUpdateInfo,
-} from 'guruhub-shared/validation-schemas/validation-schemas';
+export { userDetailsUpdateInfo } from 'guruhub-shared/validation-schemas/validation-schemas';

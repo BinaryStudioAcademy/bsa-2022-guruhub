@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   UserDetailsResponseDto,
-  UserDetailsUpdateImageRequestDto,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 
@@ -35,19 +34,4 @@ const updateUserDetails = createAsyncThunk<
   },
 );
 
-const updateUserDetailsAvatar = createAsyncThunk<
-  UserDetailsResponseDto,
-  UserDetailsUpdateImageRequestDto,
-  AsyncThunkConfig
->(
-  ActionType.UPDATE_USER_DETAILS_AVATAR,
-  async (updateUserDetailsAvatarPayload, { extra }) => {
-    const { userDetailsApi } = extra;
-    const userDetails = await userDetailsApi.updateAvatar(
-      updateUserDetailsAvatarPayload,
-    );
-
-    return userDetails;
-  },
-);
-export { getUserDetails, updateUserDetails, updateUserDetailsAvatar };
+export { getUserDetails, updateUserDetails };

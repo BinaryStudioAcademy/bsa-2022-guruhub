@@ -31,16 +31,17 @@ const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
 
-const user = new User({
-  userRepository,
-  encryptService: encrypt,
-});
+const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
 const userDetails = new UserDetails({
   userDetailsRepository,
 });
 
-const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
+const user = new User({
+  userRepository,
+  encryptService: encrypt,
+  userDetailsService: userDetails,
+});
 
 const auth = new Auth({
   userService: user,

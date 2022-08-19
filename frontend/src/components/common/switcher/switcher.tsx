@@ -32,7 +32,7 @@ const Switcher: FC<Props> = ({ name, setGenderValue, selected }) => {
             styles.toggleItem,
             styles.toggleLeft,
           )}
-          onClick={(): void => handleSwitchClick(GENDER.MALE)}
+          onClick={handleSwitchClick.bind(this, GENDER.MALE)}
         >
           <div className={styles.text}>{GENDER.MALE}</div>
         </div>
@@ -42,7 +42,7 @@ const Switcher: FC<Props> = ({ name, setGenderValue, selected }) => {
             styles.toggleItem,
             styles.toggleRight,
           )}
-          onClick={(): void => handleSwitchClick(GENDER.FEMALE)}
+          onClick={handleSwitchClick.bind(this, GENDER.FEMALE)}
         >
           <div className={styles.text}>{GENDER.FEMALE}</div>
         </div>

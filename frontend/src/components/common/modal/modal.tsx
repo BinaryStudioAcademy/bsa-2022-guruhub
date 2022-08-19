@@ -1,8 +1,8 @@
 import { FC } from 'common/types/types';
+import { getValidClasses } from 'helpers/helpers';
 import { useHandleClickOutside, useRef } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
-import { getValidClasses } from '../../../helpers/dom/get-valid-classes/get-valid-classes.helper';
 import { Icon } from '../common';
 import styles from './styles.module.scss';
 

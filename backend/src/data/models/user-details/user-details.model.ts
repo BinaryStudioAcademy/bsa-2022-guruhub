@@ -7,6 +7,8 @@ class UserDetails extends Abstract {
 
   public 'lastName': string;
 
+  public 'fullName': string;
+
   public 'gender': string;
 
   public 'avatarUrl': string;

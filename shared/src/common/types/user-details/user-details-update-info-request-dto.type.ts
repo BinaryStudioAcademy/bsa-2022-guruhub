@@ -1,7 +1,8 @@
 type UserDetailsUpdateInfoRequestDto = {
-  firstName: string;
-  lastName: string;
-  gender: string;
+  firstName?: string;
+  lastName?: string;
+  fullName?: string;
+  gender?: string;
   dateOfBirth?: string;
 };
 

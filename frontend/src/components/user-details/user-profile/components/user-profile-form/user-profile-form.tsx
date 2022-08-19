@@ -81,7 +81,7 @@ const UserProfileForm: FC<Props> = ({ userDetails, onHandleUpdateProfile }) => {
       <Switcher
         setGenderValue={setFormValue}
         name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
-        selected={userDetails?.gender || 'male'}
+        selected={userDetails?.gender ?? 'male'}
       />
       <div className={styles.personalInfo}>
         <div className={styles.subtitle}>Personal information</div>

@@ -1,7 +1,4 @@
-import {
-  UserDetailsUpdateImageRequestDto,
-  UserDetailsUpdateInfoRequestDto,
-} from '~/common/types/types';
+import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,15 +12,17 @@ class UserDetails {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  public async createUserDetails(
+  public createUserDetails(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
-    const { lastName, firstName, gender, dateOfBirth } = userDetails;
+    const { fullName, lastName, firstName, gender, dateOfBirth } = userDetails;
 
     return this.#UserDetailsModel
       .query()
+      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
       .insert({
+        fullName,
         firstName,
         lastName,
         gender,
@@ -33,36 +32,26 @@ class UserDetails {
       .execute();
   }
 
-  public async createAvatar(
+  public updateUserDetails(
     userId: number,
-    userDetails: UserDetailsUpdateImageRequestDto,
-  ): Promise<UserDetailsM> {
-    const { avatarUrl } = userDetails;
-
-    return this.#UserDetailsModel.query().select('avatarUrl').insert({
-      avatarUrl,
-    });
-  }
-
-  public async updateUserDetails(
-    userId: number,
-    userDetails:
-      | UserDetailsUpdateInfoRequestDto
-      | UserDetailsUpdateImageRequestDto,
+    userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
     return this.#UserDetailsModel
       .query()
-      .patchAndFetchById(userId, userDetails);
+      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
+      .patchAndFetchById(userId, userDetails)
+      .execute();
   }
 
-  public async getByUserId(userId: number): Promise<UserDetailsM | null> {
-    const userDetails = await this.#UserDetailsModel
+  public getByUserId(userId: number): Promise<UserDetailsM | undefined> {
+    const userDetails = this.#UserDetailsModel
       .query()
       .select()
       .where({ userId })
-      .first();
+      .first()
+      .execute();
 
-    return userDetails ?? null;
+    return userDetails ?? undefined;
   }
 }
 

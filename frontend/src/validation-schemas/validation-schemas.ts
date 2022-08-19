@@ -4,7 +4,4 @@ export {
   groupCreateClient,
 } from './group/group-create.validation-schema';
 export { userSignIn, userSignUp } from './user/user';
-export {
-  userDetailsUpdateAvatar,
-  userDetailsUpdateInfo,
-} from './user-details/user-details';
+export { userDetailsUpdateInfo } from './user-details/user-details';

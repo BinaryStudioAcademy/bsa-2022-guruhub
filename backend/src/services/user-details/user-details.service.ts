@@ -1,9 +1,6 @@
-import { HttpCode } from '~/common/enums/enums';
 import {
   UserDetailsResponseDto,
-  UserDetailsUpdateImageRequestDto,
   UserDetailsUpdateInfoRequestDto,
-  UserDetailsWithStatusResponseDto,
 } from '~/common/types/types';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
 
@@ -20,7 +17,7 @@ class UserDetails {
 
   public async updateUserDetails(
     userId: number,
-    userDetailsUpdateRequestDto: UserDetailsUpdateInfoRequestDto,
+    userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto> {
     const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
       userId,
@@ -29,56 +26,18 @@ class UserDetails {
     if (userDetailsByUserId) {
       const userDetails = await this.#userDetailsRepository.updateUserDetails(
         userDetailsByUserId.id,
-        userDetailsUpdateRequestDto,
+        userDetailsUpdateInfoRequestDto,
       );
 
-      // return {
-      //   status: HttpCode.OK,
-      //   userDetails: userDetails,
-      // };
       return userDetails;
     }
+
     const userDetails = await this.#userDetailsRepository.createUserDetails(
       userId,
-      userDetailsUpdateRequestDto,
+      userDetailsUpdateInfoRequestDto,
     );
 
     return userDetails;
-    // return {
-    //   status: HttpCode.CREATED,
-    //   userDetails,
-    // };
-  }
-
-  public async updateAvatar(
-    userId: number,
-    userDetailsUpdateAvatar: UserDetailsUpdateImageRequestDto,
-  ): Promise<UserDetailsWithStatusResponseDto> {
-    const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
-      userId,
-    );
-
-    if (userDetailsByUserId) {
-      const userDetails = await this.#userDetailsRepository.updateUserDetails(
-        userDetailsByUserId.id,
-        userDetailsUpdateAvatar,
-      );
-
-      return {
-        status: HttpCode.OK,
-        userDetails: userDetails,
-      };
-    }
-
-    const userDetails = await this.#userDetailsRepository.createAvatar(
-      userId,
-      userDetailsUpdateAvatar,
-    );
-
-    return {
-      status: HttpCode.CREATED,
-      userDetails,
-    };
   }
 
   public async getByUserId(
@@ -94,6 +53,7 @@ class UserDetails {
       id: userDetails.id,
       firstName: userDetails.firstName,
       lastName: userDetails.lastName,
+      fullName: userDetails.fullName,
       avatarUrl: userDetails.avatarUrl,
       gender: userDetails.gender,
       dateOfBirth: userDetails.dateOfBirth,

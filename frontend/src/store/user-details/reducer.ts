@@ -2,11 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import { UserDetailsResponseDto } from 'common/types/types';
 
-import {
-  getUserDetails,
-  updateUserDetails,
-  updateUserDetailsAvatar,
-} from './actions';
+import { getUserDetails, updateUserDetails } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -27,7 +23,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getUserDetails.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.userDetails = action.payload;
-    state.avatarUrl = action.payload.avatarUrl;
+    state.avatarUrl = action.payload?.avatarUrl;
   });
   builder.addCase(getUserDetails.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -40,16 +36,6 @@ const reducer = createReducer(initialState, (builder) => {
     state.userDetails = action.payload;
   });
   builder.addCase(updateUserDetails.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-  builder.addCase(updateUserDetailsAvatar.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(updateUserDetailsAvatar.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.avatarUrl = action.payload.avatarUrl;
-  });
-  builder.addCase(updateUserDetailsAvatar.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

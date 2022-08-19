@@ -26,7 +26,7 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
-  type UsersByIdResponseDto,
+  type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
@@ -37,7 +37,6 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
-  type UserDetailsUpdateImageRequestDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';

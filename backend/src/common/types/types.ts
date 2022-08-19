@@ -25,8 +25,8 @@ export { type TokenPayload } from './token/token';
 export { type UdemyGetResponseDto } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
-  type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
@@ -37,10 +37,9 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
-  type UserDetailsUpdateImageRequestDto,
   type UserDetailsUpdateInfoRequestDto,
-  type UserDetailsWithStatusResponseDto,
 } from './user-details/user-details';
+export { type UserWithDetails } from './user-with-details/user-with-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';
