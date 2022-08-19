@@ -1,6 +1,6 @@
 export { courseCreate } from './course/course';
 export {
+  groupConfigureClient,
   groupCreate,
-  groupCreateClient,
 } from './group/group-create.validation-schema';
 export { userSignIn, userSignUp } from './user/user';

@@ -14,9 +14,9 @@ import {
   Spinner,
 } from 'components/common/common';
 import { Dashboard } from 'components/dashboard/dashboard';
-import { UAMGroupsCreate } from 'components/groups-create/groups-create';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
+import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
@@ -63,10 +63,18 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.UAM_CREATE_GROUP}
+          path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
             <AuthorizedWrapper>
-              <UAMGroupsCreate />
+              <UAMConfigureGroup />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.UAM_CONFIGURE_GROUP_$ID}
+          element={
+            <AuthorizedWrapper>
+              <UAMConfigureGroup />
             </AuthorizedWrapper>
           }
         />

@@ -3,6 +3,7 @@ export {
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetResponseDto,
 } from './course/course';
 export {
@@ -15,11 +16,14 @@ export {
 } from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {
-  type GroupsCreateRequestDto,
+  type GroupsConfigureRequestDto,
   type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
   type GroupsUpdateRequestDto,
   type GroupsUpdateRequestParamsDto,
+  type GroupsWithPermissionIdsDto,
+  type GroupsWithPermissionsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';

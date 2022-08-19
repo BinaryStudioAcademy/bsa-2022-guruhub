@@ -8,6 +8,7 @@
   letter-spacing: 0.5px;
   white-space: nowrap;
   text-decoration: none;
+  background-color: transparent;
   border: none;
   border-radius: 28px;
   outline: none;
@@ -22,12 +23,15 @@
 }
 
 .button:hover {
-  background: var(--hover-blue-100);
   cursor: pointer;
 }
 
 .button:disabled {
   opacity: 0.7;
+}
+
+.button:hover:not(.button-icon:hover) {
+  background: var(--hover-blue-100);
 }
 
 .button-outlined {
