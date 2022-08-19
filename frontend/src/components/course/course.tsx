@@ -25,6 +25,12 @@ const Course: FC = () => {
     return <Spinner />;
   }
 
+  if (!course) {
+    return (
+      <p className={styles.placeholder}>There is no course with provided id</p>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>

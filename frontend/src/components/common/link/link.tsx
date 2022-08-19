@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './styles.module.scss';
 
 type Props = {
-  to: AppRoute | string;
+  to: AppRoute;
   className?: string;
 };
 

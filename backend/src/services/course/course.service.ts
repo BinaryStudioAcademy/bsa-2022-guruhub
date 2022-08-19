@@ -145,8 +145,10 @@ class Course {
     return course ?? null;
   }
 
-  public getById(courseId: number): Promise<CourseGetResponseDto> {
-    return this.#courseRepository.getById(courseId);
+  public async getById(courseId: number): Promise<CourseGetResponseDto | null> {
+    const course = await this.#courseRepository.getById(courseId);
+
+    return course ?? null;
   }
 }
 
