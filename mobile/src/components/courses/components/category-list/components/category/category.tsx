@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Pressable, Text, View } from '~/components/common/common';
-import { useState } from '~/hooks/hooks';
+import { useEffect, useState } from '~/hooks/hooks';
 
 import { categoryKeyToImage } from '../../common/maps/maps';
 import { CategoryImage } from '../category-image/category-image';
@@ -16,8 +16,8 @@ type Props = {
 
 const Category: FC<Props> = ({ keyName, name, onPress }) => {
   const [isActive, setIsActive] = useState(false);
+  const [borderColor, setBorderColor] = useState('');
 
-  const borderColor = getRandomColor();
   const imageKeys = Object.keys(categoryKeyToImage);
   const hasImage = imageKeys.includes(keyName);
 
@@ -25,6 +25,10 @@ const Category: FC<Props> = ({ keyName, name, onPress }) => {
     setIsActive(!isActive);
     onPress();
   };
+
+  useEffect(() => {
+    setBorderColor(getRandomColor());
+  }, []);
 
   return (
     <Pressable onPress={handlePress}>
