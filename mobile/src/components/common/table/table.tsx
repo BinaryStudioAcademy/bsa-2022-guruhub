@@ -39,15 +39,13 @@ const Table = <Data extends Record<string, unknown>>({
             />
           ))}
         </UITable>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <UITable>
-            <Rows
-              data={tableData}
-              widthArr={columnWidthArr}
-              textStyle={styles.dataText}
-            />
-          </UITable>
-        </ScrollView>
+        <UITable>
+          <Rows
+            data={tableData}
+            widthArr={columnWidthArr}
+            textStyle={styles.dataText}
+          />
+        </UITable>
       </View>
     </ScrollView>
   );
