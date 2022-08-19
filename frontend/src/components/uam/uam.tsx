@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 const UAM: FC = () => {
   return (
     <div className={styles.uam}>
-      <h1 className={styles.pageTitle}>User Access Managment</h1>
+      <h1 className={styles.pageTitle}>User Access Management</h1>
       <UsersTable />
       <GroupsTable />
     </div>
