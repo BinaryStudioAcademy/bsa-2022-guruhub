@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (e: React.MouseEvent) => void;
   title: string;
   children: ReactNode;
 };

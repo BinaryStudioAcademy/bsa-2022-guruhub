@@ -2,7 +2,7 @@ import { RefObject, useEffect } from 'react';
 
 type UseHandleClickOutsideArgs = {
   ref: RefObject<HTMLElement>;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
 };
 
 const useHandleClickOutside = ({
@@ -10,16 +10,16 @@ const useHandleClickOutside = ({
   onClick,
 }: UseHandleClickOutsideArgs): void => {
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent): void => {
+    const handleClickOutside = (e: React.MouseEvent | MouseEvent): void => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        onClick();
+        onClick(e as React.MouseEvent);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [onClick]);
 };

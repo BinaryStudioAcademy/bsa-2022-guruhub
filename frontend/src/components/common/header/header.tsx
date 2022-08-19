@@ -23,8 +23,10 @@ const Header: FC = () => {
   const isRoot = location.pathname === AppRoute.ROOT;
   const hasUser = Boolean(user);
 
-  const handlePopupOpen = (): void =>
+  const handlePopupOpen = (e: React.MouseEvent | void): void => {
+    e?.stopPropagation();
     setIsMenuPopupVisible(!isMenuPopupVisible);
+  };
 
   const handleSearch = (search: string): void => {
     dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
