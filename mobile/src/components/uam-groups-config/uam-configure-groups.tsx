@@ -84,11 +84,13 @@ const UAMConfigureGroup: FC = () => {
       return;
     }
 
+    const groupName = control._formValues.name;
+
     await dispatch(
       uamGroupEditActions.editGroup({
         id: group.id,
         payload: {
-          name: control._formValues.name,
+          name: groupName,
           permissionIds,
           userIds,
         },
@@ -149,11 +151,9 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          {group && (
-            <Button label="Cancel" onPress={handleSubmit(handleCancelEdit)} />
-          )}
+          {group && <Button label="Cancel" onPress={handleCancelEdit} />}
           <Button
-            label="Create group"
+            label={`${group ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(group ? handleEditGroup : handleCreateGroup)}
           />
         </View>
