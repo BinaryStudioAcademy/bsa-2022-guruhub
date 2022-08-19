@@ -26,6 +26,11 @@ const ProtectedRoute: FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const hasUser = Boolean(user);
+
+  if (!hasUser) {
+    return <Navigate to={redirectTo} />;
+  }
+
   const hasUserPermission = checkHasPermission({
     permissionKeys: permissions,
     userPermissions: (user as UserWithPermissions).permissions,
@@ -42,7 +47,7 @@ const ProtectedRoute: FC<Props> = ({
     }
   }, [dispatch, hasUserPermission]);
 
-  if (!hasUser || !hasUserPermission) {
+  if (!hasUserPermission) {
     return <Navigate to={redirectTo} />;
   }
 
