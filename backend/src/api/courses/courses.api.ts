@@ -10,7 +10,7 @@ import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
-  courseGet as courseGetValidationSchema,
+  courseGetParams as courseGetValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {

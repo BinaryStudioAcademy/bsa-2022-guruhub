@@ -1,5 +1,5 @@
 export {
   courseCreate,
   courseFiltering,
-  courseGet,
+  courseGetParams,
 } from 'guruhub-shared/validation-schemas/validation-schemas';

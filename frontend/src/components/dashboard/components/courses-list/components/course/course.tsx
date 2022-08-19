@@ -1,6 +1,7 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { CourseGetResponseDto, FC } from 'common/types/types';
 import { Image } from 'components/common/common';
+import { useNavigate } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -9,6 +10,12 @@ type Props = {
 };
 
 const Course: FC<Props> = ({ course }) => {
+  const navigate = useNavigate();
+
+  const handleLoadCourse = (): void => {
+    navigate(`/courses/${course.id}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.vendor}>
@@ -20,7 +27,7 @@ const Course: FC<Props> = ({ course }) => {
         />
       </div>
       <div className={styles.content}>
-        <div className={styles.image}>
+        <div className={styles.image} onClick={handleLoadCourse}>
           <Image
             alt="course image"
             src={course.imageUrl || defaultCourseImage}
