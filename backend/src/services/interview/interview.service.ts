@@ -20,7 +20,26 @@ class Interview {
 
     return {
       items: interviews.map((interview) => ({
-        ...interview,
+        id: interview.id,
+        interviewDate: interview.interviewDate,
+        status: interview.status,
+        interviewee: {
+          id: interview.interviewee.id,
+          fullName: interview.interviewee.fullName,
+          email: interview.interviewee.email,
+          createdAt: interview.interviewee.createdAt,
+        },
+        interviewer: {
+          id: interview.interviewer.id,
+          fullName: interview.interviewer.fullName,
+          email: interview.interviewer.email,
+          createdAt: interview.interviewer.createdAt,
+        },
+        courseCategory: {
+          id: interview.courseCategory.id,
+          key: interview.courseCategory.key,
+          name: interview.courseCategory.name,
+        },
       })),
     };
   }
@@ -32,7 +51,28 @@ class Interview {
       return null;
     }
 
-    return interview;
+    return {
+      id: interview.id,
+      interviewDate: interview.interviewDate,
+      status: interview.status,
+      interviewee: {
+        id: interview.interviewee.id,
+        fullName: interview.interviewee.fullName,
+        email: interview.interviewee.email,
+        createdAt: interview.interviewee.createdAt,
+      },
+      interviewer: {
+        id: interview.interviewer.id,
+        fullName: interview.interviewer.fullName,
+        email: interview.interviewer.email,
+        createdAt: interview.interviewer.createdAt,
+      },
+      courseCategory: {
+        id: interview.courseCategory.id,
+        key: interview.courseCategory.key,
+        name: interview.courseCategory.name,
+      },
+    };
   }
 }
 

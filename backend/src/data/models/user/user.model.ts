@@ -3,7 +3,7 @@ import { Model, RelationMappings } from 'objection';
 import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
-import { Group } from '../models';
+import { Group, Interview } from '../models';
 
 class User extends Abstract {
   public 'email': string;
@@ -26,6 +26,22 @@ class User extends Abstract {
             to: `${DbTableName.USERS_TO_GROUPS}.group_id`,
           },
           to: `${DbTableName.GROUPS}.id`,
+        },
+      },
+      interviewee: {
+        relation: Model.HasManyRelation,
+        modelClass: Interview,
+        join: {
+          from: `${DbTableName.USERS}.id`,
+          to: `${DbTableName.INTERVIEWS}.interviewee_user_id`,
+        },
+      },
+      interviewer: {
+        relation: Model.HasManyRelation,
+        modelClass: Interview,
+        join: {
+          from: `${DbTableName.USERS}.id`,
+          to: `${DbTableName.INTERVIEWS}.interviewer_user_id`,
         },
       },
     };

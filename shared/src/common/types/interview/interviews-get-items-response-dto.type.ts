@@ -1,4 +1,4 @@
-import { InterviewResponseDto } from './interview-get-all-item-response-dto.type';
+import { InterviewResponseDto } from './interview-get-response-dto.type';
 
 type InterviewsResponseDto = {
   items: InterviewResponseDto[];
