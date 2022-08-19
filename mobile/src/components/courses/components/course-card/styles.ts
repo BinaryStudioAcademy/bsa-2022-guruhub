@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 16,
   },
-  inner_container: {
+  innerContainer: {
     paddingHorizontal: 6,
   },
   pressed: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 135,
   },
-  course_image: {
+  courseImage: {
     width: '100%',
     height: 135,
     resizeMode: 'contain',

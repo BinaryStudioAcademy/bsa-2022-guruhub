@@ -15,19 +15,12 @@ const Courses: FC = (): ReactElement => {
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
 
   const handleCoursesLoad = async (): Promise<void> => {
-    setIsLoading(true);
-    await dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }))
-      .unwrap()
-      .finally(() => {
-        setIsLoading(false);
-      });
+    await dispatch(
+      coursesActions.getCourses({ title: '', categoryKey: '' }),
+    ).unwrap();
   };
 
-  useEffect(() => {
-    handleCoursesLoad();
-  }, [dispatch, setIsLoading]);
-
-  const handleOnCourseCard = (): void => {
+  const handleCourseCard = (): void => {
     //add onPress
   };
 
@@ -39,7 +32,11 @@ const Courses: FC = (): ReactElement => {
     //add fetch
   };
 
-  if (dataStatus === DataStatus.PENDING || isLoading) {
+  useEffect(() => {
+    handleCoursesLoad();
+  }, [dispatch, setIsLoading]);
+
+  if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
 
@@ -49,7 +46,7 @@ const Courses: FC = (): ReactElement => {
         data={courses}
         keyExtractor={({ id }): string => id.toString()}
         renderItem={({ item: course }): ReactElement => (
-          <CourseCard course={course} onCoursePress={handleOnCourseCard} />
+          <CourseCard course={course} onCoursePress={handleCourseCard} />
         )}
         refreshControl={
           <RefreshControl

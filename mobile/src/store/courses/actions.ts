@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
+  AsyncThunkConfig,
   CourseFilteringDto,
   CourseGetResponseDto,
-} from '~/common/types/courses/courses';
-import { AsyncThunkConfig } from '~/common/types/types';
+} from '~/common/types/types';
 
 import { ActionType } from './common';
 

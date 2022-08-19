@@ -19,14 +19,14 @@ const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
 
   return (
     <Pressable onPress={onCoursePress} style={styles.container}>
-      {vendorName && <VendorLabel vendorName={vendorName} />}
+      {vendorName && <VendorLabel vendorKey={vendorName} />}
       <View style={styles.imageContainer}>
         <Image
-          style={styles.course_image}
+          style={styles.courseImage}
           source={{ uri: imageUrl || getImageUri(defaultCourseImage) }}
         />
       </View>
-      <View style={styles.inner_container}>
+      <View style={styles.innerContainer}>
         <Text style={styles.title}>{title}</Text>
       </View>
     </Pressable>
