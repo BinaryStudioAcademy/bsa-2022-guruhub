@@ -2,7 +2,7 @@ import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button, Image } from 'components/common/common';
+import { Button, Image, Link } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -34,7 +34,9 @@ const Header: FC = () => {
     <header>
       <div className={styles.headerWrapper}>
         <div className={styles.logoWrapper}>
-          <Image width="150" height="94" src={logo} alt="logo" />
+          <Link to={AppRoute.ROOT}>
+            <Image width="150" height="94" src={logo} alt="logo" />
+          </Link>
         </div>
         {isRoot && <SearchBar onSearch={handleSearch} />}
         <div className={styles.userWrapper}>
