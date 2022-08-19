@@ -1,10 +1,10 @@
+import { genSalt, hash } from 'bcrypt';
 import { Knex } from 'knex';
 
 import {
   GroupsCreateRequestDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
-import { auth, group } from '~/services/services';
 
 const adminCridentials: UserSignUpRequestDto = {
   email: 'admin@guruhub.club',
@@ -12,7 +12,8 @@ const adminCridentials: UserSignUpRequestDto = {
   password: 'Pa55word',
 };
 
-const adminGroupName = 'Admins';
+const ADMIN_GROUP_NAME = 'Admins';
+const USER_PASSWORD_SALT_ROUNDS = 10;
 
 const TableName = {
   USERS: 'users',
@@ -23,33 +24,62 @@ const TableName = {
 };
 
 async function up(knex: Knex): Promise<void> {
-  await auth.signUp(adminCridentials);
+  const { email, fullName, password } = adminCridentials;
+  const passwordSalt = await genSalt(USER_PASSWORD_SALT_ROUNDS);
+  const passwordHash = await hash(password, passwordSalt);
+  await knex(TableName.USERS).insert({
+    email,
+    fullName,
+    passwordSalt,
+    passwordHash,
+  });
 
-  const adminId = await knex(TableName.USERS)
+  const adminIdObject = await knex(TableName.USERS)
     .select('id')
-    .where('email', adminCridentials.email);
+    .where('email', email);
 
-  const idToGivePermissions = adminId[0].id;
+  const { id: adminId } = adminIdObject[0];
 
-  if (adminId.length === 1 && idToGivePermissions) {
+  if (adminIdObject.length === 1 && adminId) {
     const permissionIds = await knex(TableName.PERMISSIONS).select('id');
     const premissionIdsToGive = permissionIds.map(
       (permission) => permission.id,
     );
 
     const adminPermissionsDto: GroupsCreateRequestDto = {
-      name: adminGroupName,
+      name: ADMIN_GROUP_NAME,
       permissionIds: premissionIdsToGive,
-      userIds: [idToGivePermissions],
+      userIds: [adminId],
     };
 
-    await group.create(adminPermissionsDto);
+    await knex(TableName.GROUPS).insert({
+      name: ADMIN_GROUP_NAME,
+      key: ADMIN_GROUP_NAME.toLowerCase(),
+    });
+    const groupIdObject = await knex(TableName.GROUPS)
+      .select('id')
+      .where('name', ADMIN_GROUP_NAME);
+
+    const { id: groupId } = groupIdObject[0];
+    await knex(TableName.USERS_TO_GROUPS).insert({
+      groupId,
+      userId: adminId,
+    });
+
+    await Promise.all(
+      adminPermissionsDto.permissionIds.map((permissionId) => {
+        return knex(TableName.GROUPS_TO_PERMISSIONS).insert({
+          groupId,
+          permissionId,
+        });
+      }),
+    );
   }
 }
 
 async function down(knex: Knex): Promise<void> {
   await knex(TableName.USERS).where('email', adminCridentials.email).del();
-  await knex(TableName.GROUPS).where('name', adminGroupName).del();
+  await knex(TableName.GROUPS).where('name', ADMIN_GROUP_NAME).del();
 }
 
 export { down, up };
