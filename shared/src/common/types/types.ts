@@ -14,6 +14,10 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';
 export {
+  InterviewResponseDto,
+  InterviewsResponseDto,
+} from './interview/interview';
+export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';

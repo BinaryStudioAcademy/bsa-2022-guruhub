@@ -4,6 +4,7 @@ export {
   CategoriesApiPath,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
   PermissionApiPath,
   UsersApiPath,
 } from './api/api';
@@ -13,6 +14,7 @@ export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
+export { InterviewStatus } from './interview/interview';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,
