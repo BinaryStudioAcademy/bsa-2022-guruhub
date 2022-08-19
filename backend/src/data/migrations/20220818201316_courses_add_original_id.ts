@@ -2,6 +2,7 @@ import { Knex } from 'knex';
 
 enum ColumnName {
   ORIGINAL_ID = 'original_id',
+  VENDOR_ID = 'vendor_id',
 }
 
 const TABLE_NAME = 'courses';
@@ -9,6 +10,7 @@ const TABLE_NAME = 'courses';
 async function up(knex: Knex): Promise<void> {
   return knex.schema.table(TABLE_NAME, (table) => {
     table.string(ColumnName.ORIGINAL_ID).nullable();
+    table.unique([ColumnName.ORIGINAL_ID, ColumnName.VENDOR_ID]);
   });
 }
 
