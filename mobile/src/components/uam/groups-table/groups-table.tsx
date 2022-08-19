@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
@@ -17,7 +16,6 @@ import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
-  const { width } = useWindowDimensions();
   const { items, total } = useAppSelector((state) => state.uam.groups);
   const { page, handlePageChange } = usePagination();
 
@@ -44,7 +42,7 @@ const GroupsTable: FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Groups</Text>
       <Table
-        columnWidth={width * 0.4}
+        columnWidthArr={[50, 250, 250, 150]}
         columns={groupsColumns}
         data={groupsRows}
       />

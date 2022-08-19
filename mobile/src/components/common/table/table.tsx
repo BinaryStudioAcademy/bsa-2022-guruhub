@@ -10,14 +10,12 @@ type Props<Data extends Record<string, unknown>> = {
   columns: TableColumn<Data>[];
   data: Data[];
   columnWidthArr?: number[];
-  columnWidth?: number;
 };
 
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
-  columnWidth,
-  columnWidthArr = columns.map(() => (columnWidth ? columnWidth : 150)),
+  columnWidthArr,
 }: Props<Data>): ReactElement => {
   const headers = columns.map(({ header }) => header);
   const tableData = data.map((entry) =>
