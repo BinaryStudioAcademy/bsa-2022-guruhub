@@ -41,14 +41,14 @@ const Pagination: FC<Props> = ({
         hitSlop={hitSlop}
         onPress={handlePreviousPageChange}
         disabled={isDisabledBack}
-      ></Pressable>
+      />
       <Text style={styles.textCount}>{`${currentPage} of ${totalPages}`}</Text>
       <Pressable
         style={[styles.next, isDisabledNext ? styles.disabled : styles.enabled]}
         hitSlop={hitSlop}
         onPress={handleNextPageChange}
         disabled={isDisabledNext}
-      ></Pressable>
+      />
     </View>
   );
 };
