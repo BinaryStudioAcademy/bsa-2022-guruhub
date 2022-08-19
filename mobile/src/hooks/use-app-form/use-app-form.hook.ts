@@ -1,6 +1,7 @@
 import {
   DeepPartial,
   useForm,
+  UseFormGetValues,
   UseFormHandleSubmit,
   UseFormReset,
 } from 'react-hook-form';
@@ -23,6 +24,7 @@ type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   errors: FormControlErrors<T>;
   handleSubmit: UseFormHandleSubmit<T>;
   reset: UseFormReset<T>;
+  watch: UseFormGetValues<T>;
 };
 
 const useAppForm = <T extends FormControlValues = FormControlValues>({
@@ -33,6 +35,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<T>({
     defaultValues,
@@ -46,6 +49,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     errors,
     handleSubmit,
     reset,
+    watch,
   };
 };
 

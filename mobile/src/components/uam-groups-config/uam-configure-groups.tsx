@@ -40,13 +40,11 @@ const UAMConfigureGroup: FC = () => {
     handlePageChange: handlePermissionsPageChange,
   } = usePagination();
 
-  const { control, handleSubmit, errors, reset } =
+  const { control, handleSubmit, errors, reset, watch } =
     useAppForm<GroupsCreateRequestDto>({
       defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
       validationSchema: groupCreateClient,
     });
-
-  const groupName = control._formValues.name;
 
   const {
     items: permissionIds,
@@ -73,7 +71,7 @@ const UAMConfigureGroup: FC = () => {
   const handleCreateGroup = async (): Promise<void> => {
     await dispatch(
       groupsCreationActions.createGroup({
-        name: groupName,
+        name: watch.name,
         permissionIds,
         userIds,
       }),
@@ -90,7 +88,7 @@ const UAMConfigureGroup: FC = () => {
       uamGroupEditActions.editGroup({
         id: group.id,
         payload: {
-          name: groupName,
+          name: watch.name,
           permissionIds,
           userIds,
         },
