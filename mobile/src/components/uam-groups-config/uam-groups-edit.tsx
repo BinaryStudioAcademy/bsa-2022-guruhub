@@ -4,7 +4,6 @@ import { ScrollView, View } from 'react-native';
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
-import { CREATE_GROUP_DEFAULT_PAYLOAD } from '~/components/uam-groups-config/common/constants/constants';
 import {
   PermissionsTable,
   UsersTable,
@@ -19,7 +18,7 @@ import {
 } from '~/hooks/hooks';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
 import { getUsers } from '~/store/uam/actions';
-import { groupUpdateParams } from '~/validation-schemas/validation-schemas';
+import { groupUpdate } from '~/validation-schemas/validation-schemas';
 
 import { styles } from './styles';
 
@@ -27,30 +26,30 @@ const UAMGroupsEdit: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { page: usersPage, handlePageChange: handleUserPageChange } =
-    usePagination();
-
-  const {
-    page: permissionsPage,
-    handlePageChange: handlePermissionsPageChange,
-  } = usePagination();
-
-  const { control, handleSubmit, errors } = useAppForm<GroupsUpdateRequestDto>({
-    defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
-    validationSchema: groupUpdateParams,
-  });
-
   const { users, permissions } = useAppSelector(
     (state) => state.uamGroupCreation,
   );
 
   const { group } = useAppSelector((state) => state.uamGroupEdit);
 
+  const { page: usersPage, handlePageChange: handleUserPageChange } =
+    usePagination();
+
+  const {
+    page: permissionsPage,
+    handlePageChange: handleUserPermissionsChange,
+  } = usePagination();
+
+  const { control, handleSubmit, errors } = useAppForm<GroupsUpdateRequestDto>({
+    defaultValues: { name: group?.name },
+    validationSchema: groupUpdate,
+  });
+
   const { items: permissionIds, handleToggle: handleTogglePermissions } =
-    useSelectedItems<number>(group?.permissionIds as number[]);
+    useSelectedItems<number>(group?.permissionIds ?? []);
 
   const { items: userIds, handleToggle: handleToggleUsers } =
-    useSelectedItems<number>(group?.userIds as number[]);
+    useSelectedItems<number>(group?.userIds ?? []);
 
   const paginationForUsersTable = {
     page: usersPage,
@@ -59,20 +58,21 @@ const UAMGroupsEdit: FC = () => {
 
   const paginationForPermissionsTable = {
     page: permissionsPage,
-    setPage: handlePermissionsPageChange,
+    setPage: handleUserPermissionsChange,
   };
 
   const handleEditGroup = async (): Promise<void> => {
-    await dispatch(
-      uamGroupEditActions.editGroup({
-        id: group?.id as number,
-        payload: {
-          name: control._formValues.name,
-          permissionIds,
-          userIds,
-        },
-      }),
-    ).unwrap();
+    group &&
+      (await dispatch(
+        uamGroupEditActions.editGroup({
+          id: group.id,
+          payload: {
+            name: control._formValues.name,
+            permissionIds,
+            userIds,
+          },
+        }),
+      ).unwrap());
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -97,7 +97,7 @@ const UAMGroupsEdit: FC = () => {
         <View style={styles.inputContainer}>
           <Input
             name="name"
-            placeholder={group?.name}
+            placeholder="Enter group name"
             label="Group name"
             control={control}
             errors={errors}
@@ -109,6 +109,7 @@ const UAMGroupsEdit: FC = () => {
           users={users}
           onCheckbox={handleToggleUsers}
           pagination={paginationForUsersTable}
+          checkedUsersIds={group?.userIds ?? []}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable

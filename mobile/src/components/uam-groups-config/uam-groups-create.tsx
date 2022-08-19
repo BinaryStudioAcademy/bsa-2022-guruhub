@@ -28,10 +28,12 @@ const UAMGroupsCreate: FC = () => {
   const dispatch = useAppDispatch();
   const { page: usersPage, handlePageChange: handleUserPageChange } =
     usePagination();
+
   const {
     page: permissionsPage,
     handlePageChange: handlePermissionsPageChange,
   } = usePagination();
+
   const { control, handleSubmit, errors } = useAppForm<GroupsCreateRequestDto>({
     defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
     validationSchema: groupCreateClient,
