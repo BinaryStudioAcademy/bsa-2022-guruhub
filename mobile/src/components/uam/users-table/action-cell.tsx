@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 import { AppColor } from '~/common/enums/enums';
 import { Icon } from '~/components/common/common';
 
-import { styles } from './styles';
+import { styles } from '../styles';
 
 type Props = {
   id: number;
