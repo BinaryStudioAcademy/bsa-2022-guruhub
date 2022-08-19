@@ -28,6 +28,9 @@ paths:
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
+  # Categories
+  /categories:
+    $ref: './endpoints/categories/categories.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -50,6 +53,8 @@ components:
       $ref: './schemas/groups/groups-update-request-dto.yaml'
     CourseCreateRequestDto:
       $ref: './schemas/courses/course-add-request-dto.yaml'
+    CategoriesGetAllResponseDto:
+      $ref: './schemas/categories/categories-get-all-response-dto.yaml'
     securitySchemes:
       bearerAuth:
         type: http
