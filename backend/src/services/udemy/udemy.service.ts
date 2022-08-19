@@ -61,13 +61,16 @@ class Udemy {
         this.getModuleRequestUrl(courseId, page),
         this.getHeaders(),
       );
+
+    let nextPage = page;
     while (fetchedModules.length === this.#MODULE_API_PAGE_SIZE) {
       modules.push(...fetchedModules);
-      const nextPage = page + 1;
       fetchedModules = await this.fetchModulesPage(
         this.getModuleRequestUrl(courseId, nextPage),
         this.getHeaders(),
       );
+
+      nextPage++;
     }
     modules.push(...fetchedModules);
 
