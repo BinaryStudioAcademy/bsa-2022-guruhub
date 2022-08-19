@@ -12,7 +12,7 @@ type Props = {
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
   btnType?: 'filled' | 'outlined' | 'icon';
-  to?: AppRoute | string;
+  to?: AppRoute;
   onClick?: () => void;
   iconName?: IconName;
 };

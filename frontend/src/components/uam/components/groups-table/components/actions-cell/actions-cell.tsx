@@ -17,7 +17,7 @@ const ActionsCell: FC<
     <div className={styles.container}>
       <IconButton
         iconName="settings"
-        to={`${AppRoute.UAM_CONFIGURE_GROUP}/${id}`}
+        to={`${AppRoute.UAM_CONFIGURE_GROUP}/${id}` as AppRoute}
         label="Edit"
       />
       <IconButton iconName="delete" onClick={handleDelete} label="Delete" />

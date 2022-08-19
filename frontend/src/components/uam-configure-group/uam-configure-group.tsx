@@ -44,7 +44,7 @@ const UAMConfigureGroup: FC = () => {
   const { page: usersPage, handlePageChange: handleUsersPageChange } =
     usePagination({ queryName: 'users' });
 
-  const onSubmit = (): void => {
+  const handleCreateOrEdit = (): void => {
     if (!isEdit) {
       dispatch(
         uamConfigureGroupActions.createGroup({
@@ -96,7 +96,7 @@ const UAMConfigureGroup: FC = () => {
 
   return (
     <div className={styles.groupCreationMain}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleCreateOrEdit)}>
         <div className={styles.groupFormHeaderWrapper}>
           <h2 className={styles.groupFormHeading}>
             {isEdit ? 'Edit' : 'Create'} group
@@ -133,7 +133,7 @@ const UAMConfigureGroup: FC = () => {
             to={AppRoute.UAM}
           />
           <Button
-            onClick={handleSubmit(onSubmit)}
+            onClick={handleSubmit(handleCreateOrEdit)}
             type="submit"
             label={isEdit ? 'Edit' : 'Create'}
             btnColor="blue"
