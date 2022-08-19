@@ -106,7 +106,7 @@ class Course {
           title,
           url,
           vendorKey: VendorKey.UDEMY,
-          originalId: id,
+          originalId: id.toString(),
         });
       }
       default: {

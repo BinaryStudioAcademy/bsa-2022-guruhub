@@ -1,7 +1,7 @@
 import { VendorKey } from '~/common/enums/enums';
 
 type CourseGetByIdAndVendorKeyArgumentsDto = {
-  originalId: number;
+  originalId: string;
   vendorKey: VendorKey;
 };
 

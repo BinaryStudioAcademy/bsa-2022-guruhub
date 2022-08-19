@@ -18,7 +18,7 @@ class Course extends Abstract {
 
   public 'courseCategoryId': number;
 
-  public 'originalId': number;
+  public 'originalId': string;
 
   public static override get relationMappings(): RelationMappings {
     return {
