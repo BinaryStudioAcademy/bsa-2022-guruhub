@@ -15,14 +15,13 @@ class CourseModule {
   public create(
     courseModule: CourseModuleCreateArgumentsDto,
   ): Promise<ModuleM> {
-    const { title, description, moduleIndex, courseId } = courseModule;
+    const { title, description, courseId } = courseModule;
 
     return this.#ModuleModel
       .query()
       .insert({
         title,
         description,
-        moduleIndex,
         courseId,
       })
       .execute();

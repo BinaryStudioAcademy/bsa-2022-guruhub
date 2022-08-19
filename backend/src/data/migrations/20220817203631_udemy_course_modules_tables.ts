@@ -5,7 +5,6 @@ enum ColumnName {
   CREATED_AT = 'created_at',
   UPDATED_AT = 'updated_at',
   COURSE_ID = 'course_id',
-  MODULE_INDEX = 'module_index',
   TITLE = 'title',
   DESCRIPTION = 'description',
 }
@@ -30,7 +29,6 @@ async function up(knex: Knex): Promise<void> {
       .integer(ColumnName.COURSE_ID)
       .references(ColumnName.ID)
       .inTable(TableName.COURSES);
-    table.integer(ColumnName.MODULE_INDEX).notNullable();
     table.string(ColumnName.TITLE).notNullable();
     table.text(ColumnName.DESCRIPTION).nullable();
   });

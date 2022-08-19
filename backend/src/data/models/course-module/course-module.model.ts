@@ -9,8 +9,6 @@ class CourseModule extends Abstract {
 
   public 'description': string | null;
 
-  public 'moduleIndex': number;
-
   public 'courseId': number;
 
   public static override get relationMappings(): RelationMappings {
