@@ -12,8 +12,6 @@ type Props = {
   onPageChange: (page: number) => void;
 };
 
-const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
-
 const Pagination: FC<Props> = ({
   totalCount,
   pageSize,
@@ -24,12 +22,13 @@ const Pagination: FC<Props> = ({
     ? PaginationDefaultValue.DEFAULT_PAGE
     : Math.ceil(totalCount / pageSize);
   const isDisabledBack = currentPage === 1;
-  const isDisabledNext = currentPage === totalPages;
 
+  const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
+
+  const isDisabledNext = currentPage === totalPages;
   const handleNextPageChange = (): void => {
     onPageChange(currentPage + 1);
   };
-
   const handlePreviousPageChange = (): void => {
     onPageChange(currentPage - 1);
   };
