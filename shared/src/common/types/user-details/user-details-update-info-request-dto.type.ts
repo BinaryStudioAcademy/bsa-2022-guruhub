@@ -1,9 +1,7 @@
 type UserDetailsUpdateInfoRequestDto = {
-  firstName?: string;
-  lastName?: string;
-  fullName?: string;
-  gender?: string;
-  dateOfBirth?: string;
+  fullName: string;
+  gender: string | null;
+  dateOfBirth: string | null;
 };
 
 export { type UserDetailsUpdateInfoRequestDto };

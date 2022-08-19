@@ -1,11 +1,6 @@
 import { DataStatus } from 'common/enums/enums';
 import { FC, UserDetailsUpdateInfoRequestDto } from 'common/types/types';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useState,
-} from 'hooks/hooks';
+import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { userDetailsActions } from 'store/actions';
 
 import { AvatarWrapper } from './components/avatar-wrapper/avatar-wrapper';
@@ -14,15 +9,17 @@ import styles from './styles.module.scss';
 
 const UserProfile: FC = () => {
   const dispatch = useAppDispatch();
-  const { userDetails, avatarUrl, dataStatus } = useAppSelector(
+  const { userDetails, dataStatus } = useAppSelector(
     (state) => state.userDetails,
   );
-  const [currentAvatar, setCurrentAvatar] = useState<string | null>(null);
 
   useEffect(() => {
+    handleGetUsers();
+  }, []);
+
+  const handleGetUsers = (): void => {
     dispatch(userDetailsActions.getUserDetails());
-    setCurrentAvatar(avatarUrl);
-  }, [avatarUrl]);
+  };
 
   const handleUpdateProfile = (
     payload: UserDetailsUpdateInfoRequestDto,
@@ -37,9 +34,10 @@ const UserProfile: FC = () => {
         <div className={styles.subtitle}>Profile</div>
         {dataStatus !== DataStatus.PENDING && (
           <>
-            <AvatarWrapper avatarUrl={currentAvatar} />
+            <AvatarWrapper avatarUrl={userDetails?.avatarUrl} />
             <UserProfileForm
               userDetails={userDetails}
+              onHandleGetUser={handleGetUsers}
               onHandleUpdateProfile={handleUpdateProfile}
             />
           </>

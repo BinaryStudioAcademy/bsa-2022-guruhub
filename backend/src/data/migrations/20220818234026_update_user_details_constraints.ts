@@ -10,16 +10,12 @@ const COLUMN_NAME = {
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TABLE_NAME, (table) => {
-    table.setNullable(COLUMN_NAME.FIRST_NAME);
-    table.setNullable(COLUMN_NAME.LAST_NAME);
     table.setNullable(COLUMN_NAME.GENDER);
   });
 }
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TABLE_NAME, (table) => {
-    table.string(COLUMN_NAME.FIRST_NAME).notNullable().alter();
-    table.string(COLUMN_NAME.LAST_NAME).notNullable().alter();
     table.string(COLUMN_NAME.GENDER).notNullable().alter();
   });
 }

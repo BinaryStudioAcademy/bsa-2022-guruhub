@@ -76,7 +76,9 @@ class User {
     });
 
     await this.#userDetailsService.updateUserDetails(user.id, {
-      fullName: fullName,
+      fullName,
+      gender: null,
+      dateOfBirth: null,
     });
 
     return {

@@ -39,6 +39,7 @@
     "guruhub-shared": "file:../shared/build",
     "jose": "4.8.3",
     "knex": "2.1.0",
+    "moment": "2.29.4",
     "objection": "3.0.1",
     "pg": "8.7.3"
   }

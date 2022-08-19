@@ -1,4 +1,4 @@
-import defaultUserAvatar from 'assets/img/avatar-default.jpg';
+import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
@@ -26,13 +26,15 @@ const Header: FC = () => {
         <div className={styles.userWrapper}>
           {hasUser ? (
             <button onClick={handlePopupOpen} className={styles.button}>
-              <Image
-                width="50"
-                height="50"
-                src={defaultUserAvatar}
-                alt="user avatar"
-                isCircular
-              />
+              <div className={styles.imageWrapper}>
+                <Image
+                  width="50"
+                  height="50"
+                  src={defaultUserAvatar}
+                  alt="user avatar"
+                  isCircular
+                />
+              </div>
             </button>
           ) : (
             <div className={styles.buttonsWrapper}>

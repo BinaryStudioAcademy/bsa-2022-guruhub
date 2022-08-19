@@ -1,6 +1,6 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { HttpCode, HttpMethod, UsersApiPath } from '~/common/enums/enums';
+import { HttpCode, HttpMethod, UserDetailsApiPath } from '~/common/enums/enums';
 import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import { userDetails as userDetailsService } from '~/services/services';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
@@ -19,7 +19,7 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
 
   fastify.route({
     method: HttpMethod.GET,
-    url: UsersApiPath.DETAILS,
+    url: UserDetailsApiPath.ROOT,
     async handler(req, rep) {
       const userDetails = await userDetailsService.getByUserId(req.user.id);
 
@@ -29,7 +29,7 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
 
   fastify.route({
     method: HttpMethod.PUT,
-    url: UsersApiPath.DETAILS,
+    url: UserDetailsApiPath.ROOT,
     schema: {
       body: userDetailsUpdateInfoValidationSchema,
     },

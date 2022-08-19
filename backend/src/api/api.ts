@@ -68,7 +68,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     services: {
       userDetails,
     },
-    prefix: ApiPath.USERS,
+    prefix: ApiPath.USER_DETAILS,
   });
 
   fastify.register(initCoursesApi, {

@@ -56,7 +56,7 @@ class User {
       .query()
       .select('users.id', 'users.created_at', 'email', 'full_name')
       .joinRelated('user_details')
-      .where({ id })
+      .where({ 'users.id': id })
       .first()
       .castTo<UserWithDetailsM>();
 

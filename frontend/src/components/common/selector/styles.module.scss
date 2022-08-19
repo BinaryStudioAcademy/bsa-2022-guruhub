@@ -1,0 +1,51 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: var(--typography-text-100-inverse);
+}
+
+select {
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: inherit;
+  appearance: none;
+}
+
+.select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 6px 15px;
+  color: var(--typography-text-100-inverse);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 24px;
+  background: var(--background-gray-300);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+.select::after {
+  content: '';
+  justify-self: end;
+  width: 15px;
+  height: 7px;
+  background-color: var(--typography-text-100-inverse);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+
+.select option {
+  background: var(--background-gray-300);
+}

@@ -2,7 +2,7 @@ import {
   ApiPath,
   ContentType,
   HttpMethod,
-  UsersApiPath,
+  UserDetailsApiPath,
 } from 'common/enums/enums';
 import {
   UserDetailsResponseDto,
@@ -27,7 +27,7 @@ class UserDetailsApi {
 
   public get(): Promise<UserDetailsResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.DETAILS}`,
+      `${this.#apiPrefix}${ApiPath.USER_DETAILS}${UserDetailsApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
       },
@@ -38,7 +38,7 @@ class UserDetailsApi {
     payload: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.DETAILS}`,
+      `${this.#apiPrefix}${ApiPath.USER_DETAILS}${UserDetailsApiPath.ROOT}`,
       {
         method: HttpMethod.PUT,
         contentType: ContentType.JSON,

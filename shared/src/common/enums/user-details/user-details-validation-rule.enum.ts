@@ -1,10 +1,14 @@
+const today = new Date();
+const MIN_DATE = new Date(
+  today.setFullYear(today.getFullYear() - 100),
+).toDateString();
+
 const UserDetailsValidationRule = {
-  FIRST_NAME_MIN_LENGTH: 2,
-  FIRST_NAME_MAX_LENGTH: 15,
-  LAST_NAME_MIN_LENGTH: 2,
-  LAST_NAME_MAX_LENGTH: 20,
-  FIRST_NAME_PATTERN: /^[ A-Za-z-'`]*$/,
-  LAST_NAME_PATTERN: /^[ A-Za-z-'`]*$/,
+  FULL_NAME_MIN_LENGTH: 2,
+  FULL_NAME_MAX_LENGTH: 40,
+  FULL_NAME_PATTERN: /^[ A-Za-z-'`]*$/,
+  MIN_DATE: MIN_DATE,
+  MAX_DATE: new Date().toDateString(),
 } as const;
 
 export { UserDetailsValidationRule };

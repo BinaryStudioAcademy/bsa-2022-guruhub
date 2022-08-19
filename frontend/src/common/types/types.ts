@@ -34,10 +34,10 @@ export {
   type SVGProps,
   type URLSearchParamsInit,
 } from './react/react';
+export { SelectorOptions } from './selector-options/selector-options';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export { type IconName } from './ui/ui';
 export {
-  type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,

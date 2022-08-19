@@ -3,17 +3,13 @@ import { DbTableName } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 
 class UserDetails extends Abstract {
-  public 'firstName': string;
-
-  public 'lastName': string;
-
   public 'fullName': string;
 
-  public 'gender': string;
+  public 'gender': string | null;
 
-  public 'avatarUrl': string;
+  public 'avatarUrl': string | null;
 
-  public 'dateOfBirth': string;
+  public 'dateOfBirth': string | null;
 
   public 'userId': number;
 

@@ -1,7 +1,5 @@
 type UserDetailsResponseDto = {
   id: number;
-  firstName: string | null;
-  lastName: string | null;
   fullName: string;
   gender: string | null;
   avatarUrl: string | null;

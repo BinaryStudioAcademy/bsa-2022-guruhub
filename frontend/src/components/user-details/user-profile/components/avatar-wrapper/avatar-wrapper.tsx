@@ -6,7 +6,7 @@ import { getValidClasses } from 'helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
-  avatarUrl: string | null;
+  avatarUrl: string | null | undefined;
 };
 
 const AvatarWrapper: FC<Props> = ({ avatarUrl }) => {
@@ -16,7 +16,7 @@ const AvatarWrapper: FC<Props> = ({ avatarUrl }) => {
         <Image
           width="136"
           height="136"
-          src={avatarUrl || defaultUserAvatar}
+          src={avatarUrl ?? defaultUserAvatar}
           alt="user avatar"
           isCircular
         />
@@ -25,6 +25,7 @@ const AvatarWrapper: FC<Props> = ({ avatarUrl }) => {
         <Button
           classes={getValidClasses(styles.btn, styles.btnUpdate)}
           label="Update File"
+          btnType="upload"
         />
         <Button classes={styles.btn} label="Save" />
       </div>

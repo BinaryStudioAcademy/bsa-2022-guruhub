@@ -5,5 +5,6 @@ export {
   CoursesApiPath,
   GroupsApiPath,
   PermissionApiPath,
+  UserDetailsApiPath,
   UsersApiPath,
 } from 'guruhub-shared/common/enums/enums';

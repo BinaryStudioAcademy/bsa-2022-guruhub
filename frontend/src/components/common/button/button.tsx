@@ -9,7 +9,7 @@ type Props = {
   label: string;
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
-  btnType?: 'filled' | 'outlined';
+  btnType?: 'filled' | 'outlined' | 'upload';
   to?: AppRoute;
   onClick?: () => void;
   classes?: string;

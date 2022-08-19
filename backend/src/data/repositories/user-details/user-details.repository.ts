@@ -16,15 +16,12 @@ class UserDetails {
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
-    const { fullName, lastName, firstName, gender, dateOfBirth } = userDetails;
+    const { fullName, gender, dateOfBirth } = userDetails;
 
     return this.#UserDetailsModel
       .query()
-      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
       .insert({
         fullName,
-        firstName,
-        lastName,
         gender,
         dateOfBirth,
         userId,
@@ -33,13 +30,13 @@ class UserDetails {
   }
 
   public updateUserDetails(
-    userId: number,
+    id: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
     return this.#UserDetailsModel
       .query()
-      .select('firstName', 'lastName', 'gender', 'dateOfBirth')
-      .patchAndFetchById(userId, userDetails)
+      .select()
+      .patchAndFetchById(id, userDetails)
       .execute();
   }
 

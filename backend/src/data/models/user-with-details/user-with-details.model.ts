@@ -9,10 +9,6 @@ class UserWithDetails extends Abstract {
 
   public 'passwordSalt': string;
 
-  public 'firstName': string | null;
-
-  public 'lastName': string | null;
-
   public 'fullName': string;
 
   public 'gender': string | null;

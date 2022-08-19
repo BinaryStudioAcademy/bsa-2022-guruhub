@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
@@ -29,7 +31,12 @@ class UserDetails {
         userDetailsUpdateInfoRequestDto,
       );
 
-      return userDetails;
+      return {
+        ...userDetails,
+        dateOfBirth:
+          moment(userDetails.dateOfBirth).format('YYYY-MM-DD') ??
+          userDetails.dateOfBirth,
+      };
     }
 
     const userDetails = await this.#userDetailsRepository.createUserDetails(
@@ -37,7 +44,10 @@ class UserDetails {
       userDetailsUpdateInfoRequestDto,
     );
 
-    return userDetails;
+    return {
+      ...userDetails,
+      dateOfBirth: moment(userDetails.dateOfBirth).format('YYYY-MM-DD'),
+    };
   }
 
   public async getByUserId(
@@ -50,13 +60,8 @@ class UserDetails {
     }
 
     return {
-      id: userDetails.id,
-      firstName: userDetails.firstName,
-      lastName: userDetails.lastName,
-      fullName: userDetails.fullName,
-      avatarUrl: userDetails.avatarUrl,
-      gender: userDetails.gender,
-      dateOfBirth: userDetails.dateOfBirth,
+      ...userDetails,
+      dateOfBirth: moment(userDetails.dateOfBirth).format('YYYY-MM-DD'),
     };
   }
 }

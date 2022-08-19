@@ -1,12 +1,15 @@
 .imageWrapper {
+  position: relative;
   width: 100%;
   max-width: 136px;
   height: 100%;
   margin-right: 17px;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .imageWrapper img {
-  height: 136px;
+  transform: scale(1.1);
 }
 
 .btn {
