@@ -68,7 +68,7 @@ class Course {
 
     const courseByOriginalIdAndVendor = await this.getByOriginalIdAndVendorKey({
       originalId,
-      vendorKey: vendor.key as VendorKey,
+      vendorKey,
     });
 
     if (courseByOriginalIdAndVendor) {
