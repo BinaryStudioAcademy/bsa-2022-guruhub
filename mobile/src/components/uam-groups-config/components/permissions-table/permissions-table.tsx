@@ -16,7 +16,6 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
-  checkedPermissionsIds?: number[];
 };
 
 const PermissionsTable: FC<Props> = ({
