@@ -10,10 +10,12 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 16,
+    marginTop: 32,
     color: 'white',
     fontSize: 14,
   },
   buttonsContainer: {
+    margin: 16,
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'center',
