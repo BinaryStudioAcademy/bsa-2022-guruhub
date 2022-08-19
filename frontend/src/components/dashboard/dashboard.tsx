@@ -43,6 +43,7 @@ const Dashboard: FC = () => {
           <h1 className={styles.headingText}>Courses</h1>
           <Button
             label="+ Add new course"
+            btnColor="blue"
             onClick={handleNewCourseModalToggle}
           />
           <AddCourseModal

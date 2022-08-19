@@ -37,8 +37,9 @@ const GroupsTable: FC = () => {
         <h1 className={styles.groupsTableHeading}>Groups</h1>
         <Button
           label="Add Group"
+          btnColor="blue"
           type="button"
-          to={AppRoute.UAM_CREATE_GROUP}
+          to={AppRoute.UAM_CONFIGURE_GROUP}
         />
       </div>
       <Table data={data} columns={columns} />

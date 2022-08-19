@@ -50,8 +50,8 @@ const Header: FC = () => {
             </button>
           ) : (
             <div className={styles.buttonsWrapper}>
-              <Button label="Sign In" btnColor="gray" to={AppRoute.SIGN_IN} />
-              <Button label="Sign Up" to={AppRoute.SIGN_UP} />
+              <Button label="Log In" btnColor="gray" to={AppRoute.SIGN_IN} />
+              <Button label="Sign Up" btnColor="blue" to={AppRoute.SIGN_UP} />
             </div>
           )}
           <div className={styles.popup}>
