@@ -5,7 +5,10 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 20,
+    paddingBottom: 10,
+  },
+  scrollView: {
+    minWidth: '100%',
   },
   dataText: {
     fontFamily: AppFontFamily.INTER_600,
