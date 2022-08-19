@@ -32,6 +32,15 @@ class UsersToGroups {
     return groups ?? null;
   }
 
+  public async getUsersByGroupId(groupId: number): Promise<UsersToGroupsM[]> {
+    const users = await this.#UsersToGroupsModel
+      .query()
+      .select()
+      .where({ groupId });
+
+    return users;
+  }
+
   public async update(usersToGroups: {
     groupId: number;
     userIds: number[];

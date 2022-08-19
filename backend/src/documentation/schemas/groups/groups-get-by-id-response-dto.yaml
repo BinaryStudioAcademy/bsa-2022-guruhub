@@ -1,0 +1,19 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  name:
+    type: string
+    example: name
+  key:
+    type: string
+    example: key
+  permissionIds:
+    type: array
+    items:
+      type: integer
+  userIds:
+    type: array
+    items:
+      type: integer
