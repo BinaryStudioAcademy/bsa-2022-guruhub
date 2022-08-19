@@ -1,11 +1,11 @@
-import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
+import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CourseModuleCreateArgumentsDto,
   CourseModuleGetResponseDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
 import { CoursesModulesError } from '~/exceptions/exceptions';
-import { udemyCourseModule as udemyServ } from '~/services/services';
+import { udemy as udemyServ } from '~/services/services';
 
 type Constructor = {
   moduleRepository: typeof moduleRep;
@@ -45,7 +45,6 @@ class CourseModule {
 
     if (!courseData.length) {
       throw new CoursesModulesError({
-        status: HttpCode.NOT_ACCEPTABLE,
         message: ExceptionMessage.UDEMY_SERVER_RETURNED_AN_INVALID_RESPONSE,
       });
     }

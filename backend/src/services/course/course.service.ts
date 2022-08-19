@@ -104,7 +104,7 @@ class Course {
     switch (host) {
       case CourseHost.UDEMY:
       case CourseHost.W_UDEMY: {
-        const courseData = await this.#udemyService.getByUrl(urlObject);
+        const courseData = await this.#udemyService.getCourseByUrl(urlObject);
 
         const { description, title, url, id } = courseData;
 

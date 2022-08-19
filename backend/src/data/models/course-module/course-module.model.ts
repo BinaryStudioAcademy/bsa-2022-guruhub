@@ -16,7 +16,7 @@ class CourseModule extends Abstract {
   public static override get relationMappings(): RelationMappings {
     return {
       course: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: Course,
         join: {
           from: `${DbTableName.COURSE_MODULES}.course_id`,
