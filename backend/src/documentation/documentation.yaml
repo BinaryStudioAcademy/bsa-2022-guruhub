@@ -21,12 +21,7 @@ paths:
   /groups:
     $ref: './endpoints/groups/groups-get-all.yaml'
   /groups/:id:
-    get:
-      $ref: './endpoints/groups/groups-get-by-id.yaml'
-    put:
-      $ref: './endpoints/groups/groups-update.yaml'
-    delete:
-      $ref: './endpoints/groups/groups-delete.yaml'
+    $ref: './endpoints/groups/groups-manipulate.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
