@@ -1,12 +1,7 @@
 import { genSalt, hash } from 'bcrypt';
 import { Knex } from 'knex';
 
-import {
-  GroupsConfigureRequestDto,
-  UserSignUpRequestDto,
-} from '~/common/types/types';
-
-const adminCridentials: UserSignUpRequestDto = {
+const adminCridentials = {
   email: 'admin@guruhub.club',
   fullName: 'Admin',
   password: 'Pa55word',
@@ -27,40 +22,38 @@ async function up(knex: Knex): Promise<void> {
   const { email, fullName, password } = adminCridentials;
   const passwordSalt = await genSalt(USER_PASSWORD_SALT_ROUNDS);
   const passwordHash = await hash(password, passwordSalt);
-  await knex(TableName.USERS).insert({
-    email,
-    fullName,
-    passwordSalt,
-    passwordHash,
-  });
+  const insertedAdmin = await knex(TableName.USERS)
+    .insert({
+      email,
+      fullName,
+      passwordSalt,
+      passwordHash,
+    })
+    .returning('*');
 
-  const adminIdObject = await knex(TableName.USERS)
-    .select('id')
-    .where('email', email);
+  const { id: adminId } = insertedAdmin[0];
 
-  const { id: adminId } = adminIdObject[0];
-
-  if (adminIdObject.length === 1 && adminId) {
+  if (adminId) {
     const permissionIds = await knex(TableName.PERMISSIONS).select('id');
     const premissionIdsToGive = permissionIds.map(
       (permission) => permission.id,
     );
 
-    const adminPermissionsDto: GroupsConfigureRequestDto = {
+    const adminPermissionsDto = {
       name: ADMIN_GROUP_NAME,
       permissionIds: premissionIdsToGive,
       userIds: [adminId],
     };
 
-    await knex(TableName.GROUPS).insert({
-      name: ADMIN_GROUP_NAME,
-      key: ADMIN_GROUP_NAME.toLowerCase(),
-    });
-    const groupIdObject = await knex(TableName.GROUPS)
-      .select('id')
-      .where('name', ADMIN_GROUP_NAME);
+    const adminGroup = await knex(TableName.GROUPS)
+      .insert({
+        name: ADMIN_GROUP_NAME,
+        key: ADMIN_GROUP_NAME.toLowerCase(),
+      })
+      .returning('*');
 
-    const { id: groupId } = groupIdObject[0];
+    const { id: groupId } = adminGroup[0];
+
     await knex(TableName.USERS_TO_GROUPS).insert({
       groupId,
       userId: adminId,
