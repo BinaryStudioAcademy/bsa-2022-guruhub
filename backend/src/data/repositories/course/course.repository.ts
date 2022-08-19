@@ -62,6 +62,16 @@ class Course {
       .castTo<CourseGetResponseDto[]>()
       .execute();
   }
+
+  public async getById(courseId: number): Promise<CourseGetResponseDto> {
+    return this.#CourseModel
+      .query()
+      .where({ 'courses.id': courseId })
+      .withGraphJoined('vendor')
+      .first()
+      .castTo<CourseGetResponseDto>()
+      .execute();
+  }
 }
 
 export { Course };

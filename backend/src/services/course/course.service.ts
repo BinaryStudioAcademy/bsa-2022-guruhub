@@ -118,6 +118,10 @@ class Course {
 
     return category.id;
   }
+
+  public getById(courseId: number): Promise<CourseGetResponseDto> {
+    return this.#courseRepository.getById(courseId);
+  }
 }
 
 export { Course };
