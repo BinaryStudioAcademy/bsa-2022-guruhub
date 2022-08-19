@@ -44,12 +44,6 @@ async function up(knex: Knex): Promise<void> {
   const permissionIds = await knex(TableName.PERMISSIONS).select('id');
   const premissionIdsToGive = permissionIds.map((permission) => permission.id);
 
-  const adminPermissionsDto = {
-    name: ADMIN_GROUP_NAME,
-    permissionIds: premissionIdsToGive,
-    userIds: [adminId],
-  };
-
   const insertedAdminGroups = await knex(TableName.GROUPS)
     .insert({
       name: ADMIN_GROUP_NAME,
@@ -57,8 +51,8 @@ async function up(knex: Knex): Promise<void> {
     })
     .returning('*');
 
-  const [insertedAdminGroup] = insertedAdminGroups;
-  const { id: groupId } = insertedAdminGroup;
+  const [adminGroup] = insertedAdminGroups;
+  const { id: groupId } = adminGroup;
 
   await knex(TableName.USERS_TO_GROUPS).insert({
     groupId,
@@ -66,7 +60,7 @@ async function up(knex: Knex): Promise<void> {
   });
 
   await Promise.all(
-    adminPermissionsDto.permissionIds.map((permissionId) => {
+    premissionIdsToGive.map((permissionId) => {
       return knex(TableName.GROUPS_TO_PERMISSIONS).insert({
         groupId,
         permissionId,
