@@ -26,7 +26,7 @@ const UAMConfigureGroup: FC = () => {
   const { permissions, group, users } = useAppSelector(
     (state) => state.uamConfigureGroup,
   );
-  const { control, handleSubmit, errors, reset } =
+  const { control, handleSubmit, errors, reset, getValues } =
     useAppForm<GroupsConfigureRequestDto>({
       defaultValues: DEFAULT_CONFIGURE_GROUP_PAYLOAD,
       validationSchema: groupConfigureClientSchema,
@@ -45,10 +45,12 @@ const UAMConfigureGroup: FC = () => {
     usePagination({ queryName: 'users' });
 
   const handleCreateOrEdit = (): void => {
+    const { name } = getValues();
+
     if (!isEdit) {
       dispatch(
         uamConfigureGroupActions.createGroup({
-          name: control._formValues.name,
+          name,
           permissionIds,
           userIds,
         }),
@@ -61,7 +63,7 @@ const UAMConfigureGroup: FC = () => {
       uamConfigureGroupActions.updateGroup({
         id: Number(id),
         payload: {
-          name: control._formValues.name,
+          name,
           permissionIds,
           userIds,
         },
