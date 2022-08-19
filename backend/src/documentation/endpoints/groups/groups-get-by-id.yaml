@@ -1,0 +1,18 @@
+summary: Get Group by ID
+tags:
+  - groups
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+    required: true
+    description: Numeric ID of the group to get
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/groups/groups-get-by-id-response-dto.yaml'
+  '400':
+    description: Group ID is invalid

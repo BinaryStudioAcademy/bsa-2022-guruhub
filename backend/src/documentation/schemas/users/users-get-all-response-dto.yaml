@@ -1,16 +1,22 @@
-type: array
-items:
-  type: object
-  properties:
-    id:
-      type: integer
-      example: 1
-    email:
-      type: string
-      example: john.doe@gmail.com
-    fullName:
-      type: string
-      example: Fullname
-    createdAt:
-      type: string
-      example: 2022-08-08T14:26:12.379Z
+type: object
+properties:
+  items:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          example: john.doe@gmail.com
+        fullName:
+          type: string
+          example: Fullname
+        createdAt:
+          type: string
+          example: '2022-08-08T14:26:12.379Z'
+  total:
+    type: integer
+    example: 10

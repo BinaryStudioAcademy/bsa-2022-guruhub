@@ -12,11 +12,14 @@ export {
 } from './course-category/course-category';
 export { type EncryptionData } from './encryption/encryption';
 export {
-  type GroupsCreateRequestDto,
+  type GroupsConfigureRequestDto,
   type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
   type GroupsUpdateRequestDto,
   type GroupsUpdateRequestParamsDto,
+  type GroupsWithPermissionIdsDto,
+  type GroupsWithPermissionsDto,
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';

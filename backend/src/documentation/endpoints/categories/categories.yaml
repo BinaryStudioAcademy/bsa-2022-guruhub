@@ -1,0 +1,10 @@
+get:
+  summary: Get All Categories
+  tags:
+    - categories
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/categories/categories-get-all-response-dto.yaml'
