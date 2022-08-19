@@ -32,7 +32,11 @@ type Props = {
 const Icon: FC<Props> = ({ name, className }) => {
   const SelectedIcon = iconNameToIcon[name];
 
-  return <SelectedIcon className={getValidClasses(styles.icon, className)} />;
+  return (
+    <SelectedIcon
+      className={getValidClasses(styles.icon, className ?? styles[name])}
+    />
+  );
 };
 
 export { Icon };
