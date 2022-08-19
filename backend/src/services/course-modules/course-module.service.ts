@@ -45,7 +45,7 @@ class CourseModule {
 
     if (!courseData.length) {
       throw new CoursesModulesError({
-        status: HttpCode.BAD_GATEWAY,
+        status: HttpCode.NOT_ACCEPTABLE,
         message: ExceptionMessage.UDEMY_SERVER_RETURNED_AN_INVALID_RESPONSE,
       });
     }

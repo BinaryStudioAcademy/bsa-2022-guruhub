@@ -2,7 +2,7 @@ type CourseModuleCreateArgumentsDto = {
   title: string;
   moduleIndex: number;
   courseId: number;
-  description?: string;
+  description: string | null;
 };
 
 export { type CourseModuleCreateArgumentsDto };

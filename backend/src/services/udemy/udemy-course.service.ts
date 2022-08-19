@@ -21,7 +21,7 @@ class UdemyCourse extends Udemy {
   }
 
   public async getByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
-    const courseIdOrSlug = url.pathname;
+    const { pathname: courseIdOrSlug } = url;
     const headers = this.getHeaders();
     const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
       this.getRequestUrl(courseIdOrSlug),

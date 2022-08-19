@@ -7,7 +7,7 @@ import { DbTableName } from '~/common/enums/enums';
 class CourseModule extends Abstract {
   public 'title': string;
 
-  public 'description': string;
+  public 'description': string | null;
 
   public 'moduleIndex': number;
 

@@ -13,7 +13,9 @@ type Constructor = {
 };
 
 class UdemyCourseModule extends Udemy {
-  #moduleApiPageSize = 15;
+  #MODULE_API_PAGE_SIZE = 15;
+
+  #INITIAL_PAGE = 1;
 
   #baseUrl: string;
 
@@ -28,8 +30,10 @@ class UdemyCourseModule extends Udemy {
   public async getModulesByCourseId(
     courseId: number,
   ): Promise<UdemyModuleGetResponseDto[]> {
-    const initialPage = 1;
-    const modules = await this.fetchAllCourseModules(initialPage, courseId);
+    const modules = await this.fetchAllCourseModules(
+      this.#INITIAL_PAGE,
+      courseId,
+    );
 
     return modules;
   }
@@ -45,7 +49,7 @@ class UdemyCourseModule extends Udemy {
         this.getRequestUrl(courseId, page),
         this.getHeaders(),
       );
-    while (fetchedModules.length === this.#moduleApiPageSize) {
+    while (fetchedModules.length === this.#MODULE_API_PAGE_SIZE) {
       modules = modules.concat(fetchedModules);
       fetchedModules = await this.fetchModulesPage(
         this.getRequestUrl(courseId, ++page),
@@ -74,7 +78,7 @@ class UdemyCourseModule extends Udemy {
     return `${
       this.#baseUrl
     }courses/${courseId}/public-curriculum-items/?page=${page}&page_size=${
-      this.#moduleApiPageSize
+      this.#MODULE_API_PAGE_SIZE
     }`;
   }
 }

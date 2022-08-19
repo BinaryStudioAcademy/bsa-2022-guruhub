@@ -10,7 +10,7 @@ import { CoursesError } from '~/exceptions/exceptions';
 import {
   courseCategory as courseCategoryServ,
   courseModule as courseModuleServ,
-  udemyCourse as udemyServ,
+  udemy as udemyServ,
   vendor as vendorServ,
 } from '~/services/services';
 

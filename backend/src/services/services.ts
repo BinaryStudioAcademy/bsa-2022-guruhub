@@ -69,7 +69,7 @@ const vendor = new Vendor({ vendorRepository });
 
 const http = new Http();
 
-const udemyCourse = new UdemyCourse({
+const udemy = new UdemyCourse({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
 });
@@ -90,7 +90,7 @@ const course = new Course({
   courseRepository,
   vendorService: vendor,
   courseModuleService: courseModule,
-  udemyService: udemyCourse,
+  udemyService: udemy,
   courseCategoryService: courseCategory,
 });
 
@@ -105,7 +105,7 @@ export {
   http,
   permission,
   token,
-  udemyCourse,
+  udemy,
   udemyCourseModule,
   user,
   usersToGroups,
