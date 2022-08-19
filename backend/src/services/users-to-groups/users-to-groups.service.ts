@@ -25,6 +25,12 @@ class UsersToGroups {
     };
   }
 
+  public getUsersByGroupId(
+    groupId: number,
+  ): Promise<UsersToGroupsResponseDto[]> {
+    return this.#usersToGroupsRepository.getUsersByGroupId(groupId);
+  }
+
   public async updateUsersToGroups(usersToGroups: {
     groupId: number;
     userIds: number[];
