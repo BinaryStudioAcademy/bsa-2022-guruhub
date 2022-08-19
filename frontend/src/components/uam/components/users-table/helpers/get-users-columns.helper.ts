@@ -5,7 +5,7 @@ import {
   UsersTableActionsProps,
   UsersTableRow,
 } from '../../../common/types/types';
-import { ActionsCell } from '../components/components';
+import { ActionsCell, DateCell } from '../components/components';
 
 const getUsersColumns = (
   onUserDelete: (userId: number) => void,
@@ -26,6 +26,7 @@ const getUsersColumns = (
     {
       Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
+      Cell: DateCell,
     },
     {
       Header: 'Actions',
