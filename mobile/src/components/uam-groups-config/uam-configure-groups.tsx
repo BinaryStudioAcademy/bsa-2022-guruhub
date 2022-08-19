@@ -46,6 +46,8 @@ const UAMConfigureGroup: FC = () => {
       validationSchema: groupCreateClient,
     });
 
+  const groupName = control._formValues.name;
+
   const {
     items: permissionIds,
     handleToggle: handleTogglePermissions,
@@ -71,7 +73,7 @@ const UAMConfigureGroup: FC = () => {
   const handleCreateGroup = async (): Promise<void> => {
     await dispatch(
       groupsCreationActions.createGroup({
-        name: control._formValues.name,
+        name: groupName,
         permissionIds,
         userIds,
       }),
@@ -83,8 +85,6 @@ const UAMConfigureGroup: FC = () => {
     if (!group) {
       return;
     }
-
-    const groupName = control._formValues.name;
 
     await dispatch(
       uamGroupEditActions.editGroup({
