@@ -1,8 +1,10 @@
-export { courseCreate, coursesGetByCategory } from './course/course';
+export { courseCreate, courseFiltering } from './course/course';
 export {
+  groupConfigureClient,
   groupCreate,
   groupCreateClient,
   groupDelete,
+  groupGetById,
   groupUpdate,
   groupUpdateParams,
 } from './group/group';

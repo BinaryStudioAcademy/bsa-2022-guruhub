@@ -1,4 +1,5 @@
 export { Button } from './button/button';
+export { Checkbox } from './checkbox/checkbox';
 export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';
@@ -9,4 +10,5 @@ export { Stack } from './stack/stack';
 export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
-export { Image, Pressable, ScrollView, View } from 'react-native';
+export { Image, Pressable, ScrollView, StatusBar, View } from 'react-native';
+export { SafeAreaView } from 'react-native-safe-area-context';

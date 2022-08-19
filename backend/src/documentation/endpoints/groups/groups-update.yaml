@@ -19,3 +19,5 @@ responses:
       application/json:
         schema:
           $ref: '../../schemas/groups/groups-response-dto.yaml'
+  '400':
+    description: Invalid data sent

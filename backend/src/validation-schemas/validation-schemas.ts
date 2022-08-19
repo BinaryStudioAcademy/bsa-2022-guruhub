@@ -1,7 +1,8 @@
-export { courseCreate, coursesGetByCategory } from './course/course';
+export { courseCreate, courseFiltering } from './course/course';
 export {
   groupCreate,
   groupDelete,
+  groupGetById,
   groupUpdate,
   groupUpdateParams,
 } from './group/group';

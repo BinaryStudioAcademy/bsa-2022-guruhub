@@ -1,3 +1,5 @@
+get:
+  $ref: './groups-get-by-id.yaml'
 put:
   $ref: './groups-update.yaml'
 delete:

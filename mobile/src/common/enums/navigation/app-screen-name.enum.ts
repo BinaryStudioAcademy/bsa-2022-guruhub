@@ -6,6 +6,7 @@ enum AppScreenName {
   BILLING = 'Billing',
   SETTINGS = 'Settings',
   UAM = 'User Access Managment',
+  UAM_GROUPS_CREATE = 'Create group',
 }
 
 export { AppScreenName };

@@ -6,9 +6,11 @@ import {
 } from 'common/enums/enums';
 import {
   EntityPagination,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
   GroupsDeleteRequestParamDto,
+  GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
+  GroupUpdateRequestArgumentsDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -36,13 +38,36 @@ class GroupsApi {
     );
   }
 
+  public getById(id: number): Promise<GroupsGetByIdResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}/${id}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public create(
-    payload: GroupsCreateRequestDto,
+    payload: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
         method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public update({
+    payload,
+    id,
+  }: GroupUpdateRequestArgumentsDto): Promise<GroupsItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },
