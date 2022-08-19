@@ -5,6 +5,7 @@ type UseSelectedItemsHook<T> = {
   handleRemove: (item: T) => void;
   handleToggle: (item: T) => void;
   items: T[];
+  setItems: (items: T[]) => void;
 };
 
 const useSelectedItems = <T extends number>(
@@ -28,7 +29,13 @@ const useSelectedItems = <T extends number>(
     });
   };
 
-  return { handleAdd, handleRemove, handleToggle, items: selectedItems };
+  return {
+    handleAdd,
+    handleRemove,
+    handleToggle,
+    items: selectedItems,
+    setItems: setSelectedItems,
+  };
 };
 
 export { useSelectedItems };

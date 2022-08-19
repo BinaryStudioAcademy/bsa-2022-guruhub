@@ -1,28 +1,52 @@
 import { AppRoute } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, IconName } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
+import { ReactElement } from 'react';
 
-import { Link } from '../common';
+import { Icon, Link } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
   label: string;
+  hasVisuallyHiddenLabel?: boolean;
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
-  btnType?: 'filled' | 'outlined';
+  btnType?: 'filled' | 'outlined' | 'icon';
   to?: AppRoute;
   onClick?: () => void;
+  iconName?: IconName;
 };
 
 const Button: FC<Props> = ({
   btnType = 'filled',
+  hasVisuallyHiddenLabel = false,
   type = 'button',
-  btnColor = 'blue',
+  btnColor,
   label,
   to,
   onClick,
+  iconName,
 }) => {
   const isLink = Boolean(to);
+
+  const getContent = (): ReactElement | string => {
+    const hasIcon = Boolean(iconName);
+
+    return (
+      <>
+        {hasIcon && <Icon name={iconName as IconName} />}
+        {
+          <span
+            className={getValidClasses(
+              hasVisuallyHiddenLabel && 'visually-hidden',
+            )}
+          >
+            {label}
+          </span>
+        }
+      </>
+    );
+  };
 
   if (isLink) {
     return (
@@ -30,7 +54,7 @@ const Button: FC<Props> = ({
         to={to as AppRoute}
         className={getValidClasses(styles.button, styles[`button-${btnType}`])}
       >
-        {label}
+        {getContent()}
       </Link>
     );
   }
@@ -45,9 +69,9 @@ const Button: FC<Props> = ({
       )}
       onClick={onClick}
     >
-      {label}
+      {getContent()}
     </button>
   );
 };
 
-export { Button };
+export { Button, Props };

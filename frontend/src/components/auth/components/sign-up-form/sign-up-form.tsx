@@ -26,7 +26,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
           <p className={styles.formLink}>
             Already registered?{' '}
             <Link to={AppRoute.SIGN_IN}>
-              <span>Log in</span>
+              <span>Sign in</span>
             </Link>
           </p>
         </div>
@@ -55,7 +55,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
             />
           </div>
           <div className={styles.buttonWrapper}>
-            <Button type="submit" label="Sign up" />
+            <Button type="submit" label="Sign up" btnColor="blue" />
           </div>
         </form>
       </div>
