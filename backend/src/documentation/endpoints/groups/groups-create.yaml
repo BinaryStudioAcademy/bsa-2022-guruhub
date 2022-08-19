@@ -11,3 +11,5 @@ post:
   responses:
     '201':
       description: Group was successfully added
+    '400':
+      description: Invalid data

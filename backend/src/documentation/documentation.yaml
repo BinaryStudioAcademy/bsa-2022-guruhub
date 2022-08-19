@@ -29,6 +29,9 @@ paths:
   # Categories
   /categories:
     $ref: './endpoints/categories/categories.yaml'
+  # Permissions
+  /permissions:
+    $ref: './endpoints/permissions/permissions-get-all.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -55,6 +58,8 @@ components:
       $ref: './schemas/courses/course-add-request-dto.yaml'
     CategoriesGetAllResponseDto:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'
+    PermissionsGetAllResponseDto:
+      $ref: './schemas/permissions/permissions-get-all-response-dto.yaml'
     securitySchemes:
       bearerAuth:
         type: http
