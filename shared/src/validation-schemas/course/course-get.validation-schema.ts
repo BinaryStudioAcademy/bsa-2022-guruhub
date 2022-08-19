@@ -4,7 +4,9 @@ import { CourseGetRequestParamsDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const courseGet = Joi.object({
-  [getNameOf<CourseGetRequestParamsDto>('id')]: Joi.string().trim().required(),
+  [getNameOf<CourseGetRequestParamsDto>('id')]: Joi.number()
+    .integer()
+    .required(),
 });
 
 export { courseGet };
