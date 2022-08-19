@@ -7,6 +7,7 @@ get:
       name: page
       schema:
         type: integer
+        minimum: 1
       default: 1
       required: false
       description: The number of page to be returned
@@ -14,6 +15,7 @@ get:
       name: count
       schema:
         type: integer
+        minimum: 1
       default: 5
       required: false
       description: The number of groups to be returned for request
