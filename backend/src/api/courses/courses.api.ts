@@ -10,7 +10,7 @@ import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
-  courseGetParams as courseGetValidationSchema,
+  courseGetParams as courseGetParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -58,7 +58,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.$ID,
-    schema: { params: courseGetValidationSchema },
+    schema: { params: courseGetParamsValidationSchema },
     async handler(
       req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
       rep,

@@ -12,15 +12,10 @@ import { courseActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
-type Markup = {
-  __html: string;
-};
-
 const Course: FC = () => {
   const { course, dataStatus } = useAppSelector((state) => state.course);
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const createMarkup = (str: string): Markup => ({ __html: str });
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
@@ -37,14 +32,14 @@ const Course: FC = () => {
         <div className={styles.image}>
           <Image
             alt="course image"
-            src={course?.imageUrl || defaultCourseImage}
+            src={course?.imageUrl ?? defaultCourseImage}
             width="100%"
             height="100%"
           />
         </div>
         <h2 className={styles.about}>About this course</h2>
         <div
-          dangerouslySetInnerHTML={createMarkup(course?.description as string)}
+          dangerouslySetInnerHTML={{ __html: course?.description as string }}
         />
       </div>
 
