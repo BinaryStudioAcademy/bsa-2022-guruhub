@@ -1,11 +1,12 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
 import { FC, GroupsItemResponseDto } from 'common/types/types';
-import { Button, Table } from 'components/common/common';
+import { Button, Pagination, Table } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
   useMemo,
+  usePagination,
 } from 'hooks/hooks';
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
@@ -14,12 +15,18 @@ import { getGroupsColumns, getGroupsRows } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const GroupsTable: FC = () => {
+  const { page, handlePageChange } = usePagination({ queryName: 'groupsPage' });
   const dispatch = useAppDispatch();
-  const { groups } = useAppSelector((state) => state.uam);
+  const { groups, groupsTotalCount } = useAppSelector((state) => state.uam);
 
   useEffect(() => {
-    dispatch(uamActions.getGroups());
-  }, []);
+    dispatch(
+      uamActions.getGroups({
+        page,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [page]);
 
   const handleGroupDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
@@ -43,6 +50,12 @@ const GroupsTable: FC = () => {
         />
       </div>
       <Table data={data} columns={columns} />
+      <Pagination
+        currentPage={page}
+        onPageChange={handlePageChange}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={groupsTotalCount}
+      />
     </div>
   );
 };

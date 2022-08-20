@@ -6,6 +6,7 @@ import {
 } from 'common/enums/enums';
 import {
   EntityPagination,
+  EntityPaginationRequestQueryDto,
   GroupsConfigureRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsGetByIdResponseDto,
@@ -29,11 +30,19 @@ class GroupsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<EntityPagination<GroupsItemResponseDto>> {
+  public getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<GroupsItemResponseDto>> {
+    const { count, page } = paginationData ?? {};
+
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+        queryString: {
+          page,
+          count,
+        },
       },
     );
   }
