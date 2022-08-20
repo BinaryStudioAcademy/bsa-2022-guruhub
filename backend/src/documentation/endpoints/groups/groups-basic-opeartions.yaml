@@ -1,0 +1,4 @@
+get:
+  $ref: './groups-get-all.yaml'
+post:
+  $ref: './groups-create.yaml'
