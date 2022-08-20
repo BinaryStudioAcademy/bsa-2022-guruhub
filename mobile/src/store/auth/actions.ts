@@ -52,7 +52,7 @@ const loadCurrentUser = createAsyncThunk<
       const isHttpError = err instanceof HttpError;
 
       if (isHttpError && err.status === HttpCode.UNAUTHORIZED) {
-        dispatch(logout());
+        dispatch(signOut());
       }
 
       return rejectWithValue(errorMessage ?? ExceptionMessage.UNKNOWN_ERROR);
