@@ -39,7 +39,7 @@ class Group {
     return group ?? null;
   }
 
-  public async getPaginated({
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {

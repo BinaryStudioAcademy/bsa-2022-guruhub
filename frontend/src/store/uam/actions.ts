@@ -17,18 +17,18 @@ const getUsers = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
   const { usersApi } = extra;
-  const usersDto = await usersApi.getPaginated({ page, count });
+  const usersDto = await usersApi.getAll({ page, count });
 
   return usersDto;
 });
 
 const getGroups = createAsyncThunk<
   EntityPagination<GroupsItemResponseDto>,
-  void,
+  EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_GROUPS, async (_, { extra }) => {
+>(ActionType.GET_GROUPS, async ({ page, count }, { extra }) => {
   const { groupsApi } = extra;
-  const groups = await groupsApi.getAll();
+  const groups = await groupsApi.getAll({ page, count });
 
   return groups;
 });
