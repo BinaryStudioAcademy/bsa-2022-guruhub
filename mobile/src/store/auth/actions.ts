@@ -48,13 +48,14 @@ const loadCurrentUser = createAsyncThunk<
 
       return user;
     } catch (err) {
+      const errorMessage = (err as Error).message;
       const isHttpError = err instanceof HttpError;
 
       if (isHttpError && err.status === HttpCode.UNAUTHORIZED) {
         dispatch(logout());
       }
 
-      return rejectWithValue(err?.message ?? ExceptionMessage.UNKNOWN_ERROR);
+      return rejectWithValue(errorMessage ?? ExceptionMessage.UNKNOWN_ERROR);
     }
   },
 );
