@@ -9,6 +9,8 @@ import {
 } from '~/components/uam-configure-group/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
+import { styles } from './styles';
+
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
   onCheckboxToggle: (id: number) => void;
@@ -33,7 +35,7 @@ const PermissionsTable: FC<Props> = ({
   const permissionColumns = getPermissionsColumns();
 
   return (
-    <View>
+    <View style={styles.container}>
       <Table
         columns={permissionColumns}
         data={permissionRows}

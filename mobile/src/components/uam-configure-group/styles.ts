@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'space-around',
-    marginTop: 20,
+    marginVertical: 20,
   },
   inputContainer: {
     marginBottom: 16,

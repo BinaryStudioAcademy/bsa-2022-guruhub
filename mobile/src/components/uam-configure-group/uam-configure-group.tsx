@@ -1,9 +1,14 @@
-import React, { FC, useEffect } from 'react';
-import { ScrollView, View } from 'react-native';
+import React, { FC } from 'react';
 
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
-import { Button, Input, Text } from '~/components/common/common';
+import {
+  Button,
+  Input,
+  ScrollView,
+  Text,
+  View,
+} from '~/components/common/common';
 import {
   PermissionsTable,
   UsersTable,
@@ -13,6 +18,7 @@ import {
   useAppForm,
   useAppNavigate,
   useAppSelector,
+  useEffect,
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
@@ -91,7 +97,7 @@ const UAMConfigureGroup: FC = () => {
 
   useEffect(() => {
     dispatch(
-      groupsCreationActions.getUsersForCreation({
+      groupsCreationActions.getUsers({
         page: usersPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
