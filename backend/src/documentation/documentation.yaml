@@ -25,6 +25,8 @@ paths:
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
+  /courses/:id:
+    $ref: './endpoints/courses/courses-get-by-id.yaml'
   # Categories
   /categories:
     $ref: './endpoints/categories/categories.yaml'
@@ -55,6 +57,10 @@ components:
       $ref: './schemas/groups/groups-update-request-dto.yaml'
     CourseCreateRequestDto:
       $ref: './schemas/courses/course-add-request-dto.yaml'
+    CourseGetByIdRequestDto:
+      $ref: './schemas/courses/course-get-by-id-request-dto.yaml'
+    CourseGetByIdResponseDto:
+      $ref: './schemas/courses/course-get-by-id-response-dto.yaml'
     CategoriesGetAllResponseDto:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'
     PermissionsGetAllResponseDto:

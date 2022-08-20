@@ -1,27 +1,26 @@
-get:
-  summary: Get groups for a page
-  tags:
-    - groups
-  parameters:
-    - in: query
-      name: page
-      schema:
-        type: integer
-        minimum: 1
-      default: 1
-      required: false
-      description: The number of page to be returned
-    - in: query
-      name: count
-      schema:
-        type: integer
-        minimum: 1
-      default: 5
-      required: false
-      description: The number of groups to be returned for request
-  responses:
-    '200':
-      content:
-        application/json:
-          schema:
-            $ref: '../../schemas/groups/groups-get-all-response-dto.yaml'
+summary: Get groups for a page
+tags:
+  - groups
+parameters:
+  - in: query
+    name: page
+    schema:
+      type: integer
+      minimum: 1
+    default: 1
+    required: false
+    description: The number of page to be returned
+  - in: query
+    name: count
+    schema:
+      type: integer
+      minimum: 1
+    default: 5
+    required: false
+    description: The number of groups to be returned for request
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/groups/groups-get-all-response-dto.yaml'
