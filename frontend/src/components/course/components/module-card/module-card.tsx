@@ -3,14 +3,18 @@ import { FC } from 'common/types/types';
 import styles from './styles.module.scss';
 
 type Props = {
+  orderNumber: number;
   title: string;
   description: string | null;
 };
 
-const ModuleCard: FC<Props> = ({ title, description }) => {
+const ModuleCard: FC<Props> = ({ orderNumber, title, description }) => {
   return (
     <div className={styles.card}>
-      <h2 className={styles.header}>{title}</h2>
+      <div className={styles.headerContainer}>
+        <h3 className={styles.orderNumber}>{orderNumber}. </h3>
+        <h3 className={styles.header}>{title}</h3>
+      </div>
       <p className={styles.description}>{description}</p>
     </div>
   );

@@ -10,6 +10,7 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
+import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
@@ -31,6 +32,33 @@ const Course: FC = () => {
     );
   }
 
+  const mockedModules = [
+    {
+      id: 1,
+      title: 'There was a cat and the rat',
+      description: 'There was a cat and the rat. There was a cat and the rat',
+      courseId: 1,
+    },
+    {
+      id: 2,
+      title: 'There was a cat and the rat',
+      description: 'There was a cat and the rat. There was a cat and the rat',
+      courseId: 1,
+    },
+    {
+      id: 3,
+      title: 'There was a cat and the rat',
+      description: 'There was a cat and the rat. There was a cat and the rat',
+      courseId: 1,
+    },
+    {
+      id: 4,
+      title: 'There was a cat and the rat',
+      description: 'There was a cat and the rat. There was a cat and the rat',
+      courseId: 1,
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -48,7 +76,9 @@ const Course: FC = () => {
           dangerouslySetInnerHTML={{ __html: course?.description as string }}
         />
         <h3>Course Content</h3>
-        <div className={styles.modulesContainer}></div>
+        <div className={styles.modulesContainer}>
+          <ModulesCardsContainer modules={mockedModules} />
+        </div>
       </div>
 
       <div className={styles.additional}></div>
