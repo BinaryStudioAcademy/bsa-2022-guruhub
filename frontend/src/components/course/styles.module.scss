@@ -5,6 +5,12 @@
   color: #ffffff;
 }
 
+.modulesContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
 .info {
   width: 65%;
   margin-bottom: 20px;

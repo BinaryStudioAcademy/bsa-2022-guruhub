@@ -47,6 +47,7 @@ const Course: FC = () => {
         <div
           dangerouslySetInnerHTML={{ __html: course?.description as string }}
         />
+        <div className={styles.modulesContainer}></div>
       </div>
 
       <div className={styles.additional}></div>
