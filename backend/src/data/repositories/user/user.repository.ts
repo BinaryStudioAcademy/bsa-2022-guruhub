@@ -15,7 +15,7 @@ class User {
     this.#UserModel = UserModel;
   }
 
-  public async getPaginated({
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {

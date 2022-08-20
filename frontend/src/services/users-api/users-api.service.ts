@@ -22,12 +22,11 @@ class UsersApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getPaginated({
-    page,
-    count,
-  }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<UsersGetResponseDto>
-  > {
+  public getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<UsersGetResponseDto>> {
+    const { count, page } = paginationData ?? {};
+
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {
