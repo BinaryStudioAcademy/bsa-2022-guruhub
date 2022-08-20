@@ -44,11 +44,13 @@ const UAMConfigureGroup: FC = () => {
   const { page: usersPage, handlePageChange: handleUsersPageChange } =
     usePagination({ queryName: 'users' });
 
-  const handleCreateOrEdit = (): void => {
+  const handleCreateOrEdit = (values: GroupsConfigureRequestDto): void => {
+    const { name } = values;
+
     if (!isEdit) {
       dispatch(
         uamConfigureGroupActions.createGroup({
-          name: control._formValues.name,
+          name,
           permissionIds,
           userIds,
         }),
@@ -61,7 +63,7 @@ const UAMConfigureGroup: FC = () => {
       uamConfigureGroupActions.updateGroup({
         id: Number(id),
         payload: {
-          name: control._formValues.name,
+          name,
           permissionIds,
           userIds,
         },

@@ -3,6 +3,7 @@ import { ENV } from '~/common/enums/enums';
 import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
+  courseModule as courseModuleRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   permission as permissionRepository,
@@ -14,6 +15,7 @@ import {
 import { Auth } from './auth/auth.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
+import { CourseModule } from './course-module/course-module.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -73,9 +75,15 @@ const udemy = new Udemy({
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
 
+const courseModule = new CourseModule({
+  moduleRepository: courseModuleRepository,
+  udemyService: udemy,
+});
+
 const course = new Course({
   courseRepository,
   vendorService: vendor,
+  courseModuleService: courseModule,
   udemyService: udemy,
   courseCategoryService: courseCategory,
 });
@@ -84,6 +92,7 @@ export {
   auth,
   course,
   courseCategory,
+  courseModule,
   encrypt,
   group,
   groupsToPermissions,

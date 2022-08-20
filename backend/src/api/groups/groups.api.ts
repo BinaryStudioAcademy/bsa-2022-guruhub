@@ -67,7 +67,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         count = PaginationDefaultValue.DEFAULT_COUNT,
       } = req.query;
 
-      const groups = await groupService.getPaginated({
+      const groups = await groupService.getAll({
         page,
         count,
       });
