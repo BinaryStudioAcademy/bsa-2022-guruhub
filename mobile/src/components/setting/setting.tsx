@@ -10,13 +10,13 @@ const Settings: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = (): void => {
-    dispatch(authActions.logout());
+    dispatch(authActions.signOut());
   };
 
   return (
     <View style={styles.container}>
       <Text>Settings Screen</Text>
-      <Button label="Logout" onPress={handleLogout} />
+      <Button label="Sign Out" onPress={handleLogout} />
     </View>
   );
 };
