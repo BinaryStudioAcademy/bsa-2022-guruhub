@@ -24,7 +24,7 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
       <Pressable style={styles.button} onPress={handleSetting}>
         <Icon
           name="settings"
-          color={AppColor.BRAND.YELLOW_200}
+          color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
         />
@@ -32,7 +32,7 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
       <Pressable style={styles.button} onPress={handleDelete}>
         <Icon
           name="trash"
-          color={AppColor.BRAND.YELLOW_200}
+          color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
         />

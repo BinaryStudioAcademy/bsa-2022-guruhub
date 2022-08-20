@@ -71,32 +71,34 @@ const UAMGroupsCreate: FC = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.inputContainer}>
-          <Input
-            name="name"
-            placeholder="Enter group name"
-            label="Group name"
-            control={control}
-            errors={errors}
-          />
-        </View>
+        <View style={styles.innerContainer}>
+          <View style={styles.inputContainer}>
+            <Input
+              name="name"
+              placeholder="Enter group name"
+              label="Group name"
+              control={control}
+              errors={errors}
+            />
+          </View>
 
-        <Text style={styles.title}>Add users to the Group - Optional</Text>
-        <UsersTable
-          users={users}
-          onCheckbox={handleToggleUsers}
-          pagination={paginationForUsersTable}
-        />
-        <Text style={styles.title}>Attach permissions policies</Text>
-        <GroupsTable
-          permissions={permissions.items}
-          onCheckbox={handleTogglePermissions}
-        />
-        <View style={styles.buttonsContainer}>
-          <Button
-            label="Create group"
-            onPress={handleSubmit(handleCreateGroup)}
+          <Text style={styles.title}>Add users to the Group - Optional</Text>
+          <UsersTable
+            users={users}
+            onCheckbox={handleToggleUsers}
+            pagination={paginationForUsersTable}
           />
+          <Text style={styles.title}>Attach permissions policies</Text>
+          <GroupsTable
+            permissions={permissions.items}
+            onCheckbox={handleTogglePermissions}
+          />
+          <View style={styles.buttonsContainer}>
+            <Button
+              label="Create group"
+              onPress={handleSubmit(handleCreateGroup)}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
