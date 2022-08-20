@@ -24,7 +24,7 @@ const Dashboard: FC = () => {
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(dashboardActions.getCourses());
+    dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 
@@ -43,6 +43,7 @@ const Dashboard: FC = () => {
           <h1 className={styles.headingText}>Courses</h1>
           <Button
             label="+ Add new course"
+            btnColor="blue"
             onClick={handleNewCourseModalToggle}
           />
           <AddCourseModal

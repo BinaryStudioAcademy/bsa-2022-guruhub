@@ -1,0 +1,26 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  title:
+    type: string
+    example: title
+  description:
+    type: string
+    example: description
+  url:
+    type: string
+    example: /courses/24823
+  vendor:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: name
+      key:
+        type: string
+        example: key

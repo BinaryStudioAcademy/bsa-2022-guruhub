@@ -1,5 +1,7 @@
 import {
   Course as CourseModel,
+  CourseCategory as CourseCategoryModel,
+  CourseModule as CourseModuleModel,
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   Interview as InterviewModel,
@@ -10,6 +12,8 @@ import {
 } from '~/data/models/models';
 
 import { Course } from './course/course.repository';
+import { CourseCategory } from './course-category/course-category.repository';
+import { CourseModule } from './course-module/course-module.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Interview } from './interview/interview.repository';
@@ -40,12 +44,20 @@ const usersToGroups = new UsersToGroups({
 
 const course = new Course({ CourseModel });
 
+const courseModule = new CourseModule({
+  ModuleModel: CourseModuleModel,
+});
+
 const vendor = new Vendor({ VendorModel });
+
+const courseCategory = new CourseCategory({ CourseCategoryModel });
 
 const interview = new Interview({ InterviewModel });
 
 export {
   course,
+  courseCategory,
+  courseModule,
   group,
   groupsToPermissions,
   interview,

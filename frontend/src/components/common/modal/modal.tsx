@@ -2,7 +2,7 @@ import { FC } from 'common/types/types';
 import { useHandleClickOutside, useRef } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
-import { Icon } from '../common';
+import { IconButton } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -27,9 +27,7 @@ const Modal: FC<Props> = ({ isOpen, onClose, children, title }) => {
   return (
     <div className={styles.modalBackgroundContainer}>
       <div className={styles.modalContainer} ref={popupRef}>
-        <button className={styles.modalClose} onClick={onClose}>
-          <Icon name="cross" />
-        </button>
+        <IconButton iconName="cross" onClick={onClose} label="Close modal" />
         <div className={styles.mainContent}>
           <h2 className={styles.modalTitle}>{title}</h2>
           <div className={styles.childrenSection}>{children}</div>

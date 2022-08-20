@@ -3,6 +3,7 @@ import {
   AsyncThunkConfig,
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
   UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
@@ -16,18 +17,18 @@ const getUsers = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
   const { usersApi } = extra;
-  const usersDto = await usersApi.getPaginated({ page, count });
+  const usersDto = await usersApi.getAll({ page, count });
 
   return usersDto;
 });
 
 const getGroups = createAsyncThunk<
   EntityPagination<GroupsItemResponseDto>,
-  void,
+  EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_GROUPS, async (_, { extra }) => {
+>(ActionType.GET_GROUPS, async ({ page, count }, { extra }) => {
   const { groupsApi } = extra;
-  const groups = await groupsApi.getAll();
+  const groups = await groupsApi.getAll({ page, count });
 
   return groups;
 });
@@ -46,4 +47,18 @@ const deleteUser = createAsyncThunk<
   return id;
 });
 
-export { deleteUser, getGroups, getUsers };
+const deleteGroup = createAsyncThunk<
+  number,
+  GroupsDeleteRequestParamDto,
+  AsyncThunkConfig
+>(ActionType.DELETE_GROUP, async (payload, { extra }) => {
+  const { groupsApi } = extra;
+
+  await groupsApi.delete(payload);
+
+  const { id } = payload;
+
+  return id;
+});
+
+export { deleteGroup, deleteUser, getGroups, getUsers };

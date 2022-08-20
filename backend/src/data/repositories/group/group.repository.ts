@@ -1,6 +1,8 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupsWithPermissionIdsDto,
+  GroupsWithPermissionsDto,
 } from '~/common/types/types';
 import { Group as GroupM } from '~/data/models/models';
 
@@ -15,7 +17,29 @@ class Group {
     this.#GroupModel = GroupModel;
   }
 
-  public async getPaginated({
+  public async getById(id: number): Promise<GroupsWithPermissionIdsDto | null> {
+    const group = await this.#GroupModel
+      .query()
+      .where('groups.id', id)
+      .select('groups.*')
+      .withGraphJoined('permissions')
+      .castTo<GroupsWithPermissionsDto>()
+      .first()
+      .then((data) => {
+        if (!data) {
+          return null;
+        }
+
+        return {
+          ...data,
+          permissionIds: data.permissions.map((permission) => permission.id),
+        };
+      });
+
+    return group ?? null;
+  }
+
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
@@ -46,8 +70,24 @@ class Group {
     return group ?? null;
   }
 
-  public async delete(groupId: number): Promise<number> {
-    return this.#GroupModel.query().delete().where({ id: groupId });
+  public update(group: {
+    id: number;
+    name: string;
+    key: string;
+  }): Promise<GroupM> {
+    const { id, name, key } = group;
+
+    return this.#GroupModel
+      .query()
+      .patchAndFetchById(id, {
+        name,
+        key,
+      })
+      .execute();
+  }
+
+  public delete(groupId: number): Promise<number> {
+    return this.#GroupModel.query().delete().where({ id: groupId }).execute();
   }
 }
 

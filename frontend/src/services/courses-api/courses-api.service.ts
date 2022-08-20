@@ -4,7 +4,11 @@ import {
   CoursesApiPath,
   HttpMethod,
 } from 'common/enums/enums';
-import { CourseGetResponseDto } from 'common/types/types';
+import {
+  CourseFilteringDto,
+  CourseGetRequestParamsDto,
+  CourseGetResponseDto,
+} from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -22,11 +26,17 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<CourseGetResponseDto[]> {
+  public getAll(opts: {
+    filtering: CourseFilteringDto;
+  }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
       {
         method: HttpMethod.GET,
+        queryString: {
+          title: opts.filtering.title,
+          categoryKey: opts.filtering.categoryKey,
+        },
       },
     );
   }
@@ -38,6 +48,17 @@ class Courses {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify({ url }),
+      },
+    );
+  }
+
+  public getById({
+    id,
+  }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.GET,
       },
     );
   }

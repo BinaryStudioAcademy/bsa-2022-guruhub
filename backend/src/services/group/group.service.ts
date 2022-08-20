@@ -2,8 +2,10 @@ import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  GroupsCreateRequestDto,
+  GroupsConfigureRequestDto,
+  GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
+  GroupsUpdateRequestDto,
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
@@ -48,14 +50,30 @@ class Group {
     this.#userService = userService;
   }
 
-  public async getPaginated({
+  public async getById(id: number): Promise<GroupsGetByIdResponseDto | null> {
+    const groupWithPermissions = await this.#groupsRepository.getById(id);
+
+    if (!groupWithPermissions) {
+      throw new GroupsError({ message: ExceptionMessage.INVALID_GROUP_ID });
+    }
+
+    const users = await this.#usersToGroupsService.getUsersByGroupId(id);
+    const userIds = users?.map((user) => user.userId) ?? [];
+
+    return {
+      ...groupWithPermissions,
+      userIds,
+    };
+  }
+
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<GroupsItemResponseDto>
   > {
     const ZERO_INDEXED_PAGE = page - 1;
-    const result = await this.#groupsRepository.getPaginated({
+    const result = await this.#groupsRepository.getAll({
       page: ZERO_INDEXED_PAGE,
       count,
     });
@@ -71,7 +89,7 @@ class Group {
   }
 
   public async create(
-    groupsRequestDto: GroupsCreateRequestDto,
+    groupsRequestDto: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     const { name, permissionIds, userIds } = groupsRequestDto;
     const groupByName = await this.#groupsRepository.getByName(name);
@@ -122,6 +140,35 @@ class Group {
         });
       }),
     );
+
+    return group;
+  }
+
+  public async update(data: {
+    id: number;
+    groupsRequestDto: GroupsUpdateRequestDto;
+  }): Promise<GroupsItemResponseDto> {
+    const { id, groupsRequestDto } = data;
+    const { name, permissionIds, userIds } = groupsRequestDto;
+
+    const group = await this.#groupsRepository.update({
+      id,
+      name,
+      key: changeStringCase({
+        stringToChange: name,
+        caseType: StringCase.SNAKE_CASE,
+      }),
+    });
+
+    await this.#groupsToPermissionsService.updateGroupsToPermissions({
+      groupId: id,
+      permissionIds,
+    });
+
+    await this.#usersToGroupsService.updateUsersToGroups({
+      groupId: id,
+      userIds,
+    });
 
     return group;
   }

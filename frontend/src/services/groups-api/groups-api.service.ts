@@ -6,8 +6,12 @@ import {
 } from 'common/enums/enums';
 import {
   EntityPagination,
-  GroupsCreateRequestDto,
+  EntityPaginationRequestQueryDto,
+  GroupsConfigureRequestDto,
+  GroupsDeleteRequestParamDto,
+  GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
+  GroupUpdateRequestArgumentsDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -26,9 +30,26 @@ class GroupsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<EntityPagination<GroupsItemResponseDto>> {
+  public getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<GroupsItemResponseDto>> {
+    const { count, page } = paginationData ?? {};
+
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          page,
+          count,
+        },
+      },
+    );
+  }
+
+  public getById(id: number): Promise<GroupsGetByIdResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}/${id}`,
       {
         method: HttpMethod.GET,
       },
@@ -36,7 +57,7 @@ class GroupsApi {
   }
 
   public create(
-    payload: GroupsCreateRequestDto,
+    payload: GroupsConfigureRequestDto,
   ): Promise<GroupsItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
@@ -45,6 +66,27 @@ class GroupsApi {
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },
+    );
+  }
+
+  public update({
+    payload,
+    id,
+  }: GroupUpdateRequestArgumentsDto): Promise<GroupsItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public delete({ id }: GroupsDeleteRequestParamDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      { method: HttpMethod.DELETE },
     );
   }
 }

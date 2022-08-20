@@ -1,9 +1,17 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { CoursesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
-import { CourseCreateRequestDto } from '~/common/types/types';
+import {
+  CourseCreateRequestDto,
+  CourseFilteringDto,
+  CourseGetRequestParamsDto,
+} from '~/common/types/types';
 import { course as courseService } from '~/services/services';
-import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  courseCreate as courseCreateValidationSchema,
+  courseFiltering as courseFilteringValidationSchema,
+  courseGetParams as courseGetParamsValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -17,8 +25,17 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
-    async handler(_req, rep) {
-      const courses = await courseService.getAll();
+    schema: {
+      querystring: courseFilteringValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Querystring: CourseFilteringDto;
+      }>,
+      rep,
+    ) {
+      const { categoryKey, title } = req.query;
+      const courses = await courseService.getAll({ categoryKey, title });
 
       return rep.status(HttpCode.OK).send(courses);
     },
@@ -35,6 +52,21 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.createByUrl(url);
 
       return rep.status(HttpCode.CREATED).send(course);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID,
+    schema: { params: courseGetParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const course = await courseService.getById(id);
+
+      return rep.status(HttpCode.OK).send(course);
     },
   });
 };

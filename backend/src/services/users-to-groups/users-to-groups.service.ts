@@ -24,6 +24,24 @@ class UsersToGroups {
       userId: model.userId,
     };
   }
+
+  public getUsersByGroupId(
+    groupId: number,
+  ): Promise<UsersToGroupsResponseDto[]> {
+    return this.#usersToGroupsRepository.getUsersByGroupId(groupId);
+  }
+
+  public async updateUsersToGroups(usersToGroups: {
+    groupId: number;
+    userIds: number[];
+  }): Promise<void> {
+    const { groupId, userIds } = usersToGroups;
+
+    return this.#usersToGroupsRepository.update({
+      groupId,
+      userIds,
+    });
+  }
 }
 
 export { UsersToGroups };

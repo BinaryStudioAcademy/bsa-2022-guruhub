@@ -1,0 +1,48 @@
+type: array
+items:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    createdAt:
+      type: date,
+      example: '2022-08-19T08:44:00.682Z'
+    updatedAt:
+      type: date,
+      example: '2022-08-19T08:44:00.682Z'
+    title:
+      type: string
+      example: title
+    description:
+      type: string
+      example: description
+    url:
+      type: string
+      example: /courses/24823
+    vendorId:
+      type: integer
+      example: 1
+    courseCategoryId:
+      type: integer
+      example: 1
+    imageUrl:
+      type: string | null
+    vendor:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: name
+        key:
+          type: string
+          example: key
+        createdAt:
+          type: date,
+          example: '2022-08-19T08:44:00.682Z'
+        updatedAt:
+          type: date,
+          example: '2022-08-19T08:44:00.682Z'

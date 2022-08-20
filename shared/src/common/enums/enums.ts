@@ -13,7 +13,12 @@ export { CourseValidationMessage } from './course/course';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';
-export { HttpCode, HttpHeader, HttpMethod } from './http/http';
+export {
+  HttpCode,
+  HttpHeader,
+  HttpMethod,
+  HttpStatusMessage,
+} from './http/http';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,

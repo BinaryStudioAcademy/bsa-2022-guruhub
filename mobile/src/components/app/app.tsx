@@ -4,11 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { FC } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { linking } from '~/config/config';
+import { linking, navigationTheme } from '~/config/config';
 import { Root as RootNavigation } from '~/navigation/root/root.navigation';
 
-import { Toast } from '../common/common';
+import { StatusBar, Toast } from '../common/common';
 import { styles } from './styles';
 
 const App: FC = () => {
@@ -18,9 +19,16 @@ const App: FC = () => {
 
   return (
     <GestureHandlerRootView style={styles.rootView}>
-      <NavigationContainer linking={linking} onReady={handleNavigationReady}>
-        <RootNavigation />
-      </NavigationContainer>
+      <StatusBar translucent={true} backgroundColor="transparent" />
+      <SafeAreaProvider>
+        <NavigationContainer
+          theme={navigationTheme}
+          linking={linking}
+          onReady={handleNavigationReady}
+        >
+          <RootNavigation />
+        </NavigationContainer>
+      </SafeAreaProvider>
       <Toast />
     </GestureHandlerRootView>
   );

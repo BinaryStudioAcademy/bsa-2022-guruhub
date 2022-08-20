@@ -11,6 +11,8 @@ type Props = {
 };
 
 const ActionCell: FC<Props> = ({ id, onDelete }) => {
+  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
+
   const handleDelete = (): void => {
     onDelete(id);
   };
@@ -21,20 +23,26 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={handleSetting}>
+      <Pressable
+        hitSlop={hitSlop}
+        style={styles.button}
+        onPress={handleSetting}
+      >
         <Icon
           name="settings"
-          color={AppColor.BRAND.YELLOW_200}
+          color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
+          style={styles.icon}
         />
       </Pressable>
       <Pressable style={styles.button} onPress={handleDelete}>
         <Icon
           name="trash"
-          color={AppColor.BRAND.YELLOW_200}
+          color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
+          style={styles.icon}
         />
       </Pressable>
     </View>

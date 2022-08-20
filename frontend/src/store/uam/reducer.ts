@@ -1,28 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import {
-  EntityPagination,
-  GroupsItemResponseDto,
-  UsersGetResponseDto,
-} from 'common/types/types';
+import { GroupsItemResponseDto, UsersGetResponseDto } from 'common/types/types';
 
-import { deleteUser, getGroups, getUsers } from './actions';
+import { deleteGroup, deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  users: EntityPagination<UsersGetResponseDto>;
+  users: UsersGetResponseDto[];
+  usersTotalCount: number;
   groups: GroupsItemResponseDto[];
+  groupsTotalCount: number;
   userDeleteDataStatus: DataStatus;
+  groupDeleteDataStatus: DataStatus;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  users: {
-    items: [],
-    total: 0,
-  },
+  users: [],
+  usersTotalCount: 0,
   userDeleteDataStatus: DataStatus.IDLE,
   groups: [],
+  groupsTotalCount: 0,
+  groupDeleteDataStatus: DataStatus.IDLE,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -31,7 +30,8 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getUsers.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.users = action.payload;
+    state.users = action.payload.items;
+    state.usersTotalCount = action.payload.total;
   });
   builder.addCase(getUsers.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -43,6 +43,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getGroups.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.groups = action.payload.items;
+    state.groupsTotalCount = action.payload.total;
   });
   builder.addCase(getGroups.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -52,14 +53,25 @@ const reducer = createReducer(initialState, (builder) => {
     state.userDeleteDataStatus = DataStatus.PENDING;
   });
   builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
-    state.users = {
-      items: state.users.items.filter((item) => item.id !== payload),
-      total: --state.users.total,
-    };
+    state.users = state.users.filter((user) => user.id !== payload);
+    state.usersTotalCount = --state.usersTotalCount;
     state.userDeleteDataStatus = DataStatus.FULFILLED;
   });
   builder.addCase(deleteUser.rejected, (state) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(deleteGroup.pending, (state) => {
+    state.groupDeleteDataStatus = DataStatus.PENDING;
+  });
+
+  builder.addCase(deleteGroup.fulfilled, (state, { payload }) => {
+    state.groups = state.groups.filter((group) => group.id !== payload);
+    state.groupDeleteDataStatus = DataStatus.FULFILLED;
+  });
+
+  builder.addCase(deleteGroup.rejected, (state) => {
+    state.groupDeleteDataStatus = DataStatus.REJECTED;
   });
 });
 

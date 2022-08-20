@@ -86,7 +86,7 @@ class Http {
     return response;
   }
 
-  private parseJSON<T>(response: Response): Promise<T> {
+  private async parseJSON<T>(response: Response): Promise<T> {
     return response.json();
   }
 
