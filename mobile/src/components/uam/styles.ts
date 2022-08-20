@@ -26,12 +26,6 @@ const styles = StyleSheet.create({
   tableWrapper: {
     flexDirection: 'row',
   },
-  actionWrapper: {
-    width: 30,
-    height: 30,
-    marginHorizontal: 10,
-    justifyContent: 'center',
-  },
 });
 
 export { styles };

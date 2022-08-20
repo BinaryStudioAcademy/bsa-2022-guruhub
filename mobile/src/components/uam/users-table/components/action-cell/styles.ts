@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  button: {
-    marginRight: 15,
+  actionWrapper: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 10,
+    justifyContent: 'center',
   },
   icon: {
     margin: 8,
