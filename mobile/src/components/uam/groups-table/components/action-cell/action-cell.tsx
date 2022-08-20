@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 
 import { AppColor } from '~/common/enums/enums';
 import { Icon, Pressable, View } from '~/components/common/common';
-import { hitSlop } from '~/components/uam/common/constants/constants';
 
 import { styles } from './styles';
 
@@ -12,6 +11,8 @@ type Props = {
 };
 
 const ActionCell: FC<Props> = ({ id, onDelete }) => {
+  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
+
   const handleDelete = (): void => {
     onDelete(id);
   };
@@ -32,7 +33,7 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
           color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
-          style={styles.iconMargin}
+          style={styles.icon}
         />
       </Pressable>
       <Pressable style={styles.button} onPress={handleDelete}>
@@ -41,7 +42,7 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
           color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
-          style={styles.iconMargin}
+          style={styles.icon}
         />
       </Pressable>
     </View>
