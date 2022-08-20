@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/ui/app-color.enum';
-import { AppFontFamily } from '~/common/enums/ui/app-font-family.enum';
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
