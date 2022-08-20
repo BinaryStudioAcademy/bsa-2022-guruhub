@@ -38,10 +38,8 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.user = payload;
   });
-  builder.addCase(logout.fulfilled, (state) => {
-    state.dataStatus = DataStatus.FULFILLED;
-
-    return initialState;
+  builder.addCase(logout.fulfilled, () => {
+    return { ...initialState, dataStatus: DataStatus.FULFILLED };
   });
 
   builder.addCase(signUp.rejected, (state) => {
@@ -56,10 +54,8 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
     state.user = null;
   });
-  builder.addCase(logout.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-
-    return initialState;
+  builder.addCase(logout.rejected, () => {
+    return { ...initialState, dataStatus: DataStatus.REJECTED };
   });
 });
 

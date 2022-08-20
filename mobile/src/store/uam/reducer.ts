@@ -86,15 +86,12 @@ const reducer = createReducer(initialState, (builder) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(logout.fulfilled, (state) => {
-    state.dataStatus = DataStatus.FULFILLED;
-
-    return initialState;
+  builder.addCase(logout.fulfilled, () => {
+    return { ...initialState, dataStatus: DataStatus.FULFILLED };
   });
-  builder.addCase(logout.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
 
-    return initialState;
+  builder.addCase(logout.rejected, () => {
+    return { ...initialState, dataStatus: DataStatus.REJECTED };
   });
 });
 
