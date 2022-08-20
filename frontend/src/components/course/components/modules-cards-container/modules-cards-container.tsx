@@ -8,17 +8,13 @@ type Props = {
 };
 
 const ModulesCardsContainer: FC<Props> = ({ modules }) => {
-  let initialModuleCardNumber = 0;
-
   return (
     <div className={styles.container}>
-      {modules.map((courseModule) => {
-        initialModuleCardNumber++;
-
+      {modules.map((courseModule, idx) => {
         return (
           <ModuleCard
             key={courseModule.id}
-            orderNumber={initialModuleCardNumber}
+            orderNumber={idx + 1}
             title={courseModule.title}
             description={courseModule.description}
           />
