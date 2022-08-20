@@ -42,7 +42,7 @@ const GroupsTable: FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Groups</Text>
       <Table
-        columnWidthArr={[50, 210, 250, 150]}
+        columnWidthArr={[50, 180, 180, 100]}
         columns={groupsColumns}
         data={groupsRows}
       />
