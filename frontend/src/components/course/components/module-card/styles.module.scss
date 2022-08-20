@@ -1,4 +1,14 @@
 .card {
   display: flex;
   flex-direction: column;
+  background: var(--background-gray-300);
+  cursor: pointer;
+}
+
+.header {
+  color: var(--typography-text-100-inverse);
+}
+
+.content {
+  color: var(--typography-text-gray-200);
 }
