@@ -15,6 +15,7 @@ import {
 } from 'components/common/common';
 import { Course } from 'components/course/course';
 import { Dashboard } from 'components/dashboard/dashboard';
+import { Module } from 'components/module/module';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
@@ -84,6 +85,14 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <Course />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.COURSES_$ID_MODULES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <Module />
             </AuthorizedWrapper>
           }
         />

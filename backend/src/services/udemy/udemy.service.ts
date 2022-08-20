@@ -29,7 +29,11 @@ class Udemy {
   }
 
   public async getCourseByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
-    const { pathname: courseIdOrSlug } = url;
+    const courseIdOrSlug = url.pathname
+      .split('/')
+      .filter(Boolean)
+      .pop() as string;
+
     const headers = this.getHeaders();
     const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
       this.getCourseRequestUrl(courseIdOrSlug),
@@ -93,7 +97,7 @@ class Udemy {
   private getCourseRequestUrl(courseIdOrSlug: string): string {
     return `${
       this.#baseUrl
-    }courses${courseIdOrSlug}?fields[course]=title,description,url`;
+    }courses/${courseIdOrSlug}?fields[course]=title,description,url`;
   }
 
   private getModuleRequestUrl(courseId: number, page: number): string {
