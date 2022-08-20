@@ -22,8 +22,8 @@ const GroupsTable: FC = () => {
   const { items, total } = useAppSelector((state) => state.uam.groups);
   const { page, handlePageChange } = usePagination();
 
-  const handleGroupsItemDelete = (groupId: number): void => {
-    dispatch(uamActions.deleteGroup({ id: groupId })).unwrap();
+  const handleGroupsItemDelete = async (groupId: number): Promise<void> => {
+    await dispatch(uamActions.deleteGroup({ id: groupId })).unwrap();
     navigation.navigate(AppScreenName.COURSES);
   };
 
