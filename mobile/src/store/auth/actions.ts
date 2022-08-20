@@ -47,7 +47,7 @@ const loadCurrentUser = createAsyncThunk<
       const user = await authApi.getCurrentUser();
 
       return user;
-    } catch (err: any) {
+    } catch (err) {
       const isHttpError = err instanceof HttpError;
 
       if (isHttpError && err.status === HttpCode.UNAUTHORIZED) {

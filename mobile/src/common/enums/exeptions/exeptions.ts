@@ -1,1 +1,4 @@
-export { ExceptionMessage } from 'guruhub-shared/common/enums/enums';
+export {
+  CustomExceptionName,
+  ExceptionMessage,
+} from 'guruhub-shared/common/enums/enums';

@@ -1,9 +1,8 @@
 import { type Middleware } from '@reduxjs/toolkit';
 
-import { DataStatus, NotificationType } from '~/common/enums/enums';
+import { CustomExceptionName, NotificationType } from '~/common/enums/enums';
 import { AppDispatch } from '~/common/types/types';
 import { notify } from '~/store/app/actions';
-import { ActionType } from '~/store/auth/common';
 
 type HandleErrorParams = {
   dispatch: AppDispatch;
@@ -15,7 +14,7 @@ const handleError: Middleware =
   (action) => {
     if (
       action.error &&
-      action.type !== `${ActionType.LOAD_CURRENT_USER}/${DataStatus.REJECTED}`
+      action.error.name !== CustomExceptionName.INVALID_CREDENTIALS
     ) {
       dispatch(
         notify({ type: NotificationType.ERROR, message: action.error.message }),
