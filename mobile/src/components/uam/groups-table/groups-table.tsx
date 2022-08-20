@@ -10,9 +10,9 @@ import {
 } from '~/hooks/hooks';
 import { uamActions } from '~/store/actions';
 
+import { styles } from '../styles';
 import { ActionCell } from './components/components';
 import { getGroupsColumns } from './helpers/helpers';
-import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
@@ -39,8 +39,8 @@ const GroupsTable: FC = () => {
   }, [page]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Groups</Text>
+    <View style={styles.tableContainer}>
+      <Text style={styles.tableTitle}>Groups</Text>
       <Table
         columnWidthArr={[50, 210, 250, 150]}
         columns={groupsColumns}
