@@ -1,8 +1,4 @@
-import {
-  ExceptionMessage,
-  PaginationDefaultValue,
-  StringCase,
-} from '~/common/enums/enums';
+import { ExceptionMessage, StringCase } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -70,14 +66,12 @@ class Group {
     };
   }
 
-  public async getAll(
-    paginationData?: EntityPaginationRequestQueryDto,
-  ): Promise<EntityPagination<GroupsItemResponseDto>> {
-    const {
-      page = PaginationDefaultValue.DEFAULT_PAGE,
-      count = PaginationDefaultValue.DEFAULT_COUNT,
-    } = paginationData ?? {};
-
+  public async getAll({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<GroupsItemResponseDto>
+  > {
     const ZERO_INDEXED_PAGE = page - 1;
     const result = await this.#groupsRepository.getAll({
       page: ZERO_INDEXED_PAGE,

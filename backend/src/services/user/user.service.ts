@@ -1,4 +1,3 @@
-import { PaginationDefaultValue } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -27,14 +26,12 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  public async getAll(
-    paginationData?: EntityPaginationRequestQueryDto,
-  ): Promise<EntityPagination<UsersGetResponseDto>> {
-    const {
-      page = PaginationDefaultValue.DEFAULT_PAGE,
-      count = PaginationDefaultValue.DEFAULT_COUNT,
-    } = paginationData ?? {};
-
+  public async getAll({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<UsersGetResponseDto>
+  > {
     const ZERO_INDEXED_PAGE = page - 1;
     const result = await this.#userRepository.getAll({
       page: ZERO_INDEXED_PAGE,
