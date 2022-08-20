@@ -2,8 +2,8 @@ import React from 'react';
 
 import { FormControl, UsersGetResponseDto } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
-import { UserTableAccessor } from '~/components/uam-groups-config/common/enums/enums';
-import { UsersTableRow } from '~/components/uam-groups-config/common/types/types';
+import { UserTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
+import { UsersTableRow } from '~/components/uam-configure-group/common/types/types';
 
 type Props = {
   users: UsersGetResponseDto[];

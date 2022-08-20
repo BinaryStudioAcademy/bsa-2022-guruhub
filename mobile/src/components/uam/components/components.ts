@@ -1,1 +1,1 @@
-export { UAMConfigureGroup } from '~/components/uam-groups-config/uam-configure-groups';
+export { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';

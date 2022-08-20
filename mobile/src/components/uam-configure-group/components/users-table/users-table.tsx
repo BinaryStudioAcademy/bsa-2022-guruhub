@@ -6,7 +6,7 @@ import { Pagination, Table, View } from '~/components/common/common';
 import {
   getUserColumns,
   getUserRows,
-} from '~/components/uam-groups-config/helpers/helpers';
+} from '~/components/uam-configure-group/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
 import { styles } from './styles';

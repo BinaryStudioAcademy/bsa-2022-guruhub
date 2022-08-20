@@ -1,6 +1,6 @@
 import { TableColumn } from '~/common/types/types';
-import { PermissionTableAccessor } from '~/components/uam-groups-config/common/enums/enums';
-import { PermissionsTableRow } from '~/components/uam-groups-config/common/types/types';
+import { PermissionTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
+import { PermissionsTableRow } from '~/components/uam-configure-group/common/types/types';
 
 const getPermissionsColumns = (): TableColumn<PermissionsTableRow>[] => {
   return [

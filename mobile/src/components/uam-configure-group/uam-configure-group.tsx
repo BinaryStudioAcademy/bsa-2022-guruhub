@@ -7,7 +7,7 @@ import { Button, Input, Text } from '~/components/common/common';
 import {
   PermissionsTable,
   UsersTable,
-} from '~/components/uam-groups-config/components/components';
+} from '~/components/uam-configure-group/components/components';
 import {
   useAppDispatch,
   useAppForm,

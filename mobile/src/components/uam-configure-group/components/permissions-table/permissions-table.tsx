@@ -6,7 +6,7 @@ import { Pagination, Table, View } from '~/components/common/common';
 import {
   getPermissionsColumns,
   getPermissionsRows,
-} from '~/components/uam-groups-config/helpers/helpers';
+} from '~/components/uam-configure-group/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
 type Props = {
