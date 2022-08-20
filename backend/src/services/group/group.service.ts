@@ -66,14 +66,14 @@ class Group {
     };
   }
 
-  public async getPaginated({
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<GroupsItemResponseDto>
   > {
     const ZERO_INDEXED_PAGE = page - 1;
-    const result = await this.#groupsRepository.getPaginated({
+    const result = await this.#groupsRepository.getAll({
       page: ZERO_INDEXED_PAGE,
       count,
     });

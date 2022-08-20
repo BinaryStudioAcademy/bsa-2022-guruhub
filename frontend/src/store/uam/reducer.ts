@@ -9,6 +9,7 @@ type State = {
   users: UsersGetResponseDto[];
   usersTotalCount: number;
   groups: GroupsItemResponseDto[];
+  groupsTotalCount: number;
   userDeleteDataStatus: DataStatus;
   groupDeleteDataStatus: DataStatus;
 };
@@ -19,6 +20,7 @@ const initialState: State = {
   usersTotalCount: 0,
   userDeleteDataStatus: DataStatus.IDLE,
   groups: [],
+  groupsTotalCount: 0,
   groupDeleteDataStatus: DataStatus.IDLE,
 };
 
@@ -41,6 +43,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getGroups.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.groups = action.payload.items;
+    state.groupsTotalCount = action.payload.total;
   });
   builder.addCase(getGroups.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;

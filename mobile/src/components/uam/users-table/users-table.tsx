@@ -12,7 +12,7 @@ import {
 import { uamActions } from '~/store/actions';
 
 import { styles } from '../styles';
-import { ActionCell } from './action-cell';
+import { ActionCell } from './components/components';
 
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
@@ -46,7 +46,7 @@ const UsersTable: FC = () => {
         <Table
           columns={usersColumns}
           data={tableData}
-          columnWidthArr={[50, 210, 250, 150, 100]}
+          columnWidthArr={[50, 190, 250, 150, 100]}
         />
       </View>
       <Pagination

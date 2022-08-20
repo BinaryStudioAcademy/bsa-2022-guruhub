@@ -39,3 +39,11 @@
 .button-outlined:hover {
   background: var(--background-gray-400);
 }
+
+.button-icon {
+  color: var(--typography-text-gray-200);
+}
+
+.button-icon:hover {
+  color: white;
+}
