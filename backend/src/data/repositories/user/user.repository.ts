@@ -15,16 +15,7 @@ class User {
     this.#UserModel = UserModel;
   }
 
-  public async getAll(): Promise<EntityPagination<UserM>> {
-    const users = await this.#UserModel.query().select();
-
-    return {
-      items: users,
-      total: users.length,
-    };
-  }
-
-  public async getPaginated({
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {

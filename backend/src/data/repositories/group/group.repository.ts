@@ -39,13 +39,7 @@ class Group {
     return group ?? null;
   }
 
-  public async getAll(): Promise<EntityPagination<GroupM>> {
-    const items = await this.#GroupModel.query().select();
-
-    return { items, total: items.length };
-  }
-
-  public async getPaginated({
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
