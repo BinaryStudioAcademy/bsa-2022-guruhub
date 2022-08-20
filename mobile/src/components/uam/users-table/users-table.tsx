@@ -11,8 +11,8 @@ import {
 } from '~/hooks/hooks';
 import { uamActions } from '~/store/actions';
 
+import { styles } from '../styles';
 import { ActionCell } from './action-cell';
-import { styles } from './styles';
 
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
@@ -40,8 +40,8 @@ const UsersTable: FC = () => {
   }, [page]);
 
   return (
-    <View>
-      <Text style={styles.label}>Users</Text>
+    <View style={styles.tableContainer}>
+      <Text style={styles.tableTitle}>Users</Text>
       <View style={styles.tableWrapper}>
         <Table
           columns={usersColumns}
