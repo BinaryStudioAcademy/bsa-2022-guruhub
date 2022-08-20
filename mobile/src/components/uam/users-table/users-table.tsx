@@ -46,7 +46,7 @@ const UsersTable: FC = () => {
         <Table
           columns={usersColumns}
           data={tableData}
-          columnWidthArr={[50, 210, 250, 150, 100]}
+          columnWidthArr={[50, 190, 250, 150, 100]}
         />
       </View>
       <Pagination
