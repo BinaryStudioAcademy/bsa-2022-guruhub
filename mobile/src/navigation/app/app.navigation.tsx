@@ -6,7 +6,7 @@ import {
   AppNavigationParamList,
   DrawerNavigationItem,
 } from '~/common/types/types';
-import { UAMConfigureGroup } from '~/components/uam/components/components';
+import { UAMConfigureGroup } from '~/components/uam/edit-group/components/components';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 

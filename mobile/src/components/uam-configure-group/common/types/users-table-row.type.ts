@@ -4,6 +4,7 @@ type UsersTableRow = {
   id: number;
   email: string;
   fullName: string;
+  createdAt: string;
   checkbox: ReactElement;
 };
 

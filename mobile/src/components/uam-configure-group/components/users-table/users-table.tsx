@@ -37,7 +37,7 @@ const UsersTable: FC<Props> = ({ users, onCheckboxToggle, pagination }) => {
       <Table
         columns={userColumns}
         data={userRows}
-        columnWidthArr={[60, 250, 250, 60]}
+        columnWidthArr={[60, 50, 210, 250, 150]}
       />
       <Pagination
         totalCount={users.total}

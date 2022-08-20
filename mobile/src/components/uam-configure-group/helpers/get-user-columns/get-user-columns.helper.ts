@@ -9,6 +9,10 @@ const getUserColumns = (): TableColumn<UsersTableRow>[] => {
       accessor: UserTableAccessor.CHECKBOX,
     },
     {
+      header: 'ID',
+      accessor: UserTableAccessor.ID,
+    },
+    {
       header: 'Name',
       accessor: UserTableAccessor.FULL_NAME,
     },
@@ -17,8 +21,8 @@ const getUserColumns = (): TableColumn<UsersTableRow>[] => {
       accessor: UserTableAccessor.EMAIL,
     },
     {
-      header: 'ID',
-      accessor: UserTableAccessor.ID,
+      header: 'Created At',
+      accessor: UserTableAccessor.CREATED_AT,
     },
   ];
 };

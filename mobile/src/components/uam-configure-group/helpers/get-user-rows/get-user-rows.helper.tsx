@@ -26,6 +26,7 @@ const getUserRows = ({ users, control, onToggle }: Props): UsersTableRow[] => {
       [UserTableAccessor.ID]: user.id,
       [UserTableAccessor.FULL_NAME]: user.fullName,
       [UserTableAccessor.EMAIL]: user.email,
+      [UserTableAccessor.CREATED_AT]: user.createdAt,
     };
   });
 };
