@@ -14,12 +14,15 @@ import { ModulesCardsContainer } from './components/modules-cards-container/modu
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, dataStatus } = useAppSelector((state) => state.course);
+  const { course, modules, dataStatus } = useAppSelector(
+    (state) => state.course,
+  );
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
+    dispatch(courseActions.getModules({ courseId: Number(id) }));
   }, [id]);
 
   if (dataStatus === DataStatus.PENDING) {
@@ -31,33 +34,6 @@ const Course: FC = () => {
       <p className={styles.placeholder}>There is no course with provided id</p>
     );
   }
-
-  const mockedModules = [
-    {
-      id: 1,
-      title: 'There was a cat and the rat',
-      description: 'There was a cat and the rat. There was a cat and the rat',
-      courseId: 1,
-    },
-    {
-      id: 2,
-      title: 'There was a cat and the rat',
-      description: 'There was a cat and the rat. There was a cat and the rat',
-      courseId: 1,
-    },
-    {
-      id: 3,
-      title: 'There was a cat and the rat',
-      description: 'There was a cat and the rat. There was a cat and the rat',
-      courseId: 1,
-    },
-    {
-      id: 4,
-      title: 'There was a cat and the rat',
-      description: 'There was a cat and the rat. There was a cat and the rat',
-      courseId: 1,
-    },
-  ];
 
   return (
     <div className={styles.container}>
@@ -77,7 +53,7 @@ const Course: FC = () => {
         />
         <h3>Course Content</h3>
         <div className={styles.modulesContainer}>
-          <ModulesCardsContainer modules={mockedModules} />
+          <ModulesCardsContainer modules={modules} />
         </div>
       </div>
 

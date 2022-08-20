@@ -12,6 +12,7 @@ export { type CourseCategoryGetResponseDto } from './course-category/course-cate
 export {
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllResponseDto,
+  type CourseModulesGetRequestDto,
 } from './course-module/course-module';
 export {
   type GroupsConfigureRequestDto,

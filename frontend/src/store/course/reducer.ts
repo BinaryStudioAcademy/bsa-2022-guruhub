@@ -1,17 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import { CourseGetResponseDto } from 'common/types/types';
+import {
+  CourseGetResponseDto,
+  CourseModulesGetAllItemResponseDto,
+} from 'common/types/types';
 
-import { getCourse } from './actions';
+import { getCourse, getModules } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   course: CourseGetResponseDto | null;
+  modules: CourseModulesGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   course: null,
+  modules: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,6 +28,17 @@ const reducer = createReducer(initialState, (builder) => {
     state.course = payload;
   });
   builder.addCase(getCourse.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(getModules.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getModules.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.modules = payload.items;
+  });
+  builder.addCase(getModules.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

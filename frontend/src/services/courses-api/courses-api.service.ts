@@ -8,6 +8,8 @@ import {
   CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseModulesGetAllResponseDto,
+  CourseModulesGetRequestDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -26,7 +28,7 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(opts: {
+  public getAllCourses(opts: {
     filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
@@ -52,11 +54,24 @@ class Courses {
     );
   }
 
-  public getById({
+  public getCourseById({
     id,
   }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getCourseModulesById({
+    courseId,
+  }: CourseModulesGetRequestDto): Promise<CourseModulesGetAllResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${
+        CoursesApiPath.ROOT
+      }${courseId}/modules`,
       {
         method: HttpMethod.GET,
       },
