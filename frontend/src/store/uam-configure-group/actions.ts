@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { NotificationMessage } from 'common/enums/enums';
+import { AppRoute, NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   EntityPagination,
@@ -20,9 +20,10 @@ const createGroup = createAsyncThunk<
   GroupsConfigureRequestDto,
   AsyncThunkConfig
 >(ActionType.CREATE_GROUP, async (registerPayload, { extra }) => {
-  const { groupsApi, notification } = extra;
+  const { groupsApi, notification, navigation } = extra;
   const groupsResponseDto = await groupsApi.create(registerPayload);
   notification.success(NotificationMessage.GROUP_CREATE);
+  navigation.push(AppRoute.UAM);
 
   return groupsResponseDto;
 });
@@ -54,9 +55,10 @@ const updateGroup = createAsyncThunk<
   GroupUpdateRequestArgumentsDto,
   AsyncThunkConfig
 >(ActionType.UPDATE_GROUP, async (updatePayload, { extra }) => {
-  const { groupsApi, notification } = extra;
+  const { groupsApi, notification, navigation } = extra;
   const group = await groupsApi.update(updatePayload);
   notification.success(NotificationMessage.GROUP_UPDATE);
+  navigation.push(AppRoute.UAM);
 
   return group;
 });

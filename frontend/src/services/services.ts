@@ -5,6 +5,7 @@ import { CategoriesApi } from './categories-api/categories-api.service';
 import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
+import { Navigation } from './navigation/navigation.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api';
 import { Storage } from './storage/storage.service';
@@ -50,11 +51,14 @@ const categoriesApi = new CategoriesApi({
 
 const notification = new Notification();
 
+const navigation = new Navigation();
+
 export {
   authApi,
   categoriesApi,
   coursesApi,
   groupsApi,
+  navigation,
   notification,
   permissionsApi,
   storage,
