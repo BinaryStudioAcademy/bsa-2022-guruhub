@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
-import { GroupsCreateRequestDto } from '~/common/types/types';
+import { GroupsUpdateRequestDto } from '~/common/types/types';
 import { Button, Input, Text } from '~/components/common/common';
 import {
   PermissionsTable,
@@ -41,7 +41,7 @@ const UAMConfigureGroup: FC = () => {
   } = usePagination();
 
   const { control, handleSubmit, errors, reset, watch } =
-    useAppForm<GroupsCreateRequestDto>({
+    useAppForm<GroupsUpdateRequestDto>({
       defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
       validationSchema: groupCreateClient,
     });
@@ -68,32 +68,23 @@ const UAMConfigureGroup: FC = () => {
     setPage: handlePermissionsPageChange,
   };
 
-  const handleCreateGroup = async (): Promise<void> => {
-    await dispatch(
-      groupsCreationActions.createGroup({
-        name: watch.name,
-        permissionIds,
-        userIds,
-      }),
-    ).unwrap();
-    navigation.navigate(AppScreenName.UAM);
+  const groupPayload: GroupsUpdateRequestDto = {
+    name: watch.name,
+    permissionIds,
+    userIds,
   };
 
-  const handleEditGroup = async (): Promise<void> => {
+  const handleCreateOrEditGroup = async (): Promise<void> => {
     if (!group) {
-      return;
+      await dispatch(groupsCreationActions.createGroup(groupPayload)).unwrap();
+    } else {
+      await dispatch(
+        uamGroupEditActions.editGroup({
+          id: group.id,
+          payload: groupPayload,
+        }),
+      ).unwrap();
     }
-
-    await dispatch(
-      uamGroupEditActions.editGroup({
-        id: group.id,
-        payload: {
-          name: watch.name,
-          permissionIds,
-          userIds,
-        },
-      }),
-    ).unwrap();
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -152,7 +143,7 @@ const UAMConfigureGroup: FC = () => {
           {group && <Button label="Cancel" onPress={handleCancelEdit} />}
           <Button
             label={`${group ? 'Edit' : 'Create'} group`}
-            onPress={handleSubmit(group ? handleEditGroup : handleCreateGroup)}
+            onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>
       </ScrollView>
