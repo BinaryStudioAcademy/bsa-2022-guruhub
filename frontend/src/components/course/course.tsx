@@ -51,7 +51,7 @@ const Course: FC = () => {
         <div
           dangerouslySetInnerHTML={{ __html: course?.description as string }}
         />
-        <h3>Course Content</h3>
+        <h3 className={styles.modulesContentHeader}>Course Content</h3>
         <div className={styles.modulesContainer}>
           <ModulesCardsContainer modules={modules} />
         </div>
