@@ -13,7 +13,6 @@ export {
   type FormControlErrors,
   type FormControlPath,
   type FormControlValues,
-  type FormGetValues,
 } from './form/form';
 export {
   type GroupsConfigureRequestDto,
