@@ -13,6 +13,7 @@ import {
   Routes,
   Spinner,
 } from 'components/common/common';
+import { Course } from 'components/course/course';
 import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
@@ -75,6 +76,14 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <UAMConfigureGroup />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.COURSES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <Course />
             </AuthorizedWrapper>
           }
         />

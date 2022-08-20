@@ -19,15 +19,20 @@ paths:
     $ref: './endpoints/users/users-delete.yaml'
   # Groups
   /groups:
-    $ref: './endpoints/groups/groups-get-all.yaml'
+    $ref: './endpoints/groups/groups-basic-opeartions.yaml'
   /groups/:id:
     $ref: './endpoints/groups/groups-manipulate.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
+  /courses/:id:
+    $ref: './endpoints/courses/courses-get-by-id.yaml'
   # Categories
   /categories:
     $ref: './endpoints/categories/categories.yaml'
+  # Permissions
+  /permissions:
+    $ref: './endpoints/permissions/permissions-get-all.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -46,12 +51,20 @@ components:
       $ref: './schemas/auth/current-user-response-dto.yaml'
     GroupsGetAllResponseDto:
       $ref: './schemas/groups/groups-get-all-response-dto.yaml'
+    GroupsCreateRequestDto:
+      $ref: './schemas/groups/groups-create-request-dto.yaml'
     GroupsUpdateRequestDto:
       $ref: './schemas/groups/groups-update-request-dto.yaml'
     CourseCreateRequestDto:
       $ref: './schemas/courses/course-add-request-dto.yaml'
+    CourseGetByIdRequestDto:
+      $ref: './schemas/courses/course-get-by-id-request-dto.yaml'
+    CourseGetByIdResponseDto:
+      $ref: './schemas/courses/course-get-by-id-response-dto.yaml'
     CategoriesGetAllResponseDto:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'
+    PermissionsGetAllResponseDto:
+      $ref: './schemas/permissions/permissions-get-all-response-dto.yaml'
     securitySchemes:
       bearerAuth:
         type: http

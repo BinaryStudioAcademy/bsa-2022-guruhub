@@ -1,6 +1,7 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
+import { AppRoute } from 'common/enums/enums';
 import { CourseGetResponseDto, FC } from 'common/types/types';
-import { Image } from 'components/common/common';
+import { Image, Link } from 'components/common/common';
 
 import styles from './styles.module.scss';
 
@@ -20,14 +21,17 @@ const Course: FC<Props> = ({ course }) => {
         />
       </div>
       <div className={styles.content}>
-        <div className={styles.image}>
+        <Link
+          to={`${AppRoute.COURSES}/${course.id}` as AppRoute}
+          className={styles.image}
+        >
           <Image
             alt="course image"
-            src={course.imageUrl || defaultCourseImage}
+            src={course.imageUrl ?? defaultCourseImage}
             width="100%"
             height="100%"
           />
-        </div>
+        </Link>
         <div>
           <h4 className={styles.title}>{course.title}</h4>
         </div>
