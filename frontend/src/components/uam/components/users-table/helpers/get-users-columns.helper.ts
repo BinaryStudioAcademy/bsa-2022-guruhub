@@ -1,10 +1,10 @@
-import { Column } from 'react-table';
-
-import { UserTableAccessor } from '../../../common/enums/enums';
+import { UserTableAccessor } from 'components/uam/common/enums/enums';
 import {
   UsersTableActionsProps,
   UsersTableRow,
-} from '../../../common/types/types';
+} from 'components/uam/common/types/types';
+import { Column } from 'react-table';
+
 import { ActionsCell, DateCell } from '../components/components';
 
 const getUsersColumns = (
