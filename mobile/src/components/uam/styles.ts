@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 
 import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
+import { iconMargin } from './common/constants/icon.constants';
+
 const styles = StyleSheet.create({
   container: {
     padding: 16,
@@ -28,6 +30,9 @@ const styles = StyleSheet.create({
     height: 30,
     marginHorizontal: 10,
     justifyContent: 'center',
+  },
+  iconMargin: {
+    margin: iconMargin,
   },
 });
 

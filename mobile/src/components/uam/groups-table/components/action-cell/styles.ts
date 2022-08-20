@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { iconMargin } from '~/components/uam/common/constants/constants';
+
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
@@ -7,6 +9,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginRight: 15,
+  },
+  iconMargin: {
+    margin: iconMargin,
   },
 });
 

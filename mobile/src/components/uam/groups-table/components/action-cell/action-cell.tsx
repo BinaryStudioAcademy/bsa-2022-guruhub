@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { AppColor } from '~/common/enums/enums';
 import { Icon, Pressable, View } from '~/components/common/common';
+import { hitSlop } from '~/components/uam/common/constants/constants';
 
 import { styles } from './styles';
 
@@ -21,12 +22,17 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={handleSetting}>
+      <Pressable
+        hitSlop={hitSlop}
+        style={styles.button}
+        onPress={handleSetting}
+      >
         <Icon
           name="settings"
           color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
+          style={styles.iconMargin}
         />
       </Pressable>
       <Pressable style={styles.button} onPress={handleDelete}>
@@ -35,6 +41,7 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
           color={AppColor.TEXT.GRAY_100}
           width={20}
           height={20}
+          style={styles.iconMargin}
         />
       </Pressable>
     </View>
