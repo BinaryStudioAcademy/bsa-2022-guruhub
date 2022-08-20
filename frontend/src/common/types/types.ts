@@ -42,7 +42,7 @@ export {
   type SVGProps,
   type URLSearchParamsInit,
 } from './react/react';
-export { type IconName } from './ui/ui';
+export { type FormatDate, type IconName } from './ui/ui';
 export {
   type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
