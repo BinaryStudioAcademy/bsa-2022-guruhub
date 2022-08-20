@@ -5,6 +5,8 @@ export {
 } from './category/category';
 export {
   type CourseCreateRequestDto,
+  type CourseFilteringDto,
+  type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
 } from './course/course';
 export {
@@ -13,7 +15,15 @@ export {
   type FormControlPath,
   type FormControlValues,
 } from './form/form';
-export { GroupsCreateRequestDto, GroupsItemResponseDto } from './groups/groups';
+export {
+  type GroupsConfigureRequestDto,
+  type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdRequestDto,
+  type GroupsGetByIdResponseDto,
+  type GroupsItemResponseDto,
+  type GroupsUpdateRequestDto,
+  type GroupUpdateRequestArgumentsDto,
+} from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
   type NavigationMenuItem,
@@ -25,8 +35,8 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
-  PermissionsGetAllItemResponseDto,
-  PermissionsGetAllResponseDto,
+  type PermissionsGetAllItemResponseDto,
+  type PermissionsGetAllResponseDto,
 } from './permissions/permissions';
 export {
   type FC,

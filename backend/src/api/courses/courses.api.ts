@@ -3,12 +3,14 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { CoursesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
   CourseCreateRequestDto,
-  CoursesGetByCategoryRequestParamsDto,
+  CourseFilteringDto,
+  CourseGetRequestParamsDto,
 } from '~/common/types/types';
 import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
-  coursesGetByCategory as coursesGetByCategoryValidationSchema,
+  courseFiltering as courseFilteringValidationSchema,
+  courseGetParams as courseGetParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -24,16 +26,16 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
     schema: {
-      querystring: coursesGetByCategoryValidationSchema,
+      querystring: courseFilteringValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
-        Querystring: CoursesGetByCategoryRequestParamsDto;
+        Querystring: CourseFilteringDto;
       }>,
       rep,
     ) {
-      const { categoryKey } = req.query;
-      const courses = await courseService.getAll({ categoryKey });
+      const { categoryKey, title } = req.query;
+      const courses = await courseService.getAll({ categoryKey, title });
 
       return rep.status(HttpCode.OK).send(courses);
     },
@@ -50,6 +52,21 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.createByUrl(url);
 
       return rep.status(HttpCode.CREATED).send(course);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID,
+    schema: { params: courseGetParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const course = await courseService.getById(id);
+
+      return rep.status(HttpCode.OK).send(course);
     },
   });
 };

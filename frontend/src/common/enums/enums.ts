@@ -18,4 +18,5 @@ export {
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SettingsWrapperType } from './settings-wrapper/settings-wrapper';
+export { StringCase } from './string/string';
 export { VendorKey } from './vendor/vendor';

@@ -1,9 +1,8 @@
 import { FC } from 'common/types/types';
-import { getValidClasses } from 'helpers/helpers';
 import { useHandleClickOutside, useRef } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
-import { Icon } from '../common';
+import { IconButton } from '../common';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -11,10 +10,9 @@ type Props = {
   onClose: () => void;
   title: string;
   children: ReactNode;
-  onTop?: boolean;
 };
 
-const Modal: FC<Props> = ({ isOpen, onClose, children, title, onTop }) => {
+const Modal: FC<Props> = ({ isOpen, onClose, children, title }) => {
   const popupRef = useRef<HTMLDivElement>(null);
 
   useHandleClickOutside({
@@ -28,16 +26,8 @@ const Modal: FC<Props> = ({ isOpen, onClose, children, title, onTop }) => {
 
   return (
     <div className={styles.modalBackgroundContainer}>
-      <div
-        className={getValidClasses(
-          onTop && styles.modalOnTop,
-          styles.modalContainer,
-        )}
-        ref={popupRef}
-      >
-        <button className={styles.modalClose} onClick={onClose}>
-          <Icon name="cross" />
-        </button>
+      <div className={styles.modalContainer} ref={popupRef}>
+        <IconButton iconName="cross" onClick={onClose} label="Close modal" />
         <div className={styles.mainContent}>
           <h2 className={styles.modalTitle}>{title}</h2>
           <div className={styles.childrenSection}>{children}</div>

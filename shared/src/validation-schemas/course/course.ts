@@ -1,2 +1,3 @@
 export { courseCreate } from './course-create.validation-schema';
-export { coursesGetByCategory } from './courses-get-by-category.validation-schema';
+export { courseFiltering } from './course-filtering.validation-schema';
+export { courseGetParams } from './course-get-params.validation-schema';

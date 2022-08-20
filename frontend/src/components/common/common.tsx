@@ -4,6 +4,7 @@ export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
 export { Header } from './header/header';
 export { Icon } from './icon/icon';
+export { IconButton } from './icon-button/icon-button';
 export { Image } from './image/image';
 export { Input } from './input/input';
 export { Link } from './link/link';

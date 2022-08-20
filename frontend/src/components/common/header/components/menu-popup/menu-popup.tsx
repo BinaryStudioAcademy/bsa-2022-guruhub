@@ -20,6 +20,7 @@ const Popup: FC<Props> = ({ onClose }) => {
 
   const handleLogout = (): void => {
     dispatch(authActions.logout());
+    dispatch(authActions.logout()).unwrap().then(onClose);
   };
 
   return (
@@ -32,7 +33,7 @@ const Popup: FC<Props> = ({ onClose }) => {
         </li>
         <li>
           <div>
-            <Button label="Logout" onClick={handleLogout} />
+            <Button label="Sign Out" onClick={handleLogout} />
           </div>
         </li>
       </ul>

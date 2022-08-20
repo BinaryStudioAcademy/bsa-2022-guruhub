@@ -3,9 +3,11 @@ import { MMKV } from 'react-native-mmkv';
 import { ENV } from '~/common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
 import { Notification } from './notification/notification.service';
+import { PermissionsApi } from './permissions-api/permissions-api.service';
 import { Storage } from './storage/storage.service';
 import { UsersApi } from './users-api/users-api.service';
 
@@ -31,5 +33,22 @@ const usersApi = new UsersApi({
 });
 
 const notification = new Notification();
+const permissionsApi = new PermissionsApi({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
 
-export { authApi, groupsApi, notification, storage, usersApi };
+const coursesApi = new Courses({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
+
+export {
+  authApi,
+  coursesApi,
+  groupsApi,
+  notification,
+  permissionsApi,
+  storage,
+  usersApi,
+};

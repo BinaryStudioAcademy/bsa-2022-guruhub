@@ -10,6 +10,7 @@ import {
   useForm,
   UseFormGetValues,
   UseFormHandleSubmit,
+  UseFormReset,
   UseFormSetValue,
 } from 'react-hook-form';
 
@@ -24,6 +25,7 @@ type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   setValue: UseFormSetValue<FieldValues>;
   getValues: UseFormGetValues<FieldValues>;
   handleSubmit: UseFormHandleSubmit<T>;
+  reset: UseFormReset<T>;
 };
 
 const useAppForm = <T extends FormControlValues = FormControlValues>({
@@ -35,6 +37,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     handleSubmit,
     setValue,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<FormControlValues>({
     defaultValues,
@@ -47,6 +50,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     handleSubmit: handleSubmit as UseFormHandleSubmit<T>,
     setValue,
     getValues,
+    reset,
     control,
     errors,
   };

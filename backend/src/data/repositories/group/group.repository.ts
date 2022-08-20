@@ -1,6 +1,8 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupsWithPermissionIdsDto,
+  GroupsWithPermissionsDto,
 } from '~/common/types/types';
 import { Group as GroupM } from '~/data/models/models';
 
@@ -13,6 +15,28 @@ class Group {
 
   public constructor({ GroupModel }: Constructor) {
     this.#GroupModel = GroupModel;
+  }
+
+  public async getById(id: number): Promise<GroupsWithPermissionIdsDto | null> {
+    const group = await this.#GroupModel
+      .query()
+      .where('groups.id', id)
+      .select('groups.*')
+      .withGraphJoined('permissions')
+      .castTo<GroupsWithPermissionsDto>()
+      .first()
+      .then((data) => {
+        if (!data) {
+          return null;
+        }
+
+        return {
+          ...data,
+          permissionIds: data.permissions.map((permission) => permission.id),
+        };
+      });
+
+    return group ?? null;
   }
 
   public async getPaginated({
@@ -62,8 +86,8 @@ class Group {
       .execute();
   }
 
-  public async delete(groupId: number): Promise<number> {
-    return this.#GroupModel.query().delete().where({ id: groupId });
+  public delete(groupId: number): Promise<number> {
+    return this.#GroupModel.query().delete().where({ id: groupId }).execute();
   }
 }
 

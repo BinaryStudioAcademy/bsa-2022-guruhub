@@ -1,6 +1,8 @@
 import { CourseHost, ExceptionMessage, VendorKey } from '~/common/enums/enums';
 import {
   CourseCreateArgumentsDto,
+  CourseFilteringDto,
+  CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
@@ -39,21 +41,22 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  public async getAll(filteringOpts: {
-    categoryKey: string;
-  }): Promise<CourseGetResponseDto[]> {
-    const { categoryKey } = filteringOpts;
+  public async getAll(
+    filteringOpts: CourseFilteringDto,
+  ): Promise<CourseGetResponseDto[]> {
+    const { categoryKey, title } = filteringOpts;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
 
     return this.#courseRepository.getAll({
       categoryId,
+      title,
     });
   }
 
   public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
-    const { description, title, url, vendorKey } = courseRequestDto;
+    const { description, title, url, vendorKey, originalId } = courseRequestDto;
 
     const vendor = await this.#vendorService.getByKey(vendorKey);
 
@@ -63,11 +66,23 @@ class Course {
       });
     }
 
+    const courseByOriginalIdAndVendor = await this.getByOriginalIdAndVendorKey({
+      originalId,
+      vendorKey,
+    });
+
+    if (courseByOriginalIdAndVendor) {
+      throw new CoursesError({
+        message: ExceptionMessage.COURSE_EXIST,
+      });
+    }
+
     const course = await this.#courseRepository.create({
       description,
       title,
       url,
       vendorId: vendor.id,
+      originalId,
     });
 
     return {
@@ -84,13 +99,14 @@ class Course {
       case CourseHost.UDEMY:
       case CourseHost.W_UDEMY: {
         const courseData = await this.#udemyService.getByUrl(urlObject);
-        const { description, title, url } = courseData;
+        const { description, title, url, id } = courseData;
 
         return this.create({
           description,
           title,
           url,
           vendorKey: VendorKey.UDEMY,
+          originalId: id.toString(),
         });
       }
       default: {
@@ -115,6 +131,24 @@ class Course {
     }
 
     return category.id;
+  }
+
+  public async getByOriginalIdAndVendorKey({
+    originalId,
+    vendorKey,
+  }: CourseGetByIdAndVendorKeyArgumentsDto): Promise<CourseGetResponseDto | null> {
+    const course = await this.#courseRepository.getByOriginalIdAndVendorKey({
+      originalId,
+      vendorKey,
+    });
+
+    return course ?? null;
+  }
+
+  public async getById(courseId: number): Promise<CourseGetResponseDto | null> {
+    const course = await this.#courseRepository.getById(courseId);
+
+    return course ?? null;
   }
 }
 

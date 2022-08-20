@@ -1,7 +1,8 @@
 import { reducer as auth } from './auth/reducer';
+import { reducer as course } from './course/reducer';
 import { reducer as dashboard } from './dashboard/reducer';
-import { reducer as groupsCreate } from './groups-create/reducer';
 import { reducer as uam } from './uam/reducer';
+import { reducer as uamConfigureGroup } from './uam-configure-group/reducer';
 import { reducer as userDetails } from './user-details/reducer';
 
 const rootReducer = {
@@ -9,7 +10,8 @@ const rootReducer = {
   uam,
   userDetails,
   dashboard,
-  groupsCreate,
+  uamConfigureGroup,
+  course,
 };
 
 export { rootReducer };

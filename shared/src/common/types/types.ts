@@ -4,13 +4,17 @@ export {
 } from './category/category';
 export {
   type CourseCreateRequestDto,
+  type CourseFilteringDto,
+  type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
-  type CoursesGetByCategoryRequestParamsDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
 export {
+  type GroupsConfigureRequestDto,
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
+  type GroupsGetByIdRequestDto,
+  type GroupsGetByIdResponseDto,
   type GroupsItemResponseDto,
   type GroupsUpdateRequestDto,
   type GroupsUpdateRequestParamsDto,
