@@ -23,7 +23,7 @@ const getPermissions = createAsyncThunk<
   return permissions;
 });
 
-const getUsersForCreation = createAsyncThunk<
+const getUsers = createAsyncThunk<
   EntityPagination<UsersGetResponseDto>,
   EntityPaginationRequestQueryDto,
   AsyncThunkConfig
@@ -45,4 +45,4 @@ const createGroup = createAsyncThunk<
   return response;
 });
 
-export { createGroup, getPermissions, getUsersForCreation };
+export { createGroup, getPermissions, getUsers };
