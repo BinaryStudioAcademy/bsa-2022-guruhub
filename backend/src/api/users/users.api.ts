@@ -41,7 +41,8 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         page = PaginationDefaultValue.DEFAULT_PAGE,
         count = PaginationDefaultValue.DEFAULT_COUNT,
       } = req.query;
-      const users = await userService.getPaginated({
+
+      const users = await userService.getAll({
         page,
         count,
       });
