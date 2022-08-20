@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 import { AppColor } from '~/common/enums/enums';
 import { Icon } from '~/components/common/common';
 
-import { styles } from './styles';
+import { styles } from '../styles';
 
 type Props = {
   id: number;
@@ -20,7 +20,7 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
     <Pressable onPress={handleDelete} style={styles.actionWrapper}>
       <Icon
         name="trash"
-        color={AppColor.TEXT.GRAY_200}
+        color={AppColor.TEXT.GRAY_100}
         width={20}
         height={20}
       />

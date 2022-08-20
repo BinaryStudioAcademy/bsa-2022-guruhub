@@ -5,6 +5,7 @@ export {
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';

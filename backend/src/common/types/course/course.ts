@@ -4,5 +4,6 @@ export { type CourseGetByIdAndVendorKeyArgumentsDto } from './course-get-by-id-a
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
 } from 'guruhub-shared/common/types/types';

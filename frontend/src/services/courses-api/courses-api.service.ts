@@ -4,7 +4,11 @@ import {
   CoursesApiPath,
   HttpMethod,
 } from 'common/enums/enums';
-import { CourseFilteringDto, CourseGetResponseDto } from 'common/types/types';
+import {
+  CourseFilteringDto,
+  CourseGetRequestParamsDto,
+  CourseGetResponseDto,
+} from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -44,6 +48,17 @@ class Courses {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify({ url }),
+      },
+    );
+  }
+
+  public getById({
+    id,
+  }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.GET,
       },
     );
   }

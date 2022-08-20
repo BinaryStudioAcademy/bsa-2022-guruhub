@@ -1,6 +1,11 @@
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
 
-import { AppColor, AppFontFamily, AppScreenName } from '~/common/enums/enums';
+import {
+  AppColor,
+  AppFontFamily,
+  AppScreenName,
+  PermissionKey,
+} from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { Courses } from '~/components/courses/courses';
@@ -76,7 +81,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.UAM,
         icon: 'uam',
         component: UAM,
-        permissions: [],
+        permissions: [PermissionKey.MANAGE_UAM],
       },
     ],
   },
