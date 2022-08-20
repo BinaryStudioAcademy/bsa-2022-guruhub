@@ -25,6 +25,12 @@ paths:
   # Courses
   /courses:
     $ref: './endpoints/courses/course-add.yaml'
+  # Interviews
+  /interviews:
+    $ref: './endpoints/interviews/interviews-get-all.yaml'
+  /interviews/{id}:
+    $ref: './endpoints/interviews/interview-get-by-id.yaml'
+
 components:
   schemas:
     UserSignUpRequestDto:
@@ -45,7 +51,12 @@ components:
       $ref: './schemas/groups/groups-get-all-response-dto.yaml'
     CourseCreateRequestDto:
       $ref: './schemas/courses/course-add-request-dto.yaml'
-    securitySchemes:
+    InterviewResponseDto:
+      $ref: './schemas/interviews/interview-response-dto.yaml'
+    InterviewsResponseDto:
+      $ref: './schemas/interviews/interviews-all-response-dto.yaml'
+    
+  securitySchemes:
       bearerAuth:
         type: http
         scheme: bearer
