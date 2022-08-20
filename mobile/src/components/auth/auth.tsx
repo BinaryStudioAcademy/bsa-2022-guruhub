@@ -40,14 +40,12 @@ const Auth: FC = () => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
-        <View style={styles.circle1} />
-        <View style={styles.circle2} />
-        {getScreen(name)}
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
+      <View style={styles.circle1} />
+      <View style={styles.circle2} />
+      <ScrollView>{getScreen(name)}</ScrollView>
+    </View>
   );
 };
 

@@ -35,7 +35,7 @@ const Courses: FC = (): ReactElement => {
   }, [dispatch, setIsLoading]);
 
   if (dataStatus === DataStatus.PENDING) {
-    return <Spinner />;
+    return <Spinner isOverflow />;
   }
 
   return (

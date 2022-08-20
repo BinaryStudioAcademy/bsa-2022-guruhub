@@ -6,14 +6,15 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
-  useEffect,
+  useCallback,
+  useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
 import { uamActions, uamGroupEditActions } from '~/store/actions';
 
+import { styles } from '../styles';
 import { ActionCell } from './components/components';
 import { getGroupsColumns } from './helpers/helpers';
-import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,6 @@ const GroupsTable: FC = () => {
 
   const { items, total } = useAppSelector((state) => state.uam.groups);
   const { page, handlePageChange } = usePagination();
-
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
@@ -43,20 +43,22 @@ const GroupsTable: FC = () => {
     ),
   }));
 
-  useEffect(() => {
-    dispatch(
-      uamActions.getGroups({
-        page,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
-      }),
-    );
-  }, [page]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        uamActions.getGroups({
+          page,
+          count: PaginationDefaultValue.DEFAULT_COUNT,
+        }),
+      );
+    }, [page]),
+  );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Groups</Text>
+    <View style={styles.tableContainer}>
+      <Text style={styles.tableTitle}>Groups</Text>
       <Table
-        columnWidthArr={[50, 250, 250, 150]}
+        columnWidthArr={[50, 210, 250, 150]}
         columns={groupsColumns}
         data={groupsRows}
       />
