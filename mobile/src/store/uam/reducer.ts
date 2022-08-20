@@ -7,7 +7,7 @@ import {
   UsersGetResponseDto,
 } from '~/common/types/types';
 
-import { logout } from '../auth/actions';
+import { signOut } from '../auth/actions';
 import { deleteGroup, deleteUser, getGroups, getUsers } from './actions';
 
 type State = {
@@ -86,12 +86,12 @@ const reducer = createReducer(initialState, (builder) => {
     state.userDeleteDataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(logout.fulfilled, () => {
-    return { ...initialState, dataStatus: DataStatus.FULFILLED };
+  builder.addCase(signOut.fulfilled, () => {
+    return initialState;
   });
 
-  builder.addCase(logout.rejected, () => {
-    return { ...initialState, dataStatus: DataStatus.REJECTED };
+  builder.addCase(signOut.rejected, () => {
+    return initialState;
   });
 });
 

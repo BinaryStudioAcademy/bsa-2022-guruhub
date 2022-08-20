@@ -3,7 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import { UserWithPermissions } from '~/common/types/types';
 
-import { loadCurrentUser, logout, signIn, signUp } from './actions';
+import { loadCurrentUser, signIn, signOut, signUp } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -38,8 +38,8 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.user = payload;
   });
-  builder.addCase(logout.fulfilled, () => {
-    return { ...initialState, dataStatus: DataStatus.FULFILLED };
+  builder.addCase(signOut.fulfilled, () => {
+    return initialState;
   });
 
   builder.addCase(signUp.rejected, (state) => {
@@ -54,8 +54,8 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
     state.user = null;
   });
-  builder.addCase(logout.rejected, () => {
-    return { ...initialState, dataStatus: DataStatus.REJECTED };
+  builder.addCase(signOut.rejected, () => {
+    return initialState;
   });
 });
 
