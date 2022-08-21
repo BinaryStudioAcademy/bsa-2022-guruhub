@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import { CourseModuleGetResponseDto } from 'common/types/types';
+import { CourseModuleGetByIdResponseDto } from 'common/types/types';
 
 import { getById } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  module: CourseModuleGetResponseDto | null;
+  module: CourseModuleGetByIdResponseDto | null;
 };
 
 const initialState: State = {

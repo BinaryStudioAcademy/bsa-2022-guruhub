@@ -1,7 +1,7 @@
 import { HttpMethod } from 'common/enums/enums';
 import {
+  CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
-  CourseModuleGetResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -23,7 +23,7 @@ class CourseModules {
   public getById({
     courseId,
     moduleId,
-  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetResponseDto> {
+  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}/courses/${courseId}/modules/${moduleId}`,
       {

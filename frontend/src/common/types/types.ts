@@ -10,6 +10,7 @@ export {
   type CourseGetResponseDto,
 } from './course/course';
 export {
+  type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
   type CourseModuleGetResponseDto,
 } from './course-module/course-module';

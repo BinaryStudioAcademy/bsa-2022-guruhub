@@ -1,6 +1,7 @@
 import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CourseModuleCreateArgumentsDto,
+  CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
   CourseModuleGetResponseDto,
 } from '~/common/types/types';
@@ -62,7 +63,7 @@ class CourseModule {
   public async getById({
     courseId,
     moduleId,
-  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetResponseDto | null> {
+  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto | null> {
     const module = await this.#moduleRepository.getById({ courseId, moduleId });
 
     return module ?? null;

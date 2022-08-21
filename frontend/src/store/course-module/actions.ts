@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRoute, NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
+  CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
-  CourseModuleGetResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getById = createAsyncThunk<
-  CourseModuleGetResponseDto,
+  CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_BY_ID, async ({ courseId, moduleId }, { extra }) => {

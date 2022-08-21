@@ -1,6 +1,7 @@
 import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { IconButton, Spinner } from 'components/common/common';
+import { NotFound } from 'components/not-found/not-found';
 import {
   useAppDispatch,
   useAppSelector,
@@ -27,6 +28,10 @@ const Module: FC = () => {
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
+  }
+
+  if (!module && dataStatus !== DataStatus.IDLE) {
+    return <NotFound />;
   }
 
   return (

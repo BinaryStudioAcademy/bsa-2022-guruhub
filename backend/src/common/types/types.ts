@@ -13,6 +13,7 @@ export {
 } from './course-category/course-category';
 export {
   type CourseModuleCreateArgumentsDto,
+  type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
   type CourseModuleGetResponseDto,
 } from './course-module/course-module';

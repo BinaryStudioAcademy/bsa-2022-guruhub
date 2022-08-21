@@ -1,5 +1,6 @@
 import {
   CourseModuleCreateArgumentsDto,
+  CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
 } from '~/common/types/types';
 import { CourseModule as ModuleM } from '~/data/models/models';
@@ -33,14 +34,17 @@ class CourseModule {
   public async getById({
     courseId,
     moduleId,
-  }: CourseModuleGetRequestParamsDto): Promise<ModuleM | null> {
+  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto | null> {
     const module = await this.#ModuleModel
       .query()
       .where({
         courseId,
-        id: moduleId,
       })
-      .first();
+      .andWhere('course_modules.id', moduleId)
+      .joinRelated('course')
+      .select('course_modules.*', 'course.title as courseTitle')
+      .first()
+      .castTo<CourseModuleGetByIdResponseDto>();
 
     return module ?? null;
   }
