@@ -1,3 +1,4 @@
+export { getFormattedDate } from './date/date';
 export { getValidClasses } from './dom/dom';
 export { checkHasPermission } from './permissions/permissions';
 export { changeStringCase } from './string/string';
