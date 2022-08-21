@@ -17,7 +17,6 @@ type Props = {
   name: FormControlPath;
   placeholder?: string;
   type?: 'text' | 'email' | 'date' | 'password';
-  defaultValue?: string;
   hasVisuallyHiddenLabel?: boolean;
   inputClassName?: string;
 };
@@ -29,7 +28,6 @@ const Input: FC<Props> = ({
   name,
   placeholder = '',
   type = 'text',
-  defaultValue = '',
   hasVisuallyHiddenLabel = false,
   inputClassName = '',
 }) => {
@@ -49,7 +47,7 @@ const Input: FC<Props> = ({
         {...field}
         type={type}
         placeholder={placeholder}
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
         className={getValidClasses(styles.input, inputClassName)}
       />
       <span className={styles.errorMessage}>

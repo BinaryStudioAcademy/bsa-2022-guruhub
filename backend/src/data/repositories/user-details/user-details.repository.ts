@@ -48,7 +48,7 @@ class UserDetails {
       .first()
       .execute();
 
-    return userDetails ?? undefined;
+    return userDetails;
   }
 }
 

@@ -1,0 +1,12 @@
+extends:
+  - ../.eslintrc.yml
+
+env:
+  node: true
+
+overrides:
+  - files:
+      - knexfile.ts
+    rules:
+      'import/no-default-export':
+        - off

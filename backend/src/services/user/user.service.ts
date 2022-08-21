@@ -85,7 +85,7 @@ class User {
       id: user.id,
       email: user.email,
       createdAt: user.createdAt,
-      fullName: fullName,
+      fullName,
       permissions: [],
     };
   }

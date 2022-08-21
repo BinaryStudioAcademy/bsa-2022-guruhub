@@ -5,7 +5,7 @@
   color: var(--typography-text-100-inverse);
 }
 
-select {
+.select {
   z-index: 1;
   width: 100%;
   margin: 0;
@@ -21,7 +21,7 @@ select {
   appearance: none;
 }
 
-.select {
+.selectWrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@ select {
   cursor: pointer;
 }
 
-.select::after {
+.selectWrapper::after {
   content: '';
   justify-self: end;
   width: 15px;
@@ -46,6 +46,15 @@ select {
   clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }
 
-.select option {
+.selectWrapper option {
   background: var(--background-gray-300);
+}
+
+.errorMessage {
+  height: 16px;
+  overflow: hidden;
+  color: var(--support-error-red-100);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
 }

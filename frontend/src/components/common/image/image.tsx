@@ -9,11 +9,16 @@ type Props = {
   src: string;
   alt: string;
   isCircular?: boolean;
+  classes?: string;
 };
 
-const Image: FC<Props> = ({ width, height, src, alt, isCircular }) => (
+const Image: FC<Props> = ({ width, height, src, alt, isCircular, classes }) => (
   <img
-    className={getValidClasses(isCircular && styles.circular, styles.image)}
+    className={getValidClasses(
+      classes,
+      isCircular && styles.circular,
+      styles.image,
+    )}
     width={width}
     height={height}
     src={src}

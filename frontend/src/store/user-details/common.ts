@@ -1,6 +1,6 @@
 enum ActionType {
-  GET_USER_DETAILS = 'profile/get-user-details',
-  UPDATE_USER_DETAILS = 'profile/update-user-details',
+  GET_USER_DETAILS = 'user-details/get-user-details',
+  UPDATE_USER_DETAILS = 'user-details/update-user-details',
 }
 
 export { ActionType };

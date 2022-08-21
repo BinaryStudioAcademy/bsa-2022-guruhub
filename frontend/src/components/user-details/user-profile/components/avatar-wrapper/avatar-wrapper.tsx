@@ -1,33 +1,30 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { FC } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
-type Props = {
-  avatarUrl: string | null | undefined;
-};
-
-const AvatarWrapper: FC<Props> = ({ avatarUrl }) => {
+const AvatarWrapper: FC = () => {
   return (
     <div className={styles.flex}>
       <div className={styles.imageWrapper}>
         <Image
           width="136"
           height="136"
-          src={avatarUrl ?? defaultUserAvatar}
+          src={defaultUserAvatar}
           alt="user avatar"
           isCircular
         />
       </div>
       <div>
         <Button
-          classes={getValidClasses(styles.btn, styles.btnUpdate)}
+          type="button"
+          btnColor="blue"
           label="Update File"
           btnType="upload"
+          classes={styles.marginBottom}
         />
-        <Button classes={styles.btn} label="Save" />
+        <Button btnColor="blue" label="Save" classes={styles.btn} />
       </div>
     </div>
   );

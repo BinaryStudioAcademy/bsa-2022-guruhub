@@ -8,6 +8,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-bottom: 10px;
   column-gap: 30px;
   color-scheme: dark;
 }
@@ -42,6 +43,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
+}
+
+.marginRight {
+  margin-right: 10px;
 }
 
 .cancelBtn {

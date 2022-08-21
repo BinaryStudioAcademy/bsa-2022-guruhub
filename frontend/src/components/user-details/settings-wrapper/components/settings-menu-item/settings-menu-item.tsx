@@ -6,25 +6,25 @@ import styles from './styles.module.scss';
 
 type Props = {
   iconColorClass: string;
-  keyItem: SettingsWrapperType;
   name: string;
   isCurrentRoute: boolean;
+  tab: SettingsWrapperType;
   onHandleChangeTab: (tab: SettingsWrapperType) => void;
 };
 
 const SettingsMenuItem: FC<Props> = ({
   iconColorClass,
   name,
-  keyItem,
+  tab,
   isCurrentRoute,
   onHandleChangeTab,
 }) => {
   const handleChangeTab = (): void => {
-    onHandleChangeTab(keyItem);
+    onHandleChangeTab(tab);
   };
 
   return (
-    <div key={keyItem} onClick={handleChangeTab}>
+    <div onClick={handleChangeTab}>
       <div
         className={getValidClasses(
           styles.link,

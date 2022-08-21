@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import {
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
@@ -31,12 +29,7 @@ class UserDetails {
         userDetailsUpdateInfoRequestDto,
       );
 
-      return {
-        ...userDetails,
-        dateOfBirth:
-          moment(userDetails.dateOfBirth).format('YYYY-MM-DD') ??
-          userDetails.dateOfBirth,
-      };
+      return userDetails;
     }
 
     const userDetails = await this.#userDetailsRepository.createUserDetails(
@@ -44,10 +37,7 @@ class UserDetails {
       userDetailsUpdateInfoRequestDto,
     );
 
-    return {
-      ...userDetails,
-      dateOfBirth: moment(userDetails.dateOfBirth).format('YYYY-MM-DD'),
-    };
+    return userDetails;
   }
 
   public async getByUserId(
@@ -59,10 +49,7 @@ class UserDetails {
       return null;
     }
 
-    return {
-      ...userDetails,
-      dateOfBirth: moment(userDetails.dateOfBirth).format('YYYY-MM-DD'),
-    };
+    return userDetails;
   }
 }
 

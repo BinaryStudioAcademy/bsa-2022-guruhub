@@ -12,7 +12,9 @@ export {
 export {
   type FormControl,
   type FormControlErrors,
+  type FormControlGetValues,
   type FormControlPath,
+  type FormControlSetValues,
   type FormControlValues,
 } from './form/form';
 export {

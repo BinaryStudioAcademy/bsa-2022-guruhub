@@ -3,6 +3,7 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -49,6 +50,7 @@ const Header: FC = () => {
                   src={defaultUserAvatar}
                   alt="user avatar"
                   isCircular
+                  classes={getValidClasses(styles.img)}
                 />
               </div>
             </button>

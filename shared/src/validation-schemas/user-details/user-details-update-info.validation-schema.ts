@@ -31,7 +31,7 @@ const userDetailsUpdateInfo = Joi.object({
     .min(UserDetailsValidationRule.MIN_DATE)
     .max(UserDetailsValidationRule.MAX_DATE)
     .messages({
-      'date.empty': UserDetailsValidationMessage.DATE_OF_BIRTH_REQUIRE,
+      'date.base': UserDetailsValidationMessage.DATE_OF_BIRTH_REQUIRE,
       'date.min': UserDetailsValidationMessage.MIN_DATE_OF_BIRTH,
       'date.max': UserDetailsValidationMessage.MAX_DATE_OF_BIRTH,
     }),

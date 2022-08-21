@@ -1,37 +1,43 @@
-import { FC, FormEvent, SelectorOptions } from 'common/types/types';
-import { useState } from 'hooks/hooks';
+import {
+  FC,
+  FormControl,
+  FormControlErrors,
+  SelectorOptions,
+} from 'common/types/types';
+import { ErrorMessage } from 'components/common/common';
+import { useFormControl } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
 type Props = {
+  control: FormControl;
+  errors: FormControlErrors;
   name: string;
   options: SelectorOptions[];
-  setValue: (name: string, value: string) => void;
-  value: string;
+  setValue?: (name: string, value: string) => void;
+  value?: string;
   label: string;
 };
 
-const Selector: FC<Props> = ({ name, label, options, setValue, value }) => {
-  const [selectValue, setSelectValue] = useState<string>(value);
-
-  const handleSelectedOption = (event: FormEvent<HTMLSelectElement>): void => {
-    setValue(name, event.currentTarget.value);
-    setSelectValue(event.currentTarget.value);
-  };
+const Selector: FC<Props> = ({ name, control, errors, label, options }) => {
+  const { field } = useFormControl({ name, control });
 
   return (
     <div className={styles.wrapper}>
       <label className={styles.title}>{label}</label>
-      <div className={styles.select}>
-        <select name={name} value={selectValue} onChange={handleSelectedOption}>
+      <div className={styles.selectWrapper}>
+        <select {...field} className={styles.select} name={name}>
           {options.map((option) => (
-            <option key={option.key} value={option.value}>
+            <option key={option.value} value={option.value}>
               {option.name}
             </option>
           ))}
         </select>
         <span className="focus"></span>
       </div>
+      <span className={styles.errorMessage}>
+        <ErrorMessage errors={errors} name={name} />
+      </span>
     </div>
   );
 };

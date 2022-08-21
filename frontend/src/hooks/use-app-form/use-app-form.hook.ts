@@ -1,18 +1,13 @@
 import {
   FormControl,
   FormControlErrors,
+  FormControlGetValues,
+  FormControlSetValues,
   FormControlValues,
   ValidationSchema,
 } from 'common/types/types';
 import { getFormValidationResolver } from 'helpers/helpers';
-import {
-  FieldValues,
-  useForm,
-  UseFormGetValues,
-  UseFormHandleSubmit,
-  UseFormReset,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { useForm, UseFormHandleSubmit, UseFormReset } from 'react-hook-form';
 
 type UseAppFormArgs = {
   defaultValues: Record<string, unknown>;
@@ -22,8 +17,8 @@ type UseAppFormArgs = {
 type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   control: FormControl;
   errors: FormControlErrors;
-  setValue: UseFormSetValue<FieldValues>;
-  getValues: UseFormGetValues<FieldValues>;
+  setValue: FormControlSetValues;
+  getValues: FormControlGetValues;
   handleSubmit: UseFormHandleSubmit<T>;
   reset: UseFormReset<T>;
 };

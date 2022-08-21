@@ -1,5 +1,6 @@
 .popup {
   position: relative;
+  z-index: 99;
 }
 
 .ul {
@@ -11,6 +12,6 @@
   border-radius: 6px;
 }
 
-li {
+.li {
   margin-bottom: 10px;
 }

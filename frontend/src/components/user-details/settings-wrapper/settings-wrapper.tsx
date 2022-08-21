@@ -14,13 +14,14 @@ const SettingsWrapper: FC<Props> = ({ selectedTab, onHandleChangeTab }) => {
     <div className={styles.menu}>
       <div className={styles.title}>Settings</div>
       <div className={styles.links}>
-        {settingsTabs.map(({ name, key, iconColorClass }) => {
+        {settingsTabs.map(({ name, tab, iconColorClass }) => {
           return (
             <SettingsMenuItem
               iconColorClass={iconColorClass}
-              keyItem={key}
+              key={tab}
+              tab={tab}
               name={name}
-              isCurrentRoute={selectedTab === key}
+              isCurrentRoute={selectedTab === tab}
               onHandleChangeTab={onHandleChangeTab}
             />
           );
