@@ -1,12 +1,33 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { IconButton } from 'components/common/common';
-import { useParams } from 'hooks/hooks';
+import { IconButton, Spinner } from 'components/common/common';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useParams,
+} from 'hooks/hooks';
+import { courseModuleActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
 const Module: FC = () => {
-  const { courseId } = useParams();
+  const { courseId, moduleId } = useParams();
+  const { dataStatus, module } = useAppSelector((state) => state.courseModule);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      courseModuleActions.getById({
+        courseId: Number(courseId),
+        moduleId: Number(moduleId),
+      }),
+    );
+  }, []);
+
+  if (dataStatus === DataStatus.PENDING) {
+    return <Spinner />;
+  }
 
   return (
     <div className={styles.container}>
@@ -23,7 +44,7 @@ const Module: FC = () => {
         <div className={styles.moduleNameContent}>
           <ol className={styles.list}>
             <li value="5" className={styles.moduleName}>
-              Module name
+              {module?.title}
             </li>
           </ol>
           <p className={styles.moduleDescription}>Module description</p>
