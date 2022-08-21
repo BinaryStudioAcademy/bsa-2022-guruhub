@@ -16,7 +16,7 @@ const getCourse = createAsyncThunk<
 >(ActionType.GET_COURSE, async (payload, { extra }) => {
   const { coursesApi } = extra;
   const { id } = payload;
-  const course = await coursesApi.getCourseById({ id });
+  const course = await coursesApi.getById({ id });
 
   return course;
 });

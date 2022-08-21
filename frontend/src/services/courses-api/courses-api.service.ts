@@ -28,7 +28,7 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAllCourses(opts: {
+  public getAll(opts: {
     filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
@@ -54,7 +54,7 @@ class Courses {
     );
   }
 
-  public getCourseById({
+  public getById({
     id,
   }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
     return this.#http.load(
