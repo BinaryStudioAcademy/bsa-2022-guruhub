@@ -32,15 +32,11 @@ async function up(knex: Knex): Promise<void> {
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.INTERVIEWS, (table) => {
-    table.dropColumn(ColumnName.CATEGORY_ID);
-  });
-
-  await knex.schema.alterTable(TableName.INTERVIEWS, (table) => {
-    table.dropColumn(ColumnName.INTERVIEWEE_USER_ID);
-  });
-
-  await knex.schema.alterTable(TableName.INTERVIEWS, (table) => {
-    table.dropColumn(ColumnName.INTERVIEWER_USER_ID);
+    table.dropColumns(
+      ColumnName.CATEGORY_ID,
+      ColumnName.INTERVIEWER_USER_ID,
+      ColumnName.INTERVIEWEE_USER_ID,
+    );
   });
 }
 

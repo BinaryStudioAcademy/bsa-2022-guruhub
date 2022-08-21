@@ -1,6 +1,4 @@
-import { InterviewResponseDto } from 'guruhub-shared';
-
-import { DbTableName } from '~/common/enums/enums';
+import { InterviewResponseDto } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
 type Constructor = {
@@ -14,7 +12,7 @@ class Interview {
     this.#InterviewModel = InterviewModel;
   }
 
-  public async getAll(): Promise<InterviewResponseDto[]> {
+  public getAll(): Promise<InterviewResponseDto[]> {
     return this.#InterviewModel
       .query()
       .withGraphJoined('courseCategory')
@@ -31,9 +29,8 @@ class Interview {
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee')
       .withGraphJoined('interviewer')
-      .castTo<InterviewResponseDto>()
-      .where({ [DbTableName.INTERVIEWS + '.id']: id })
-      .first();
+      .findById(id)
+      .castTo<InterviewResponseDto>();
 
     return interview ?? null;
   }
