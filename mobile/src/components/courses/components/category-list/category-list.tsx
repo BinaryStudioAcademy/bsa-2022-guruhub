@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { ScrollView } from '~/components/common/common';
-import { useState } from '~/hooks/hooks';
+import { useEffect, useState } from '~/hooks/hooks';
 
 import { Category } from './components/category/category';
 import { styles } from './style';
@@ -12,21 +12,39 @@ type Props = {
 };
 
 const CategoryList: FC<Props> = ({ items }) => {
-  const [categories, setCategories] = useState(items);
+  const [activeCategoryIds, setActiveCategoryIds] = useState<number[]>([]);
+  const [filteredCategories, setFilteredCategories] = useState<
+    CategoryGetAllItemResponseDto[]
+  >([]);
 
-  const handlePress = (index: number): void => {
-    setCategories([
-      categories[index],
-      ...categories.filter((item) => item.id !== categories[index].id),
-    ]);
+  const handlePress = (id: number): void => {
+    if (!activeCategoryIds.includes(id)) {
+      setActiveCategoryIds([...activeCategoryIds, id]);
+    } else {
+      setActiveCategoryIds(
+        activeCategoryIds.filter((activeId) => activeId !== id),
+      );
+    }
   };
 
-  const renderCategories = categories.map((category, index) => (
+  useEffect(() => {
+    if (activeCategoryIds.length) {
+      const activeSet = new Set(activeCategoryIds);
+      const activeItems = items.filter((item) => activeSet.has(item.id));
+      const notActiveItems = items.filter((item) => !activeSet.has(item.id));
+
+      setFilteredCategories([...activeItems, ...notActiveItems]);
+    } else {
+      setFilteredCategories(items);
+    }
+  }, [activeCategoryIds]);
+
+  const renderCategories = filteredCategories.map((category) => (
     <Category
       key={category.id}
       name={category.name}
       keyName={category.key}
-      onPress={(): void => handlePress(index)}
+      onPress={(): void => handlePress(category.id)}
     />
   ));
 

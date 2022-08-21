@@ -9,12 +9,14 @@ import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
 import {
   courseCategory as courseCategoryServ,
+  courseModule as courseModuleServ,
   udemy as udemyServ,
   vendor as vendorServ,
 } from '~/services/services';
 
 type Constructor = {
   courseRepository: typeof courseRep;
+  courseModuleService: typeof courseModuleServ;
   vendorService: typeof vendorServ;
   udemyService: typeof udemyServ;
   courseCategoryService: typeof courseCategoryServ;
@@ -22,6 +24,8 @@ type Constructor = {
 
 class Course {
   #courseRepository: typeof courseRep;
+
+  #courseModuleService: typeof courseModuleServ;
 
   #vendorService: typeof vendorServ;
 
@@ -31,11 +35,13 @@ class Course {
 
   public constructor({
     courseRepository,
+    courseModuleService,
     vendorService,
     udemyService,
     courseCategoryService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
+    this.#courseModuleService = courseModuleService;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
     this.#courseCategoryService = courseCategoryService;
@@ -98,16 +104,21 @@ class Course {
     switch (host) {
       case CourseHost.UDEMY:
       case CourseHost.W_UDEMY: {
-        const courseData = await this.#udemyService.getByUrl(urlObject);
+        const courseData = await this.#udemyService.getCourseByUrl(urlObject);
+
         const { description, title, url, id } = courseData;
 
-        return this.create({
+        const course = await this.create({
           description,
           title,
           url,
           vendorKey: VendorKey.UDEMY,
           originalId: id.toString(),
         });
+
+        await this.#courseModuleService.createModulesByCourseId(id, course.id);
+
+        return course;
       }
       default: {
         throw new CoursesError({
@@ -141,6 +152,12 @@ class Course {
       originalId,
       vendorKey,
     });
+
+    return course ?? null;
+  }
+
+  public async getById(courseId: number): Promise<CourseGetResponseDto | null> {
+    const course = await this.#courseRepository.getById(courseId);
 
     return course ?? null;
   }

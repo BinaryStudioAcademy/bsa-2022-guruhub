@@ -26,14 +26,14 @@ class User {
     this.#encryptService = encryptService;
   }
 
-  public async getPaginated({
+  public async getAll({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<UsersGetResponseDto>
   > {
     const ZERO_INDEXED_PAGE = page - 1;
-    const result = await this.#userRepository.getPaginated({
+    const result = await this.#userRepository.getAll({
       page: ZERO_INDEXED_PAGE,
       count,
     });

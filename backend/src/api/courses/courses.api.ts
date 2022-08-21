@@ -4,11 +4,13 @@ import { CoursesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
   CourseCreateRequestDto,
   CourseFilteringDto,
+  CourseGetRequestParamsDto,
 } from '~/common/types/types';
 import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
+  courseGetParams as courseGetParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -50,6 +52,21 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.createByUrl(url);
 
       return rep.status(HttpCode.CREATED).send(course);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID,
+    schema: { params: courseGetParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const course = await courseService.getById(id);
+
+      return rep.status(HttpCode.OK).send(course);
     },
   });
 };

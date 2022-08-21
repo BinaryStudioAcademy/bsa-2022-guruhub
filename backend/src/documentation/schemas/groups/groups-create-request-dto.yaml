@@ -1,0 +1,17 @@
+type: object
+properties:
+  name:
+    required: true
+    type: string
+    example: Group
+  permissionIds:
+    required: true
+    type: array
+    items:
+      type: number
+      example: 1
+  userIds:
+    type: array
+    items:
+      type: number
+      example: 1
