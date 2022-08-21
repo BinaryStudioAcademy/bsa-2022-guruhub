@@ -14,7 +14,9 @@ import { ModulesCardsContainer } from './components/modules-cards-container/modu
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, dataStatus } = useAppSelector((state) => state.course);
+  const { course, modules, dataStatus } = useAppSelector(
+    (state) => state.course,
+  );
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -51,38 +53,7 @@ const Course: FC = () => {
         />
         <h3 className={styles.modulesContentHeader}>Course Content</h3>
         <div className={styles.modulesContainer}>
-          <ModulesCardsContainer
-            modules={[
-              {
-                id: 1,
-                title: 'There was a cat and the rat',
-                description:
-                  'There was a cat and the rat. There was a cat and the rat',
-                courseId: 1,
-              },
-              {
-                id: 2,
-                title: 'There was a cat and the rat',
-                description:
-                  'There was a cat and the rat. There was a cat and the rat',
-                courseId: 1,
-              },
-              {
-                id: 3,
-                title: 'There was a cat and the rat',
-                description:
-                  'There was a cat and the rat. There was a cat and the rat',
-                courseId: 1,
-              },
-              {
-                id: 4,
-                title: 'There was a cat and the rat',
-                description:
-                  'There was a cat and the rat. There was a cat and the rat',
-                courseId: 1,
-              },
-            ]}
-          />
+          <ModulesCardsContainer modules={modules} />
         </div>
       </div>
 
