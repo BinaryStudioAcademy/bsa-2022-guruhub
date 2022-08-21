@@ -9,7 +9,7 @@ import {
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
-import { uamActions } from '~/store/actions';
+import { authActions, uamActions } from '~/store/actions';
 
 import { styles } from '../styles';
 import { ActionCell } from './components/components';
@@ -22,6 +22,7 @@ const GroupsTable: FC = () => {
 
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
+    dispatch(authActions.loadCurrentUser());
   };
 
   const groupsColumns = getGroupsColumns();
