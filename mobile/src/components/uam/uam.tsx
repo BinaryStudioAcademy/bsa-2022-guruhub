@@ -21,7 +21,9 @@ const UAM: FC = () => {
       <View style={styles.container}>
         <UsersTable />
         <GroupsTable />
-        <Button label="Create group" onPress={handleGroupCreate} />
+        <View style={styles.buttonWrapper}>
+          <Button label="Create group" onPress={handleGroupCreate} />
+        </View>
       </View>
     </ScrollView>
   );

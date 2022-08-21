@@ -7,6 +7,7 @@ enum AppScreenName {
   SETTINGS = 'Settings',
   UAM = 'User Access Management',
   UAM_GROUPS_CREATE = 'Create group',
+  UAM_GROUPS_EDIT = 'Edit group',
 }
 
 export { AppScreenName };

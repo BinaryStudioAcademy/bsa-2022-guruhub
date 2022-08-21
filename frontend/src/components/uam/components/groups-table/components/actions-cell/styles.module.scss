@@ -3,19 +3,3 @@
   align-items: baseline;
   gap: 10px;
 }
-
-.deleteBtn {
-  display: flex;
-  padding: 5px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.deleteIcon {
-  fill: var(--typography-text-gray-200);
-}
-
-.deleteBtn:hover > .deleteIcon {
-  fill: var(--typography-text-100-inverse);
-}

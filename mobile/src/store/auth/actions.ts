@@ -45,7 +45,7 @@ const loadCurrentUser = createAsyncThunk<
   return user;
 });
 
-const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
+const signOut = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.LOGOUT,
   (_payload, { extra }) => {
     const { storage } = extra;
@@ -54,4 +54,4 @@ const logout = createAsyncThunk<void, void, AsyncThunkConfig>(
   },
 );
 
-export { loadCurrentUser, logout, signIn, signUp };
+export { loadCurrentUser, signIn, signOut, signUp };

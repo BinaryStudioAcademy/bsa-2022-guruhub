@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
   },
+  buttonWrapper: {
+    marginTop: 20,
+  },
   tableContainer: {
     maxHeight: '100%',
     marginBottom: 20,
@@ -22,12 +25,6 @@ const styles = StyleSheet.create({
   },
   tableWrapper: {
     flexDirection: 'row',
-  },
-  actionWrapper: {
-    width: 30,
-    height: 30,
-    marginHorizontal: 10,
-    justifyContent: 'center',
   },
 });
 
