@@ -8,6 +8,7 @@ import {
   auth,
   course,
   courseCategory,
+  courseModule,
   group,
   permission,
   token,
@@ -16,6 +17,7 @@ import {
 
 import { initAuthApi } from './auth/auth.api';
 import { initCategoriesApi } from './categories/categories.api';
+import { initCourseModulesApi } from './course-modules/course-modules.api';
 import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initPermissionsApi } from './permissions/permissions.api';
@@ -74,6 +76,12 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       courseCategory,
     },
     prefix: ApiPath.CATEGORIES,
+  });
+  fastify.register(initCourseModulesApi, {
+    services: {
+      courseModule,
+    },
+    prefix: ApiPath.COURSES_$ID_MODULES,
   });
 };
 

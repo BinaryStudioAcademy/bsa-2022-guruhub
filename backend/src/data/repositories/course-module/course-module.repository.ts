@@ -1,4 +1,7 @@
-import { CourseModuleCreateArgumentsDto } from '~/common/types/types';
+import {
+  CourseModuleCreateArgumentsDto,
+  CourseModuleGetRequestParamsDto,
+} from '~/common/types/types';
 import { CourseModule as ModuleM } from '~/data/models/models';
 
 type Constructor = {
@@ -25,6 +28,21 @@ class CourseModule {
         courseId,
       })
       .execute();
+  }
+
+  public async getById({
+    courseId,
+    moduleId,
+  }: CourseModuleGetRequestParamsDto): Promise<ModuleM | null> {
+    const module = await this.#ModuleModel
+      .query()
+      .where({
+        courseId,
+        id: moduleId,
+      })
+      .first();
+
+    return module ?? null;
   }
 }
 

@@ -1,6 +1,7 @@
 import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CourseModuleCreateArgumentsDto,
+  CourseModuleGetRequestParamsDto,
   CourseModuleGetResponseDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
@@ -56,6 +57,15 @@ class CourseModule {
         });
       }),
     );
+  }
+
+  public async getById({
+    courseId,
+    moduleId,
+  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetResponseDto | null> {
+    const module = await this.#moduleRepository.getById({ courseId, moduleId });
+
+    return module ?? null;
   }
 }
 
