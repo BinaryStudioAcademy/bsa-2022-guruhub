@@ -37,7 +37,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page]);
+  }, [page, users]);
 
   return (
     <View style={styles.tableContainer}>

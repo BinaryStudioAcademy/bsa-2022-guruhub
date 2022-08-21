@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     margin: 16,
     flexDirection: 'row',
     alignContent: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    marginVertical: 20,
   },
   inputContainer: {
     marginBottom: 16,

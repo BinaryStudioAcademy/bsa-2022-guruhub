@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 
-import { PaginationDefaultValue } from '~/common/enums/enums';
+import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
+  useAppNavigate,
   useAppSelector,
   useCallback,
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
-import { uamActions } from '~/store/actions';
+import { uamActions, uamGroupEditActions } from '~/store/actions';
 
 import { styles } from '../styles';
 import { ActionCell } from './components/components';
@@ -17,16 +18,29 @@ import { getGroupsColumns } from './helpers/helpers';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
+
   const { items, total } = useAppSelector((state) => state.uam.groups);
   const { page, handlePageChange } = usePagination();
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
+  const handleGroupsItemEdit = (groupId: number): void => {
+    dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
+    navigation.navigate(AppScreenName.UAM_GROUPS_EDIT);
+  };
+
   const groupsColumns = getGroupsColumns();
   const groupsRows = items.map((group) => ({
     ...group,
-    action: <ActionCell id={group.id} onDelete={handleGroupsItemDelete} />,
+    action: (
+      <ActionCell
+        id={group.id}
+        onDelete={handleGroupsItemDelete}
+        onEdit={handleGroupsItemEdit}
+      />
+    ),
   }));
 
   useFocusEffect(

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { FormControl, UsersGetResponseDto } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
-import { UserTableAccessor } from '~/components/uam-groups-create/common/enums/enums';
-import { UsersTableRow } from '~/components/uam-groups-create/common/types/types';
+import { UserTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
+import { UsersTableRow } from '~/components/uam-configure-group/common/types/types';
 
 type Props = {
   users: UsersGetResponseDto[];
@@ -26,6 +26,7 @@ const getUserRows = ({ users, control, onToggle }: Props): UsersTableRow[] => {
       [UserTableAccessor.ID]: user.id,
       [UserTableAccessor.FULL_NAME]: user.fullName,
       [UserTableAccessor.EMAIL]: user.email,
+      [UserTableAccessor.CREATED_AT]: user.createdAt,
     };
   });
 };

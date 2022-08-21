@@ -1,12 +1,16 @@
 import { TableColumn } from '~/common/types/ui/table-column.type';
-import { UserTableAccessor } from '~/components/uam-groups-create/common/enums/enums';
-import { UsersTableRow } from '~/components/uam-groups-create/common/types/types';
+import { UserTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
+import { UsersTableRow } from '~/components/uam-configure-group/common/types/types';
 
 const getUserColumns = (): TableColumn<UsersTableRow>[] => {
   return [
     {
       header: '',
       accessor: UserTableAccessor.CHECKBOX,
+    },
+    {
+      header: 'ID',
+      accessor: UserTableAccessor.ID,
     },
     {
       header: 'Name',
@@ -17,8 +21,8 @@ const getUserColumns = (): TableColumn<UsersTableRow>[] => {
       accessor: UserTableAccessor.EMAIL,
     },
     {
-      header: 'ID',
-      accessor: UserTableAccessor.ID,
+      header: 'Created At',
+      accessor: UserTableAccessor.CREATED_AT,
     },
   ];
 };

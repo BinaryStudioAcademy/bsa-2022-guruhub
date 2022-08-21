@@ -2,9 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   GroupsCreateRequestDto,
   GroupsItemResponseDto,
   PermissionsGetAllResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 
 import { ActionType } from './common';
@@ -20,6 +23,17 @@ const getPermissions = createAsyncThunk<
   return permissions;
 });
 
+const getUsers = createAsyncThunk<
+  EntityPagination<UsersGetResponseDto>,
+  EntityPaginationRequestQueryDto,
+  AsyncThunkConfig
+>(ActionType.GET_USERS, async ({ page, count }, { extra }) => {
+  const { usersApi } = extra;
+  const users = await usersApi.getPage({ page, count });
+
+  return users;
+});
+
 const createGroup = createAsyncThunk<
   GroupsItemResponseDto,
   GroupsCreateRequestDto,
@@ -31,4 +45,4 @@ const createGroup = createAsyncThunk<
   return response;
 });
 
-export { createGroup, getPermissions };
+export { createGroup, getPermissions, getUsers };

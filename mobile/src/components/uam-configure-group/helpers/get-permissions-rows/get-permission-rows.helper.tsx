@@ -5,8 +5,8 @@ import {
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
-import { PermissionTableAccessor } from '~/components/uam-groups-create/common/enums/enums';
-import { PermissionsTableRow } from '~/components/uam-groups-create/common/types/types';
+import { PermissionTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
+import { PermissionsTableRow } from '~/components/uam-configure-group/common/types/types';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
