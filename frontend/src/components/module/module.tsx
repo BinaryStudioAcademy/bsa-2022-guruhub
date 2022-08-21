@@ -1,7 +1,6 @@
 import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { IconButton, Spinner } from 'components/common/common';
-import { NotFound } from 'components/not-found/not-found';
 import {
   useAppDispatch,
   useAppSelector,
@@ -30,10 +29,6 @@ const Module: FC = () => {
     return <Spinner />;
   }
 
-  if (!module && dataStatus !== DataStatus.IDLE) {
-    return <NotFound />;
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.buttonWrapper}>
@@ -44,7 +39,7 @@ const Module: FC = () => {
           iconColor="blue"
         />
       </div>
-      <h1 className={styles.courseName}>Course name</h1>
+      <h1 className={styles.courseName}>{module?.courseTitle}</h1>
       <div className={styles.moduleNameContainer}>
         <div className={styles.moduleNameContent}>
           <ol className={styles.list}>
@@ -52,18 +47,15 @@ const Module: FC = () => {
               {module?.title}
             </li>
           </ol>
-          <p className={styles.moduleDescription}>Module description</p>
+          <p
+            className={styles.moduleDescription}
+            dangerouslySetInnerHTML={{ __html: module?.description || '' }}
+          />
         </div>
       </div>
-      <ol className={styles.list}>
-        {[1, 2, 3, 4, 5].map((i) => (
-          <li key={i} className={styles.lecture}>
-            Ullamco cupidatat ad irure fugiat culpa amet eu nisi voluptate
-            deserunt voluptate. Et reprehenderit ipsum eu officia. Id cupidatat
-            magna ex elit ea nisi consectetur sunt eiusmod dolor.
-          </li>
-        ))}
-      </ol>
+      <div>
+        <p dangerouslySetInnerHTML={{ __html: module?.description || '' }} />
+      </div>
     </div>
   );
 };
