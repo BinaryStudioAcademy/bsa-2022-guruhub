@@ -11,9 +11,11 @@ import { courseModuleActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
-const Module: FC = () => {
+const CourseModule: FC = () => {
   const { courseId, moduleId } = useParams();
-  const { dataStatus, module } = useAppSelector((state) => state.courseModule);
+  const { dataStatus, courseModule } = useAppSelector(
+    (state) => state.courseModule,
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,21 +41,25 @@ const Module: FC = () => {
           iconColor="blue"
         />
       </div>
-      <h1 className={styles.courseName}>{module?.courseTitle}</h1>
+      <h1 className={styles.courseName}>{courseModule?.courseTitle}</h1>
       <div className={styles.moduleNameContainer}>
         <div className={styles.moduleNameContent}>
-          <h4>{module?.title}</h4>
+          <h4>{courseModule?.title}</h4>
           <p
             className={styles.moduleDescription}
-            dangerouslySetInnerHTML={{ __html: module?.description || '' }}
+            dangerouslySetInnerHTML={{
+              __html: courseModule?.description || '',
+            }}
           />
         </div>
       </div>
       <div>
-        <p dangerouslySetInnerHTML={{ __html: module?.description || '' }} />
+        <p
+          dangerouslySetInnerHTML={{ __html: courseModule?.description || '' }}
+        />
       </div>
     </div>
   );
 };
 
-export { Module };
+export { CourseModule };

@@ -14,8 +14,8 @@ import {
   Spinner,
 } from 'components/common/common';
 import { Course } from 'components/course/course';
+import { CourseModule } from 'components/course-module/course-module';
 import { Dashboard } from 'components/dashboard/dashboard';
-import { Module } from 'components/module/module';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
@@ -92,7 +92,7 @@ const App: FC = () => {
           path={AppRoute.COURSES_$ID_MODULES_$ID}
           element={
             <AuthorizedWrapper>
-              <Module />
+              <CourseModule />
             </AuthorizedWrapper>
           }
         />

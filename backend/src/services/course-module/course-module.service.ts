@@ -60,13 +60,11 @@ class CourseModule {
     );
   }
 
-  public async getById({
+  public getById({
     courseId,
     moduleId,
   }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto | null> {
-    const module = await this.#moduleRepository.getById({ courseId, moduleId });
-
-    return module ?? null;
+    return this.#moduleRepository.getById({ courseId, moduleId });
   }
 }
 

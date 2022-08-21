@@ -6,12 +6,12 @@ import { getById } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  module: CourseModuleGetByIdResponseDto | null;
+  courseModule: CourseModuleGetByIdResponseDto | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  module: null,
+  courseModule: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -20,11 +20,11 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getById.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.module = payload;
+    state.courseModule = payload;
   });
   builder.addCase(getById.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
-    state.module = null;
+    state.courseModule = null;
   });
 });
 
