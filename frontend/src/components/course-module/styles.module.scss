@@ -32,4 +32,6 @@
 .buttonWrapper {
   display: flex;
   flex-shrink: 1;
+  align-items: center;
+  color: var(--typography-text-gray-200);
 }

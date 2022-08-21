@@ -40,6 +40,7 @@ const CourseModule: FC = () => {
           to={`${AppRoute.COURSES}/${courseId}` as AppRoute}
           iconColor="blue"
         />
+        <p>{courseModule?.courseTitle}</p>
       </div>
       <h1 className={styles.courseName}>{courseModule?.courseTitle}</h1>
       <div className={styles.moduleNameContainer}>
