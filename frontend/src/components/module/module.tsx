@@ -42,11 +42,7 @@ const Module: FC = () => {
       <h1 className={styles.courseName}>{module?.courseTitle}</h1>
       <div className={styles.moduleNameContainer}>
         <div className={styles.moduleNameContent}>
-          <ol className={styles.list}>
-            <li value="5" className={styles.moduleName}>
-              {module?.title}
-            </li>
-          </ol>
+          <h4>{module?.title}</h4>
           <p
             className={styles.moduleDescription}
             dangerouslySetInnerHTML={{ __html: module?.description || '' }}
