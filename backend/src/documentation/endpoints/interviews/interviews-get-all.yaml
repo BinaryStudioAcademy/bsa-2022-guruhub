@@ -11,3 +11,4 @@ get:
   
   security:
     - bearerAuth: []
+    
