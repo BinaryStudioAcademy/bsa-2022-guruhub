@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
-  useAppNavigate,
   useAppSelector,
   useCallback,
   useFocusEffect,
@@ -18,13 +17,11 @@ import { getGroupsColumns } from './helpers/helpers';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
-  const navigation = useAppNavigate();
   const { items, total } = useAppSelector((state) => state.uam.groups);
   const { page, handlePageChange } = usePagination();
 
-  const handleGroupsItemDelete = async (groupId: number): Promise<void> => {
-    await dispatch(uamActions.deleteGroup({ id: groupId })).unwrap();
-    navigation.navigate(AppScreenName.COURSES);
+  const handleGroupsItemDelete = (groupId: number): void => {
+    dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
   const groupsColumns = getGroupsColumns();
