@@ -49,14 +49,14 @@ const CourseModule: FC = () => {
           <p
             className={styles.moduleDescription}
             dangerouslySetInnerHTML={{
-              __html: courseModule?.description || '',
+              __html: courseModule?.description ?? '',
             }}
           />
         </div>
       </div>
       <div>
         <p
-          dangerouslySetInnerHTML={{ __html: courseModule?.description || '' }}
+          dangerouslySetInnerHTML={{ __html: courseModule?.description ?? '' }}
         />
       </div>
     </div>

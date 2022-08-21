@@ -15,7 +15,7 @@ type Props = {
   to?: AppRoute;
   onClick?: () => void;
   iconName?: IconName;
-  iconColor?: 'blue';
+  iconColor?: 'blue' | 'gray';
 };
 
 const Button: FC<Props> = ({
@@ -27,7 +27,7 @@ const Button: FC<Props> = ({
   to,
   onClick,
   iconName,
-  iconColor,
+  iconColor = 'gray',
 }) => {
   const isLink = Boolean(to);
 
