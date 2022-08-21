@@ -1,2 +1,7 @@
-export { groupCreate, groupCreateClient } from './group/group';
+export {
+  groupCreate,
+  groupCreateClient,
+  groupUpdate,
+  groupUpdateParams,
+} from './group/group';
 export { userSignIn, userSignUp } from './user/user';

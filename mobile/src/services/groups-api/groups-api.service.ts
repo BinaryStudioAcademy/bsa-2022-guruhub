@@ -7,9 +7,12 @@ import {
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GroupGetByIdResponseDto,
   GroupsCreateRequestDto,
   GroupsDeleteRequestParamDto,
   GroupsItemResponseDto,
+  GroupsUpdateRequestParamsDto,
+  GroupUpdateRequestParamsDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
@@ -51,6 +54,31 @@ class GroupsApi {
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
       {
         method: HttpMethod.DELETE,
+      },
+    );
+  }
+
+  public getById({
+    id,
+  }: GroupsUpdateRequestParamsDto): Promise<GroupGetByIdResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public edit({
+    id,
+    payload,
+  }: GroupUpdateRequestParamsDto): Promise<GroupsItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
       },
     );
   }
