@@ -19,8 +19,7 @@ paths:
     $ref: './endpoints/users/users-delete.yaml'
   # Groups
   /groups:
-    $ref: './endpoints/groups/groups-get-all.yaml'
-    $ref: './endpoints/groups/groups-create.yaml'
+    $ref: './endpoints/groups/groups-basic-operations.yaml'
   /groups/:id:
     $ref: './endpoints/groups/groups-manipulate.yaml'
   # Courses

@@ -11,6 +11,10 @@ export {
   type CategoryGetAllResponseDto,
   type CourseCategoryGetResponseDto,
 } from './course-category/course-category';
+export {
+  type CourseModuleCreateArgumentsDto,
+  type CourseModuleGetResponseDto,
+} from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsConfigureRequestDto,
@@ -30,7 +34,11 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export { type TokenPayload } from './token/token';
-export { type UdemyGetResponseDto } from './udemy/udemy';
+export {
+  type UdemyCourseGetResponseDto,
+  type UdemyModuleGetResponseDto,
+  type UdemyModulesGetResponseDto,
+} from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
   type UsersByEmailResponseDto,

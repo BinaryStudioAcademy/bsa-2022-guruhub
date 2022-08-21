@@ -33,6 +33,7 @@ const usersApi = new UsersApi({
 });
 
 const notification = new Notification();
+
 const permissionsApi = new PermissionsApi({
   apiPrefix: ENV.APP.API_PATH,
   http,
