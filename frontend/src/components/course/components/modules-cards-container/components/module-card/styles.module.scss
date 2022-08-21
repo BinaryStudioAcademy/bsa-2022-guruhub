@@ -1,8 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
-  padding: 10px;
+  padding-left: 15px;
   background: var(--background-gray-300);
   border-radius: 10px;
   cursor: pointer;
@@ -10,24 +9,17 @@
 
 .headerContainer {
   display: flex;
-  width: 60%;
   margin-left: 10px;
 }
 
-.orderNumber {
-  margin-bottom: 0;
-}
-
-.header {
-  margin-bottom: 0;
-  margin-left: 10px;
+.title {
   color: var(--typography-text-100-inverse);
+  font-weight: bold;
   word-wrap: break-word;
 }
 
 .description {
-  margin-top: 5px;
-  margin-left: 35px;
+  margin-top: 0;
   color: var(--typography-text-gray-200);
   word-wrap: break-word;
 }

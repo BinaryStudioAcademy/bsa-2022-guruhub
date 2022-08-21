@@ -1,6 +1,6 @@
 import { CourseModulesGetAllItemResponseDto, FC } from 'common/types/types';
 
-import { ModuleCard } from '../module-card/module-card';
+import { ModuleCard } from './components/module-card/module-card';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -9,18 +9,18 @@ type Props = {
 
 const ModulesCardsContainer: FC<Props> = ({ modules }) => {
   return (
-    <div className={styles.container}>
-      {modules.map((courseModule, idx) => {
+    <ul className={styles.container}>
+      {modules.map((courseModule) => {
         return (
-          <ModuleCard
-            key={courseModule.id}
-            orderNumber={idx + 1}
-            title={courseModule.title}
-            description={courseModule.description}
-          />
+          <li key={courseModule.id} className={styles.moduleCardContainer}>
+            <ModuleCard
+              title={courseModule.title}
+              description={courseModule.description}
+            />
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
