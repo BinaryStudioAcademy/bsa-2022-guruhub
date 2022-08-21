@@ -1,1 +1,1 @@
-export { getFormattedDate } from './get-formatted-date/get-formatted-date.helper';
+export { getFormattedDate } from 'guruhub-shared/helpers/helpers';
