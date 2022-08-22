@@ -18,3 +18,14 @@
   padding-right: 15px;
   padding-left: 15px;
 }
+
+.tableFooterSection {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.results {
+  padding-left: 15px;
+  color: var(--typography-text-gray-200);
+}
