@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { DataStatus, PaginationDefaultValue } from '~/common/enums/enums';
+import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import { getUsersColumns } from '~/components/uam/helpers/helpers';
 import {
@@ -17,11 +17,7 @@ import { ActionCell } from './components/components';
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
-  const { users, userDeleteDataStatus, usersDataStatus } = useAppSelector(
-    (state) => state.uam,
-  );
-
-  const isUsersTableLoading = usersDataStatus === DataStatus.PENDING;
+  const { users, userDeleteDataStatus } = useAppSelector((state) => state.uam);
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -51,7 +47,6 @@ const UsersTable: FC = () => {
           columns={usersColumns}
           data={tableData}
           columnWidthArr={[50, 190, 250, 150, 100]}
-          isDataLoading={isUsersTableLoading}
         />
       </View>
       <Pagination

@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 
-import {
-  AppScreenName,
-  DataStatus,
-  PaginationDefaultValue,
-} from '~/common/enums/enums';
+import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
@@ -24,14 +20,12 @@ const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const { groups, groupsDataStatus } = useAppSelector((state) => state.uam);
+  const { groups } = useAppSelector((state) => state.uam);
   const { items, total } = groups;
   const { page, handlePageChange } = usePagination();
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
-
-  const isGroupsTableLoading = groupsDataStatus === DataStatus.PENDING;
 
   const handleGroupsItemEdit = (groupId: number): void => {
     dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
@@ -69,7 +63,6 @@ const GroupsTable: FC = () => {
           columnWidthArr={[50, 180, 180, 100]}
           columns={groupsColumns}
           data={groupsRows}
-          isDataLoading={isGroupsTableLoading}
         />
       </View>
       {total > 0 && (

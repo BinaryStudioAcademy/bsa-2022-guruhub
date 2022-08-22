@@ -18,14 +18,12 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
-  isDataLoading: boolean;
 };
 
 const PermissionsTable: FC<Props> = ({
   permissions,
   onCheckboxToggle,
   pagination,
-  isDataLoading,
 }) => {
   const { control } = useAppForm({ defaultValues: {} });
 
@@ -42,7 +40,6 @@ const PermissionsTable: FC<Props> = ({
         columns={permissionColumns}
         data={permissionRows}
         columnWidthArr={[60, 200, 100]}
-        isDataLoading={isDataLoading}
       />
       <Pagination
         totalCount={permissions.length}

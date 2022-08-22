@@ -21,15 +21,9 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
-  isDataLoading: boolean;
 };
 
-const UsersTable: FC<Props> = ({
-  users,
-  onCheckboxToggle,
-  pagination,
-  isDataLoading,
-}) => {
+const UsersTable: FC<Props> = ({ users, onCheckboxToggle, pagination }) => {
   const { control } = useAppForm({ defaultValues: {} });
   const userRows = getUserRows({
     users: users.items,
@@ -44,7 +38,6 @@ const UsersTable: FC<Props> = ({
         columns={userColumns}
         data={userRows}
         columnWidthArr={[60, 50, 210, 250, 150]}
-        isDataLoading={isDataLoading}
       />
       <Pagination
         totalCount={users.total}

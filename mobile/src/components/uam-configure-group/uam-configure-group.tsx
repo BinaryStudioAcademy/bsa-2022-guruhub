@@ -41,12 +41,11 @@ const UAMConfigureGroup: FC = () => {
     (state) => state.uamGroupEdit,
   );
 
-  const { users, permissions, usersDataStatus, permissionsDataStatus } =
-    useAppSelector((state) => state.uamGroupCreation);
+  const { users, permissions } = useAppSelector(
+    (state) => state.uamGroupCreation,
+  );
 
   const isGroupLoading = groupDataStatus === DataStatus.PENDING;
-  const isUsersDataLoading = usersDataStatus === DataStatus.PENDING;
-  const isPermissionsDataLoading = permissionsDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
     usePagination();
@@ -141,14 +140,12 @@ const UAMConfigureGroup: FC = () => {
           users={users}
           onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
-          isDataLoading={isUsersDataLoading}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
           onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
-          isDataLoading={isPermissionsDataLoading}
         />
         <View style={styles.buttonsContainer}>
           {group && <Button label="Cancel" onPress={handleCancelEdit} />}
