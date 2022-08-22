@@ -52,9 +52,7 @@ const CourseModule: FC = () => {
           />
         </div>
       </div>
-      <div>
-        <Content html={courseModule?.description ?? ''} />
-      </div>
+      <Content html={courseModule?.description ?? ''} />
     </div>
   );
 };

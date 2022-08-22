@@ -1,2 +1,2 @@
 export { getValidClasses } from './get-valid-classes/get-valid-classes.helper';
-export { sanitizeHTML } from './sanitize-html/sanitize-html';
+export { sanitizeHTML } from './sanitize-html/sanitize-html.helper';
