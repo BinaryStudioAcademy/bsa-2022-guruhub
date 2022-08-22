@@ -6,7 +6,7 @@ import { authActions } from 'store/actions';
 import styles from './styles.module.scss';
 
 type Props = {
-  onClose: (e: React.MouseEvent | void) => void;
+  onClose: (evt: React.MouseEvent | void) => void;
 };
 
 const Popup: FC<Props> = ({ onClose }) => {

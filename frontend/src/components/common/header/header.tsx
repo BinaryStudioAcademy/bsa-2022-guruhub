@@ -23,8 +23,8 @@ const Header: FC = () => {
   const isRoot = location.pathname === AppRoute.ROOT;
   const hasUser = Boolean(user);
 
-  const handlePopupOpen = (e: React.MouseEvent | void): void => {
-    e?.stopPropagation();
+  const handlePopupOpen = (evt: React.MouseEvent | void): void => {
+    evt?.stopPropagation();
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
