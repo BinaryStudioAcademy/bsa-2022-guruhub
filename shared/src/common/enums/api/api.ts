@@ -1,6 +1,7 @@
 export { ApiPath } from './api-path.enum';
 export { AuthApiPath } from './auth-api-path.enum';
 export { CategoriesApiPath } from './categories-api-path.enum';
+export { CourseModulesApiPath } from './course-modules-api-path.enum';
 export { CoursesApiPath } from './courses-api-path.enum';
 export { GroupsApiPath } from './groups-api-path.enum';
 export { InterviewsApiPath } from './interviews-api-path.enum';
