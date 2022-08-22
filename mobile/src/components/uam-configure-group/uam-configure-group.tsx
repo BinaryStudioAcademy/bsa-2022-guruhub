@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  DataStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
   Button,
   Input,
   ScrollView,
+  Spinner,
   Text,
   View,
 } from '~/components/common/common';
@@ -19,7 +24,9 @@ import {
   useAppNavigate,
   useAppRoute,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
@@ -36,11 +43,15 @@ const UAMConfigureGroup: FC = () => {
 
   const isEdit = name === AppScreenName.UAM_GROUPS_EDIT;
 
-  const { group } = useAppSelector((state) => state.uamGroupEdit);
+  const { group, dataStatus: groupDataStatus } = useAppSelector(
+    (state) => state.uamGroupEdit,
+  );
 
   const { users, permissions } = useAppSelector(
     (state) => state.uamGroupCreation,
   );
+
+  const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
     usePagination();
@@ -106,8 +117,11 @@ const UAMConfigureGroup: FC = () => {
     navigation.navigate(AppScreenName.UAM);
   };
 
-  const handleCancelEdit = async (): Promise<void> => {
-    dispatch(uamGroupEditActions.cancelEdit);
+  const handleCancel = async (): Promise<void> => {
+    if (group) {
+      dispatch(uamGroupEditActions.cancelEdit);
+    }
+
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -132,9 +146,16 @@ const UAMConfigureGroup: FC = () => {
     }
   }, [group]);
 
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset({ name: '' });
+    }, []),
+  );
+
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.innerContainer}>
+    <ScrollView>
+      <View style={styles.container}>
+        {isGroupLoading && <Spinner isOverflow />}
         <View style={styles.inputContainer}>
           <Input
             name="name"
@@ -158,14 +179,14 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          {isEdit && <Button label="Cancel" onPress={handleCancelEdit} />}
+          <Button label="Cancel" onPress={handleCancel} />
           <Button
             label={`${isEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

@@ -12,16 +12,18 @@ import {
 } from '~/hooks/hooks';
 import { uamActions, uamGroupEditActions } from '~/store/actions';
 
-import { styles } from '../styles';
 import { ActionCell } from './components/components';
 import { getGroupsColumns } from './helpers/helpers';
+import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const { items, total } = useAppSelector((state) => state.uam.groups);
+  const { groups, groupsTotalCount } = useAppSelector((state) => state.uam);
+
   const { page, handlePageChange } = usePagination();
+
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
@@ -32,7 +34,7 @@ const GroupsTable: FC = () => {
   };
 
   const groupsColumns = getGroupsColumns();
-  const groupsRows = items.map((group) => ({
+  const groupsRows = groups.map((group) => ({
     ...group,
     action: (
       <ActionCell
@@ -51,7 +53,7 @@ const GroupsTable: FC = () => {
           count: PaginationDefaultValue.DEFAULT_COUNT,
         }),
       );
-    }, [page]),
+    }, [page, groupsTotalCount]),
   );
 
   return (
@@ -62,9 +64,9 @@ const GroupsTable: FC = () => {
         columns={groupsColumns}
         data={groupsRows}
       />
-      {total > 0 && (
+      {Boolean(groupsTotalCount) && (
         <Pagination
-          totalCount={total}
+          totalCount={groupsTotalCount}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
           currentPage={page}
           onPageChange={handlePageChange}

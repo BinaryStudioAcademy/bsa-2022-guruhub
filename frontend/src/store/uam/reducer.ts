@@ -67,6 +67,7 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(deleteGroup.fulfilled, (state, { payload }) => {
     state.groups = state.groups.filter((group) => group.id !== payload);
+    state.groupsTotalCount = --state.groupsTotalCount;
     state.groupDeleteDataStatus = DataStatus.FULFILLED;
   });
 

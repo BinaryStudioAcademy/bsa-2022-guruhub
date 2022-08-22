@@ -33,6 +33,12 @@ paths:
   # Permissions
   /permissions:
     $ref: './endpoints/permissions/permissions-get-all.yaml'
+  # Interviews
+  /interviews:
+    $ref: './endpoints/interviews/interviews-get-all.yaml'
+  /interviews/{id}:
+    $ref: './endpoints/interviews/interviews-get-by-id.yaml'
+
 components:
   schemas:
     UserSignUpRequestDto:
@@ -65,8 +71,13 @@ components:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'
     PermissionsGetAllResponseDto:
       $ref: './schemas/permissions/permissions-get-all-response-dto.yaml'
-    securitySchemes:
-      bearerAuth:
-        type: http
-        scheme: bearer
-        bearerFormat: JWT
+    InterviewsGetAllResponseDto:
+      $ref: './schemas/interviews/interview-get-all-response-dto.yaml'
+    InterviewsGetByIdResponseDto:
+      $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

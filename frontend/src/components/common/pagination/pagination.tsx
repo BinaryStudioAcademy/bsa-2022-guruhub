@@ -33,7 +33,7 @@ const Pagination: FC<Props> = ({
           className={styles.back}
           onClick={handlePreviousPageChange}
           disabled={currentPage === 1}
-        ></button>
+        />
         <span>
           {currentPage} of {totalPages}
         </span>
@@ -41,7 +41,7 @@ const Pagination: FC<Props> = ({
           className={styles.next}
           onClick={handleNextPageChange}
           disabled={currentPage === totalPages}
-        ></button>
+        />
       </div>
     </div>
   );

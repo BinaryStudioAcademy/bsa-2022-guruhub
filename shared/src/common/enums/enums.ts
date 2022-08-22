@@ -2,8 +2,10 @@ export {
   ApiPath,
   AuthApiPath,
   CategoriesApiPath,
+  CourseModulesApiPath,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
   PermissionApiPath,
   UsersApiPath,
 } from './api/api';

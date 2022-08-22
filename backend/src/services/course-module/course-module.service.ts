@@ -1,6 +1,8 @@
 import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CourseModuleCreateArgumentsDto,
+  CourseModuleGetByIdResponseDto,
+  CourseModuleGetRequestParamsDto,
   CourseModulesGetRequestDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
@@ -56,6 +58,13 @@ class CourseModule {
         });
       }),
     );
+  }
+
+  public getById({
+    courseId,
+    moduleId,
+  }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto | null> {
+    return this.#moduleRepository.getById({ courseId, moduleId });
   }
 }
 
