@@ -18,7 +18,9 @@ import {
   useAppForm,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
@@ -127,6 +129,12 @@ const UAMConfigureGroup: FC = () => {
       reset({ name: group.name });
     }
   }, [group]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset({ name: '' });
+    }, []),
+  );
 
   return (
     <View style={styles.container}>
