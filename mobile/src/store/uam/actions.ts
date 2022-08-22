@@ -10,6 +10,7 @@ import {
   UsersGetResponseDto,
 } from '~/common/types/types';
 
+import { loadCurrentUser } from '../auth/actions';
 import { ActionType } from './common';
 
 const getGroups = createAsyncThunk<
@@ -27,12 +28,18 @@ const deleteGroup = createAsyncThunk<
   number,
   GroupsDeleteRequestParamDto,
   AsyncThunkConfig
->(ActionType.DELETE_GROUP, async (payload, { extra }) => {
+>(ActionType.DELETE_GROUP, async (payload, { extra, getState, dispatch }) => {
+  const currentUser = getState().auth.user?.id;
   const { groupsApi } = extra;
-
+  const { id } = payload;
+  const groupsInfo = await groupsApi.getById(payload);
   await groupsApi.delete(payload);
 
-  const { id } = payload;
+  if (currentUser) {
+    if (groupsInfo.userIds.includes(currentUser)) {
+      dispatch(loadCurrentUser());
+    }
+  }
 
   return id;
 });

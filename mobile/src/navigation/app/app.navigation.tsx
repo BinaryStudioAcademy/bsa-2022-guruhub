@@ -16,7 +16,9 @@ import { DrawerContent } from './components/components';
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
 const App: FC = () => {
-  const userPermissions = useAppSelector((state) => state.auth.userPermissions);
+  const userPermissions = useAppSelector(
+    (state) => state.auth.user?.permissions ?? [],
+  );
 
   const allowedScreens = useMemo(() => {
     const screens: DrawerNavigationItem[] = NAVIGATION_ITEMS.flatMap(
