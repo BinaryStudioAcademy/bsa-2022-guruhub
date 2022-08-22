@@ -11,7 +11,6 @@ import { Billing } from '~/components/billing/billing';
 import { Courses } from '~/components/courses/courses';
 import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
-import { Overview } from '~/components/overview/overview';
 import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
 
@@ -36,12 +35,6 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   {
     name: 'Menu',
     subroutes: [
-      {
-        name: AppScreenName.OVERVIEW,
-        icon: 'home',
-        component: Overview,
-        permissions: [],
-      },
       {
         name: AppScreenName.COURSES,
         icon: 'book',

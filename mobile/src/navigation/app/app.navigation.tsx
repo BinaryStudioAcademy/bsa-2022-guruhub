@@ -30,7 +30,7 @@ const App: FC = () => {
 
   return (
     <Drawer.Navigator
-      initialRouteName={AppScreenName.OVERVIEW}
+      initialRouteName={AppScreenName.COURSES}
       screenOptions={SCREEN_OPTIONS}
       drawerContent={(props): JSX.Element => <DrawerContent {...props} />}
     >
