@@ -1,6 +1,6 @@
 import { CategoryGetAllItemResponseDto, UsersGetResponseDto } from '../types';
 
-type InterviewResponseDto = {
+type InterviewsByIdResponseDto = {
   id: number;
   interviewDate: string;
   status: string;
@@ -9,4 +9,4 @@ type InterviewResponseDto = {
   courseCategory: CategoryGetAllItemResponseDto;
 };
 
-export { type InterviewResponseDto };
+export { type InterviewsByIdResponseDto };

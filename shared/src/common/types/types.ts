@@ -23,8 +23,9 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
-  InterviewResponseDto,
-  InterviewsResponseDto,
+  InterviewsByIdResponseDto,
+  InterviewsGetAllItemResponseDto,
+  InterviewsGetAllResponseDto,
 } from './interview/interview';
 export {
   type EntityPagination,

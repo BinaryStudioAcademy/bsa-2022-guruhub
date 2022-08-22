@@ -1,4 +1,7 @@
-import { InterviewResponseDto } from '~/common/types/types';
+import {
+  InterviewsByIdResponseDto,
+  InterviewsGetAllItemResponseDto,
+} from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
 type Constructor = {
@@ -12,17 +15,17 @@ class Interview {
     this.#InterviewModel = InterviewModel;
   }
 
-  public getAll(): Promise<InterviewResponseDto[]> {
+  public getAll(): Promise<InterviewsGetAllItemResponseDto[]> {
     return this.#InterviewModel
       .query()
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee')
       .withGraphJoined('interviewer')
-      .castTo<InterviewResponseDto[]>()
+      .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
 
-  public async getById(id: number): Promise<InterviewResponseDto | null> {
+  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
     const interview = await this.#InterviewModel
       .query()
       .select()
@@ -30,7 +33,7 @@ class Interview {
       .withGraphJoined('interviewee')
       .withGraphJoined('interviewer')
       .findById(id)
-      .castTo<InterviewResponseDto>();
+      .castTo<InterviewsByIdResponseDto>();
 
     return interview ?? null;
   }

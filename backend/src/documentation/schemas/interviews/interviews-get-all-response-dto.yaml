@@ -7,7 +7,7 @@ items:
       example: 1
     interviewDate:
       type: string
-      example: "2022-08-18T21:00:00.000Z"
+      example: '2022-08-18T21:00:00.000Z'
     status:
       type: string
       enum:
@@ -28,7 +28,7 @@ items:
           example: john.smith@gmail.com
         createdAt:
           type: string
-          example: "2022-08-09T18:17:02.149Z"
+          example: '2022-08-09T18:17:02.149Z'
     interviewer:
       type: object
       properties:
@@ -43,7 +43,7 @@ items:
           example: john.adams@gmail.com
         createdAt:
           type: string
-          example: "2022-08-09T18:17:02.149Z"
+          example: '2022-08-09T18:17:02.149Z'
     courseCategory:
       type: object
       properties:
@@ -52,8 +52,7 @@ items:
           example: 64
         key:
           type: string
-          example: "node_js"
+          example: 'node_js'
         name:
           type: string
-          example: "Node.js"
-          
+          example: 'Node.js'

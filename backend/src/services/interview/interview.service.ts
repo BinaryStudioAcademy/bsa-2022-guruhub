@@ -1,6 +1,6 @@
 import {
-  InterviewResponseDto,
-  InterviewsResponseDto,
+  InterviewsByIdResponseDto,
+  InterviewsGetAllResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 
@@ -15,7 +15,7 @@ class Interview {
     this.#interviewRepository = interviewRepository;
   }
 
-  public async getAll(): Promise<InterviewsResponseDto> {
+  public async getAll(): Promise<InterviewsGetAllResponseDto> {
     const interviews = await this.#interviewRepository.getAll();
 
     return {
@@ -44,7 +44,7 @@ class Interview {
     };
   }
 
-  public async getById(id: number): Promise<InterviewResponseDto | null> {
+  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
     const interview = await this.#interviewRepository.getById(id);
 
     if (!interview) {

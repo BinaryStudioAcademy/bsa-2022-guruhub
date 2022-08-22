@@ -7,8 +7,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../schemas/interviews/interviews-all-response-dto.yaml'
-  
+            $ref: '../../schemas/interviews/interviews-get-all-response-dto.yaml'
+
   security:
     - bearerAuth: []
-    
