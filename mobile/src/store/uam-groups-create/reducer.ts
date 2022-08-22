@@ -10,13 +10,15 @@ import {
 import { getPermissions, getUsers } from './actions';
 
 type State = {
-  dataStatus: DataStatus;
+  usersDataStatus: DataStatus;
+  permissionsDataStatus: DataStatus;
   permissions: PermissionsGetAllResponseDto;
   users: EntityPagination<UsersGetResponseDto>;
 };
 
 const initialState: State = {
-  dataStatus: DataStatus.IDLE,
+  usersDataStatus: DataStatus.IDLE,
+  permissionsDataStatus: DataStatus.IDLE,
   permissions: {
     items: [],
   },
@@ -28,25 +30,25 @@ const initialState: State = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getUsers.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.usersDataStatus = DataStatus.PENDING;
   });
   builder.addCase(getUsers.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
+    state.usersDataStatus = DataStatus.FULFILLED;
     state.users = action.payload;
   });
   builder.addCase(getUsers.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.usersDataStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(getPermissions.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.permissionsDataStatus = DataStatus.PENDING;
   });
   builder.addCase(getPermissions.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
+    state.permissionsDataStatus = DataStatus.FULFILLED;
     state.permissions = action.payload;
   });
   builder.addCase(getPermissions.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.permissionsDataStatus = DataStatus.REJECTED;
   });
 });
 
