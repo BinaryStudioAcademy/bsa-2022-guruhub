@@ -1,5 +1,4 @@
 export {
-  HttpCode,
-  HttpHeader,
-  HttpMethod,
+  CustomExceptionName,
+  ExceptionMessage,
 } from 'guruhub-shared/common/enums/enums';
