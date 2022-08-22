@@ -33,6 +33,7 @@ class Udemy {
       .split('/')
       .filter(Boolean)
       .pop() as string;
+
     const headers = this.getHeaders();
     const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
       this.getCourseRequestUrl(courseIdOrSlug),

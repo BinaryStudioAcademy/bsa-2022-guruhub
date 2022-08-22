@@ -15,6 +15,7 @@ type Props = {
   to?: AppRoute;
   onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
+  iconColor?: 'blue' | 'gray';
 };
 
 const Button: FC<Props> = ({
@@ -26,6 +27,7 @@ const Button: FC<Props> = ({
   to,
   onClick,
   iconName,
+  iconColor = 'gray',
 }) => {
   const isLink = Boolean(to);
 
@@ -34,16 +36,20 @@ const Button: FC<Props> = ({
 
     return (
       <>
-        {hasIcon && <Icon name={iconName as IconName} />}
-        {
-          <span
-            className={getValidClasses(
-              hasVisuallyHiddenLabel && 'visually-hidden',
-            )}
-          >
-            {label}
-          </span>
-        }
+        {hasIcon && (
+          <Icon
+            name={iconName as IconName}
+            className={styles[`icon-${iconColor}`]}
+          />
+        )}
+
+        <span
+          className={getValidClasses(
+            hasVisuallyHiddenLabel && 'visually-hidden',
+          )}
+        >
+          {label}
+        </span>
       </>
     );
   };

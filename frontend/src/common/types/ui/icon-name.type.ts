@@ -7,6 +7,7 @@ type IconName =
   | 'settings'
   | 'cross'
   | 'delete'
-  | 'search';
+  | 'search'
+  | 'leftArrow';
 
 export { IconName };

@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 30px;
+  color: var(--typography-text-100-inverse);
+}
+
+.courseName {
+  font-size: 24px;
+}
+
+.moduleNameContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 40px;
+  background-color: var(--background-gray-300);
+  border-radius: 10px;
+}
+
+.moduleNameContent {
+  margin-left: 15px;
+}
+
+.moduleDescription {
+  margin-bottom: 0;
+  color: var(--typography-text-gray-200);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-shrink: 1;
+  align-items: center;
+  color: var(--typography-text-gray-200);
+}
