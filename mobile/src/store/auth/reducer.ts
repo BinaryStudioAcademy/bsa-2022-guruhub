@@ -37,13 +37,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(loadCurrentUser.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.user = payload;
-
-    if (
-      JSON.stringify(state.userPermissions) !==
-      JSON.stringify(payload.permissions)
-    ) {
-      state.userPermissions = payload.permissions;
-    }
   });
   builder.addCase(signOut.fulfilled, () => {
     return initialState;
