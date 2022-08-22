@@ -9,6 +9,7 @@ enum DbTableName {
   USERS_TO_GROUPS = 'users_to_groups',
   GROUPS = 'groups',
   VENDORS = 'vendors',
+  INTERVIEWS = 'interviews',
 }
 
 export { DbTableName };
