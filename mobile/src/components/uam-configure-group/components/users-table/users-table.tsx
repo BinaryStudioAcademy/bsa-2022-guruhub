@@ -9,7 +9,7 @@ import {
 } from '~/components/uam-configure-group/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
-import { styles } from '../styles';
+import { styles } from './styles';
 
 type Props = {
   users: {

@@ -12,9 +12,9 @@ import {
 } from '~/hooks/hooks';
 import { uamActions, uamGroupEditActions } from '~/store/actions';
 
-import { styles } from '../styles';
 import { ActionCell } from './components/components';
 import { getGroupsColumns } from './helpers/helpers';
+import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
