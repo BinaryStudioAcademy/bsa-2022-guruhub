@@ -1,6 +1,6 @@
 import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { IconButton, Spinner } from 'components/common/common';
+import { IconButton, RenderHTML, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -9,7 +9,6 @@ import {
 } from 'hooks/hooks';
 import { courseModuleActions } from 'store/actions';
 
-import { Description } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
@@ -47,14 +46,14 @@ const CourseModule: FC = () => {
       <div className={styles.moduleNameContainer}>
         <div className={styles.moduleNameContent}>
           <h4>{courseModule?.title}</h4>
-          <Description
-            description={courseModule?.description}
+          <RenderHTML
+            html={courseModule?.description ?? ''}
             className={styles.moduleDescription}
           />
         </div>
       </div>
       <div>
-        <Description description={courseModule?.description} />
+        <RenderHTML html={courseModule?.description ?? ''} />
       </div>
     </div>
   );
