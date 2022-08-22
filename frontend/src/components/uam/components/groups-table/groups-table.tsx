@@ -26,7 +26,7 @@ const GroupsTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page]);
+  }, [page, groupsTotalCount]);
 
   const handleGroupDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
