@@ -2,6 +2,7 @@ export { AuthorizedMenu } from './authorized-menu/authorized-menu';
 export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
+export { Content } from './content/content';
 export { Header } from './header/header';
 export { Icon } from './icon/icon';
 export { IconButton } from './icon-button/icon-button';

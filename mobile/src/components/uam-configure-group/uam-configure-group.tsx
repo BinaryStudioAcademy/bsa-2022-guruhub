@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  DataStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
   Button,
   Input,
   ScrollView,
+  Spinner,
   Text,
   View,
 } from '~/components/common/common';
@@ -17,6 +22,7 @@ import {
   useAppDispatch,
   useAppForm,
   useAppNavigate,
+  useAppRoute,
   useAppSelector,
   useCallback,
   useEffect,
@@ -33,12 +39,19 @@ import { styles } from './styles';
 const UAMConfigureGroup: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
+  const { name } = useAppRoute();
 
-  const { group } = useAppSelector((state) => state.uamGroupEdit);
+  const isEdit = name === AppScreenName.UAM_GROUPS_EDIT;
+
+  const { group, dataStatus: groupDataStatus } = useAppSelector(
+    (state) => state.uamGroupEdit,
+  );
 
   const { users, permissions } = useAppSelector(
     (state) => state.uamGroupCreation,
   );
+
+  const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
     usePagination();
@@ -81,7 +94,7 @@ const UAMConfigureGroup: FC = () => {
   ): Promise<void> => {
     const { name } = payload;
 
-    if (!group) {
+    if (!isEdit) {
       await dispatch(
         groupsCreationActions.createGroup({
           name,
@@ -89,7 +102,7 @@ const UAMConfigureGroup: FC = () => {
           userIds,
         }),
       ).unwrap();
-    } else {
+    } else if (group && isEdit) {
       await dispatch(
         uamGroupEditActions.editGroup({
           id: group.id,
@@ -104,8 +117,11 @@ const UAMConfigureGroup: FC = () => {
     navigation.navigate(AppScreenName.UAM);
   };
 
-  const handleCancelEdit = async (): Promise<void> => {
-    dispatch(uamGroupEditActions.cancelEdit);
+  const handleCancel = async (): Promise<void> => {
+    if (group) {
+      dispatch(uamGroupEditActions.cancelEdit);
+    }
+
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -123,12 +139,12 @@ const UAMConfigureGroup: FC = () => {
   }, [usersPage]);
 
   useEffect(() => {
-    if (group) {
+    if (group && isEdit) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
     }
-  }, [group]);
+  }, [group, isEdit]);
 
   useFocusEffect(
     useCallback(() => {
@@ -137,8 +153,9 @@ const UAMConfigureGroup: FC = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.innerContainer}>
+    <ScrollView>
+      <View style={styles.container}>
+        {isGroupLoading && <Spinner isOverflow />}
         <View style={styles.inputContainer}>
           <Input
             name="name"
@@ -162,14 +179,14 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          {group && <Button label="Cancel" onPress={handleCancelEdit} />}
+          <Button label="Cancel" onPress={handleCancel} />
           <Button
-            label={`${group ? 'Edit' : 'Create'} group`}
+            label={`${isEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

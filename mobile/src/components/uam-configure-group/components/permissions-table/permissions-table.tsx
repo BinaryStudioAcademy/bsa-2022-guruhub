@@ -41,11 +41,11 @@ const PermissionsTable: FC<Props> = ({
   );
 
   return (
-    <View style={styles.container}>
+    <View style={styles.tableContainer}>
       <Table
         columns={permissionColumns}
         data={permissionRows}
-        columnWidthArr={[60, 200, 100]}
+        columnWidthArr={[50, 200, 100]}
       />
       <Pagination
         totalCount={permissions.length}
