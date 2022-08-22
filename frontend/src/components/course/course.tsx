@@ -10,15 +10,19 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
+import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, dataStatus } = useAppSelector((state) => state.course);
+  const { course, modules, dataStatus } = useAppSelector(
+    (state) => state.course,
+  );
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
+    dispatch(courseActions.getModules({ courseId: Number(id) }));
   }, [id]);
 
   if (dataStatus === DataStatus.PENDING) {
@@ -47,6 +51,10 @@ const Course: FC = () => {
         <div
           dangerouslySetInnerHTML={{ __html: course?.description as string }}
         />
+        <h3 className={styles.modulesContentHeader}>Course Content</h3>
+        <div className={styles.modulesContainer}>
+          <ModulesCardsContainer modules={modules} />
+        </div>
       </div>
 
       <div className={styles.additional}></div>

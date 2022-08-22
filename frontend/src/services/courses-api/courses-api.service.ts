@@ -8,6 +8,8 @@ import {
   CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseModulesGetAllResponseDto,
+  CourseModulesGetRequestDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -57,6 +59,19 @@ class CoursesApi {
   }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getCourseModulesById({
+    courseId,
+  }: CourseModulesGetRequestDto): Promise<CourseModulesGetAllResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MODULES
+      }`,
       {
         method: HttpMethod.GET,
       },

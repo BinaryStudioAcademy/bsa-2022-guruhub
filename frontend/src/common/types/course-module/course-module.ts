@@ -1,5 +1,7 @@
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
-  type CourseModuleGetResponseDto,
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllResponseDto,
+  type CourseModulesGetRequestDto,
 } from 'guruhub-shared/common/types/types';

@@ -12,7 +12,9 @@ export {
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
-  type CourseModuleGetResponseDto,
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllResponseDto,
+  type CourseModulesGetRequestDto,
 } from './course-module/course-module';
 export {
   type FormControl,
