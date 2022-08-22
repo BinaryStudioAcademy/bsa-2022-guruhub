@@ -13,7 +13,7 @@ export {
 } from './course-category/course-category';
 export {
   type CourseModuleCreateArgumentsDto,
-  type CourseModuleGetResponseDto,
+  type CourseModulesGetRequestDto,
 } from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {

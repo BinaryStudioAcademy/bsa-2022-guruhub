@@ -1,11 +1,13 @@
 import {
   ContentType,
+  ExceptionMessage,
+  HttpCode,
   HttpHeader,
   HttpMethod,
   StorageKey,
 } from '~/common/enums/enums';
 import { HttpOptions } from '~/common/types/types';
-import { HttpError } from '~/exceptions/exceptions';
+import { HttpError, InvalidCredentialsError } from '~/exceptions/exceptions';
 import { Storage } from '~/services/storage/storage.service';
 
 type Constructor = {
@@ -73,6 +75,10 @@ class Http {
   }
 
   private async checkStatus(response: Response): Promise<Response> {
+    if (response.status === HttpCode.UNAUTHORIZED) {
+      throw new InvalidCredentialsError(ExceptionMessage.UNAUTHORIZED_USER);
+    }
+
     if (!response.ok) {
       const parsedException = await response.json().catch(() => ({
         message: response.statusText,

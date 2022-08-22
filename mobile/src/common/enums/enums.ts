@@ -1,8 +1,9 @@
 export { ApiPath, AuthApiPath, GroupsApiPath, UsersApiPath } from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
 export { CoursesApiPath } from './courses/courses';
+export { CustomExceptionName, ExceptionMessage } from './exeptions/exeptions';
 export { ContentType } from './file/file';
-export { HttpHeader, HttpMethod } from './http/http';
+export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export {
   AppScreenName,
   AuthScreenName,

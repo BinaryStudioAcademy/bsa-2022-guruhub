@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  counter-reset: --start-container-counter;
+}
+
+.moduleCardContainer {
+  display: flex;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 15px;
+  background: var(--background-gray-300);
+  border-radius: 10px;
+}
+
+.moduleCardContainer::before {
+  padding-top: 15px;
+  padding-left: 10px;
+  font-weight: bold;
+  counter-increment: --start-container-counter;
+  content: counter(--start-container-counter) '. ';
+}
