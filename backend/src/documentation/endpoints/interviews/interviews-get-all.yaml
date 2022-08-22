@@ -1,0 +1,13 @@
+get:
+  summary: Get all Interviews
+  tags:
+    - interviews
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/interviews/interviews-get-all-response-dto.yaml'
+
+  security:
+    - bearerAuth: []

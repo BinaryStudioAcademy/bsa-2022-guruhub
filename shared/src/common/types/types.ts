@@ -9,7 +9,11 @@ export {
   type CourseGetResponseDto,
 } from './course/course';
 export { type CourseCategoryGetResponseDto } from './course-category/course-category';
-export { type CourseModuleGetResponseDto } from './course-module/course-module';
+export {
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllResponseDto,
+  type CourseModulesGetRequestDto,
+} from './course-module/course-module';
 export {
   type GroupsConfigureRequestDto,
   type GroupsCreateRequestDto,
@@ -22,6 +26,11 @@ export {
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpErrorDto, type HttpOptions } from './http/http';
+export {
+  InterviewsByIdResponseDto,
+  InterviewsGetAllItemResponseDto,
+  InterviewsGetAllResponseDto,
+} from './interview/interview';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,

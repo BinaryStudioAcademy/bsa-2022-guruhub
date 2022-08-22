@@ -6,6 +6,7 @@ import {
   courseModule as courseModuleRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
+  interview as interviewRepository,
   permission as permissionRepository,
   user as userRepository,
   usersToGroups as usersToGroupsRepository,
@@ -20,6 +21,7 @@ import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
 import { Http } from './http/http.service';
+import { Interview } from './interview/interview.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
@@ -88,6 +90,10 @@ const course = new Course({
   courseCategoryService: courseCategory,
 });
 
+const interview = new Interview({
+  interviewRepository,
+});
+
 export {
   auth,
   course,
@@ -97,6 +103,7 @@ export {
   group,
   groupsToPermissions,
   http,
+  interview,
   permission,
   token,
   udemy,

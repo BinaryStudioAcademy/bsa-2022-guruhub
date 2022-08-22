@@ -13,7 +13,7 @@ type Props = {
   type?: 'button' | 'submit';
   btnType?: 'filled' | 'outlined' | 'icon';
   to?: AppRoute;
-  onClick?: () => void;
+  onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
 };
 
@@ -52,7 +52,11 @@ const Button: FC<Props> = ({
     return (
       <Link
         to={to as AppRoute}
-        className={getValidClasses(styles.button, styles[`button-${btnType}`])}
+        className={getValidClasses(
+          styles.button,
+          styles[`button-${btnColor}`],
+          styles[`button-${btnType}`],
+        )}
       >
         {getContent()}
       </Link>

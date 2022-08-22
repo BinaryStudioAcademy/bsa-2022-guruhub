@@ -11,8 +11,8 @@ import {
 } from '~/hooks/hooks';
 import { uamActions } from '~/store/actions';
 
-import { styles } from '../styles';
 import { ActionCell } from './components/components';
+import { styles } from './styles';
 
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);

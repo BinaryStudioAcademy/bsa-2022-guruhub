@@ -5,6 +5,16 @@
   color: #ffffff;
 }
 
+.modulesContentHeader {
+  margin: 40px 0 0 5px;
+}
+
+.modulesContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
 .info {
   width: 65%;
   margin-bottom: 20px;
@@ -15,7 +25,7 @@
 }
 
 .image {
-  height: 60vh;
+  width: 80%;
   overflow: hidden;
   border-radius: 12px;
 }

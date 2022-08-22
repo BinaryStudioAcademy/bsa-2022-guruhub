@@ -3,6 +3,8 @@ import {
   AsyncThunkConfig,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseModulesGetAllResponseDto,
+  CourseModulesGetRequestDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -19,4 +21,17 @@ const getCourse = createAsyncThunk<
   return course;
 });
 
-export { getCourse };
+const getModules = createAsyncThunk<
+  CourseModulesGetAllResponseDto,
+  CourseModulesGetRequestDto,
+  AsyncThunkConfig
+>(ActionType.GET_MODULES, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const { courseId } = payload;
+
+  const modules = await coursesApi.getCourseModulesById({ courseId });
+
+  return modules;
+});
+
+export { getCourse, getModules };

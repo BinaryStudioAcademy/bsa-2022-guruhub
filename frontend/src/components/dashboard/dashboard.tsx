@@ -32,7 +32,8 @@ const Dashboard: FC = () => {
     return <Spinner />;
   }
 
-  const handleNewCourseModalToggle = (): void => {
+  const handleNewCourseModalToggle = (evt: React.MouseEvent | void): void => {
+    evt?.stopPropagation();
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
   };
 

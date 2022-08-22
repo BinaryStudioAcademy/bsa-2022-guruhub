@@ -23,12 +23,14 @@ import {
   useAppForm,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
-import { groupCreateClient } from '~/validation-schemas/validation-schemas';
+import { groupUpdate } from '~/validation-schemas/validation-schemas';
 
 import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/constants/constants';
 import { styles } from './styles';
@@ -58,16 +60,20 @@ const UAMConfigureGroup: FC = () => {
   const { control, handleSubmit, errors, reset } =
     useAppForm<GroupsUpdateRequestDto>({
       defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
-      validationSchema: groupCreateClient,
+      validationSchema: groupUpdate,
     });
 
   const {
+    items: permissionIds,
     handleToggle: handleTogglePermissions,
     setItems: setDefaultPermissionIds,
   } = useSelectedItems<number>(group?.permissionIds ?? []);
 
-  const { handleToggle: handleToggleUsers, setItems: setDefaultUserIds } =
-    useSelectedItems<number>(group?.userIds ?? []);
+  const {
+    items: userIds,
+    handleToggle: handleToggleUsers,
+    setItems: setDefaultUserIds,
+  } = useSelectedItems<number>(group?.userIds ?? []);
 
   const paginationForUsersTable = {
     page: usersPage,
@@ -82,21 +88,36 @@ const UAMConfigureGroup: FC = () => {
   const handleCreateOrEditGroup = async (
     payload: GroupsUpdateRequestDto,
   ): Promise<void> => {
+    const { name } = payload;
+
     if (!group) {
-      await dispatch(groupsCreationActions.createGroup(payload)).unwrap();
+      await dispatch(
+        groupsCreationActions.createGroup({
+          name,
+          permissionIds,
+          userIds,
+        }),
+      ).unwrap();
     } else {
       await dispatch(
         uamGroupEditActions.editGroup({
           id: group.id,
-          payload,
+          payload: {
+            name,
+            permissionIds,
+            userIds,
+          },
         }),
       ).unwrap();
     }
     navigation.navigate(AppScreenName.UAM);
   };
 
-  const handleCancelEdit = async (): Promise<void> => {
-    dispatch(uamGroupEditActions.cancelEdit);
+  const handleCancel = async (): Promise<void> => {
+    if (group) {
+      dispatch(uamGroupEditActions.cancelEdit);
+    }
+
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -121,10 +142,16 @@ const UAMConfigureGroup: FC = () => {
     }
   }, [group]);
 
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset({ name: '' });
+    }, []),
+  );
+
   return (
-    <View style={styles.container}>
-      {isGroupLoading && <Spinner isOverflow={true} />}
-      <ScrollView style={styles.innerContainer}>
+    <ScrollView>
+      <View style={styles.container}>
+        {isGroupLoading && <Spinner isOverflow={true} />}
         <View style={styles.inputContainer}>
           <Input
             name="name"
@@ -148,14 +175,14 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          {group && <Button label="Cancel" onPress={handleCancelEdit} />}
+          <Button label="Cancel" onPress={handleCancel} />
           <Button
             label={`${group ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

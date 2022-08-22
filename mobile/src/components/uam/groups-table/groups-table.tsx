@@ -12,9 +12,9 @@ import {
 } from '~/hooks/hooks';
 import { uamActions, uamGroupEditActions } from '~/store/actions';
 
-import { styles } from '../styles';
 import { ActionCell } from './components/components';
 import { getGroupsColumns } from './helpers/helpers';
+import { styles } from './styles';
 
 const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +23,7 @@ const GroupsTable: FC = () => {
   const { groups, groupsTotalCount } = useAppSelector((state) => state.uam);
 
   const { page, handlePageChange } = usePagination();
+
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
@@ -53,6 +54,7 @@ const GroupsTable: FC = () => {
         }),
       );
     }, [page, groupsTotalCount]),
+
   );
 
   return (
@@ -63,7 +65,7 @@ const GroupsTable: FC = () => {
         columns={groupsColumns}
         data={groupsRows}
       />
-      {groupsTotalCount > 0 && (
+      {Boolean(groupsTotalCount) && (
         <Pagination
           totalCount={groupsTotalCount}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}

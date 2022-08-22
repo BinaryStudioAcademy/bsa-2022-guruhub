@@ -5,6 +5,7 @@ export {
   ControllerHook,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
   PermissionApiPath,
   UsersApiPath,
 } from './api/api';
