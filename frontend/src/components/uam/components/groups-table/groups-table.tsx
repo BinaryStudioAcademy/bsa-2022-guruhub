@@ -50,15 +50,12 @@ const GroupsTable: FC = () => {
         />
       </div>
       <Table data={data} columns={columns} />
-      <div className={styles.tableFooterSection}>
-        <p className={styles.results}>{groupsTotalCount} results</p>
-        <Pagination
-          currentPage={page}
-          onPageChange={handlePageChange}
-          pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-          totalCount={groupsTotalCount}
-        />
-      </div>
+      <Pagination
+        currentPage={page}
+        onPageChange={handlePageChange}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={groupsTotalCount}
+      />
     </div>
   );
 };

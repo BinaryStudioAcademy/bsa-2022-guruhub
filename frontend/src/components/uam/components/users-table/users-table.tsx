@@ -41,15 +41,12 @@ const UsersTable: FC = () => {
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>
       <Table data={users} columns={columns} />
-      <div className={styles.tableFooterSection}>
-        <p className={styles.results}>{usersTotalCount} results</p>
-        <Pagination
-          currentPage={page}
-          onPageChange={handlePageChange}
-          pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-          totalCount={usersTotalCount}
-        />
-      </div>
+      <Pagination
+        currentPage={page}
+        onPageChange={handlePageChange}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={usersTotalCount}
+      />
     </div>
   );
 };
