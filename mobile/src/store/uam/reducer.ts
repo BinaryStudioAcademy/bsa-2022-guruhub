@@ -52,8 +52,8 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(deleteGroup.fulfilled, (state, { payload }) => {
     const items = state.groups.items.filter((item) => item.id !== payload);
     state.groups = {
+      ...state.groups,
       items: items,
-      total: items.length,
     };
     state.groupDeleteDataStatus = DataStatus.FULFILLED;
   });
@@ -77,10 +77,9 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
     const items = state.users.items.filter((item) => item.id !== payload);
-
     state.users = {
+      ...state.users,
       items: items,
-      total: items.length,
     };
     state.userDeleteDataStatus = DataStatus.FULFILLED;
   });
