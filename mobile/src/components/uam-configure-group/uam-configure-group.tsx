@@ -137,8 +137,8 @@ const UAMConfigureGroup: FC = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.innerContainer}>
+    <ScrollView>
+      <View style={styles.container}>
         <View style={styles.inputContainer}>
           <Input
             name="name"
@@ -168,8 +168,8 @@ const UAMConfigureGroup: FC = () => {
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
