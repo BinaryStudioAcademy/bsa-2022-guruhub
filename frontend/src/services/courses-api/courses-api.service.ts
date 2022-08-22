@@ -69,9 +69,9 @@ class Courses {
     courseId,
   }: CourseModulesGetRequestDto): Promise<CourseModulesGetAllResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${
-        CoursesApiPath.ROOT
-      }${courseId}/modules`,
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MODULES
+      }`,
       {
         method: HttpMethod.GET,
       },
