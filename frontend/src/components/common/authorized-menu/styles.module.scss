@@ -1,7 +1,9 @@
 .menu {
+  position: fixed;
   display: flex;
   flex-direction: column;
   min-width: 270px;
+  height: 100%;
   padding: 40px;
   background-color: var(--background-gray-300);
 }

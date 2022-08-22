@@ -1,6 +1,9 @@
 .headerWrapper {
+  position: fixed;
+  z-index: 5;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   min-height: 96px;
   background-color: var(--background-gray-300);
   box-shadow: inset 1px #2c2b3e;
