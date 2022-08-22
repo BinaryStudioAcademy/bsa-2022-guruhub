@@ -25,7 +25,7 @@ const UsersTable: FC = () => {
 
   const usersColumns = getUsersColumns();
 
-  const tableData = users.items.map((user) => ({
+  const tableData = users.map((user) => ({
     ...user,
     action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
   }));
@@ -50,7 +50,7 @@ const UsersTable: FC = () => {
         />
       </View>
       <Pagination
-        totalCount={users.total}
+        totalCount={usersTotalCount}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         currentPage={page}
         onPageChange={setPage}
