@@ -22,6 +22,7 @@ import {
   useAppDispatch,
   useAppForm,
   useAppNavigate,
+  useAppRoute,
   useAppSelector,
   useCallback,
   useEffect,
@@ -38,6 +39,9 @@ import { styles } from './styles';
 const UAMConfigureGroup: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
+  const { name } = useAppRoute();
+
+  const isEdit = name === AppScreenName.UAM_GROUPS_EDIT;
 
   const { group, dataStatus: groupDataStatus } = useAppSelector(
     (state) => state.uamGroupEdit,
@@ -90,7 +94,7 @@ const UAMConfigureGroup: FC = () => {
   ): Promise<void> => {
     const { name } = payload;
 
-    if (!group) {
+    if (!isEdit) {
       await dispatch(
         groupsCreationActions.createGroup({
           name,
@@ -98,7 +102,7 @@ const UAMConfigureGroup: FC = () => {
           userIds,
         }),
       ).unwrap();
-    } else {
+    } else if (group && isEdit) {
       await dispatch(
         uamGroupEditActions.editGroup({
           id: group.id,
@@ -135,12 +139,12 @@ const UAMConfigureGroup: FC = () => {
   }, [usersPage]);
 
   useEffect(() => {
-    if (group) {
+    if (group && isEdit) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
     }
-  }, [group]);
+  }, [group, isEdit]);
 
   useFocusEffect(
     useCallback(() => {
@@ -177,7 +181,7 @@ const UAMConfigureGroup: FC = () => {
         <View style={styles.buttonsContainer}>
           <Button label="Cancel" onPress={handleCancel} />
           <Button
-            label={`${group ? 'Edit' : 'Create'} group`}
+            label={`${isEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>

@@ -28,8 +28,8 @@ const GroupsTable: FC = () => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
-  const handleGroupsItemEdit = (groupId: number): void => {
-    dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
+  const handleGroupsItemEdit = async (groupId: number): Promise<void> => {
+    await dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
     navigation.navigate(AppScreenName.UAM_GROUPS_EDIT);
   };
 
@@ -54,7 +54,6 @@ const GroupsTable: FC = () => {
         }),
       );
     }, [page, groupsTotalCount]),
-
   );
 
   return (
