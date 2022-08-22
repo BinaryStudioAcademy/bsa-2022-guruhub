@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 
-import { PaginationDefaultValue } from '~/common/enums/enums';
-import { Pagination, Table, Text, View } from '~/components/common/common';
+import { DataStatus, PaginationDefaultValue } from '~/common/enums/enums';
+import {
+  Pagination,
+  Spinner,
+  Table,
+  Text,
+  View,
+} from '~/components/common/common';
 import { getUsersColumns } from '~/components/uam/helpers/helpers';
 import {
   useAppDispatch,
@@ -17,7 +23,11 @@ import { ActionCell } from './components/components';
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.uam);
+  const { users, userDeleteDataStatus, usersDataStatus } = useAppSelector(
+    (state) => state.uam,
+  );
+
+  const isUsersTableLoading = usersDataStatus === DataStatus.PENDING;
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -37,12 +47,13 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page, users]);
+  }, [page, userDeleteDataStatus]);
 
   return (
     <View style={styles.tableContainer}>
       <Text style={styles.tableTitle}>Users</Text>
       <View style={styles.tableWrapper}>
+        {isUsersTableLoading && <Spinner isOverflow />}
         <Table
           columns={usersColumns}
           data={tableData}

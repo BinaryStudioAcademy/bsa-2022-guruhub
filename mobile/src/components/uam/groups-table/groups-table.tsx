@@ -1,7 +1,17 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
-import { Pagination, Table, Text, View } from '~/components/common/common';
+import {
+  AppScreenName,
+  DataStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import {
+  Pagination,
+  Spinner,
+  Table,
+  Text,
+  View,
+} from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -20,11 +30,14 @@ const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const { items, total } = useAppSelector((state) => state.uam.groups);
+  const { groups, groupsDataStatus } = useAppSelector((state) => state.uam);
+  const { items, total } = groups;
   const { page, handlePageChange } = usePagination();
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
+
+  const isGroupsTableLoading = groupsDataStatus === DataStatus.PENDING;
 
   const handleGroupsItemEdit = (groupId: number): void => {
     dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
@@ -57,11 +70,14 @@ const GroupsTable: FC = () => {
   return (
     <View style={styles.tableContainer}>
       <Text style={styles.tableTitle}>Groups</Text>
-      <Table
-        columnWidthArr={[50, 180, 180, 100]}
-        columns={groupsColumns}
-        data={groupsRows}
-      />
+      <View>
+        {isGroupsTableLoading && <Spinner isOverflow />}
+        <Table
+          columnWidthArr={[50, 180, 180, 100]}
+          columns={groupsColumns}
+          data={groupsRows}
+        />
+      </View>
       {total > 0 && (
         <Pagination
           totalCount={total}

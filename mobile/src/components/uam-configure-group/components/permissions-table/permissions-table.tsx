@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
-import { Pagination, Table, View } from '~/components/common/common';
+import { Pagination, Spinner, Table, View } from '~/components/common/common';
 import {
   getPermissionsColumns,
   getPermissionsRows,
@@ -18,12 +18,14 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
+  isDataLoading: boolean;
 };
 
 const PermissionsTable: FC<Props> = ({
   permissions,
   onCheckboxToggle,
   pagination,
+  isDataLoading,
 }) => {
   const { control } = useAppForm({ defaultValues: {} });
 
@@ -36,6 +38,7 @@ const PermissionsTable: FC<Props> = ({
 
   return (
     <View style={styles.container}>
+      {isDataLoading && <Spinner isOverflow={true} />}
       <Table
         columns={permissionColumns}
         data={permissionRows}
