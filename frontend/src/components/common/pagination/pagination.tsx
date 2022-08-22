@@ -26,20 +26,23 @@ const Pagination: FC<Props> = ({
   };
 
   return (
-    <div className={styles.pagination}>
-      <button
-        className={styles.back}
-        onClick={handlePreviousPageChange}
-        disabled={currentPage === 1}
-      ></button>
-      <span>
-        {currentPage} of {totalPages}
-      </span>
-      <button
-        className={styles.next}
-        onClick={handleNextPageChange}
-        disabled={currentPage === totalPages}
-      ></button>
+    <div className={styles.paginationContainer}>
+      <p className={styles.results}>{totalCount} results</p>
+      <div className={styles.pagination}>
+        <button
+          className={styles.back}
+          onClick={handlePreviousPageChange}
+          disabled={currentPage === 1}
+        ></button>
+        <span>
+          {currentPage} of {totalPages}
+        </span>
+        <button
+          className={styles.next}
+          onClick={handleNextPageChange}
+          disabled={currentPage === totalPages}
+        ></button>
+      </div>
     </div>
   );
 };
