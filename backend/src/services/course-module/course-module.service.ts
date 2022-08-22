@@ -1,7 +1,7 @@
 import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CourseModuleCreateArgumentsDto,
-  CourseModuleGetResponseDto,
+  CourseModulesGetRequestDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
 import { CoursesModulesError } from '~/exceptions/exceptions';
@@ -24,7 +24,7 @@ class CourseModule {
 
   public create(
     moduleRequestDto: CourseModuleCreateArgumentsDto,
-  ): Promise<CourseModuleGetResponseDto> {
+  ): Promise<CourseModulesGetRequestDto> {
     const { title, description, courseId } = moduleRequestDto;
 
     return this.#moduleRepository.create({

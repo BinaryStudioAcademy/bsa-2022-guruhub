@@ -10,6 +10,11 @@ export {
   type CourseGetResponseDto,
 } from './course/course';
 export {
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllResponseDto,
+  type CourseModulesGetRequestDto,
+} from './course-module/course-module';
+export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
