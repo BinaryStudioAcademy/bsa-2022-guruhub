@@ -13,10 +13,16 @@ enum TableName {
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.table(TableName.USER_DETAILS, (table) => {
-    table.string(ColumnName.FULL_NAME).notNullable();
     table.dropColumn(ColumnName.FIRST_NAME);
     table.dropColumn(ColumnName.LAST_NAME);
+    table.string(ColumnName.FULL_NAME).notNullable();
   });
+
+  await knex.raw(
+    'INSERT INTO user_details (user_id, full_name) ' +
+      '(SELECT id AS user_id, full_name ' +
+      'FROM users)',
+  );
 
   await knex.schema.table(TableName.USERS, (table) => {
     table.dropColumn(ColumnName.FULL_NAME);
@@ -25,14 +31,18 @@ async function up(knex: Knex): Promise<void> {
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.table(TableName.USER_DETAILS, (table) => {
-    table.dropColumn(ColumnName.FULL_NAME);
     table.string(ColumnName.FIRST_NAME).notNullable();
     table.string(ColumnName.LAST_NAME).notNullable();
+    table.dropColumn(ColumnName.FULL_NAME);
   });
 
   await knex.schema.table(TableName.USERS, (table) => {
     table.string(ColumnName.FULL_NAME).notNullable();
   });
+
+  await knex.raw(
+    'UPDATE users SET full_name = (SELECT full_name FROM user_details WHERE users.id = user_details.user_id)',
+  );
 }
 
 export { down, up };
