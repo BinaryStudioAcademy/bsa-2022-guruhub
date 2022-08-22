@@ -151,24 +151,40 @@ class Group {
     const { id, groupsRequestDto } = data;
     const { name, permissionIds, userIds } = groupsRequestDto;
 
-    const group = await this.#groupsRepository.update({
-      id,
-      name,
-      key: changeStringCase({
-        stringToChange: name,
-        caseType: StringCase.SNAKE_CASE,
-      }),
-    });
+    const group = await this.#groupsRepository
+      .update({
+        id,
+        name,
+        key: changeStringCase({
+          stringToChange: name,
+          caseType: StringCase.SNAKE_CASE,
+        }),
+      })
+      .catch(() => {
+        throw new GroupsError();
+      });
 
-    await this.#groupsToPermissionsService.updateGroupsToPermissions({
-      groupId: id,
-      permissionIds,
-    });
+    await this.#groupsToPermissionsService
+      .updateGroupsToPermissions({
+        groupId: id,
+        permissionIds,
+      })
+      .catch(() => {
+        throw new GroupsError({
+          message: ExceptionMessage.INVALID_GROUP_PERMISSIONS,
+        });
+      });
 
-    await this.#usersToGroupsService.updateUsersToGroups({
-      groupId: id,
-      userIds,
-    });
+    await this.#usersToGroupsService
+      .updateUsersToGroups({
+        groupId: id,
+        userIds,
+      })
+      .catch(() => {
+        throw new GroupsError({
+          message: ExceptionMessage.INVALID_GROUP_USERS,
+        });
+      });
 
     return group;
   }
