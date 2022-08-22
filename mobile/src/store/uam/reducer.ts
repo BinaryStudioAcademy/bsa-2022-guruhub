@@ -15,6 +15,7 @@ type State = {
   usersDataStatus: DataStatus;
   groups: EntityPagination<GroupsItemResponseDto>;
   users: EntityPagination<UsersGetResponseDto>;
+  usersTotalCount: number;
   userDeleteDataStatus: DataStatus;
   groupDeleteDataStatus: DataStatus;
 };
@@ -30,6 +31,7 @@ const initialState: State = {
     items: [],
     total: 0,
   },
+  usersTotalCount: 0,
   userDeleteDataStatus: DataStatus.IDLE,
   groupDeleteDataStatus: DataStatus.IDLE,
 };
@@ -67,6 +69,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getUsers.fulfilled, (state, action) => {
     state.usersDataStatus = DataStatus.FULFILLED;
     state.users = action.payload;
+    state.usersTotalCount = action.payload.total;
   });
   builder.addCase(getUsers.rejected, (state) => {
     state.usersDataStatus = DataStatus.REJECTED;
@@ -81,6 +84,7 @@ const reducer = createReducer(initialState, (builder) => {
       ...state.users,
       items: items,
     };
+    state.usersTotalCount = --state.usersTotalCount;
     state.userDeleteDataStatus = DataStatus.FULFILLED;
   });
   builder.addCase(deleteUser.rejected, (state) => {

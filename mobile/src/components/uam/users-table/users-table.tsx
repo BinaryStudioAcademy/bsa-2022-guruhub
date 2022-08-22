@@ -17,7 +17,7 @@ import { ActionCell } from './components/components';
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
-  const { users, userDeleteDataStatus } = useAppSelector((state) => state.uam);
+  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -37,7 +37,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page, userDeleteDataStatus]);
+  }, [page, usersTotalCount]);
 
   return (
     <View style={styles.tableContainer}>
