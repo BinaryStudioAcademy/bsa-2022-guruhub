@@ -1,6 +1,6 @@
 import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { IconButton, RenderHTML, Spinner } from 'components/common/common';
+import { Content, IconButton, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -46,14 +46,14 @@ const CourseModule: FC = () => {
       <div className={styles.moduleNameContainer}>
         <div className={styles.moduleNameContent}>
           <h4>{courseModule?.title}</h4>
-          <RenderHTML
+          <Content
             html={courseModule?.description ?? ''}
             className={styles.moduleDescription}
           />
         </div>
       </div>
       <div>
-        <RenderHTML html={courseModule?.description ?? ''} />
+        <Content html={courseModule?.description ?? ''} />
       </div>
     </div>
   );
