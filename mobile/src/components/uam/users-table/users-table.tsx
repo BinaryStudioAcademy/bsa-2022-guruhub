@@ -1,13 +1,7 @@
 import React, { FC } from 'react';
 
 import { DataStatus, PaginationDefaultValue } from '~/common/enums/enums';
-import {
-  Pagination,
-  Spinner,
-  Table,
-  Text,
-  View,
-} from '~/components/common/common';
+import { Pagination, Table, Text, View } from '~/components/common/common';
 import { getUsersColumns } from '~/components/uam/helpers/helpers';
 import {
   useAppDispatch,
@@ -53,11 +47,11 @@ const UsersTable: FC = () => {
     <View style={styles.tableContainer}>
       <Text style={styles.tableTitle}>Users</Text>
       <View style={styles.tableWrapper}>
-        {isUsersTableLoading && <Spinner isOverflow />}
         <Table
           columns={usersColumns}
           data={tableData}
           columnWidthArr={[50, 190, 250, 150, 100]}
+          isDataLoading={isUsersTableLoading}
         />
       </View>
       <Pagination

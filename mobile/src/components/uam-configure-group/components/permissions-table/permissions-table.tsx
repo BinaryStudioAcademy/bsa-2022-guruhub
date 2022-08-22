@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
-import { Pagination, Spinner, Table, View } from '~/components/common/common';
+import { Pagination, Table, View } from '~/components/common/common';
 import {
   getPermissionsColumns,
   getPermissionsRows,
@@ -38,11 +38,11 @@ const PermissionsTable: FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      {isDataLoading && <Spinner isOverflow={true} />}
       <Table
         columns={permissionColumns}
         data={permissionRows}
         columnWidthArr={[60, 200, 100]}
+        isDataLoading={isDataLoading}
       />
       <Pagination
         totalCount={permissions.length}

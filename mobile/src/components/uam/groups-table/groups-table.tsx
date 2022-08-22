@@ -5,13 +5,7 @@ import {
   DataStatus,
   PaginationDefaultValue,
 } from '~/common/enums/enums';
-import {
-  Pagination,
-  Spinner,
-  Table,
-  Text,
-  View,
-} from '~/components/common/common';
+import { Pagination, Table, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -71,11 +65,11 @@ const GroupsTable: FC = () => {
     <View style={styles.tableContainer}>
       <Text style={styles.tableTitle}>Groups</Text>
       <View>
-        {isGroupsTableLoading && <Spinner isOverflow />}
         <Table
           columnWidthArr={[50, 180, 180, 100]}
           columns={groupsColumns}
           data={groupsRows}
+          isDataLoading={isGroupsTableLoading}
         />
       </View>
       {total > 0 && (

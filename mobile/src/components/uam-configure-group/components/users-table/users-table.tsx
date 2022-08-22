@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { UsersGetResponseDto } from '~/common/types/types';
-import { Pagination, Spinner, Table, View } from '~/components/common/common';
+import { Pagination, Table, View } from '~/components/common/common';
 import {
   getUserColumns,
   getUserRows,
@@ -40,11 +40,11 @@ const UsersTable: FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      {isDataLoading && <Spinner isOverflow={true} />}
       <Table
         columns={userColumns}
         data={userRows}
         columnWidthArr={[60, 50, 210, 250, 150]}
+        isDataLoading={isDataLoading}
       />
       <Pagination
         totalCount={users.total}
