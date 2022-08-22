@@ -2,9 +2,8 @@ import { SettingsWrapperType } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { useState } from 'hooks/hooks';
 
-import { SettingsWrapper } from './settings-wrapper/settings-wrapper';
+import { SettingsWrapper, UserProfile } from './components/components';
 import styles from './styles.module.scss';
-import { UserProfile } from './user-profile/user-profile';
 
 const UserDetails: FC = () => {
   const [tab, setTab] = useState<number>(

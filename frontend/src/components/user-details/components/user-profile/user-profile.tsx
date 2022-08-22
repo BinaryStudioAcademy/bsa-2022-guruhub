@@ -1,7 +1,6 @@
 import { FC } from 'common/types/types';
 
-import { AvatarWrapper } from './components/avatar-wrapper/avatar-wrapper';
-import { UserProfileForm } from './components/user-profile-form/user-profile-form';
+import { AvatarWrapper, UserProfileForm } from './components/components';
 import styles from './styles.module.scss';
 
 const UserProfile: FC = () => {

@@ -12,7 +12,7 @@ class UserDetails {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  public createUserDetails(
+  public updateUserDetails(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
@@ -26,17 +26,8 @@ class UserDetails {
         dateOfBirth,
         userId,
       })
-      .execute();
-  }
-
-  public updateUserDetails(
-    id: number,
-    userDetails: UserDetailsUpdateInfoRequestDto,
-  ): Promise<UserDetailsM> {
-    return this.#UserDetailsModel
-      .query()
-      .select()
-      .patchAndFetchById(id, userDetails)
+      .onConflict(['user_id'])
+      .merge(userDetails)
       .execute();
   }
 

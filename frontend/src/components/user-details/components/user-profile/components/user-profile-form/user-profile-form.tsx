@@ -29,7 +29,7 @@ const UserProfileForm: FC = () => {
         ...userDetails,
         dateOfBirth: getFormattedDate(
           userDetails?.dateOfBirth ?? '',
-          FormatDate.DASHES,
+          FormatDate.YYYY_MM_DD,
         ),
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
@@ -46,7 +46,7 @@ const UserProfileForm: FC = () => {
         gender: userDetails.gender ?? '',
         dateOfBirth: getFormattedDate(
           userDetails.dateOfBirth ?? '',
-          FormatDate.DASHES,
+          FormatDate.YYYY_MM_DD,
         ),
       });
     }

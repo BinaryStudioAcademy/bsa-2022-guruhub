@@ -7,12 +7,12 @@ const getFormattedDate = (date: string, formatDate: FormatDate): string => {
     case FormatDate.DISTANCE: {
       return formatDistance(new Date(date), new Date());
     }
-    case FormatDate.DASHES: {
+    case FormatDate.YYYY_MM_DD: {
       if (date.trim() === '') {
         return '';
       }
 
-      return format(new Date(date), 'yyyy-MM-dd');
+      return format(new Date(date), formatDate);
     }
     default: {
       return '';

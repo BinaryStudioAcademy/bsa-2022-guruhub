@@ -19,20 +19,7 @@ class UserDetails {
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto> {
-    const userDetailsByUserId = await this.#userDetailsRepository.getByUserId(
-      userId,
-    );
-
-    if (userDetailsByUserId) {
-      const userDetails = await this.#userDetailsRepository.updateUserDetails(
-        userDetailsByUserId.id,
-        userDetailsUpdateInfoRequestDto,
-      );
-
-      return userDetails;
-    }
-
-    const userDetails = await this.#userDetailsRepository.createUserDetails(
+    const userDetails = await this.#userDetailsRepository.updateUserDetails(
       userId,
       userDetailsUpdateInfoRequestDto,
     );
@@ -45,11 +32,7 @@ class UserDetails {
   ): Promise<UserDetailsResponseDto | null> {
     const userDetails = await this.#userDetailsRepository.getByUserId(userId);
 
-    if (!userDetails) {
-      return null;
-    }
-
-    return userDetails;
+    return userDetails ?? null;
   }
 }
 

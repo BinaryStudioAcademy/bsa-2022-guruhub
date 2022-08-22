@@ -1,6 +1,6 @@
 enum FormatDate {
   DISTANCE = 'distance',
-  DASHES = 'dashes',
+  YYYY_MM_DD = 'yyyy-MM-dd',
 }
 
 export { FormatDate };
