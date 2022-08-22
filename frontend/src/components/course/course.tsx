@@ -1,7 +1,7 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Image, RenderHTML, Spinner } from 'components/common/common';
+import { Content, Image, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -48,7 +48,7 @@ const Course: FC = () => {
           />
         </div>
         <h2 className={styles.about}>About this course</h2>
-        <RenderHTML html={course?.description ?? ''} />
+        <Content html={course?.description ?? ''} />
         <h3 className={styles.modulesContentHeader}>Course Content</h3>
         <div className={styles.modulesContainer}>
           <ModulesCardsContainer modules={modules} />
