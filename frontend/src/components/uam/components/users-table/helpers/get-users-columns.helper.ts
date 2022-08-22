@@ -1,11 +1,11 @@
-import { Column } from 'react-table';
-
-import { UserTableAccessor } from '../../../common/enums/enums';
+import { UserTableAccessor } from 'components/uam/common/enums/enums';
 import {
   UsersTableActionsProps,
   UsersTableRow,
-} from '../../../common/types/types';
-import { ActionsCell } from '../components/components';
+} from 'components/uam/common/types/types';
+import { Column } from 'react-table';
+
+import { ActionsCell, DateCell } from '../components/components';
 
 const getUsersColumns = (
   onUserDelete: (userId: number) => void,
@@ -26,6 +26,7 @@ const getUsersColumns = (
     {
       Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
+      Cell: DateCell,
     },
     {
       Header: 'Actions',

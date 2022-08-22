@@ -1,5 +1,9 @@
 import { ENV, HttpMethod } from '~/common/enums/enums';
-import { UdemyGetResponseDto } from '~/common/types/types';
+import {
+  UdemyCourseGetResponseDto,
+  UdemyModuleGetResponseDto,
+  UdemyModulesGetResponseDto,
+} from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
@@ -8,6 +12,10 @@ type Constructor = {
 };
 
 class Udemy {
+  #MODULE_API_PAGE_SIZE = 15;
+
+  #INITIAL_PAGE = 1;
+
   #authorizationToken: string;
 
   #baseUrl: string;
@@ -20,18 +28,83 @@ class Udemy {
     this.#httpService = httpService;
   }
 
-  public async getByUrl(url: URL): Promise<UdemyGetResponseDto> {
+  public async getCourseByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
     const courseIdOrSlug = url.pathname
       .split('/')
       .filter(Boolean)
       .pop() as string;
     const headers = this.getHeaders();
-    const res = await this.#httpService.load<UdemyGetResponseDto>(
-      this.getRequestUrl(courseIdOrSlug),
+    const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
+      this.getCourseRequestUrl(courseIdOrSlug),
       { headers, method: HttpMethod.GET },
     );
 
     return res;
+  }
+
+  public async getModulesByCourseId(
+    courseId: number,
+  ): Promise<UdemyModuleGetResponseDto[]> {
+    const modules = await this.fetchAllCourseModules(
+      this.#INITIAL_PAGE,
+      courseId,
+    );
+
+    return modules;
+  }
+
+  private async fetchAllCourseModules(
+    page: number,
+    courseId: number,
+  ): Promise<UdemyModuleGetResponseDto[]> {
+    const modules: UdemyModuleGetResponseDto[] = [];
+
+    let fetchedModules: UdemyModuleGetResponseDto[] =
+      await this.fetchModulesPage(
+        this.getModuleRequestUrl(courseId, page),
+        this.getHeaders(),
+      );
+
+    let nextPage = page;
+    while (fetchedModules.length === this.#MODULE_API_PAGE_SIZE) {
+      modules.push(...fetchedModules);
+      fetchedModules = await this.fetchModulesPage(
+        this.getModuleRequestUrl(courseId, nextPage),
+        this.getHeaders(),
+      );
+
+      nextPage++;
+    }
+    modules.push(...fetchedModules);
+
+    return modules;
+  }
+
+  private async fetchModulesPage(
+    requestUrl: string,
+    headers: Record<string, string>,
+  ): Promise<UdemyModuleGetResponseDto[]> {
+    const fetchedModules =
+      await this.#httpService.load<UdemyModulesGetResponseDto>(requestUrl, {
+        headers,
+        method: HttpMethod.GET,
+      });
+
+    return fetchedModules.results;
+  }
+
+  private getCourseRequestUrl(courseIdOrSlug: string): string {
+    return `${
+      this.#baseUrl
+    }courses/${courseIdOrSlug}?fields[course]=title,description,url`;
+  }
+
+  private getModuleRequestUrl(courseId: number, page: number): string {
+    return `${
+      this.#baseUrl
+    }courses/${courseId}/public-curriculum-items/?page=${page}&page_size=${
+      this.#MODULE_API_PAGE_SIZE
+    }`;
   }
 
   private getHeaders(): Record<string, string> {
@@ -40,12 +113,6 @@ class Udemy {
     };
 
     return headers;
-  }
-
-  private getRequestUrl(courseIdOrSlug: string): string {
-    return `${
-      this.#baseUrl
-    }courses/${courseIdOrSlug}?fields[course]=title,description,url`;
   }
 
   private getToken(): string {

@@ -47,7 +47,6 @@ const Input: FC<Props> = ({
         {...field}
         type={type}
         placeholder={placeholder}
-        // defaultValue={defaultValue}
         className={getValidClasses(styles.input, inputClassName)}
       />
       <span className={styles.errorMessage}>

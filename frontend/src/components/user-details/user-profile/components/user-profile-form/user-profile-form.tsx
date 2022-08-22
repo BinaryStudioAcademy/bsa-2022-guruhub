@@ -1,4 +1,4 @@
-import { DataStatus } from 'common/enums/enums';
+import { DataStatus, FormatDate } from 'common/enums/enums';
 import { FC, UserDetailsUpdateInfoRequestDto } from 'common/types/types';
 import { Button, Input, Selector } from 'components/common/common';
 import { getFormattedDate, getNameOf } from 'helpers/helpers';
@@ -24,15 +24,14 @@ const UserProfileForm: FC = () => {
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
-      defaultValues: userDetails
-        ? {
-            ...userDetails,
-            dateOfBirth: getFormattedDate(
-              userDetails.dateOfBirth,
-              'yyyy-MM-dd',
-            ),
-          }
-        : DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
+      defaultValues: {
+        ...DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
+        ...userDetails,
+        dateOfBirth: getFormattedDate(
+          userDetails?.dateOfBirth ?? '',
+          FormatDate.DASHES,
+        ),
+      },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
 
@@ -45,7 +44,10 @@ const UserProfileForm: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? '',
-        dateOfBirth: getFormattedDate(userDetails.dateOfBirth, 'yyyy-MM-dd'),
+        dateOfBirth: getFormattedDate(
+          userDetails.dateOfBirth ?? '',
+          FormatDate.DASHES,
+        ),
       });
     }
   }, [userDetails]);

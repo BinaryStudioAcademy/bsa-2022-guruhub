@@ -19,9 +19,13 @@ export {
   type FormControlValues,
 } from './form/form';
 export {
+  type GroupGetByIdResponseDto,
   type GroupsCreateRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsItemResponseDto,
+  type GroupsUpdateRequestDto,
+  type GroupsUpdateRequestParamsDto,
+  type GroupUpdateRequestParamsDto,
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {

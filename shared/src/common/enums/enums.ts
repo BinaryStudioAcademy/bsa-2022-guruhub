@@ -10,6 +10,7 @@ export {
 } from './api/api';
 export { StringCase } from './case/case';
 export { CourseValidationMessage } from './course/course';
+export { FormatDate } from './date/date';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';

@@ -40,15 +40,14 @@ class UserDetails {
       .execute();
   }
 
-  public getByUserId(userId: number): Promise<UserDetailsM | undefined> {
-    const userDetails = this.#UserDetailsModel
+  public getByUserId(userId: number): Promise<UserDetailsM | null> {
+    return this.#UserDetailsModel
       .query()
       .select()
       .where({ userId })
       .first()
+      .castTo<UserDetailsM>()
       .execute();
-
-    return userDetails;
   }
 }
 

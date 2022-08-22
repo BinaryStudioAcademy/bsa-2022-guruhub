@@ -7,7 +7,7 @@
     "npm": ">=8.8 <9"
   },
   "scripts": {
-    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
+    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to . --fix",
     "lint:css": "npx stylelint \"src/**/*.scss\"",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:css && npm run lint:js && npm run lint:type",
@@ -20,8 +20,8 @@
     "@hookform/resolvers": "2.9.6",
     "@reduxjs/toolkit": "1.8.3",
     "clsx": "1.2.1",
-    "date-fns": "2.29.2",
     "guruhub-shared": "file:../shared/build",
+    "history": "5.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.33.1",

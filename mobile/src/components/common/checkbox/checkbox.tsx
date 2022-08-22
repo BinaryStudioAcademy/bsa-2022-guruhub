@@ -1,6 +1,5 @@
 import UICheckBox from '@react-native-community/checkbox';
 import React, { ReactElement } from 'react';
-import { View } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import {
@@ -8,6 +7,7 @@ import {
   FormControlPath,
   FormControlValues,
 } from '~/common/types/types';
+import { View } from '~/components/common/common';
 import { useFormControl } from '~/hooks/hooks';
 
 import { styles } from './styles';

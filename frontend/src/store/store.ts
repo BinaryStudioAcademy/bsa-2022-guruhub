@@ -4,6 +4,7 @@ import {
   categoriesApi,
   coursesApi,
   groupsApi,
+  navigation,
   notification,
   permissionsApi,
   storage,
@@ -22,6 +23,7 @@ const extraArgument = {
   storage,
   notification,
   userDetailsApi,
+  navigation,
   permissionsApi,
   categoriesApi,
 };
