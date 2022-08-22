@@ -113,6 +113,10 @@ const UAMConfigureGroup: FC = () => {
   };
 
   useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, []);
+
+  useEffect(() => {
     dispatch(groupsCreationActions.getPermissions());
   }, []);
 

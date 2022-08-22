@@ -12,7 +12,10 @@ import {
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
+import {
+  HIDDEN_SCREEN_KEY,
+  NAVIGATION_ITEMS,
+} from '~/navigation/app/common/constants';
 import { DrawerList } from '~/navigation/app/components/components';
 
 import { styles } from './styles';
@@ -31,18 +34,20 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
         <View style={styles.header}>
           <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
         </View>
-        {NAVIGATION_ITEMS.map(({ name, subroutes }, index) => (
-          <View style={styles.listWrapper} key={name}>
-            {Boolean(index) && <View style={styles.listBorder} />}
-            <DrawerList
-              name={name}
-              subroutes={subroutes.filter((item) =>
-                allowedRoutes.includes(item.name),
-              )}
-              focusedRouteName={focusedRouteName}
-            />
-          </View>
-        ))}
+        {NAVIGATION_ITEMS.filter((item) => item.name !== HIDDEN_SCREEN_KEY).map(
+          ({ name, subroutes }, index) => (
+            <View style={styles.listWrapper} key={name}>
+              {Boolean(index) && <View style={styles.listBorder} />}
+              <DrawerList
+                name={name}
+                subroutes={subroutes.filter((item) =>
+                  allowedRoutes.includes(item.name),
+                )}
+                focusedRouteName={focusedRouteName}
+              />
+            </View>
+          ),
+        )}
         <View style={styles.footer}>
           <Image
             style={styles.footerImage}
