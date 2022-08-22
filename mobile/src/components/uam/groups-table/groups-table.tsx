@@ -51,7 +51,7 @@ const GroupsTable: FC = () => {
           count: PaginationDefaultValue.DEFAULT_COUNT,
         }),
       );
-    }, [page]),
+    }, [page, total]),
   );
 
   return (
@@ -62,7 +62,7 @@ const GroupsTable: FC = () => {
         columns={groupsColumns}
         data={groupsRows}
       />
-      {total > 0 && (
+      {Boolean(total) && (
         <Pagination
           totalCount={total}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
