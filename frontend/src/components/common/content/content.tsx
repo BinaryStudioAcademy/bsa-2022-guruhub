@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-const RenderHTML: FC<Props> = ({ html, className }) => {
+const Content: FC<Props> = ({ html, className }) => {
   const sanitizedHTML = sanitizeHTML(html);
 
   return (
@@ -17,4 +17,4 @@ const RenderHTML: FC<Props> = ({ html, className }) => {
   );
 };
 
-export { RenderHTML };
+export { Content };

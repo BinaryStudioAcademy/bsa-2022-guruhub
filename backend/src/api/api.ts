@@ -81,7 +81,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     services: {
       courseModule,
     },
-    prefix: ApiPath.COURSES_MODULES,
+    prefix: ApiPath.COURSE_MODULES,
   });
 };
 
