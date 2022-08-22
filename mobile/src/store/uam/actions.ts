@@ -29,14 +29,16 @@ const deleteGroup = createAsyncThunk<
   GroupsDeleteRequestParamDto,
   AsyncThunkConfig
 >(ActionType.DELETE_GROUP, async (payload, { extra, getState, dispatch }) => {
-  const currentUser = getState().auth.user?.id;
+  const {
+    auth: { user: currentUser },
+  } = getState();
   const { groupsApi } = extra;
   const { id } = payload;
-  const groupsInfo = await groupsApi.getById(payload);
+  const groupInfo = await groupsApi.getById(payload);
   await groupsApi.delete(payload);
 
   if (currentUser) {
-    if (groupsInfo.userIds.includes(currentUser)) {
+    if (groupInfo.userIds.includes(currentUser?.id)) {
       dispatch(loadCurrentUser());
     }
   }
