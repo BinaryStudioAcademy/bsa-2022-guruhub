@@ -63,12 +63,8 @@ const deleteGroup = createAsyncThunk<
 
   await groupsApi.delete(payload);
 
-  if (currentUser) {
-    const currentUserId = currentUser?.id;
-
-    if (groupData.userIds.includes(currentUserId)) {
-      dispatch(authActions.getCurrentUser());
-    }
+  if (currentUser && groupData.userIds.includes(currentUser.id)) {
+    dispatch(authActions.getCurrentUser());
   }
 
   return id;
