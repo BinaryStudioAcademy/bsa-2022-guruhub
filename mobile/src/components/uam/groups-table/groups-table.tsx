@@ -20,20 +20,21 @@ const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const { items, total } = useAppSelector((state) => state.uam.groups);
+  const { groups, groupsTotalCount } = useAppSelector((state) => state.uam);
+
   const { page, handlePageChange } = usePagination();
 
   const handleGroupsItemDelete = (groupId: number): void => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
-  const handleGroupsItemEdit = (groupId: number): void => {
-    dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
+  const handleGroupsItemEdit = async (groupId: number): Promise<void> => {
+    await dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
     navigation.navigate(AppScreenName.UAM_GROUPS_EDIT);
   };
 
   const groupsColumns = getGroupsColumns();
-  const groupsRows = items.map((group) => ({
+  const groupsRows = groups.map((group) => ({
     ...group,
     action: (
       <ActionCell
@@ -52,7 +53,7 @@ const GroupsTable: FC = () => {
           count: PaginationDefaultValue.DEFAULT_COUNT,
         }),
       );
-    }, [page, total]),
+    }, [page, groupsTotalCount]),
   );
 
   return (
@@ -63,9 +64,9 @@ const GroupsTable: FC = () => {
         columns={groupsColumns}
         data={groupsRows}
       />
-      {Boolean(total) && (
+      {Boolean(groupsTotalCount) && (
         <Pagination
-          totalCount={total}
+          totalCount={groupsTotalCount}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
           currentPage={page}
           onPageChange={handlePageChange}

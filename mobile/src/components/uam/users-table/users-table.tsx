@@ -17,7 +17,7 @@ import { styles } from './styles';
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.uam);
+  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -25,7 +25,7 @@ const UsersTable: FC = () => {
 
   const usersColumns = getUsersColumns();
 
-  const tableData = users.items.map((user) => ({
+  const tableData = users.map((user) => ({
     ...user,
     action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
   }));
@@ -37,7 +37,7 @@ const UsersTable: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page, users]);
+  }, [page, usersTotalCount]);
 
   return (
     <View style={styles.tableContainer}>
@@ -50,7 +50,7 @@ const UsersTable: FC = () => {
         />
       </View>
       <Pagination
-        totalCount={users.total}
+        totalCount={usersTotalCount}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         currentPage={page}
         onPageChange={setPage}
