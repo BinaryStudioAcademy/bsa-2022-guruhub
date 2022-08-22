@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  DataStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
   Button,
   Input,
   ScrollView,
+  Spinner,
   Text,
   View,
 } from '~/components/common/common';
@@ -34,11 +39,15 @@ const UAMConfigureGroup: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { group } = useAppSelector((state) => state.uamGroupEdit);
+  const { group, dataStatus: groupDataStatus } = useAppSelector(
+    (state) => state.uamGroupEdit,
+  );
 
   const { users, permissions } = useAppSelector(
     (state) => state.uamGroupCreation,
   );
+
+  const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
     usePagination();
@@ -142,6 +151,7 @@ const UAMConfigureGroup: FC = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
+        {isGroupLoading && <Spinner isOverflow />}
         <View style={styles.inputContainer}>
           <Input
             name="name"

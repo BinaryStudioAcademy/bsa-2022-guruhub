@@ -20,7 +20,8 @@ const GroupsTable: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const { items, total } = useAppSelector((state) => state.uam.groups);
+  const { groups, groupsTotalCount } = useAppSelector((state) => state.uam);
+
   const { page, handlePageChange } = usePagination();
 
   const handleGroupsItemDelete = (groupId: number): void => {
@@ -33,7 +34,7 @@ const GroupsTable: FC = () => {
   };
 
   const groupsColumns = getGroupsColumns();
-  const groupsRows = items.map((group) => ({
+  const groupsRows = groups.map((group) => ({
     ...group,
     action: (
       <ActionCell
@@ -52,7 +53,8 @@ const GroupsTable: FC = () => {
           count: PaginationDefaultValue.DEFAULT_COUNT,
         }),
       );
-    }, [page, total]),
+    }, [page, groupsTotalCount]),
+
   );
 
   return (
@@ -63,9 +65,9 @@ const GroupsTable: FC = () => {
         columns={groupsColumns}
         data={groupsRows}
       />
-      {Boolean(total) && (
+      {Boolean(groupsTotalCount) && (
         <Pagination
-          totalCount={total}
+          totalCount={groupsTotalCount}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
           currentPage={page}
           onPageChange={handlePageChange}
