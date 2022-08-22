@@ -10,6 +10,7 @@ import {
   courseCategory,
   courseModule,
   group,
+  interview,
   permission,
   token,
   user,
@@ -20,6 +21,7 @@ import { initCategoriesApi } from './categories/categories.api';
 import { initCourseModulesApi } from './course-modules/course-modules.api';
 import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
+import { initInterviewsApi } from './interviews/interviews.api';
 import { initPermissionsApi } from './permissions/permissions.api';
 import { initUsersApi } from './users/users.api';
 
@@ -65,12 +67,14 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     },
     prefix: ApiPath.USERS,
   });
+
   fastify.register(initCoursesApi, {
     services: {
       course,
     },
     prefix: ApiPath.COURSES,
   });
+
   fastify.register(initCategoriesApi, {
     services: {
       courseCategory,
@@ -82,6 +86,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       courseModule,
     },
     prefix: ApiPath.COURSE_MODULES,
+  });
+
+  fastify.register(initInterviewsApi, {
+    services: {
+      interview,
+    },
+    prefix: ApiPath.INTERVIEWS,
   });
 };
 

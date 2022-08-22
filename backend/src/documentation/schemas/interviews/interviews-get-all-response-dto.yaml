@@ -1,0 +1,58 @@
+type: array
+items:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    interviewDate:
+      type: string
+      example: '2022-08-18T21:00:00.000Z'
+    status:
+      type: string
+      enum:
+        - new
+        - rejected
+        - canceled
+    interviewee:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        fullName:
+          type: string
+          example: John Smith
+        email:
+          type: string
+          example: john.smith@gmail.com
+        createdAt:
+          type: string
+          example: '2022-08-09T18:17:02.149Z'
+    interviewer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        fullName:
+          type: string
+          example: John Adams
+        email:
+          type: string
+          example: john.adams@gmail.com
+        createdAt:
+          type: string
+          example: '2022-08-09T18:17:02.149Z'
+    courseCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 64
+        key:
+          type: string
+          example: 'node_js'
+        name:
+          type: string
+          example: 'Node.js'

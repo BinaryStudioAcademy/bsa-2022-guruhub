@@ -30,6 +30,11 @@ export {
 } from './groups/groups';
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';
+export {
+  InterviewsByIdResponseDto,
+  InterviewsGetAllItemResponseDto,
+  InterviewsGetAllResponseDto,
+} from './interview/interview';
 export { EntityPagination } from './pagination/pagination';
 export {
   type PermissionsGetAllItemResponseDto,
