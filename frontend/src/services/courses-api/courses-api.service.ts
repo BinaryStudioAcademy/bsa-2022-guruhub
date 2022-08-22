@@ -16,7 +16,7 @@ type Constructor = {
   apiPrefix: string;
 };
 
-class Courses {
+class CoursesApi {
   #http: Http;
 
   #apiPrefix: string;
@@ -64,4 +64,4 @@ class Courses {
   }
 }
 
-export { Courses };
+export { CoursesApi };

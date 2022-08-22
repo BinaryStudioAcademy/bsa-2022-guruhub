@@ -9,6 +9,7 @@ import {
 } from 'hooks/hooks';
 import { courseModuleActions } from 'store/actions';
 
+import { Description } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
@@ -46,18 +47,14 @@ const CourseModule: FC = () => {
       <div className={styles.moduleNameContainer}>
         <div className={styles.moduleNameContent}>
           <h4>{courseModule?.title}</h4>
-          <p
+          <Description
+            description={courseModule?.description}
             className={styles.moduleDescription}
-            dangerouslySetInnerHTML={{
-              __html: courseModule?.description ?? '',
-            }}
           />
         </div>
       </div>
       <div>
-        <p
-          dangerouslySetInnerHTML={{ __html: courseModule?.description ?? '' }}
-        />
+        <Description description={courseModule?.description} />
       </div>
     </div>
   );

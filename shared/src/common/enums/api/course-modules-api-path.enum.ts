@@ -1,6 +1,6 @@
 enum CourseModulesApiPath {
   ROOT = '/',
-  $ID = '/:moduleId',
+  COURSES_$ID_MODULES_$ID = '/:courseId/modules/:moduleId',
 }
 
 export { CourseModulesApiPath };

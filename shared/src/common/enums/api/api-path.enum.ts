@@ -5,7 +5,7 @@ enum ApiPath {
   USERS = '/users',
   CATEGORIES = '/categories',
   COURSES = '/courses',
-  COURSES_$ID_MODULES = '/courses/:courseId/modules',
+  COURSES_MODULES = '/courses',
 }
 
 export { ApiPath };

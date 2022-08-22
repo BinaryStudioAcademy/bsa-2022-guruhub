@@ -23,7 +23,7 @@ const initCourseModulesApi: FastifyPluginAsync<Options> = async (
 
   fastify.route({
     method: HttpMethod.GET,
-    url: CourseModulesApiPath.$ID,
+    url: CourseModulesApiPath.COURSES_$ID_MODULES_$ID,
     schema: { params: courseModuleGetParamsValidationSchema },
     async handler(
       req: FastifyRequest<{ Params: CourseModuleGetRequestParamsDto }>,
