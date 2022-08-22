@@ -36,7 +36,7 @@ const PermissionsTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      reset({});
+      return () => reset({});
     }, []),
   );
 

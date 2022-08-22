@@ -132,7 +132,7 @@ const UAMConfigureGroup: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      reset({ name: '' });
+      return () => reset({ name: '' });
     }, []),
   );
 

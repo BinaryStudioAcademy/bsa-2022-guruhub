@@ -34,7 +34,7 @@ const UsersTable: FC<Props> = ({ users, onCheckboxToggle, pagination }) => {
 
   useFocusEffect(
     useCallback(() => {
-      reset({});
+      return () => reset({});
     }, []),
   );
 
