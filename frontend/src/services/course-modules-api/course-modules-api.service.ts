@@ -1,4 +1,4 @@
-import { ApiPath, HttpMethod } from 'common/enums/enums';
+import { ApiPath, CoursesApiPath, HttpMethod } from 'common/enums/enums';
 import {
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
@@ -25,7 +25,9 @@ class CourseModulesApi {
     moduleId,
   }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}/${ApiPath.COURSES}/${courseId}/modules/${moduleId}`,
+      `${this.#apiPrefix}/${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.MODULES
+      }/${moduleId}`,
       {
         method: HttpMethod.GET,
       },
