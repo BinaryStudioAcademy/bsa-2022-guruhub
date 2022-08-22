@@ -9,7 +9,7 @@ import {
 } from '~/components/uam-configure-group/helpers/helpers';
 import { useAppForm } from '~/hooks/hooks';
 
-import { styles } from './styles';
+import { styles } from '../styles';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
@@ -35,11 +35,11 @@ const PermissionsTable: FC<Props> = ({
   const permissionColumns = getPermissionsColumns();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.tableContainer}>
       <Table
         columns={permissionColumns}
         data={permissionRows}
-        columnWidthArr={[60, 200, 100]}
+        columnWidthArr={[50, 200, 100]}
       />
       <Pagination
         totalCount={permissions.length}
