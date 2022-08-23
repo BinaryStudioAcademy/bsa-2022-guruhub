@@ -1,16 +1,17 @@
+import { HttpError } from 'guruhub-shared/exceptions/exceptions';
+
 import {
   CustomExceptionName,
   ExceptionMessage,
   HttpCode,
 } from '~/common/enums/enums';
-import { HttpError } from '~/exceptions/exceptions';
 
 type Constructor = {
   message?: ExceptionMessage | string;
   status?: HttpCode | number;
 };
 
-class FileError extends HttpError {
+class FilesError extends HttpError {
   public constructor({
     message = ExceptionMessage.STORAGE_NOT_FOUND,
     status = HttpCode.NOT_FOUND,
@@ -20,4 +21,4 @@ class FileError extends HttpError {
   }
 }
 
-export { FileError };
+export { FilesError };

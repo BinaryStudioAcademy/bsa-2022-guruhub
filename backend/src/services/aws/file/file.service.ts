@@ -1,23 +1,35 @@
 import {
   PutObjectCommand,
-  PutObjectCommandOutput,
   S3Client,
   S3ServiceException,
 } from '@aws-sdk/client-s3';
 
-import { FileUploadRequestDto } from '~/common/types/types';
-import { FileError } from '~/exceptions/exceptions';
+import {
+  FileGetResponseDto,
+  FileGetUrlRequestDto,
+  FileUploadRequestDto,
+} from '~/common/types/types';
+import { file as fileRep } from '~/data/repositories/repositories';
+import { FilesError } from '~/exceptions/exceptions';
 
 type Constructor = {
   region: string;
   accessKeyId: string;
   secretAccessKey: string;
+  fileRepository: typeof fileRep;
 };
 
 class File {
   #storage: S3Client;
 
-  public constructor({ accessKeyId, secretAccessKey, region }: Constructor) {
+  #fileRepository: typeof fileRep;
+
+  public constructor({
+    accessKeyId,
+    secretAccessKey,
+    region,
+    fileRepository,
+  }: Constructor) {
     this.#storage = new S3Client({
       region,
       credentials: {
@@ -25,30 +37,43 @@ class File {
         secretAccessKey,
       },
     });
+    this.#fileRepository = fileRepository;
   }
 
-  public uploadFile({
+  public async uploadFile({
     file,
     fileName,
     bucket,
-  }: FileUploadRequestDto): Promise<PutObjectCommandOutput> {
+    contentType,
+  }: FileUploadRequestDto): Promise<FileGetResponseDto> {
     try {
-      return this.#storage.send(
+      await this.#storage.send(
         new PutObjectCommand({ Bucket: bucket, Key: fileName, Body: file }),
       );
+
+      const fileUrl = this.getFileUrl({ bucket, fileName });
+
+      return this.#fileRepository.create({
+        contentType,
+        url: fileUrl,
+      });
     } catch (err) {
       this.throwError(err);
     }
   }
 
+  private getFileUrl({ bucket, fileName }: FileGetUrlRequestDto): string {
+    return `https://${bucket}.s3.amazonaws.com/${fileName}`;
+  }
+
   private throwError(err: unknown): never {
     if (err instanceof S3ServiceException) {
-      throw new FileError({
+      throw new FilesError({
         message: err.message,
         status: err.$response?.statusCode,
       });
     }
-    throw new FileError();
+    throw new FilesError();
   }
 }
 

@@ -1,8 +1,9 @@
 import { ContentType } from '~/common/enums/enums';
 
-type FileTableInsertRequestDto = {
+type FileGetResponseDto = {
+  id: number;
   url: string;
   contentType: ContentType;
 };
 
-export { type FileTableInsertRequestDto };
+export { type FileGetResponseDto };

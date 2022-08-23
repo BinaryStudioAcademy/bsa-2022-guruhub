@@ -4,6 +4,7 @@ import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
+  file as fileRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   interview as interviewRepository,
@@ -99,6 +100,7 @@ const file = new File({
   region: ENV.AWS.REGION,
   accessKeyId: ENV.AWS.ACCESS_KEY_ID,
   secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
+  fileRepository,
 });
 
 export {

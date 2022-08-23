@@ -1,1 +1,1 @@
-export { FileContentType } from './file-content-type.enum';
+export { ContentType } from 'guruhub-shared/common/enums/enums';
