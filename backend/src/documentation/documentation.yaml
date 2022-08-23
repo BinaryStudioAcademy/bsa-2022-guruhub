@@ -74,6 +74,8 @@ components:
       $ref: './schemas/courses/course-get-by-id-request-dto.yaml'
     CourseGetByIdResponseDto:
       $ref: './schemas/courses/course-get-by-id-response-dto.yaml'
+    CoursesUpdateCategoryRequestDto:
+      $ref: './schemas/courses/course-update-category-request-dto.yaml'
     CoursesModulesGetAllByCourseIdRequestDto:
       $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-request-dto.yaml'
     CoursesModulesGetAllByCourseIdResponseDto:
