@@ -3,17 +3,12 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
-import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/selected-items-values.type';
+import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/types';
 import {
   getPermissionsColumns,
   getPermissionsRows,
 } from '~/components/uam-configure-group/helpers/helpers';
-import {
-  useAppForm,
-  useCallback,
-  useEffect,
-  useFocusEffect,
-} from '~/hooks/hooks';
+import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -42,26 +37,22 @@ const PermissionsTable: FC<Props> = ({
   });
   const permissionColumns = getPermissionsColumns();
 
-  const selectedItems: SelectedItemsValues = {};
-
   useFocusEffect(
     useCallback(() => {
-      reset(selectedItems);
+      const selectedPermissions: SelectedItemsValues = checkedIds.reduce(
+        (object, id) => {
+          return {
+            ...object,
+            [`permissionIds.${id}`]: Boolean(
+              permissions.find((permission) => permission.id === id),
+            ),
+          };
+        },
+        {},
+      );
+      reset(selectedPermissions);
     }, [permissions, checkedIds]),
   );
-
-  useEffect(() => {
-    checkedIds.map(
-      (id) =>
-        (selectedItems[`permissionIds.${id}`] = Boolean(
-          permissions.find((permission) => permission.id === id),
-        )),
-    );
-  }, [permissions, checkedIds]);
-
-  useEffect(() => {
-    reset(selectedItems);
-  }, [permissions]);
 
   useFocusEffect(
     useCallback(() => {

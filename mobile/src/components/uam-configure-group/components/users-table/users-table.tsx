@@ -3,17 +3,12 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { UsersGetResponseDto } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
-import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/selected-items-values.type';
+import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/types';
 import {
   getUserColumns,
   getUserRows,
 } from '~/components/uam-configure-group/helpers/helpers';
-import {
-  useAppForm,
-  useCallback,
-  useEffect,
-  useFocusEffect,
-} from '~/hooks/hooks';
+import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -45,26 +40,22 @@ const UsersTable: FC<Props> = ({
   });
   const userColumns = getUserColumns();
 
-  const selectedItems: SelectedItemsValues = {};
-
   useFocusEffect(
     useCallback(() => {
-      reset(selectedItems);
+      const selectedUsers: SelectedItemsValues = checkedIds.reduce(
+        (object, id) => {
+          return {
+            ...object,
+            [`userIds.${id}`]: Boolean(
+              users.items.find((user) => user.id === id),
+            ),
+          };
+        },
+        {},
+      );
+      reset(selectedUsers);
     }, [users.items, checkedIds]),
   );
-
-  useEffect(() => {
-    checkedIds.map(
-      (id) =>
-        (selectedItems[`userIds.${id}`] = Boolean(
-          users.items.find((user) => user.id === id),
-        )),
-    );
-  }, [users.items, checkedIds]);
-
-  useEffect(() => {
-    reset(selectedItems);
-  }, [users.items]);
 
   useFocusEffect(
     useCallback(() => {
