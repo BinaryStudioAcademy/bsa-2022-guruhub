@@ -7,8 +7,8 @@ import {
 } from '~/common/enums/enums';
 
 type Constructor = {
-  message?: ExceptionMessage | string;
-  status?: HttpCode | number;
+  message?: ExceptionMessage;
+  status?: HttpCode;
 };
 
 class FilesError extends HttpError {

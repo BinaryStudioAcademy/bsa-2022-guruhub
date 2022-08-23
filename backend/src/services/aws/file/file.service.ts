@@ -4,6 +4,7 @@ import {
   S3ServiceException,
 } from '@aws-sdk/client-s3';
 
+import { ExceptionMessage } from '~/common/enums/enums';
 import {
   FileGetResponseDto,
   FileGetUrlRequestDto,
@@ -69,7 +70,7 @@ class File {
   private throwError(err: unknown): never {
     if (err instanceof S3ServiceException) {
       throw new FilesError({
-        message: err.message,
+        message: err.message as ExceptionMessage,
         status: err.$response?.statusCode,
       });
     }
