@@ -9,10 +9,17 @@ type Props = {
   users: UsersGetResponseDto[];
   control: FormControl;
   onToggle: (id: number) => void;
+  checkedUserIds?: number[];
 };
 
-const getUserRows = ({ users, control, onToggle }: Props): UsersTableRow[] => {
+const getUserRows = ({
+  users,
+  control,
+  onToggle,
+  checkedUserIds,
+}: Props): UsersTableRow[] => {
   return users.map((user) => {
+    const isChecked = checkedUserIds?.includes(user.id);
     const handleCheckbox = (): void => onToggle(user.id);
 
     return {
@@ -21,6 +28,7 @@ const getUserRows = ({ users, control, onToggle }: Props): UsersTableRow[] => {
           name={`userIds.${user.id}`}
           control={control}
           onToggle={handleCheckbox}
+          isChecked={isChecked}
         />
       ),
       [UserTableAccessor.ID]: user.id,

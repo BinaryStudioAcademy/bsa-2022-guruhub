@@ -118,7 +118,7 @@ const UAMConfigureGroup: FC = () => {
   };
 
   const handleCancel = async (): Promise<void> => {
-    if (group) {
+    if (isEdit) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
 
@@ -171,12 +171,14 @@ const UAMConfigureGroup: FC = () => {
           users={users}
           onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
+          checkedIds={isEdit ? group?.userIds : []}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
           onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
+          checkedIds={isEdit ? group?.permissionIds : []}
         />
         <View style={styles.buttonsContainer}>
           <Button label="Cancel" onPress={handleCancel} />

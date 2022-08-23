@@ -21,14 +21,21 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
+  checkedIds?: number[] | [];
 };
 
-const UsersTable: FC<Props> = ({ users, onCheckboxToggle, pagination }) => {
+const UsersTable: FC<Props> = ({
+  users,
+  onCheckboxToggle,
+  pagination,
+  checkedIds,
+}) => {
   const { control, reset } = useAppForm({ defaultValues: {} });
   const userRows = getUserRows({
     users: users.items,
     onToggle: onCheckboxToggle,
     control,
+    checkedUserIds: checkedIds,
   });
   const userColumns = getUserColumns();
 

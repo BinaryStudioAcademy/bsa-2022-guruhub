@@ -16,12 +16,14 @@ type Props<T extends FormControlValues> = {
   name: FormControlPath<T>;
   control: FormControl<T>;
   onToggle: () => void;
+  isChecked?: boolean;
 };
 
 const Checkbox = <T extends FormControlValues>({
   name,
   control,
   onToggle,
+  isChecked,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
   const { value, onChange } = field;
@@ -34,7 +36,7 @@ const Checkbox = <T extends FormControlValues>({
   return (
     <View style={styles.container}>
       <UICheckBox
-        value={value}
+        value={isChecked || value}
         onValueChange={handleToggle}
         tintColors={{
           true: AppColor.BRAND.BLUE_100,
