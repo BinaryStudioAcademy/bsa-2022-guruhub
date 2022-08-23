@@ -22,9 +22,9 @@ const AvatarWrapper: FC = () => {
           btnColor="blue"
           label="Update File"
           btnType="upload"
-          classes={styles.marginBottom}
+          className={styles.marginBottom}
         />
-        <Button btnColor="blue" label="Save" classes={styles.btn} />
+        <Button btnColor="blue" label="Save" className={styles.btn} />
       </div>
     </div>
   );

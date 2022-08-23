@@ -78,7 +78,6 @@ class User {
     await this.#userDetailsService.upsertUserDetails(user.id, {
       fullName,
       gender: null,
-      dateOfBirth: null,
     });
 
     return {

@@ -1,7 +1,7 @@
 import { DataStatus } from 'common/enums/enums';
 import { FC, UserDetailsUpdateInfoRequestDto } from 'common/types/types';
 import { Button, Input, Select } from 'components/common/common';
-import { getFormattedDate, getNameOf } from 'helpers/helpers';
+import { getNameOf } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -27,9 +27,6 @@ const UserProfileForm: FC = () => {
       defaultValues: {
         ...DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
         ...userDetails,
-        dateOfBirth: userDetails?.dateOfBirth
-          ? getFormattedDate(userDetails.dateOfBirth, 'yyyy-MM-dd')
-          : '',
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
@@ -43,9 +40,6 @@ const UserProfileForm: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender,
-        dateOfBirth: userDetails.dateOfBirth
-          ? getFormattedDate(userDetails.dateOfBirth, 'yyyy-MM-dd')
-          : '',
       });
     }
   }, [userDetails]);
@@ -88,23 +82,6 @@ const UserProfileForm: FC = () => {
               />
             </div>
           </div>
-
-          <div className={styles.personalInfo}>
-            <div className={styles.subtitle}>Personal information</div>
-            <div className={styles.text}>
-              This information will be displayed publicly so be careful what you
-              share.
-            </div>
-          </div>
-          <div className={styles.grid}>
-            <Input
-              type="date"
-              label="Date of birth"
-              name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
-              control={control}
-              errors={errors}
-            />
-          </div>
           <div className={styles.buttonWrapper}>
             <Button
               type="button"
@@ -112,7 +89,7 @@ const UserProfileForm: FC = () => {
               btnColor="blue"
               label="Cancel"
               onClick={handleGetUsers}
-              classes={styles.marginRight}
+              className={styles.marginRight}
             />
             <Button
               onClick={handleSubmit(handleUpdateProfile)}

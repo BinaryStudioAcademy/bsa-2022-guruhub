@@ -16,14 +16,13 @@ class UserDetails {
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
-    const { fullName, gender, dateOfBirth } = userDetails;
+    const { fullName, gender } = userDetails;
 
     return this.#UserDetailsModel
       .query()
       .insert({
         fullName,
         gender,
-        dateOfBirth,
         userId,
       })
       .onConflict(['userId'])

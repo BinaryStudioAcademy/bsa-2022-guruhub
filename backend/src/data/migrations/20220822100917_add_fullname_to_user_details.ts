@@ -33,7 +33,6 @@ async function down(knex: Knex): Promise<void> {
   await knex.schema.table(TableName.USER_DETAILS, (table) => {
     table.string(ColumnName.FIRST_NAME).notNullable();
     table.string(ColumnName.LAST_NAME).notNullable();
-    table.dropColumn(ColumnName.FULL_NAME);
   });
 
   await knex.schema.table(TableName.USERS, (table) => {
@@ -43,6 +42,10 @@ async function down(knex: Knex): Promise<void> {
   await knex.raw(
     'UPDATE users SET full_name = (SELECT full_name FROM user_details WHERE users.id = user_details.user_id)',
   );
+
+  await knex.schema.table(TableName.USER_DETAILS, (table) => {
+    table.dropColumn(ColumnName.FULL_NAME);
+  });
 }
 
 export { down, up };
