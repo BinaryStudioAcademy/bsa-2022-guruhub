@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
 
+import { AppColor } from '~/common/enums/ui/app-color.enum';
+
 const styles = StyleSheet.create({
   backButton: {
-    borderColor: 'white',
+    borderColor: AppColor.BRAND.BLUE_100,
     width: 10,
     height: 10,
     margin: 20,
