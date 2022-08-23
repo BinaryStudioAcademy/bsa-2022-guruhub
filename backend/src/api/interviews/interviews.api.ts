@@ -30,11 +30,10 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     ),
     async handler(req, res) {
       const { id, permissions } = req.user;
-      const userPermissions = permissions.map((permission) => permission.key);
-      let interviews;
-      userPermissions.includes(PermissionKey.MANAGE_INTERVIEWS)
-        ? (interviews = await interviewService.getAll())
-        : (interviews = await interviewService.getByUserId(id));
+      const interviews = await interviewService.getAll({
+        userId: id,
+        permissions,
+      });
 
       return res.status(HttpCode.OK).send(interviews);
     },

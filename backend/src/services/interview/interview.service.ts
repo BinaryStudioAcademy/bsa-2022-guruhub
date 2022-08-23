@@ -1,8 +1,11 @@
+import { PermissionKey } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
   InterviewsGetAllResponseDto,
+  PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
+import { checkHasPermission } from '~/helpers/helpers';
 
 type Constructor = {
   interviewRepository: typeof interviewRep;
@@ -15,7 +18,20 @@ class Interview {
     this.#interviewRepository = interviewRepository;
   }
 
-  public async getAll(): Promise<InterviewsGetAllResponseDto> {
+  public async getAll(args: {
+    userId: number;
+    permissions: PermissionsGetAllItemResponseDto[];
+  }): Promise<InterviewsGetAllResponseDto> {
+    const { userId, permissions } = args;
+    const hasInterviewsPermission = checkHasPermission({
+      permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
+      userPermissions: permissions,
+    });
+
+    if (!hasInterviewsPermission) {
+      return this.getByUserId(userId);
+    }
+
     const interviews = await this.#interviewRepository.getAll();
 
     return {
