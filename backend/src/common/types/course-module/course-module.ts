@@ -2,5 +2,5 @@ export { type CourseModuleCreateArgumentsDto } from './course-module-create-argu
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
-  type CourseModulesGetRequestDto,
+  type CourseModulesGetAllRequestParamsDto,
 } from 'guruhub-shared/common/types/types';

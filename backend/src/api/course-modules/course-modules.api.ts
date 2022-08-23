@@ -5,9 +5,15 @@ import {
   HttpCode,
   HttpMethod,
 } from '~/common/enums/enums';
-import { CourseModuleGetRequestParamsDto } from '~/common/types/types';
+import {
+  CourseModuleGetRequestParamsDto,
+  CourseModulesGetAllRequestParamsDto,
+} from '~/common/types/types';
 import { courseModule as courseModuleService } from '~/services/services';
-import { courseModuleGetParams as courseModuleGetParamsValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  courseModuleGetParams as courseModuleGetParamsValidationSchema,
+  courseModulesGetAllParams as courseModuleGetAllParamsValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -33,6 +39,18 @@ const initCourseModulesApi: FastifyPluginAsync<Options> = async (
       const module = await courseModuleService.getById({ courseId, moduleId });
 
       rep.status(HttpCode.OK).send(module);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CourseModulesApiPath.COURSES_$ID_MODULES,
+    schema: { params: courseModuleGetAllParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: CourseModulesGetAllRequestParamsDto }>,
+      rep,
+    ) {
+      rep.status(HttpCode.OK).send([]);
     },
   });
 };
