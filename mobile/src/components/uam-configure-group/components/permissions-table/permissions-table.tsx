@@ -3,10 +3,10 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
-import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/types';
 import {
   getPermissionsColumns,
   getPermissionsRows,
+  getSelectedItemsValues,
 } from '~/components/uam-configure-group/helpers/helpers';
 import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 
@@ -39,17 +39,11 @@ const PermissionsTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      const selectedPermissions: SelectedItemsValues = checkedIds.reduce(
-        (object, id) => {
-          return {
-            ...object,
-            [`permissionIds.${id}`]: Boolean(
-              permissions.find((permission) => permission.id === id),
-            ),
-          };
-        },
-        {},
-      );
+      const selectedPermissions = getSelectedItemsValues({
+        checkedIds,
+        items: permissions,
+        namePrefix: 'permissionIds',
+      });
       reset(selectedPermissions);
     }, [permissions, checkedIds]),
   );

@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { UsersGetResponseDto } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
-import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/types';
 import {
+  getSelectedItemsValues,
   getUserColumns,
   getUserRows,
 } from '~/components/uam-configure-group/helpers/helpers';
@@ -42,17 +42,11 @@ const UsersTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      const selectedUsers: SelectedItemsValues = checkedIds.reduce(
-        (object, id) => {
-          return {
-            ...object,
-            [`userIds.${id}`]: Boolean(
-              users.items.find((user) => user.id === id),
-            ),
-          };
-        },
-        {},
-      );
+      const selectedUsers = getSelectedItemsValues({
+        checkedIds,
+        items: users.items,
+        namePrefix: 'userIds',
+      });
       reset(selectedUsers);
     }, [users.items, checkedIds]),
   );

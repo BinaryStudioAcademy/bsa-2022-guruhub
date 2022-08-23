@@ -41,8 +41,6 @@ const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { name } = useAppRoute();
 
-  const isEdit = name === AppScreenName.UAM_GROUPS_EDIT;
-
   const { group, dataStatus: groupDataStatus } = useAppSelector(
     (state) => state.uamGroupEdit,
   );
@@ -51,6 +49,7 @@ const UAMConfigureGroup: FC = () => {
     (state) => state.uamGroupCreation,
   );
 
+  const isGroupEdit = name === AppScreenName.UAM_GROUPS_EDIT && group;
   const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
@@ -94,7 +93,7 @@ const UAMConfigureGroup: FC = () => {
   ): Promise<void> => {
     const { name } = payload;
 
-    if (!isEdit) {
+    if (!isGroupEdit) {
       await dispatch(
         groupsCreationActions.createGroup({
           name,
@@ -102,7 +101,7 @@ const UAMConfigureGroup: FC = () => {
           userIds,
         }),
       ).unwrap();
-    } else if (group && isEdit) {
+    } else if (isGroupEdit) {
       await dispatch(
         uamGroupEditActions.editGroup({
           id: group.id,
@@ -139,12 +138,12 @@ const UAMConfigureGroup: FC = () => {
   }, [usersPage]);
 
   useEffect(() => {
-    if (group && isEdit) {
+    if (isGroupEdit) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
     }
-  }, [group, isEdit]);
+  }, [group, isGroupEdit]);
 
   useFocusEffect(
     useCallback(() => {
@@ -175,19 +174,19 @@ const UAMConfigureGroup: FC = () => {
           users={users}
           onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
-          checkedIds={isEdit && group ? group.userIds : []}
+          checkedIds={isGroupEdit ? group.userIds : []}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
           onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
-          checkedIds={isEdit && group ? group.permissionIds : []}
+          checkedIds={isGroupEdit ? group.permissionIds : []}
         />
         <View style={styles.buttonsContainer}>
           <Button label="Cancel" onPress={handleCancel} />
           <Button
-            label={`${isEdit ? 'Edit' : 'Create'} group`}
+            label={`${isGroupEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>
