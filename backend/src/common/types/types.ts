@@ -36,6 +36,7 @@ export {
   InterviewsGetAllItemResponseDto,
   InterviewsGetAllResponseDto,
 } from './interview/interview';
+export { type MentorForCategoryRequestDto } from './mentors/mentors';
 export { EntityPagination } from './pagination/pagination';
 export {
   type PermissionsGetAllItemResponseDto,

@@ -33,6 +33,7 @@ export {
   InterviewsGetAllItemResponseDto,
   InterviewsGetAllResponseDto,
 } from './interview/interview';
+export { type MentorForCategoryRequestDto } from './mentors/mentors';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,

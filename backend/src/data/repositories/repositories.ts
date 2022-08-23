@@ -5,6 +5,7 @@ import {
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
   Interview as InterviewModel,
+  MentorsToCourseCategories as MentorsToCourseCategoriesModel,
   Permission as PermissionModel,
   User as UserModel,
   UsersToGroups as UsersToGroupsModel,
@@ -17,6 +18,7 @@ import { CourseModule } from './course-module/course-module.repository';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
 import { Interview } from './interview/interview.repository';
+import { MentorsToCourseCategories } from './mentors-to-course-categories/mentors-to-course-categories.repository';
 import { Permission } from './permission/permission.repository';
 import { User } from './user/user.repository';
 import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
@@ -54,6 +56,10 @@ const courseCategory = new CourseCategory({ CourseCategoryModel });
 
 const interview = new Interview({ InterviewModel });
 
+const mentorsToCourseCategories = new MentorsToCourseCategories({
+  MentorsToCourseCategoriesModel,
+});
+
 export {
   course,
   courseCategory,
@@ -61,6 +67,7 @@ export {
   group,
   groupsToPermissions,
   interview,
+  mentorsToCourseCategories,
   permission,
   user,
   usersToGroups,
