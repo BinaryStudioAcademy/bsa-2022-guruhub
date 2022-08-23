@@ -40,3 +40,13 @@
   font-size: 18px;
   text-align: center;
 }
+
+.courseCategory {
+  width: 20%;
+  padding: 5px;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--brand-blue-100);
+  border-radius: 5px;
+}

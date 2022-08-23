@@ -8,7 +8,10 @@ export {
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
 } from './course/course';
-export { type CourseCategoryGetResponseDto } from './course-category/course-category';
+export {
+  type CourseCategoryGetByIdRequestParamsDto,
+  type CourseCategoryGetResponseDto,
+} from './course-category/course-category';
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,

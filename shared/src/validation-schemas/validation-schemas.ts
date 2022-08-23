@@ -3,6 +3,7 @@ export {
   courseFiltering,
   courseGetParams,
 } from './course/course';
+export { courseCategoryGetByIdParams } from './course-categories/course-categrory-get-by-id-request-params-dto.validation-schema';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,

@@ -39,6 +39,9 @@ const Course: FC = () => {
     <div className={styles.container}>
       <div className={styles.info}>
         <h1>{course?.title}</h1>
+        <p className={styles.courseCategory}>
+          {course.courseCategoryId ?? 'Unknown'}
+        </p>
         <div className={styles.image}>
           <Image
             alt="course image"

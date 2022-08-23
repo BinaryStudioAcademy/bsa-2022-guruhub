@@ -6,6 +6,7 @@ type CourseGetResponseDto = {
   description: string;
   url: string;
   imageUrl: string;
+  courseCategoryId: number | null;
   vendor: VendorGetResponseDto;
 };
 

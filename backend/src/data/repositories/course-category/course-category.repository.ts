@@ -24,6 +24,16 @@ class CourseCategory {
 
     return courseCategory ?? null;
   }
+
+  public async getById(id: number): Promise<CourseCategoryM | null> {
+    const courseCategory = await this.#CourseCategoryModel
+      .query()
+      .select()
+      .where({ id })
+      .first();
+
+    return courseCategory ?? null;
+  }
 }
 
 export { CourseCategory };
