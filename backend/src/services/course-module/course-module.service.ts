@@ -3,7 +3,7 @@ import {
   CourseModuleCreateArgumentsDto,
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
-  CourseModulesGetRequestDto,
+  CourseModulesGetAllItemResponseDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
 import { CoursesModulesError } from '~/exceptions/exceptions';
@@ -26,7 +26,7 @@ class CourseModule {
 
   public create(
     moduleRequestDto: CourseModuleCreateArgumentsDto,
-  ): Promise<CourseModulesGetRequestDto> {
+  ): Promise<CourseModulesGetAllItemResponseDto> {
     const { title, description, courseId } = moduleRequestDto;
 
     return this.#moduleRepository.create({
@@ -34,6 +34,14 @@ class CourseModule {
       description,
       courseId,
     });
+  }
+
+  public async getModulesByCourseId(
+    courseId: number,
+  ): Promise<CourseModulesGetAllItemResponseDto[]> {
+    const modules = await this.#moduleRepository.getAllByCourseId({ courseId });
+
+    return modules;
   }
 
   public async createModulesByCourseId(

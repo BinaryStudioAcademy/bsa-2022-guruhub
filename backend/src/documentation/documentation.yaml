@@ -27,6 +27,11 @@ paths:
     $ref: './endpoints/courses/courses.yaml'
   /courses/:id:
     $ref: './endpoints/courses/courses-get-by-id.yaml'
+  # Courses Modules
+  /courses/:courseId/modules:
+    $ref: './endpoints/courses-modules/courses-modules-get-all-by-course-id.yaml'
+  /courses/:courseId/modules/:moduleId:
+    $ref: './endpoints/courses-modules/courses-modules-get-by-course-id-and-module-id.yaml'
   # Categories
   /categories:
     $ref: './endpoints/categories/categories.yaml'
@@ -67,6 +72,14 @@ components:
       $ref: './schemas/courses/course-get-by-id-request-dto.yaml'
     CourseGetByIdResponseDto:
       $ref: './schemas/courses/course-get-by-id-response-dto.yaml'
+    CoursesModulesGetAllByCourseIdRequestDto:
+      $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-request-dto.yaml'
+    CoursesModulesGetAllByCourseIdResponseDto:
+      $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-response-dto.yaml'
+    CoursesModulesGetByCourseIdAndModuleIdRequestDto:
+      $ref: './schemas/courses-modules/courses-modules-get-by-course-id-and-module-id-request-dto.yaml'
+    CoursesModulesGetByCourseIdAndModuleIdResponseDto:
+      $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-response-dto.yaml'
     CategoriesGetAllResponseDto:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'
     PermissionsGetAllResponseDto:
