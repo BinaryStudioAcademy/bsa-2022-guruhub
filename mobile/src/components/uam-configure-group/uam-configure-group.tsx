@@ -118,7 +118,7 @@ const UAMConfigureGroup: FC = () => {
   };
 
   const handleCancel = async (): Promise<void> => {
-    if (isEdit) {
+    if (group) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
 

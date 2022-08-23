@@ -1,31 +1,33 @@
 import React from 'react';
 
-import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
+import {
+  FormControl,
+  PermissionsGetAllItemResponseDto,
+} from '~/common/types/types';
+import { Checkbox } from '~/components/common/common';
 import { PermissionTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
 import { PermissionsTableRow } from '~/components/uam-configure-group/common/types/types';
-import { ActionCell } from '~/components/uam-configure-group/components/action-cell/action-cell';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
+  control: FormControl;
   onToggle: (id: number) => void;
-  checkedPermissionIds: number[];
 };
 
 const getPermissionsRows = ({
   permissions,
   onToggle,
-  checkedPermissionIds,
+  control,
 }: Props): PermissionsTableRow[] => {
   return permissions.map((permission) => {
-    const name = `permissionIds.${permission.id}`;
-    const isChecked = checkedPermissionIds.includes(permission.id);
+    const handleCheckbox = (): void => onToggle(permission.id);
 
     return {
       [PermissionTableAccessor.CHECKBOX]: (
-        <ActionCell
-          name={name}
-          onToggle={(): void => onToggle(permission.id)}
-          isChecked={isChecked}
+        <Checkbox
+          name={`permissionIds.${permission.id}`}
+          control={control}
+          onToggle={handleCheckbox}
         />
       ),
       [PermissionTableAccessor.NAME]: permission.name,
