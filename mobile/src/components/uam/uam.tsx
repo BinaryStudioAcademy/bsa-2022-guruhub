@@ -36,6 +36,7 @@ const UAM: FC = () => {
           <View style={styles.buttonWrapper}>
             <Button
               label="Create group"
+              icon="plus"
               variant={AppButtonVariant.SECONDARY}
               onPress={handleGroupCreate}
             />

@@ -1,25 +1,52 @@
 import React, { FC } from 'react';
 
 import { AppButtonVariant } from '~/common/enums/enums';
-import { Pressable, Text } from '~/components/common/common';
+import { IconName } from '~/common/types/types';
+import { Icon, Pressable, Text } from '~/components/common/common';
 
 import { styles } from './styles';
 import { theme } from './theme';
 
 type Props = {
   label: string;
+  icon?: IconName;
   variant?: AppButtonVariant;
+  isDisabled?: boolean;
   onPress: () => void;
 };
 
 const Button: FC<Props> = ({
   label,
+  icon,
   variant = AppButtonVariant.PRIMARY,
+  isDisabled,
   onPress,
 }) => {
+  const textMarginLeft = icon ? 10 : 0;
+
   return (
-    <Pressable style={[styles.button, theme[variant].button]} onPress={onPress}>
-      <Text style={{ ...styles.label, ...theme[variant].text }}>{label}</Text>
+    <Pressable
+      style={[styles.button, theme[variant].button]}
+      disabled={isDisabled}
+      onPress={onPress}
+    >
+      {icon && (
+        <Icon
+          name={icon}
+          color={theme[variant].text.color}
+          width={20}
+          height={20}
+        />
+      )}
+      <Text
+        style={[
+          styles.label,
+          theme[variant].text,
+          { marginLeft: textMarginLeft },
+        ]}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 };
