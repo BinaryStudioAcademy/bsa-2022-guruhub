@@ -18,6 +18,9 @@ const {
   EDX_CLIENT_ID,
   EDX_CLIENT_SECRET,
   EDX_BASE_URL,
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+  AWS_REGION,
 } = process.env;
 
 const ENV = {
@@ -48,6 +51,11 @@ const ENV = {
     BASE_URL: EDX_BASE_URL as string,
     CLIENT_ID: EDX_CLIENT_ID as string,
     CLIENT_SECRET: EDX_CLIENT_SECRET as string,
+  },
+  AWS: {
+    ACCESS_KEY_ID: AWS_ACCESS_KEY_ID as string,
+    SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY as string,
+    REGION: AWS_REGION as string,
   },
 };
 

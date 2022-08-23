@@ -15,10 +15,17 @@ export {
   type CourseModuleCreateArgumentsDto,
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
-  type CourseModulesGetRequestDto,
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllRequestParamsDto,
 } from './course-module/course-module';
 export { type EdxCourseGetResponseDto } from './edx/edx';
 export { type EncryptionData } from './encryption/encryption';
+export {
+  type FileGetResponseDto,
+  type FileGetUrlRequestDto,
+  type FileTableInsertRequestDto,
+  type FileUploadRequestDto,
+} from './file/file';
 export {
   type GroupsConfigureRequestDto,
   type GroupsDeleteRequestParamDto,
