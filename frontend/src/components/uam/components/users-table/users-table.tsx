@@ -34,20 +34,26 @@ const UsersTable: FC = () => {
     dispatch(uamActions.deleteUser({ id: userId }));
   };
 
-  const columns = useMemo<Column<UsersTableRow>[]>(() => {
-    return getUsersColumns(user!.id, handleUserDelete);
+  const columns = useMemo<Column<UsersTableRow>[] | undefined>(() => {
+    if (user) {
+      return getUsersColumns(user.id, handleUserDelete);
+    }
   }, []);
 
   return (
     <div className={styles.usersTable}>
-      <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={users} columns={columns} />
-      <Pagination
-        currentPage={page}
-        onPageChange={handlePageChange}
-        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-        totalCount={usersTotalCount}
-      />
+      {columns && (
+        <>
+          <h1 className={styles.usersTableHeading}>Users</h1>
+          <Table data={users} columns={columns} />
+          <Pagination
+            currentPage={page}
+            onPageChange={handlePageChange}
+            pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+            totalCount={usersTotalCount}
+          />
+        </>
+      )}
     </div>
   );
 };
