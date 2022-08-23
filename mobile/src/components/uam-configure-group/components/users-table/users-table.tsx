@@ -7,7 +7,6 @@ import {
   getUserColumns,
   getUserRows,
 } from '~/components/uam-configure-group/helpers/helpers';
-import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -21,7 +20,7 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
-  checkedIds?: number[];
+  checkedIds: number[];
 };
 
 const UsersTable: FC<Props> = ({
@@ -30,20 +29,12 @@ const UsersTable: FC<Props> = ({
   pagination,
   checkedIds,
 }) => {
-  const { control, reset } = useAppForm({ defaultValues: {} });
   const userRows = getUserRows({
     users: users.items,
     onToggle: onCheckboxToggle,
-    control,
     checkedUserIds: checkedIds,
   });
   const userColumns = getUserColumns();
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => reset({});
-    }, []),
-  );
 
   return (
     <View style={styles.tableContainer}>

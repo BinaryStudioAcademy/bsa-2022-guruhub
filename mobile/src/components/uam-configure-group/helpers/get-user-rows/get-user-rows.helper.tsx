@@ -1,32 +1,31 @@
 import React from 'react';
 
-import { FormControl, UsersGetResponseDto } from '~/common/types/types';
-import { Checkbox } from '~/components/common/common';
+import { UsersGetResponseDto } from '~/common/types/types';
 import { UserTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
 import { UsersTableRow } from '~/components/uam-configure-group/common/types/types';
 
+import { ActionCell } from '../../components/action-cell/action-cell';
+
 type Props = {
   users: UsersGetResponseDto[];
-  control: FormControl;
   onToggle: (id: number) => void;
-  checkedUserIds?: number[];
+  checkedUserIds: number[];
 };
 
 const getUserRows = ({
   users,
-  control,
   onToggle,
   checkedUserIds,
 }: Props): UsersTableRow[] => {
   return users.map((user) => {
+    const name = `userIds.${user.id}`;
     const isChecked = checkedUserIds?.includes(user.id);
     const handleCheckbox = (): void => onToggle(user.id);
 
     return {
       [UserTableAccessor.CHECKBOX]: (
-        <Checkbox
-          name={`userIds.${user.id}`}
-          control={control}
+        <ActionCell
+          name={name}
           onToggle={handleCheckbox}
           isChecked={isChecked}
         />

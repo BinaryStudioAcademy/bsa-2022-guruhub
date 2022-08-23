@@ -7,7 +7,6 @@ import {
   getPermissionsColumns,
   getPermissionsRows,
 } from '~/components/uam-configure-group/helpers/helpers';
-import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -18,7 +17,7 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
-  checkedIds?: number[];
+  checkedIds: number[];
 };
 
 const PermissionsTable: FC<Props> = ({
@@ -27,21 +26,12 @@ const PermissionsTable: FC<Props> = ({
   pagination,
   checkedIds,
 }) => {
-  const { control, reset } = useAppForm({ defaultValues: {} });
-
   const permissionRows = getPermissionsRows({
     permissions: permissions,
     onToggle: onCheckboxToggle,
-    control,
     checkedPermissionIds: checkedIds,
   });
   const permissionColumns = getPermissionsColumns();
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => reset({});
-    }, []),
-  );
 
   return (
     <View style={styles.tableContainer}>
