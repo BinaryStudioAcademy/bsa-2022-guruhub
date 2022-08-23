@@ -50,7 +50,10 @@ const initCourseModulesApi: FastifyPluginAsync<Options> = async (
       req: FastifyRequest<{ Params: CourseModulesGetAllRequestParamsDto }>,
       rep,
     ) {
-      rep.status(HttpCode.OK).send({ items: [] });
+      const { courseId } = req.params;
+      const items = await courseModuleService.getModulesByCourseId(courseId);
+
+      rep.status(HttpCode.OK).send({ items });
     },
   });
 };

@@ -36,6 +36,14 @@ class CourseModule {
     });
   }
 
+  public async getModulesByCourseId(
+    courseId: number,
+  ): Promise<CourseModulesGetAllItemResponseDto[]> {
+    const modules = await this.#moduleRepository.getAllByCourseId({ courseId });
+
+    return modules;
+  }
+
   public async createModulesByCourseId(
     serviceCourseId: number,
     dbCourseId: number,
