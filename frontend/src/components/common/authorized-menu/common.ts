@@ -19,7 +19,7 @@ const routes: NavigationMenuItem[] = [
       },
       {
         name: 'Interviews',
-        iconName: 'education',
+        iconName: 'interview',
         href: AppRoute.INTERVIEW,
         permissions: [
           PermissionKey.MANAGE_INTERVIEWS,
