@@ -30,8 +30,6 @@ const TableName = {
 
 const ColumnName = {
   ID: 'id',
-  KEY: 'key',
-  EMAIL: 'email',
 } as const;
 
 const usersToCreate: UserCreateData[] = [
@@ -85,7 +83,7 @@ async function hashUserPassword(password: string): Promise<UserPasswordData> {
   return { salt, hash };
 }
 
-async function up(knex: Knex): Promise<void> {
+async function seed(knex: Knex): Promise<void> {
   const permissions = await knex(TableName.PERMISSIONS).select('*');
 
   await Promise.all(
@@ -103,7 +101,7 @@ async function up(knex: Knex): Promise<void> {
 
       const [{ id: userId }] = await knex(TableName.USERS)
         .insert(userData)
-        .returning('id');
+        .returning(ColumnName.ID);
 
       if (!group) {
         return;
@@ -113,7 +111,7 @@ async function up(knex: Knex): Promise<void> {
 
       const [{ id: groupId }] = await knex(TableName.GROUPS)
         .insert(groupData)
-        .returning('id');
+        .returning(ColumnName.ID);
 
       const groupsToPermissionsData = group.permissions.map(
         (permissionKey) => ({
@@ -133,24 +131,4 @@ async function up(knex: Knex): Promise<void> {
   );
 }
 
-async function down(knex: Knex): Promise<void> {
-  await knex(TableName.USERS)
-    .whereIn(
-      ColumnName.EMAIL,
-      usersToCreate.map(({ email }) => email),
-    )
-    .del();
-
-  await knex(TableName.GROUPS)
-    .whereIn(
-      ColumnName.KEY,
-      (
-        usersToCreate
-          .filter(({ group }) => Boolean(group))
-          .map(({ group }) => group) as GroupCreateData[]
-      ).map(({ key }) => key),
-    )
-    .del();
-}
-
-export { down, up };
+export { seed };
