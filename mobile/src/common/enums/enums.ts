@@ -12,4 +12,4 @@ export {
 export { NotificationType } from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permission/permission';
-export { AppColor, AppFontFamily } from './ui/ui';
+export { AppButtonVariant, AppColor, AppFontFamily } from './ui/ui';

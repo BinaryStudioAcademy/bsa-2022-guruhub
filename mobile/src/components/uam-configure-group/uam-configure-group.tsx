@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import {
+  AppButtonVariant,
   AppScreenName,
   DataStatus,
   PaginationDefaultValue,
@@ -179,7 +180,11 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          <Button label="Cancel" onPress={handleCancel} />
+          <Button
+            label="Cancel"
+            variant={AppButtonVariant.SECONDARY}
+            onPress={handleCancel}
+          />
           <Button
             label={`${isEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
