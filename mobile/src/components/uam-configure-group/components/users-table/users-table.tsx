@@ -21,7 +21,7 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
-  checkedIds?: number[] | [];
+  checkedIds?: number[];
 };
 
 const UsersTable: FC<Props> = ({
