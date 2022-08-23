@@ -8,10 +8,11 @@ declare namespace globalThis {
     users: {
       student: UserSignInRequestDto;
       mentor: UserSignInRequestDto;
-      interviewManager: UserSignInRequestDto;
-      uamManager: UserSignInRequestDto;
+      interviewsManager: UserSignInRequestDto;
+      interviewer: UserSignInRequestDto;
       categoriesManager: UserSignInRequestDto;
       mentoringManager: UserSignInRequestDto;
+      uamManager: UserSignInRequestDto;
     };
   };
 }
