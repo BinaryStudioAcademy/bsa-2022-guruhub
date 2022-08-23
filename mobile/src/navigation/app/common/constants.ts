@@ -13,6 +13,7 @@ import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
 import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
+import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
@@ -34,6 +35,7 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
 const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   {
     name: 'Menu',
+    isVisible: true,
     subroutes: [
       {
         name: AppScreenName.COURSES,
@@ -57,6 +59,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   },
   {
     name: 'Account',
+    isVisible: true,
     subroutes: [
       {
         name: AppScreenName.BILLING,
@@ -74,6 +77,24 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.UAM,
         icon: 'uam',
         component: UAM,
+        permissions: [PermissionKey.MANAGE_UAM],
+      },
+    ],
+  },
+  {
+    name: 'UAM Configure Group',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.UAM_GROUPS_CREATE,
+        icon: 'uam',
+        component: UAMConfigureGroup,
+        permissions: [PermissionKey.MANAGE_UAM],
+      },
+      {
+        name: AppScreenName.UAM_GROUPS_EDIT,
+        icon: 'uam',
+        component: UAMConfigureGroup,
         permissions: [PermissionKey.MANAGE_UAM],
       },
     ],
