@@ -1,10 +1,19 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, {
+  FC,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 
 import { AppColor, DataStatus } from '~/common/enums/enums';
 import { Spinner } from '~/components/common/common';
-import { CourseCard } from '~/components/courses/components/components';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import {
+  AddCourseButton,
+  CourseCard,
+} from '~/components/courses/components/components';
+import { useAppDispatch, useAppSelector, useFocusEffect } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
@@ -34,6 +43,12 @@ const Courses: FC = (): ReactElement => {
     handleCoursesLoad();
   }, [dispatch, setIsLoading]);
 
+  useFocusEffect(
+    useCallback(() => {
+      handleCoursesLoad();
+    }, []),
+  );
+
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
   }
@@ -56,6 +71,7 @@ const Courses: FC = (): ReactElement => {
         onEndReached={handleLoadMoreCourses}
         onEndReachedThreshold={0.1}
       />
+      <AddCourseButton />
     </View>
   );
 };
