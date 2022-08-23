@@ -165,13 +165,13 @@ class Course {
   public async updateCategory(
     courseId: number,
     newCategoryId: number,
-  ): Promise<CourseGetResponseDto | null> {
+  ): Promise<CourseGetResponseDto> {
     const course = await this.#courseRepository.updateCategory(
       courseId,
       newCategoryId,
     );
 
-    return course ?? null;
+    return course;
   }
 }
 
