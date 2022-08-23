@@ -30,6 +30,7 @@ import {
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
+import { BackButton } from '~/navigation/app/components/components';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
 import { groupUpdate } from '~/validation-schemas/validation-schemas';
 
@@ -117,13 +118,19 @@ const UAMConfigureGroup: FC = () => {
     navigation.navigate(AppScreenName.UAM);
   };
 
-  const handleCancel = async (): Promise<void> => {
+  const handleBack = async (): Promise<void> => {
     if (group) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
 
     navigation.navigate(AppScreenName.UAM);
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={handleBack} />,
+    });
+  }, []);
 
   useEffect(() => {
     dispatch(groupsCreationActions.getPermissions());
@@ -179,7 +186,6 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          <Button label="Cancel" onPress={handleCancel} />
           <Button
             label={`${isEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
