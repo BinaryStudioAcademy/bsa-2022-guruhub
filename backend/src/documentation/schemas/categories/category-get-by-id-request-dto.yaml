@@ -1,0 +1,5 @@
+type: object
+properties:
+  id:
+    type: number
+    example: 1
