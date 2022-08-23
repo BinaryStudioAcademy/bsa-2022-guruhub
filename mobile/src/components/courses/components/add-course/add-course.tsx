@@ -1,9 +1,8 @@
 import React, { FC, useCallback } from 'react';
-import { View } from 'react-native';
 
 import { AppScreenName } from '~/common/enums/enums';
 import { CourseCreateRequestDto } from '~/common/types/types';
-import { Button, Input, Text } from '~/components/common/common';
+import { Button, Input, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppForm,

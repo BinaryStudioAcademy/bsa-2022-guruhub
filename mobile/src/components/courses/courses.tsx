@@ -7,19 +7,22 @@ import React, {
 } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 
-import { AppColor, DataStatus } from '~/common/enums/enums';
-import { Spinner } from '~/components/common/common';
+import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import { FAB, Spinner } from '~/components/common/common';
+import { CourseCard } from '~/components/courses/components/components';
 import {
-  AddCourseButton,
-  CourseCard,
-} from '~/components/courses/components/components';
-import { useAppDispatch, useAppSelector, useFocusEffect } from '~/hooks/hooks';
+  useAppDispatch,
+  useAppNavigate,
+  useAppSelector,
+  useFocusEffect,
+} from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
 
@@ -37,6 +40,10 @@ const Courses: FC = (): ReactElement => {
 
   const handleLoadMoreCourses = (): void => {
     //add fetch
+  };
+
+  const handleAddCourse = (): void => {
+    navigation.navigate(AppScreenName.ADD_COURSE);
   };
 
   useEffect(() => {
@@ -71,7 +78,7 @@ const Courses: FC = (): ReactElement => {
         onEndReached={handleLoadMoreCourses}
         onEndReachedThreshold={0.1}
       />
-      <AddCourseButton />
+      <FAB onPress={handleAddCourse} />
     </View>
   );
 };

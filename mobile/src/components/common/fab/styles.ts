@@ -14,12 +14,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flex: 1,
-    width: '100%',
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 50,
-    overflow: 'hidden',
   },
   pressed: {
     opacity: 0.9,

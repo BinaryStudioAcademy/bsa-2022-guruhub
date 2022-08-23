@@ -1,5 +1,6 @@
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
+export { FAB } from './fab/fab';
 export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';
