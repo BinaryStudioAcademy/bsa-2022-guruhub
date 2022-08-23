@@ -171,14 +171,14 @@ const UAMConfigureGroup: FC = () => {
           users={users}
           onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
-          checkedIds={isEdit ? group?.userIds : []}
+          checkedIds={isEdit && group ? group.userIds : []}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
           onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
-          checkedIds={isEdit ? group?.permissionIds : []}
+          checkedIds={isEdit && group ? group.permissionIds : []}
         />
         <View style={styles.buttonsContainer}>
           <Button label="Cancel" onPress={handleCancel} />
