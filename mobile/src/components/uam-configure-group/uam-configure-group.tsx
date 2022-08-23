@@ -148,7 +148,11 @@ const UAMConfigureGroup: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => reset({ name: '' });
+      return () => {
+        reset({ name: '' });
+        handleUserPageChange(PaginationDefaultValue.DEFAULT_PAGE);
+        handlePermissionsPageChange(PaginationDefaultValue.DEFAULT_PAGE);
+      };
     }, []),
   );
 
