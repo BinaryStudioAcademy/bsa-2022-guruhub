@@ -1,10 +1,9 @@
-import { HttpError } from 'guruhub-shared/exceptions/exceptions';
-
 import {
   CustomExceptionName,
   ExceptionMessage,
   HttpCode,
 } from '~/common/enums/enums';
+import { HttpError } from '~/exceptions/exceptions';
 
 type Constructor = {
   message?: ExceptionMessage | string;
