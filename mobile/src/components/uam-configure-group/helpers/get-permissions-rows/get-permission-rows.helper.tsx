@@ -12,20 +12,25 @@ type Props = {
   permissions: PermissionsGetAllItemResponseDto[];
   control: FormControl;
   onToggle: (id: number) => void;
+  checkedPermissionIds?: number[];
 };
 
 const getPermissionsRows = ({
   permissions,
   control,
   onToggle,
+  checkedPermissionIds,
 }: Props): PermissionsTableRow[] => {
   return permissions.map((permission) => {
+    const isChecked = checkedPermissionIds?.includes(permission.id);
+
     return {
       [PermissionTableAccessor.CHECKBOX]: (
         <Checkbox
           name={`permissionIds.${permission.id}`}
           control={control}
           onToggle={(): void => onToggle(permission.id)}
+          isChecked={isChecked}
         />
       ),
       [PermissionTableAccessor.NAME]: permission.name,

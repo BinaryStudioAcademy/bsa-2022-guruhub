@@ -18,12 +18,14 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
+  checkedIds?: number[];
 };
 
 const PermissionsTable: FC<Props> = ({
   permissions,
   onCheckboxToggle,
   pagination,
+  checkedIds,
 }) => {
   const { control, reset } = useAppForm({ defaultValues: {} });
 
@@ -31,6 +33,7 @@ const PermissionsTable: FC<Props> = ({
     permissions: permissions,
     onToggle: onCheckboxToggle,
     control,
+    checkedPermissionIds: checkedIds,
   });
   const permissionColumns = getPermissionsColumns();
 
