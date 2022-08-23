@@ -1,7 +1,4 @@
-import {
-  createDrawerNavigator,
-  DrawerNavigationOptions,
-} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
@@ -9,13 +6,11 @@ import {
   AppNavigationParamList,
   DrawerNavigationItem,
 } from '~/common/types/types';
-import { AddCourse } from '~/components/courses/components/add-course/add-course';
-import { UAMConfigureGroup } from '~/components/uam/edit-group/components/components';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 
 import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants';
-import { BackButton, DrawerContent } from './components/components';
+import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
@@ -47,23 +42,6 @@ const App: FC = () => {
           />
         );
       })}
-
-      <Drawer.Screen
-        name={AppScreenName.UAM_GROUPS_CREATE}
-        component={UAMConfigureGroup}
-      />
-      <Drawer.Screen
-        name={AppScreenName.UAM_GROUPS_EDIT}
-        component={UAMConfigureGroup}
-      />
-      <Drawer.Screen
-        name={AppScreenName.ADD_COURSE}
-        component={AddCourse}
-        options={({ navigation }): DrawerNavigationOptions => ({
-          headerLeft: () => <BackButton onPress={navigation.goBack} />,
-          headerTitleAlign: 'center',
-        })}
-      />
     </Drawer.Navigator>
   );
 };

@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
 import { CourseCreateRequestDto } from '~/common/types/types';
@@ -7,8 +7,11 @@ import {
   useAppDispatch,
   useAppForm,
   useAppNavigate,
+  useCallback,
+  useEffect,
   useFocusEffect,
 } from '~/hooks/hooks';
+import { BackButton } from '~/navigation/app/components/components';
 import { coursesActions } from '~/store/actions';
 import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -30,6 +33,13 @@ const AddCourse: FC = () => {
     await dispatch(coursesActions.addCourse(payload)).unwrap();
     navigation.navigate(AppScreenName.COURSES);
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={navigation.goBack} />,
+      headerTitleAlign: 'center',
+    });
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
