@@ -30,6 +30,7 @@
     "tsc-alias": "1.6.11"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.154.0",
     "@fastify/static": "6.5.0",
     "@fastify/swagger": "7.4.1",
     "axios": "0.27.2",

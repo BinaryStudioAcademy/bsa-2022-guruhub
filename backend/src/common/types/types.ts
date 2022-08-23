@@ -20,6 +20,12 @@ export {
 } from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {
+  type FileGetResponseDto,
+  type FileGetUrlRequestDto,
+  type FileTableInsertRequestDto,
+  type FileUploadRequestDto,
+} from './file/file';
+export {
   type GroupsConfigureRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsGetByIdResponseDto,
