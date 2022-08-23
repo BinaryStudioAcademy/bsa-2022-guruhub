@@ -15,11 +15,11 @@ class UserDetails {
     this.#userDetailsRepository = userDetailsRepository;
   }
 
-  public async updateUserDetails(
+  public async upsertUserDetails(
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto> {
-    const userDetails = await this.#userDetailsRepository.updateUserDetails(
+    const userDetails = await this.#userDetailsRepository.upsertUserDetails(
       userId,
       userDetailsUpdateInfoRequestDto,
     );

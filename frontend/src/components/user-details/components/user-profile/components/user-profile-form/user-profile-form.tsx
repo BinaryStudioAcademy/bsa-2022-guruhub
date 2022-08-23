@@ -1,6 +1,6 @@
-import { DataStatus, FormatDate } from 'common/enums/enums';
+import { DataStatus } from 'common/enums/enums';
 import { FC, UserDetailsUpdateInfoRequestDto } from 'common/types/types';
-import { Button, Input, Selector } from 'components/common/common';
+import { Button, Input, Select } from 'components/common/common';
 import { getFormattedDate, getNameOf } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -12,7 +12,7 @@ import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
-import { SelectorData } from './selector.data';
+import { SelectData } from './select.data';
 import styles from './styles.module.scss';
 
 const UserProfileForm: FC = () => {
@@ -27,10 +27,9 @@ const UserProfileForm: FC = () => {
       defaultValues: {
         ...DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
         ...userDetails,
-        dateOfBirth: getFormattedDate(
-          userDetails?.dateOfBirth ?? '',
-          FormatDate.YYYY_MM_DD,
-        ),
+        dateOfBirth: userDetails?.dateOfBirth
+          ? getFormattedDate(userDetails.dateOfBirth, 'yyyy-MM-dd')
+          : '',
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
@@ -43,11 +42,10 @@ const UserProfileForm: FC = () => {
     if (userDetails) {
       reset({
         fullName: userDetails.fullName,
-        gender: userDetails.gender ?? '',
-        dateOfBirth: getFormattedDate(
-          userDetails.dateOfBirth ?? '',
-          FormatDate.YYYY_MM_DD,
-        ),
+        gender: userDetails.gender,
+        dateOfBirth: userDetails.dateOfBirth
+          ? getFormattedDate(userDetails.dateOfBirth, 'yyyy-MM-dd')
+          : '',
       });
     }
   }, [userDetails]);
@@ -81,9 +79,9 @@ const UserProfileForm: FC = () => {
               />
             </div>
             <div className={styles.grid}>
-              <Selector
+              <Select
                 label="Gender"
-                options={SelectorData}
+                options={SelectData}
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
                 control={control}
                 errors={errors}

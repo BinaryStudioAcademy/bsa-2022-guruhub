@@ -1,6 +1,6 @@
-type SelectorOptions = {
+type SelectorOptions<T = string> = {
   name: string;
-  value: string;
+  value: T;
 };
 
 export { SelectorOptions };

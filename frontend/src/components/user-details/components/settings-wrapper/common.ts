@@ -1,30 +1,30 @@
-import { SettingsWrapperType } from 'common/enums/enums';
+import { AppRoute } from 'common/enums/enums';
 import { SettingsMenuItem } from 'common/types/types';
 
 const settingsTabs: SettingsMenuItem[] = [
   {
     name: 'Appearance',
-    tab: SettingsWrapperType.APPEARANCE,
+    href: AppRoute.APPEARANCE,
     iconColorClass: 'brandBlue100',
   },
   {
     name: 'Personal information',
-    tab: SettingsWrapperType.PERSONAL_INFORMATION,
+    href: AppRoute.PROFILE,
     iconColorClass: 'supportInfoBlue100',
   },
   {
     name: 'Security',
-    tab: SettingsWrapperType.SECURITY,
+    href: AppRoute.SECURITY,
     iconColorClass: 'brandPink100',
   },
   {
     name: 'Billing information',
-    tab: SettingsWrapperType.BILLING,
+    href: AppRoute.BILLING,
     iconColorClass: 'brandGreen100',
   },
   {
     name: 'Messages',
-    tab: SettingsWrapperType.MESSAGES,
+    href: AppRoute.MESSAGES,
     iconColorClass: 'brandYellow200',
   },
 ];

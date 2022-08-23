@@ -1,8 +1,8 @@
-import { UserWithDetails as UserWithDetailsM } from '~/data/models/models';
+import { UsersGetResponseDto } from '~/common/types/types';
 
 type UserWithDetails = {
   total: number;
-  results: UserWithDetailsM[];
+  results: UsersGetResponseDto[];
 };
 
 export { type UserWithDetails };

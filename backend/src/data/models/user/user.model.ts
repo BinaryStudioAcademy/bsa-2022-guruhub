@@ -26,7 +26,7 @@ class User extends Abstract {
           to: `${DbTableName.GROUPS}.id`,
         },
       },
-      user_details: {
+      userDetails: {
         relation: Model.HasOneRelation,
         modelClass: UserDetails,
         join: {

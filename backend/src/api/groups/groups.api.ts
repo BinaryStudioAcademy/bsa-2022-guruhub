@@ -97,6 +97,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: groupUpdateValidationSchema,
       params: groupUpdateParamsValidationSchema,
     },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{
         Body: GroupsUpdateRequestDto;

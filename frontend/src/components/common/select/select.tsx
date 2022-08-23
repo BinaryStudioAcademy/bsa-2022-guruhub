@@ -19,7 +19,7 @@ type Props = {
   label: string;
 };
 
-const Selector: FC<Props> = ({ name, control, errors, label, options }) => {
+const Select: FC<Props> = ({ name, control, errors, label, options }) => {
   const { field } = useFormControl({ name, control });
 
   return (
@@ -42,4 +42,4 @@ const Selector: FC<Props> = ({ name, control, errors, label, options }) => {
   );
 };
 
-export { Selector };
+export { Select };

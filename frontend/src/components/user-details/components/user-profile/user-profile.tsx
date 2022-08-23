@@ -7,12 +7,10 @@ const UserProfile: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.innerWrapper}>
-        <div className={styles.title}>Personal information</div>
-        <div className={styles.subtitle}>Profile</div>
-        <>
-          <AvatarWrapper />
-          <UserProfileForm />
-        </>
+        <h1 className={styles.title}>Personal information</h1>
+        <h2 className={styles.subtitle}>Profile</h2>
+        <AvatarWrapper />
+        <UserProfileForm />
       </div>
     </div>
   );

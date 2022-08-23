@@ -1,8 +1,8 @@
-import { SettingsWrapperType } from 'common/enums/enums';
+import { AppRoute } from 'common/enums/enums';
 
 type SettingsMenuItem = {
   name: string;
-  tab: SettingsWrapperType;
+  href: AppRoute;
   iconColorClass: string;
 };
 

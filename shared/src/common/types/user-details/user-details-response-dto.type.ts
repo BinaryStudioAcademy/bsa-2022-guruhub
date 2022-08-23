@@ -1,7 +1,9 @@
+import { UserGender } from '~/common/enums/enums';
+
 type UserDetailsResponseDto = {
   id: number;
   fullName: string;
-  gender: string | null;
+  gender: typeof UserGender | null;
   avatarUrl: string | null;
   dateOfBirth: string | null;
 };

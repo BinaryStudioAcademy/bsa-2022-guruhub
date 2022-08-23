@@ -1,13 +1,11 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  UsersByEmailResponseDto,
+  UsersGetResponseDto,
   UserWithDetails,
 } from '~/common/types/types';
-import {
-  Permission as PermissionM,
-  User as UserM,
-  UserWithDetails as UserWithDetailsM,
-} from '~/data/models/models';
+import { Permission as PermissionM, User as UserM } from '~/data/models/models';
 
 type Constructor = {
   UserModel: typeof UserM;
@@ -24,12 +22,12 @@ class User {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<UserWithDetailsM>
+    EntityPagination<UsersGetResponseDto>
   > {
     const result = await this.#UserModel
       .query()
-      .select('users.id', 'users.created_at', 'email', 'full_name')
-      .joinRelated('user_details')
+      .select('users.id', 'users.createdAt', 'email', 'fullName')
+      .joinRelated('userDetails')
       .page(page, count)
       .castTo<UserWithDetails>();
 
@@ -39,26 +37,35 @@ class User {
     };
   }
 
-  public async getByEmail(email: string): Promise<UserWithDetailsM | null> {
+  public async getByEmail(
+    email: string,
+  ): Promise<UsersByEmailResponseDto | null> {
     const user = await this.#UserModel
       .query()
-      .select('users.id', 'users.created_at', 'email', 'full_name')
-      .joinRelated('user_details')
+      .select(
+        'users.id',
+        'users.createdAt',
+        'email',
+        'fullName',
+        'passwordHash',
+        'passwordSalt',
+      )
+      .joinRelated('userDetails')
       .where({ email })
       .first()
-      .castTo<UserWithDetailsM>();
+      .castTo<UsersByEmailResponseDto>();
 
     return user ?? null;
   }
 
-  public async getById(id: string): Promise<UserWithDetailsM | null> {
+  public async getById(id: string): Promise<UsersGetResponseDto | null> {
     const user = await this.#UserModel
       .query()
-      .select('users.id', 'users.created_at', 'email', 'full_name')
-      .joinRelated('user_details')
+      .select('users.id', 'users.createdAt', 'email', 'fullName')
+      .joinRelated('userDetails')
       .where({ 'users.id': id })
       .first()
-      .castTo<UserWithDetailsM>();
+      .castTo<UsersGetResponseDto>();
 
     return user ?? null;
   }

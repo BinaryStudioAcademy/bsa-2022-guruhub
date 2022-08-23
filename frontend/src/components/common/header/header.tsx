@@ -3,7 +3,6 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
-import { getValidClasses } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -24,8 +23,10 @@ const Header: FC = () => {
   const isRoot = location.pathname === AppRoute.ROOT;
   const hasUser = Boolean(user);
 
-  const handlePopupOpen = (): void =>
+  const handlePopupOpen = (evt: React.MouseEvent | void): void => {
+    evt?.stopPropagation();
     setIsMenuPopupVisible(!isMenuPopupVisible);
+  };
 
   const handleSearch = (search: string): void => {
     dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
@@ -50,7 +51,7 @@ const Header: FC = () => {
                   src={defaultUserAvatar}
                   alt="user avatar"
                   isCircular
-                  classes={getValidClasses(styles.img)}
+                  classes={styles.img}
                 />
               </div>
             </button>

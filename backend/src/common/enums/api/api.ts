@@ -5,6 +5,7 @@ export {
   CategoriesApiPath,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
   PermissionApiPath,
   UserDetailsApiPath,
   UsersApiPath,

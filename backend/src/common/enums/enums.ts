@@ -5,6 +5,7 @@ export {
   ControllerHook,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
   PermissionApiPath,
   UserDetailsApiPath,
   UsersApiPath,
@@ -17,4 +18,5 @@ export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { StringCase } from './string/string';
+export { UserGender } from './user-gender/user-gender';
 export { VendorKey } from './vendor/vendor';

@@ -1,6 +1,8 @@
+import { UserGender } from '~/common/enums/enums';
+
 type UserDetailsUpdateInfoRequestDto = {
   fullName: string;
-  gender: string | null;
+  gender: typeof UserGender | null;
   dateOfBirth: string | null;
 };
 

@@ -1,21 +1,14 @@
 import { format, formatDistance } from 'date-fns';
 
-import { FormatDate } from '~/common/enums/enums';
+type FormatDate = 'distance' | 'yyyy-MM-dd';
 
 const getFormattedDate = (date: string, formatDate: FormatDate): string => {
   switch (formatDate) {
-    case FormatDate.DISTANCE: {
+    case 'distance': {
       return formatDistance(new Date(date), new Date());
     }
-    case FormatDate.YYYY_MM_DD: {
-      if (date.trim() === '') {
-        return '';
-      }
-
+    case 'yyyy-MM-dd': {
       return format(new Date(date), formatDate);
-    }
-    default: {
-      return '';
     }
   }
 };

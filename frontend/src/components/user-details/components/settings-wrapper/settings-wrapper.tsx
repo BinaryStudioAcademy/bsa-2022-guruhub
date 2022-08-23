@@ -1,28 +1,31 @@
-import { SettingsWrapperType } from 'common/enums/enums';
 import { FC } from 'common/types/types';
+import { useMatch, useResolvedPath } from 'hooks/hooks';
 
 import { settingsTabs } from './common';
 import { SettingsMenuItem } from './components/settings-menu-item/settings-menu-item';
 import styles from './styles.module.scss';
 
-type Props = {
-  selectedTab: number;
-  onHandleChangeTab: (tab: SettingsWrapperType) => void;
-};
-const SettingsWrapper: FC<Props> = ({ selectedTab, onHandleChangeTab }) => {
+const SettingsWrapper: FC = () => {
   return (
     <div className={styles.menu}>
-      <div className={styles.title}>Settings</div>
+      <h1 className={styles.title}>Settings</h1>
       <div className={styles.links}>
-        {settingsTabs.map(({ name, tab, iconColorClass }) => {
+        {settingsTabs.map(({ name, href, iconColorClass }) => {
+          const resolvedPath = useResolvedPath(href);
+          const isCurrentRoute = Boolean(
+            useMatch({
+              path: resolvedPath.pathname,
+              end: true,
+            }),
+          );
+
           return (
             <SettingsMenuItem
               iconColorClass={iconColorClass}
-              key={tab}
-              tab={tab}
+              key={name}
               name={name}
-              isCurrentRoute={selectedTab === tab}
-              onHandleChangeTab={onHandleChangeTab}
+              href={href}
+              isCurrentRoute={isCurrentRoute}
             />
           );
         })}

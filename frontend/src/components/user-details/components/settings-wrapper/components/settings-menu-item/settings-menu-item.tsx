@@ -1,5 +1,6 @@
-import { SettingsWrapperType } from 'common/enums/enums';
+import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
+import { Link } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
@@ -8,23 +9,17 @@ type Props = {
   iconColorClass: string;
   name: string;
   isCurrentRoute: boolean;
-  tab: SettingsWrapperType;
-  onHandleChangeTab: (tab: SettingsWrapperType) => void;
+  href: AppRoute;
 };
 
 const SettingsMenuItem: FC<Props> = ({
   iconColorClass,
   name,
-  tab,
+  href,
   isCurrentRoute,
-  onHandleChangeTab,
 }) => {
-  const handleChangeTab = (): void => {
-    onHandleChangeTab(tab);
-  };
-
   return (
-    <div onClick={handleChangeTab}>
+    <Link to={href}>
       <div
         className={getValidClasses(
           styles.link,
@@ -47,7 +42,7 @@ const SettingsMenuItem: FC<Props> = ({
           {name}
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

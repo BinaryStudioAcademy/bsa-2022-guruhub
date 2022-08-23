@@ -12,7 +12,7 @@ class UserDetails {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  public updateUserDetails(
+  public upsertUserDetails(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
@@ -26,7 +26,7 @@ class UserDetails {
         dateOfBirth,
         userId,
       })
-      .onConflict(['user_id'])
+      .onConflict(['userId'])
       .merge(userDetails)
       .execute();
   }

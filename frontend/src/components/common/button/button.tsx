@@ -13,8 +13,8 @@ type Props = {
   type?: 'button' | 'submit';
   btnType?: 'filled' | 'outlined' | 'upload' | 'icon';
   to?: AppRoute;
-  onClick?: () => void;
   classes?: string;
+  onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
 };
 
