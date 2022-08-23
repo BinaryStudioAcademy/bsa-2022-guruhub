@@ -18,12 +18,13 @@ const ModulesCardsContainer: FC<Props> = ({ modules }) => {
       {modules.map((courseModule) => {
         return (
           <Link
+            key={courseModule.id}
             to={
               `${AppRoute.COURSES}/${course?.id}/modules/${courseModule.id}` as AppRoute
             }
             className={styles.linkToModule}
           >
-            <li key={courseModule.id} className={styles.moduleCardContainer}>
+            <li className={styles.moduleCardContainer}>
               <ModuleCard
                 title={courseModule.title}
                 description={courseModule.description}
