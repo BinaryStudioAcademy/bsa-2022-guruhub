@@ -13,3 +13,5 @@ delete:
       description: User successfully deleted
     '404':
       description: User to delete not found
+    '400':
+      'description': User is forbidden to delete himself

@@ -19,6 +19,7 @@ const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
   const { users, usersTotalCount } = useAppSelector((state) => state.uam);
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(
@@ -34,7 +35,7 @@ const UsersTable: FC = () => {
   };
 
   const columns = useMemo<Column<UsersTableRow>[]>(() => {
-    return getUsersColumns(handleUserDelete);
+    return getUsersColumns(user!.id, handleUserDelete);
   }, []);
 
   return (

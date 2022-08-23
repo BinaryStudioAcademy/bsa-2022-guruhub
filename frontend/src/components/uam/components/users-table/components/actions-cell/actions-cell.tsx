@@ -3,22 +3,19 @@ import {
   UsersTableActionsProps,
   UsersTableRow,
 } from 'components/uam/common/types/types';
-import { useAppSelector } from 'hooks/hooks';
 import { FC } from 'react';
 import { CellProps } from 'react-table';
 
 const ActionsCell: FC<CellProps<UsersTableRow, UsersTableActionsProps>> = ({
-  value: { id, onDelete },
+  value: { id, onDelete, hasSame },
 }) => {
-  const { user } = useAppSelector((state) => state.auth);
-
   const handleDelete = (): void => {
     onDelete(id);
   };
 
   return (
     <div>
-      {user?.id !== id && (
+      {!hasSame && (
         <IconButton
           iconName="delete"
           onClick={handleDelete}

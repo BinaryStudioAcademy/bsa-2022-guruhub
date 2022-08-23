@@ -8,6 +8,7 @@ import { Column } from 'react-table';
 import { ActionsCell, DateCell } from '../components/components';
 
 const getUsersColumns = (
+  userId: number,
   onUserDelete: (userId: number) => void,
 ): Column<UsersTableRow>[] => {
   return [
@@ -33,6 +34,7 @@ const getUsersColumns = (
       accessor: ({ id }: UsersTableRow): UsersTableActionsProps => ({
         onDelete: onUserDelete,
         id,
+        hasSame: userId === id,
       }),
       Cell: ActionsCell,
     },
