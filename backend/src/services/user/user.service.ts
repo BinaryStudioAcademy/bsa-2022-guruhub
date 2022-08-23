@@ -129,12 +129,9 @@ class User {
     }));
   }
 
-  public async delete(
-    userId: number,
-    id: number,
-  ): Promise<boolean | undefined> {
+  public async delete(userId: number, id: number): Promise<boolean> {
     if (userId === id) {
-      return;
+      return false;
     }
     const deletedUsersCount = await this.#userRepository.delete(id);
 

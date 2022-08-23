@@ -62,14 +62,10 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { id } = req.params;
 
       const isDeleted = await userService.delete(req.user.id, Number(id));
-      const status =
-        isDeleted === undefined
-          ? HttpCode.BAD_REQUEST
-          : isDeleted
-          ? HttpCode.OK
-          : HttpCode.NOT_FOUND;
 
-      return rep.status(status).send(isDeleted);
+      return rep
+        .status(isDeleted ? HttpCode.NO_CONTENT : HttpCode.NOT_FOUND)
+        .send(isDeleted);
     },
   });
 };
