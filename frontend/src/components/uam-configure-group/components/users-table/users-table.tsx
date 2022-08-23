@@ -47,9 +47,6 @@ const UsersTable: FC<Props> = ({
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         totalCount={usersTotalCount}
       />
-      <span className={styles.groupWorkersAmount}>
-        {usersTotalCount} results
-      </span>
     </div>
   );
 };

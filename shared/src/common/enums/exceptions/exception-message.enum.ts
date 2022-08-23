@@ -14,6 +14,7 @@ enum ExceptionMessage {
   COURSE_EXIST = 'Course already exists.',
   INVALID_URL_HOST = 'URL is invalid. Only courses from Udemy are supported.',
   PERMISSION_LACK = 'You do not have permission to access this resource.',
+  STORAGE_NOT_FOUND = 'Storage was not found',
 }
 
 export { ExceptionMessage };

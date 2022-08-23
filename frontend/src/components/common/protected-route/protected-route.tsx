@@ -27,6 +27,17 @@ const ProtectedRoute: FC<Props> = ({
 
   const hasUser = Boolean(user);
 
+  useEffect(() => {
+    if (hasUser && !hasUserPermission) {
+      dispatch(
+        appActions.notify({
+          type: NotificationType.ERROR,
+          message: ExceptionMessage.PERMISSION_LACK,
+        }),
+      );
+    }
+  }, [dispatch, hasUser]);
+
   if (!hasUser) {
     return <Navigate to={redirectTo} />;
   }
@@ -35,17 +46,6 @@ const ProtectedRoute: FC<Props> = ({
     permissionKeys: permissions,
     userPermissions: (user as UserWithPermissions).permissions,
   });
-
-  useEffect(() => {
-    if (!hasUserPermission) {
-      dispatch(
-        appActions.notify({
-          type: NotificationType.ERROR,
-          message: ExceptionMessage.PERMISSION_LACK,
-        }),
-      );
-    }
-  }, [dispatch, hasUserPermission]);
 
   if (!hasUserPermission) {
     return <Navigate to={redirectTo} />;
