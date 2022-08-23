@@ -30,6 +30,8 @@ paths:
   # Courses Modules
   /courses/:courseId/modules:
     $ref: './endpoints/courses-modules/courses-modules-get-all-by-course-id.yaml'
+  /courses/:courseId/modules/:moduleId:
+    $ref: './endpoints/courses-modules/courses-modules-get-by-course-id-and-module-id.yaml'
   # Categories
   /categories:
     $ref: './endpoints/categories/categories.yaml'
@@ -73,6 +75,10 @@ components:
     CoursesModulesGetAllByCourseIdRequestDto:
       $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-request-dto.yaml'
     CoursesModulesGetAllByCourseIdResponseDto:
+      $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-response-dto.yaml'
+    CoursesModulesGetByCourseIdAndModuleIdRequestDto:
+      $ref: './schemas/courses-modules/courses-modules-get-by-course-id-and-module-id-request-dto.yaml'
+    CoursesModulesGetByCourseIdAndModuleIdResponseDto:
       $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-response-dto.yaml'
     CategoriesGetAllResponseDto:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'

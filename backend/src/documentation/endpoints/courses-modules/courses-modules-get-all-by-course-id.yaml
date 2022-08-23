@@ -1,5 +1,5 @@
 get:
-  summary: Get Course Module By Id
+  summary: Get Course Modules By Course Id
   tags:
     - coursesModules
   parameters:
