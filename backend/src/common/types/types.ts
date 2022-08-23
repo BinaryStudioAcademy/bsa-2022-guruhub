@@ -15,6 +15,7 @@ export {
   type CourseModuleCreateArgumentsDto,
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
+  type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
 } from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
