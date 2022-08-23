@@ -1,6 +1,6 @@
-enum AppButtonVariant {
+enum ButtonVariant {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
 }
 
-export { AppButtonVariant };
+export { ButtonVariant };

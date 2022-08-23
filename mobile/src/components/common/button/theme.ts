@@ -1,7 +1,7 @@
-import { AppButtonVariant, AppColor } from '~/common/enums/enums';
+import { AppColor, ButtonVariant } from '~/common/enums/enums';
 
 const theme = {
-  [AppButtonVariant.PRIMARY]: {
+  [ButtonVariant.PRIMARY]: {
     text: {
       color: AppColor.TEXT.GRAY_100,
     },
@@ -9,7 +9,7 @@ const theme = {
       backgroundColor: AppColor.BRAND.BLUE_100,
     },
   },
-  [AppButtonVariant.SECONDARY]: {
+  [ButtonVariant.SECONDARY]: {
     text: {
       color: AppColor.BRAND.BLUE_100,
     },

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppButtonVariant } from '~/common/enums/enums';
+import { ButtonVariant } from '~/common/enums/enums';
 import { IconName } from '~/common/types/types';
 import { Icon, Pressable, Text } from '~/components/common/common';
 
@@ -10,7 +10,7 @@ import { theme } from './theme';
 type Props = {
   label: string;
   icon?: IconName;
-  variant?: AppButtonVariant;
+  variant?: ButtonVariant;
   isDisabled?: boolean;
   onPress: () => void;
 };
@@ -18,7 +18,7 @@ type Props = {
 const Button: FC<Props> = ({
   label,
   icon,
-  variant = AppButtonVariant.PRIMARY,
+  variant = ButtonVariant.PRIMARY,
   isDisabled,
   onPress,
 }) => {

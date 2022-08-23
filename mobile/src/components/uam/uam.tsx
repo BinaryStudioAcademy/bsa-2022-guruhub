@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 
-import {
-  AppButtonVariant,
-  AppScreenName,
-  DataStatus,
-} from '~/common/enums/enums';
+import { AppScreenName, ButtonVariant, DataStatus } from '~/common/enums/enums';
 import { ScrollView, Spinner, View } from '~/components/common/common';
 import { useAppNavigate, useAppSelector } from '~/hooks/hooks';
 
@@ -37,7 +33,7 @@ const UAM: FC = () => {
             <Button
               label="Create group"
               icon="plus"
-              variant={AppButtonVariant.SECONDARY}
+              variant={ButtonVariant.SECONDARY}
               onPress={handleGroupCreate}
             />
           </View>
