@@ -19,6 +19,10 @@ export {
 } from './course-module/course-module';
 export { type EncryptionData } from './encryption/encryption';
 export {
+  type FileTableInsertRequestDto,
+  type FileUploadRequestDto,
+} from './file/file';
+export {
   type GroupsConfigureRequestDto,
   type GroupsDeleteRequestParamDto,
   type GroupsGetByIdResponseDto,
@@ -40,10 +44,6 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
-export {
-  type StorageManipulateFileRequestDto,
-  type StorageUploadFileRequestDto,
-} from './storage/storage';
 export { type TokenPayload } from './token/token';
 export {
   type UdemyCourseGetResponseDto,

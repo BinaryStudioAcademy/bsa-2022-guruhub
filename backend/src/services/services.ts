@@ -14,7 +14,7 @@ import {
 } from '~/data/repositories/repositories';
 
 import { Auth } from './auth/auth.service';
-import { Storage } from './aws/storage/storage.service';
+import { File } from './aws/file/file.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
@@ -95,12 +95,10 @@ const interview = new Interview({
   interviewRepository,
 });
 
-const storage = new Storage({
+const file = new File({
   region: ENV.AWS.REGION,
-  credentials: {
-    accessKeyId: ENV.AWS.ACCESS_KEY_ID,
-    secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
-  },
+  accessKeyId: ENV.AWS.ACCESS_KEY_ID,
+  secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
 });
 
 export {
@@ -109,12 +107,12 @@ export {
   courseCategory,
   courseModule,
   encrypt,
+  file,
   group,
   groupsToPermissions,
   http,
   interview,
   permission,
-  storage,
   token,
   udemy,
   user,

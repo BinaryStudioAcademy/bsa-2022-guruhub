@@ -11,7 +11,7 @@ type Constructor = {
   status?: HttpCode | number;
 };
 
-class StorageError extends HttpError {
+class FileError extends HttpError {
   public constructor({
     message = ExceptionMessage.STORAGE_NOT_FOUND,
     status = HttpCode.NOT_FOUND,
@@ -21,4 +21,4 @@ class StorageError extends HttpError {
   }
 }
 
-export { StorageError };
+export { FileError };
