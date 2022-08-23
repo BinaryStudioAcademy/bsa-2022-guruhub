@@ -12,6 +12,7 @@ enum DbTableName {
   INTERVIEWS = 'interviews',
   MENTORS_TO_COURSE_CATEGORIES = 'mentors_to_course_categories',
   FILES = 'files',
+  COURSES_TO_MENTORS = 'courses_to_mentors',
 }
 
 export { DbTableName };

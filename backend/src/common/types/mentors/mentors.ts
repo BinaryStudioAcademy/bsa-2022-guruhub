@@ -1,1 +1,4 @@
-export { type MentorForCategoryRequestDto } from 'guruhub-shared/common/types/types';
+export {
+  type MentorForCategoryRequestDto,
+  type MentorForCategoryResponseDto,
+} from 'guruhub-shared/common/types/types';
