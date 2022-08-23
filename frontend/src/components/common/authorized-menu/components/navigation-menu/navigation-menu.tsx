@@ -3,7 +3,7 @@ import {
   SubNavigationMenuItem,
   UserWithPermissions,
 } from 'common/types/types';
-import { useAppSelector, useMatch, useResolvedPath } from 'hooks/hooks';
+import { useMatch, useResolvedPath } from 'hooks/hooks';
 
 import { NavigationMenuItem } from './components/components';
 import { getPermittedSubroutes } from './helpers/helpers';
@@ -12,16 +12,12 @@ import styles from './styles.module.scss';
 type Props = {
   name: string;
   subroutes: SubNavigationMenuItem[];
+  user: UserWithPermissions;
   className?: string;
 };
 
-const NavigationMenu: FC<Props> = ({ name, subroutes, className }) => {
-  const { user } = useAppSelector((state) => state.auth);
-
-  const permittedSubroutes = getPermittedSubroutes(
-    subroutes,
-    user as UserWithPermissions,
-  );
+const NavigationMenu: FC<Props> = ({ name, subroutes, className, user }) => {
+  const permittedSubroutes = getPermittedSubroutes(subroutes, user);
 
   return (
     <div className={className}>

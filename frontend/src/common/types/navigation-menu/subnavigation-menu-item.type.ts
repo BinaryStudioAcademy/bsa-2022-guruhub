@@ -6,7 +6,7 @@ type SubNavigationMenuItem = {
   name: string;
   iconName: IconName;
   href: AppRoute;
-  permissions?: PermissionKey[];
+  permissions: PermissionKey[];
 };
 
 export { SubNavigationMenuItem };

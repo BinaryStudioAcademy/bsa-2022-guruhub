@@ -9,6 +9,7 @@ const routes: NavigationMenuItem[] = [
         name: 'Courses',
         iconName: 'course',
         href: AppRoute.ROOT,
+        permissions: [],
       },
       {
         name: 'Mentors',
@@ -17,10 +18,13 @@ const routes: NavigationMenuItem[] = [
         permissions: [PermissionKey.MANAGE_MENTORING],
       },
       {
-        name: 'Interview',
+        name: 'Interviews',
         iconName: 'education',
         href: AppRoute.INTERVIEW,
-        permissions: [PermissionKey.MANAGE_INTERVIEWS],
+        permissions: [
+          PermissionKey.MANAGE_INTERVIEWS,
+          PermissionKey.MANAGE_INTERVIEW,
+        ],
       },
       {
         name: 'UAM',
@@ -37,11 +41,13 @@ const routes: NavigationMenuItem[] = [
         name: 'Billing',
         iconName: 'billing',
         href: AppRoute.BILLING,
+        permissions: [],
       },
       {
         name: 'Settings',
         iconName: 'settings',
         href: AppRoute.SETTINGS,
+        permissions: [],
       },
     ],
   },
