@@ -4,6 +4,7 @@ import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
+  coursesToModels as coursesToModelsRepository,
   file as fileRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
@@ -20,6 +21,7 @@ import { File } from './aws/file/file.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
+import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -109,11 +111,14 @@ const mentorsToCourseCategories = new MentorsToCourseCategories({
   mentorsToCourseCategoriesRepository,
 });
 
+const coursesToMentors = new CoursesToMentors({ coursesToModelsRepository });
+
 export {
   auth,
   course,
   courseCategory,
   courseModule,
+  coursesToMentors,
   encrypt,
   file,
   group,

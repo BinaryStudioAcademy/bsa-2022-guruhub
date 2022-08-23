@@ -18,6 +18,10 @@ export {
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
 } from './course-module/course-module';
+export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+} from './courses-to-mentors/courses-to-mentors';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type FileGetResponseDto,
@@ -43,9 +47,9 @@ export {
   InterviewsGetAllResponseDto,
 } from './interview/interview';
 export {
-  type MentorForCategoryRequestDto,
-  type MentorForCategoryResponseDto,
-} from './mentors/mentors';
+  type MentorsToCourseCategoriesRequestDto,
+  type MentorsToCourseCategoriesResponseDto,
+} from './mentors-to-course-categories/mentors-to-course-categories';
 export { EntityPagination } from './pagination/pagination';
 export {
   type PermissionsGetAllItemResponseDto,

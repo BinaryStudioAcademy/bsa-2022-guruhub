@@ -16,6 +16,10 @@ export {
   type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
 } from './course-module/course-module';
+export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+} from './courses-to-mentors/courses-to-mentors';
 export { type FileGetResponseDto } from './file/file';
 export {
   type GroupsConfigureRequestDto,
@@ -35,9 +39,9 @@ export {
   InterviewsGetAllResponseDto,
 } from './interview/interview';
 export {
-  type MentorForCategoryRequestDto,
-  type MentorForCategoryResponseDto,
-} from './mentors/mentors';
+  type MentorsToCourseCategoriesRequestDto,
+  type MentorsToCourseCategoriesResponseDto,
+} from './mentors-to-course-categories/mentors';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,

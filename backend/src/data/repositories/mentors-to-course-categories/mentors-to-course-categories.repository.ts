@@ -1,4 +1,4 @@
-import { MentorForCategoryRequestDto } from '~/common/types/types';
+import { MentorsToCourseCategoriesRequestDto } from '~/common/types/types';
 import { MentorsToCourseCategories as MentorsToCourseCategoriesM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,7 +15,7 @@ class MentorsToCourseCategories {
   public create({
     courseCategoryId,
     userId,
-  }: MentorForCategoryRequestDto): Promise<MentorsToCourseCategoriesM> {
+  }: MentorsToCourseCategoriesRequestDto): Promise<MentorsToCourseCategoriesM> {
     return this.#MentorsToCourseCategoriesModel
       .query()
       .insert({ courseCategoryId, userId })
@@ -25,7 +25,7 @@ class MentorsToCourseCategories {
   public async get({
     courseCategoryId,
     userId,
-  }: MentorForCategoryRequestDto): Promise<MentorsToCourseCategoriesM | null> {
+  }: MentorsToCourseCategoriesRequestDto): Promise<MentorsToCourseCategoriesM | null> {
     const mentorForCategory = await this.#MentorsToCourseCategoriesModel
       .query()
       .where({ userId })

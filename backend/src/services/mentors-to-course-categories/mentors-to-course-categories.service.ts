@@ -1,6 +1,6 @@
 import {
-  MentorForCategoryRequestDto,
-  MentorForCategoryResponseDto,
+  MentorsToCourseCategoriesRequestDto,
+  MentorsToCourseCategoriesResponseDto,
 } from '~/common/types/types';
 import { mentorsToCourseCategories as mentorsToCourseCategoriesRep } from '~/data/repositories/repositories';
 
@@ -19,7 +19,7 @@ class MentorsToCourseCategories {
   public createMentorToCourseCategory({
     courseCategoryId,
     userId,
-  }: MentorForCategoryRequestDto): Promise<MentorForCategoryResponseDto | null> {
+  }: MentorsToCourseCategoriesRequestDto): Promise<MentorsToCourseCategoriesResponseDto | null> {
     return this.#mentorsToCourseCategoriesRepository.create({
       courseCategoryId,
       userId,
@@ -29,7 +29,7 @@ class MentorsToCourseCategories {
   public getByUserIdAndCourseCategoryId({
     courseCategoryId,
     userId,
-  }: MentorForCategoryRequestDto): Promise<MentorForCategoryResponseDto | null> {
+  }: MentorsToCourseCategoriesRequestDto): Promise<MentorsToCourseCategoriesResponseDto | null> {
     return this.#mentorsToCourseCategoriesRepository.get({
       courseCategoryId,
       userId,
