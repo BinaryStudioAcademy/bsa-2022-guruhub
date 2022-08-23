@@ -30,6 +30,7 @@ import {
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
+import { BackButton } from '~/navigation/app/components/components';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
 import { groupUpdate } from '~/validation-schemas/validation-schemas';
 
@@ -126,7 +127,9 @@ const UAMConfigureGroup: FC = () => {
   };
 
   useEffect(() => {
-    navigation.setOptions({ headerShown: false });
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={handleCancel} />,
+    });
   }, []);
 
   useEffect(() => {
