@@ -17,20 +17,19 @@ const ModulesCardsContainer: FC<Props> = ({ modules }) => {
     <ul className={styles.container}>
       {modules.map((courseModule) => {
         return (
-          <Link
-            key={courseModule.id}
-            to={
-              `${AppRoute.COURSES}/${course?.id}/modules/${courseModule.id}` as AppRoute
-            }
-            className={styles.linkToModule}
-          >
-            <li className={styles.moduleCardContainer}>
+          <li key={courseModule.id} className={styles.moduleCardContainer}>
+            <Link
+              to={
+                `${AppRoute.COURSES}/${course?.id}/modules/${courseModule.id}` as AppRoute
+              }
+              className={styles.linkToModule}
+            >
               <ModuleCard
                 title={courseModule.title}
                 description={courseModule.description}
               />
-            </li>
-          </Link>
+            </Link>
+          </li>
         );
       })}
     </ul>
