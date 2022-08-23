@@ -17,6 +17,7 @@ export {
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetRequestDto,
 } from './course-module/course-module';
+export { type EdxCourseGetResponseDto } from './edx/edx';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type GroupsConfigureRequestDto,

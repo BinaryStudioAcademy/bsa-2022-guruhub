@@ -15,6 +15,9 @@ const {
   UDEMY_CLIENT_ID,
   UDEMY_CLIENT_SECRET,
   UDEMY_BASE_URL,
+  EDX_CLIENT_ID,
+  EDX_CLIENT_SECRET,
+  EDX_BASE_URL,
 } = process.env;
 
 const ENV = {
@@ -40,6 +43,11 @@ const ENV = {
     BASE_URL: UDEMY_BASE_URL as string,
     CLIENT_ID: UDEMY_CLIENT_ID as string,
     CLIENT_SECRET: UDEMY_CLIENT_SECRET as string,
+  },
+  EDX: {
+    BASE_URL: EDX_BASE_URL as string,
+    CLIENT_ID: EDX_CLIENT_ID as string,
+    CLIENT_SECRET: EDX_CLIENT_SECRET as string,
   },
 };
 
