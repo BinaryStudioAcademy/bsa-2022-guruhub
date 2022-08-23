@@ -15,8 +15,6 @@ import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
 
-const HIDDEN_SCREEN_KEY = 'hidden';
-
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
   headerStyle: {
@@ -37,6 +35,7 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
 const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   {
     name: 'Menu',
+    isVisible: true,
     subroutes: [
       {
         name: AppScreenName.COURSES,
@@ -60,6 +59,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   },
   {
     name: 'Account',
+    isVisible: true,
     subroutes: [
       {
         name: AppScreenName.BILLING,
@@ -82,7 +82,8 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     ],
   },
   {
-    name: HIDDEN_SCREEN_KEY,
+    name: 'UAM Configure Group',
+    isVisible: false,
     subroutes: [
       {
         name: AppScreenName.UAM_GROUPS_CREATE,
@@ -100,4 +101,4 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   },
 ];
 
-export { HIDDEN_SCREEN_KEY, NAVIGATION_ITEMS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

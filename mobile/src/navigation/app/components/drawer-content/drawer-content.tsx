@@ -12,10 +12,7 @@ import {
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import {
-  HIDDEN_SCREEN_KEY,
-  NAVIGATION_ITEMS,
-} from '~/navigation/app/common/constants';
+import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
 import { DrawerList } from '~/navigation/app/components/components';
 
 import { styles } from './styles';
@@ -23,6 +20,9 @@ import { styles } from './styles';
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
+  const visibleNavigationItems = NAVIGATION_ITEMS.filter(
+    (item) => item.isVisible,
+  );
 
   const handleBecomeMentor = (): void => {
     // TODO: navigate to application screen
@@ -34,20 +34,18 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
         <View style={styles.header}>
           <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
         </View>
-        {NAVIGATION_ITEMS.filter((item) => item.name !== HIDDEN_SCREEN_KEY).map(
-          ({ name, subroutes }, index) => (
-            <View style={styles.listWrapper} key={name}>
-              {Boolean(index) && <View style={styles.listBorder} />}
-              <DrawerList
-                name={name}
-                subroutes={subroutes.filter((item) =>
-                  allowedRoutes.includes(item.name),
-                )}
-                focusedRouteName={focusedRouteName}
-              />
-            </View>
-          ),
-        )}
+        {visibleNavigationItems.map(({ name, subroutes }, index) => (
+          <View style={styles.listWrapper} key={name}>
+            {Boolean(index) && <View style={styles.listBorder} />}
+            <DrawerList
+              name={name}
+              subroutes={subroutes.filter((item) =>
+                allowedRoutes.includes(item.name),
+              )}
+              focusedRouteName={focusedRouteName}
+            />
+          </View>
+        ))}
         <View style={styles.footer}>
           <Image
             style={styles.footerImage}
