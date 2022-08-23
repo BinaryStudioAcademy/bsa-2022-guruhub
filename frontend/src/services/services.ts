@@ -2,7 +2,8 @@ import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
 import { CategoriesApi } from './categories-api/categories-api.service';
-import { Courses } from './courses-api/courses-api.service';
+import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
+import { CoursesApi } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
 import { Navigation } from './navigation/navigation.service';
@@ -45,7 +46,12 @@ const permissionsApi = new PermissionsApi({
   http,
 });
 
-const coursesApi = new Courses({
+const coursesApi = new CoursesApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
+const courseModulesApi = new CourseModulesApi({
   apiPrefix: ENV.API_PATH,
   http,
 });
@@ -62,6 +68,7 @@ const navigation = new Navigation();
 export {
   authApi,
   categoriesApi,
+  courseModulesApi,
   coursesApi,
   groupsApi,
   navigation,

@@ -33,7 +33,7 @@ const Header: FC = () => {
   };
 
   return (
-    <header>
+    <header className={styles.header}>
       <div className={styles.headerWrapper}>
         <div className={styles.logoWrapper}>
           <Link to={AppRoute.ROOT}>

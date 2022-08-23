@@ -6,8 +6,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
-  },
-  innerContainer: {
     padding: 16,
   },
   title: {
