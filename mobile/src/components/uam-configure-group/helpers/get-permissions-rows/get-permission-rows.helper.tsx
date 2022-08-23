@@ -3,8 +3,7 @@ import React from 'react';
 import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
 import { PermissionTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
 import { PermissionsTableRow } from '~/components/uam-configure-group/common/types/types';
-
-import { ActionCell } from '../../components/action-cell/action-cell';
+import { ActionCell } from '~/components/uam-configure-group/components/action-cell/action-cell';
 
 type Props = {
   permissions: PermissionsGetAllItemResponseDto[];

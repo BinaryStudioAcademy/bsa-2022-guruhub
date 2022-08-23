@@ -3,8 +3,7 @@ import React from 'react';
 import { UsersGetResponseDto } from '~/common/types/types';
 import { UserTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
 import { UsersTableRow } from '~/components/uam-configure-group/common/types/types';
-
-import { ActionCell } from '../../components/action-cell/action-cell';
+import { ActionCell } from '~/components/uam-configure-group/components/action-cell/action-cell';
 
 type Props = {
   users: UsersGetResponseDto[];
