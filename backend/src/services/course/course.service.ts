@@ -161,6 +161,18 @@ class Course {
 
     return course ?? null;
   }
+
+  public async updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<CourseGetResponseDto | null> {
+    const course = await this.#courseRepository.updateCategory(
+      courseId,
+      newCategoryId,
+    );
+
+    return course ?? null;
+  }
 }
 
 export { Course };

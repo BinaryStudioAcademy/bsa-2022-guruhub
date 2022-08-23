@@ -1,12 +1,18 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { CoursesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
+import {
+  CoursesApiPath,
+  HttpCode,
+  HttpMethod,
+  PermissionKey,
+} from '~/common/enums/enums';
 import {
   CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseUpdateCategoryRequestDto,
 } from '~/common/types/types';
+import { checkHasPermissions } from '~/hooks/hooks';
 import { course as courseService } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
@@ -80,6 +86,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       params: courseUpdateParamsValidationSchema,
       body: courseUpdateCategoryValidationSchema,
     },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_CATEGORIES),
     async handler(
       req: FastifyRequest<{
         Params: CourseGetRequestParamsDto;
@@ -87,7 +94,11 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       }>,
       rep,
     ) {
-      return rep.status(HttpCode.OK).send({});
+      const { id } = req.params;
+      const { newCategoryId } = req.body;
+      const course = await courseService.updateCategory(id, newCategoryId);
+
+      return rep.status(HttpCode.OK).send(course);
     },
   });
 };

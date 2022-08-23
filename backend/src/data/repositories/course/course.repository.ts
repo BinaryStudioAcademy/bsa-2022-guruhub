@@ -90,6 +90,21 @@ class Course {
       .castTo<CourseGetResponseDto>()
       .execute();
   }
+
+  public async updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<CourseGetResponseDto> {
+    return this.#CourseModel
+      .query()
+      .patchAndFetchById(courseId, {
+        courseCategoryId: newCategoryId,
+      })
+      .withGraphJoined('vendor')
+      .first()
+      .castTo<CourseGetResponseDto>()
+      .execute();
+  }
 }
 
 export { Course };
