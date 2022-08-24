@@ -2,6 +2,7 @@ import { useAppDispatch, useSearchParams } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
 type UseSearchResult = {
+  searchParams: URLSearchParams;
   performSearch: (name: string, value: string) => void;
 };
 
@@ -29,7 +30,7 @@ const useSearch = (): UseSearchResult => {
     );
   };
 
-  return { performSearch };
+  return { searchParams, performSearch };
 };
 
 export { useSearch };
