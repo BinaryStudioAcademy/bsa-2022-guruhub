@@ -1,8 +1,13 @@
 import React, { FC, ReactElement } from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
 
 import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
-import { FAB, Spinner } from '~/components/common/common';
+import {
+  FAB,
+  FlatList,
+  RefreshControl,
+  Spinner,
+  View,
+} from '~/components/common/common';
 import { CourseCard } from '~/components/courses/components/components';
 import {
   useAppDispatch,

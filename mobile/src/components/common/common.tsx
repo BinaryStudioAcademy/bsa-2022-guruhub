@@ -12,5 +12,12 @@ export { Stack } from './stack/stack';
 export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
-export { Image, Pressable, StatusBar, View } from 'react-native';
+export {
+  FlatList,
+  Image,
+  Pressable,
+  RefreshControl,
+  StatusBar,
+  View,
+} from 'react-native';
 export { SafeAreaView } from 'react-native-safe-area-context';
