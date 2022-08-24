@@ -49,10 +49,6 @@ export {
   type InterviewsGetAllResponseDto,
   type InterviewsResponseDto,
 } from './interview/interview';
-export {
-  type MentorsToCourseCategoriesRequestDto,
-  type MentorsToCourseCategoriesResponseDto,
-} from './mentors-to-course-categories/mentors-to-course-categories';
 export { EntityPagination } from './pagination/pagination';
 export {
   type PermissionsGetAllItemResponseDto,
