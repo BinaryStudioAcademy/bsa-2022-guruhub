@@ -35,13 +35,12 @@ async function down(knex: Knex): Promise<void> {
   });
 
   await knex.raw(
-    `
-      UPDATE user_details SET first_name = (
+    `UPDATE user_details SET first_name = (
         SELECT REGEXP_REPLACE(full_name, '\\s+\\S+$', '') AS first_name
         FROM user_details WHERE users.id = user_details.user_id
       );
       UPDATE user_details SET last_name = (
-        SELECT REGEXP_REPLACE(full_name, '^.*\\s+(\\S+)$', '\1') AS last_name
+        SELECT REGEXP_REPLACE(full_name, '^.*\\s+(\\S+)$', '\\1') AS last_name
         FROM user_details WHERE users.id = user_details.user_id
       );
     `,
