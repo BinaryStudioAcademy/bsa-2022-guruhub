@@ -1,7 +1,7 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Content, Image, Spinner } from 'components/common/common';
+import { Category, Content, Image, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -39,9 +39,12 @@ const Course: FC = () => {
     <div className={styles.container}>
       <div className={styles.info}>
         <h1>{course?.title}</h1>
-        <p className={styles.courseCategory}>
-          {course.courseCategoryId ?? 'Unknown'}
-        </p>
+        <div className={styles.categoryContainer}>
+          <Category
+            name={course?.courseCategory?.name ?? 'Unknown'}
+            keyName={course.courseCategory?.key ?? 'unknown'}
+          />
+        </div>
         <div className={styles.image}>
           <Image
             alt="course image"

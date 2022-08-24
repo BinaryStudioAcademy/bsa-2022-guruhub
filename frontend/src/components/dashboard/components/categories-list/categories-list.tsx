@@ -1,6 +1,6 @@
 import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
+import { Category } from 'components/common/common';
 
-import { Category } from './components/category/category';
 import styles from './styles.module.scss';
 
 type Props = {
