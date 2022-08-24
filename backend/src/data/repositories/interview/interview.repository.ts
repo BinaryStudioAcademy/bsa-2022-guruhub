@@ -60,7 +60,7 @@ class Interview {
     return this.#InterviewModel.query().where({ intervieweeUserId }).execute();
   }
 
-  public async getInterviewByUserIdAndCategoryId(
+  public async getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,
   ): Promise<InterviewM | null> {

@@ -100,7 +100,7 @@ class Interview {
     status,
   }: InterviewsCreateRequestDto): Promise<InterviewsResponseDto> {
     const interviewByUserIdAndCategoryId =
-      await this.getInterviewByUserIdAndCategoryId(
+      await this.getInterviewByIntervieweeUserIdAndCategoryId(
         intervieweeUserId,
         categoryId,
       );
@@ -134,11 +134,11 @@ class Interview {
       .map((interview) => interview.categoryId);
   }
 
-  public getInterviewByUserIdAndCategoryId(
+  public getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,
   ): Promise<InterviewsResponseDto | null> {
-    return this.#interviewRepository.getInterviewByUserIdAndCategoryId(
+    return this.#interviewRepository.getInterviewByIntervieweeUserIdAndCategoryId(
       intervieweeUserId,
       categoryId,
     );
