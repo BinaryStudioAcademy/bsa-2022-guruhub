@@ -7,6 +7,7 @@ export {
   GroupsApiPath,
   InterviewsApiPath,
   PermissionApiPath,
+  UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
 export { StringCase } from './case/case';
@@ -25,5 +26,13 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
-export { UserValidationMessage, UserValidationRule } from './user/user';
+export {
+  UserGender,
+  UserValidationMessage,
+  UserValidationRule,
+} from './user/user';
+export {
+  UserDetailsValidationMessage,
+  UserDetailsValidationRule,
+} from './user-details/user-details';
 export { VendorKey } from './vendor/vendor';
