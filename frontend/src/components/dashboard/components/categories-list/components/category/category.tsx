@@ -2,6 +2,7 @@ import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
+import { useSearch } from 'hooks/hooks';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
@@ -9,11 +10,21 @@ import styles from './styles.module.scss';
 type Props = {
   keyName: string;
   name: string;
-  isActive: string;
-  handleClick: (evt: React.MouseEvent) => void;
 };
 
-const Category: FC<Props> = ({ keyName, name, isActive, handleClick }) => {
+const Category: FC<Props> = ({ keyName, name }) => {
+  const { searchParams, performSearch } = useSearch();
+  const activeCategory = searchParams.get('category') || '';
+
+  const handleClick = (evt: React.MouseEvent): void => {
+    let category = evt.currentTarget.id;
+
+    if (category === searchParams.get('category')) {
+      category = '';
+    }
+    performSearch('category', category);
+  };
+
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
@@ -24,7 +35,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, handleClick }) => {
       id={keyName}
       className={getValidClasses(
         styles.category,
-        isActive === keyName && styles.selected,
+        activeCategory === keyName && styles.selected,
       )}
       style={{ borderColor: getRandomColor() }}
       onClick={handleClick}

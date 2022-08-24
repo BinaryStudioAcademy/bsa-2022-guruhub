@@ -5,21 +5,14 @@ import styles from './styles.module.scss';
 
 type Props = {
   items: CategoryGetAllItemResponseDto[];
-  handleClick: (evt: React.MouseEvent) => void;
-  isActive: string;
 };
 
-const CategoriesList: FC<Props> = ({ items, handleClick, isActive }) => {
+const CategoriesList: FC<Props> = ({ items }) => {
   return (
     <ul className={styles.categoriesList}>
       {items.map((category) => (
         <li key={category.id} className={styles.category}>
-          <Category
-            keyName={category.key}
-            name={category.name}
-            handleClick={handleClick}
-            isActive={isActive}
-          />
+          <Category keyName={category.key} name={category.name} />
         </li>
       ))}
     </ul>
