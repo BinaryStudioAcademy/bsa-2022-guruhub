@@ -44,7 +44,7 @@ const AddCourse: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => reset({ url: '' });
+      return () => reset(DEFAULT_CREATE_COURSE_PAYLOAD);
     }, []),
   );
 
