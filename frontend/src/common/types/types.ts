@@ -33,6 +33,10 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsGetAllResponseDto,
+} from './interviews/interviews';
+export {
   type NavigationMenuItem,
   type SubNavigationMenuItem,
 } from './navigation-menu/navigation-menu';
