@@ -12,7 +12,7 @@ class UserDetails {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  public createUserDetails(
+  public create(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
@@ -28,7 +28,7 @@ class UserDetails {
       .execute();
   }
 
-  public updateUserDetails(
+  public update(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM | null> {

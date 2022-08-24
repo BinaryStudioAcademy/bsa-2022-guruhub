@@ -19,7 +19,7 @@ class UserDetails {
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto | null> {
-    const userDetails = await this.#userDetailsRepository.updateUserDetails(
+    const userDetails = await this.#userDetailsRepository.update(
       userId,
       userDetailsUpdateInfoRequestDto,
     );
@@ -31,7 +31,7 @@ class UserDetails {
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto> {
-    const userDetails = await this.#userDetailsRepository.createUserDetails(
+    const userDetails = await this.#userDetailsRepository.create(
       userId,
       userDetailsUpdateInfoRequestDto,
     );

@@ -13,7 +13,7 @@ import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
-import { genderOptions } from './select.data';
+import { genderOptions } from './helpers/get-gender-options.helper';
 import styles from './styles.module.scss';
 
 const UserProfileForm: FC = () => {
