@@ -1,4 +1,4 @@
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, PermissionKey } from 'common/enums/enums';
 import { NavigationMenuItem } from 'common/types/types';
 
 const routes: NavigationMenuItem[] = [
@@ -9,21 +9,28 @@ const routes: NavigationMenuItem[] = [
         name: 'Courses',
         iconName: 'course',
         href: AppRoute.ROOT,
+        permissions: [],
       },
       {
         name: 'Mentors',
         iconName: 'mentors',
         href: AppRoute.MENTORS,
+        permissions: [PermissionKey.MANAGE_MENTORING],
       },
       {
-        name: 'Education',
-        iconName: 'education',
-        href: AppRoute.EDUCATION,
-      },
-      {
-        name: 'Interview',
-        iconName: 'education',
+        name: 'Interviews',
+        iconName: 'interview',
         href: AppRoute.INTERVIEW,
+        permissions: [
+          PermissionKey.MANAGE_INTERVIEWS,
+          PermissionKey.MANAGE_INTERVIEW,
+        ],
+      },
+      {
+        name: 'UAM',
+        iconName: 'education',
+        href: AppRoute.UAM,
+        permissions: [PermissionKey.MANAGE_UAM],
       },
     ],
   },
@@ -34,11 +41,13 @@ const routes: NavigationMenuItem[] = [
         name: 'Billing',
         iconName: 'billing',
         href: AppRoute.BILLING,
+        permissions: [],
       },
       {
         name: 'Settings',
         iconName: 'settings',
         href: AppRoute.SETTINGS,
+        permissions: [],
       },
     ],
   },

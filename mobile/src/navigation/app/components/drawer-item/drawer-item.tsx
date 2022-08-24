@@ -10,7 +10,7 @@ import { styles } from './styles';
 type Props = {
   name: AppScreenName;
   isFocused?: boolean;
-  icon: IconName;
+  icon?: IconName;
 };
 
 const DrawerItem: FC<Props> = ({ name, isFocused = false, icon }) => {
@@ -27,9 +27,11 @@ const DrawerItem: FC<Props> = ({ name, isFocused = false, icon }) => {
       style={{ backgroundColor, ...styles.item }}
       onPress={handlePress}
     >
-      <View style={styles.iconContainer}>
-        <Icon name={icon} color={color} width={20} height={20} />
-      </View>
+      {icon && (
+        <View style={styles.iconContainer}>
+          <Icon name={icon} color={color} width={20} height={20} />
+        </View>
+      )}
       <View>
         <Text style={{ color, ...styles.label }}>{name}</Text>
       </View>

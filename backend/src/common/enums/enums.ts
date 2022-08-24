@@ -8,6 +8,7 @@ export {
   GroupsApiPath,
   InterviewsApiPath,
   PermissionApiPath,
+  UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
 export { AppEnvironment, ENV, LogLevel } from './app/app';
@@ -19,4 +20,5 @@ export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { StringCase } from './string/string';
+export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';

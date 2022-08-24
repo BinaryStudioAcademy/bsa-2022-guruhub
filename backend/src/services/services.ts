@@ -10,6 +10,7 @@ import {
   interview as interviewRepository,
   permission as permissionRepository,
   user as userRepository,
+  userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
   vendor as vendorRepository,
 } from '~/data/repositories/repositories';
@@ -28,6 +29,7 @@ import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
+import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 import { Vendor } from './vendor/vendor.service';
 
@@ -35,12 +37,17 @@ const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
 
+const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
+
+const userDetails = new UserDetails({
+  userDetailsRepository,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
+  userDetailsService: userDetails,
 });
-
-const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
 const auth = new Auth({
   userService: user,
@@ -118,6 +125,7 @@ export {
   token,
   udemy,
   user,
+  userDetails,
   usersToGroups,
   vendor,
 };

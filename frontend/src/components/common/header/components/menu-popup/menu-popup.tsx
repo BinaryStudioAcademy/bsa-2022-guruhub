@@ -1,3 +1,4 @@
+import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
 import { useAppDispatch, useHandleClickOutside, useRef } from 'hooks/hooks';
@@ -25,7 +26,12 @@ const Popup: FC<Props> = ({ onClose }) => {
   return (
     <div className={styles.popup} ref={popupRef}>
       <ul className={styles.ul}>
-        <li>
+        <li className={styles.li}>
+          <div>
+            <Button label="Profile" btnColor="gray" to={AppRoute.PROFILE} />
+          </div>
+        </li>
+        <li className={styles.li}>
           <div>
             <Button label="Sign Out" onClick={handleLogout} />
           </div>

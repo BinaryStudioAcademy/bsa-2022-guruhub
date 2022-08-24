@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/ui/app-color.enum';
+import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   backButton: {

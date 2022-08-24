@@ -4,6 +4,7 @@ import { PaginationDefaultValue } from '~/common/enums/enums';
 import { UsersGetResponseDto } from '~/common/types/types';
 import { Pagination, Table, View } from '~/components/common/common';
 import {
+  getSelectedItemsValues,
   getUserColumns,
   getUserRows,
 } from '~/components/uam-configure-group/helpers/helpers';
@@ -21,20 +22,42 @@ type Props = {
     page: number;
     setPage: (page: number) => void;
   };
+  checkedIds: number[];
 };
 
-const UsersTable: FC<Props> = ({ users, onCheckboxToggle, pagination }) => {
+const UsersTable: FC<Props> = ({
+  users,
+  onCheckboxToggle,
+  pagination,
+  checkedIds,
+}) => {
   const { control, reset } = useAppForm({ defaultValues: {} });
+
   const userRows = getUserRows({
     users: users.items,
-    onToggle: onCheckboxToggle,
     control,
+    onToggle: onCheckboxToggle,
   });
   const userColumns = getUserColumns();
 
   useFocusEffect(
     useCallback(() => {
-      return () => reset({});
+      if (checkedIds.length) {
+        const selectedUsers = getSelectedItemsValues({
+          checkedIds,
+          items: users.items.map((item) => item.id),
+          namePrefix: 'userIds',
+        });
+        reset(selectedUsers);
+      }
+    }, [users.items, checkedIds]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        reset({});
+      };
     }, []),
   );
 
