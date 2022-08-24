@@ -60,13 +60,13 @@ const interview = new Interview({ InterviewModel });
 
 const file = new File({ FileModel });
 
-const coursesToModels = new CoursesToMentors({ CoursesToMentorsModel });
+const coursesToMentors = new CoursesToMentors({ CoursesToMentorsModel });
 
 export {
   course,
   courseCategory,
   courseModule,
-  coursesToModels,
+  coursesToMentors,
   file,
   group,
   groupsToPermissions,

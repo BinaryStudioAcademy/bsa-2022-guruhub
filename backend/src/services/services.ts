@@ -4,7 +4,7 @@ import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
-  coursesToModels as coursesToModelsRepository,
+  coursesToMentors as coursesToMentorsRepository,
   file as fileRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
@@ -105,7 +105,7 @@ const file = new File({
   fileRepository,
 });
 
-const coursesToMentors = new CoursesToMentors({ coursesToModelsRepository });
+const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
 
 export {
   auth,
