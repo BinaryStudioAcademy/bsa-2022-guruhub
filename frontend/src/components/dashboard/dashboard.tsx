@@ -21,7 +21,9 @@ const Dashboard: FC = () => {
   const { categories, dataStatus, courses } = useAppSelector(
     (state) => state.dashboard,
   );
+  const { user } = useAppSelector((state) => state.auth);
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+  const hasUser = Boolean(user);
 
   useEffect(() => {
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
@@ -42,11 +44,13 @@ const Dashboard: FC = () => {
       <div className={styles.headerWrapper}>
         <div className={styles.header}>
           <h1 className={styles.headingText}>Courses</h1>
-          <Button
-            label="+ Add new course"
-            btnColor="blue"
-            onClick={handleNewCourseModalToggle}
-          />
+          {hasUser && (
+            <Button
+              label="+ Add new course"
+              btnColor="blue"
+              onClick={handleNewCourseModalToggle}
+            />
+          )}
           <AddCourseModal
             isModalOpen={isNewCourseModalOpen}
             onModalToggle={handleNewCourseModalToggle}
