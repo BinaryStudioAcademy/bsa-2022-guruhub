@@ -45,7 +45,7 @@ const UsersTable: FC<Props> = ({
       if (checkedIds.length) {
         const selectedUsers = getSelectedItemsValues({
           checkedIds,
-          items: users.items,
+          items: users.items.map((item) => item.id),
           namePrefix: 'userIds',
         });
         reset(selectedUsers);

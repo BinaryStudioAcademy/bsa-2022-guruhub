@@ -42,7 +42,7 @@ const PermissionsTable: FC<Props> = ({
       if (checkedIds.length) {
         const selectedPermissions = getSelectedItemsValues({
           checkedIds,
-          items: permissions,
+          items: permissions.map((item) => item.id),
           namePrefix: 'permissionIds',
         });
         reset(selectedPermissions);

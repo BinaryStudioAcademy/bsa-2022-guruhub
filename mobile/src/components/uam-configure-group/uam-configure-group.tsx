@@ -143,12 +143,12 @@ const UAMConfigureGroup: FC = () => {
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
     }
-  }, [group, isGroupEdit]);
+  }, [isGroupEdit]);
 
   useFocusEffect(
     useCallback(() => {
       return () => {
-        reset({ name: '' });
+        reset(CREATE_GROUP_DEFAULT_PAYLOAD);
         handleUserPageChange(PaginationDefaultValue.DEFAULT_PAGE);
         handlePermissionsPageChange(PaginationDefaultValue.DEFAULT_PAGE);
       };

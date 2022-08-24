@@ -1,11 +1,6 @@
-import {
-  PermissionsGetAllItemResponseDto,
-  UsersGetResponseDto,
-} from '~/common/types/types';
-
 type Props = {
   checkedIds: number[];
-  items: (UsersGetResponseDto | PermissionsGetAllItemResponseDto)[];
+  items: number[];
   namePrefix: string;
 };
 
@@ -17,7 +12,7 @@ const getSelectedItemsValues = ({
   return checkedIds.reduce((object, id) => {
     return {
       ...object,
-      [`${namePrefix}.${id}`]: Boolean(items.find((item) => item.id === id)),
+      [`${namePrefix}.${id}`]: Boolean(items.find((itemId) => itemId === id)),
     };
   }, {});
 };
