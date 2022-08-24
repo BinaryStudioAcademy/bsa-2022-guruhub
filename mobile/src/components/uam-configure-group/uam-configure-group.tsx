@@ -7,6 +7,7 @@ import {
 } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
+  BackButton,
   Button,
   Input,
   ScrollView,
@@ -30,7 +31,6 @@ import {
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
-import { BackButton } from '~/navigation/app/components/components';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
 import { groupUpdate } from '~/validation-schemas/validation-schemas';
 

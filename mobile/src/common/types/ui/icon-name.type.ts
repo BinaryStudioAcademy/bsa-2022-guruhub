@@ -9,6 +9,7 @@ type IconName =
   | 'settings'
   | 'book'
   | 'uam'
+  | 'plus'
   | 'trash';
 
 export { type IconName };
