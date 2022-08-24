@@ -13,7 +13,7 @@ post:
       description: Course was successfully added
     '400':
       description: URL is invalid
-put:
+patch:
   summary: Update Course Category
   tags:
     - courses

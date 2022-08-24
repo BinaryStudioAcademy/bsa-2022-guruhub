@@ -3,7 +3,7 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { CategoriesApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import { CourseCategoryGetByIdRequestParamsDto } from '~/common/types/types';
 import { courseCategory as courseCategoryService } from '~/services/services';
-import { courseCategoryGetByIdParams } from '~/validation-schemas/validation-schemas';
+import { courseCategoryGetByIdParams as courseCategoryGetByIdParamsValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -30,7 +30,7 @@ const initCategoriesApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: CategoriesApiPath.$ID,
-    schema: { params: courseCategoryGetByIdParams },
+    schema: { params: courseCategoryGetByIdParamsValidationSchema },
     async handler(
       req: FastifyRequest<{ Params: CourseCategoryGetByIdRequestParamsDto }>,
       rep,

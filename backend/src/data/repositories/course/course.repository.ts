@@ -101,6 +101,7 @@ class Course {
         courseCategoryId: newCategoryId,
       })
       .withGraphJoined('vendor')
+      .withGraphJoined('category')
       .castTo<CourseGetResponseDto>()
       .execute();
   }

@@ -93,6 +93,7 @@ class Course {
 
     return {
       ...course,
+      courseCategory: null,
       vendor,
     };
   }
