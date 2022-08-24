@@ -1,5 +1,7 @@
 import {
   InterviewsByIdResponseDto,
+  InterviewsCreateRequestDto,
+  InterviewsCreateResponseDto,
   InterviewsGetAllResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
@@ -73,6 +75,18 @@ class Interview {
         name: interview.courseCategory.name,
       },
     };
+  }
+
+  public create({
+    categoryId,
+    intervieweeUserId,
+    status,
+  }: InterviewsCreateRequestDto): Promise<InterviewsCreateResponseDto> {
+    return this.#interviewRepository.create({
+      categoryId,
+      intervieweeUserId,
+      status,
+    });
   }
 }
 

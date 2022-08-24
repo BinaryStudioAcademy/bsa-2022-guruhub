@@ -1,5 +1,7 @@
+import { InterviewStatus } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
+  InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
@@ -36,6 +38,29 @@ class Interview {
       .castTo<InterviewsByIdResponseDto>();
 
     return interview ?? null;
+  }
+
+  public create({
+    status,
+    categoryId,
+    intervieweeUserId,
+  }: InterviewsCreateRequestDto): Promise<InterviewM> {
+    return this.#InterviewModel
+      .query()
+      .insert({
+        status,
+        categoryId,
+        intervieweeUserId,
+      })
+      .execute();
+  }
+
+  public getPassedInterviewsByUserId(userId: number): Promise<InterviewM[]> {
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId: userId })
+      .andWhere({ status: InterviewStatus.COMPLETED })
+      .execute();
   }
 }
 

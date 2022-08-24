@@ -1,31 +1,29 @@
-// import { MentorForCategoryRequestDto } from '~/common/types/types';
-import { mentorsToCourseCategories as mentorsToCourseCategoriesServ } from '~/services/services';
+import {
+  CoursesToMentorsResponseDto,
+  MentorCreateRequestDto,
+} from '~/common/types/types';
+import { coursesToMentors as coursesToMentorsServ } from '~/services/services';
 
 type Constructor = {
-  mentorsToCourseCategoriesService: typeof mentorsToCourseCategoriesServ;
+  coursesToMentorsService: typeof coursesToMentorsServ;
 };
 
 class Mentor {
-  #mentorsToCourseCategoriesService: typeof mentorsToCourseCategoriesServ;
+  #coursesToMentorsService: typeof coursesToMentorsServ;
 
-  public constructor({ mentorsToCourseCategoriesService }: Constructor) {
-    this.#mentorsToCourseCategoriesService = mentorsToCourseCategoriesService;
+  public constructor({ coursesToMentorsService }: Constructor) {
+    this.#coursesToMentorsService = coursesToMentorsService;
   }
 
-  // public async create({
-  //   courseCategoryId,
-  //   userId,
-  // }: MentorForCategoryRequestDto) {
-  //   const mentorByIdAndCourseCategory =
-  //     await this.#mentorsToCourseCategoriesService.getByUserIdAndCourseCategoryId(
-  //       { courseCategoryId, userId },
-  //     );
-  //   const hasPassedInterview = Boolean(mentorByIdAndCourseCategory);
-
-  //   if (hasPassedInterview) {
-  //
-  //   }
-  // }
+  public create({
+    courseId,
+    userId,
+  }: MentorCreateRequestDto): Promise<CoursesToMentorsResponseDto> {
+    return this.#coursesToMentorsService.createMentorToCourse({
+      courseId,
+      userId,
+    });
+  }
 }
 
 export { Mentor };

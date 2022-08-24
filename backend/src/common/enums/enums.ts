@@ -7,6 +7,7 @@ export {
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   PermissionApiPath,
   UsersApiPath,
 } from './api/api';
@@ -16,6 +17,7 @@ export { DbTableName } from './db/db';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
+export { InterviewStatus } from './interview/interview';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { StringCase } from './string/string';

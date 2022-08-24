@@ -1,6 +1,6 @@
 import {
-  CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
+  MentorCreateRequestDto,
 } from '~/common/types/types';
 import { coursesToModels as coursesToModelsRep } from '~/data/repositories/repositories';
 
@@ -18,7 +18,7 @@ class CoursesToMentors {
   public createMentorToCourse({
     courseId,
     userId,
-  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsResponseDto> {
+  }: MentorCreateRequestDto): Promise<CoursesToMentorsResponseDto> {
     return this.#coursesToModelsRepository.createMentorToCourse({
       courseId,
       userId,

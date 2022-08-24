@@ -9,7 +9,6 @@ import {
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   interview as interviewRepository,
-  mentorsToCourseCategories as mentorsToCourseCategoriesRepository,
   permission as permissionRepository,
   user as userRepository,
   usersToGroups as usersToGroupsRepository,
@@ -27,7 +26,7 @@ import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
 import { Http } from './http/http.service';
 import { Interview } from './interview/interview.service';
-import { MentorsToCourseCategories } from './mentors-to-course-categories/mentors-to-course-categories.service';
+import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
@@ -107,11 +106,11 @@ const file = new File({
   fileRepository,
 });
 
-const mentorsToCourseCategories = new MentorsToCourseCategories({
-  mentorsToCourseCategoriesRepository,
-});
-
 const coursesToMentors = new CoursesToMentors({ coursesToModelsRepository });
+
+const mentor = new Mentor({
+  coursesToMentorsService: coursesToMentors,
+});
 
 export {
   auth,
@@ -125,7 +124,7 @@ export {
   groupsToPermissions,
   http,
   interview,
-  mentorsToCourseCategories,
+  mentor,
   permission,
   token,
   udemy,

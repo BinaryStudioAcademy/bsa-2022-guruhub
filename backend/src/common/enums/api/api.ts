@@ -7,6 +7,7 @@ export {
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   PermissionApiPath,
   UsersApiPath,
 } from 'guruhub-shared/common/enums/enums';

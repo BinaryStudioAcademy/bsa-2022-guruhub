@@ -11,6 +11,7 @@ import {
   courseModule,
   group,
   interview,
+  mentor,
   permission,
   token,
   user,
@@ -22,6 +23,7 @@ import { initCourseModulesApi } from './course-modules/course-modules.api';
 import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initInterviewsApi } from './interviews/interviews.api';
+import { initMentorsApi } from './mentors/mentors.api';
 import { initPermissionsApi } from './permissions/permissions.api';
 import { initUsersApi } from './users/users.api';
 
@@ -93,6 +95,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       interview,
     },
     prefix: ApiPath.INTERVIEWS,
+  });
+
+  fastify.register(initMentorsApi, {
+    services: {
+      mentor,
+    },
+    prefix: ApiPath.MENTORS,
   });
 };
 

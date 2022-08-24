@@ -197,6 +197,26 @@ erDiagram
     varchar url
     varchar content_type
   }
+
+  mentors_to_course_categories }|--|| users : user_id
+  mentors_to_course_categories }|--|| course_categories : course_category_id
+  mentors_to_coures_categories {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int user_id FK
+    int course_category_id FK
+  }
+
+  courses_to_mentors }|--|| courses : course_id
+  courses_to_mentors }|--|| users : user_id
+  courses_to_mentors {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int user_id FK
+    int course_id FK
+  }
 ```
 
 ## 🧑‍💻 CI

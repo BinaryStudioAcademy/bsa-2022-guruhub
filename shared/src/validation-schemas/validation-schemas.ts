@@ -16,5 +16,6 @@ export {
   groupUpdate,
   groupUpdateParams,
 } from './group/group';
+export { mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
 export { userDelete, userSignIn, userSignUp } from './user/user';

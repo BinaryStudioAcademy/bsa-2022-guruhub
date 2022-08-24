@@ -1,4 +1,1 @@
-export {
-  type CoursesToMentorsRequestDto,
-  type CoursesToMentorsResponseDto,
-} from 'guruhub-shared/common/types/types';
+export { type CoursesToMentorsResponseDto } from 'guruhub-shared/common/types/types';

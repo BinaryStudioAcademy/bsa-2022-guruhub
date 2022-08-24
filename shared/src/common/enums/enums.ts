@@ -6,6 +6,7 @@ export {
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   PermissionApiPath,
   UsersApiPath,
 } from './api/api';
@@ -20,6 +21,7 @@ export {
   HttpMethod,
   HttpStatusMessage,
 } from './http/http';
+export { InterviewStatus } from './interview/interview';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,

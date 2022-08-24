@@ -1,4 +1,4 @@
-import { CoursesToMentorsRequestDto } from '~/common/types/types';
+import { MentorCreateRequestDto } from '~/common/types/types';
 import { CoursesToMentors as CoursesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,7 +15,7 @@ class CoursesToMentors {
   public createMentorToCourse({
     courseId,
     userId,
-  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsM> {
+  }: MentorCreateRequestDto): Promise<CoursesToMentorsM> {
     return this.#CoursesToMentorsModel
       .query()
       .insert({ courseId, userId })

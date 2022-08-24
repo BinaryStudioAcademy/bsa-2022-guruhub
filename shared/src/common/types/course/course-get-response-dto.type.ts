@@ -7,6 +7,7 @@ type CourseGetResponseDto = {
   url: string;
   imageUrl: string;
   vendor: VendorGetResponseDto;
+  courseCategoryId: number;
 };
 
 export { type CourseGetResponseDto };
