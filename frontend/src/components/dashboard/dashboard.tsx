@@ -52,11 +52,7 @@ const Dashboard: FC = () => {
             onModalToggle={handleNewCourseModalToggle}
           />
         </div>
-        <CategoriesList
-          items={categories}
-          // handleClick={handleClick}
-          // isActive={searchParams.get('category') || ''}
-        />
+        <CategoriesList items={categories} />
       </div>
       <CoursesList courses={courses} />
     </div>
