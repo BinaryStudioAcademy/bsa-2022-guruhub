@@ -1,10 +1,10 @@
 import { InterviewStatus } from '~/common/enums/enums';
 
-type InterviewsCreateResponseDto = {
+type InterviewsResponseDto = {
   id: number;
   status: InterviewStatus;
   categoryId: number;
   intervieweeUserId: number;
 };
 
-export { type InterviewsCreateResponseDto };
+export { type InterviewsResponseDto };

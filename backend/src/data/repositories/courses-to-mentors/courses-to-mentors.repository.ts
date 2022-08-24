@@ -1,4 +1,4 @@
-import { MentorCreateRequestDto } from '~/common/types/types';
+import { CoursesToMentorsRequestDto } from '~/common/types/types';
 import { CoursesToMentors as CoursesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,11 +15,24 @@ class CoursesToMentors {
   public createMentorToCourse({
     courseId,
     userId,
-  }: MentorCreateRequestDto): Promise<CoursesToMentorsM> {
+  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsM> {
     return this.#CoursesToMentorsModel
       .query()
       .insert({ courseId, userId })
       .execute();
+  }
+
+  public async getByUserIdAndCourseId({
+    courseId,
+    userId,
+  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsM | null> {
+    const courseToMentor = await this.#CoursesToMentorsModel
+      .query()
+      .where({ courseId })
+      .andWhere({ userId })
+      .first();
+
+    return courseToMentor ?? null;
   }
 }
 

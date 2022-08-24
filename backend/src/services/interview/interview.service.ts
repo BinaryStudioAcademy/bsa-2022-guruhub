@@ -1,10 +1,12 @@
+import { InterviewStatus } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
-  InterviewsCreateResponseDto,
   InterviewsGetAllResponseDto,
+  InterviewsResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
+import { InterviewsError } from '~/exceptions/exceptions';
 
 type Constructor = {
   interviewRepository: typeof interviewRep;
@@ -77,16 +79,52 @@ class Interview {
     };
   }
 
-  public create({
+  public async create({
     categoryId,
     intervieweeUserId,
     status,
-  }: InterviewsCreateRequestDto): Promise<InterviewsCreateResponseDto> {
+  }: InterviewsCreateRequestDto): Promise<InterviewsResponseDto> {
+    const interviewByUserIdAndCategoryId =
+      await this.getInterviewByUserIdAndCategoryId(
+        intervieweeUserId,
+        categoryId,
+      );
+
+    const hasInterview = Boolean(interviewByUserIdAndCategoryId);
+
+    if (
+      hasInterview &&
+      interviewByUserIdAndCategoryId?.status !== InterviewStatus.REJECTED
+    ) {
+      throw new InterviewsError();
+    }
+
     return this.#interviewRepository.create({
       categoryId,
       intervieweeUserId,
       status,
     });
+  }
+
+  public async getPendingOrPassedInterviewsCategoryIdsByUserId(
+    intervieweeUserId: number,
+  ): Promise<number[]> {
+    const interviewsByUserId =
+      await this.#interviewRepository.getInterviewsByUserId(intervieweeUserId);
+
+    return interviewsByUserId
+      .filter((interview) => interview.status !== InterviewStatus.REJECTED)
+      .map((interview) => interview.categoryId);
+  }
+
+  public getInterviewByUserIdAndCategoryId(
+    intervieweeUserId: number,
+    categoryId: number,
+  ): Promise<InterviewsResponseDto | null> {
+    return this.#interviewRepository.getInterviewByUserIdAndCategoryId(
+      intervieweeUserId,
+      categoryId,
+    );
   }
 }
 

@@ -1,4 +1,3 @@
-import { InterviewStatus } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
@@ -55,12 +54,23 @@ class Interview {
       .execute();
   }
 
-  public getPassedInterviewsByUserId(userId: number): Promise<InterviewM[]> {
-    return this.#InterviewModel
+  public getInterviewsByUserId(
+    intervieweeUserId: number,
+  ): Promise<InterviewM[]> {
+    return this.#InterviewModel.query().where({ intervieweeUserId }).execute();
+  }
+
+  public async getInterviewByUserIdAndCategoryId(
+    intervieweeUserId: number,
+    categoryId: number,
+  ): Promise<InterviewM | null> {
+    const interview = await this.#InterviewModel
       .query()
-      .where({ intervieweeUserId: userId })
-      .andWhere({ status: InterviewStatus.COMPLETED })
-      .execute();
+      .where({ intervieweeUserId })
+      .andWhere({ categoryId })
+      .first();
+
+    return interview ?? null;
   }
 }
 

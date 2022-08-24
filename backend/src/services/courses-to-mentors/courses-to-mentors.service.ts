@@ -1,8 +1,9 @@
 import {
+  CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
-  MentorCreateRequestDto,
 } from '~/common/types/types';
 import { coursesToModels as coursesToModelsRep } from '~/data/repositories/repositories';
+import { CoursesToMentorsError } from '~/exceptions/exceptions';
 
 type Constructor = {
   coursesToModelsRepository: typeof coursesToModelsRep;
@@ -15,11 +16,31 @@ class CoursesToMentors {
     this.#coursesToModelsRepository = coursesToModelsRepository;
   }
 
-  public createMentorToCourse({
+  public async createMentorToCourse({
     courseId,
     userId,
-  }: MentorCreateRequestDto): Promise<CoursesToMentorsResponseDto> {
+  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsResponseDto> {
+    const courseToMentor = await this.getByUserIdAndCourseId({
+      courseId,
+      userId,
+    });
+    const isMentor = Boolean(courseToMentor);
+
+    if (isMentor) {
+      throw new CoursesToMentorsError();
+    }
+
     return this.#coursesToModelsRepository.createMentorToCourse({
+      courseId,
+      userId,
+    });
+  }
+
+  public getByUserIdAndCourseId({
+    courseId,
+    userId,
+  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsResponseDto | null> {
+    return this.#coursesToModelsRepository.getByUserIdAndCourseId({
       courseId,
       userId,
     });
