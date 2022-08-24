@@ -1,14 +1,15 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
-  CategoryGetAllItemResponseDto,
-  CategoryGetAllResponseDto,
-} from './category/category';
-export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
 } from './course/course';
+export {
+  type CategoryGetAllItemResponseDto,
+  type CategoryGetAllResponseDto,
+  type CourseUpdateCategoryRequestDto,
+} from './course-category/course-category';
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
