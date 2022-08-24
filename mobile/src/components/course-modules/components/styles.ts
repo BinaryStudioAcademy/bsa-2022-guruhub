@@ -7,10 +7,11 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    flexDirection: 'row',
   },
   indexWrapper: {
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   index: {
     fontFamily: AppFontFamily.INTER_600,
