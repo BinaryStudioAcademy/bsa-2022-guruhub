@@ -8,6 +8,7 @@ import {
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
+import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
 import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
@@ -30,6 +31,7 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
     width: '90%',
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
+  headerTitleAlign: 'center',
 };
 
 const NAVIGATION_ITEMS: DrawerNavigationList[] = [
@@ -96,6 +98,17 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         icon: 'uam',
         component: UAMConfigureGroup,
         permissions: [PermissionKey.MANAGE_UAM],
+      },
+    ],
+  },
+  {
+    name: 'Courses',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.ADD_COURSE,
+        component: AddCourse,
+        permissions: [],
       },
     ],
   },

@@ -1,16 +1,29 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
+import React, { FC, ReactElement } from 'react';
 
-import { AppColor, DataStatus } from '~/common/enums/enums';
-import { Spinner } from '~/components/common/common';
+import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import {
+  FAB,
+  FlatList,
+  RefreshControl,
+  Spinner,
+  View,
+} from '~/components/common/common';
 import { CourseCard } from '~/components/courses/components/components';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import {
+  useAppDispatch,
+  useAppNavigate,
+  useAppSelector,
+  useCallback,
+  useFocusEffect,
+  useState,
+} from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
+  const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
 
@@ -30,9 +43,15 @@ const Courses: FC = (): ReactElement => {
     //add fetch
   };
 
-  useEffect(() => {
-    handleCoursesLoad();
-  }, [dispatch, setIsLoading]);
+  const handleAddCourse = (): void => {
+    navigation.navigate(AppScreenName.ADD_COURSE);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      handleCoursesLoad();
+    }, []),
+  );
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
@@ -56,6 +75,7 @@ const Courses: FC = (): ReactElement => {
         onEndReached={handleLoadMoreCourses}
         onEndReachedThreshold={0.1}
       />
+      <FAB onPress={handleAddCourse} />
     </View>
   );
 };

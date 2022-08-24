@@ -5,6 +5,7 @@ import {
   CourseFilteringDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
+import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
 
 import { ActionType } from './common';
 
@@ -21,4 +22,16 @@ const getCourses = createAsyncThunk<
   return courses;
 });
 
-export { getCourses };
+const addCourse = createAsyncThunk<
+  CourseGetResponseDto,
+  CourseCreateRequestDto,
+  AsyncThunkConfig
+>(ActionType.ADD_COURSE, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const { url } = payload;
+  const course = await coursesApi.create(url);
+
+  return course;
+});
+
+export { addCourse, getCourses };
