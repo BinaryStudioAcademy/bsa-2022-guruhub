@@ -1,5 +1,3 @@
-type SelectedItemsValues = {
-  [x: string]: boolean;
-};
+type SelectedItemsValues = Record<string, boolean>;
 
 export { type SelectedItemsValues };
