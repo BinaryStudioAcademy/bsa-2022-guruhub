@@ -44,6 +44,7 @@ export { type HttpOptions } from './http/http';
 export {
   type InterviewsByIdResponseDto,
   type InterviewsByIntervieweeIdDto,
+  type InterviewsCreateRequestBodyDto,
   type InterviewsCreateRequestDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,

@@ -9,7 +9,7 @@ import {
 } from '~/common/enums/enums';
 import {
   InterviewsByIntervieweeIdDto,
-  InterviewsCreateRequestDto,
+  InterviewsCreateRequestBodyDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import { interview as interviewService } from '~/services/services';
@@ -65,7 +65,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     url: InterviewsApiPath.ROOT,
     schema: { body: interviewCreateValidationSchema },
     async handler(
-      req: FastifyRequest<{ Body: InterviewsCreateRequestDto }>,
+      req: FastifyRequest<{ Body: InterviewsCreateRequestBodyDto }>,
       rep,
     ) {
       const { categoryId, intervieweeUserId } = req.body;

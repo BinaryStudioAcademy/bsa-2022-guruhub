@@ -36,7 +36,7 @@ export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
   type InterviewsByIdResponseDto,
   type InterviewsByIntervieweeIdDto,
-  type InterviewsCreateRequestDto,
+  type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,
   type InterviewsResponseDto,
