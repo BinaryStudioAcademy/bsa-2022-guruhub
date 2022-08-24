@@ -125,7 +125,9 @@ class Interview {
     intervieweeUserId: number,
   ): Promise<number[]> {
     const interviewsByUserId =
-      await this.#interviewRepository.getInterviewsByUserId(intervieweeUserId);
+      await this.#interviewRepository.getInterviewsByIntervieweeUserId(
+        intervieweeUserId,
+      );
 
     return interviewsByUserId
       .filter((interview) => interview.status !== InterviewStatus.REJECTED)

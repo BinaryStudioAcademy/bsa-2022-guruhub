@@ -54,7 +54,7 @@ class Interview {
       .execute();
   }
 
-  public getInterviewsByUserId(
+  public getInterviewsByIntervieweeUserId(
     intervieweeUserId: number,
   ): Promise<InterviewM[]> {
     return this.#InterviewModel.query().where({ intervieweeUserId }).execute();
