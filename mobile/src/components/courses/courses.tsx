@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, ReactElement } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 
 import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
@@ -14,14 +8,16 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useFocusEffect,
+  useState,
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
@@ -45,10 +41,6 @@ const Courses: FC = (): ReactElement => {
   const handleAddCourse = (): void => {
     navigation.navigate(AppScreenName.ADD_COURSE);
   };
-
-  useEffect(() => {
-    handleCoursesLoad();
-  }, [dispatch, setIsLoading]);
 
   useFocusEffect(
     useCallback(() => {

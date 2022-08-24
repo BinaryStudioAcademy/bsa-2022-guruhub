@@ -8,7 +8,6 @@ export {
   type CategoryGetAllResponseDto,
 } from './category/category';
 export {
-  type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetResponseDto,
 } from './courses/courses';

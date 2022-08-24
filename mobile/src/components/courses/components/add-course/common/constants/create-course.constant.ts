@@ -1,4 +1,4 @@
-import { CourseCreateRequestDto } from '~/common/types/types';
+import { CourseCreateRequestDto } from './constants';
 
 const DEFAULT_CREATE_COURSE_PAYLOAD: CourseCreateRequestDto = {
   url: '',

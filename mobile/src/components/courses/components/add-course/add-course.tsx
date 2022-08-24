@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import { CourseCreateRequestDto } from '~/common/types/types';
 import { Button, Input, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
@@ -15,7 +14,10 @@ import { BackButton } from '~/navigation/app/components/components';
 import { coursesActions } from '~/store/actions';
 import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import { DEFAULT_CREATE_COURSE_PAYLOAD } from './common/constants/constants';
+import {
+  CourseCreateRequestDto,
+  DEFAULT_CREATE_COURSE_PAYLOAD,
+} from './common/constants/constants';
 import { styles } from './style';
 
 const AddCourse: FC = () => {
@@ -37,7 +39,6 @@ const AddCourse: FC = () => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={navigation.goBack} />,
-      headerTitleAlign: 'center',
     });
   }, []);
 

@@ -31,6 +31,7 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
     width: '90%',
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
+  headerTitleAlign: 'center',
 };
 
 const NAVIGATION_ITEMS: DrawerNavigationList[] = [
@@ -101,12 +102,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     ],
   },
   {
-    name: 'Add Course',
+    name: 'Courses',
     isVisible: false,
     subroutes: [
       {
         name: AppScreenName.ADD_COURSE,
-        icon: 'plus',
         component: AddCourse,
         permissions: [],
       },
