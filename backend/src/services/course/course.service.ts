@@ -94,7 +94,7 @@ class Course {
 
     return {
       ...course,
-      courseCategory: null,
+      category: null,
       vendor,
     };
   }
@@ -164,7 +164,7 @@ class Course {
     return course ?? null;
   }
 
-  public async updateCategory(
+  public updateCategory(
     courseId: number,
     newCategoryId: number,
   ): Promise<CourseGetResponseDto> {

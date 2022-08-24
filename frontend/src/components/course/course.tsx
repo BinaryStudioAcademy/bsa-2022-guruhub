@@ -18,7 +18,7 @@ import { ModulesCardsContainer } from './components/modules-cards-container/modu
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, modules, dataStatus } = useAppSelector(
+  const { course, modules, categories, dataStatus } = useAppSelector(
     (state) => state.course,
   );
   const { user } = useAppSelector((state) => state.auth);
@@ -43,7 +43,8 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-  }, [id]);
+    dispatch(courseActions.getCategories());
+  }, [dispatch, id]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -55,6 +56,8 @@ const Course: FC = () => {
     );
   }
 
+  const DEFAULT_CATEGORY_ID = 1;
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -62,15 +65,12 @@ const Course: FC = () => {
           <h1>{course?.title}</h1>
           {categoryIsAllowedToEdit && (
             <>
-              <EditButton
-                onClick={(): void => {
-                  console.log('ABC');
-                }}
-              />
+              <EditButton onClick={handleUpdateCategoryModalToggle} />
               <AddUpdateCategoryModal
-                categories={[{ id: 1, name: 'TEST', key: 'test' }]}
-                defaultId={course.courseCategory?.id ?? NaN}
+                courseId={course.id}
+                defaultCategoryId={course.category?.id ?? DEFAULT_CATEGORY_ID}
                 isModalOpen={isUpdateCategoryModalOpen}
+                categories={categories}
                 onModalToggle={handleUpdateCategoryModalToggle}
               />
             </>
@@ -78,8 +78,8 @@ const Course: FC = () => {
         </div>
         <div className={styles.categoryContainer}>
           <Category
-            name={course?.courseCategory?.name ?? 'Unknown'}
-            keyName={course.courseCategory?.key ?? 'unknown'}
+            name={course.category?.name ?? 'Unknown'}
+            keyName={course.category?.key ?? 'unknown'}
           />
         </div>
         <div className={styles.image}>

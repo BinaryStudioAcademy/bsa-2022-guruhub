@@ -13,28 +13,6 @@ post:
       description: Course was successfully added
     '400':
       description: URL is invalid
-patch:
-  summary: Update Course Category
-  tags:
-    - courses
-  parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: integer
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          $ref: '../../schemas/courses/course-update-category-request-dto.yaml'
-  responses:
-    '200':
-      content:
-        application/json:
-          schema:
-            $ref: '../../schemas/courses/course-get-by-id-response-dto.yaml'
 get:
   summary: Get All Courses
   tags:

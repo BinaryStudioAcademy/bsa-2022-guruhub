@@ -85,23 +85,24 @@ class Course {
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
-      .withGraphJoined('vendor')
+      .withGraphJoined('[vendor, category]')
       .first()
       .castTo<CourseGetResponseDto>()
       .execute();
   }
 
-  public updateCategory(
+  public async updateCategory(
     courseId: number,
     newCategoryId: number,
   ): Promise<CourseGetResponseDto> {
+    await this.#CourseModel.query().patchAndFetchById(courseId, {
+      courseCategoryId: newCategoryId,
+    });
+
     return this.#CourseModel
       .query()
-      .patchAndFetchById(courseId, {
-        courseCategoryId: newCategoryId,
-      })
-      .withGraphJoined('vendor')
-      .withGraphJoined('category')
+      .findById(courseId)
+      .withGraphJoined('[vendor, category]')
       .castTo<CourseGetResponseDto>()
       .execute();
   }

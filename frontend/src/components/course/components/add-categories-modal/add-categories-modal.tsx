@@ -2,42 +2,47 @@ import {
   CategoryGetAllItemResponseDto,
   CourseUpdateCategoryRequestDto,
   FC,
+  SelectorOptions,
 } from 'common/types/types';
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
-import { useAppForm } from 'hooks/hooks';
-// import { courseActions } from 'store/actions';
-import { courseCreate as courseCreateValidationSchema } from 'validation-schemas/validation-schemas';
+import { useAppDispatch, useAppForm, useMemo } from 'hooks/hooks';
+import { courseActions } from 'store/actions';
+import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { getCategoriesOptions } from './helpers/helpers';
-import styles from './styles.module.scss';
 
 type Props = {
-  categories: CategoryGetAllItemResponseDto[];
-  defaultId: number;
+  courseId: number;
+  defaultCategoryId: number;
   isModalOpen: boolean;
+  categories: CategoryGetAllItemResponseDto[];
   onModalToggle: () => void;
 };
 
 const AddUpdateCategoryModal: FC<Props> = ({
-  categories,
-  defaultId,
+  courseId,
+  defaultCategoryId,
   isModalOpen,
+  categories,
   onModalToggle,
 }) => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const { control, errors, handleSubmit } =
     useAppForm<CourseUpdateCategoryRequestDto>({
-      defaultValues: getDefaultUpdateCourseCategoryPayload(defaultId),
-      validationSchema: courseCreateValidationSchema,
+      defaultValues: getDefaultUpdateCourseCategoryPayload(defaultCategoryId),
+      validationSchema: courseUpdateCategoryValidationSchema,
     });
 
-  const categoriesOptions = getCategoriesOptions(categories);
+  const categoriesOptions = useMemo<SelectorOptions<string>[]>(() => {
+    return getCategoriesOptions(categories);
+  }, []);
 
   const onSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
-    console.log(payload);
+    const { newCategoryId } = payload;
+    dispatch(courseActions.updateCategory({ courseId, newCategoryId }));
   };
 
   return (
@@ -46,8 +51,8 @@ const AddUpdateCategoryModal: FC<Props> = ({
       onClose={onModalToggle}
       title="Select new category"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.formWrapper}>
-        <div className={styles.formContent}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
           <Select
             options={categoriesOptions}
             control={control}
@@ -56,7 +61,7 @@ const AddUpdateCategoryModal: FC<Props> = ({
             label="Course categories"
           />
         </div>
-        <div className={styles.buttonWrapper}>
+        <div>
           <Button type="submit" label="Edit" btnColor="blue" />
         </div>
       </form>

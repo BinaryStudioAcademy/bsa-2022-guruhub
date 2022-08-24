@@ -26,7 +26,7 @@ paths:
   /courses:
     $ref: './endpoints/courses/courses.yaml'
   /courses/:id:
-    $ref: './endpoints/courses/courses-get-by-id.yaml'
+    $ref: './endpoints/courses/courses-by-id-operations.yaml'
   # Courses Modules
   /courses/:courseId/modules:
     $ref: './endpoints/courses-modules/courses-modules-get-all-by-course-id.yaml'

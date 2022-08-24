@@ -6,7 +6,7 @@ import {
 const getCategoriesOptions = (
   categories: CategoryGetAllItemResponseDto[],
 ): SelectorOptions[] => {
-  return categories.map((category) => ({
+  return categories.map<SelectorOptions>((category) => ({
     name: category.name,
     value: `${category.id}`,
   }));

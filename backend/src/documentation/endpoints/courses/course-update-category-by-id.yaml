@@ -1,14 +1,18 @@
-summary: Get Course By Id
+summary: Update Course Category
 tags:
   - courses
 parameters:
   - name: id
     in: path
     required: true
-    content:
-      application/json:
-        schema:
-          $ref: '../../schemas/courses/course-get-by-id-request-dto.yaml'
+    schema:
+      type: integer
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/courses/course-update-category-request-dto.yaml'
 responses:
   '200':
     content:
