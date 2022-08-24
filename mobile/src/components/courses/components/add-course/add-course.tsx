@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import { Button, Input, Text, View } from '~/components/common/common';
+import {
+  BackButton,
+  Button,
+  Input,
+  Text,
+  View,
+} from '~/components/common/common';
 import {
   useAppDispatch,
   useAppForm,
@@ -10,7 +16,6 @@ import {
   useEffect,
   useFocusEffect,
 } from '~/hooks/hooks';
-import { BackButton } from '~/navigation/app/components/components';
 import { coursesActions } from '~/store/actions';
 import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 

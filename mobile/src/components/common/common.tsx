@@ -1,3 +1,4 @@
+export { BackButton } from './back-button/back-button';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
 export { FAB } from './fab/fab';
