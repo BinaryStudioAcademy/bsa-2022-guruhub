@@ -1,6 +1,8 @@
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  UsersByEmailResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Permission as PermissionM, User as UserM } from '~/data/models/models';
 
@@ -18,27 +20,48 @@ class User {
   public async getAll({
     page,
     count,
-  }: EntityPaginationRequestQueryDto): Promise<EntityPagination<UserM>> {
-    const result = await this.#UserModel.query().page(page, count);
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<UsersGetResponseDto>
+  > {
+    const result = await this.#UserModel
+      .query()
+      .select('users.id', 'users.createdAt', 'email', 'fullName')
+      .joinRelated('userDetails')
+      .page(page, count)
+      .castTo<EntityPagination<UsersGetResponseDto>>();
 
-    return {
-      items: result.results,
-      total: result.total,
-    };
+    return result;
   }
 
-  public async getByEmail(email: string): Promise<UserM | null> {
+  public async getByEmail(
+    email: string,
+  ): Promise<UsersByEmailResponseDto | null> {
     const user = await this.#UserModel
       .query()
-      .select()
+      .select(
+        'users.id',
+        'users.createdAt',
+        'email',
+        'fullName',
+        'passwordHash',
+        'passwordSalt',
+      )
+      .joinRelated('userDetails')
       .where({ email })
-      .first();
+      .first()
+      .castTo<UsersByEmailResponseDto>();
 
     return user ?? null;
   }
 
-  public async getById(id: string): Promise<UserM | null> {
-    const user = await this.#UserModel.query().select().where({ id }).first();
+  public async getById(id: string): Promise<UsersGetResponseDto | null> {
+    const user = await this.#UserModel
+      .query()
+      .select('users.id', 'users.createdAt', 'email', 'fullName')
+      .joinRelated('userDetails')
+      .where({ 'users.id': id })
+      .first()
+      .castTo<UsersGetResponseDto>();
 
     return user ?? null;
   }
@@ -66,15 +89,13 @@ class User {
 
   public async create(user: {
     email: string;
-    fullName: string;
     passwordSalt: string;
     passwordHash: string;
   }): Promise<UserM> {
-    const { email, fullName, passwordSalt, passwordHash } = user;
+    const { email, passwordSalt, passwordHash } = user;
 
     return this.#UserModel.query().insert({
       email,
-      fullName,
       passwordSalt,
       passwordHash,
     });

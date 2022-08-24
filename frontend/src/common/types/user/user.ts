@@ -1,5 +1,4 @@
 export {
-  type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
