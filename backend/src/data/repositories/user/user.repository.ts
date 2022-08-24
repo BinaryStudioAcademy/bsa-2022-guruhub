@@ -3,7 +3,6 @@ import {
   EntityPaginationRequestQueryDto,
   UsersByEmailResponseDto,
   UsersGetResponseDto,
-  UserWithDetails,
 } from '~/common/types/types';
 import { Permission as PermissionM, User as UserM } from '~/data/models/models';
 
@@ -29,12 +28,9 @@ class User {
       .select('users.id', 'users.createdAt', 'email', 'fullName')
       .joinRelated('userDetails')
       .page(page, count)
-      .castTo<UserWithDetails>();
+      .castTo<EntityPagination<UsersGetResponseDto>>();
 
-    return {
-      items: result.results,
-      total: result.total,
-    };
+    return result;
   }
 
   public async getByEmail(

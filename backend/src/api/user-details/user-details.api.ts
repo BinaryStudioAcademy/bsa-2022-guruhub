@@ -37,7 +37,7 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
       req: FastifyRequest<{ Body: UserDetailsUpdateInfoRequestDto }>,
       rep,
     ) {
-      const userDetails = await userDetailsService.upsertUserDetails(
+      const userDetails = await userDetailsService.update(
         req.user.id,
         req.body,
       );

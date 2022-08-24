@@ -19,9 +19,8 @@ async function up(knex: Knex): Promise<void> {
   });
 
   await knex.raw(
-    'INSERT INTO user_details (user_id, full_name) ' +
-      '(SELECT id AS user_id, full_name ' +
-      'FROM users)',
+    `INSERT INTO user_details (user_id, full_name)
+          (SELECT id AS user_id, full_name FROM users)`,
   );
 
   await knex.schema.table(TableName.USERS, (table) => {
@@ -31,17 +30,34 @@ async function up(knex: Knex): Promise<void> {
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.table(TableName.USER_DETAILS, (table) => {
-    table.string(ColumnName.FIRST_NAME).notNullable();
-    table.string(ColumnName.LAST_NAME).notNullable();
+    table.string(ColumnName.FIRST_NAME);
+    table.string(ColumnName.LAST_NAME);
+  });
+
+  await knex.raw(
+    'UPDATE user_details SET first_name = (SELECT full_name FROM user_details WHERE users.id = user_details.user_id)',
+  );
+
+  await knex.raw(
+    'UPDATE user_details SET last_name = (SELECT full_name FROM user_details WHERE users.id = user_details.user_id)',
+  );
+
+  await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
+    table.setNullable(ColumnName.FIRST_NAME);
+    table.setNullable(ColumnName.LAST_NAME);
   });
 
   await knex.schema.table(TableName.USERS, (table) => {
-    table.string(ColumnName.FULL_NAME).notNullable();
+    table.string(ColumnName.FULL_NAME);
   });
 
   await knex.raw(
     'UPDATE users SET full_name = (SELECT full_name FROM user_details WHERE users.id = user_details.user_id)',
   );
+
+  await knex.schema.alterTable(TableName.USERS, (table) => {
+    table.setNullable(ColumnName.FULL_NAME);
+  });
 
   await knex.schema.table(TableName.USER_DETAILS, (table) => {
     table.dropColumn(ColumnName.FULL_NAME);

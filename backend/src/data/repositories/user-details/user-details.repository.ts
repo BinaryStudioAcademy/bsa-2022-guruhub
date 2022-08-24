@@ -12,7 +12,7 @@ class UserDetails {
     this.#UserDetailsModel = UserDetailsModel;
   }
 
-  public upsertUserDetails(
+  public createUserDetails(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsM> {
@@ -25,8 +25,20 @@ class UserDetails {
         gender,
         userId,
       })
-      .onConflict(['userId'])
-      .merge(userDetails)
+      .execute();
+  }
+
+  public updateUserDetails(
+    userId: number,
+    userDetails: UserDetailsUpdateInfoRequestDto,
+  ): Promise<UserDetailsM | null> {
+    return this.#UserDetailsModel
+      .query()
+      .findOne({ userId })
+      .patch(userDetails)
+      .returning('*')
+      .first()
+      .castTo<UserDetailsM>()
       .execute();
   }
 

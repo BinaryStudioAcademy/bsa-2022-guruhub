@@ -26,10 +26,13 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
-export { UserValidationMessage, UserValidationRule } from './user/user';
+export {
+  UserGender,
+  UserValidationMessage,
+  UserValidationRule,
+} from './user/user';
 export {
   UserDetailsValidationMessage,
   UserDetailsValidationRule,
 } from './user-details/user-details';
-export { UserGender } from './user-gender/user-gender';
 export { VendorKey } from './vendor/vendor';

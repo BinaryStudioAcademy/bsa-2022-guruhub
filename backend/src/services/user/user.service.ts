@@ -75,7 +75,7 @@ class User {
       passwordHash,
     });
 
-    await this.#userDetailsService.upsertUserDetails(user.id, {
+    await this.#userDetailsService.create(user.id, {
       fullName,
       gender: null,
     });

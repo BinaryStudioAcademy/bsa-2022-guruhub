@@ -1,6 +1,7 @@
 import { DataStatus } from 'common/enums/enums';
 import { FC, UserDetailsUpdateInfoRequestDto } from 'common/types/types';
 import { Button, Input, Select } from 'components/common/common';
+import { UserGender } from 'guruhub-shared';
 import { getNameOf } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -12,7 +13,7 @@ import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
-import { SelectData } from './select.data';
+import { genderOptions } from './select.data';
 import styles from './styles.module.scss';
 
 const UserProfileForm: FC = () => {
@@ -26,7 +27,6 @@ const UserProfileForm: FC = () => {
     useAppForm<UserDetailsUpdateInfoRequestDto>({
       defaultValues: {
         ...DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
-        ...userDetails,
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
@@ -39,7 +39,7 @@ const UserProfileForm: FC = () => {
     if (userDetails) {
       reset({
         fullName: userDetails.fullName,
-        gender: userDetails.gender,
+        gender: userDetails.gender ?? UserGender.MALE,
       });
     }
   }, [userDetails]);
@@ -75,7 +75,7 @@ const UserProfileForm: FC = () => {
             <div className={styles.grid}>
               <Select
                 label="Gender"
-                options={SelectData}
+                options={genderOptions}
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
                 control={control}
                 errors={errors}

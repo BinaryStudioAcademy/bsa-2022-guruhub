@@ -62,7 +62,6 @@ export {
   type UserDetailsResponseDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
-export { type UserWithDetails } from './user-with-details/user-with-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';
