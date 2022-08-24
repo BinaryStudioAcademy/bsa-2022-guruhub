@@ -10,17 +10,15 @@ type Props = {
   label: string;
   icon?: IconName;
   variant?: ButtonVariant;
-  isDisabled?: boolean;
   onPress: () => void;
 };
 
-const Button: FC<Props> = ({ label, icon, variant, isDisabled, onPress }) => {
+const Button: FC<Props> = ({ label, icon, variant, onPress }) => {
   const textMarginLeft = icon ? 10 : 0;
 
   return (
     <Pressable
       style={[styles.button, styles[`button${variant}`]]}
-      disabled={isDisabled}
       onPress={onPress}
     >
       {icon && (
