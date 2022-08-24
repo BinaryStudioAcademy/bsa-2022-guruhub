@@ -14,7 +14,6 @@ on:
       - backend/**/*.*
       - shared/**/*.*
       - .github/workflows/cd.yml
-      - .platform/**/*.*
       - .ebextensions/**/*.*
   workflow_dispatch:
 
