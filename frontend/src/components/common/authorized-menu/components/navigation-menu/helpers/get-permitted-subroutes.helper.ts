@@ -5,17 +5,12 @@ const getPermittedSubroutes = (
   subroutes: SubNavigationMenuItem[],
   user: UserWithPermissions,
 ): SubNavigationMenuItem[] => {
-  return subroutes.filter((route) => {
-    const hasPermissions = route.permissions.length;
-
-    return (
-      !hasPermissions ||
-      checkHasPermission({
-        permissionKeys: route.permissions,
-        userPermissions: user.permissions,
-      })
-    );
-  });
+  return subroutes.filter((route) =>
+    checkHasPermission({
+      permissionKeys: route.permissions,
+      userPermissions: user.permissions,
+    }),
+  );
 };
 
 export { getPermittedSubroutes };
