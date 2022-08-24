@@ -49,9 +49,7 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleSearch = (search: string): void => {
-    if (search) {
-      dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
-    }
+    dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
   };
 
   useFocusEffect(
