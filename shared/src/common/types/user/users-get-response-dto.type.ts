@@ -1,7 +1,7 @@
 type UsersGetResponseDto = {
   id: number;
   email: string;
-  fullName: string;
+  fullName?: string;
   createdAt: string;
 };
 
