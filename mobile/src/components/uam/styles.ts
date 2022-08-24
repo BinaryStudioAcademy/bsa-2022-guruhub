@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     alignSelf: 'flex-end',
-    marginTop: 20,
   },
 });
 

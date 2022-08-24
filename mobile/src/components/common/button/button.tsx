@@ -5,7 +5,6 @@ import { IconName } from '~/common/types/types';
 import { Icon, Pressable, Text } from '~/components/common/common';
 
 import { styles } from './styles';
-import { theme } from './theme';
 
 type Props = {
   label: string;
@@ -15,35 +14,29 @@ type Props = {
   onPress: () => void;
 };
 
-const Button: FC<Props> = ({
-  label,
-  icon,
-  variant = ButtonVariant.PRIMARY,
-  isDisabled,
-  onPress,
-}) => {
+const Button: FC<Props> = ({ label, icon, variant, isDisabled, onPress }) => {
   const textMarginLeft = icon ? 10 : 0;
 
   return (
     <Pressable
-      style={[styles.button, theme[variant].button]}
+      style={[styles.button, styles[`button${variant}`]]}
       disabled={isDisabled}
       onPress={onPress}
     >
       {icon && (
         <Icon
           name={icon}
-          color={theme[variant].text.color}
+          color={styles[`button${variant}Label`].color}
           width={20}
           height={20}
         />
       )}
       <Text
-        style={[
-          styles.label,
-          theme[variant].text,
-          { marginLeft: textMarginLeft },
-        ]}
+        style={{
+          ...styles.label,
+          ...styles[`button${variant}Label`],
+          marginLeft: textMarginLeft,
+        }}
       >
         {label}
       </Text>

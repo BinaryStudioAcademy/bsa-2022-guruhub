@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
+import { AppColor, AppFontFamily, ButtonVariant } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   button: {
@@ -17,6 +17,20 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_100,
     fontSize: 16,
     letterSpacing: 0.5,
+  },
+  [`button${ButtonVariant.PRIMARY}`]: {
+    backgroundColor: AppColor.BRAND.BLUE_100,
+  },
+  [`button${ButtonVariant.PRIMARY}Label`]: {
+    color: AppColor.TEXT.GRAY_100,
+  },
+  [`button${ButtonVariant.SECONDARY}`]: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: AppColor.BRAND.BLUE_100,
+  },
+  [`button${ButtonVariant.SECONDARY}Label`]: {
+    color: AppColor.BRAND.BLUE_100,
   },
 });
 

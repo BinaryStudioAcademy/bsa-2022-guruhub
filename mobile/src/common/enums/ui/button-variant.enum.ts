@@ -1,6 +1,6 @@
 enum ButtonVariant {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
+  PRIMARY = 'Primary',
+  SECONDARY = 'Secondary',
 }
 
 export { ButtonVariant };
