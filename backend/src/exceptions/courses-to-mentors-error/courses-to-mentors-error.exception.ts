@@ -1,4 +1,4 @@
-import { HttpError } from 'guruhub-shared';
+import { HttpError } from 'guruhub-shared/exceptions/exceptions';
 
 import {
   CustomExceptionName,
