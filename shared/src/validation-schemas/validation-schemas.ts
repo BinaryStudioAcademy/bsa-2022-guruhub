@@ -3,7 +3,10 @@ export {
   courseFiltering,
   courseGetParams,
 } from './course/course';
-export { courseModuleGetParams } from './course-module/course-module';
+export {
+  courseModuleGetParams,
+  courseModulesGetAllParams,
+} from './course-module/course-module';
 export {
   groupConfigureClient,
   groupCreate,

@@ -20,6 +20,9 @@ import { styles } from './styles';
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
+  const visibleNavigationItems = NAVIGATION_ITEMS.filter(
+    (item) => item.isVisible,
+  );
 
   const handleBecomeMentor = (): void => {
     // TODO: navigate to application screen
@@ -31,7 +34,7 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
         <View style={styles.header}>
           <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
         </View>
-        {NAVIGATION_ITEMS.map(({ name, subroutes }, index) => (
+        {visibleNavigationItems.map(({ name, subroutes }, index) => (
           <View style={styles.listWrapper} key={name}>
             {Boolean(index) && <View style={styles.listBorder} />}
             <DrawerList
