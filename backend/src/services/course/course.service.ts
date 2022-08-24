@@ -166,12 +166,7 @@ class Course {
     courseId: number,
     newCategoryId: number,
   ): Promise<CourseGetResponseDto> {
-    const course = await this.#courseRepository.updateCategory(
-      courseId,
-      newCategoryId,
-    );
-
-    return course;
+    return this.#courseRepository.updateCategory(courseId, newCategoryId);
   }
 }
 

@@ -27,15 +27,11 @@ class CourseCategory {
     };
   }
 
-  public async getByKey(
-    key: string,
-  ): Promise<CourseCategoryGetResponseDto | null> {
+  public getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
     return this.#courseCategoryRepository.getByKey(key);
   }
 
-  public async getById(
-    id: number,
-  ): Promise<CourseCategoryGetResponseDto | null> {
+  public getById(id: number): Promise<CourseCategoryGetResponseDto | null> {
     return this.#courseCategoryRepository.getById(id);
   }
 }

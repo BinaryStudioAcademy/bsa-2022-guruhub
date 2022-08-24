@@ -5,7 +5,7 @@ export {
   courseUpdateByIdParams,
   courseUpdateCategory,
 } from './course/course';
-export { courseCategoryGetByIdParams } from './course-categories/course-categrory-get-by-id-request-params-dto.validation-schema';
+export { courseCategoryGetByIdParams } from './course-categories/course-categories';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,

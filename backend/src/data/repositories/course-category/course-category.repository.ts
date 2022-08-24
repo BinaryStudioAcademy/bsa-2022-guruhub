@@ -29,8 +29,7 @@ class CourseCategory {
     const courseCategory = await this.#CourseCategoryModel
       .query()
       .select()
-      .where({ id })
-      .first();
+      .findById(id);
 
     return courseCategory ?? null;
   }

@@ -91,7 +91,7 @@ class Course {
       .execute();
   }
 
-  public async updateCategory(
+  public updateCategory(
     courseId: number,
     newCategoryId: number,
   ): Promise<CourseGetResponseDto> {
@@ -101,7 +101,6 @@ class Course {
         courseCategoryId: newCategoryId,
       })
       .withGraphJoined('vendor')
-      .first()
       .castTo<CourseGetResponseDto>()
       .execute();
   }
