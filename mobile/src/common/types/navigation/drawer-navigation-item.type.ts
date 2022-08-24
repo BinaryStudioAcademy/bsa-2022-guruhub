@@ -6,7 +6,7 @@ import { IconName } from '~/common/types/ui/ui';
 type DrawerNavigationItem = {
   name: AppScreenName;
   isFocused?: boolean;
-  icon: IconName;
+  icon?: IconName;
   permissions: PermissionKey[];
   component: React.FC;
 };

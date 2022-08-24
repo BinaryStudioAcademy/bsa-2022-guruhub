@@ -7,6 +7,7 @@ import {
 } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
+  BackButton,
   Button,
   Input,
   ScrollView,
@@ -117,13 +118,19 @@ const UAMConfigureGroup: FC = () => {
     navigation.navigate(AppScreenName.UAM);
   };
 
-  const handleCancel = async (): Promise<void> => {
+  const handleBack = async (): Promise<void> => {
     if (group) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
 
     navigation.navigate(AppScreenName.UAM);
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={handleBack} />,
+    });
+  }, []);
 
   useEffect(() => {
     dispatch(groupsCreationActions.getPermissions());
@@ -179,7 +186,6 @@ const UAMConfigureGroup: FC = () => {
           pagination={paginationForPermissionsTable}
         />
         <View style={styles.buttonsContainer}>
-          <Button label="Cancel" onPress={handleCancel} />
           <Button
             label={`${isEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
