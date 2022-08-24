@@ -10,11 +10,11 @@ const checkHasPermission = ({
   permissionKeys,
   userPermissions,
 }: Args): boolean => {
-  const hasPermissions = permissionKeys.length;
+  const isRequiringPermissions = Boolean(permissionKeys.length);
   const userPermissionKeys = userPermissions.map((item) => item.key);
 
   return (
-    !hasPermissions ||
+    !isRequiringPermissions ||
     permissionKeys.some((pagePermission) => {
       return userPermissionKeys.includes(pagePermission);
     })
