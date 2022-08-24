@@ -7,7 +7,7 @@ import { CourseCategory } from '../course-category/course-category.model';
 import { User } from '../models';
 
 class Interview extends Abstract {
-  public 'interviewDate': string;
+  public 'interviewDate': string | null;
 
   public 'status': InterviewStatus;
 
