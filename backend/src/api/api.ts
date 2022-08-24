@@ -14,6 +14,7 @@ import {
   permission,
   token,
   user,
+  userDetails,
 } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
@@ -23,6 +24,7 @@ import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initInterviewsApi } from './interviews/interviews.api';
 import { initPermissionsApi } from './permissions/permissions.api';
+import { initUserDetailsApi } from './user-details/user-details.api';
 import { initUsersApi } from './users/users.api';
 
 const initApi: FastifyPluginAsync = async (fastify) => {
@@ -66,6 +68,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       user,
     },
     prefix: ApiPath.USERS,
+  });
+
+  fastify.register(initUserDetailsApi, {
+    services: {
+      userDetails,
+    },
+    prefix: ApiPath.USER_DETAILS,
   });
 
   fastify.register(initCoursesApi, {

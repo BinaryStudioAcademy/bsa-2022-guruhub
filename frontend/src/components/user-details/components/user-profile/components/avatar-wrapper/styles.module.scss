@@ -1,0 +1,41 @@
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 136px;
+  height: 100%;
+  margin-right: 17px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.imageWrapper img {
+  transform: scale(1.1);
+}
+
+.btn {
+  min-width: 130px;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
+}
+
+.btnUpdate {
+  margin-bottom: 11px;
+  color: var(--brand-blue-100);
+  background: var(--background-gray-400);
+  border: 1px solid var(--brand-blue-100);
+}
+
+.btnUpdate:hover {
+  color: var(--typography-text-100-inverse);
+  background: var(--background-gray-400);
+  border: 1px solid var(--typography-text-100-inverse);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  min-height: 136px;
+  margin-top: 30px;
+}

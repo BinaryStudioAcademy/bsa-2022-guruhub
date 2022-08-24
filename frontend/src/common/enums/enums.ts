@@ -4,6 +4,7 @@ export {
   CategoriesApiPath,
   CoursesApiPath,
   GroupsApiPath,
+  UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
 export { AppRoute, DataStatus, ENV, StorageKey } from './app/app';
@@ -17,4 +18,5 @@ export {
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { StringCase } from './string/string';
+export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';
