@@ -5,7 +5,6 @@ import { InterviewsTableRow } from 'components/interviews/common/types/interview
 import { changeStringCase } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 
-// import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const CategoryCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
