@@ -4,6 +4,7 @@ export { useAppSelector } from './use-app-selector/use-app-selector.hook';
 export { useFormControl } from './use-form-control/use-form-control.hook';
 export { useHandleClickOutside } from './use-handle-click-outside/use-handle-click-outside.hook';
 export { usePagination } from './use-pagination/use-pagination.hook';
+export { useSearch } from './use-search/use-search.hook';
 export { useSelectedItems } from './use-selected-items/use-selected-items.hook';
 export { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 export {

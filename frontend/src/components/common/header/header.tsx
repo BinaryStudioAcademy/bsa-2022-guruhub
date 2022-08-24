@@ -3,20 +3,13 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useLocation,
-  useState,
-} from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
+import { useAppSelector, useLocation, useSearch, useState } from 'hooks/hooks';
 
 import { Popup, SearchBar } from './components/components';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
@@ -28,8 +21,10 @@ const Header: FC = () => {
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
+  const { performSearch } = useSearch();
+
   const handleSearch = (search: string): void => {
-    dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
+    performSearch('title', search);
   };
 
   return (

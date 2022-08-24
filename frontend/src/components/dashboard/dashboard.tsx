@@ -5,6 +5,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useSearch,
   useState,
 } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
@@ -22,6 +23,8 @@ const Dashboard: FC = () => {
     (state) => state.dashboard,
   );
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+  const [isActive, setIsActive] = useState('');
+  const { performSearch } = useSearch();
 
   useEffect(() => {
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
@@ -31,6 +34,18 @@ const Dashboard: FC = () => {
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
+
+  const handleClick = (evt: React.MouseEvent): void => {
+    let category = evt.currentTarget.id;
+
+    if (category === isActive) {
+      setIsActive('');
+      category = '';
+    } else {
+      setIsActive(category);
+    }
+    performSearch('category', category);
+  };
 
   const handleNewCourseModalToggle = (evt: React.MouseEvent | void): void => {
     evt?.stopPropagation();
@@ -52,7 +67,11 @@ const Dashboard: FC = () => {
             onModalToggle={handleNewCourseModalToggle}
           />
         </div>
-        <CategoriesList items={categories} />
+        <CategoriesList
+          items={categories}
+          handleClick={handleClick}
+          isActive={isActive}
+        />
       </div>
       <CoursesList courses={courses} />
     </div>
