@@ -23,7 +23,6 @@ import { coursesActions } from '~/store/actions';
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
-  const [onSearchIcon, setOnSearchIcon] = useState(false);
   const [isLoading] = useState(false);
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
@@ -50,24 +49,16 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleSearch = (search: string): void => {
-    dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+    if (search) {
+      dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+    }
   };
 
   useFocusEffect(
     useCallback(() => {
       handleCoursesLoad();
-
-      return () => {
-        if (onSearchIcon) {
-          return setOnSearchIcon(false);
-        }
-      };
     }, []),
   );
-
-  if (dataStatus === DataStatus.PENDING) {
-    return <Spinner isOverflow />;
-  }
 
   return (
     <>
@@ -75,22 +66,29 @@ const Courses: FC = (): ReactElement => {
         <Search onSearch={handleSearch} />
       </View>
       <View style={styles.container}>
-        <FlatList
-          data={courses}
-          keyExtractor={({ id }): string => id.toString()}
-          renderItem={({ item: course }): ReactElement => (
-            <CourseCard course={course} onCoursePress={handleCourseCard} />
-          )}
-          refreshControl={
-            <RefreshControl
-              colors={[AppColor.BRAND.BLUE_100]}
-              refreshing={isLoading}
-              onRefresh={handleRefresh}
-            />
-          }
-          onEndReached={handleLoadMoreCourses}
-          onEndReachedThreshold={0.1}
-        />
+        {dataStatus === DataStatus.PENDING ? (
+          <View style={styles.spinnerContainer}>
+            <Spinner isOverflow />
+          </View>
+        ) : (
+          <FlatList
+            data={courses}
+            keyExtractor={({ id }): string => id.toString()}
+            renderItem={({ item: course }): ReactElement => (
+              <CourseCard course={course} onCoursePress={handleCourseCard} />
+            )}
+            refreshControl={
+              <RefreshControl
+                colors={[AppColor.BRAND.BLUE_100]}
+                refreshing={isLoading}
+                onRefresh={handleRefresh}
+              />
+            }
+            onEndReached={handleLoadMoreCourses}
+            onEndReachedThreshold={0.1}
+          />
+        )}
+
         <FAB onPress={handleAddCourse} />
       </View>
     </>
