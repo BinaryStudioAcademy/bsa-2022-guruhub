@@ -1,3 +1,4 @@
+import { HttpCode } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -9,6 +10,7 @@ import {
   UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
+import { PermissionsError } from '~/exceptions/permission-error/permission-error.exception';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
 
 type Constructor = {
@@ -131,8 +133,11 @@ class User {
 
   public async delete(userId: number, id: number): Promise<boolean> {
     if (userId === id) {
-      return false;
+      throw new PermissionsError({
+        status: HttpCode.BAD_REQUEST,
+      });
     }
+
     const deletedUsersCount = await this.#userRepository.delete(id);
 
     return Boolean(deletedUsersCount);
