@@ -11,6 +11,13 @@ const styles = StyleSheet.create({
 
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
+  searchIconContainer: {
+    marginRight: 24,
+  },
+  searchFieldContainer: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    paddingVertical: 15,
+  },
 });
 
 export { styles };

@@ -5,6 +5,7 @@ import {
   FAB,
   FlatList,
   RefreshControl,
+  Search,
   Spinner,
   View,
 } from '~/components/common/common';
@@ -22,6 +23,7 @@ import { coursesActions } from '~/store/actions';
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
+  const [onSearchIcon, setOnSearchIcon] = useState(false);
   const [isLoading] = useState(false);
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
@@ -47,9 +49,19 @@ const Courses: FC = (): ReactElement => {
     navigation.navigate(AppScreenName.ADD_COURSE);
   };
 
+  const handleSearch = (search: string): void => {
+    dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+  };
+
   useFocusEffect(
     useCallback(() => {
       handleCoursesLoad();
+
+      return () => {
+        if (onSearchIcon) {
+          return setOnSearchIcon(false);
+        }
+      };
     }, []),
   );
 
@@ -58,25 +70,30 @@ const Courses: FC = (): ReactElement => {
   }
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={courses}
-        keyExtractor={({ id }): string => id.toString()}
-        renderItem={({ item: course }): ReactElement => (
-          <CourseCard course={course} onCoursePress={handleCourseCard} />
-        )}
-        refreshControl={
-          <RefreshControl
-            colors={[AppColor.BRAND.BLUE_100]}
-            refreshing={isLoading}
-            onRefresh={handleRefresh}
-          />
-        }
-        onEndReached={handleLoadMoreCourses}
-        onEndReachedThreshold={0.1}
-      />
-      <FAB onPress={handleAddCourse} />
-    </View>
+    <>
+      <View style={styles.searchFieldContainer}>
+        <Search onSearch={handleSearch} />
+      </View>
+      <View style={styles.container}>
+        <FlatList
+          data={courses}
+          keyExtractor={({ id }): string => id.toString()}
+          renderItem={({ item: course }): ReactElement => (
+            <CourseCard course={course} onCoursePress={handleCourseCard} />
+          )}
+          refreshControl={
+            <RefreshControl
+              colors={[AppColor.BRAND.BLUE_100]}
+              refreshing={isLoading}
+              onRefresh={handleRefresh}
+            />
+          }
+          onEndReached={handleLoadMoreCourses}
+          onEndReachedThreshold={0.1}
+        />
+        <FAB onPress={handleAddCourse} />
+      </View>
+    </>
   );
 };
 
