@@ -41,6 +41,13 @@
   text-align: center;
 }
 
+.courseHeadingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 82.5%;
+}
+
 .categoryContainer {
   display: flex;
   flex-shrink: 0;

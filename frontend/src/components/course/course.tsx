@@ -1,7 +1,8 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
-import { DataStatus } from 'common/enums/enums';
+import { DataStatus, PermissionKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Category, Content, Image, Spinner } from 'components/common/common';
+import { checkHasPermission } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -10,6 +11,7 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
+import { EditButton } from './components/edit-button/edit-button';
 import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
 
@@ -17,8 +19,14 @@ const Course: FC = () => {
   const { course, modules, dataStatus } = useAppSelector(
     (state) => state.course,
   );
+  const { user } = useAppSelector((state) => state.auth);
   const { id } = useParams();
   const dispatch = useAppDispatch();
+
+  const categoryIsAllowedToEdit = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
+    userPermissions: user?.permissions ?? [],
+  });
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
@@ -38,7 +46,16 @@ const Course: FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <h1>{course?.title}</h1>
+        <div className={styles.courseHeadingContainer}>
+          <h1>{course?.title}</h1>
+          {categoryIsAllowedToEdit && (
+            <EditButton
+              onClick={(): void => {
+                console.log('ABC');
+              }}
+            />
+          )}
+        </div>
         <div className={styles.categoryContainer}>
           <Category
             name={course?.courseCategory?.name ?? 'Unknown'}

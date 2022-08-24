@@ -1,6 +1,7 @@
 import { ReactComponent as BillingIcon } from 'assets/icons/billing.svg';
 import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
 import { ReactComponent as CrossIcon } from 'assets/icons/cross.svg';
+import { ReactComponent as EditIcon } from 'assets/icons/edit.svg';
 import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
 import { ReactComponent as LeftArrow } from 'assets/icons/left-arrow.svg';
@@ -14,6 +15,7 @@ import { getValidClasses } from 'helpers/helpers';
 import styles from './styles.module.scss';
 
 const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
+  edit: EditIcon,
   home: HomeIcon,
   course: CourseIcon,
   mentors: MentorsIcon,

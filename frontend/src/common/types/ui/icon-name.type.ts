@@ -1,4 +1,5 @@
 type IconName =
+  | 'edit'
   | 'home'
   | 'course'
   | 'mentors'
