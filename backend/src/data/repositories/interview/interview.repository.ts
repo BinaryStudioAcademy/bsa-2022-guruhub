@@ -1,3 +1,4 @@
+import { InterviewStatus } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
@@ -54,10 +55,14 @@ class Interview {
       .execute();
   }
 
-  public getInterviewsByIntervieweeUserId(
+  public getPendingOrPassedInterviewsByUserId(
     intervieweeUserId: number,
   ): Promise<InterviewM[]> {
-    return this.#InterviewModel.query().where({ intervieweeUserId }).execute();
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhere('status', '!=', InterviewStatus.REJECTED)
+      .execute();
   }
 
   public async getInterviewByIntervieweeUserIdAndCategoryId(

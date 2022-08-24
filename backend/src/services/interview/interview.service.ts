@@ -125,13 +125,11 @@ class Interview {
     intervieweeUserId: number,
   ): Promise<number[]> {
     const interviewsByUserId =
-      await this.#interviewRepository.getInterviewsByIntervieweeUserId(
+      await this.#interviewRepository.getPendingOrPassedInterviewsByUserId(
         intervieweeUserId,
       );
 
-    return interviewsByUserId
-      .filter((interview) => interview.status !== InterviewStatus.REJECTED)
-      .map((interview) => interview.categoryId);
+    return interviewsByUserId.map((interview) => interview.categoryId);
   }
 
   public getInterviewByIntervieweeUserIdAndCategoryId(
