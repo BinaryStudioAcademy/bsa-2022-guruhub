@@ -1,5 +1,7 @@
+export { BackButton } from './back-button/back-button';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
+export { FAB } from './fab/fab';
 export { Icon } from './icon/icon';
 export { Input } from './input/input';
 export { Link } from './link/link';
@@ -11,5 +13,12 @@ export { Stack } from './stack/stack';
 export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
-export { Image, Pressable, StatusBar, View } from 'react-native';
+export {
+  FlatList,
+  Image,
+  Pressable,
+  RefreshControl,
+  StatusBar,
+  View,
+} from 'react-native';
 export { SafeAreaView } from 'react-native-safe-area-context';

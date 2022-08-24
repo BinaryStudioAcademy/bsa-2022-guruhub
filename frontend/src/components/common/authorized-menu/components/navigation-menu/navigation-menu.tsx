@@ -1,21 +1,29 @@
-import { FC, SubNavigationMenuItem } from 'common/types/types';
+import {
+  FC,
+  SubNavigationMenuItem,
+  UserWithPermissions,
+} from 'common/types/types';
 import { useMatch, useResolvedPath } from 'hooks/hooks';
 
 import { NavigationMenuItem } from './components/components';
+import { getPermittedSubroutes } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
   name: string;
   subroutes: SubNavigationMenuItem[];
+  user: UserWithPermissions;
   className?: string;
 };
 
-const NavigationMenu: FC<Props> = ({ name, subroutes, className }) => {
+const NavigationMenu: FC<Props> = ({ name, subroutes, className, user }) => {
+  const permittedSubroutes = getPermittedSubroutes(subroutes, user);
+
   return (
     <div className={className}>
       <h4 className={styles.title}>{name}</h4>
       <div className={styles.links}>
-        {subroutes.map(({ name: routeName, iconName, href }) => {
+        {permittedSubroutes.map(({ name: routeName, iconName, href }) => {
           const resolvedPath = useResolvedPath(href);
           const isCurrentRoute = Boolean(
             useMatch({
