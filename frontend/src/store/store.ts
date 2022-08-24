@@ -5,6 +5,8 @@ import {
   courseModulesApi,
   coursesApi,
   groupsApi,
+  interviewsApi,
+  mentorsApi,
   navigation,
   notification,
   permissionsApi,
@@ -26,6 +28,8 @@ const extraArgument = {
   permissionsApi,
   categoriesApi,
   courseModulesApi,
+  interviewsApi,
+  mentorsApi,
 };
 
 const store = configureStore({

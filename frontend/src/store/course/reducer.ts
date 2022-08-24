@@ -5,18 +5,24 @@ import {
   CourseModulesGetAllItemResponseDto,
 } from 'common/types/types';
 
-import { getCourse, getModules } from './actions';
+import {
+  getCourse,
+  getModules,
+  getPendingOrPassedInterviewsCategoryIdsByUserId,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
+  pendingOrPassedInterviewsCategoryIds: number[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   course: null,
   modules: [],
+  pendingOrPassedInterviewsCategoryIds: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +47,18 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getModules.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
+  builder.addCase(
+    getPendingOrPassedInterviewsCategoryIdsByUserId.fulfilled,
+    (state, { payload }) => {
+      state.pendingOrPassedInterviewsCategoryIds = payload;
+    },
+  );
+  builder.addCase(
+    getPendingOrPassedInterviewsCategoryIdsByUserId.rejected,
+    (state) => {
+      state.pendingOrPassedInterviewsCategoryIds = [];
+    },
+  );
 });
 
 export { reducer };

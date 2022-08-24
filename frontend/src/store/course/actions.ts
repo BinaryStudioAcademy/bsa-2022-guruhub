@@ -1,10 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
+  CoursesToMentorsRequestDto,
+  InterviewsCreateRequestBodyDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -34,4 +37,52 @@ const getModules = createAsyncThunk<
   return modules;
 });
 
-export { getCourse, getModules };
+const createInterview = createAsyncThunk<
+  void,
+  InterviewsCreateRequestBodyDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_INTERVIEW, async (payload, { extra }) => {
+  const { interviewsApi, notification } = extra;
+
+  await interviewsApi.create(payload);
+
+  notification.success(NotificationMessage.INTERVIEW_CREATE);
+});
+
+const createMentor = createAsyncThunk<
+  void,
+  CoursesToMentorsRequestDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_MENTOR, async (payload, { extra }) => {
+  const { mentorsApi, notification } = extra;
+
+  await mentorsApi.create(payload);
+
+  notification.success(NotificationMessage.MENTOR_ADD);
+});
+
+const getPendingOrPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
+  number[],
+  number,
+  AsyncThunkConfig
+>(
+  ActionType.GET_PENDING_OR_PASSED_INTERVIEW_CATEGORY_IDS,
+  async (payload, { extra }) => {
+    const { interviewsApi } = extra;
+
+    const pendingOrPassedInterviewsCategoryIds =
+      await interviewsApi.getPendingOrPassedInterviewsCategoryIdsByUserId(
+        payload,
+      );
+
+    return pendingOrPassedInterviewsCategoryIds;
+  },
+);
+
+export {
+  createInterview,
+  createMentor,
+  getCourse,
+  getModules,
+  getPendingOrPassedInterviewsCategoryIdsByUserId,
+};
