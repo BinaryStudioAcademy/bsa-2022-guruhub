@@ -1,19 +1,23 @@
-import { DataStatus } from 'common/enums/enums';
-import { FC, UserDetailsUpdateInfoRequestDto } from 'common/types/types';
+import { DataStatus, UserGender } from 'common/enums/enums';
+import {
+  FC,
+  SelectorOptions,
+  UserDetailsUpdateInfoRequestDto,
+} from 'common/types/types';
 import { Button, Input, Select } from 'components/common/common';
-import { UserGender } from 'guruhub-shared';
 import { getNameOf } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
   useAppSelector,
   useEffect,
+  useMemo,
 } from 'hooks/hooks';
 import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
-import { genderOptions } from './helpers/get-gender-options.helper';
+import { getGenderOptions } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const UserProfileForm: FC = () => {
@@ -53,6 +57,10 @@ const UserProfileForm: FC = () => {
   const handleGetUsers = (): void => {
     dispatch(userDetailsActions.getUserDetails());
   };
+
+  const genderOptions = useMemo<SelectorOptions[]>(() => {
+    return getGenderOptions();
+  }, []);
 
   return (
     <div>
