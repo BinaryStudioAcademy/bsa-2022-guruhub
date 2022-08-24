@@ -31,7 +31,7 @@ import {
   useSelectedItems,
 } from '~/hooks/hooks';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
-import { groupUpdate } from '~/validation-schemas/validation-schemas';
+import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 
 import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/constants/constants';
 import { styles } from './styles';
@@ -63,7 +63,7 @@ const UAMConfigureGroup: FC = () => {
   const { control, handleSubmit, errors, reset } =
     useAppForm<GroupsUpdateRequestDto>({
       defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
-      validationSchema: groupUpdate,
+      validationSchema: groupCreateClient,
     });
 
   const {
