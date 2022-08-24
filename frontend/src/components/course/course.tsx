@@ -8,9 +8,11 @@ import {
   useAppSelector,
   useEffect,
   useParams,
+  useState,
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
+import { AddUpdateCategoryModal } from './components/components';
 import { EditButton } from './components/edit-button/edit-button';
 import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
@@ -27,6 +29,16 @@ const Course: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
+
+  const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
+    useState(false);
+
+  const handleUpdateCategoryModalToggle = (
+    evt: React.MouseEvent | void,
+  ): void => {
+    evt?.stopPropagation();
+    setUpdateCategoryModalOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
@@ -49,11 +61,19 @@ const Course: FC = () => {
         <div className={styles.courseHeadingContainer}>
           <h1>{course?.title}</h1>
           {categoryIsAllowedToEdit && (
-            <EditButton
-              onClick={(): void => {
-                console.log('ABC');
-              }}
-            />
+            <>
+              <EditButton
+                onClick={(): void => {
+                  console.log('ABC');
+                }}
+              />
+              <AddUpdateCategoryModal
+                categories={[{ id: 1, name: 'TEST', key: 'test' }]}
+                defaultId={course.courseCategory?.id ?? NaN}
+                isModalOpen={isUpdateCategoryModalOpen}
+                onModalToggle={handleUpdateCategoryModalToggle}
+              />
+            </>
           )}
         </div>
         <div className={styles.categoryContainer}>

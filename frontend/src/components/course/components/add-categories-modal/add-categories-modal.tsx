@@ -20,7 +20,7 @@ type Props = {
   onModalToggle: () => void;
 };
 
-const AddCategoriesModal: FC<Props> = ({
+const AddUpdateCategoryModal: FC<Props> = ({
   categories,
   defaultId,
   isModalOpen,
@@ -64,4 +64,4 @@ const AddCategoriesModal: FC<Props> = ({
   );
 };
 
-export { AddCategoriesModal };
+export { AddUpdateCategoryModal };
