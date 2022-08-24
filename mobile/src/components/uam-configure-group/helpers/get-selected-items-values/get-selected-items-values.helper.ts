@@ -2,7 +2,6 @@ import {
   PermissionsGetAllItemResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
-import { SelectedItemsValues } from '~/components/uam-configure-group/common/types/types';
 
 type Props = {
   checkedIds: number[];
@@ -14,7 +13,7 @@ const getSelectedItemsValues = ({
   checkedIds,
   items,
   namePrefix,
-}: Props): SelectedItemsValues => {
+}: Props): Record<string, boolean> => {
   return checkedIds.reduce((object, id) => {
     return {
       ...object,
