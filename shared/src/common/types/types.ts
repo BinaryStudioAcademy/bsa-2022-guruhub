@@ -13,9 +13,10 @@ export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
-  type CourseModulesGetRequestDto,
 } from './course-module/course-module';
+export { type FileGetResponseDto } from './file/file';
 export {
   type GroupsConfigureRequestDto,
   type GroupsCreateRequestDto,

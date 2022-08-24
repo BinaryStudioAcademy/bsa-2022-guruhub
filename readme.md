@@ -188,6 +188,15 @@ erDiagram
     int created_by_user_id FK
     text note
   }
+
+  files ||--|| user_details : avatar_url
+  files {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar url
+    varchar content_type
+  }
 ```
 
 ## 🧑‍💻 CI

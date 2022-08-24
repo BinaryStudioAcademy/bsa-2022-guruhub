@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 6,
+    paddingTop: 20,
   },
 });
 

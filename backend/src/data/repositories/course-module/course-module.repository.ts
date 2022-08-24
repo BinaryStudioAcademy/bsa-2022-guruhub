@@ -2,6 +2,8 @@ import {
   CourseModuleCreateArgumentsDto,
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
+  CourseModulesGetAllItemResponseDto,
+  CourseModulesGetAllRequestParamsDto,
 } from '~/common/types/types';
 import { CourseModule as ModuleM } from '~/data/models/models';
 
@@ -47,6 +49,20 @@ class CourseModule {
       .castTo<CourseModuleGetByIdResponseDto>();
 
     return module ?? null;
+  }
+
+  public async getAllByCourseId({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<
+    CourseModulesGetAllItemResponseDto[]
+  > {
+    const modules = await this.#ModuleModel
+      .query()
+      .where({ courseId })
+      .returning('*')
+      .castTo<CourseModulesGetAllItemResponseDto[]>();
+
+    return modules ?? [];
   }
 }
 
