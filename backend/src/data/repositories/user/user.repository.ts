@@ -30,7 +30,10 @@ class User {
       .page(page, count)
       .castTo<EntityPagination<UsersGetResponseDto>>();
 
-    return result;
+    return {
+      items: result.items,
+      total: result.total,
+    };
   }
 
   public async getByEmail(

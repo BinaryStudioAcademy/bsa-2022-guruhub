@@ -15,6 +15,7 @@ enum ExceptionMessage {
   INVALID_URL_HOST = 'URL is invalid. Only courses from Udemy are supported.',
   PERMISSION_LACK = 'You do not have permission to access this resource.',
   STORAGE_NOT_FOUND = 'Storage was not found',
+  INVALID_USER_REQUEST = 'User request is invalid',
 }
 
 export { ExceptionMessage };

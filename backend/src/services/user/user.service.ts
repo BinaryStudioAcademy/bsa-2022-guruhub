@@ -1,4 +1,3 @@
-import { HttpCode } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -10,7 +9,7 @@ import {
   UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
-import { PermissionsError } from '~/exceptions/permission-error/permission-error.exception';
+import { UsersError } from '~/exceptions/exceptions';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
 import { userDetails as userDetailsServ } from '~/services/services';
 
@@ -145,9 +144,7 @@ class User {
 
   public async delete(userId: number, id: number): Promise<boolean> {
     if (userId === id) {
-      throw new PermissionsError({
-        status: HttpCode.BAD_REQUEST,
-      });
+      throw new UsersError();
     }
 
     const deletedUsersCount = await this.#userRepository.delete(id);

@@ -7,7 +7,7 @@ import { FC } from 'react';
 import { CellProps } from 'react-table';
 
 const ActionsCell: FC<CellProps<UsersTableRow, UsersTableActionsProps>> = ({
-  value: { id, onDelete, hasSame },
+  value: { id, onDelete, hasSameUser },
 }) => {
   const handleDelete = (): void => {
     onDelete(id);
@@ -15,7 +15,7 @@ const ActionsCell: FC<CellProps<UsersTableRow, UsersTableActionsProps>> = ({
 
   return (
     <div>
-      {!hasSame && (
+      {!hasSameUser && (
         <IconButton
           iconName="delete"
           onClick={handleDelete}

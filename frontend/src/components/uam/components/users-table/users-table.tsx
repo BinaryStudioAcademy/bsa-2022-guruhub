@@ -1,5 +1,5 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
 import { UsersTableRow } from 'components/uam/common/types/types';
 import {
@@ -34,26 +34,20 @@ const UsersTable: FC = () => {
     dispatch(uamActions.deleteUser({ id: userId }));
   };
 
-  const columns = useMemo<Column<UsersTableRow>[] | undefined>(() => {
-    if (user) {
-      return getUsersColumns(user.id, handleUserDelete);
-    }
+  const columns = useMemo<Column<UsersTableRow>[]>(() => {
+    return getUsersColumns(user as UserWithPermissions, handleUserDelete);
   }, []);
 
   return (
     <div className={styles.usersTable}>
-      {columns && (
-        <>
-          <h1 className={styles.usersTableHeading}>Users</h1>
-          <Table data={users} columns={columns} />
-          <Pagination
-            currentPage={page}
-            onPageChange={handlePageChange}
-            pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-            totalCount={usersTotalCount}
-          />
-        </>
-      )}
+      <h1 className={styles.usersTableHeading}>Users</h1>
+      <Table data={users} columns={columns} />
+      <Pagination
+        currentPage={page}
+        onPageChange={handlePageChange}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={usersTotalCount}
+      />
     </div>
   );
 };
