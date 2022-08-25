@@ -11,12 +11,12 @@ type Props = {
 };
 
 const Module: FC<Props> = ({ index, title, description }): ReactElement => {
+  const moduleSequenceNumber = `${index + 1}`;
+
   return (
-    <View
-      style={{ ...(Boolean(index) && { marginTop: 15 }), ...styles.container }}
-    >
+    <View style={styles.container}>
       <View style={styles.indexWrapper}>
-        <Text style={styles.index}>{`${index + 1}.`}</Text>
+        <Text style={styles.index}>{moduleSequenceNumber}</Text>
       </View>
       <View style={styles.textWrapper}>
         <Text style={styles.title}>{title}</Text>
