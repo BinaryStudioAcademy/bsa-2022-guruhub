@@ -13,7 +13,7 @@ const WHITE_ROUTES = [
   `${ENV.API.V1_PREFIX}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
   `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
   `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.$ID}`,
-  `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CourseModulesApiPath.COURSES_$ID_MODULES}`,
+  `${ENV.API.V1_PREFIX}${ApiPath.COURSE_MODULES}${CourseModulesApiPath.COURSES_$ID_MODULES}`,
 ];
 
 export { WHITE_ROUTES };
