@@ -1,5 +1,6 @@
 enum DbTableName {
   USERS = 'users',
+  USER_DETAILS = 'user_details',
   PERMISSIONS = 'permissions',
   MIGRATIONS = 'migrations',
   COURSE_CATEGORIES = 'course_categories',
@@ -10,6 +11,7 @@ enum DbTableName {
   GROUPS = 'groups',
   VENDORS = 'vendors',
   INTERVIEWS = 'interviews',
+  FILES = 'files',
 }
 
 export { DbTableName };

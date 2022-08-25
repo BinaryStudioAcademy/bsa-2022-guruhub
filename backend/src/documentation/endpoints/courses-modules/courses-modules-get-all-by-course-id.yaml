@@ -1,0 +1,18 @@
+get:
+  summary: Get Course Modules By Course Id
+  tags:
+    - coursesModules
+  parameters:
+    - name: courseId
+      in: path
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses-modules/courses-modules-get-all-by-course-id-request-dto.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses-modules/courses-modules-get-all-by-course-id-response-dto.yaml'

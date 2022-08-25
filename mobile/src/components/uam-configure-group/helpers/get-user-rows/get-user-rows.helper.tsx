@@ -11,7 +11,7 @@ type Props = {
   onToggle: (id: number) => void;
 };
 
-const getUserRows = ({ users, control, onToggle }: Props): UsersTableRow[] => {
+const getUserRows = ({ users, onToggle, control }: Props): UsersTableRow[] => {
   return users.map((user) => {
     const handleCheckbox = (): void => onToggle(user.id);
 

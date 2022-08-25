@@ -13,9 +13,10 @@ export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
-  type CourseModulesGetRequestDto,
 } from './course-module/course-module';
+export { type FileGetResponseDto } from './file/file';
 export {
   type GroupsConfigureRequestDto,
   type GroupsCreateRequestDto,
@@ -42,7 +43,7 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
-  type UsersByIdResponseDto,
+  type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
@@ -51,6 +52,10 @@ export {
   type UserSignUpResponseDto,
   type UserWithPermissions,
 } from './user/user';
+export {
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateInfoRequestDto,
+} from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';

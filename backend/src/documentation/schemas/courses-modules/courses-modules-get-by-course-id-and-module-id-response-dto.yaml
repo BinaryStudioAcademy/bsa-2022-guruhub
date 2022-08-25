@@ -1,0 +1,16 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  title:
+    type: string
+    example: Module
+  description:
+    oneOf:
+      - type: string
+      - type: null
+    example: Description
+  courseId:
+    type: number
+    example: 1

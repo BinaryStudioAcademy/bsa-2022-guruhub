@@ -23,3 +23,8 @@
   counter-increment: --start-container-counter;
   content: counter(--start-container-counter) '. ';
 }
+
+.linkToModule {
+  color: var(--typography-text-100-inverse);
+  text-decoration: none;
+}

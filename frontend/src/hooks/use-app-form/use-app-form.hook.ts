@@ -1,6 +1,8 @@
 import {
   FormControl,
   FormControlErrors,
+  FormControlGetValues,
+  FormControlSetValues,
   FormControlValues,
   ValidationSchema,
 } from 'common/types/types';
@@ -15,6 +17,8 @@ type UseAppFormArgs = {
 type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   control: FormControl;
   errors: FormControlErrors;
+  setValue: FormControlSetValues;
+  getValues: FormControlGetValues;
   handleSubmit: UseFormHandleSubmit<T>;
   reset: UseFormReset<T>;
 };
@@ -26,6 +30,8 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
   const {
     control,
     handleSubmit,
+    setValue,
+    getValues,
     reset,
     formState: { errors },
   } = useForm<FormControlValues>({
@@ -37,6 +43,8 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
 
   return {
     handleSubmit: handleSubmit as UseFormHandleSubmit<T>,
+    setValue,
+    getValues,
     reset,
     control,
     errors,
