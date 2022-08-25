@@ -6,6 +6,7 @@ import { AuthApi } from './auth-api/auth-api.service';
 import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
+import { InterviewsApi } from './interviews-api/interviews-api.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api.service';
 import { Storage } from './storage/storage.service';
@@ -44,10 +45,16 @@ const coursesApi = new Courses({
   http,
 });
 
+const interviewersApi = new InterviewsApi({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
+
 export {
   authApi,
   coursesApi,
   groupsApi,
+  interviewersApi,
   notification,
   permissionsApi,
   storage,

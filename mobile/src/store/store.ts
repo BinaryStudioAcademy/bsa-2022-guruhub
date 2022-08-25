@@ -4,6 +4,7 @@ import {
   authApi,
   coursesApi,
   groupsApi,
+  interviewersApi,
   notification,
   permissionsApi,
   storage,
@@ -21,6 +22,7 @@ const extraArgument = {
   usersApi,
   permissionsApi,
   coursesApi,
+  interviewersApi,
 };
 
 const store = configureStore({

@@ -2,7 +2,7 @@ import { ApiPath, HttpMethod, InterviewsApiPath } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  InterviewsGetAllResponseDto,
+  InterviewsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
@@ -25,7 +25,7 @@ class InterviewsApi {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<InterviewsGetAllResponseDto>
+    EntityPagination<InterviewsGetAllItemResponseDto>
   > {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}`,
