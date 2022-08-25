@@ -12,7 +12,7 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
-import { AddUpdateCategoryModal } from './components/components';
+import { EditCategoryModal } from './components/components';
 import { EditButton } from './components/edit-button/edit-button';
 import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
@@ -66,7 +66,7 @@ const Course: FC = () => {
           {isCategoryEditAllowed && (
             <>
               <EditButton onClick={handleUpdateCategoryModalToggle} />
-              <AddUpdateCategoryModal
+              <EditCategoryModal
                 courseId={course.id}
                 defaultCategoryId={course.category?.id ?? DEFAULT_CATEGORY_ID}
                 isModalOpen={isUpdateCategoryModalOpen}
