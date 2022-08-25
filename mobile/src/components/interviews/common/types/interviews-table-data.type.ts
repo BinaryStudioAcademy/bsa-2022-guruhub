@@ -1,8 +1,10 @@
+import { ReactElement } from 'react';
+
 type InterviewsTableData = {
   id: number;
   name: string;
   direction: string;
-  status: string;
+  status: ReactElement;
   interviewer: string;
   date: string;
 };

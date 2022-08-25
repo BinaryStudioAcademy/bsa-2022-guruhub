@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 
-import { PaginationDefaultValue } from '~/common/enums/enums';
-import { ScrollView, View } from '~/components/common/common';
+import {
+  AppColor,
+  AppFontFamily,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import { ScrollView, Text, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -37,7 +41,21 @@ const Interviews: FC = () => {
       id: item.id,
       name: item.interviewee.fullName,
       direction: item.courseCategory.name,
-      status: item.status,
+      status: (
+        <Text
+          style={{
+            fontFamily: AppFontFamily.INTER_600,
+            color: AppColor.TEXT.GRAY_100,
+
+            marginHorizontal: 5,
+            backgroundColor: AppColor.BRAND.BLUE_100,
+            borderRadius: 16,
+            textAlign: 'center',
+          }}
+        >
+          {item.status}
+        </Text>
+      ),
       interviewer: item.interviewer.fullName,
       date: item.interviewDate,
     };
