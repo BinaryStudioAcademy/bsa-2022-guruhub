@@ -29,7 +29,7 @@ class MenteesToMentors {
     return this.#menteesToMentorsRepository.create(menteesToMentors);
   }
 
-  public async getByCourseIdAndMenteeId(menteesToMentors: {
+  public getByCourseIdAndMenteeId(menteesToMentors: {
     courseId: number;
     menteeId: number;
   }): Promise<MenteesToMentorsResponseDto | null> {

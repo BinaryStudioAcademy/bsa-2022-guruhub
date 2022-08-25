@@ -1,0 +1,14 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  courseId:
+    type: integer
+    example: 1
+  mentorId:
+    type: integer
+    example: 2
+  menteeId:
+    type: integer
+    example: 3
