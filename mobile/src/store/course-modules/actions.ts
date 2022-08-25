@@ -2,15 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
+  CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
-  CourseModulesGetRequestDto,
 } from '~/common/types/types';
 
 import { ActionType } from './common';
 
 const getCourseModules = createAsyncThunk<
   CourseModulesGetAllResponseDto,
-  CourseModulesGetRequestDto,
+  CourseModulesGetAllRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_COURSE_MODULES, async ({ courseId }, { extra }) => {
   const { courseModulesApi } = extra;

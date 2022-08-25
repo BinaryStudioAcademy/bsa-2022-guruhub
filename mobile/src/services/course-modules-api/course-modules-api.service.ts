@@ -1,7 +1,7 @@
 import { ApiPath, CoursesApiPath, HttpMethod } from '~/common/enums/enums';
 import {
+  CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
-  CourseModulesGetRequestDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
@@ -22,7 +22,7 @@ class CourseModulesApi {
 
   public getAll({
     courseId,
-  }: CourseModulesGetRequestDto): Promise<CourseModulesGetAllResponseDto> {
+  }: CourseModulesGetAllRequestParamsDto): Promise<CourseModulesGetAllResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}/${ApiPath.COURSES}/${courseId}${
         CoursesApiPath.MODULES

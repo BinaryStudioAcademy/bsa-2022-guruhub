@@ -9,8 +9,8 @@ export {
 } from './category/category';
 export {
   type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
-  type CourseModulesGetRequestDto,
 } from './course-modules/course-modules';
 export {
   type CourseFilteringDto,
