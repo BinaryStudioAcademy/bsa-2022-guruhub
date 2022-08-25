@@ -18,10 +18,9 @@ import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, dataStatus, courses } = useAppSelector(
-    (state) => state.dashboard,
-  );
-  const { user } = useAppSelector((state) => state.auth);
+  const { auth, dashboard } = useAppSelector((state) => state);
+  const { categories, dataStatus, courses } = dashboard;
+  const { user } = auth;
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
   const hasUser = Boolean(user);
 
