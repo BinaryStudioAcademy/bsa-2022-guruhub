@@ -38,7 +38,7 @@ class InterviewsApi {
     );
   }
 
-  public getPendingOrPassedInterviewsCategoryIdsByUserId(
+  public getPassedInterviewsCategoryIdsByUserId(
     intervieweeUserId: number,
   ): Promise<number[]> {
     return this.#http.load<number[]>(

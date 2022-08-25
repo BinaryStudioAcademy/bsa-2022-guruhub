@@ -1,7 +1,7 @@
 import { FC, UserWithPermissions } from 'common/types/types';
 
 import { routes } from './common';
-import { NavigationMenu } from './components/components';
+import { BecomeAMentor, NavigationMenu } from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -20,6 +20,7 @@ const AuthorizedMenu: FC<Props> = ({ user }) => {
           user={user}
         />
       ))}
+      <BecomeAMentor />
     </div>
   );
 };

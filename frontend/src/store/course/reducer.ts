@@ -8,11 +8,12 @@ import {
 } from 'common/types/types';
 
 import {
+  createMentor,
   getCategories,
   getCourse,
   getMentors,
   getModules,
-  getPendingOrPassedInterviewsCategoryIdsByUserId,
+  getPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
   updateCategory,
 } from './actions';
@@ -21,7 +22,7 @@ type State = {
   dataStatus: DataStatus;
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
-  pendingOrPassedInterviewsCategoryIds: number[];
+  passedInterviewsCategoryIds: number[];
   isMentorButtonVisible: boolean;
   mentors: UsersGetResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
@@ -31,7 +32,7 @@ const initialState: State = {
   dataStatus: DataStatus.IDLE,
   course: null,
   modules: [],
-  pendingOrPassedInterviewsCategoryIds: [],
+  passedInterviewsCategoryIds: [],
   isMentorButtonVisible: false,
   mentors: [],
   categories: [],
@@ -60,17 +61,14 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
   });
   builder.addCase(
-    getPendingOrPassedInterviewsCategoryIdsByUserId.fulfilled,
+    getPassedInterviewsCategoryIdsByUserId.fulfilled,
     (state, { payload }) => {
-      state.pendingOrPassedInterviewsCategoryIds = payload;
+      state.passedInterviewsCategoryIds = payload;
     },
   );
-  builder.addCase(
-    getPendingOrPassedInterviewsCategoryIdsByUserId.rejected,
-    (state) => {
-      state.pendingOrPassedInterviewsCategoryIds = [];
-    },
-  );
+  builder.addCase(getPassedInterviewsCategoryIdsByUserId.rejected, (state) => {
+    state.passedInterviewsCategoryIds = [];
+  });
   builder.addCase(setIsMentorButtonVisible.fulfilled, (state, { payload }) => {
     state.isMentorButtonVisible = payload;
   });
@@ -101,6 +99,10 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(createMentor.fulfilled, (state) => {
+    state.isMentorButtonVisible = false;
   });
 });
 

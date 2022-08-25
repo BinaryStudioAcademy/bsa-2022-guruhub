@@ -55,13 +55,13 @@ class Interview {
       .execute();
   }
 
-  public getPendingOrPassedInterviewsByUserId(
+  public getPassedInterviewsByUserId(
     intervieweeUserId: number,
   ): Promise<InterviewM[]> {
     return this.#InterviewModel
       .query()
       .where({ intervieweeUserId })
-      .andWhereNot('status', InterviewStatus.REJECTED)
+      .andWhere('status', InterviewStatus.COMPLETED)
       .execute();
   }
 

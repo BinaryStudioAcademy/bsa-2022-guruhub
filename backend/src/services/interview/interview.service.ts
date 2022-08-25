@@ -121,11 +121,11 @@ class Interview {
     });
   }
 
-  public async getPendingOrPassedInterviewsCategoryIdsByUserId(
+  public async getPassedInterviewsCategoryIdsByUserId(
     intervieweeUserId: number,
   ): Promise<number[]> {
     const interviewsByUserId =
-      await this.#interviewRepository.getPendingOrPassedInterviewsByUserId(
+      await this.#interviewRepository.getPassedInterviewsByUserId(
         intervieweeUserId,
       );
 

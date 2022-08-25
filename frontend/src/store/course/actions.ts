@@ -65,23 +65,18 @@ const createMentor = createAsyncThunk<
   notification.success(NotificationMessage.MENTOR_ADD);
 });
 
-const getPendingOrPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
+const getPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
   number[],
   number,
   AsyncThunkConfig
->(
-  ActionType.GET_PENDING_OR_PASSED_INTERVIEW_CATEGORY_IDS,
-  async (payload, { extra }) => {
-    const { interviewsApi } = extra;
+>(ActionType.GET_PASSED_INTERVIEW_CATEGORY_IDS, async (payload, { extra }) => {
+  const { interviewsApi } = extra;
 
-    const pendingOrPassedInterviewsCategoryIds =
-      await interviewsApi.getPendingOrPassedInterviewsCategoryIdsByUserId(
-        payload,
-      );
+  const passedInterviewsCategoryIds =
+    await interviewsApi.getPassedInterviewsCategoryIdsByUserId(payload);
 
-    return pendingOrPassedInterviewsCategoryIds;
-  },
-);
+  return passedInterviewsCategoryIds;
+});
 
 const setIsMentorButtonVisible = createAsyncThunk<
   boolean,
@@ -95,12 +90,11 @@ const getMentors = createAsyncThunk<
   UsersGetResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async (_, _a) => {
-  // const { coursesApi } = extra;
-  // const mentors = await coursesApi.getMentors({ id });
+>(ActionType.GET_MENTORS, async ({ id }, { extra }) => {
+  const { coursesApi } = extra;
+  const mentors = await coursesApi.getMentors({ id });
 
-  // return mentors;
-  return [];
+  return mentors;
 });
 
 const getCategories = createAsyncThunk<
@@ -133,7 +127,7 @@ export {
   getCourse,
   getMentors,
   getModules,
-  getPendingOrPassedInterviewsCategoryIdsByUserId,
+  getPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
   updateCategory,
 };

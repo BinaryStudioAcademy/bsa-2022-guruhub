@@ -28,7 +28,7 @@ const Course: FC = () => {
     course,
     modules,
     dataStatus,
-    pendingOrPassedInterviewsCategoryIds,
+    passedInterviewsCategoryIds,
     user,
     mentors,
   } = useAppSelector((state) => ({ ...state.course, ...state.auth }));
@@ -57,9 +57,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(
-        courseActions.getPendingOrPassedInterviewsCategoryIdsByUserId(user.id),
-      );
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
     }
   }, [user]);
 
@@ -68,13 +66,16 @@ const Course: FC = () => {
       user &&
       course &&
       course.courseCategoryId &&
-      !pendingOrPassedInterviewsCategoryIds.includes(course.courseCategoryId) &&
       !mentors.find((mentor) => mentor.id === user.id);
 
     dispatch(
       courseActions.setIsMentorButtonVisible(Boolean(isMentorButtonVisible)),
     );
-  }, [user, course, pendingOrPassedInterviewsCategoryIds]);
+
+    return () => {
+      dispatch(courseActions.setIsMentorButtonVisible(false));
+    };
+  }, [user, course, passedInterviewsCategoryIds]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;

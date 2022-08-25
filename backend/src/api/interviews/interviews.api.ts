@@ -90,7 +90,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       const { intervieweeUserId } = req.params;
 
       const categoryIds =
-        await interviewService.getPendingOrPassedInterviewsCategoryIdsByUserId(
+        await interviewService.getPassedInterviewsCategoryIdsByUserId(
           intervieweeUserId,
         );
 
