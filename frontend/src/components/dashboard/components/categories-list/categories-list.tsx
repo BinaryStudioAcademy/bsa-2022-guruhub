@@ -1,8 +1,8 @@
 import { SearchValues } from 'common/enums/enums';
 import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
+import { Category } from 'components/common/common';
 import { useSearch } from 'hooks/hooks';
 
-import { Category } from './components/category/category';
 import styles from './styles.module.scss';
 
 type Props = {

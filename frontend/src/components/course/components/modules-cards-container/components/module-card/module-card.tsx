@@ -1,4 +1,5 @@
 import { FC } from 'common/types/types';
+import { Content } from 'components/common/common';
 
 import styles from './styles.module.scss';
 
@@ -13,7 +14,9 @@ const ModuleCard: FC<Props> = ({ title, description }) => {
       <div className={styles.title}>
         <p className={styles.header}>{title}</p>
       </div>
-      <p className={styles.description}>{description}</p>
+      <p className={styles.description}>
+        {description && <Content html={description} />}
+      </p>
     </div>
   );
 };

@@ -9,8 +9,8 @@ import styles from './styles.module.scss';
 type Props = {
   keyName: string;
   name: string;
-  activeCategory: string;
-  handleClick: (evt: React.MouseEvent) => void;
+  activeCategory?: string;
+  handleClick?: (evt: React.MouseEvent) => void;
 };
 
 const Category: FC<Props> = ({
