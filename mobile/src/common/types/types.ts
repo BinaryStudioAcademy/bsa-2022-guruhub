@@ -9,6 +9,7 @@ export {
 } from './category/category';
 export {
   type CourseFilteringDto,
+  type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
 } from './courses/courses';
 export {
