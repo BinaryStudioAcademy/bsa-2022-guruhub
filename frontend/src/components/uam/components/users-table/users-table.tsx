@@ -18,8 +18,12 @@ import styles from './styles.module.scss';
 const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
-  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
-  const { user } = useAppSelector((state) => state.auth);
+
+  const { user, users, usersTotalCount } = useAppSelector((state) => ({
+    user: state.auth.user,
+    users: state.uam.users,
+    usersTotalCount: state.uam.usersTotalCount,
+  }));
 
   useEffect(() => {
     dispatch(

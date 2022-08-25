@@ -142,12 +142,15 @@ class User {
     }));
   }
 
-  public async delete(userId: number, id: number): Promise<boolean> {
-    if (userId === id) {
+  public async delete(
+    loggedInUser: UserWithPermissions,
+    idToDelete: number,
+  ): Promise<boolean> {
+    if (loggedInUser.id === idToDelete) {
       throw new UsersError();
     }
 
-    const deletedUsersCount = await this.#userRepository.delete(id);
+    const deletedUsersCount = await this.#userRepository.delete(idToDelete);
 
     return Boolean(deletedUsersCount);
   }
