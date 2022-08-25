@@ -61,7 +61,7 @@ class Interview {
     return this.#InterviewModel
       .query()
       .where({ intervieweeUserId })
-      .andWhere('status', '!=', InterviewStatus.REJECTED)
+      .andWhereNot('status', InterviewStatus.REJECTED)
       .execute();
   }
 
