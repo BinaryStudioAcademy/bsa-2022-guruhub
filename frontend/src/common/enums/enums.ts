@@ -17,6 +17,7 @@ export {
 } from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { SearchValues } from './search/search';
 export { StringCase } from './string/string';
 export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';

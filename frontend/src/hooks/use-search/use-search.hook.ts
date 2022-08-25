@@ -1,3 +1,4 @@
+import { SearchValues } from 'common/enums/enums';
 import { useAppDispatch, useSearchParams } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
@@ -22,8 +23,8 @@ const useSearch = (): UseSearchResult => {
       setSearchParams(searchParams);
     }
 
-    const category = searchParams.get('category') ?? '';
-    const title = searchParams.get('title') ?? '';
+    const category = searchParams.get(SearchValues.CATEGORY) ?? '';
+    const title = searchParams.get(SearchValues.TITLE) ?? '';
 
     dispatch(dashboardActions.getCourses({ title, categoryKey: category }));
   };

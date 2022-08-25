@@ -2,7 +2,6 @@ import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
-import { useSearch } from 'hooks/hooks';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
@@ -10,21 +9,16 @@ import styles from './styles.module.scss';
 type Props = {
   keyName: string;
   name: string;
+  activeCategory: string;
+  handleClick: (evt: React.MouseEvent) => void;
 };
 
-const Category: FC<Props> = ({ keyName, name }) => {
-  const { searchParams, performSearch } = useSearch();
-  const activeCategory = searchParams.get('category') ?? '';
-
-  const handleClick = (): void => {
-    if (keyName === searchParams.get('category')) {
-      performSearch('category', '');
-
-      return;
-    }
-    performSearch('category', keyName);
-  };
-
+const Category: FC<Props> = ({
+  keyName,
+  name,
+  activeCategory,
+  handleClick,
+}) => {
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
@@ -32,6 +26,7 @@ const Category: FC<Props> = ({ keyName, name }) => {
 
   return (
     <button
+      id={keyName}
       className={getValidClasses(
         styles.category,
         activeCategory === keyName && styles.selected,
