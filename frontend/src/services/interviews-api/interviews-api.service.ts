@@ -7,7 +7,7 @@ type Constructor = {
   apiPrefix: string;
 };
 
-class InterviewApi {
+class InterviewsApi {
   #http: Http;
 
   #apiPrefix: string;
@@ -24,4 +24,4 @@ class InterviewApi {
   }
 }
 
-export { InterviewApi };
+export { InterviewsApi };

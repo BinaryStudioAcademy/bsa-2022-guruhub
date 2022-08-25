@@ -1,6 +1,6 @@
 import { FC } from 'common/types/types';
 
-import { InterviewTable } from './components/interviews-table/interviews-table';
+import { InterviewTable } from './components/components';
 import styles from './styles.module.scss';
 
 const Interviews: FC = () => {

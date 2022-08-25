@@ -2,15 +2,19 @@ import { InterviewsTableAccessor } from 'components/interviews/common/enums/enum
 import { InterviewsTableRow } from 'components/interviews/common/types/types';
 import { Column } from 'react-table';
 
-import { CategoryCell } from '../components/category-cell/category-cell';
-import { DateCell } from '../components/date-cell/date-cell';
-import { StatusCell } from '../components/status-cell/status-cell';
+import {
+  CategoryCell,
+  DateCell,
+  IdCell,
+  StatusCell,
+} from '../../components/components';
 
 const getInterviewsColumns = (): Column<InterviewsTableRow>[] => {
   return [
     {
       Header: 'Id',
       accessor: InterviewsTableAccessor.ID,
+      Cell: IdCell,
     },
     {
       Header: 'Name',

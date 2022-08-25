@@ -6,7 +6,7 @@ import { CourseModulesApi } from './course-modules-api/course-modules-api.servic
 import { CoursesApi } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
-import { InterviewApi } from './interviews-api/interviews-api.service';
+import { InterviewsApi } from './interviews-api/interviews-api.service';
 import { Navigation } from './navigation/navigation.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api';
@@ -56,7 +56,7 @@ const categoriesApi = new CategoriesApi({
   http,
 });
 
-const interviewApi = new InterviewApi({
+const interviewsApi = new InterviewsApi({
   apiPrefix: ENV.API_PATH,
   http,
 });
@@ -71,7 +71,7 @@ export {
   courseModulesApi,
   coursesApi,
   groupsApi,
-  interviewApi,
+  interviewsApi,
   navigation,
   notification,
   permissionsApi,
