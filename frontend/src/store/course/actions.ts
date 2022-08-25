@@ -92,11 +92,12 @@ const getMentors = createAsyncThunk<
   UsersGetResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async ({ id }, { extra }) => {
-  const { coursesApi } = extra;
-  const mentors = await coursesApi.getMentors({ id });
+>(ActionType.GET_MENTORS, async (_, _a) => {
+  // const { coursesApi } = extra;
+  // const mentors = await coursesApi.getMentors({ id });
 
-  return mentors;
+  // return mentors;
+  return [];
 });
 
 export {

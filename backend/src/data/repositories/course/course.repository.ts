@@ -96,7 +96,7 @@ class Course {
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
-      .select('mentors.email', 'mentors.id', 'mentors.fullName')
+      .select('mentors.id')
       .joinRelated('mentors')
       .castTo<UsersGetResponseDto[]>()
       .execute();
