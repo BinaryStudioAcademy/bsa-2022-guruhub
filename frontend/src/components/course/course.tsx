@@ -1,7 +1,13 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { DataStatus, PermissionKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Category, Content, Image, Spinner } from 'components/common/common';
+import {
+  Category,
+  Content,
+  IconButton,
+  Image,
+  Spinner,
+} from 'components/common/common';
 import { checkHasPermission } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -13,7 +19,6 @@ import {
 import { courseActions } from 'store/actions';
 
 import { EditCategoryModal } from './components/components';
-import { EditButton } from './components/edit-button/edit-button';
 import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
 
@@ -31,11 +36,9 @@ const Course: FC = () => {
   });
 
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
-    useState(false);
+    useState<boolean>(false);
 
-  const handleUpdateCategoryModalToggle = (
-    evt: React.MouseEvent | void,
-  ): void => {
+  const handleUpdateCategoryModalToggle = (evt: React.MouseEvent): void => {
     evt?.stopPropagation();
     setUpdateCategoryModalOpen((prev) => !prev);
   };
@@ -56,22 +59,24 @@ const Course: FC = () => {
     );
   }
 
-  const DEFAULT_CATEGORY_ID = 1;
-
   return (
     <div className={styles.container}>
+      <EditCategoryModal
+        courseId={course.id}
+        defaultCategoryId={course.category?.id}
+        isOpen={isUpdateCategoryModalOpen}
+        categories={categories}
+        onModalToggle={handleUpdateCategoryModalToggle}
+      />
       <div className={styles.info}>
         <div className={styles.courseHeadingContainer}>
           <h1>{course?.title}</h1>
           {isCategoryEditAllowed && (
             <>
-              <EditButton onClick={handleUpdateCategoryModalToggle} />
-              <EditCategoryModal
-                courseId={course.id}
-                defaultCategoryId={course.category?.id ?? DEFAULT_CATEGORY_ID}
-                isModalOpen={isUpdateCategoryModalOpen}
-                categories={categories}
-                onModalToggle={handleUpdateCategoryModalToggle}
+              <IconButton
+                label="edit category"
+                iconName="edit"
+                onClick={handleUpdateCategoryModalToggle}
               />
             </>
           )}

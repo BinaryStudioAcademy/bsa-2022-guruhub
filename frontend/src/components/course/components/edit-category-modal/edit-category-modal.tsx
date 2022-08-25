@@ -13,18 +13,20 @@ import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'va
 import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { getCategoriesOptions } from './helpers/helpers';
 
+const DEFAULT_CATEGORY_ID = 1;
+
 type Props = {
   courseId: number;
-  defaultCategoryId: number;
-  isModalOpen: boolean;
+  defaultCategoryId: number | undefined;
+  isOpen: boolean;
   categories: CategoryGetAllItemResponseDto[];
-  onModalToggle: () => void;
+  onModalToggle: (evt: React.MouseEvent) => void;
 };
 
 const EditCategoryModal: FC<Props> = ({
   courseId,
   defaultCategoryId,
-  isModalOpen,
+  isOpen,
   categories,
   onModalToggle,
 }) => {
@@ -32,7 +34,9 @@ const EditCategoryModal: FC<Props> = ({
 
   const { control, errors, handleSubmit } =
     useAppForm<CourseUpdateCategoryRequestDto>({
-      defaultValues: getDefaultUpdateCourseCategoryPayload(defaultCategoryId),
+      defaultValues: getDefaultUpdateCourseCategoryPayload(
+        defaultCategoryId ?? DEFAULT_CATEGORY_ID,
+      ),
       validationSchema: courseUpdateCategoryValidationSchema,
     });
 
@@ -40,18 +44,14 @@ const EditCategoryModal: FC<Props> = ({
     return getCategoriesOptions(categories);
   }, [categories]);
 
-  const onSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
+  const handleModalSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
     const { newCategoryId } = payload;
     dispatch(courseActions.updateCategory({ courseId, newCategoryId }));
   };
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onClose={onModalToggle}
-      title="Select new category"
-    >
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <Modal isOpen={isOpen} onClose={onModalToggle} title="Select new category">
+      <form onSubmit={handleSubmit(handleModalSubmit)}>
         <div>
           <Select
             options={categoriesOptions}
