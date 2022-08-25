@@ -1,10 +1,14 @@
-import { ENV, HttpMethod } from '~/common/enums/enums';
-import { EdxCourseGetResponseDto } from '~/common/types/types';
+import { HttpMethod } from '~/common/enums/enums';
+import {
+  CourseClientDataDto,
+  EdxCourseGetResponseDto,
+} from '~/common/types/types';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
   httpService: typeof httpServ;
   baseUrl: string;
+  clientData: CourseClientDataDto;
 };
 
 class Edx {
@@ -14,10 +18,13 @@ class Edx {
 
   #httpService: typeof httpServ;
 
-  public constructor({ httpService, baseUrl }: Constructor) {
+  #clientData: CourseClientDataDto;
+
+  public constructor({ httpService, baseUrl, clientData }: Constructor) {
     this.#authorizationToken = this.getToken();
     this.#baseUrl = baseUrl;
     this.#httpService = httpService;
+    this.#clientData = clientData;
   }
 
   public async getCourseByUrl(url: URL): Promise<EdxCourseGetResponseDto> {
@@ -26,7 +33,7 @@ class Edx {
     const searchTerm = filteredSlug.split('-').join(' ');
 
     const headers = this.getHeaders();
-    const res = await this.#httpService.load<EdxCourseGetResponseDto[]>(
+    const [course] = await this.#httpService.load<EdxCourseGetResponseDto[]>(
       this.getCourseRequestUrl(),
       {
         headers,
@@ -35,7 +42,7 @@ class Edx {
       },
     );
 
-    return res[0];
+    return course;
   }
 
   private getCourseRequestUrl(): string {
@@ -52,7 +59,7 @@ class Edx {
 
   private getToken(): string {
     return Buffer.from(
-      `${ENV.EDX.CLIENT_ID}:${ENV.EDX.CLIENT_SECRET}`,
+      `${this.#clientData.clientId}:${this.#clientData.clientSecret}`,
       'utf-8',
     ).toString('base64');
   }
