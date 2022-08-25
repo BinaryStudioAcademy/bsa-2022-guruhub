@@ -4,6 +4,7 @@ import {
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
@@ -161,6 +162,10 @@ class Course {
     const course = await this.#courseRepository.getById(courseId);
 
     return course ?? null;
+  }
+
+  public getMentors(courseId: number): Promise<UsersGetResponseDto[]> {
+    return this.#courseRepository.getMentors(courseId);
   }
 }
 

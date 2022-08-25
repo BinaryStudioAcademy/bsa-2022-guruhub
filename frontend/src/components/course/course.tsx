@@ -14,9 +14,14 @@ import { ModulesCardsContainer } from './components/modules-cards-container/modu
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, modules, dataStatus } = useAppSelector(
-    (state) => state.course,
-  );
+  const {
+    course,
+    modules,
+    dataStatus,
+    pendingOrPassedInterviewsCategoryIds,
+    user,
+    isMentorButtonVisible,
+  } = useAppSelector((state) => ({ ...state.course, ...state.auth }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -24,6 +29,26 @@ const Course: FC = () => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
   }, [id]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(
+        courseActions.getPendingOrPassedInterviewsCategoryIdsByUserId(user.id),
+      );
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const isMentorButtonVisible =
+      user &&
+      course &&
+      course.courseCategoryId &&
+      !pendingOrPassedInterviewsCategoryIds.includes(course.courseCategoryId);
+
+    dispatch(
+      courseActions.setIsMentorButtonVisible(Boolean(isMentorButtonVisible)),
+    );
+  }, [user, course, pendingOrPassedInterviewsCategoryIds]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -37,6 +62,7 @@ const Course: FC = () => {
 
   return (
     <div className={styles.container}>
+      {isMentorButtonVisible && <div>Become a mentor</div>}
       <div className={styles.info}>
         <h1>{course?.title}</h1>
         <div className={styles.image}>

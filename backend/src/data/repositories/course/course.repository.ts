@@ -2,6 +2,7 @@ import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -88,6 +89,16 @@ class Course {
       .withGraphJoined('vendor')
       .first()
       .castTo<CourseGetResponseDto>()
+      .execute();
+  }
+
+  public getMentors(courseId: number): Promise<UsersGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .where({ 'courses.id': courseId })
+      .select('mentors.email', 'mentors.id', 'mentors.fullName')
+      .joinRelated('mentors')
+      .castTo<UsersGetResponseDto[]>()
       .execute();
   }
 }

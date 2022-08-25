@@ -9,6 +9,7 @@ import {
   getCourse,
   getModules,
   getPendingOrPassedInterviewsCategoryIdsByUserId,
+  setIsMentorButtonVisible,
 } from './actions';
 
 type State = {
@@ -16,6 +17,7 @@ type State = {
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
   pendingOrPassedInterviewsCategoryIds: number[];
+  isMentorButtonVisible: boolean;
 };
 
 const initialState: State = {
@@ -23,6 +25,7 @@ const initialState: State = {
   course: null,
   modules: [],
   pendingOrPassedInterviewsCategoryIds: [],
+  isMentorButtonVisible: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -59,6 +62,9 @@ const reducer = createReducer(initialState, (builder) => {
       state.pendingOrPassedInterviewsCategoryIds = [];
     },
   );
+  builder.addCase(setIsMentorButtonVisible.fulfilled, (state, { payload }) => {
+    state.isMentorButtonVisible = payload;
+  });
 });
 
 export { reducer };

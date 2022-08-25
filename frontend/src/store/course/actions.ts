@@ -79,10 +79,19 @@ const getPendingOrPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
   },
 );
 
+const setIsMentorButtonVisible = createAsyncThunk<
+  boolean,
+  boolean,
+  AsyncThunkConfig
+>(ActionType.SET_IS_MENTOR_BUTTON_VISIBLE, async (payload) => {
+  return payload;
+});
+
 export {
   createInterview,
   createMentor,
   getCourse,
   getModules,
   getPendingOrPassedInterviewsCategoryIdsByUserId,
+  setIsMentorButtonVisible,
 };

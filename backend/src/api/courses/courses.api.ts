@@ -69,6 +69,21 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       return rep.status(HttpCode.OK).send(course);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_MENTORS,
+    schema: { params: courseGetParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const mentors = await courseService.getMentors(id);
+
+      rep.status(HttpCode.OK).send(mentors);
+    },
+  });
 };
 
 export { initCoursesApi };

@@ -3,7 +3,7 @@ import { Model, RelationMappings } from 'objection';
 import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
-import { Vendor } from '../models';
+import { User, Vendor } from '../models';
 
 class Course extends Abstract {
   public 'title': string;
@@ -28,6 +28,18 @@ class Course extends Abstract {
         join: {
           from: `${DbTableName.COURSES}.vendor_id`,
           to: `${DbTableName.VENDORS}.id`,
+        },
+      },
+      mentors: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: `${DbTableName.COURSES}.id`,
+          through: {
+            from: `${DbTableName.COURSES_TO_MENTORS}.course_id`,
+            to: `${DbTableName.COURSES_TO_MENTORS}.user_id`,
+          },
+          to: `${DbTableName.USERS}.id`,
         },
       },
     };
