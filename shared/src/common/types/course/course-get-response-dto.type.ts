@@ -1,4 +1,7 @@
-import { VendorGetResponseDto } from '~/common/types/types';
+import {
+  CategoryGetAllItemResponseDto,
+  VendorGetResponseDto,
+} from '~/common/types/types';
 
 type CourseGetResponseDto = {
   id: number;
@@ -6,6 +9,7 @@ type CourseGetResponseDto = {
   description: string;
   url: string;
   imageUrl: string;
+  category: CategoryGetAllItemResponseDto | null;
   vendor: VendorGetResponseDto;
 };
 

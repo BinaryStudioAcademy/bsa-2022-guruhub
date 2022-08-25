@@ -94,6 +94,7 @@ class Course {
 
     return {
       ...course,
+      category: null,
       vendor,
     };
   }
@@ -161,6 +162,13 @@ class Course {
     const course = await this.#courseRepository.getById(courseId);
 
     return course ?? null;
+  }
+
+  public updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<CourseGetResponseDto> {
+    return this.#courseRepository.updateCategory(courseId, newCategoryId);
   }
 }
 

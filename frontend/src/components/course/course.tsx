@@ -1,29 +1,53 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
-import { DataStatus } from 'common/enums/enums';
+import { DataStatus, PermissionKey } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Content, Image, Spinner } from 'components/common/common';
+import {
+  Category,
+  Content,
+  IconButton,
+  Image,
+  Spinner,
+} from 'components/common/common';
+import { checkHasPermission } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
   useParams,
+  useState,
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
+import { EditCategoryModal } from './components/components';
 import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, modules, dataStatus } = useAppSelector(
+  const { course, modules, categories, dataStatus } = useAppSelector(
     (state) => state.course,
   );
+  const { user } = useAppSelector((state) => state.auth);
   const { id } = useParams();
   const dispatch = useAppDispatch();
+
+  const isCategoryEditAllowed = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
+    userPermissions: user?.permissions ?? [],
+  });
+
+  const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
+    useState<boolean>(false);
+
+  const handleUpdateCategoryModalToggle = (evt: React.MouseEvent): void => {
+    evt?.stopPropagation();
+    setUpdateCategoryModalOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-  }, [id]);
+    dispatch(courseActions.getCategories());
+  }, [dispatch, id]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -37,8 +61,32 @@ const Course: FC = () => {
 
   return (
     <div className={styles.container}>
+      <EditCategoryModal
+        courseId={course.id}
+        defaultCategoryId={course.category?.id}
+        isOpen={isUpdateCategoryModalOpen}
+        categories={categories}
+        onModalToggle={handleUpdateCategoryModalToggle}
+      />
       <div className={styles.info}>
-        <h1>{course?.title}</h1>
+        <div className={styles.courseHeadingContainer}>
+          <h1>{course?.title}</h1>
+          {isCategoryEditAllowed && (
+            <>
+              <IconButton
+                label="edit category"
+                iconName="edit"
+                onClick={handleUpdateCategoryModalToggle}
+              />
+            </>
+          )}
+        </div>
+        <div className={styles.categoryContainer}>
+          <Category
+            name={course.category?.name ?? 'Unknown'}
+            keyName={course.category?.key ?? 'unknown'}
+          />
+        </div>
         <div className={styles.image}>
           <Image
             alt="course image"
