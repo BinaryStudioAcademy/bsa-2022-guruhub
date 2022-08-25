@@ -8,7 +8,14 @@ import {
   SEARCH_DELAY_MS,
 } from '~/components/common/search/common/constants';
 import { debounce } from '~/helpers/helpers';
-import { useAppForm, useEffect, useFormControl, useState } from '~/hooks/hooks';
+import {
+  useAppForm,
+  useCallback,
+  useEffect,
+  useFocusEffect,
+  useFormControl,
+  useState,
+} from '~/hooks/hooks';
 
 import { SearchPayload } from './common/types';
 import { styles } from './styles';
@@ -20,7 +27,7 @@ type Props = {
 const Search: FC<Props> = ({ onSearch }) => {
   const [borderColor, setBorderColor] = useState('transparent');
 
-  const { control } = useAppForm<SearchPayload>({
+  const { control, reset } = useAppForm<SearchPayload>({
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
@@ -40,6 +47,12 @@ const Search: FC<Props> = ({ onSearch }) => {
 
     return () => debounceHandleSearch.clear();
   }, [value]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => reset(DEFAULT_SEARCH_PAYLOAD);
+    }, []),
+  );
 
   return (
     <View style={{ ...styles.searchBar, borderColor: borderColor }}>

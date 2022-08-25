@@ -7,6 +7,7 @@ import {
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
+import { sanitizeHTML } from '~/helpers/helpers';
 import {
   courseCategory as courseCategoryServ,
   courseModule as courseModuleServ,
@@ -90,7 +91,7 @@ class Course {
     }
 
     const course = await this.#courseRepository.create({
-      description,
+      description: sanitizeHTML(description),
       title,
       url,
       vendorId: vendor.id,

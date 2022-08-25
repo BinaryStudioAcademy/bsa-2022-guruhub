@@ -2,18 +2,20 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   PermissionsGetAllItemResponseDto,
+  UsersBasicInfoDto,
   UsersByEmailResponseDto,
-  UsersByIdResponseDto,
   UsersGetResponseDto,
   UserSignUpRequestDto,
   UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
+import { userDetails as userDetailsServ } from '~/services/services';
 
 type Constructor = {
   userRepository: typeof userRep;
   encryptService: Encrypt;
+  userDetailsService: typeof userDetailsServ;
 };
 
 class User {
@@ -21,9 +23,16 @@ class User {
 
   #encryptService: Encrypt;
 
-  public constructor({ userRepository, encryptService }: Constructor) {
+  #userDetailsService: typeof userDetailsServ;
+
+  public constructor({
+    userRepository,
+    encryptService,
+    userDetailsService,
+  }: Constructor) {
     this.#userRepository = userRepository;
     this.#encryptService = encryptService;
+    this.#userDetailsService = userDetailsService;
   }
 
   public async getAll({
@@ -62,16 +71,20 @@ class User {
 
     const user = await this.#userRepository.create({
       email,
-      fullName,
       passwordSalt,
       passwordHash,
+    });
+
+    await this.#userDetailsService.create(user.id, {
+      fullName,
+      gender: null,
     });
 
     return {
       id: user.id,
       email: user.email,
-      fullName: user.fullName,
       createdAt: user.createdAt,
+      fullName,
       permissions: [],
     };
   }
@@ -118,13 +131,12 @@ class User {
     };
   }
 
-  public async getByIds(ids: number[]): Promise<UsersByIdResponseDto[]> {
+  public async getByIds(ids: number[]): Promise<UsersBasicInfoDto[]> {
     const users = await this.#userRepository.getByIds(ids);
 
     return users.map((user) => ({
       id: user.id,
       email: user.email,
-      fullName: user.fullName,
       createdAt: user.createdAt,
     }));
   }

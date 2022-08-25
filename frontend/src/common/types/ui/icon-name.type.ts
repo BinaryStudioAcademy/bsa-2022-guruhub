@@ -8,6 +8,7 @@ type IconName =
   | 'cross'
   | 'delete'
   | 'search'
-  | 'leftArrow';
+  | 'leftArrow'
+  | 'interview';
 
 export { IconName };

@@ -1,16 +1,30 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
-import { FlatList, RefreshControl, View } from 'react-native';
+import React, { FC, ReactElement } from 'react';
 
-import { AppColor, DataStatus } from '~/common/enums/enums';
-import { Spinner } from '~/components/common/common';
+import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import {
+  FAB,
+  FlatList,
+  RefreshControl,
+  Search,
+  Spinner,
+  View,
+} from '~/components/common/common';
 import { CourseCard } from '~/components/courses/components/components';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import {
+  useAppDispatch,
+  useAppNavigate,
+  useAppSelector,
+  useCallback,
+  useFocusEffect,
+  useState,
+} from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
+  const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
 
@@ -30,33 +44,52 @@ const Courses: FC = (): ReactElement => {
     //add fetch
   };
 
-  useEffect(() => {
-    handleCoursesLoad();
-  }, [dispatch, setIsLoading]);
+  const handleAddCourse = (): void => {
+    navigation.navigate(AppScreenName.ADD_COURSE);
+  };
 
-  if (dataStatus === DataStatus.PENDING) {
-    return <Spinner isOverflow />;
-  }
+  const handleSearch = (search: string): void => {
+    dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      handleCoursesLoad();
+    }, []),
+  );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={courses}
-        keyExtractor={({ id }): string => id.toString()}
-        renderItem={({ item: course }): ReactElement => (
-          <CourseCard course={course} onCoursePress={handleCourseCard} />
-        )}
-        refreshControl={
-          <RefreshControl
-            colors={[AppColor.BRAND.BLUE_100]}
-            refreshing={isLoading}
-            onRefresh={handleRefresh}
+    <>
+      <View style={styles.searchFieldContainer}>
+        <Search onSearch={handleSearch} />
+      </View>
+      <View style={styles.container}>
+        {dataStatus === DataStatus.PENDING ? (
+          <View style={styles.spinnerContainer}>
+            <Spinner isOverflow />
+          </View>
+        ) : (
+          <FlatList
+            data={courses}
+            keyExtractor={({ id }): string => id.toString()}
+            renderItem={({ item: course }): ReactElement => (
+              <CourseCard course={course} onCoursePress={handleCourseCard} />
+            )}
+            refreshControl={
+              <RefreshControl
+                colors={[AppColor.BRAND.BLUE_100]}
+                refreshing={isLoading}
+                onRefresh={handleRefresh}
+              />
+            }
+            onEndReached={handleLoadMoreCourses}
+            onEndReachedThreshold={0.1}
           />
-        }
-        onEndReached={handleLoadMoreCourses}
-        onEndReachedThreshold={0.1}
-      />
-    </View>
+        )}
+
+        <FAB onPress={handleAddCourse} />
+      </View>
+    </>
   );
 };
 

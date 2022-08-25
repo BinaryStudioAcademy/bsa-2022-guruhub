@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { AppScreenName, ButtonVariant, DataStatus } from '~/common/enums/enums';
 import { ScrollView, Spinner, View } from '~/components/common/common';
 import { useAppNavigate, useAppSelector } from '~/hooks/hooks';
 
@@ -30,7 +30,12 @@ const UAM: FC = () => {
           <UsersTable />
           <GroupsTable />
           <View style={styles.buttonWrapper}>
-            <Button label="Create group" onPress={handleGroupCreate} />
+            <Button
+              label="Create group"
+              icon="plus"
+              variant={ButtonVariant.SECONDARY}
+              onPress={handleGroupCreate}
+            />
           </View>
         </View>
       </ScrollView>
