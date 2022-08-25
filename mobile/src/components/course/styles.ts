@@ -37,4 +37,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export { styles };
+const tagsStyles = {
+  ul: {
+    listStyleType: 'none',
+  },
+};
+
+export { styles, tagsStyles };

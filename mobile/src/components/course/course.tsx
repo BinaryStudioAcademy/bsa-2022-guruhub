@@ -11,17 +11,21 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, sanitizeHTML } from '~/helpers/helpers';
 import { useAppSelector } from '~/hooks/hooks';
 
-import { styles } from './styles';
+import { styles, tagsStyles } from './styles';
 
 const Course: FC = () => {
-  const { course, dataStatus } = useAppSelector((state) => state.courses);
   const { width } = useWindowDimensions();
+  const { course, dataStatus } = useAppSelector((state) => state.courses);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
+  }
+
+  if (!course) {
+    return <Text>There is no course with provided id</Text>;
   }
 
   return (
@@ -35,8 +39,9 @@ const Course: FC = () => {
         <Text style={styles.h2}>About this course</Text>
         <RenderHtml
           baseStyle={styles.text}
+          tagsStyles={tagsStyles}
           contentWidth={width}
-          source={{ html: course?.description }}
+          source={{ html: sanitizeHTML(course?.description) }}
         />
       </View>
     </ScrollView>
