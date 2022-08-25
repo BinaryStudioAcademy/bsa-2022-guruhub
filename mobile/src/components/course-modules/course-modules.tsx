@@ -18,6 +18,10 @@ const CourseModules: FC = (): ReactElement => {
     />
   ));
 
+  if (!courseModules.length) {
+    return <></>;
+  }
+
   return (
     <View>
       <Text style={styles.title}>Course Content</Text>
