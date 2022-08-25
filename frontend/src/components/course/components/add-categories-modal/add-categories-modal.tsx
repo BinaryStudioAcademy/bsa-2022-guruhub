@@ -38,7 +38,7 @@ const AddUpdateCategoryModal: FC<Props> = ({
 
   const categoriesOptions = useMemo<SelectorOptions<string>[]>(() => {
     return getCategoriesOptions(categories);
-  }, []);
+  }, [categories]);
 
   const onSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
     const { newCategoryId } = payload;

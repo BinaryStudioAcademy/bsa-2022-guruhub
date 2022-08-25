@@ -25,7 +25,7 @@ const Course: FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const categoryIsAllowedToEdit = checkHasPermission({
+  const isCategoryEditAllowed = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
@@ -63,7 +63,7 @@ const Course: FC = () => {
       <div className={styles.info}>
         <div className={styles.courseHeadingContainer}>
           <h1>{course?.title}</h1>
-          {categoryIsAllowedToEdit && (
+          {isCategoryEditAllowed && (
             <>
               <EditButton onClick={handleUpdateCategoryModalToggle} />
               <AddUpdateCategoryModal
