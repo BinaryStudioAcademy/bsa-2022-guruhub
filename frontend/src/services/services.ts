@@ -12,6 +12,7 @@ import { Navigation } from './navigation/navigation.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api';
 import { Storage } from './storage/storage.service';
+import { UserDetailsApi } from './user-details-api/user-details-api.service';
 import { UsersApi } from './users-api/users-api.service';
 
 const storage = new Storage({
@@ -28,6 +29,11 @@ const authApi = new AuthApi({
 });
 
 const usersApi = new UsersApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
+const userDetailsApi = new UserDetailsApi({
   apiPrefix: ENV.API_PATH,
   http,
 });
@@ -77,5 +83,6 @@ export {
   notification,
   permissionsApi,
   storage,
+  userDetailsApi,
   usersApi,
 };

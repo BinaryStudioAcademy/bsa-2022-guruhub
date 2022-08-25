@@ -12,7 +12,7 @@ const FAB: FC<Props> = ({ onPress }) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.iconContainer}>
-        <Icon name="plus" />
+        <Icon name="plus" color="white" />
       </View>
     </Pressable>
   );

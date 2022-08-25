@@ -9,6 +9,7 @@ import {
   Interview as InterviewModel,
   Permission as PermissionModel,
   User as UserModel,
+  UserDetails as UserDetailsModel,
   UsersToGroups as UsersToGroupsModel,
   Vendor as VendorModel,
 } from '~/data/models/models';
@@ -23,11 +24,16 @@ import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissio
 import { Interview } from './interview/interview.repository';
 import { Permission } from './permission/permission.repository';
 import { User } from './user/user.repository';
+import { UserDetails } from './user-details/user-details.repository';
 import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
 import { Vendor } from './vendor/vendor.repository';
 
 const user = new User({
   UserModel,
+});
+
+const userDetails = new UserDetails({
+  UserDetailsModel,
 });
 
 const permission = new Permission({
@@ -73,6 +79,7 @@ export {
   interview,
   permission,
   user,
+  userDetails,
   usersToGroups,
   vendor,
 };

@@ -3,12 +3,10 @@ import { Model, RelationMappings } from 'objection';
 import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
-import { Group } from '../models';
+import { Group, UserDetails } from '../models';
 
 class User extends Abstract {
   public 'email': string;
-
-  public 'fullName': string;
 
   public 'passwordHash': string;
 
@@ -26,6 +24,14 @@ class User extends Abstract {
             to: `${DbTableName.USERS_TO_GROUPS}.group_id`,
           },
           to: `${DbTableName.GROUPS}.id`,
+        },
+      },
+      userDetails: {
+        relation: Model.HasOneRelation,
+        modelClass: UserDetails,
+        join: {
+          from: `${DbTableName.USERS}.id`,
+          to: `${DbTableName.USER_DETAILS}.user_id`,
         },
       },
     };
