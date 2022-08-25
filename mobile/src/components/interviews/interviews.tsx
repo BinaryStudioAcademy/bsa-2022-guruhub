@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 
 import { PaginationDefaultValue } from '~/common/enums/enums';
-import { Table, View } from '~/components/common/common';
-import { getInterviewsColumns } from '~/components/interviews/helpers/helpers';
+import { ScrollView, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -12,6 +11,7 @@ import {
 } from '~/hooks/hooks';
 import { interviewsActions } from '~/store/actions';
 
+import { InterviewsTable } from './interviews-table/interviews-table';
 import { styles } from './styles';
 
 const Interviews: FC = () => {
@@ -32,7 +32,6 @@ const Interviews: FC = () => {
     }, [page, interviewsTotalCount]),
   );
 
-  const interviewsColumns = getInterviewsColumns();
   const tableData = interviews.map((item) => {
     return {
       id: item.id,
@@ -45,13 +44,11 @@ const Interviews: FC = () => {
   });
 
   return (
-    <View style={styles.tableContainer}>
-      <Table
-        columnWidthArr={[50, 180, 100, 100, 200, 200]}
-        columns={interviewsColumns}
-        data={tableData}
-      />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <InterviewsTable tableData={tableData} />
+      </View>
+    </ScrollView>
   );
 };
 
