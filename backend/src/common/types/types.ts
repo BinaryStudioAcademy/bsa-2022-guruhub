@@ -42,6 +42,10 @@ export {
   InterviewsGetAllItemResponseDto,
   InterviewsGetAllResponseDto,
 } from './interview/interview';
+export {
+  type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
+} from './mentees-to-mentors/mentees-to-mentors';
 export { EntityPagination } from './pagination/pagination';
 export {
   type PermissionsGetAllItemResponseDto,

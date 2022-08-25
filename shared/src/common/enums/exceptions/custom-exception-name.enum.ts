@@ -7,6 +7,7 @@ enum CustomExceptionName {
   COURSE_MODULE_ERROR = 'CourseModuleError',
   PERMISSION_ERROR = 'PermissionError',
   STORAGE_ERROR = 'StorageError',
+  MENTEES_TO_MENTORS_ERROR = 'MenteesToMentorsError',
 }
 
 export { CustomExceptionName };

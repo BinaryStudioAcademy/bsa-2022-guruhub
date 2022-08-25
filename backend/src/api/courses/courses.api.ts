@@ -5,17 +5,23 @@ import {
   CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetRequestParamsDto,
+  MenteesToMentorsRequestDto,
 } from '~/common/types/types';
-import { course as courseService } from '~/services/services';
+import {
+  course as courseService,
+  menteesToMentors as menteesToMentorsService,
+} from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
+  courseMentorCreateBody as courseMentorCreateBodyValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
     course: typeof courseService;
+    menteesToMentors: typeof menteesToMentorsService;
   };
 };
 
@@ -67,6 +73,33 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.getById(id);
 
       return rep.status(HttpCode.OK).send(course);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.POST,
+    url: CoursesApiPath.$ID_MENTORS,
+    schema: {
+      params: courseGetParamsValidationSchema,
+      body: courseMentorCreateBodyValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseGetRequestParamsDto;
+        Body: MenteesToMentorsRequestDto;
+      }>,
+      rep,
+    ) {
+      const { mentorId, menteeId } = req.body;
+      const { id } = req.params;
+      const menteeToMentor =
+        await menteesToMentorsService.createMenteesToMentors({
+          courseId: id,
+          mentorId,
+          menteeId,
+        });
+
+      rep.status(HttpCode.OK).send(menteeToMentor);
     },
   });
 };

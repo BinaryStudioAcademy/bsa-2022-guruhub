@@ -3,6 +3,7 @@ export {
   courseFiltering,
   courseGetParams,
 } from './course/course';
+export { courseMentorCreateBody } from './course-mentor/course-mentor';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,
