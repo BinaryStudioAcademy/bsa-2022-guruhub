@@ -2,14 +2,17 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
+  CategoryGetAllResponseDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CoursesToMentorsRequestDto,
+  CourseUpdateCategoryRequestArguments,
   InterviewsCreateRequestBodyDto,
   UsersGetResponseDto,
 } from 'common/types/types';
+import { notification } from 'services/services';
 
 import { ActionType } from './common';
 
@@ -100,12 +103,37 @@ const getMentors = createAsyncThunk<
   return [];
 });
 
+const getCategories = createAsyncThunk<
+  CategoryGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_CATEGORIES, async (_, { extra }) => {
+  const { categoriesApi } = extra;
+  const categoriesDto = await categoriesApi.getAll();
+
+  return categoriesDto;
+});
+
+const updateCategory = createAsyncThunk<
+  CourseGetResponseDto,
+  CourseUpdateCategoryRequestArguments,
+  AsyncThunkConfig
+>(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const updatedCourse = await coursesApi.updateCategory(payload);
+  notification.success(NotificationMessage.COURSE_CATEGORY_UPDATED);
+
+  return updatedCourse;
+});
+
 export {
   createInterview,
   createMentor,
+  getCategories,
   getCourse,
   getMentors,
   getModules,
   getPendingOrPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
+  updateCategory,
 };

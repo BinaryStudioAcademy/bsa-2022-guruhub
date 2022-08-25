@@ -2,7 +2,10 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseUpdateByIdParams,
+  courseUpdateCategory,
 } from './course/course';
+export { courseCategoryGetByIdParams } from './course-categories/course-categories';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,

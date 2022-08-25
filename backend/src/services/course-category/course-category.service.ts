@@ -30,6 +30,10 @@ class CourseCategory {
   public getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
     return this.#courseCategoryRepository.getByKey(key);
   }
+
+  public getById(id: number): Promise<CourseCategoryGetResponseDto | null> {
+    return this.#courseCategoryRepository.getById(id);
+  }
 }
 
 export { CourseCategory };

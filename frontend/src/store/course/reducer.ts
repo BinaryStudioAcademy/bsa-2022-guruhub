@@ -1,17 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
+  CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
+  getCategories,
   getCourse,
   getMentors,
   getModules,
   getPendingOrPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
+  updateCategory,
 } from './actions';
 
 type State = {
@@ -21,6 +24,7 @@ type State = {
   pendingOrPassedInterviewsCategoryIds: number[];
   isMentorButtonVisible: boolean;
   mentors: UsersGetResponseDto[];
+  categories: CategoryGetAllItemResponseDto[];
 };
 
 const initialState: State = {
@@ -30,6 +34,7 @@ const initialState: State = {
   pendingOrPassedInterviewsCategoryIds: [],
   isMentorButtonVisible: false,
   mentors: [],
+  categories: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -74,6 +79,28 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getMentors.rejected, (state) => {
     state.mentors = [];
+  });
+
+  builder.addCase(getCategories.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getCategories.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.categories = action.payload.items;
+  });
+  builder.addCase(getCategories.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(updateCategory.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(updateCategory.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.course = action.payload;
+  });
+  builder.addCase(updateCategory.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 });
 

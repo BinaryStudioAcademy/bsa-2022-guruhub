@@ -2,6 +2,7 @@ import {
   ApiPath,
   AuthApiPath,
   CategoriesApiPath,
+  CourseModulesApiPath,
   CoursesApiPath,
   ENV,
   InterviewsApiPath,
@@ -15,6 +16,8 @@ const WHITE_ROUTES = [
   `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
   `${ENV.API.V1_PREFIX}${ApiPath.INTERVIEWS}${InterviewsApiPath.INTERVIEWEE_USER_$ID_CATEGORIES}`,
   `${ENV.API.V1_PREFIX}${ApiPath.MENTORS}${MentorsApiPath.ROOT}`,
+  `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.$ID}`,
+  `${ENV.API.V1_PREFIX}${ApiPath.COURSE_MODULES}${CourseModulesApiPath.COURSES_$ID_MODULES}`,
 ];
 
 export { WHITE_ROUTES };

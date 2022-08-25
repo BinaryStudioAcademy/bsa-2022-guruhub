@@ -95,6 +95,7 @@ class Course {
 
     return {
       ...course,
+      category: null,
       vendor,
     };
   }
@@ -166,6 +167,13 @@ class Course {
 
   public getMentors(courseId: number): Promise<UsersGetResponseDto[]> {
     return this.#courseRepository.getMentors(courseId);
+  }
+
+  public updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<CourseGetResponseDto> {
+    return this.#courseRepository.updateCategory(courseId, newCategoryId);
   }
 }
 
