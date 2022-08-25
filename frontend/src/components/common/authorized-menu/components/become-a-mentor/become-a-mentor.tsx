@@ -18,7 +18,11 @@ const BecomeAMentor: FC = () => {
       return;
     }
 
-    if (passedInterviewsCategoryIds.includes(course.courseCategoryId)) {
+    const isInterviewPassed = passedInterviewsCategoryIds.includes(
+      course.courseCategoryId,
+    );
+
+    if (isInterviewPassed) {
       dispatch(
         courseActions.createMentor({ courseId: Number(id), userId: user.id }),
       );

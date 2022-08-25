@@ -80,7 +80,7 @@ class CoursesApi {
     );
   }
 
-  public getMentors({
+  public getMentorsByCourseId({
     id,
   }: CourseGetRequestParamsDto): Promise<UsersGetResponseDto[]> {
     return this.#http.load<UsersGetResponseDto[]>(

@@ -11,7 +11,7 @@ import {
   createMentor,
   getCategories,
   getCourse,
-  getMentors,
+  getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
@@ -72,10 +72,10 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(setIsMentorButtonVisible.fulfilled, (state, { payload }) => {
     state.isMentorButtonVisible = payload;
   });
-  builder.addCase(getMentors.fulfilled, (state, { payload }) => {
+  builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
     state.mentors = payload;
   });
-  builder.addCase(getMentors.rejected, (state) => {
+  builder.addCase(getMentorsByCourseId.rejected, (state) => {
     state.mentors = [];
   });
 

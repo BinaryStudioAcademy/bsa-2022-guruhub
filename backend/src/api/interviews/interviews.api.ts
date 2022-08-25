@@ -8,7 +8,7 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import {
-  InterviewsByIntervieweeIdDto,
+  InterviewsByIntervieweeIdRequestDto,
   InterviewsCreateRequestBodyDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
@@ -84,7 +84,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     url: InterviewsApiPath.INTERVIEWEE_USER_$ID_CATEGORIES,
     schema: { params: interviewByIntervieweeIdValidationSchema },
     async handler(
-      req: FastifyRequest<{ Params: InterviewsByIntervieweeIdDto }>,
+      req: FastifyRequest<{ Params: InterviewsByIntervieweeIdRequestDto }>,
       rep,
     ) {
       const { intervieweeUserId } = req.params;

@@ -1,7 +1,7 @@
 export { type InterviewsCreateRequestDto } from './interviews-create-request-dto.type';
 export {
   type InterviewsByIdResponseDto,
-  type InterviewsByIntervieweeIdDto,
+  type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,

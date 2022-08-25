@@ -51,7 +51,7 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(courseActions.getMentors({ id: Number(id) }));
+    dispatch(courseActions.getMentorsByCourseId({ id: Number(id) }));
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
 

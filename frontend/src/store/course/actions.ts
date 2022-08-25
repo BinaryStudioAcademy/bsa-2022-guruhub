@@ -86,13 +86,13 @@ const setIsMentorButtonVisible = createAsyncThunk<
   return payload;
 });
 
-const getMentors = createAsyncThunk<
+const getMentorsByCourseId = createAsyncThunk<
   UsersGetResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTORS, async ({ id }, { extra }) => {
   const { coursesApi } = extra;
-  const mentors = await coursesApi.getMentors({ id });
+  const mentors = await coursesApi.getMentorsByCourseId({ id });
 
   return mentors;
 });
@@ -125,7 +125,7 @@ export {
   createMentor,
   getCategories,
   getCourse,
-  getMentors,
+  getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
