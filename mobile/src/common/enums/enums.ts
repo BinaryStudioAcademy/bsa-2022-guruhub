@@ -1,4 +1,10 @@
-export { ApiPath, AuthApiPath, GroupsApiPath, UsersApiPath } from './api/api';
+export {
+  ApiPath,
+  AuthApiPath,
+  GroupsApiPath,
+  InterviewsApiPath,
+  UsersApiPath,
+} from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
 export { CoursesApiPath } from './courses/courses';
 export { CustomExceptionName, ExceptionMessage } from './exeptions/exeptions';
