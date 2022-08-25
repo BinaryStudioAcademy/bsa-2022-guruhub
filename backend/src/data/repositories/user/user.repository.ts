@@ -1,3 +1,5 @@
+import { Page } from 'objection';
+
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -23,16 +25,16 @@ class User {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<UsersGetResponseDto>
   > {
-    const result = await this.#UserModel
+    const { results, total } = await this.#UserModel
       .query()
       .select('users.id', 'users.createdAt', 'email', 'fullName')
       .joinRelated('userDetails')
       .page(page, count)
-      .castTo<EntityPagination<UsersGetResponseDto>>();
+      .castTo<Page<UserM & UsersGetResponseDto>>();
 
     return {
-      items: result.items,
-      total: result.total,
+      items: results,
+      total,
     };
   }
 
