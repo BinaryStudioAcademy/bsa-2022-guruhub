@@ -2,6 +2,7 @@ import {
   Course as CourseModel,
   CourseCategory as CourseCategoryModel,
   CourseModule as CourseModuleModel,
+  CoursesToMentors as CoursesToMentorsModel,
   File as FileModel,
   Group as GroupModel,
   GroupsToPermissions as GroupsToPermissionsModel,
@@ -17,6 +18,7 @@ import {
 import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
 import { CourseModule } from './course-module/course-module.repository';
+import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.repository';
 import { File } from './file/file.reposiroty';
 import { Group } from './group/group.repository';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.repository';
@@ -66,12 +68,15 @@ const interview = new Interview({ InterviewModel });
 
 const file = new File({ FileModel });
 
+const coursesToMentors = new CoursesToMentors({ CoursesToMentorsModel });
+
 const menteesToMentors = new MenteesToMentors({ MenteesToMentorsModel });
 
 export {
   course,
   courseCategory,
   courseModule,
+  coursesToMentors,
   file,
   group,
   groupsToPermissions,

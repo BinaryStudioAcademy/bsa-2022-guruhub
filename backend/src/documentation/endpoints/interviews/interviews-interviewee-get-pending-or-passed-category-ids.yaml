@@ -1,0 +1,19 @@
+get:
+  summary: Get Pending or Passed interview category Ids for interviewee
+  tags:
+    - interviews
+  parameters:
+    - in: path
+      name: intervieweeUserId
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of the interviewee
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/interviews/interviews-interviewee-get-pending-or-passed-category-ids-response.yaml'
+    '400':
+      description: Interviewee ID is invalid

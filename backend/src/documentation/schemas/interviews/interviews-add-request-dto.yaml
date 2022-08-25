@@ -1,0 +1,10 @@
+type: object
+properties:
+  intervieweeUserId:
+    type: number
+    required: true
+    example: 1
+  categoryId:
+    type: number
+    required: true
+    example: 1

@@ -8,6 +8,7 @@ enum ApiPath {
   CATEGORIES = '/categories',
   COURSES = '/courses',
   COURSE_MODULES = '/courses',
+  MENTORS = '/mentors',
 }
 
 export { ApiPath };

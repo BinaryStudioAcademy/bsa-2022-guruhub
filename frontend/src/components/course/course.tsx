@@ -23,10 +23,15 @@ import { ModulesCardsContainer } from './components/modules-cards-container/modu
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, modules, categories, dataStatus } = useAppSelector(
-    (state) => state.course,
-  );
-  const { user } = useAppSelector((state) => state.auth);
+  const {
+    categories,
+    course,
+    modules,
+    dataStatus,
+    pendingOrPassedInterviewsCategoryIds,
+    user,
+    mentors,
+  } = useAppSelector((state) => ({ ...state.course, ...state.auth }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -46,8 +51,30 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
+    dispatch(courseActions.getMentors({ id: Number(id) }));
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(
+        courseActions.getPendingOrPassedInterviewsCategoryIdsByUserId(user.id),
+      );
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const isMentorButtonVisible =
+      user &&
+      course &&
+      course.courseCategoryId &&
+      !pendingOrPassedInterviewsCategoryIds.includes(course.courseCategoryId) &&
+      !mentors.find((mentor) => mentor.id === user.id);
+
+    dispatch(
+      courseActions.setIsMentorButtonVisible(Boolean(isMentorButtonVisible)),
+    );
+  }, [user, course, pendingOrPassedInterviewsCategoryIds]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;

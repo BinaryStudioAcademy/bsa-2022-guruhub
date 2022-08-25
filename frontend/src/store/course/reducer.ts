@@ -4,12 +4,16 @@ import {
   CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
   getCategories,
   getCourse,
+  getMentors,
   getModules,
+  getPendingOrPassedInterviewsCategoryIdsByUserId,
+  setIsMentorButtonVisible,
   updateCategory,
 } from './actions';
 
@@ -17,6 +21,9 @@ type State = {
   dataStatus: DataStatus;
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
+  pendingOrPassedInterviewsCategoryIds: number[];
+  isMentorButtonVisible: boolean;
+  mentors: UsersGetResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
 };
 
@@ -24,6 +31,9 @@ const initialState: State = {
   dataStatus: DataStatus.IDLE,
   course: null,
   modules: [],
+  pendingOrPassedInterviewsCategoryIds: [],
+  isMentorButtonVisible: false,
+  mentors: [],
   categories: [],
 };
 
@@ -48,6 +58,27 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getModules.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(
+    getPendingOrPassedInterviewsCategoryIdsByUserId.fulfilled,
+    (state, { payload }) => {
+      state.pendingOrPassedInterviewsCategoryIds = payload;
+    },
+  );
+  builder.addCase(
+    getPendingOrPassedInterviewsCategoryIdsByUserId.rejected,
+    (state) => {
+      state.pendingOrPassedInterviewsCategoryIds = [];
+    },
+  );
+  builder.addCase(setIsMentorButtonVisible.fulfilled, (state, { payload }) => {
+    state.isMentorButtonVisible = payload;
+  });
+  builder.addCase(getMentors.fulfilled, (state, { payload }) => {
+    state.mentors = payload;
+  });
+  builder.addCase(getMentors.rejected, (state) => {
+    state.mentors = [];
   });
 
   builder.addCase(getCategories.pending, (state) => {

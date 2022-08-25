@@ -86,6 +86,20 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   });
 
   fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_MENTORS,
+    schema: { params: courseGetParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const mentors = await courseService.getMentors(id);
+
+      rep.status(HttpCode.OK).send(mentors);
+    },
+  });
+  fastify.route({
     method: HttpMethod.PATCH,
     url: CoursesApiPath.$ID,
     schema: {

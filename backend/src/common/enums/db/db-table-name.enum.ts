@@ -12,6 +12,7 @@ enum DbTableName {
   VENDORS = 'vendors',
   INTERVIEWS = 'interviews',
   FILES = 'files',
+  COURSES_TO_MENTORS = 'courses_to_mentors',
   MENTEES_TO_MENTORS = 'mentees_to_mentors',
 }
 
