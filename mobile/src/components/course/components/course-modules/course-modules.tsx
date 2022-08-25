@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Stack, Text, View } from '~/components/common/common';
 import { useAppSelector } from '~/hooks/hooks';
 
-import { Module } from './components/module';
+import { Module } from './components/module/module';
 import { styles } from './styles';
 
 const CourseModules: FC = () => {
