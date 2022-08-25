@@ -47,7 +47,7 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
-  type UsersByIdResponseDto,
+  type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
@@ -56,6 +56,10 @@ export {
   type UserSignUpResponseDto,
   type UserWithPermissions,
 } from './user/user';
+export {
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateInfoRequestDto,
+} from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';

@@ -1,0 +1,25 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  background-color: var(--background-gray-300);
+  border-top: 3px solid var(--background-gray-400);
+  border-left: 3px solid var(--background-gray-400);
+}
+
+.bottomLine:not(:last-child) {
+  border-bottom: 2px solid var(--background-gray-400);
+}
+
+.title {
+  margin-bottom: 50px;
+  color: var(--typography-text-100-inverse);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 48px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}

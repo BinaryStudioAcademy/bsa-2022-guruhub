@@ -5,3 +5,4 @@ export * as courseModuleActions from './course-module/actions';
 export * as dashboardActions from './dashboard/actions';
 export * as uamActions from './uam/actions';
 export * as uamConfigureGroupActions from './uam-configure-group/actions';
+export * as userDetailsActions from './user-details/actions';

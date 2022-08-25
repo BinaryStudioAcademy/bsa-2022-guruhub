@@ -7,6 +7,7 @@ import {
 } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
+  BackButton,
   Button,
   Input,
   ScrollView,
@@ -30,9 +31,8 @@ import {
   usePagination,
   useSelectedItems,
 } from '~/hooks/hooks';
-import { BackButton } from '~/navigation/app/components/components';
 import { groupsCreationActions, uamGroupEditActions } from '~/store/actions';
-import { groupUpdate } from '~/validation-schemas/validation-schemas';
+import { groupCreateClient } from '~/validation-schemas/validation-schemas';
 
 import { CREATE_GROUP_DEFAULT_PAYLOAD } from './common/constants/constants';
 import { styles } from './styles';
@@ -42,8 +42,6 @@ const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { name } = useAppRoute();
 
-  const isEdit = name === AppScreenName.UAM_GROUPS_EDIT;
-
   const { group, dataStatus: groupDataStatus } = useAppSelector(
     (state) => state.uamGroupEdit,
   );
@@ -52,6 +50,7 @@ const UAMConfigureGroup: FC = () => {
     (state) => state.uamGroupCreation,
   );
 
+  const isGroupEdit = name === AppScreenName.UAM_GROUPS_EDIT && group;
   const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
@@ -65,7 +64,7 @@ const UAMConfigureGroup: FC = () => {
   const { control, handleSubmit, errors, reset } =
     useAppForm<GroupsUpdateRequestDto>({
       defaultValues: CREATE_GROUP_DEFAULT_PAYLOAD,
-      validationSchema: groupUpdate,
+      validationSchema: groupCreateClient,
     });
 
   const {
@@ -95,7 +94,7 @@ const UAMConfigureGroup: FC = () => {
   ): Promise<void> => {
     const { name } = payload;
 
-    if (!isEdit) {
+    if (!isGroupEdit) {
       await dispatch(
         groupsCreationActions.createGroup({
           name,
@@ -103,7 +102,7 @@ const UAMConfigureGroup: FC = () => {
           userIds,
         }),
       ).unwrap();
-    } else if (group && isEdit) {
+    } else if (isGroupEdit) {
       await dispatch(
         uamGroupEditActions.editGroup({
           id: group.id,
@@ -146,23 +145,30 @@ const UAMConfigureGroup: FC = () => {
   }, [usersPage]);
 
   useEffect(() => {
-    if (group && isEdit) {
+    if (isGroupEdit) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
     }
-  }, [group, isEdit]);
+  }, [isGroupEdit]);
 
   useFocusEffect(
     useCallback(() => {
-      return () => reset({ name: '' });
+      return () => {
+        reset(CREATE_GROUP_DEFAULT_PAYLOAD);
+        handleUserPageChange(PaginationDefaultValue.DEFAULT_PAGE);
+        handlePermissionsPageChange(PaginationDefaultValue.DEFAULT_PAGE);
+      };
     }, []),
   );
+
+  if (isGroupLoading) {
+    return <Spinner isOverflow />;
+  }
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        {isGroupLoading && <Spinner isOverflow />}
         <View style={styles.inputContainer}>
           <Input
             name="name"
@@ -178,16 +184,18 @@ const UAMConfigureGroup: FC = () => {
           users={users}
           onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
+          checkedIds={isGroupEdit ? group.userIds : []}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
           onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
+          checkedIds={isGroupEdit ? group.permissionIds : []}
         />
         <View style={styles.buttonsContainer}>
           <Button
-            label={`${isEdit ? 'Edit' : 'Create'} group`}
+            label={`${isGroupEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
           />
         </View>

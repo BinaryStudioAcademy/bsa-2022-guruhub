@@ -8,5 +8,6 @@ export { Interview } from './interview/interview.model';
 export { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.model';
 export { Permission } from './permission/permission.model';
 export { User } from './user/user.model';
+export { UserDetails } from './user-details/user-details.model';
 export { UsersToGroups } from './users-to-groups/users-to-groups.model';
 export { Vendor } from './vendor/vendor.model';
