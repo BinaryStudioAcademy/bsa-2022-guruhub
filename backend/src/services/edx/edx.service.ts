@@ -21,22 +21,25 @@ class Edx {
   }
 
   public async getCourseByUrl(url: URL): Promise<EdxCourseGetResponseDto> {
-    const courseIdOrSlug = url.pathname
-      .split('/')
-      .filter(Boolean)
-      .pop() as string;
+    const courseSlug = url.pathname.split('/').filter(Boolean).pop() as string;
+    const filteredSlug = courseSlug.split('?').shift() as string;
+    const searchTerm = filteredSlug.split('-').join(' ');
 
     const headers = this.getHeaders();
-    const res = await this.#httpService.load<EdxCourseGetResponseDto>(
-      this.getCourseRequestUrl(courseIdOrSlug),
-      { headers, method: HttpMethod.GET },
+    const res = await this.#httpService.load<EdxCourseGetResponseDto[]>(
+      this.getCourseRequestUrl(),
+      {
+        headers,
+        method: HttpMethod.GET,
+        queryString: { search_term: searchTerm },
+      },
     );
 
-    return res;
+    return res[0];
   }
 
-  private getCourseRequestUrl(courseIdOrSlug: string): string {
-    return `${this.#baseUrl}courses/${courseIdOrSlug}`;
+  private getCourseRequestUrl(): string {
+    return `${this.#baseUrl}courses/`;
   }
 
   private getHeaders(): Record<string, string> {
