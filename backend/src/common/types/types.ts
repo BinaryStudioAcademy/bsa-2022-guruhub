@@ -6,9 +6,12 @@ export {
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestDto,
+  type CourseUpdateRequestParamsDto,
 } from './course/course';
 export {
   type CategoryGetAllResponseDto,
+  type CourseCategoryGetByIdRequestParamsDto,
   type CourseCategoryGetResponseDto,
 } from './course-category/course-category';
 export {

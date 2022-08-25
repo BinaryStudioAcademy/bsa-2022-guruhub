@@ -18,10 +18,15 @@ import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, dataStatus, courses } = useAppSelector(
-    (state) => state.dashboard,
-  );
+  const { user, categories, dataStatus, courses } = useAppSelector((state) => ({
+    user: state.auth.user,
+    categories: state.dashboard.categories,
+    dataStatus: state.dashboard.dataStatus,
+    courses: state.dashboard.courses,
+  }));
+
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+  const hasUser = Boolean(user);
 
   useEffect(() => {
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
@@ -42,11 +47,13 @@ const Dashboard: FC = () => {
       <div className={styles.headerWrapper}>
         <div className={styles.header}>
           <h1 className={styles.headingText}>Courses</h1>
-          <Button
-            label="+ Add new course"
-            btnColor="blue"
-            onClick={handleNewCourseModalToggle}
-          />
+          {hasUser && (
+            <Button
+              label="+ Add new course"
+              btnColor="blue"
+              onClick={handleNewCourseModalToggle}
+            />
+          )}
           <AddCourseModal
             isModalOpen={isNewCourseModalOpen}
             onModalToggle={handleNewCourseModalToggle}

@@ -7,6 +7,7 @@ import {
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
 import { CoursesModulesError } from '~/exceptions/exceptions';
+import { sanitizeHTML } from '~/helpers/helpers';
 import { udemy as udemyServ } from '~/services/services';
 
 type Constructor = {
@@ -59,9 +60,12 @@ class CourseModule {
     }
 
     await Promise.all(
-      courseData.map((course) => {
+      courseData.map((courseModule) => {
         return this.create({
-          ...course,
+          ...courseModule,
+          description: courseModule.description
+            ? sanitizeHTML(courseModule.description)
+            : null,
           courseId: dbCourseId,
         });
       }),

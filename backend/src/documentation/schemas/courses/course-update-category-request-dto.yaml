@@ -1,0 +1,5 @@
+type: object
+properties:
+  newCategoryId:
+    type: number
+    example: 1
