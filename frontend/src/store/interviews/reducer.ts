@@ -22,6 +22,9 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.interviews = payload.items;
   });
+  builder.addCase(getInterviews.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
 });
 
 export { reducer };

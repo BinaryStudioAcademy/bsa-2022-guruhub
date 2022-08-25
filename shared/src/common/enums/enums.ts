@@ -21,6 +21,7 @@ export {
   HttpMethod,
   HttpStatusMessage,
 } from './http/http';
+export { InterviewStatus } from './interviews/interviews';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,
