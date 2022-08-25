@@ -26,6 +26,7 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
     fontFamily: AppFontFamily.INTER_500,
     fontSize: 20,
     letterSpacing: 0.5,
+    width: '105%',
   },
   drawerStyle: {
     width: '90%',
