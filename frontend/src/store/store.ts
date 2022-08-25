@@ -10,6 +10,7 @@ import {
   notification,
   permissionsApi,
   storage,
+  userDetailsApi,
   usersApi,
 } from 'services/services';
 
@@ -24,6 +25,7 @@ const extraArgument = {
   interviewApi,
   storage,
   notification,
+  userDetailsApi,
   navigation,
   permissionsApi,
   categoriesApi,

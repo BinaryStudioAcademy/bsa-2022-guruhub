@@ -4,16 +4,19 @@ import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
+  file as fileRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   interview as interviewRepository,
   permission as permissionRepository,
   user as userRepository,
+  userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
   vendor as vendorRepository,
 } from '~/data/repositories/repositories';
 
 import { Auth } from './auth/auth.service';
+import { File } from './aws/file/file.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
@@ -26,6 +29,7 @@ import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
+import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 import { Vendor } from './vendor/vendor.service';
 
@@ -33,12 +37,17 @@ const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
 
+const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
+
+const userDetails = new UserDetails({
+  userDetailsRepository,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
+  userDetailsService: userDetails,
 });
-
-const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
 const auth = new Auth({
   userService: user,
@@ -94,12 +103,20 @@ const interview = new Interview({
   interviewRepository,
 });
 
+const file = new File({
+  region: ENV.AWS.REGION,
+  accessKeyId: ENV.AWS.ACCESS_KEY_ID,
+  secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
+  fileRepository,
+});
+
 export {
   auth,
   course,
   courseCategory,
   courseModule,
   encrypt,
+  file,
   group,
   groupsToPermissions,
   http,
@@ -108,6 +125,7 @@ export {
   token,
   udemy,
   user,
+  userDetails,
   usersToGroups,
   vendor,
 };

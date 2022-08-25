@@ -16,16 +16,18 @@ type Props = {
 
 const getPermissionsRows = ({
   permissions,
-  control,
   onToggle,
+  control,
 }: Props): PermissionsTableRow[] => {
   return permissions.map((permission) => {
+    const handleCheckbox = (): void => onToggle(permission.id);
+
     return {
       [PermissionTableAccessor.CHECKBOX]: (
         <Checkbox
           name={`permissionIds.${permission.id}`}
           control={control}
-          onToggle={(): void => onToggle(permission.id)}
+          onToggle={handleCheckbox}
         />
       ),
       [PermissionTableAccessor.NAME]: permission.name,

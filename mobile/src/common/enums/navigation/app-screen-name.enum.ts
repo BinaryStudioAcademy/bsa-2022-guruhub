@@ -7,6 +7,7 @@ enum AppScreenName {
   UAM = 'User Access Management',
   UAM_GROUPS_CREATE = 'Create group',
   UAM_GROUPS_EDIT = 'Edit group',
+  ADD_COURSE = 'Add new course',
 }
 
 export { AppScreenName };

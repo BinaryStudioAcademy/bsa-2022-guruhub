@@ -6,3 +6,4 @@ export * as dashboardActions from './dashboard/actions';
 export * as interviewsActions from './interview/actions';
 export * as uamActions from './uam/actions';
 export * as uamConfigureGroupActions from './uam-configure-group/actions';
+export * as userDetailsActions from './user-details/actions';

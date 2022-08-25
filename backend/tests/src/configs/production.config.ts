@@ -1,16 +1,22 @@
 import { ENV } from '~/lib/common/enums/enums';
 import { setTestsConfig } from '~/lib/helpers/helpers';
 
-const { API, USERS } = ENV.TESTS_CONFIG.PRODUCTION;
+const {
+  TESTS_CONFIG: {
+    PRODUCTION: { API },
+  },
+  USERS,
+} = ENV;
 
 setTestsConfig({
   prefixUrl: API.PREFIX_URL,
   users: {
     student: USERS.STUDENT,
     mentor: USERS.MENTOR,
-    interviewManager: USERS.INTERVIEW_MANAGER,
-    uamManager: USERS.UAM_MANAGER,
+    interviewsManager: USERS.INTERVIEWS_MANAGER,
+    interviewer: USERS.INTERVIEWER,
     categoriesManager: USERS.CATEGORIES_MANAGER,
     mentoringManager: USERS.MENTORING_MANAGER,
+    uamManager: USERS.UAM_MANAGER,
   },
 });

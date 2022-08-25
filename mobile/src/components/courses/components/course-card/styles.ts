@@ -8,12 +8,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 16,
+    marginHorizontal: 20,
   },
   innerContainer: {
     paddingHorizontal: 6,
-  },
-  pressed: {
-    opacity: 0.75,
   },
   imageContainer: {
     width: '100%',

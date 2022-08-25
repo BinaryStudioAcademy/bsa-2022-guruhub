@@ -15,6 +15,9 @@ const {
   UDEMY_CLIENT_ID,
   UDEMY_CLIENT_SECRET,
   UDEMY_BASE_URL,
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+  AWS_REGION,
 } = process.env;
 
 const ENV = {
@@ -40,6 +43,11 @@ const ENV = {
     BASE_URL: UDEMY_BASE_URL as string,
     CLIENT_ID: UDEMY_CLIENT_ID as string,
     CLIENT_SECRET: UDEMY_CLIENT_SECRET as string,
+  },
+  AWS: {
+    ACCESS_KEY_ID: AWS_ACCESS_KEY_ID as string,
+    SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY as string,
+    REGION: AWS_REGION as string,
   },
 };
 
