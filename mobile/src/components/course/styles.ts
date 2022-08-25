@@ -29,10 +29,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginBottom: 30,
   },
-  webView: {
-    flex: 1,
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
-  },
   text: {
     color: AppColor.TEXT.GRAY_100,
     fontFamily: AppFontFamily.INTER_400,
