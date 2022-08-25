@@ -55,8 +55,8 @@ export {
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
-  type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
@@ -65,6 +65,10 @@ export {
   type UserSignUpResponseDto,
   type UserWithPermissions,
 } from './user/user';
+export {
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateInfoRequestDto,
+} from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';

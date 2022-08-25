@@ -5,6 +5,7 @@ import {
   FAB,
   FlatList,
   RefreshControl,
+  Search,
   Spinner,
   View,
 } from '~/components/common/common';
@@ -43,36 +44,48 @@ const Courses: FC = (): ReactElement => {
     navigation.navigate(AppScreenName.ADD_COURSE);
   };
 
+  const handleSearch = (search: string): void => {
+    dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+  };
+
   useFocusEffect(
     useCallback(() => {
       handleCoursesLoad();
     }, []),
   );
 
-  if (dataStatus === DataStatus.PENDING) {
-    return <Spinner isOverflow />;
-  }
-
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={courses}
-        keyExtractor={({ id }): string => id.toString()}
-        renderItem={({ item: course }): ReactElement => (
-          <CourseCard course={course} />
-        )}
-        refreshControl={
-          <RefreshControl
-            colors={[AppColor.BRAND.BLUE_100]}
-            refreshing={isLoading}
-            onRefresh={handleRefresh}
+    <>
+      <View style={styles.searchFieldContainer}>
+        <Search onSearch={handleSearch} />
+      </View>
+      <View style={styles.container}>
+        {dataStatus === DataStatus.PENDING ? (
+          <View style={styles.spinnerContainer}>
+            <Spinner isOverflow />
+          </View>
+        ) : (
+          <FlatList
+            data={courses}
+            keyExtractor={({ id }): string => id.toString()}
+            renderItem={({ item: course }): ReactElement => (
+              <CourseCard course={course} />
+            )}
+            refreshControl={
+              <RefreshControl
+                colors={[AppColor.BRAND.BLUE_100]}
+                refreshing={isLoading}
+                onRefresh={handleRefresh}
+              />
+            }
+            onEndReached={handleLoadMoreCourses}
+            onEndReachedThreshold={0.1}
           />
-        }
-        onEndReached={handleLoadMoreCourses}
-        onEndReachedThreshold={0.1}
-      />
-      <FAB onPress={handleAddCourse} />
-    </View>
+        )}
+
+        <FAB onPress={handleAddCourse} />
+      </View>
+    </>
   );
 };
 

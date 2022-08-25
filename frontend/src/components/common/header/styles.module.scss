@@ -43,6 +43,18 @@
   cursor: pointer;
 }
 
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.img {
+  transform: scale(1.1);
+}
+
 .buttonsWrapper {
   display: flex;
   flex-direction: row;
