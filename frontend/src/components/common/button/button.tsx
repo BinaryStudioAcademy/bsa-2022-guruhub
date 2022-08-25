@@ -11,8 +11,9 @@ type Props = {
   hasVisuallyHiddenLabel?: boolean;
   btnColor?: 'blue' | 'gray';
   type?: 'button' | 'submit';
-  btnType?: 'filled' | 'outlined' | 'icon';
+  btnType?: 'filled' | 'outlined' | 'upload' | 'icon';
   to?: AppRoute;
+  className?: string;
   onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
   iconColor?: 'blue' | 'gray';
@@ -26,6 +27,7 @@ const Button: FC<Props> = ({
   label,
   to,
   onClick,
+  className,
   iconName,
   iconColor = 'gray',
 }) => {
@@ -73,6 +75,7 @@ const Button: FC<Props> = ({
     <button
       type={type}
       className={getValidClasses(
+        className,
         styles.button,
         styles[`button-${btnColor}`],
         styles[`button-${btnType}`],

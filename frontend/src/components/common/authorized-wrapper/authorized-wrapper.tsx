@@ -1,4 +1,4 @@
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { useAppSelector } from 'hooks/hooks';
 
 import { AuthorizedMenu, Header } from '../common';
@@ -12,7 +12,7 @@ const AuthorizedWrapper: FC = ({ children }) => {
     <>
       <Header />
       <div className={styles.content}>
-        {hasUser && <AuthorizedMenu />}
+        {hasUser && <AuthorizedMenu user={user as UserWithPermissions} />}
         <div className={styles.mainContent}>{children}</div>
       </div>
     </>

@@ -12,6 +12,7 @@ export { Link } from './link/link';
 export { Modal } from './modal/modal';
 export { Pagination } from './pagination/pagination';
 export { ProtectedRoute } from './protected-route/protected-route';
+export { Select } from './select/select';
 export { Spinner } from './spinner/spinner';
 export { Table } from './table/table';
 export { Toast } from './toast/toast';

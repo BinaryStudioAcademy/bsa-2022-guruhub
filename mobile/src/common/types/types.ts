@@ -8,7 +8,6 @@ export {
   type CategoryGetAllResponseDto,
 } from './category/category';
 export {
-  type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetResponseDto,
 } from './courses/courses';
@@ -48,7 +47,6 @@ export {
 } from './permissions/permissions';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
-  type UsersByIdResponseDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,

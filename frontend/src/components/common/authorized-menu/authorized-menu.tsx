@@ -1,10 +1,14 @@
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 
 import { routes } from './common';
 import { NavigationMenu } from './components/components';
 import styles from './styles.module.scss';
 
-const AuthorizedMenu: FC = () => {
+type Props = {
+  user: UserWithPermissions;
+};
+
+const AuthorizedMenu: FC<Props> = ({ user }) => {
   return (
     <div className={styles.menu}>
       {routes.map(({ name, subroutes }) => (
@@ -13,6 +17,7 @@ const AuthorizedMenu: FC = () => {
           name={name}
           subroutes={subroutes}
           className={styles.bottomLine}
+          user={user}
         />
       ))}
     </div>

@@ -1,0 +1,8 @@
+type: object
+properties:
+  courseId:
+    type: number
+    example: 1
+  moduleId:
+    type: number
+    example: 1
