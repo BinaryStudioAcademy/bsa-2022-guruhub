@@ -8,6 +8,7 @@ import {
   CourseModulesGetAllResponseDto,
   CoursesToMentorsRequestDto,
   InterviewsCreateRequestBodyDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -87,10 +88,22 @@ const setIsMentorButtonVisible = createAsyncThunk<
   return payload;
 });
 
+const getMentors = createAsyncThunk<
+  UsersGetResponseDto[],
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.GET_MENTORS, async ({ id }, { extra }) => {
+  const { coursesApi } = extra;
+  const mentors = await coursesApi.getMentors({ id });
+
+  return mentors;
+});
+
 export {
   createInterview,
   createMentor,
   getCourse,
+  getMentors,
   getModules,
   getPendingOrPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,

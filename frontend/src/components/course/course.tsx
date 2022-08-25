@@ -21,6 +21,7 @@ const Course: FC = () => {
     pendingOrPassedInterviewsCategoryIds,
     user,
     isMentorButtonVisible,
+    mentors,
   } = useAppSelector((state) => ({ ...state.course, ...state.auth }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
+    dispatch(courseActions.getMentors({ id: Number(id) }));
   }, [id]);
 
   useEffect(() => {
@@ -43,7 +45,8 @@ const Course: FC = () => {
       user &&
       course &&
       course.courseCategoryId &&
-      !pendingOrPassedInterviewsCategoryIds.includes(course.courseCategoryId);
+      !pendingOrPassedInterviewsCategoryIds.includes(course.courseCategoryId) &&
+      !mentors.find((mentor) => mentor.id === user.id);
 
     dispatch(
       courseActions.setIsMentorButtonVisible(Boolean(isMentorButtonVisible)),

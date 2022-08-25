@@ -3,10 +3,12 @@ import { DataStatus } from 'common/enums/enums';
 import {
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
   getCourse,
+  getMentors,
   getModules,
   getPendingOrPassedInterviewsCategoryIdsByUserId,
   setIsMentorButtonVisible,
@@ -18,6 +20,7 @@ type State = {
   modules: CourseModulesGetAllItemResponseDto[];
   pendingOrPassedInterviewsCategoryIds: number[];
   isMentorButtonVisible: boolean;
+  mentors: UsersGetResponseDto[];
 };
 
 const initialState: State = {
@@ -26,6 +29,7 @@ const initialState: State = {
   modules: [],
   pendingOrPassedInterviewsCategoryIds: [],
   isMentorButtonVisible: false,
+  mentors: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -64,6 +68,12 @@ const reducer = createReducer(initialState, (builder) => {
   );
   builder.addCase(setIsMentorButtonVisible.fulfilled, (state, { payload }) => {
     state.isMentorButtonVisible = payload;
+  });
+  builder.addCase(getMentors.fulfilled, (state, { payload }) => {
+    state.mentors = payload;
+  });
+  builder.addCase(getMentors.rejected, (state) => {
+    state.mentors = [];
   });
 });
 
