@@ -12,3 +12,9 @@ properties:
   menteeId:
     type: integer
     example: 3
+  createdAt:
+    type: date
+    example: '2022-08-25T13:17:29.715Z'
+  updatedAt:
+    type: date
+    example: '2022-08-25T13:17:29.715Z'
