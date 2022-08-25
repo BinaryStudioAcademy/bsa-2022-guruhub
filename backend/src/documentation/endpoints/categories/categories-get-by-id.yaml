@@ -1,0 +1,18 @@
+get:
+  summary: Get Course Category By Id
+  tags:
+    - categories
+  parameters:
+    - name: id
+      in: path
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/categories/category-get-by-id-request-dto.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/categories/category-get-by-id-response-dto.yaml'
