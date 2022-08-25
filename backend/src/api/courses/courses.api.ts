@@ -88,7 +88,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const { id } = req.params;
-      const mentors = await courseService.getMentors(id);
+      const mentors = await courseService.getMentorsByCourseId(id);
 
       rep.status(HttpCode.OK).send(mentors);
     },
