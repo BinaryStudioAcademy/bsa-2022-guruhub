@@ -22,12 +22,10 @@ const useSearch = (): UseSearchResult => {
       setSearchParams(searchParams);
     }
 
-    const category = searchParams.get('category') || '';
-    const title = searchParams.get('title') || '';
+    const category = searchParams.get('category') ?? '';
+    const title = searchParams.get('title') ?? '';
 
-    dispatch(
-      dashboardActions.getCourses({ title: title, categoryKey: category }),
-    );
+    dispatch(dashboardActions.getCourses({ title, categoryKey: category }));
   };
 
   return { searchParams, performSearch };

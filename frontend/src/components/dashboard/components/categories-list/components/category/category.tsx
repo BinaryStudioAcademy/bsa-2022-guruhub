@@ -14,15 +14,15 @@ type Props = {
 
 const Category: FC<Props> = ({ keyName, name }) => {
   const { searchParams, performSearch } = useSearch();
-  const activeCategory = searchParams.get('category') || '';
+  const activeCategory = searchParams.get('category') ?? '';
 
-  const handleClick = (evt: React.MouseEvent): void => {
-    let category = evt.currentTarget.id;
+  const handleClick = (): void => {
+    if (keyName === searchParams.get('category')) {
+      performSearch('category', '');
 
-    if (category === searchParams.get('category')) {
-      category = '';
+      return;
     }
-    performSearch('category', category);
+    performSearch('category', keyName);
   };
 
   const keyNameKebabCase = changeStringCase({
@@ -31,8 +31,7 @@ const Category: FC<Props> = ({ keyName, name }) => {
   });
 
   return (
-    <div
-      id={keyName}
+    <button
       className={getValidClasses(
         styles.category,
         activeCategory === keyName && styles.selected,
@@ -49,7 +48,7 @@ const Category: FC<Props> = ({ keyName, name }) => {
       />
 
       <p className={styles.categoryName}>{name}</p>
-    </div>
+    </button>
   );
 };
 
