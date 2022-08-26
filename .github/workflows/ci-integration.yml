@@ -53,12 +53,16 @@ jobs:
       - name: Start Backend
         working-directory: ./backend
         env:
-          PORT: 3001
           NODE_ENV: production
+          PORT: 3001
+
           UDEMY_CLIENT_ID: ${{ secrets.UDEMY_CLIENT_ID }}
           UDEMY_CLIENT_SECRET: ${{ secrets.UDEMY_CLIENT_SECRET }}
+          UDEMY_BASE_URL: https://www.udemy.com/api-2.0/
+
           AWS_ACCESS_KEY_ID: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-central-1
         run: |
           npm start & npm run wait-for-start
 
@@ -66,19 +70,19 @@ jobs:
         working-directory: ./backend/tests
         env:
           LOCAL_API_PREFIX_URL: http://localhost:3001/api/v1
-          STUDENT_EMAIL: test.student@guruhub.club
-          STUDENT_PASSWORD: Pa55word
+          STUDENT_EMAIL: 'test.student@guruhub.club'
+          STUDENT_PASSWORD: 'Pa55word'
           MENTOR_EMAIL: ''
           MENTOR_PASSWORD: ''
-          INTERVIEWS_MANAGER_EMAIL: test.interviewsmanager@guruhub.club
-          INTERVIEWS_MANAGER_PASSWORD: Pa55word
-          INTERVIEWER_EMAIL: test.interviewer@guruhub.club
-          INTERVIEWER_PASSWORD: Pa55word
-          CATEGORIES_MANAGER_EMAIL: test.categoriesmanager@guruhub.club
-          CATEGORIES_MANAGER_PASSWORD: Pa55word
-          MENTORING_MANAGER_EMAIL: test.mentoringmanager@guruhub.club
-          MENTORING_MANAGER_PASSWORD: Pa55word
-          UAM_MANAGER_EMAIL: admin@guruhub.club
-          UAM_MANAGER_PASSWORD: Pa55word
+          INTERVIEWS_MANAGER_EMAIL: 'test.interviewsmanager@guruhub.club'
+          INTERVIEWS_MANAGER_PASSWORD: 'Pa55word'
+          INTERVIEWER_EMAIL: 'test.interviewer@guruhub.club'
+          INTERVIEWER_PASSWORD: 'Pa55word'
+          CATEGORIES_MANAGER_EMAIL: 'test.categoriesmanager@guruhub.club'
+          CATEGORIES_MANAGER_PASSWORD: 'Pa55word'
+          MENTORING_MANAGER_EMAIL: 'test.mentoringmanager@guruhub.club'
+          MENTORING_MANAGER_PASSWORD: 'Pa55word'
+          UAM_MANAGER_EMAIL: 'admin@guruhub.club'
+          UAM_MANAGER_PASSWORD: 'Pa55word'
         run: |
           npm run test:development
