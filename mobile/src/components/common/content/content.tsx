@@ -1,9 +1,5 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
-import RenderHtml, {
-  MixedStyleDeclaration,
-  MixedStyleRecord,
-} from 'react-native-render-html';
+import RenderHtml from 'react-native-render-html';
 
 import { sanitizeHTML } from '~/helpers/helpers';
 
@@ -11,17 +7,14 @@ import { defaultTagsStyles, styles } from './styles';
 
 type Props = {
   html: string;
-  baseStyle?: MixedStyleDeclaration;
-  tagsStyles?: MixedStyleRecord;
+  width: number;
 };
 
-const Content: FC<Props> = ({ html, baseStyle, tagsStyles }) => {
-  const { width } = useWindowDimensions();
-
+const Content: FC<Props> = ({ html, width }) => {
   return (
     <RenderHtml
-      baseStyle={{ ...styles.text, ...baseStyle }}
-      tagsStyles={{ ...defaultTagsStyles, ...tagsStyles }}
+      baseStyle={styles.text}
+      tagsStyles={defaultTagsStyles}
       contentWidth={width}
       source={{ html: sanitizeHTML(html) }}
     />
