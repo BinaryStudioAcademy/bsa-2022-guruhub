@@ -1,11 +1,8 @@
 import React, { FC } from 'react';
 
-import {
-  AppColor,
-  AppFontFamily,
-  PaginationDefaultValue,
-} from '~/common/enums/enums';
-import { ScrollView, Text, View } from '~/components/common/common';
+import { PaginationDefaultValue } from '~/common/enums/enums';
+import { ScrollView, View } from '~/components/common/common';
+import { getTableRow } from '~/components/interviews/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -24,6 +21,7 @@ const Interviews: FC = () => {
     (state) => state.interviews,
   );
   const { page } = usePagination();
+  const tableRows = getTableRow(interviews);
 
   useFocusEffect(
     useCallback(() => {
@@ -36,35 +34,10 @@ const Interviews: FC = () => {
     }, [page, interviewsTotalCount]),
   );
 
-  const tableData = interviews.map((item) => {
-    return {
-      id: item.id,
-      name: item.interviewee.fullName,
-      direction: item.courseCategory.name,
-      status: (
-        <Text
-          style={{
-            fontFamily: AppFontFamily.INTER_600,
-            color: AppColor.TEXT.GRAY_100,
-
-            marginHorizontal: 5,
-            backgroundColor: AppColor.BRAND.BLUE_100,
-            borderRadius: 16,
-            textAlign: 'center',
-          }}
-        >
-          {item.status}
-        </Text>
-      ),
-      interviewer: item.interviewer.fullName,
-      date: item.interviewDate,
-    };
-  });
-
   return (
     <ScrollView>
       <View style={styles.container}>
-        <InterviewsTable tableData={tableData} />
+        <InterviewsTable tableData={tableRows} />
       </View>
     </ScrollView>
   );
