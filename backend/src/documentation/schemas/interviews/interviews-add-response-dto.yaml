@@ -1,0 +1,19 @@
+type: object
+properties:
+  id:
+    type: number
+    example: 1
+  status:
+    type: string
+    enum:
+      - Pending
+      - In Progress
+      - Rejected
+      - Completed
+    example: Pending
+  categoryId:
+    type: number
+    example: 1
+  intervieweeUserId:
+    type: number
+    example: 1

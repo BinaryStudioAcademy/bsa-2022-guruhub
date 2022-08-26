@@ -1,0 +1,18 @@
+summary: Create a new mentor to a course
+tags:
+  - mentors
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/mentors/mentors-create-request-dto.yaml'
+responses:
+  '201':
+    description: Mentor was added successfully
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/mentors/mentors-create-response-dto.yaml'
+  '400':
+    description: Invalid request body
