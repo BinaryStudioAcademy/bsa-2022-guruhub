@@ -4,6 +4,7 @@ import {
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
@@ -11,6 +12,7 @@ import { sanitizeHTML } from '~/helpers/helpers';
 import {
   courseCategory as courseCategoryServ,
   courseModule as courseModuleServ,
+  edx as edxServ,
   udemy as udemyServ,
   vendor as vendorServ,
 } from '~/services/services';
@@ -20,6 +22,7 @@ type Constructor = {
   courseModuleService: typeof courseModuleServ;
   vendorService: typeof vendorServ;
   udemyService: typeof udemyServ;
+  edxService: typeof edxServ;
   courseCategoryService: typeof courseCategoryServ;
 };
 
@@ -32,6 +35,8 @@ class Course {
 
   #udemyService: typeof udemyServ;
 
+  #edxService: typeof edxServ;
+
   #courseCategoryService: typeof courseCategoryServ;
 
   public constructor({
@@ -39,12 +44,14 @@ class Course {
     courseModuleService,
     vendorService,
     udemyService,
+    edxService,
     courseCategoryService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
     this.#courseModuleService = courseModuleService;
     this.#vendorService = vendorService;
     this.#udemyService = udemyService;
+    this.#edxService = edxService;
     this.#courseCategoryService = courseCategoryService;
   }
 
@@ -94,6 +101,7 @@ class Course {
 
     return {
       ...course,
+      category: null,
       vendor,
     };
   }
@@ -118,6 +126,21 @@ class Course {
         });
 
         await this.#courseModuleService.createModulesByCourseId(id, course.id);
+
+        return course;
+      }
+      case CourseHost.EDX: {
+        const courseData = await this.#edxService.getCourseByUrl(urlObject);
+
+        const { description, name, course_id } = courseData;
+
+        const course = await this.create({
+          description,
+          title: name,
+          url,
+          vendorKey: VendorKey.EDX,
+          originalId: course_id.toString(),
+        });
 
         return course;
       }
@@ -161,6 +184,19 @@ class Course {
     const course = await this.#courseRepository.getById(courseId);
 
     return course ?? null;
+  }
+
+  public getMentorsByCourseId(
+    courseId: number,
+  ): Promise<UsersGetResponseDto[]> {
+    return this.#courseRepository.getMentorsByCourseId(courseId);
+  }
+
+  public updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<CourseGetResponseDto> {
+    return this.#courseRepository.updateCategory(courseId, newCategoryId);
   }
 }
 

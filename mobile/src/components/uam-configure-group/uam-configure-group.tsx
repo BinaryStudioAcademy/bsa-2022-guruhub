@@ -162,10 +162,13 @@ const UAMConfigureGroup: FC = () => {
     }, []),
   );
 
+  if (isGroupLoading) {
+    return <Spinner isOverflow />;
+  }
+
   return (
     <ScrollView>
       <View style={styles.container}>
-        {isGroupLoading && <Spinner isOverflow />}
         <View style={styles.inputContainer}>
           <Input
             name="name"
