@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     padding: 6,
     marginRight: 10,
-    marginBottom: 20,
   },
   text: {
     fontFamily: AppFontFamily.INTER_600,

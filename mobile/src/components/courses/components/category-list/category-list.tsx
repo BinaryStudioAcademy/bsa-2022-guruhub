@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { ScrollView } from '~/components/common/common';
-import { useEffect, useState } from '~/hooks/hooks';
+import { useAppDispatch, useEffect, useState } from '~/hooks/hooks';
+import { categoryActions } from '~/store/actions';
 
 import { Category } from './components/category/category';
 import { styles } from './style';
@@ -16,12 +17,15 @@ const CategoryList: FC<Props> = ({ items }) => {
   const [filteredCategories, setFilteredCategories] = useState<
     CategoryGetAllItemResponseDto[]
   >([]);
+  const dispatch = useAppDispatch();
 
   const handlePress = (id: number): void => {
     if (activeCategoryId !== id) {
       setActiveCategoryId(id);
+      dispatch(categoryActions.getCategoryById({ id }));
     } else {
       setActiveCategoryId(null);
+      dispatch(categoryActions.clearCategory());
     }
   };
 
