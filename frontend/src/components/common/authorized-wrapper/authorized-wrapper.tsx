@@ -6,7 +6,12 @@ import { AuthorizedMenu, Header } from '../common';
 import styles from './styles.module.scss';
 
 const AuthorizedWrapper: FC = ({ children }) => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, isMentorBecomingEnabled } = useAppSelector(
+    ({ auth, course }) => ({
+      user: auth.user,
+      isMentorBecomingEnabled: course.isMentorBecomingEnabled,
+    }),
+  );
   const dispatch = useAppDispatch();
   const hasUser = Boolean(user);
 
@@ -22,6 +27,7 @@ const AuthorizedWrapper: FC = ({ children }) => {
           <AuthorizedMenu
             user={user as UserWithPermissions}
             onBecomeAMentor={handleBecomeAMentor}
+            isMentorBecomingEnabled={isMentorBecomingEnabled}
           />
         )}
         <div className={styles.mainContent}>{children}</div>
