@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     padding: 6,
     marginRight: 10,
+    marginBottom: 20,
   },
   text: {
     fontFamily: AppFontFamily.INTER_600,
@@ -32,10 +33,14 @@ const styles = StyleSheet.create({
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 16,
     lineHeight: 19,
-    alignText: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 100,
+  },
+  logoTextWrapper: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   logoWrapper: {
     width: 30,

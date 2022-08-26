@@ -12,39 +12,39 @@ type Props = {
 };
 
 const CategoryList: FC<Props> = ({ items }) => {
-  const [activeCategoryIds, setActiveCategoryIds] = useState<number[]>([]);
+  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
   const [filteredCategories, setFilteredCategories] = useState<
     CategoryGetAllItemResponseDto[]
   >([]);
 
   const handlePress = (id: number): void => {
-    if (!activeCategoryIds.includes(id)) {
-      setActiveCategoryIds([...activeCategoryIds, id]);
+    if (activeCategoryId !== id) {
+      setActiveCategoryId(id);
     } else {
-      setActiveCategoryIds(
-        activeCategoryIds.filter((activeId) => activeId !== id),
-      );
+      setActiveCategoryId(null);
     }
   };
 
   useEffect(() => {
-    if (activeCategoryIds.length) {
-      const activeSet = new Set(activeCategoryIds);
-      const activeItems = items.filter((item) => activeSet.has(item.id));
-      const notActiveItems = items.filter((item) => !activeSet.has(item.id));
-
-      setFilteredCategories([...activeItems, ...notActiveItems]);
+    if (activeCategoryId) {
+      const activeItem = items.filter((item) => item.id === activeCategoryId);
+      const notActiveItems = items.filter(
+        (item) => item.id !== activeCategoryId,
+      );
+      setFilteredCategories([...activeItem, ...notActiveItems]);
     } else {
       setFilteredCategories(items);
     }
-  }, [activeCategoryIds]);
+  }, [activeCategoryId]);
 
   const renderCategories = filteredCategories.map((category) => (
     <Category
+      id={category.id}
       key={category.id}
       name={category.name}
       keyName={category.key}
       onPress={(): void => handlePress(category.id)}
+      activeId={activeCategoryId}
     />
   ));
 

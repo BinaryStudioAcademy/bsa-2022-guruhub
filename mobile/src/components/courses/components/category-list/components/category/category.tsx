@@ -9,20 +9,21 @@ import { getRandomColor } from './helpers/get-random-color.helper';
 import { styles } from './style';
 
 type Props = {
+  id: number;
   keyName: string;
   name: string;
+  activeId: number | null;
   onPress: () => void;
 };
 
-const Category: FC<Props> = ({ keyName, name, onPress }) => {
-  const [isActive, setIsActive] = useState(false);
+const Category: FC<Props> = ({ activeId, id, keyName, name, onPress }) => {
   const [borderColor, setBorderColor] = useState('');
-
   const imageKeys = Object.keys(categoryKeyToImage);
   const hasImage = imageKeys.includes(keyName);
 
+  const isActive = activeId && activeId === id;
+
   const handlePress = (): void => {
-    setIsActive(!isActive);
     onPress();
   };
 
@@ -42,9 +43,15 @@ const Category: FC<Props> = ({ keyName, name, onPress }) => {
         {hasImage ? (
           <CategoryImage name={keyName} />
         ) : (
-          <Text style={{ ...styles.logoText, backgroundColor: borderColor }}>
-            {name[0].toUpperCase()}
-          </Text>
+          <View
+            style={{
+              ...styles.logoTextWrapper,
+              backgroundColor: borderColor,
+              borderColor: borderColor,
+            }}
+          >
+            <Text style={styles.logoText}>{name[0].toUpperCase()}</Text>
+          </View>
         )}
         <Text style={{ ...styles.text, ...(isActive && styles.activeText) }}>
           {name}
