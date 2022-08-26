@@ -6,6 +6,8 @@ export {
 export {
   type CategoryGetAllItemResponseDto,
   type CategoryGetAllResponseDto,
+  type CourseCategoryGetByIdRequestParamsDto,
+  type CourseCategoryGetResponseDto,
 } from './category/category';
 export {
   type CourseFilteringDto,
