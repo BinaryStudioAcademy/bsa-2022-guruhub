@@ -83,15 +83,15 @@ const updateIsMentorBecomingEnabled = createAsyncThunk<
   void,
   AsyncThunkConfig
 >(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, (_, { getState }) => {
-  const { auth, course } = getState();
-
-  const { user } = auth;
-  const { course: courseData, mentors } = course;
+  const {
+    auth: { user },
+    course: { course, mentors },
+  } = getState();
 
   const isMentorBecomingEnabled =
     user &&
-    courseData &&
-    courseData.courseCategoryId &&
+    course &&
+    course.courseCategoryId &&
     !mentors.some((mentor) => mentor.id === user.id);
 
   return Boolean(isMentorBecomingEnabled);
@@ -118,27 +118,28 @@ const getMentorsByCourseId = createAsyncThunk<
 const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.BECOME_A_MENTOR,
   (_, { dispatch, getState }) => {
-    const { course, auth } = getState();
-    const { passedInterviewsCategoryIds, course: courseData } = course;
-    const { user } = auth;
+    const {
+      course: { passedInterviewsCategoryIds, course },
+      auth: { user },
+    } = getState();
 
-    if (!user || !courseData) {
+    if (!user || !course) {
       return;
     }
 
     const isInterviewPassed = passedInterviewsCategoryIds.includes(
-      courseData.courseCategoryId,
+      course.courseCategoryId,
     );
 
     if (isInterviewPassed) {
-      dispatch(createMentor({ courseId: courseData.id, userId: user.id }));
+      dispatch(createMentor({ courseId: course.id, userId: user.id }));
 
       return;
     }
 
     dispatch(
       createInterview({
-        categoryId: courseData.courseCategoryId,
+        categoryId: course.courseCategoryId,
         intervieweeUserId: user.id,
       }),
     );
