@@ -93,10 +93,7 @@ async function seed(knex: Knex): Promise<void> {
         password,
       );
 
-      const [firstName, lastName] = [...fullName.split(' '), ''];
-
       const userData = {
-        fullName,
         email,
         passwordSalt,
         passwordHash,
@@ -107,8 +104,7 @@ async function seed(knex: Knex): Promise<void> {
         .returning(ColumnName.ID);
 
       const detailsData = {
-        firstName,
-        lastName,
+        fullName,
         gender: 'other',
         userId,
       };
