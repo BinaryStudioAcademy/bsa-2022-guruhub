@@ -1,6 +1,7 @@
 import {
   InterviewsByIdResponseDto,
   InterviewsGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -20,7 +21,19 @@ class Interview {
       .query()
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee')
+      .modifyGraph('interviewee', (builder) => {
+        builder
+          .select('users.id', 'users.createdAt', 'email', 'fullName')
+          .joinRelated('userDetails')
+          .castTo<UsersGetResponseDto>();
+      })
       .withGraphJoined('interviewer')
+      .modifyGraph('interviewer', (builder) => {
+        builder
+          .select('users.id', 'users.createdAt', 'email', 'fullName')
+          .joinRelated('userDetails')
+          .castTo<UsersGetResponseDto>();
+      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -31,7 +44,19 @@ class Interview {
       .select()
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee')
+      .modifyGraph('interviewee', (builder) => {
+        builder
+          .select('users.id', 'users.createdAt', 'email', 'fullName')
+          .joinRelated('userDetails')
+          .castTo<UsersGetResponseDto>();
+      })
       .withGraphJoined('interviewer')
+      .modifyGraph('interviewer', (builder) => {
+        builder
+          .select('users.id', 'users.createdAt', 'email', 'fullName')
+          .joinRelated('userDetails')
+          .castTo<UsersGetResponseDto>();
+      })
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
 
@@ -48,7 +73,19 @@ class Interview {
       .orWhere('interviewerUserId', userId)
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee')
+      .modifyGraph('interviewee', (builder) => {
+        builder
+          .select('users.id', 'users.createdAt', 'email', 'fullName')
+          .joinRelated('userDetails')
+          .castTo<UsersGetResponseDto>();
+      })
       .withGraphJoined('interviewer')
+      .modifyGraph('interviewer', (builder) => {
+        builder
+          .select('users.id', 'users.createdAt', 'email', 'fullName')
+          .joinRelated('userDetails')
+          .castTo<UsersGetResponseDto>();
+      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
