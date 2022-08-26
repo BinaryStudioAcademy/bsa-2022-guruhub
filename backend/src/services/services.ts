@@ -83,19 +83,15 @@ const http = new Http();
 const udemy = new Udemy({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
-  clientData: {
-    clientId: ENV.UDEMY.CLIENT_ID,
-    clientSecret: ENV.UDEMY.CLIENT_SECRET,
-  },
+  clientId: ENV.UDEMY.CLIENT_ID,
+  clientSecret: ENV.UDEMY.CLIENT_SECRET,
 });
 
 const edx = new Edx({
   httpService: http,
   baseUrl: ENV.EDX.BASE_URL,
-  clientData: {
-    clientId: ENV.EDX.CLIENT_ID,
-    clientSecret: ENV.EDX.CLIENT_SECRET,
-  },
+  clientId: ENV.EDX.CLIENT_ID,
+  clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
