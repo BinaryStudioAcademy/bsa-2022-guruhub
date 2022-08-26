@@ -44,9 +44,14 @@ paths:
     $ref: './endpoints/permissions/permissions-get-all.yaml'
   # Interviews
   /interviews:
-    $ref: './endpoints/interviews/interviews-get-all.yaml'
+    $ref: './endpoints/interviews/interviews.yaml'
   /interviews/{id}:
     $ref: './endpoints/interviews/interviews-get-by-id.yaml'
+  /interviews/interviewee/{intervieweeUserId}/categories:
+    $ref: './endpoints/interviews/interviews-interviewee-get-pending-or-passed-category-ids.yaml'
+  # Mentors
+  /mentors:
+    $ref: './endpoints/mentors/mentors.yaml'
 
 components:
   schemas:
@@ -98,6 +103,8 @@ components:
       $ref: './schemas/interviews/interview-get-all-response-dto.yaml'
     InterviewsGetByIdResponseDto:
       $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
+    InterviewsGetPendingOrPassedCategoryIdsDto:
+      $ref: './schemas/interviews/interviews-interviewee-get-pending-or-passed-category-ids-response.yaml'
 
   securitySchemes:
     bearerAuth:

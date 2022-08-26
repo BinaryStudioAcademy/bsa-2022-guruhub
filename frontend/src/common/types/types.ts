@@ -37,6 +37,14 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsResponseDto,
+} from './interview/interview';
+export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+} from './mentor/mentor';
+export {
   type NavigationMenuItem,
   type SubNavigationMenuItem,
 } from './navigation-menu/navigation-menu';
