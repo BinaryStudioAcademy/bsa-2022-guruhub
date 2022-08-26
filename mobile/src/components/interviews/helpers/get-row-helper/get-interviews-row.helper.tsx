@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
 import { InterviewsGetAllItemResponseDto } from '~/common/types/types';
-import { Text } from '~/components/common/common';
 import { InterviewsTableData } from '~/components/interviews/common/types/types';
+import { Label } from '~/components/interviews/interviews-table/components/components';
 
 const getTableRow = (
   interviews: InterviewsGetAllItemResponseDto[],
@@ -12,22 +11,8 @@ const getTableRow = (
     return {
       id: item.id,
       name: item.interviewee.fullName,
-      direction: item.courseCategory.name,
-      status: (
-        <Text
-          style={{
-            fontFamily: AppFontFamily.INTER_600,
-            color: AppColor.TEXT.GRAY_100,
-
-            marginHorizontal: 5,
-            backgroundColor: AppColor.BRAND.BLUE_100,
-            borderRadius: 16,
-            textAlign: 'center',
-          }}
-        >
-          {item.status}
-        </Text>
-      ),
+      direction: <Label text={item.courseCategory.name} />,
+      status: <Label text={item.status} />,
       interviewer: item.interviewer.fullName,
       date: item.interviewDate,
     };
