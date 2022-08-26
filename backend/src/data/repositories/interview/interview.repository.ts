@@ -37,21 +37,6 @@ class Interview {
 
     return interview ?? null;
   }
-
-  public async getByUserId(
-    userId: number,
-  ): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#InterviewModel
-      .query()
-      .select()
-      .where('intervieweeUserId', userId)
-      .orWhere('interviewerUserId', userId)
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
-      .castTo<InterviewsGetAllItemResponseDto[]>()
-      .execute();
-  }
 }
 
 export { Interview };

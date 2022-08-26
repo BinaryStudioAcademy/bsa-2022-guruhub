@@ -2,6 +2,7 @@ import { PermissionKey } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
   InterviewsGetAllResponseDto,
+  InterviewsUpdateRequestDto,
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
@@ -67,28 +68,7 @@ class Interview {
       return null;
     }
 
-    return {
-      id: interview.id,
-      interviewDate: interview.interviewDate,
-      status: interview.status,
-      interviewee: {
-        id: interview.interviewee.id,
-        fullName: interview.interviewee.fullName,
-        email: interview.interviewee.email,
-        createdAt: interview.interviewee.createdAt,
-      },
-      interviewer: {
-        id: interview.interviewer.id,
-        fullName: interview.interviewer.fullName,
-        email: interview.interviewer.email,
-        createdAt: interview.interviewer.createdAt,
-      },
-      courseCategory: {
-        id: interview.courseCategory.id,
-        key: interview.courseCategory.key,
-        name: interview.courseCategory.name,
-      },
-    };
+    return interview;
   }
 
   public async getByUserId(
@@ -120,6 +100,21 @@ class Interview {
         },
       })),
     };
+  }
+
+  public async update(data: {
+    id: number;
+    interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
+  }): Promise<InterviewsByIdResponseDto> {
+    const { id, interviewUpdateInfoRequestDto } = data;
+    const { interviewerUserId } = interviewUpdateInfoRequestDto;
+
+    const interview = await this.#interviewRepository.update({
+      id,
+      interviewerUserId,
+    });
+
+    return interview;
   }
 }
 
