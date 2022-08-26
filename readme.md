@@ -185,7 +185,7 @@ erDiagram
     dateTime created_at
     dateTime updated_at
     int interview_id FK
-    int created_by_user_id FK
+    int author_id FK
     text note
   }
 
