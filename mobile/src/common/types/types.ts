@@ -11,6 +11,7 @@ export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestArguments,
 } from './courses/courses';
 export {
   type FormControl,

@@ -3,6 +3,7 @@ import { SvgProps } from 'react-native-svg';
 
 import Billing from '~/assets/icons/billing.svg';
 import Book from '~/assets/icons/book.svg';
+import Edit from '~/assets/icons/edit.svg';
 import Education from '~/assets/icons/education.svg';
 import Home from '~/assets/icons/home.svg';
 import Mentors from '~/assets/icons/mentors.svg';
@@ -28,5 +29,6 @@ const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   uam: UAM,
   trash: Trash,
   plus: Plus,
+  edit: Edit,
 };
 export { iconNameToIcon };

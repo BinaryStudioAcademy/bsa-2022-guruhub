@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 24,
     lineHeight: 32,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   h2: {
     color: AppColor.TEXT.GRAY_100,
@@ -34,6 +34,15 @@ const styles = StyleSheet.create({
     fontFamily: AppFontFamily.INTER_400,
     fontSize: 14,
     lineHeight: 19.5,
+  },
+  dropdownContainer: {
+    alignSelf: 'flex-start',
+    maxWidth: '50%',
+    height: 60,
+  },
+  editIconContainer: {
+    marginTop: 10,
+    marginRight: 10,
   },
 });
 
