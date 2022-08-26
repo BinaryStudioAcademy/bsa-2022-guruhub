@@ -1,4 +1,5 @@
-import { InterviewStatus } from '../../enums/enums';
+import { InterviewStatus } from '~/common/enums/enums';
+
 import { CategoryGetAllItemResponseDto, UsersGetResponseDto } from '../types';
 
 type InterviewsGetAllItemResponseDto = {

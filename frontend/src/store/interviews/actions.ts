@@ -10,7 +10,7 @@ const getInterviews = createAsyncThunk<
   InterviewsGetAllResponseDto,
   void,
   AsyncThunkConfig
->(ActionType.GET_INTERVIEWS, async (_payload, { extra }) => {
+>(ActionType.GET_INTERVIEWS, async (_, { extra }) => {
   const { interviewsApi } = extra;
   const interviews = await interviewsApi.getAll();
 
