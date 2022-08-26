@@ -16,6 +16,7 @@ enum ExceptionMessage {
   PERMISSION_LACK = 'You do not have permission to access this resource.',
   STORAGE_NOT_FOUND = 'Storage was not found',
   INTERVIEW_EXIST = 'Interview for this category was either passed or is in progress',
+  INTERVIEW_DOES_NOT_EXIST = 'Interview with that ID does not exist',
   ALREADY_MENTOR_FOR_COURSE = 'You are already a mentor for this course',
 }
 

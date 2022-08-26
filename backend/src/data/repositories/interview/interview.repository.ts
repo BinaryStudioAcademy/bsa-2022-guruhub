@@ -78,7 +78,7 @@ class Interview {
     return interview ?? null;
   }
 
-  public async getByUserId(
+  public getByUserId(
     userId: number,
   ): Promise<InterviewsGetAllItemResponseDto[]> {
     return this.#InterviewModel
@@ -89,6 +89,19 @@ class Interview {
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee')
       .withGraphJoined('interviewer')
+      .castTo<InterviewsGetAllItemResponseDto[]>()
+      .execute();
+  }
+
+  public getOtherByInterviewId(
+    id: number,
+    intervieweeUserId: number,
+  ): Promise<InterviewsGetAllItemResponseDto[]> {
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhereNot({ id })
+      .withGraphJoined('[courseCategory, interviewee, interviewer]')
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }

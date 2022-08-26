@@ -1,7 +1,12 @@
-import { InterviewStatus, PermissionKey } from '~/common/enums/enums';
+import {
+  ExceptionMessage,
+  InterviewStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
+  InterviewsGetAllItemResponseDto,
   InterviewsGetAllResponseDto,
   InterviewsResponseDto,
   PermissionsGetAllItemResponseDto,
@@ -171,6 +176,25 @@ class Interview {
         },
       })),
     };
+  }
+
+  public async getOtherByInterviewId(
+    id: number,
+  ): Promise<InterviewsGetAllItemResponseDto[]> {
+    const interview = await this.getById(id);
+
+    if (!interview) {
+      throw new InterviewsError({
+        message: ExceptionMessage.INTERVIEW_DOES_NOT_EXIST,
+      });
+    }
+
+    const intervieweeUserId = interview.interviewee.id;
+
+    return this.#interviewRepository.getOtherByInterviewId(
+      id,
+      intervieweeUserId,
+    );
   }
 }
 

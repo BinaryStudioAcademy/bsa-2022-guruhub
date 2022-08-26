@@ -97,6 +97,19 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       rep.status(HttpCode.OK).send(categoryIds);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: InterviewsApiPath.$ID_OTHER,
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_INTERVIEW),
+    async handler(req: FastifyRequest<{ Params: { id: number } }>, rep) {
+      const { id } = req.params;
+
+      const otherInterviews = await interviewService.getOtherByInterviewId(id);
+
+      rep.status(HttpCode.OK).send(otherInterviews);
+    },
+  });
 };
 
 export { initInterviewsApi };
