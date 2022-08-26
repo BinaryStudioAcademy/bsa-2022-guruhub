@@ -14,9 +14,9 @@ const ModuleCard: FC<Props> = ({ title, description }) => {
       <div className={styles.title}>
         <p className={styles.header}>{title}</p>
       </div>
-      <p className={styles.description}>
+      <div className={styles.description}>
         {description && <Content html={description} />}
-      </p>
+      </div>
     </div>
   );
 };
