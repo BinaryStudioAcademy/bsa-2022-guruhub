@@ -24,6 +24,8 @@ import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
 
+import { Interview } from '../interview/interview';
+
 const App: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -110,6 +112,17 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <NotFound />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.INTERVIEWS_$ID}
+          element={
+            <AuthorizedWrapper>
+              <ProtectedRoute
+                permissions={[PermissionKey.MANAGE_INTERVIEWS]}
+                component={<Interview />}
+              />
             </AuthorizedWrapper>
           }
         />

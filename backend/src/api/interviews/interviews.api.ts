@@ -55,7 +55,10 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: InterviewsApiPath.$ID,
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_INTERVIEW),
+    preHandler: checkHasPermissions(
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
+    ),
     async handler(req: FastifyRequest<{ Params: { id: number } }>, res) {
       const { id } = req.params;
       const interview = await interviewService.getById(id);
