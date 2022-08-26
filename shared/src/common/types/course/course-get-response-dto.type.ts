@@ -11,6 +11,7 @@ type CourseGetResponseDto = {
   imageUrl: string;
   category: CategoryGetAllItemResponseDto | null;
   vendor: VendorGetResponseDto;
+  courseCategoryId: number;
 };
 
 export { type CourseGetResponseDto };

@@ -1,0 +1,4 @@
+get:
+  $ref: './interviews-get-all.yaml'
+post:
+  $ref: './interviews-create.yaml'
