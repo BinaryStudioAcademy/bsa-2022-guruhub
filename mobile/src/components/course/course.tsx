@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { DataStatus } from '~/common/enums/enums';
@@ -19,7 +18,6 @@ import { styles } from './styles';
 
 const Course: FC = () => {
   const navigation = useAppNavigate();
-  const { width } = useWindowDimensions();
   const { course, dataStatus } = useAppSelector((state) => state.courses);
 
   useEffect(() => {
@@ -45,9 +43,7 @@ const Course: FC = () => {
           source={{ uri: course?.imageUrl ?? getImageUri(defaultCourseImage) }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {Boolean(course.description) && (
-          <Content html={course.description} width={width} />
-        )}
+        {Boolean(course?.description) && <Content html={course?.description} />}
       </View>
     </ScrollView>
   );

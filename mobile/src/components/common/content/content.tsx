@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useWindowDimensions } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 
 import { sanitizeHTML } from '~/helpers/helpers';
@@ -7,15 +8,17 @@ import { defaultTagsStyles, styles } from './styles';
 
 type Props = {
   html: string;
-  width: number;
+  contentWidth?: number;
 };
 
-const Content: FC<Props> = ({ html, width }) => {
+const Content: FC<Props> = ({ html, contentWidth }) => {
+  const { width } = useWindowDimensions();
+
   return (
     <RenderHtml
       baseStyle={styles.text}
       tagsStyles={defaultTagsStyles}
-      contentWidth={width}
+      contentWidth={contentWidth ?? width}
       source={{ html: sanitizeHTML(html) }}
     />
   );
