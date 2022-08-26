@@ -4,6 +4,7 @@ export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
 } from './course/course';
 export {
@@ -43,6 +44,7 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type MenteesToMentorsRequestDto,
 } from './mentor/mentor';
 export {
   type NavigationMenuItem,

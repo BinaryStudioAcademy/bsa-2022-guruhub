@@ -18,10 +18,12 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
-import { ChooseMentorButton } from './components/choose-mentor-button/choose-mentor-button';
-import { ChooseMentorModal } from './components/choose-mentor-modal/choose-mentor-modal';
-import { EditCategoryModal } from './components/components';
-import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
+import {
+  ChooseMentorButton,
+  ChooseMentorModal,
+  EditCategoryModal,
+  ModulesCardsContainer,
+} from './components/components';
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
@@ -32,6 +34,8 @@ const Course: FC = () => {
     dataStatus,
     passedInterviewsCategoryIds,
     user,
+    mentors,
+    isMentorChoosingEnabled,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -39,6 +43,8 @@ const Course: FC = () => {
     dataStatus: course.dataStatus,
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
+    mentors: course.mentors,
+    isMentorChoosingEnabled: course.isMentorChoosingEnabled,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -60,7 +66,7 @@ const Course: FC = () => {
     useState<boolean>(false);
 
   const handleChooseMentorModalToggle = (evt: React.MouseEvent): void => {
-    evt?.stopPropagation();
+    evt.stopPropagation();
     setChooseMentorModalOpen((prev) => !prev);
   };
 
@@ -79,6 +85,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(courseActions.updateIsMentorBecomingEnabled());
+    dispatch(courseActions.updateisMentorChoosingEnabled());
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
@@ -107,6 +114,7 @@ const Course: FC = () => {
       <ChooseMentorModal
         isOpen={isChooseMentorModalOpen}
         onModalToggle={handleChooseMentorModalToggle}
+        mentors={mentors}
       />
       <div className={styles.info}>
         <div className={styles.courseHeadingContainer}>
@@ -144,7 +152,9 @@ const Course: FC = () => {
       </div>
 
       <div className={styles.additional}>
-        <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+        {isMentorChoosingEnabled && (
+          <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,15 @@
+.placeholder {
+  width: 100%;
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 50px;
+  width: 100%;
+  padding-top: 20px;
+}

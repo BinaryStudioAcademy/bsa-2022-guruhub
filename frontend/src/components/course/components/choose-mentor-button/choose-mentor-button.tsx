@@ -13,10 +13,10 @@ const ChooseMentorButton: FC<Props> = ({ onClick }) => {
     <div className={styles.chooseMentorContainer}>
       <div className={styles.image}>
         <Image
-          alt="course image"
+          alt="choose mentor image"
           src={chooseMentorImage}
-          width="80%"
-          height="80%"
+          width="160"
+          height="100"
         />
       </div>
 

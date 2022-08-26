@@ -11,7 +11,8 @@ import {
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
-  UsersGetResponseDto,
+  MenteesToMentorsRequestDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -82,13 +83,33 @@ class CoursesApi {
 
   public getMentorsByCourseId({
     id,
-  }: CourseGetRequestParamsDto): Promise<UsersGetResponseDto[]> {
-    return this.#http.load<UsersGetResponseDto[]>(
+  }: CourseGetRequestParamsDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}${
         CoursesApiPath.MENTORS
       }`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public chooseMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
       },
     );
   }

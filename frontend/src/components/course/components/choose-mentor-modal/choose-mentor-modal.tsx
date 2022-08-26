@@ -1,15 +1,18 @@
-import { FC } from 'common/types/types';
+import { FC, UserDetailsResponseDto } from 'common/types/types';
 import { Modal } from 'components/common/common';
 
+import { MentorsList } from './components/components';
+
 type Props = {
+  mentors: UserDetailsResponseDto[];
   isOpen: boolean;
   onModalToggle: (evt: React.MouseEvent) => void;
 };
 
-const ChooseMentorModal: FC<Props> = ({ isOpen, onModalToggle }) => {
+const ChooseMentorModal: FC<Props> = ({ mentors, isOpen, onModalToggle }) => {
   return (
     <Modal isOpen={isOpen} onClose={onModalToggle} title="Choose a mentor">
-      <div></div>
+      <MentorsList mentors={mentors} onClick={onModalToggle} />
     </Modal>
   );
 };

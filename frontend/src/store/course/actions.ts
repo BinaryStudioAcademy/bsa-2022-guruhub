@@ -7,10 +7,11 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
+  CourseSelectMentorRequestParamsDto,
   CoursesToMentorsRequestDto,
   CourseUpdateCategoryRequestArguments,
   InterviewsCreateRequestBodyDto,
-  UsersGetResponseDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 import { notification } from 'services/services';
 
@@ -105,7 +106,7 @@ const disableMentorBecoming = createAsyncThunk<boolean, void, AsyncThunkConfig>(
 );
 
 const getMentorsByCourseId = createAsyncThunk<
-  UsersGetResponseDto[],
+  UserDetailsResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTORS, async ({ id }, { extra }) => {
@@ -146,6 +147,48 @@ const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   },
 );
 
+const chooseMentor = createAsyncThunk<
+  void,
+  CourseSelectMentorRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHOOSE_A_MENTOR, async ({ id }, { extra, getState }) => {
+  const {
+    course: { course },
+    auth: { user },
+  } = getState();
+  const { coursesApi } = extra;
+
+  if (!user || !course) {
+    return;
+  }
+
+  await coursesApi.chooseMentor({
+    courseId: course.id,
+    menteeId: user.id,
+    mentorId: id,
+  });
+
+  notification.success(NotificationMessage.MENTOR_CHOOSE);
+
+  return;
+});
+
+const updateisMentorChoosingEnabled = createAsyncThunk<
+  boolean,
+  void,
+  AsyncThunkConfig
+>(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
+  const {
+    auth: { user },
+    course: { course, mentors },
+  } = getState();
+
+  const isMentorChoosingEnabled =
+    user && course && !mentors.some((mentor) => mentor.id === user.id);
+
+  return Boolean(isMentorChoosingEnabled);
+});
+
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
   void,
@@ -171,6 +214,7 @@ const updateCategory = createAsyncThunk<
 
 export {
   becomeAMentor,
+  chooseMentor,
   createInterview,
   createMentor,
   disableMentorBecoming,
@@ -181,4 +225,5 @@ export {
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
+  updateisMentorChoosingEnabled,
 };
