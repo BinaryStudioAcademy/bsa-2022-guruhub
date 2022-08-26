@@ -6,6 +6,8 @@ import {
   CoursesApiPath,
   ENV,
   HttpMethod,
+  InterviewsApiPath,
+  MentorsApiPath,
 } from '~/common/enums/enums';
 import { WhiteRoute } from '~/common/types/types';
 
@@ -32,6 +34,14 @@ const WHITE_ROUTES: WhiteRoute[] = [
   },
   {
     route: `${ENV.API.V1_PREFIX}${ApiPath.COURSE_MODULES}${CourseModulesApiPath.COURSES_$ID_MODULES}`,
+    method: HttpMethod.GET,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.INTERVIEWS}${InterviewsApiPath.INTERVIEWEE_USER_$ID_CATEGORIES}`,
+    method: HttpMethod.GET,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.MENTORS}${MentorsApiPath.ROOT}`,
     method: HttpMethod.GET,
   },
 ];

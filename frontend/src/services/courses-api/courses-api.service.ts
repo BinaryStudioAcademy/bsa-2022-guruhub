@@ -11,6 +11,7 @@ import {
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -79,15 +80,33 @@ class CoursesApi {
     );
   }
 
+  public getMentorsByCourseId({
+    id,
+  }: CourseGetRequestParamsDto): Promise<UsersGetResponseDto[]> {
+    return this.#http.load<UsersGetResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public updateCategory({
     courseId,
     newCategoryId,
   }: CourseUpdateCategoryRequestArguments): Promise<CourseGetResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}/${courseId}`, {
-      method: HttpMethod.PATCH,
-      contentType: ContentType.JSON,
-      payload: JSON.stringify({ newCategoryId }),
-    });
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.CATEGORY
+      }`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ newCategoryId }),
+      },
+    );
   }
 }
 
