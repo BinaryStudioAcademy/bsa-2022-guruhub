@@ -5,6 +5,7 @@ import RenderHtml from 'react-native-render-html';
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { DataStatus } from '~/common/enums/enums';
 import {
+  BackButton,
   Image,
   ScrollView,
   Spinner,
@@ -12,13 +13,20 @@ import {
   View,
 } from '~/components/common/common';
 import { getImageUri, sanitizeHTML } from '~/helpers/helpers';
-import { useAppSelector } from '~/hooks/hooks';
+import { useAppNavigate, useAppSelector, useEffect } from '~/hooks/hooks';
 
 import { styles, tagsStyles } from './styles';
 
 const Course: FC = () => {
+  const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const { course, dataStatus } = useAppSelector((state) => state.courses);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={navigation.goBack} />,
+    });
+  }, []);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;

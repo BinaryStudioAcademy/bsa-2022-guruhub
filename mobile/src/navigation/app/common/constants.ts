@@ -111,12 +111,6 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         component: AddCourse,
         permissions: [],
       },
-    ],
-  },
-  {
-    name: 'Course',
-    isVisible: false,
-    subroutes: [
       {
         name: AppScreenName.COURSE,
         component: Course,

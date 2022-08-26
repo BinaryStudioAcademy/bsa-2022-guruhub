@@ -38,8 +38,10 @@ const styles = StyleSheet.create({
 });
 
 const tagsStyles = {
-  ul: {
-    listStyleType: 'none',
+  li: {
+    marginTop: -15,
+    marginBottom: 10,
+    marginLeft: 5,
   },
 };
 
