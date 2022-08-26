@@ -8,6 +8,7 @@ export {
   GroupsApiPath,
   InterviewNotesApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   PermissionApiPath,
   UserDetailsApiPath,
   UsersApiPath,

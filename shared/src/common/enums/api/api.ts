@@ -6,6 +6,7 @@ export { CoursesApiPath } from './courses-api-path.enum';
 export { GroupsApiPath } from './groups-api-path.enum';
 export { InterviewNotesApiPath } from './interview-notes-api-path.enum';
 export { InterviewsApiPath } from './interviews-api-path.enum';
+export { MentorsApiPath } from './mentors-api-path.enum';
 export { PermissionApiPath } from './permission-api-path.enum';
 export { UserDetailsApiPath } from './user-details-api-path.enum';
 export { UsersApiPath } from './users-api-path.enum';

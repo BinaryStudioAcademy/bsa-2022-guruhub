@@ -4,19 +4,28 @@ import {
   CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
+  createMentor,
+  disableMentorBecoming,
   getCategories,
   getCourse,
+  getMentorsByCourseId,
   getModules,
+  getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
+  updateIsMentorBecomingEnabled,
 } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
+  passedInterviewsCategoryIds: number[];
+  isMentorBecomingEnabled: boolean;
+  mentors: UsersGetResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
 };
 
@@ -24,6 +33,9 @@ const initialState: State = {
   dataStatus: DataStatus.IDLE,
   course: null,
   modules: [],
+  passedInterviewsCategoryIds: [],
+  isMentorBecomingEnabled: false,
+  mentors: [],
   categories: [],
 };
 
@@ -49,6 +61,27 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getModules.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
+  builder.addCase(
+    getPassedInterviewsCategoryIdsByUserId.fulfilled,
+    (state, { payload }) => {
+      state.passedInterviewsCategoryIds = payload;
+    },
+  );
+  builder.addCase(getPassedInterviewsCategoryIdsByUserId.rejected, (state) => {
+    state.passedInterviewsCategoryIds = [];
+  });
+  builder.addCase(
+    updateIsMentorBecomingEnabled.fulfilled,
+    (state, { payload }) => {
+      state.isMentorBecomingEnabled = payload;
+    },
+  );
+  builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
+    state.mentors = payload;
+  });
+  builder.addCase(getMentorsByCourseId.rejected, (state) => {
+    state.mentors = [];
+  });
 
   builder.addCase(getCategories.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
@@ -70,6 +103,14 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(createMentor.fulfilled, (state) => {
+    state.isMentorBecomingEnabled = false;
+  });
+
+  builder.addCase(disableMentorBecoming.fulfilled, (state, { payload }) => {
+    state.isMentorBecomingEnabled = payload;
   });
 });
 
