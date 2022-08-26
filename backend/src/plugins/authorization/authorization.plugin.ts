@@ -32,11 +32,11 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
       );
 
       const isWhiteRoute = Boolean(whiteRoute);
+      const isAllowedMethod = whiteRoute?.methods.includes(
+        request.method as HttpMethod,
+      );
 
-      if (
-        isWhiteRoute &&
-        whiteRoute?.methods.includes(request.method as HttpMethod)
-      ) {
+      if (isWhiteRoute && isAllowedMethod) {
         return;
       }
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
