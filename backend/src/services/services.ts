@@ -8,6 +8,7 @@ import {
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   interview as interviewRepository,
+  interviewNote as interviewNoteRepository,
   permission as permissionRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
@@ -26,6 +27,7 @@ import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
 import { Http } from './http/http.service';
 import { Interview } from './interview/interview.service';
+import { InterviewNote } from './interview-note/interview-note.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
@@ -114,6 +116,11 @@ const interview = new Interview({
   interviewRepository,
 });
 
+const interviewNote = new InterviewNote({
+  interviewNoteRepository,
+  userRepository,
+});
+
 const file = new File({
   region: ENV.AWS.REGION,
   accessKeyId: ENV.AWS.ACCESS_KEY_ID,
@@ -133,6 +140,7 @@ export {
   groupsToPermissions,
   http,
   interview,
+  interviewNote,
   permission,
   token,
   udemy,

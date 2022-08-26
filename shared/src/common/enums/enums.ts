@@ -5,6 +5,7 @@ export {
   CourseModulesApiPath,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewNotesApiPath,
   InterviewsApiPath,
   PermissionApiPath,
   UserDetailsApiPath,
