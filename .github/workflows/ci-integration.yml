@@ -1,0 +1,87 @@
+name: Continuous Integration. Integration Testing
+
+on:
+  pull_request:
+    branches:
+      - development
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@localhost:5432/${{ secrets.DB_NAME }}
+      DB_POOL_MIN: 2
+      DB_POOL_MAX: 10
+      DB_DIALECT: pg
+
+    services:
+      db:
+        image: postgres:14.5
+        env:
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install Dependencies
+        run: |
+          npm run install:all
+
+      - name: Code Linting
+        run: |
+          npm run lint
+
+      - name: Code Building
+        run: |
+          npm run build
+
+      - name: Migrate and Seed Database
+        working-directory: ./backend
+        run: |
+          npm run migrate
+          npm run seed
+
+      - name: Start Backend
+        working-directory: ./backend
+        env:
+          PORT: 3001
+          NODE_ENV: production
+          UDEMY_CLIENT_ID: ${{ secrets.UDEMY_CLIENT_ID }}
+          UDEMY_CLIENT_SECRET: ${{ secrets.UDEMY_CLIENT_SECRET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
+        run: |
+          npm start & npm run wait-for-start
+
+      - name: Run Tests
+        working-directory: ./backend/tests
+        env:
+          LOCAL_API_PREFIX_URL: http://localhost:3001/api/v1
+          STUDENT_EMAIL: test.student@guruhub.club
+          STUDENT_PASSWORD: Pa55word
+          MENTOR_EMAIL: ''
+          MENTOR_PASSWORD: ''
+          INTERVIEWS_MANAGER_EMAIL: test.interviewsmanager@guruhub.club
+          INTERVIEWS_MANAGER_PASSWORD: Pa55word
+          INTERVIEWER_EMAIL: test.interviewer@guruhub.club
+          INTERVIEWER_PASSWORD: Pa55word
+          CATEGORIES_MANAGER_EMAIL: test.categoriesmanager@guruhub.club
+          CATEGORIES_MANAGER_PASSWORD: Pa55word
+          MENTORING_MANAGER_EMAIL: test.mentoringmanager@guruhub.club
+          MENTORING_MANAGER_PASSWORD: Pa55word
+          UAM_MANAGER_EMAIL: admin@guruhub.club
+          UAM_MANAGER_PASSWORD: Pa55word
+        run: |
+          npm run test:development
