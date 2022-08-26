@@ -7,9 +7,10 @@ import styles from './styles.module.scss';
 
 type Props = {
   user: UserWithPermissions;
+  onBecomeAMentor: () => void;
 };
 
-const AuthorizedMenu: FC<Props> = ({ user }) => {
+const AuthorizedMenu: FC<Props> = ({ user, onBecomeAMentor }) => {
   const { isMentorBecomingEnabled } = useAppSelector((state) => state.course);
 
   return (
@@ -23,7 +24,7 @@ const AuthorizedMenu: FC<Props> = ({ user }) => {
           user={user}
         />
       ))}
-      {isMentorBecomingEnabled && <BecomeAMentor />}
+      {isMentorBecomingEnabled && <BecomeAMentor onClick={onBecomeAMentor} />}
     </div>
   );
 };
