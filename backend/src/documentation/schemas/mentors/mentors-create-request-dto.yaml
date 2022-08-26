@@ -1,0 +1,10 @@
+type: object
+properties:
+  userId:
+    type: number
+    required: true
+    example: 1
+  courseId:
+    type: number
+    required: true
+    example: 1
