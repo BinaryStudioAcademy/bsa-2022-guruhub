@@ -10,7 +10,7 @@ class InterviewNote extends Abstract {
 
   public 'interviewId': number;
 
-  public 'createdByUserId': number;
+  public 'authorId': number;
 
   public static override get relationMappings(): RelationMappings {
     return {
@@ -26,7 +26,7 @@ class InterviewNote extends Abstract {
         relation: Model.HasOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.INTERVIEW_NOTES}.created_by_user_id`,
+          from: `${DbTableName.INTERVIEW_NOTES}.author_id`,
           to: `${DbTableName.USERS}.id`,
         },
       },

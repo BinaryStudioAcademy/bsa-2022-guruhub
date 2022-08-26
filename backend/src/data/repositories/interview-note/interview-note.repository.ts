@@ -33,7 +33,7 @@ class InterviewNote {
 
     return this.#InterviewNoteModel
       .query()
-      .insert({ note, interviewId, createdByUserId: authorId })
+      .insert({ note, interviewId, authorId })
       .execute();
   }
 }

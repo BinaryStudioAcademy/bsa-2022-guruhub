@@ -11,7 +11,7 @@ enum ColumnName {
   CREATED_AT = 'created_at',
   UPDATED_AT = 'updated_at',
   INTERVIEW_ID = 'interview_id',
-  CREATED_BY_USER_ID = 'created_by_user_id',
+  AUTHOR_ID = 'author_id',
   NOTE = 'note',
 }
 
@@ -31,7 +31,7 @@ async function up(knex: Knex): Promise<void> {
       .references(ColumnName.ID)
       .inTable(TableName.INTERVIEWS);
     table
-      .integer(ColumnName.CREATED_BY_USER_ID)
+      .integer(ColumnName.AUTHOR_ID)
       .references(ColumnName.ID)
       .inTable(TableName.USERS);
     table.text(ColumnName.NOTE).notNullable();
