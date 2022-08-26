@@ -78,13 +78,31 @@ const getPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
   return passedInterviewsCategoryIds;
 });
 
-const setIsMentorButtonVisible = createAsyncThunk<
+const updateIsMentorBecomingEnabled = createAsyncThunk<
   boolean,
-  boolean,
+  void,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_BUTTON_VISIBLE, async (payload) => {
-  return payload;
+>(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, (_, { getState }) => {
+  const { auth, course } = getState();
+
+  const { user } = auth;
+  const { course: courseData, mentors } = course;
+
+  const isMentorBecomingEnabled =
+    user &&
+    courseData &&
+    courseData.courseCategoryId &&
+    !mentors.some((mentor) => mentor.id === user.id);
+
+  return Boolean(isMentorBecomingEnabled);
 });
+
+const disableMentorBecoming = createAsyncThunk<boolean, void, AsyncThunkConfig>(
+  ActionType.DISABLE_MENTOR_BECOMING,
+  () => {
+    return false;
+  },
+);
 
 const getMentorsByCourseId = createAsyncThunk<
   UsersGetResponseDto[],
@@ -96,6 +114,36 @@ const getMentorsByCourseId = createAsyncThunk<
 
   return mentors;
 });
+
+const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.BECOME_A_MENTOR,
+  (_, { dispatch, getState }) => {
+    const { course, auth } = getState();
+    const { passedInterviewsCategoryIds, course: courseData } = course;
+    const { user } = auth;
+
+    if (!user || !courseData) {
+      return;
+    }
+
+    const isInterviewPassed = passedInterviewsCategoryIds.includes(
+      courseData.courseCategoryId,
+    );
+
+    if (isInterviewPassed) {
+      dispatch(createMentor({ courseId: courseData.id, userId: user.id }));
+
+      return;
+    }
+
+    dispatch(
+      createInterview({
+        categoryId: courseData.courseCategoryId,
+        intervieweeUserId: user.id,
+      }),
+    );
+  },
+);
 
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
@@ -121,13 +169,15 @@ const updateCategory = createAsyncThunk<
 });
 
 export {
+  becomeAMentor,
   createInterview,
   createMentor,
+  disableMentorBecoming,
   getCategories,
   getCourse,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
-  setIsMentorButtonVisible,
   updateCategory,
+  updateIsMentorBecomingEnabled,
 };

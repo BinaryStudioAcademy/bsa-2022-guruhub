@@ -9,13 +9,14 @@ import {
 
 import {
   createMentor,
+  disableMentorBecoming,
   getCategories,
   getCourse,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
-  setIsMentorButtonVisible,
   updateCategory,
+  updateIsMentorBecomingEnabled,
 } from './actions';
 
 type State = {
@@ -23,7 +24,7 @@ type State = {
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
   passedInterviewsCategoryIds: number[];
-  isMentorButtonVisible: boolean;
+  isMentorBecomingEnabled: boolean;
   mentors: UsersGetResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
 };
@@ -33,7 +34,7 @@ const initialState: State = {
   course: null,
   modules: [],
   passedInterviewsCategoryIds: [],
-  isMentorButtonVisible: false,
+  isMentorBecomingEnabled: false,
   mentors: [],
   categories: [],
 };
@@ -69,9 +70,12 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getPassedInterviewsCategoryIdsByUserId.rejected, (state) => {
     state.passedInterviewsCategoryIds = [];
   });
-  builder.addCase(setIsMentorButtonVisible.fulfilled, (state, { payload }) => {
-    state.isMentorButtonVisible = payload;
-  });
+  builder.addCase(
+    updateIsMentorBecomingEnabled.fulfilled,
+    (state, { payload }) => {
+      state.isMentorBecomingEnabled = payload;
+    },
+  );
   builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
     state.mentors = payload;
   });
@@ -102,7 +106,11 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(createMentor.fulfilled, (state) => {
-    state.isMentorButtonVisible = false;
+    state.isMentorBecomingEnabled = false;
+  });
+
+  builder.addCase(disableMentorBecoming.fulfilled, (state, { payload }) => {
+    state.isMentorBecomingEnabled = payload;
   });
 });
 
