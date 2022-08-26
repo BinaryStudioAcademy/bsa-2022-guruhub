@@ -4,6 +4,8 @@ export {
   CategoriesApiPath,
   CoursesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
+  MentorsApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';

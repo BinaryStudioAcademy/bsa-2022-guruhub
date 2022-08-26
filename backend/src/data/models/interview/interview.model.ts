@@ -1,6 +1,6 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { DbTableName, InterviewStatus } from '~/common/enums/enums';
 import {
   CategoryGetAllItemResponseDto,
   UsersGetResponseDto,
@@ -11,15 +11,15 @@ import { CourseCategory } from '../course-category/course-category.model';
 import { User } from '../models';
 
 class Interview extends Abstract {
-  public 'interviewDate': string;
+  public 'interviewDate': string | null;
 
-  public 'status': string;
-
-  public 'interviewerUserId': number;
+  public 'status': InterviewStatus;
 
   public 'categoryId': number;
 
   public 'intervieweeUserId': number;
+
+  public 'interviewerUserId': number;
 
   public 'courseCategory': CategoryGetAllItemResponseDto;
 

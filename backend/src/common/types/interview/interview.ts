@@ -1,7 +1,11 @@
+export { type InterviewsCreateRequestDto } from './interviews-create-request-dto.type';
 export {
-  InterviewsByIdResponseDto,
-  InterviewsGetAllItemResponseDto,
-  InterviewsGetAllResponseDto,
-  InterviewsUpdateRequestDto,
-  InterviewsUpdateRequestParamsDto,
+  type InterviewsByIdResponseDto,
+  type InterviewsByIntervieweeIdRequestDto,
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsGetAllResponseDto,
+  type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from 'guruhub-shared/common/types/types';

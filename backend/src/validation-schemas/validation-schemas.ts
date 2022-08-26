@@ -17,7 +17,13 @@ export {
   groupUpdate,
   groupUpdateParams,
 } from './group/group';
-export { interviewUpdate, interviewUpdateParams } from './interview/interview';
+export {
+  interviewByIntervieweeId,
+  interviewCreate,
+  interviewUpdate,
+  interviewUpdateParams,
+} from './interview/interview';
+export { mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
 export { userDelete, userSignIn, userSignUp } from './user/user';
 export { userDetailsUpdateInfo } from './user-details/user-details';
