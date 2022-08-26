@@ -5,15 +5,34 @@ import {
   CourseModulesApiPath,
   CoursesApiPath,
   ENV,
+  HttpMethod,
 } from '~/common/enums/enums';
 
 const WHITE_ROUTES = [
-  `${ENV.API.V1_PREFIX}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
-  `${ENV.API.V1_PREFIX}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
-  `${ENV.API.V1_PREFIX}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
-  `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
-  `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.$ID}`,
-  `${ENV.API.V1_PREFIX}${ApiPath.COURSE_MODULES}${CourseModulesApiPath.COURSES_$ID_MODULES}`,
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
+    method: HttpMethod.POST,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.AUTH}${AuthApiPath.SIGN_UP}`,
+    method: HttpMethod.POST,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
+    method: HttpMethod.GET,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+    method: HttpMethod.GET,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${CoursesApiPath.$ID}`,
+    method: HttpMethod.GET,
+  },
+  {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.COURSE_MODULES}${CourseModulesApiPath.COURSES_$ID_MODULES}`,
+    method: HttpMethod.GET,
+  },
 ];
 
 export { WHITE_ROUTES };

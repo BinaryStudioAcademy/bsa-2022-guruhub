@@ -14,7 +14,10 @@ import {
 } from '~/services/services';
 
 type Options = {
-  routesWhiteList: string[];
+  routesWhiteList: {
+    route: string;
+    method: HttpMethod;
+  }[];
   services: {
     user: typeof userService;
     token: typeof tokenService;
@@ -26,11 +29,13 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
     try {
-      const isWhiteRoute = opts.routesWhiteList.some(
-        (route) => route === request.routerPath,
+      const whiteRoute = opts.routesWhiteList.find(
+        (route) => route.route === request.routerPath,
       );
 
-      if (isWhiteRoute && request.method === HttpMethod.GET) {
+      const isWhiteRoute = Boolean(whiteRoute);
+
+      if (isWhiteRoute && request.method === whiteRoute?.method) {
         return;
       }
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
