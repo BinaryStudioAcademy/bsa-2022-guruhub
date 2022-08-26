@@ -103,11 +103,11 @@ class Interview {
       .query()
       .patchAndFetchById(id, { interviewerUserId })
       .withGraphFetched('courseCategory')
-      .withGraphFetched('interviewee.[userDetails(onlyFullName)]')
-      .withGraphFetched('interviewer.[userDetails(onlyFullName)]')
+      .withGraphFetched('interviewee(withoutPassword).[userDetails]')
+      .withGraphFetched('interviewer.[userDetails]')
       .modifiers({
-        onlyFullName(builder) {
-          builder.select('fullName');
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
         },
       })
       .castTo<InterviewsByIdResponseDto>()
