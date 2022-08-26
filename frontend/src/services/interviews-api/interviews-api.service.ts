@@ -6,6 +6,7 @@ import {
 } from 'common/enums/enums';
 import {
   InterviewsCreateRequestBodyDto,
+  InterviewsGetAllItemResponseDto,
   InterviewsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -48,6 +49,16 @@ class InterviewsApi {
       {
         method: HttpMethod.GET,
       },
+    );
+  }
+
+  public getOtherByInterviewId(
+    id: number,
+  ): Promise<InterviewsGetAllItemResponseDto[]> {
+    return this.#http.load<InterviewsGetAllItemResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}${
+        InterviewsApiPath.OTHER
+      }`,
     );
   }
 }

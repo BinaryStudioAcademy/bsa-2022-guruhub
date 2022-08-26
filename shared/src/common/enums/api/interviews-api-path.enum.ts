@@ -5,6 +5,7 @@ enum InterviewsApiPath {
   INTERVIEWEE = '/interviewee',
   CATEGORIES = '/categories',
   $ID_OTHER = '/:id/other',
+  OTHER = '/other',
 }
 
 export { InterviewsApiPath };

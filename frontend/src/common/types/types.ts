@@ -38,6 +38,7 @@ export {
 export { type HttpOptions } from './http/http';
 export {
   type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
   type InterviewsResponseDto,
 } from './interview/interview';
 export {
