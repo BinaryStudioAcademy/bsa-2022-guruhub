@@ -69,7 +69,10 @@ const App: FC = () => {
           path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
             <AuthorizedWrapper>
-              <UAMConfigureGroup />
+              <ProtectedRoute
+                permissions={[PermissionKey.MANAGE_UAM]}
+                component={<UAMConfigureGroup />}
+              />
             </AuthorizedWrapper>
           }
         />
@@ -77,7 +80,10 @@ const App: FC = () => {
           path={AppRoute.UAM_CONFIGURE_GROUP_$ID}
           element={
             <AuthorizedWrapper>
-              <UAMConfigureGroup />
+              <ProtectedRoute
+                permissions={[PermissionKey.MANAGE_UAM]}
+                component={<UAMConfigureGroup />}
+              />
             </AuthorizedWrapper>
           }
         />
