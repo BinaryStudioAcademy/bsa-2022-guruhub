@@ -4,14 +4,14 @@ import { InterviewNoteCreateRequestArgumentsDto } from '~/common/types/types';
 import { InterviewNote as InterviewNoteM } from '~/data/models/models';
 
 type Constructor = {
-  InteviewNoteModel: typeof InterviewNoteM;
+  InterviewNoteModel: typeof InterviewNoteM;
 };
 
 class InterviewNote {
   #InterviewNoteModel: typeof InterviewNoteM;
 
-  public constructor({ InteviewNoteModel }: Constructor) {
-    this.#InterviewNoteModel = InteviewNoteModel;
+  public constructor({ InterviewNoteModel }: Constructor) {
+    this.#InterviewNoteModel = InterviewNoteModel;
   }
 
   public getAll(
