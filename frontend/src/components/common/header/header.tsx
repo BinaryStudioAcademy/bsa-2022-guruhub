@@ -1,6 +1,6 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
-import { AppRoute, SearchValues } from 'common/enums/enums';
+import { AppRoute, SearchValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
 import { useAppSelector, useLocation, useSearch, useState } from 'hooks/hooks';
@@ -24,7 +24,7 @@ const Header: FC = () => {
   const { performSearch } = useSearch();
 
   const handleSearch = (search: string): void => {
-    performSearch(SearchValues.TITLE, search);
+    performSearch(SearchValue.TITLE, search);
   };
 
   return (

@@ -1,1 +1,1 @@
-export { SearchValues } from './search-values';
+export { SearchValue } from './search-values';

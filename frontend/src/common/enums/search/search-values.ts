@@ -1,6 +1,6 @@
-enum SearchValues {
+enum SearchValue {
   CATEGORY = 'category',
   TITLE = 'title',
 }
 
-export { SearchValues };
+export { SearchValue };

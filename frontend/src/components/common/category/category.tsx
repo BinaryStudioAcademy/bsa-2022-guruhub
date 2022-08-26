@@ -10,15 +10,10 @@ type Props = {
   keyName: string;
   name: string;
   activeCategory?: string;
-  handleClick?: (evt: React.MouseEvent) => void;
+  onClick?: (evt: React.MouseEvent) => void;
 };
 
-const Category: FC<Props> = ({
-  keyName,
-  name,
-  activeCategory,
-  handleClick,
-}) => {
+const Category: FC<Props> = ({ keyName, name, activeCategory, onClick }) => {
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
@@ -32,7 +27,7 @@ const Category: FC<Props> = ({
         activeCategory === keyName && styles.selected,
       )}
       style={{ borderColor: getRandomColor() }}
-      onClick={handleClick}
+      onClick={onClick}
     >
       <Image
         width="30px"

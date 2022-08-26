@@ -1,4 +1,4 @@
-import { SearchValues } from 'common/enums/enums';
+import { SearchValue } from 'common/enums/enums';
 import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
 import { Category } from 'components/common/common';
 import { useSearch } from 'hooks/hooks';
@@ -12,17 +12,17 @@ type Props = {
 const CategoriesList: FC<Props> = ({ items }) => {
   const { searchParams, performSearch } = useSearch();
 
-  const activeCategory = searchParams.get(SearchValues.CATEGORY) ?? '';
+  const activeCategory = searchParams.get(SearchValue.CATEGORY) ?? '';
 
   const handleClick = (evt: React.MouseEvent): void => {
     const category = evt.currentTarget.id;
 
-    if (category === searchParams.get(SearchValues.CATEGORY)) {
-      performSearch(SearchValues.CATEGORY, '');
+    if (category === searchParams.get(SearchValue.CATEGORY)) {
+      performSearch(SearchValue.CATEGORY, '');
 
       return;
     }
-    performSearch(SearchValues.CATEGORY, category);
+    performSearch(SearchValue.CATEGORY, category);
   };
 
   return (
@@ -33,7 +33,7 @@ const CategoriesList: FC<Props> = ({ items }) => {
             keyName={category.key}
             name={category.name}
             activeCategory={activeCategory}
-            handleClick={handleClick}
+            onClick={handleClick}
           />
         </li>
       ))}
