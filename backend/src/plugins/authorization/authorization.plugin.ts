@@ -5,6 +5,7 @@ import {
   ControllerHook,
   ExceptionMessage,
   HttpCode,
+  HttpMethod,
 } from '~/common/enums/enums';
 import { InvalidCredentialsError } from '~/exceptions/exceptions';
 import {
@@ -29,7 +30,7 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
         (route) => route === request.routerPath,
       );
 
-      if (isWhiteRoute) {
+      if (isWhiteRoute && request.method === HttpMethod.GET) {
         return;
       }
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
