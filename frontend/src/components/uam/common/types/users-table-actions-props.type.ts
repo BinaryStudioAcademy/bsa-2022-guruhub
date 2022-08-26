@@ -1,7 +1,7 @@
 type UsersTableActionsProps = {
   id: number;
   onDelete: (id: number) => void;
-  currentLoggedInUser: boolean;
+  isCurrentSignedUser: boolean;
 };
 
 export { type UsersTableActionsProps };

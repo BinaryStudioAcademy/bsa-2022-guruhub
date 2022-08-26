@@ -35,7 +35,7 @@ const getUsersColumns = (
       accessor: ({ id }: UsersTableRow): UsersTableActionsProps => ({
         onDelete: onUserDelete,
         id,
-        currentLoggedInUser: user.id === id,
+        isCurrentSignedUser: user.id === id,
       }),
       Cell: ActionsCell,
     },
