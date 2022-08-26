@@ -18,7 +18,7 @@ const userDetailsUpdateInfo = Joi.object({
       'string.empty': UserDetailsValidationMessage.FULL_NAME_REQUIRE,
       'string.min': UserDetailsValidationMessage.FULL_NAME_MIN_LENGTH,
       'string.max': UserDetailsValidationMessage.FULL_NAME_MAX_LENGTH,
-      'string.pattern.base': UserDetailsValidationMessage.FULL_NAME_REQUIRE,
+      'string.pattern.base': UserDetailsValidationMessage.FULL_NAME_WRONG,
     }),
   [getNameOf<UserDetailsUpdateInfoRequestDto>('gender')]: Joi.string()
     .trim()
