@@ -10,9 +10,6 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
-    env:
-      BACKEND_PORT: 3001
-
     services:
       db:
         image: postgres:14.5
@@ -44,9 +41,16 @@ jobs:
         run: |
           npm run build
 
-      - name: Fill Backend Env
+      - name: Migrate and Seed Database
+        working-directory: ./backend
+        run: |
+          npm run migrate
+          npm run seed
+
+      - name: Start Backend
         working-directory: ./backend
         env:
+          PORT: 3001
           NODE_ENV: production
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
@@ -59,18 +63,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
         run: |
-          echo "NODE_ENV=$NODE_ENV" >> .env
-          echo "PORT=$BACKEND_PORT" >> .env
-          echo "DATABASE_URL=postgres://$DB_USER:$DB_PASSWORD@localhost:5432/$DB_NAME" >> .env
-          echo "DB_POOL_MIN=$DB_POOL_MIN" >> .env
-          echo "DB_POOL_MAX=$DB_POOL_MAX" >> .env
-          echo "DB_DIALECT=$DB_DIALECT" >> .env
-          echo "UDEMY_CLIENT_ID=$UDEMY_CLIENT_ID" >> .env
-          echo "UDEMY_CLIENT_SECRET=$UDEMY_CLIENT_SECRET" >> .env
-          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
-          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
+          npm start & npm run wait-for-start
 
-      - name: Fill Tests Env
+      - name: Run Tests
         working-directory: ./backend/tests
         env:
           LOCAL_API_PREFIX_URL: http://localhost:3001/api/v1
@@ -88,29 +83,5 @@ jobs:
           MENTORING_MANAGER_PASSWORD: Pa55word
           UAM_MANAGER_EMAIL: admin@guruhub.club
           UAM_MANAGER_PASSWORD: Pa55word
-        run: |
-          echo "LOCAL_API_PREFIX_URL=$LOCAL_API_PREFIX_URL" >> .env
-          echo "STUDENT_EMAIL=$STUDENT_EMAIL" >> .env
-          echo "STUDENT_PASSWORD=$STUDENT_PASSWORD" >> .env
-          echo "MENTOR_EMAIL=$MENTOR_EMAIL" >> .env
-          echo "MENTOR_PASSWORD=$MENTOR_PASSWORD" >> .env
-          echo "INTERVIEWS_MANAGER_EMAIL=$INTERVIEWS_MANAGER_EMAIL" >> .env
-          echo "INTERVIEWS_MANAGER_PASSWORD=$INTERVIEWS_MANAGER_PASSWORD" >> .env
-          echo "INTERVIEWER_EMAIL=$INTERVIEWER_EMAIL" >> .env
-          echo "INTERVIEWER_PASSWORD=$INTERVIEWER_PASSWORD" >> .env
-          echo "CATEGORIES_MANAGER_EMAIL=$CATEGORIES_MANAGER_EMAIL" >> .env
-          echo "CATEGORIES_MANAGER_PASSWORD=$CATEGORIES_MANAGER_PASSWORD" >> .env
-          echo "MENTORING_MANAGER_EMAIL=$MENTORING_MANAGER_EMAIL" >> .env
-          echo "MENTORING_MANAGER_PASSWORD=$MENTORING_MANAGER_PASSWORD" >> .env
-          echo "UAM_MANAGER_EMAIL=$UAM_MANAGER_EMAIL" >> .env
-          echo "UAM_MANAGER_PASSWORD=$UAM_MANAGER_PASSWORD" >> .env
-
-      - name: Start Backend
-        working-directory: ./backend
-        run: |
-          npm start & npm run wait-for-start
-
-      - name: Run Tests
-        working-directory: ./backend/tests
         run: |
           npm run test:development
