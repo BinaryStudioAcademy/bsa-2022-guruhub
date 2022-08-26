@@ -83,11 +83,16 @@ class CoursesApi {
     courseId,
     newCategoryId,
   }: CourseUpdateCategoryRequestArguments): Promise<CourseGetResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}/${courseId}`, {
-      method: HttpMethod.PATCH,
-      contentType: ContentType.JSON,
-      payload: JSON.stringify({ newCategoryId }),
-    });
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.CATEGORY
+      }`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ newCategoryId }),
+      },
+    );
   }
 }
 
