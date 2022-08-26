@@ -38,13 +38,13 @@ class InterviewsApi {
     );
   }
 
-  public getPendingOrPassedInterviewsCategoryIdsByUserId(
+  public getPassedInterviewsCategoryIdsByUserId(
     intervieweeUserId: number,
   ): Promise<number[]> {
     return this.#http.load<number[]>(
-      `${this.#apiPrefix}${
-        ApiPath.INTERVIEWS
-      }/interviewee/${intervieweeUserId}/categories`,
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.INTERVIEWEE
+      }/${intervieweeUserId}${InterviewsApiPath.CATEGORIES}`,
       {
         method: HttpMethod.GET,
       },

@@ -92,7 +92,9 @@ class Course {
       .execute();
   }
 
-  public getMentors(courseId: number): Promise<UsersGetResponseDto[]> {
+  public getMentorsByCourseId(
+    courseId: number,
+  ): Promise<UsersGetResponseDto[]> {
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })

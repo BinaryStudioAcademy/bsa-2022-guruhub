@@ -1,5 +1,5 @@
 get:
-  summary: Get Pending or Passed interview category Ids for interviewee
+  summary: Get Passed interview category Ids for interviewee
   tags:
     - interviews
   parameters:

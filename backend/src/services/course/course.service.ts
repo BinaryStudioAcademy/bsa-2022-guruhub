@@ -165,8 +165,10 @@ class Course {
     return course ?? null;
   }
 
-  public getMentors(courseId: number): Promise<UsersGetResponseDto[]> {
-    return this.#courseRepository.getMentors(courseId);
+  public getMentorsByCourseId(
+    courseId: number,
+  ): Promise<UsersGetResponseDto[]> {
+    return this.#courseRepository.getMentorsByCourseId(courseId);
   }
 
   public updateCategory(

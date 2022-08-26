@@ -48,7 +48,7 @@ export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/gro
 export { type HttpOptions } from './http/http';
 export {
   type InterviewsByIdResponseDto,
-  type InterviewsByIntervieweeIdDto,
+  type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsCreateRequestDto,
   type InterviewsGetAllItemResponseDto,
