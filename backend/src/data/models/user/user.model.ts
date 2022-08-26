@@ -31,7 +31,7 @@ class User extends Abstract {
         modelClass: UserDetails,
         join: {
           from: `${DbTableName.USERS}.id`,
-          to: `${DbTableName.USER_DETAILS}.user_id`,
+          to: `${DbTableName.USER_DETAILS}.userId`,
         },
       },
     };
