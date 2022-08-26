@@ -89,10 +89,8 @@ const updateIsMentorBecomingEnabled = createAsyncThunk<
   } = getState();
 
   const isMentorBecomingEnabled =
-    user &&
-    course &&
-    course.courseCategoryId &&
-    !mentors.some((mentor) => mentor.id === user.id);
+    course?.courseCategoryId &&
+    !mentors.some((mentor) => mentor.id === user?.id);
 
   return Boolean(isMentorBecomingEnabled);
 });
