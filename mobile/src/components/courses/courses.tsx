@@ -7,6 +7,7 @@ import {
   RefreshControl,
   Search,
   Spinner,
+  Text,
   View,
 } from '~/components/common/common';
 import { CourseCard } from '~/components/courses/components/components';
@@ -15,10 +16,11 @@ import {
   useAppNavigate,
   useAppSelector,
   useCallback,
+  useEffect,
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
-import { coursesActions } from '~/store/actions';
+import { categoryActions, coursesActions } from '~/store/actions';
 
 import { CategoryList } from './components/category-list/category-list';
 import { styles } from './styles';
@@ -27,13 +29,15 @@ const Courses: FC = (): ReactElement => {
   const [isLoading] = useState(false);
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
-  const { categories, courses, dataStatus } = useAppSelector(
-    (state) => state.courses,
-  );
+  const { courses, dataStatus } = useAppSelector((state) => state.courses);
+  const {
+    categories,
+    courseCategory,
+    dataStatus: categoryDataStatus,
+  } = useAppSelector((state) => state.categories);
 
   const handleCoursesLoad = (): void => {
     dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
-    dispatch(coursesActions.getCategories());
   };
 
   const handleCourseCard = (): void => {
@@ -53,8 +57,35 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleSearch = (search: string): void => {
-    dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+    if (!courseCategory) {
+      dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
+    } else {
+      dispatch(
+        coursesActions.getCourses({
+          title: search,
+          categoryKey: courseCategory.key,
+        }),
+      );
+    }
   };
+
+  useEffect(() => {
+    if (courseCategory) {
+      dispatch(
+        coursesActions.getCourses({
+          title: '',
+          categoryKey: courseCategory.key,
+        }),
+      );
+    } else {
+      dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
+    }
+  }, [courseCategory]);
+
+  useEffect(() => {
+    dispatch(categoryActions.clearCategory());
+    dispatch(categoryActions.getCategories());
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -62,36 +93,40 @@ const Courses: FC = (): ReactElement => {
     }, []),
   );
 
+  if (categoryDataStatus === DataStatus.PENDING) {
+    return <Spinner isOverflow />;
+  }
+
   return (
     <>
       <View style={styles.searchFieldContainer}>
         <Search onSearch={handleSearch} />
       </View>
+      <CategoryList items={categories} />
       <View style={styles.container}>
         {dataStatus === DataStatus.PENDING ? (
           <View style={styles.spinnerContainer}>
             <Spinner isOverflow />
           </View>
+        ) : courses.length ? (
+          <FlatList
+            data={courses}
+            keyExtractor={({ id }): string => id.toString()}
+            renderItem={({ item: course }): ReactElement => (
+              <CourseCard course={course} onCoursePress={handleCourseCard} />
+            )}
+            refreshControl={
+              <RefreshControl
+                colors={[AppColor.BRAND.BLUE_100]}
+                refreshing={isLoading}
+                onRefresh={handleRefresh}
+              />
+            }
+            onEndReached={handleLoadMoreCourses}
+            onEndReachedThreshold={0.1}
+          />
         ) : (
-          <>
-            <CategoryList items={categories} />
-            <FlatList
-              data={courses}
-              keyExtractor={({ id }): string => id.toString()}
-              renderItem={({ item: course }): ReactElement => (
-                <CourseCard course={course} onCoursePress={handleCourseCard} />
-              )}
-              refreshControl={
-                <RefreshControl
-                  colors={[AppColor.BRAND.BLUE_100]}
-                  refreshing={isLoading}
-                  onRefresh={handleRefresh}
-                />
-              }
-              onEndReached={handleLoadMoreCourses}
-              onEndReachedThreshold={0.1}
-            />
-          </>
+          <Text style={styles.noCourses}>No courses found</Text>
         )}
 
         <FAB onPress={handleAddCourse} />
