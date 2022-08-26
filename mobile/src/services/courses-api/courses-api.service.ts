@@ -4,7 +4,11 @@ import {
   CoursesApiPath,
   HttpMethod,
 } from '~/common/enums/enums';
-import { CourseFilteringDto, CourseGetResponseDto } from '~/common/types/types';
+import {
+  CourseFilteringDto,
+  CourseGetRequestParamsDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 
 import { Http } from '../http/http.service';
 
@@ -34,6 +38,17 @@ class Courses {
           title: options.filtering.title,
           categoryKey: options.filtering.categoryKey,
         },
+      },
+    );
+  }
+
+  public getById({
+    id,
+  }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.GET,
       },
     );
   }

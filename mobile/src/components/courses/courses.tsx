@@ -32,10 +32,6 @@ const Courses: FC = (): ReactElement => {
     dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
   };
 
-  const handleCourseCard = (): void => {
-    //add onPress
-  };
-
   const handleRefresh = (): void => {
     handleCoursesLoad();
   };
@@ -73,7 +69,7 @@ const Courses: FC = (): ReactElement => {
             data={courses}
             keyExtractor={({ id }): string => id.toString()}
             renderItem={({ item: course }): ReactElement => (
-              <CourseCard course={course} onCoursePress={handleCourseCard} />
+              <CourseCard course={course} />
             )}
             refreshControl={
               <RefreshControl
