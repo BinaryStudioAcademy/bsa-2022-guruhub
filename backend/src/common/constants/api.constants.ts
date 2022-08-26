@@ -7,8 +7,9 @@ import {
   ENV,
   HttpMethod,
 } from '~/common/enums/enums';
+import { WhiteRoute } from '~/common/types/types';
 
-const WHITE_ROUTES = [
+const WHITE_ROUTES: WhiteRoute[] = [
   {
     route: `${ENV.API.V1_PREFIX}${ApiPath.AUTH}${AuthApiPath.SIGN_IN}`,
     method: HttpMethod.POST,

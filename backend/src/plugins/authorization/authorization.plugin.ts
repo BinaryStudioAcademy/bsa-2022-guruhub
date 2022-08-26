@@ -5,8 +5,8 @@ import {
   ControllerHook,
   ExceptionMessage,
   HttpCode,
-  HttpMethod,
 } from '~/common/enums/enums';
+import { WhiteRoute } from '~/common/types/types';
 import { InvalidCredentialsError } from '~/exceptions/exceptions';
 import {
   token as tokenService,
@@ -14,10 +14,7 @@ import {
 } from '~/services/services';
 
 type Options = {
-  routesWhiteList: {
-    route: string;
-    method: HttpMethod;
-  }[];
+  routesWhiteList: WhiteRoute[];
   services: {
     user: typeof userService;
     token: typeof tokenService;
