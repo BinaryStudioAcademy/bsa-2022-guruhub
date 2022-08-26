@@ -1,16 +1,11 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import {
-  HttpCode,
-  HttpMethod,
-  InterviewsApiPath,
-  // PermissionKey,
-} from '~/common/enums/enums';
+import { HttpCode, HttpMethod, InterviewsApiPath } from '~/common/enums/enums';
 import {
   InterviewNoteCreateRequestParamsDto,
   InterviewNoteCreateRequsetDto,
 } from '~/common/types/types';
-// import { checkHasPermissions } from '~/hooks/hooks';
+import { checkIsAbleToWriteInterviewNote } from '~/hooks/hooks';
 import { interviewNote as interviewNoteService } from '~/services/services';
 
 type Options = {
@@ -28,6 +23,7 @@ const initInterviewNotesApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: `${InterviewsApiPath.$ID}${InterviewsApiPath.NOTES}`,
+    preHandler: checkIsAbleToWriteInterviewNote(),
     async handler(
       req: FastifyRequest<{ Params: InterviewNoteCreateRequestParamsDto }>,
       rep,
@@ -42,6 +38,7 @@ const initInterviewNotesApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.POST,
     url: `${InterviewsApiPath.$ID}${InterviewsApiPath.NOTES}`,
+    preHandler: checkIsAbleToWriteInterviewNote(),
     async handler(
       req: FastifyRequest<{
         Params: InterviewNoteCreateRequestParamsDto;
