@@ -20,16 +20,20 @@ import {
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
+import { CategoryList } from './components/category-list/category-list';
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
   const [isLoading] = useState(false);
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
-  const { courses, dataStatus } = useAppSelector((state) => state.courses);
+  const { categories, courses, dataStatus } = useAppSelector(
+    (state) => state.courses,
+  );
 
   const handleCoursesLoad = (): void => {
     dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
+    dispatch(coursesActions.getCategories());
   };
 
   const handleCourseCard = (): void => {
@@ -69,22 +73,25 @@ const Courses: FC = (): ReactElement => {
             <Spinner isOverflow />
           </View>
         ) : (
-          <FlatList
-            data={courses}
-            keyExtractor={({ id }): string => id.toString()}
-            renderItem={({ item: course }): ReactElement => (
-              <CourseCard course={course} onCoursePress={handleCourseCard} />
-            )}
-            refreshControl={
-              <RefreshControl
-                colors={[AppColor.BRAND.BLUE_100]}
-                refreshing={isLoading}
-                onRefresh={handleRefresh}
-              />
-            }
-            onEndReached={handleLoadMoreCourses}
-            onEndReachedThreshold={0.1}
-          />
+          <>
+            <CategoryList items={categories} />
+            <FlatList
+              data={courses}
+              keyExtractor={({ id }): string => id.toString()}
+              renderItem={({ item: course }): ReactElement => (
+                <CourseCard course={course} onCoursePress={handleCourseCard} />
+              )}
+              refreshControl={
+                <RefreshControl
+                  colors={[AppColor.BRAND.BLUE_100]}
+                  refreshing={isLoading}
+                  onRefresh={handleRefresh}
+                />
+              }
+              onEndReached={handleLoadMoreCourses}
+              onEndReachedThreshold={0.1}
+            />
+          </>
         )}
 
         <FAB onPress={handleAddCourse} />
