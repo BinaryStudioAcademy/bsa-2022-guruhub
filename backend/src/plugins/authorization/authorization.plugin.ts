@@ -5,6 +5,7 @@ import {
   ControllerHook,
   ExceptionMessage,
   HttpCode,
+  HttpMethod,
 } from '~/common/enums/enums';
 import { WhiteRoute } from '~/common/types/types';
 import { InvalidCredentialsError } from '~/exceptions/exceptions';
@@ -32,7 +33,10 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
       const isWhiteRoute = Boolean(whiteRoute);
 
-      if (isWhiteRoute && request.method === whiteRoute?.method) {
+      if (
+        isWhiteRoute &&
+        whiteRoute?.methods.includes(request.method as HttpMethod)
+      ) {
         return;
       }
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
