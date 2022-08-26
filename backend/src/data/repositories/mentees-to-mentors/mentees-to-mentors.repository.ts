@@ -1,3 +1,4 @@
+import { MenteesToMentorsRequestDto } from '~/common/types/types';
 import { MenteesToMentors as MenteesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,18 +12,19 @@ class MenteesToMentors {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
   }
 
-  public async create(menteesToMentors: {
-    courseId: number;
-    mentorId: number;
-    menteeId: number;
-  }): Promise<MenteesToMentorsM> {
+  public create(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<MenteesToMentorsM> {
     const { courseId, mentorId, menteeId } = menteesToMentors;
 
-    return this.#MenteesToMentorsModel.query().insert({
-      courseId,
-      mentorId,
-      menteeId,
-    });
+    return this.#MenteesToMentorsModel
+      .query()
+      .insert({
+        courseId,
+        mentorId,
+        menteeId,
+      })
+      .execute();
   }
 
   public async getByCourseIdAndMenteeId(getMenteesToMentors: {

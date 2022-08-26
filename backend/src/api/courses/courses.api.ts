@@ -10,8 +10,9 @@ import {
   CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetRequestParamsDto,
+  CourseSelectMentorRequestDto,
+  CourseSelectMentorRequestParamsDto,
   CourseUpdateCategoryRequestDto,
-  MenteesToMentorsRequestDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import {
@@ -99,6 +100,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep.status(HttpCode.OK).send(mentors);
     },
   });
+
   fastify.route({
     method: HttpMethod.PATCH,
     url: CoursesApiPath.$ID,
@@ -131,8 +133,8 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     },
     async handler(
       req: FastifyRequest<{
-        Params: CourseGetRequestParamsDto;
-        Body: MenteesToMentorsRequestDto;
+        Params: CourseSelectMentorRequestParamsDto;
+        Body: CourseSelectMentorRequestDto;
       }>,
       rep,
     ) {

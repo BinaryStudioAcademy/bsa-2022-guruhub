@@ -1,4 +1,7 @@
-import { MenteesToMentorsResponseDto } from '~/common/types/types';
+import {
+  MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
+} from '~/common/types/types';
 import { menteesToMentors as menteesToMentorsRep } from '~/data/repositories/repositories';
 import { MenteesToMentorsError } from '~/exceptions/exceptions';
 
@@ -13,11 +16,9 @@ class MenteesToMentors {
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
 
-  public async createMenteesToMentors(menteesToMentors: {
-    courseId: number;
-    mentorId: number;
-    menteeId: number;
-  }): Promise<MenteesToMentorsResponseDto> {
+  public async createMenteesToMentors(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<MenteesToMentorsResponseDto> {
     const { courseId, menteeId } = menteesToMentors;
     const mentee = await this.getByCourseIdAndMenteeId({ courseId, menteeId });
     const isMentee = Boolean(mentee);

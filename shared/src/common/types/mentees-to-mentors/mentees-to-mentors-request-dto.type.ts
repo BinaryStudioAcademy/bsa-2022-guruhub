@@ -1,4 +1,5 @@
 type MenteesToMentorsRequestDto = {
+  courseId: number;
   mentorId: number;
   menteeId: number;
 };

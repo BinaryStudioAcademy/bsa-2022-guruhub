@@ -17,7 +17,7 @@ enum ExceptionMessage {
   STORAGE_NOT_FOUND = 'Storage was not found',
   INTERVIEW_EXIST = 'Interview for this category was either passed or is in progress',
   ALREADY_MENTOR_FOR_COURSE = 'You are already a mentor for this course',
-  ALREADY_MENTEE_FOR_COURSE = 'You are already mentee for this course',
+  ALREADY_HAVE_MENTOR_FOR_COURSE = 'You already have a mentor for this course',
 }
 
 export { ExceptionMessage };

@@ -18,6 +18,8 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
+import { ChooseMentorButton } from './components/choose-mentor-button/choose-mentor-button';
+import { ChooseMentorModal } from './components/choose-mentor-modal/choose-mentor-modal';
 import { EditCategoryModal } from './components/components';
 import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
 import styles from './styles.module.scss';
@@ -46,6 +48,14 @@ const Course: FC = () => {
   const handleUpdateCategoryModalToggle = (evt: React.MouseEvent): void => {
     evt?.stopPropagation();
     setUpdateCategoryModalOpen((prev) => !prev);
+  };
+
+  const [isChooseMentorModalOpen, setChooseMentorModalOpen] =
+    useState<boolean>(false);
+
+  const handleChooseMentorModalToggle = (evt: React.MouseEvent): void => {
+    evt?.stopPropagation();
+    setChooseMentorModalOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -95,6 +105,10 @@ const Course: FC = () => {
         categories={categories}
         onModalToggle={handleUpdateCategoryModalToggle}
       />
+      <ChooseMentorModal
+        isOpen={isChooseMentorModalOpen}
+        onModalToggle={handleChooseMentorModalToggle}
+      />
       <div className={styles.info}>
         <div className={styles.courseHeadingContainer}>
           <h1>{course?.title}</h1>
@@ -130,7 +144,9 @@ const Course: FC = () => {
         </div>
       </div>
 
-      <div className={styles.additional}></div>
+      <div className={styles.additional}>
+        <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+      </div>
     </div>
   );
 };

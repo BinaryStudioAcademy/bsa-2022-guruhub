@@ -8,7 +8,7 @@ import {
 
 class MenteesToMentorsError extends HttpError {
   public constructor({
-    message = ExceptionMessage.ALREADY_MENTEE_FOR_COURSE,
+    message = ExceptionMessage.ALREADY_HAVE_MENTOR_FOR_COURSE,
     status = HttpCode.BAD_REQUEST,
   } = {}) {
     super({ message, status });

@@ -6,6 +6,8 @@ export {
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseSelectMentorRequestDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';

@@ -1,9 +1,9 @@
 import { Model, RelationMappings } from 'objection';
-import { Course, User } from 'src/data/models/models';
 
 import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
+import { Course, User } from '../models';
 
 class MenteesToMentors extends Abstract {
   public 'courseId': number;

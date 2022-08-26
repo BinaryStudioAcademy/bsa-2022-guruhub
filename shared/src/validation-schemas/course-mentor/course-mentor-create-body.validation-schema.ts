@@ -1,13 +1,13 @@
 import Joi from 'joi';
 
-import { MenteesToMentorsRequestDto } from '~/common/types/types';
+import { CourseSelectMentorRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const courseMentorCreateBody = Joi.object({
-  [getNameOf<MenteesToMentorsRequestDto>('mentorId')]: Joi.number()
+  [getNameOf<CourseSelectMentorRequestDto>('mentorId')]: Joi.number()
     .integer()
     .required(),
-  [getNameOf<MenteesToMentorsRequestDto>('menteeId')]: Joi.number()
+  [getNameOf<CourseSelectMentorRequestDto>('menteeId')]: Joi.number()
     .integer()
     .required(),
 });
