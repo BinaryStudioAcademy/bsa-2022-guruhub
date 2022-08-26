@@ -191,10 +191,34 @@ class Interview {
 
     const intervieweeUserId = interview.interviewee.id;
 
-    return this.#interviewRepository.getOtherByInterviewId(
-      id,
-      intervieweeUserId,
-    );
+    const otherInterviews =
+      await this.#interviewRepository.getOtherByInterviewId(
+        id,
+        intervieweeUserId,
+      );
+
+    return otherInterviews.map((interview) => ({
+      id: interview.id,
+      interviewDate: interview.interviewDate,
+      status: interview.status,
+      interviewee: {
+        id: interview.interviewee.id,
+        fullName: interview.interviewee.fullName,
+        email: interview.interviewee.email,
+        createdAt: interview.interviewee.createdAt,
+      },
+      interviewer: {
+        id: interview.interviewer.id,
+        fullName: interview.interviewer.fullName,
+        email: interview.interviewer.email,
+        createdAt: interview.interviewer.createdAt,
+      },
+      courseCategory: {
+        id: interview.courseCategory.id,
+        key: interview.courseCategory.key,
+        name: interview.courseCategory.name,
+      },
+    }));
   }
 }
 

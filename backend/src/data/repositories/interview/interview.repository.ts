@@ -100,7 +100,7 @@ class Interview {
     return this.#InterviewModel
       .query()
       .where({ intervieweeUserId })
-      .andWhereNot({ id })
+      .andWhereNot('interviews.id', id)
       .withGraphJoined('[courseCategory, interviewee, interviewer]')
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
