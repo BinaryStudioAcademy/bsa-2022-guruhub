@@ -69,7 +69,7 @@ const App: FC = () => {
           path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
             <AuthorizedWrapper>
-              <UAMConfigureGroup />
+              <ProtectedRoute component={<UAMConfigureGroup />} />
             </AuthorizedWrapper>
           }
         />
