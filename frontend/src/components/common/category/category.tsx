@@ -10,7 +10,7 @@ type Props = {
   keyName: string;
   name: string;
   activeCategory?: string;
-  onClick?: (evt: React.MouseEvent) => void;
+  onClick?: (keyName: string) => void;
 };
 
 const Category: FC<Props> = ({ keyName, name, activeCategory, onClick }) => {
@@ -19,15 +19,18 @@ const Category: FC<Props> = ({ keyName, name, activeCategory, onClick }) => {
     caseType: StringCase.KEBAB_CASE,
   });
 
+  const handleClick = (): void => {
+    onClick && onClick(keyName);
+  };
+
   return (
     <button
-      id={keyName}
       className={getValidClasses(
         styles.category,
         activeCategory === keyName && styles.selected,
       )}
       style={{ borderColor: getRandomColor() }}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <Image
         width="30px"

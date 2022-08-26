@@ -14,15 +14,13 @@ const CategoriesList: FC<Props> = ({ items }) => {
 
   const activeCategory = searchParams.get(SearchValue.CATEGORY) ?? '';
 
-  const handleClick = (evt: React.MouseEvent): void => {
-    const category = evt.currentTarget.id;
-
-    if (category === searchParams.get(SearchValue.CATEGORY)) {
+  const handleClick = (keyName: string): void => {
+    if (keyName === searchParams.get(SearchValue.CATEGORY)) {
       performSearch(SearchValue.CATEGORY, '');
 
       return;
     }
-    performSearch(SearchValue.CATEGORY, category);
+    performSearch(SearchValue.CATEGORY, keyName);
   };
 
   return (
