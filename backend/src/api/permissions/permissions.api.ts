@@ -1,6 +1,12 @@
-import { FastifyPluginAsync } from 'fastify';
+import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { HttpCode, HttpMethod, PermissionApiPath } from '~/common/enums/enums';
+import {
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValue,
+  PermissionApiPath,
+} from '~/common/enums/enums';
+import { EntityPaginationRequestQueryDto } from '~/common/types/types';
 import { permission as permissionService } from '~/services/services';
 
 type Options = {
@@ -18,8 +24,16 @@ const initPermissionsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: PermissionApiPath.ROOT,
-    async handler(req, rep) {
-      const permissions = await permissionService.getAll();
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      rep,
+    ) {
+      const {
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+      } = req.query;
+
+      const permissions = await permissionService.getAll({ page, count });
 
       return rep.status(HttpCode.OK).send(permissions);
     },
