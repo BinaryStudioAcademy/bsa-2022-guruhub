@@ -32,8 +32,14 @@ const Course: FC = () => {
     dataStatus,
     passedInterviewsCategoryIds,
     user,
-    mentors,
-  } = useAppSelector((state) => ({ ...state.course, ...state.auth }));
+  } = useAppSelector(({ auth, course }) => ({
+    categories: course.categories,
+    course: course.course,
+    modules: course.modules,
+    dataStatus: course.dataStatus,
+    passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
+    user: auth.user,
+  }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -72,18 +78,10 @@ const Course: FC = () => {
   }, [user]);
 
   useEffect(() => {
-    const isMentorButtonVisible =
-      user &&
-      course &&
-      course.courseCategoryId &&
-      !mentors.find((mentor) => mentor.id === user.id);
-
-    dispatch(
-      courseActions.setIsMentorButtonVisible(Boolean(isMentorButtonVisible)),
-    );
+    dispatch(courseActions.updateIsMentorBecomingEnabled());
 
     return () => {
-      dispatch(courseActions.setIsMentorButtonVisible(false));
+      dispatch(courseActions.disableMentorBecoming());
     };
   }, [user, course, passedInterviewsCategoryIds]);
 

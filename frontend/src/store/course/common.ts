@@ -5,9 +5,11 @@ enum ActionType {
   CREATE_INTERVIEW = 'course/create-interview',
   CREATE_MENTOR = 'course/create-mentor',
   GET_PASSED_INTERVIEW_CATEGORY_IDS = 'course/get-passed-interview-category-ids',
-  SET_IS_MENTOR_BUTTON_VISIBLE = 'course/set-is-mentor-button-visible',
+  SET_IS_MENTOR_BECOMING_ENABLED = 'course/set-is-mentor-becoming-enabled',
   GET_MENTORS = 'course/get-mentors',
   UPDATE_CATEGORY = 'course/update-category',
+  DISABLE_MENTOR_BECOMING = 'course/disable-mentor-becoming',
+  BECOME_A_MENTOR = 'course/become-a-mentor',
 }
 
 export { ActionType };

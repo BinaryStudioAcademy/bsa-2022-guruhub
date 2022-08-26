@@ -103,7 +103,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.PATCH,
-    url: CoursesApiPath.$ID,
+    url: CoursesApiPath.$ID_CATEGORY,
     schema: {
       params: courseUpdateParamsValidationSchema,
       body: courseUpdateCategoryValidationSchema,

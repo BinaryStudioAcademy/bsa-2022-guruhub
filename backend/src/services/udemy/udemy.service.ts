@@ -1,4 +1,4 @@
-import { ENV, HttpMethod } from '~/common/enums/enums';
+import { HttpMethod } from '~/common/enums/enums';
 import {
   UdemyCourseGetResponseDto,
   UdemyModuleGetResponseDto,
@@ -9,6 +9,8 @@ import { http as httpServ } from '~/services/services';
 type Constructor = {
   httpService: typeof httpServ;
   baseUrl: string;
+  clientId: string;
+  clientSecret: string;
 };
 
 class Udemy {
@@ -22,10 +24,21 @@ class Udemy {
 
   #httpService: typeof httpServ;
 
-  public constructor({ httpService, baseUrl }: Constructor) {
+  #clientId: string;
+
+  #clientSecret: string;
+
+  public constructor({
+    httpService,
+    baseUrl,
+    clientId,
+    clientSecret,
+  }: Constructor) {
     this.#authorizationToken = this.getToken();
     this.#baseUrl = baseUrl;
     this.#httpService = httpService;
+    this.#clientId = clientId;
+    this.#clientSecret = clientSecret;
   }
 
   public async getCourseByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
@@ -118,7 +131,7 @@ class Udemy {
 
   private getToken(): string {
     return Buffer.from(
-      `${ENV.UDEMY.CLIENT_ID}:${ENV.UDEMY.CLIENT_SECRET}`,
+      `${this.#clientId}:${this.#clientSecret}`,
       'utf-8',
     ).toString('base64');
   }

@@ -27,6 +27,7 @@ export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
 } from './courses-to-mentors/courses-to-mentors';
+export { type EdxCourseGetResponseDto } from './edx/edx';
 export { type EncryptionData } from './encryption/encryption';
 export {
   type FileGetResponseDto,

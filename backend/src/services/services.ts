@@ -23,6 +23,7 @@ import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
 import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.service';
+import { Edx } from './edx/edx.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -86,6 +87,15 @@ const http = new Http();
 const udemy = new Udemy({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
+  clientId: ENV.UDEMY.CLIENT_ID,
+  clientSecret: ENV.UDEMY.CLIENT_SECRET,
+});
+
+const edx = new Edx({
+  httpService: http,
+  baseUrl: ENV.EDX.BASE_URL,
+  clientId: ENV.EDX.CLIENT_ID,
+  clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
@@ -100,6 +110,7 @@ const course = new Course({
   vendorService: vendor,
   courseModuleService: courseModule,
   udemyService: udemy,
+  edxService: edx,
   courseCategoryService: courseCategory,
 });
 
@@ -124,6 +135,7 @@ export {
   courseCategory,
   courseModule,
   coursesToMentors,
+  edx,
   encrypt,
   file,
   group,

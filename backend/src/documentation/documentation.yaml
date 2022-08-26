@@ -27,6 +27,8 @@ paths:
     $ref: './endpoints/courses/courses.yaml'
   /courses/:id:
     $ref: './endpoints/courses/courses-by-id-operations.yaml'
+  /courses/:id/category:
+    $ref: './endpoints/courses/course-update-category-by-id.yaml'
   /courses/:id/mentors:
     $ref: './endpoints/courses/courses-add-mentor.yaml'
   # Courses Modules
