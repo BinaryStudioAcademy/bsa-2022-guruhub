@@ -5,12 +5,12 @@ import { DbTableName } from '~/common/enums/enums';
 import { Abstract } from '../abstract/abstract.model';
 import { Interview, User } from '../models';
 
-class Group extends Abstract {
+class InterviewNote extends Abstract {
   public 'note': string;
 
-  public 'interview_id': number;
+  public 'interviewId': number;
 
-  public 'created_by_user_id': number;
+  public 'createdByUserId': number;
 
   public static override get relationMappings(): RelationMappings {
     return {
@@ -32,6 +32,10 @@ class Group extends Abstract {
       },
     };
   }
+
+  public static override get tableName(): string {
+    return DbTableName.INTERVIEW_NOTES;
+  }
 }
 
-export { Group };
+export { InterviewNote };
