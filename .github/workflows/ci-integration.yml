@@ -39,11 +39,8 @@ jobs:
         run: |
           npm run install:all
 
-      - name: Code Linting
-        run: |
-          npm run lint
-
-      - name: Code Building
+      - name: Build Backend
+        working-directory: ./backend
         run: |
           npm run build
 
