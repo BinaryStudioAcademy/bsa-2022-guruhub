@@ -32,8 +32,13 @@ class Interview {
       .query()
       .select()
       .withGraphFetched('courseCategory')
-      .withGraphFetched('interviewee.[userDetails]')
-      .withGraphFetched('interviewer.[userDetails]')
+      .withGraphFetched('interviewee(withoutPassword).[userDetails]')
+      .withGraphFetched('interviewer(withoutPassword).[userDetails]')
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
+      })
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
 
