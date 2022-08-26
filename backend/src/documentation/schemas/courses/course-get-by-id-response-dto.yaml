@@ -12,7 +12,24 @@ properties:
   url:
     type: string
     example: /courses/24823
+  courseCategoryId:
+    oneOf:
+      - type: number
+      - type: null
+    example: 1
   vendor:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: name
+      key:
+        type: string
+        example: key
+  category:
     type: object
     properties:
       id:

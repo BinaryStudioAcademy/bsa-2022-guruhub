@@ -1,0 +1,2 @@
+get:
+  $ref: './courses-get-by-id.yaml'

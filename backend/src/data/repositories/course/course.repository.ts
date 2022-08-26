@@ -2,6 +2,7 @@ import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -85,8 +86,36 @@ class Course {
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
-      .withGraphJoined('vendor')
+      .withGraphJoined('[vendor, category]')
       .first()
+      .castTo<CourseGetResponseDto>()
+      .execute();
+  }
+
+  public getMentorsByCourseId(
+    courseId: number,
+  ): Promise<UsersGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .where({ 'courses.id': courseId })
+      .select('mentors.id')
+      .joinRelated('mentors')
+      .castTo<UsersGetResponseDto[]>()
+      .execute();
+  }
+
+  public async updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<CourseGetResponseDto> {
+    await this.#CourseModel.query().patchAndFetchById(courseId, {
+      courseCategoryId: newCategoryId,
+    });
+
+    return this.#CourseModel
+      .query()
+      .findById(courseId)
+      .withGraphJoined('[vendor, category]')
       .castTo<CourseGetResponseDto>()
       .execute();
   }

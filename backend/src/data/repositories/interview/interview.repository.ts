@@ -1,5 +1,7 @@
+import { InterviewStatus } from '~/common/enums/enums';
 import {
   InterviewsByIdResponseDto,
+  InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
@@ -59,6 +61,44 @@ class Interview {
       })
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
+
+    return interview ?? null;
+  }
+
+  public create({
+    status,
+    categoryId,
+    intervieweeUserId,
+  }: InterviewsCreateRequestDto): Promise<InterviewM> {
+    return this.#InterviewModel
+      .query()
+      .insert({
+        status,
+        categoryId,
+        intervieweeUserId,
+      })
+      .execute();
+  }
+
+  public getPassedInterviewsByUserId(
+    intervieweeUserId: number,
+  ): Promise<InterviewM[]> {
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhere('status', InterviewStatus.COMPLETED)
+      .execute();
+  }
+
+  public async getInterviewByIntervieweeUserIdAndCategoryId(
+    intervieweeUserId: number,
+    categoryId: number,
+  ): Promise<InterviewM | null> {
+    const interview = await this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhere({ categoryId })
+      .first();
 
     return interview ?? null;
   }
