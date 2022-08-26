@@ -28,7 +28,7 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
     try {
       const whiteRoute = opts.routesWhiteList.find(
-        (route) => route.route === request.routerPath,
+        ({ route }) => route === request.routerPath,
       );
 
       const isWhiteRoute = Boolean(whiteRoute);
