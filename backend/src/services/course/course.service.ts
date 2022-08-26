@@ -4,7 +4,7 @@ import {
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
-  UsersGetResponseDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
@@ -167,7 +167,7 @@ class Course {
 
   public getMentorsByCourseId(
     courseId: number,
-  ): Promise<UsersGetResponseDto[]> {
+  ): Promise<UserDetailsResponseDto[]> {
     return this.#courseRepository.getMentorsByCourseId(courseId);
   }
 

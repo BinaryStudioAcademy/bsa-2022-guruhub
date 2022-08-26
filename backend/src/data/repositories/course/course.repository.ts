@@ -2,7 +2,7 @@ import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetResponseDto,
-  UsersGetResponseDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -94,13 +94,13 @@ class Course {
 
   public getMentorsByCourseId(
     courseId: number,
-  ): Promise<UsersGetResponseDto[]> {
+  ): Promise<UserDetailsResponseDto[]> {
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
-      .select('mentors.id')
-      .joinRelated('mentors')
-      .castTo<UsersGetResponseDto[]>()
+      .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
+      .joinRelated('mentors.[userDetails]')
+      .castTo<UserDetailsResponseDto[]>()
       .execute();
   }
 
