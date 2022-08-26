@@ -23,7 +23,7 @@ import {
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
-  courseMentorCreateBody as courseMentorCreateBodyValidationSchema,
+  courseMentorCreate as courseMentorCreateBodyValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
 } from '~/validation-schemas/validation-schemas';

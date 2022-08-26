@@ -1,1 +1,1 @@
-export { courseMentorCreateBody } from 'guruhub-shared/validation-schemas/validation-schemas';
+export { courseMentorCreate } from 'guruhub-shared/validation-schemas/validation-schemas';

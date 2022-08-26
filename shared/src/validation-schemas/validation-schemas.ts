@@ -6,7 +6,7 @@ export {
   courseUpdateCategory,
 } from './course/course';
 export { courseCategoryGetByIdParams } from './course-categories/course-categories';
-export { courseMentorCreateBody } from './course-mentor/course-mentor';
+export { courseMentorCreate } from './course-mentor/course-mentor';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,

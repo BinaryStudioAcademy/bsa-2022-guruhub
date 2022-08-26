@@ -1,1 +1,1 @@
-export { courseMentorCreateBody } from './course-mentor-create-body.validation-schema';
+export { courseMentorCreate } from './course-mentor-create.validation-schema';

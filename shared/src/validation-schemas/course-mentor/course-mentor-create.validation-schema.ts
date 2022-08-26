@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { CourseSelectMentorRequestDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const courseMentorCreateBody = Joi.object({
+const courseMentorCreate = Joi.object({
   [getNameOf<CourseSelectMentorRequestDto>('mentorId')]: Joi.number()
     .integer()
     .required(),
@@ -12,4 +12,4 @@ const courseMentorCreateBody = Joi.object({
     .required(),
 });
 
-export { courseMentorCreateBody };
+export { courseMentorCreate };
