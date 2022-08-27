@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@localhost:5432/${{ secrets.DB_NAME }}
+      DATABASE_URL: postgresql://${{ env.DB_USER }}:${{ env.DB_PASSWORD }}@localhost:5432/${{ env.DB_NAME }}
       DB_POOL_MIN: 2
       DB_POOL_MAX: 10
       DB_DIALECT: pg
@@ -20,9 +20,9 @@ jobs:
       db:
         image: postgres:14.5
         env:
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_NAME }}
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
         ports:
           - 5432:5432
 
@@ -56,15 +56,15 @@ jobs:
           NODE_ENV: production
           PORT: 3001
 
-          UDEMY_CLIENT_ID: ${{ secrets.UDEMY_CLIENT_ID }}
-          UDEMY_CLIENT_SECRET: ${{ secrets.UDEMY_CLIENT_SECRET }}
+          UDEMY_CLIENT_ID: ${{ env.UDEMY_CLIENT_ID }}
+          UDEMY_CLIENT_SECRET: ${{ env.UDEMY_CLIENT_SECRET }}
           UDEMY_BASE_URL: https://www.udemy.com/api-2.0/
 
-          AWS_ACCESS_KEY_ID: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ env.TEST_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.TEST_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: eu-central-1
         run: |
-          npm start & npm run wait-for-start
+          npm start & npx wait-on "http://localhost:$PORT"
 
       - name: Run Tests
         working-directory: ./backend/tests
