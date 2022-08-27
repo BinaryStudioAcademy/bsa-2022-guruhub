@@ -23,36 +23,17 @@ const checkHasPermissions =
       });
     }
 
-    switch (type) {
-      case 'every': {
-        const hasUserAllPermissions = checkHasPermission({
-          permissionKeys: pagePermissions,
-          userPermissions: user.permissions,
-        });
+    const hasUserAllPermissions = checkHasPermission({
+      checkMode: type === 'oneOf' ? 'oneOf' : 'every',
+      permissionKeys: pagePermissions,
+      userPermissions: user.permissions,
+    });
 
-        if (!hasUserAllPermissions) {
-          throw new PermissionsError({
-            message: ExceptionMessage.PERMISSION_LACK,
-            status: HttpCode.FORBIDDEN,
-          });
-        }
-        break;
-      }
-      case 'oneOf': {
-        const hasUserOnePermission = pagePermissions.some((permission) => {
-          return checkHasPermission({
-            permissionKeys: [permission],
-            userPermissions: user.permissions,
-          });
-        });
-
-        if (!hasUserOnePermission) {
-          throw new PermissionsError({
-            message: ExceptionMessage.PERMISSION_LACK,
-            status: HttpCode.FORBIDDEN,
-          });
-        }
-      }
+    if (!hasUserAllPermissions) {
+      throw new PermissionsError({
+        message: ExceptionMessage.PERMISSION_LACK,
+        status: HttpCode.FORBIDDEN,
+      });
     }
   };
 
