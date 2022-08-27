@@ -60,9 +60,11 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UsersWithDetails,
   type UserWithPermissions,
 } from './user/user';
 export {
+  type UserDetailsItemResponseDto,
   type UserDetailsResponseDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
