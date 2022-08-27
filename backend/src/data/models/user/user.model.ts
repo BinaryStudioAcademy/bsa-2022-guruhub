@@ -20,8 +20,8 @@ class User extends Abstract {
         join: {
           from: `${DbTableName.USERS}.id`,
           through: {
-            from: `${DbTableName.USERS_TO_GROUPS}.user_id`,
-            to: `${DbTableName.USERS_TO_GROUPS}.group_id`,
+            from: `${DbTableName.USERS_TO_GROUPS}.userId`,
+            to: `${DbTableName.USERS_TO_GROUPS}.groupId`,
           },
           to: `${DbTableName.GROUPS}.id`,
         },

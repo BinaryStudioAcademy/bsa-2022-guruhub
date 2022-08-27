@@ -1,3 +1,4 @@
+export { type WhiteRoute } from './api/api';
 export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
