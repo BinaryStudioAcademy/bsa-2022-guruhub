@@ -10,11 +10,7 @@ type Props = {
   postDate: string;
 };
 
-const InterviewNoteCard: FC<Props> = ({
-  note,
-  authorName,
-  postDate,
-}: Props) => {
+const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardContentWrapper}>

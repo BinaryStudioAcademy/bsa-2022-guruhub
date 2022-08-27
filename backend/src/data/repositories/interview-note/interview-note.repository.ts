@@ -34,7 +34,7 @@ class InterviewNote {
     return this.#InterviewNoteModel
       .query()
       .insert({ note, interviewId, authorId })
-      .withGraphJoined('user')
+      .withGraphJoined('author')
       .castTo<InterviewNoteGetAllItemResponseDto>()
       .execute();
   }

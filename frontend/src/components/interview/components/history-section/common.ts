@@ -1,0 +1,5 @@
+const DEFAULT_CREATE_NOTE_PAYLOAD = {
+  note: '',
+};
+
+export { DEFAULT_CREATE_NOTE_PAYLOAD };

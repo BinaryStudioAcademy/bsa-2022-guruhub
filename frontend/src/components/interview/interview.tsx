@@ -1,23 +1,30 @@
+import { DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { useEffect, useParams } from 'hooks/hooks';
+import { Spinner } from 'components/common/common';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useParams,
+  useState,
+} from 'hooks/hooks';
 import { interviewActions } from 'store/actions';
 
-import { DataStatus } from '../../common/enums/app/data-status.enum';
-import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch.hook';
-import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector.hook';
-import { Spinner } from '../common/spinner/spinner';
-import { InterviewNoteCardList } from './components/interview-notes-list/interview-note-cards-list';
+import { HistorySection } from './components/components';
 import styles from './styles.module.scss';
 
 const Interview: FC = () => {
   const dispatch = useAppDispatch();
+  const [isInputOpen, setIsInputOpen] = useState<boolean>(false);
   const { id } = useParams();
   const { notes, dataStatus } = useAppSelector((state) => state.interview);
 
+  const handleNoteTextAreaToggle = (): void => {
+    setIsInputOpen((prev) => !prev);
+  };
+
   useEffect(() => {
-    if (id) {
-      dispatch(interviewActions.getNotes({ interviewId: Number(id) }));
-    }
+    dispatch(interviewActions.getNotes({ interviewId: Number(id) }));
   }, []);
 
   if (dataStatus === DataStatus.PENDING) {
@@ -26,7 +33,13 @@ const Interview: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <InterviewNoteCardList notes={notes} />
+      <div className={styles.mainColumn}>Main Content</div>
+      <HistorySection
+        interviewId={Number(id)}
+        notes={notes}
+        isOpen={isInputOpen}
+        onToggle={handleNoteTextAreaToggle}
+      />
     </div>
   );
 };
