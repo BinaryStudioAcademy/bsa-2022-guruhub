@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: postgresql://${{ env.DB_USER }}:${{ env.DB_PASSWORD }}@localhost:5432/${{ env.DB_NAME }}
       DB_POOL_MIN: 2
       DB_POOL_MAX: 10
       DB_DIALECT: pg
@@ -48,6 +47,10 @@ jobs:
         working-directory: ./backend
         run: |
           npm run build
+
+      - name: Set Database URL
+        run: |
+          echo "DATABASE_URL=postgresql://$DB_USER:$DB_PASSWORD@localhost:5432/$DB_NAME" >> $GITHUB_ENV
 
       - name: Migrate and Seed Database
         working-directory: ./backend
