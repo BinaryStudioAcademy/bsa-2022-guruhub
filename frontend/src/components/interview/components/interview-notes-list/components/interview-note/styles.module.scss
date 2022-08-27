@@ -1,0 +1,15 @@
+.card {
+  padding: 10px;
+  background: var(--background-gray-200);
+  border-radius: 20px;
+}
+
+.cardContentWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardAuthorSection {
+  display: flex;
+  justify-content: flex-start;
+}
