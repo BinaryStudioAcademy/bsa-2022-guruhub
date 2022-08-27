@@ -55,7 +55,7 @@ const initInterviewNotesApi: FastifyPluginAsync<Options> = async (
         authorId,
       });
 
-      return rep.status(HttpCode.OK).send(newNote);
+      return rep.status(HttpCode.CREATED).send(newNote);
     },
   });
 };

@@ -6,7 +6,7 @@ import {
   HttpCode,
 } from '~/common/enums/enums';
 
-class InterviewNoteError extends HttpError {
+class InterviewNotesError extends HttpError {
   public constructor({
     message = ExceptionMessage.UNKNOWN_INTERVIEW_NOTE_AUTHOR,
     status = HttpCode.BAD_REQUEST,
@@ -16,4 +16,4 @@ class InterviewNoteError extends HttpError {
   }
 }
 
-export { InterviewNoteError };
+export { InterviewNotesError };

@@ -59,7 +59,7 @@ class User {
     return user ?? null;
   }
 
-  public async getById(id: string): Promise<UsersGetResponseDto | null> {
+  public async getById(id: number): Promise<UsersGetResponseDto | null> {
     const user = await this.#UserModel
       .query()
       .select('users.id', 'users.createdAt', 'email', 'fullName')

@@ -5,7 +5,7 @@ import {
   interviewNote as interviewNoteRep,
   user as userRep,
 } from '~/data/repositories/repositories';
-import { InterviewNoteError } from '~/exceptions/exceptions';
+import { InterviewNotesError } from '~/exceptions/exceptions';
 import { sanitizeHTML } from '~/helpers/helpers';
 
 type Constructor = {
@@ -39,10 +39,10 @@ class InterviewNote {
       interviewId,
       authorId,
     });
-    const author = await this.#userRepository.getById(`${authorId}`);
+    const author = await this.#userRepository.getById(authorId);
 
     if (!author) {
-      throw new InterviewNoteError();
+      throw new InterviewNotesError();
     }
 
     return {
