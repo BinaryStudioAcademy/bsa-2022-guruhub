@@ -21,8 +21,13 @@ class Interview {
     return this.#InterviewModel
       .query()
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
+      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
+      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
+      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -32,8 +37,13 @@ class Interview {
       .query()
       .select()
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
+      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
+      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
+      })
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
 
@@ -87,8 +97,13 @@ class Interview {
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
+      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
+      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
+      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -101,7 +116,14 @@ class Interview {
       .query()
       .where({ intervieweeUserId })
       .andWhereNot('interviews.id', id)
-      .withGraphJoined('[courseCategory, interviewee, interviewer]')
+      .withGraphJoined('courseCategory')
+      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
+      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
+      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
