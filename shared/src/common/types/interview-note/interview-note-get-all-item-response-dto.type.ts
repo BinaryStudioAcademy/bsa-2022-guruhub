@@ -1,9 +1,9 @@
-import { UsersGetResponseDto } from '../types';
+import { InterviewNoteAuthor } from './interview-note-author-dto.type';
 
 type InterviewNoteGetAllItemResponseDto = {
   id: number;
   note: string;
-  author: UsersGetResponseDto;
+  author: InterviewNoteAuthor;
   createdAt: string;
 };
 

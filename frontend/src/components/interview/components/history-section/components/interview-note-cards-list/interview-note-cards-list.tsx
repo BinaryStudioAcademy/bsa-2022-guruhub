@@ -14,7 +14,7 @@ const InterviewNoteCardList: FC<Props> = ({ notes }) => {
         <InterviewNoteCard
           key={note.id}
           note={note.note}
-          authorName={note.author.fullName}
+          authorName={note.author.userDetails.fullName}
           postDate={note.createdAt}
         />
       ))}

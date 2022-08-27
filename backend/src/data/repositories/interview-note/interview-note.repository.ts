@@ -21,7 +21,7 @@ class InterviewNote {
       .query()
       .select()
       .where({ interviewId })
-      .withGraphJoined('author')
+      .withGraphJoined('author(withoutPassword).[userDetails]')
       .castTo<InterviewNoteGetAllItemResponseDto[]>()
       .execute();
   }
@@ -34,7 +34,7 @@ class InterviewNote {
     return this.#InterviewNoteModel
       .query()
       .insert({ note, interviewId, authorId })
-      .withGraphJoined('author')
+      .withGraphJoined('author(withoutPassword).[userDetails]')
       .castTo<InterviewNoteGetAllItemResponseDto>()
       .execute();
   }
