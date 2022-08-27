@@ -52,7 +52,9 @@ paths:
   # Mentors
   /mentors:
     $ref: './endpoints/mentors/mentors.yaml'
-
+  # User Details
+  /user-details:
+    $ref: './endpoints/user-details/user-details-manipulate.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -105,7 +107,10 @@ components:
       $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
     InterviewsGetPendingOrPassedCategoryIdsDto:
       $ref: './schemas/interviews/interviews-interviewee-get-pending-or-passed-category-ids-response.yaml'
-
+    UserDetailsResponseDto:
+      $ref: './schemas/user-details/user-details-response-dto.yaml'
+    UserDetailsUpdateInfoRequestDto:
+      $ref: './schemas/user-details/user-details-update-request-dto.yaml'
   securitySchemes:
     bearerAuth:
       type: http

@@ -21,6 +21,7 @@ const Header: FC = () => {
   const location = useLocation();
 
   const isRoot = location.pathname === AppRoute.ROOT;
+  const isProfile = location.pathname === AppRoute.SETTINGS_PROFILE;
   const hasUser = Boolean(user);
 
   const handlePopupOpen = (evt: React.MouseEvent | void): void => {
@@ -62,7 +63,9 @@ const Header: FC = () => {
             </div>
           )}
           <div className={styles.popup}>
-            {isMenuPopupVisible && <Popup onClose={handlePopupOpen} />}
+            {isMenuPopupVisible && (
+              <Popup isProfilePage={isProfile} onClose={handlePopupOpen} />
+            )}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const settingsTabs: SettingsMenuItem[] = [
   },
   {
     name: 'Personal information',
-    href: AppRoute.PROFILE,
+    href: AppRoute.SETTINGS_PROFILE,
     iconColorClass: 'supportInfoBlue100',
   },
   {

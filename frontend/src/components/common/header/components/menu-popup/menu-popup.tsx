@@ -8,9 +8,10 @@ import styles from './styles.module.scss';
 
 type Props = {
   onClose: (evt: React.MouseEvent | void) => void;
+  isProfilePage: boolean;
 };
 
-const Popup: FC<Props> = ({ onClose }) => {
+const Popup: FC<Props> = ({ onClose, isProfilePage }) => {
   const dispatch = useAppDispatch();
   const popupRef = useRef<HTMLDivElement>(null);
   useHandleClickOutside({
@@ -26,11 +27,17 @@ const Popup: FC<Props> = ({ onClose }) => {
   return (
     <div className={styles.popup} ref={popupRef}>
       <ul className={styles.ul}>
-        <li className={styles.li}>
-          <div>
-            <Button label="Profile" btnColor="gray" to={AppRoute.PROFILE} />
-          </div>
-        </li>
+        {!isProfilePage && (
+          <li className={styles.li}>
+            <div>
+              <Button
+                label="Profile"
+                btnColor="gray"
+                to={AppRoute.SETTINGS_PROFILE}
+              />
+            </div>
+          </li>
+        )}
         <li className={styles.li}>
           <div>
             <Button label="Sign Out" onClick={handleLogout} />

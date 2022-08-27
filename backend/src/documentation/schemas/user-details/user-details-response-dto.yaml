@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  fullName:
+    type: string
+    nullable: false
+    example: 'Daryna Mon'
+  gender:
+    type: string
+    nullable: true
+    enum:
+      - male
+      - female
+      - other
+    example: female
+  avatarUrl:
+      type: string
+      nullable: true
+      example: 'https://cdn-icons-png.flaticon.com/512/1053/1053244.png?w=360'

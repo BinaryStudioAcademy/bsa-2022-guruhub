@@ -5,7 +5,7 @@ import {
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Input, Select } from 'components/common/common';
-import { getNameOf } from 'helpers/helpers';
+import { getNameOf, getValidClasses } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -93,17 +93,18 @@ const UserProfileForm: FC = () => {
           <div className={styles.buttonWrapper}>
             <Button
               type="button"
-              btnType="outlined"
-              btnColor="blue"
+              btnType="filled"
+              btnColor="gray"
               label="Cancel"
               onClick={handleGetUsers}
-              className={styles.marginRight}
+              className={getValidClasses(styles.cancelBtn)}
             />
             <Button
               onClick={handleSubmit(handleUpdateProfile)}
               type="submit"
               label="Save"
               btnColor="blue"
+              className={styles.saveBtn}
             />
           </div>
         </form>
