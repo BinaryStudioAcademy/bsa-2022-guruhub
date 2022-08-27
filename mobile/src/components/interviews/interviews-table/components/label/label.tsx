@@ -9,7 +9,7 @@ type Props = {
   color?: string;
 };
 
-const Label: FC<Props> = ({ text, color = 'darkgreen' }) => {
+const Label: FC<Props> = ({ text, color }) => {
   return (
     <Text style={{ ...styles.label, ...{ backgroundColor: color } }}>
       {text}
