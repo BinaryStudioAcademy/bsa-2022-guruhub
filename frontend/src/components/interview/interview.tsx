@@ -1,5 +1,6 @@
-import { PaginationDefaultValue } from 'common/enums/enums';
+import { DataStatus, PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
+import { Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -13,9 +14,8 @@ import { OtherApplications } from './components/components';
 import styles from './styles.module.scss';
 
 const Interview: FC = () => {
-  const { otherInterviews, totalOtherInterviews } = useAppSelector(
-    (state) => state.interview,
-  );
+  const { otherInterviews, totalOtherInterviewsNumber, dataStatus } =
+    useAppSelector((state) => state.interview);
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { page, handlePageChange } = usePagination({
@@ -32,13 +32,17 @@ const Interview: FC = () => {
     );
   }, [page, id]);
 
+  if (dataStatus === DataStatus.PENDING) {
+    return <Spinner />;
+  }
+
   return (
     <div className={styles.wrapper}>
       <OtherApplications
         interviews={otherInterviews}
         page={page}
         onPageChange={handlePageChange}
-        totalOtherInterviews={totalOtherInterviews}
+        totalOtherInterviewsNumber={totalOtherInterviewsNumber}
       />
     </div>
   );

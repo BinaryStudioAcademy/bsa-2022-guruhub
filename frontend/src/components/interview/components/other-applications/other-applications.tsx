@@ -6,14 +6,14 @@ type Props = {
   interviews: InterviewsGetOtherItemResponseDto[];
   page: number;
   onPageChange: (page: number) => void;
-  totalOtherInterviews: number;
+  totalOtherInterviewsNumber: number;
 };
 
 const OtherApplications: FC<Props> = ({
   interviews,
   page,
   onPageChange,
-  totalOtherInterviews,
+  totalOtherInterviewsNumber,
 }) => {
   return (
     <div>
@@ -22,7 +22,7 @@ const OtherApplications: FC<Props> = ({
         interviews={interviews}
         page={page}
         onPageChange={onPageChange}
-        totalOtherInterviews={totalOtherInterviews}
+        totalOtherInterviewsNumber={totalOtherInterviewsNumber}
       />
     </div>
   );

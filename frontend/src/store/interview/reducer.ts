@@ -7,13 +7,13 @@ import { getOtherByInterviewId } from './actions';
 type State = {
   dataStatus: DataStatus;
   otherInterviews: InterviewsGetOtherItemResponseDto[];
-  totalOtherInterviews: number;
+  totalOtherInterviewsNumber: number;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   otherInterviews: [],
-  totalOtherInterviews: 0,
+  totalOtherInterviewsNumber: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,12 +23,12 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getOtherByInterviewId.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.otherInterviews = payload.items;
-    state.totalOtherInterviews = payload.total;
+    state.totalOtherInterviewsNumber = payload.total;
   });
   builder.addCase(getOtherByInterviewId.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
     state.otherInterviews = [];
-    state.totalOtherInterviews = 0;
+    state.totalOtherInterviewsNumber = 0;
   });
 });
 

@@ -1,6 +1,6 @@
 import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { OtherApplicationsTableRow } from 'components/interview/common/types/other-applications-table-row.type';
+import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 

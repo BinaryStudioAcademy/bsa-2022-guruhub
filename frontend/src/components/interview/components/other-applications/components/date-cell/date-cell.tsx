@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { OtherApplicationsTableRow } from 'components/interview/common/types/other-applications-table-row.type';
+import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
 import { getFormattedDate } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 

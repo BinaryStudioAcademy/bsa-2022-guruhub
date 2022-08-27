@@ -1,7 +1,7 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, InterviewsGetOtherItemResponseDto } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
-import { OtherApplicationsTableRow } from 'components/interview/common/types/other-applications-table-row.type';
+import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
 import {
   getOtherApplicationsColumns,
   getOtherApplicationsRows,
@@ -13,20 +13,22 @@ type Props = {
   interviews: InterviewsGetOtherItemResponseDto[];
   page: number;
   onPageChange: (page: number) => void;
-  totalOtherInterviews: number;
+  totalOtherInterviewsNumber: number;
 };
 
 const OtherApplicationsTable: FC<Props> = ({
   interviews,
   page,
   onPageChange,
-  totalOtherInterviews,
+  totalOtherInterviewsNumber,
 }) => {
   const columns = useMemo<Column<OtherApplicationsTableRow>[]>(() => {
     return getOtherApplicationsColumns();
   }, []);
 
-  const data = getOtherApplicationsRows(interviews);
+  const data = useMemo<OtherApplicationsTableRow[]>(() => {
+    return getOtherApplicationsRows(interviews);
+  }, [interviews]);
 
   return (
     <div>
@@ -35,7 +37,7 @@ const OtherApplicationsTable: FC<Props> = ({
         currentPage={page}
         onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-        totalCount={totalOtherInterviews}
+        totalCount={totalOtherInterviewsNumber}
       />
     </div>
   );
