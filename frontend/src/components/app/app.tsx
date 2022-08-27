@@ -105,12 +105,10 @@ const App: FC = () => {
         <Route
           path={AppRoute.INTERVIEWS_$ID}
           element={
-            <AuthorizedWrapper>
-              <ProtectedRoute
-                permissions={[PermissionKey.MANAGE_INTERVIEW]}
-                component={<Interview />}
-              />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_INTERVIEW]}
+              component={<Interview />}
+            />
           }
         />
         <Route
