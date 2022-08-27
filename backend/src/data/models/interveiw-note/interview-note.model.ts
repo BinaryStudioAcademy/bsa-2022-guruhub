@@ -18,7 +18,7 @@ class InterviewNote extends Abstract {
         relation: Model.BelongsToOneRelation,
         modelClass: Interview,
         join: {
-          from: `${DbTableName.INTERVIEW_NOTES}.interview_id`,
+          from: `${DbTableName.INTERVIEW_NOTES}.interviewId`,
           to: `${DbTableName.INTERVIEWS}.id`,
         },
       },
@@ -26,7 +26,7 @@ class InterviewNote extends Abstract {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.INTERVIEW_NOTES}.author_id`,
+          from: `${DbTableName.INTERVIEW_NOTES}.authorId`,
           to: `${DbTableName.USERS}.id`,
         },
       },

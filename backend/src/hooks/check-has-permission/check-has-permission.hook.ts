@@ -8,10 +8,10 @@ import {
 import { PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
-type checkType = 'every' | 'oneOf';
+type CheckType = 'every' | 'oneOf';
 
 const checkHasPermissions =
-  <T>(type: checkType, ...pagePermissions: PermissionKey[]) =>
+  <T>(type: CheckType, ...pagePermissions: PermissionKey[]) =>
   async (req: FastifyRequest<T>): Promise<void> => {
     const { user } = req;
     const hasUser = Boolean(user);
@@ -24,7 +24,7 @@ const checkHasPermissions =
     }
 
     const hasUserAllPermissions = checkHasPermission({
-      checkMode: type === 'oneOf' ? 'oneOf' : 'every',
+      checkMode: type,
       permissionKeys: pagePermissions,
       userPermissions: user.permissions,
     });
