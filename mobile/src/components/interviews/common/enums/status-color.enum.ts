@@ -1,8 +1,8 @@
 enum StatusColor {
-  PENDING = '#9ea7ad',
-  IN_PROGRESS = '#2dccff',
-  COMPLETED = '#56f000',
-  REJECTED = '#ff3838',
+  PENDING = '#666c70',
+  IN_PROGRESS = '#186a85',
+  COMPLETED = '#09521c',
+  REJECTED = '#932020',
 }
 
 export { StatusColor };
