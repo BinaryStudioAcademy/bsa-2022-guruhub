@@ -1,8 +1,10 @@
 import { InterviewStatus } from '~/common/enums/enums';
 import {
+  EntityPagination,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetOtherRequestArgumentsDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -108,14 +110,20 @@ class Interview {
       .execute();
   }
 
-  public getOtherByInterviewId(
-    id: number,
-    intervieweeUserId: number,
-  ): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#InterviewModel
+  public async getOtherByInterviewId({
+    interviewId,
+    intervieweeUserId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestArgumentsDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    const ELEMENTS_TO_SKIP = page * count;
+
+    const results = await this.#InterviewModel
       .query()
       .where({ intervieweeUserId })
-      .andWhereNot('interviews.id', id)
+      .andWhereNot('interviews.id', interviewId)
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee(withoutPassword).[userDetails]')
       .withGraphJoined('interviewer(withoutPassword).[userDetails]')
@@ -124,8 +132,19 @@ class Interview {
           builder.select('id', 'email', 'createdAt', 'updatedAt');
         },
       })
-      .castTo<InterviewsGetAllItemResponseDto[]>()
-      .execute();
+      .limit(count)
+      .offset(ELEMENTS_TO_SKIP)
+      .castTo<InterviewsGetAllItemResponseDto[]>();
+
+    const total = await this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhereNot('interviews.id', interviewId);
+
+    return {
+      items: results,
+      total: total.length,
+    };
   }
 }
 

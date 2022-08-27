@@ -46,12 +46,15 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsByIdRequestParamsDto,
   type InterviewsByIdResponseDto,
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsCreateRequestDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,
+  type InterviewsGetOtherRequestArgumentsDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
 } from './interview/interview';
 export { EntityPagination } from './pagination/pagination';

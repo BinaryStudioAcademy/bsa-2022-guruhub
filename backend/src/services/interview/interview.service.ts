@@ -4,10 +4,12 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  EntityPagination,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetAllResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
@@ -109,10 +111,14 @@ class Interview {
     };
   }
 
-  public async getOtherByInterviewId(
-    id: number,
-  ): Promise<InterviewsGetAllItemResponseDto[]> {
-    const interview = await this.getById(id);
+  public async getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    const interview = await this.getById(interviewId);
 
     if (!interview) {
       throw new InterviewsError({
@@ -121,11 +127,14 @@ class Interview {
     }
 
     const intervieweeUserId = interview.interviewee.id;
+    const ZERO_INDEXED_PAGE = page - 1;
 
-    return this.#interviewRepository.getOtherByInterviewId(
-      id,
+    return this.#interviewRepository.getOtherByInterviewId({
+      interviewId,
       intervieweeUserId,
-    );
+      count,
+      page: ZERO_INDEXED_PAGE,
+    });
   }
 }
 
