@@ -43,7 +43,10 @@ const UAMConfigureGroup: FC = () => {
   } = useSelectedItems<number>(group?.userIds ?? []);
   const { page: usersPage, handlePageChange: handleUsersPageChange } =
     usePagination({ queryName: 'users' });
-
+  const {
+    page: permissionsPage,
+    handlePageChange: handlePermissionsPageChange,
+  } = usePagination({ queryName: 'permissions' });
   const handleCreateOrEdit = (values: GroupsConfigureRequestDto): void => {
     const { name } = values;
 
@@ -72,8 +75,15 @@ const UAMConfigureGroup: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(uamConfigureGroupActions.getPermissions());
+    dispatch(
+      uamConfigureGroupActions.getPermissions({
+        page: permissionsPage,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [permissionsPage]);
 
+  useEffect(() => {
     if (isEdit) {
       dispatch(uamConfigureGroupActions.getGroupById({ id: Number(id) }));
     }
@@ -124,6 +134,8 @@ const UAMConfigureGroup: FC = () => {
         permissions={permissions}
         onCheckboxToggle={handlePermissionToggle}
         selectedPermissionIds={permissionIds}
+        page={permissionsPage}
+        onPageChange={handlePermissionsPageChange}
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>

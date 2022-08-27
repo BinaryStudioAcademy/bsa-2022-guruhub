@@ -9,7 +9,7 @@ import {
   GroupsGetByIdResponseDto,
   GroupsItemResponseDto,
   GroupUpdateRequestArgumentsDto,
-  PermissionsGetAllResponseDto,
+  PermissionsGetAllItemResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -29,12 +29,12 @@ const createGroup = createAsyncThunk<
 });
 
 const getPermissions = createAsyncThunk<
-  PermissionsGetAllResponseDto,
-  void,
+  EntityPagination<PermissionsGetAllItemResponseDto>,
+  EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_PERMISSIONS, async (_, { extra }) => {
+>(ActionType.GET_PERMISSIONS, async ({ page, count }, { extra }) => {
   const { permissionsApi } = extra;
-  const permissions = await permissionsApi.getAll();
+  const permissions = await permissionsApi.getAll({ page, count });
 
   return permissions;
 });
