@@ -6,10 +6,10 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_100,
-    paddingHorizontal: 5,
-    marginHorizontal: 5,
-    backgroundColor: AppColor.BRAND.BLUE_100,
+    paddingHorizontal: 15,
+    marginHorizontal: 15,
     borderRadius: 16,
+    borderWidth: 1,
     textAlign: 'center',
   },
 });
