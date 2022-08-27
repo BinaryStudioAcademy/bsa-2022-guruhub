@@ -32,7 +32,7 @@ class GroupsToPermissions {
     await this.#GroupsToPermissionsModel
       .query()
       .where({ groupId })
-      .whereNotIn('permission_id', permissionIds)
+      .whereNotIn('permissionId', permissionIds)
       .delete()
       .execute();
 
@@ -44,7 +44,7 @@ class GroupsToPermissions {
             groupId,
             permissionId,
           })
-          .onConflict(['permission_id', 'group_id'])
+          .onConflict(['permissionId', 'groupId'])
           .ignore();
       }),
     );
