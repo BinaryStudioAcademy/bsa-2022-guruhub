@@ -5,7 +5,7 @@ import { OtherApplicationsTableRow } from 'components/interview/common/types/oth
 import {
   getOtherApplicationsColumns,
   getOtherApplicationsRows,
-} from 'components/interview/helpers/helpers';
+} from 'components/interview/components/other-applications/helpers/helpers';
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 

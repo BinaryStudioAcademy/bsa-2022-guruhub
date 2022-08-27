@@ -1,12 +1,20 @@
 import { OtherApplicationsTableAccessor } from 'components/interview/common/enums/enums';
-import { OtherApplicationsTableRow } from 'components/interview/common/types/other-applications-table-row.type';
+import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
 import { Column } from 'react-table';
+
+import {
+  CategoryCell,
+  DateCell,
+  IdCell,
+  StatusCell,
+} from '../../components/components';
 
 const getOtherApplicationsColumns = (): Column<OtherApplicationsTableRow>[] => {
   return [
     {
       Header: 'ID',
       accessor: OtherApplicationsTableAccessor.ID,
+      Cell: IdCell,
     },
     {
       Header: 'Name',
@@ -15,10 +23,12 @@ const getOtherApplicationsColumns = (): Column<OtherApplicationsTableRow>[] => {
     {
       Header: 'Category',
       accessor: OtherApplicationsTableAccessor.CATEGORY,
+      Cell: CategoryCell,
     },
     {
       Header: 'Status',
       accessor: OtherApplicationsTableAccessor.STATUS,
+      Cell: StatusCell,
     },
     {
       Header: 'Interviewer',
@@ -27,6 +37,7 @@ const getOtherApplicationsColumns = (): Column<OtherApplicationsTableRow>[] => {
     {
       Header: 'Date',
       accessor: OtherApplicationsTableAccessor.DATE,
+      Cell: DateCell,
     },
   ];
 };

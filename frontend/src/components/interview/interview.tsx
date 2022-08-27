@@ -10,6 +10,7 @@ import {
 import { interviewActions } from 'store/actions';
 
 import { OtherApplications } from './components/components';
+import styles from './styles.module.scss';
 
 const Interview: FC = () => {
   const { otherInterviews, totalOtherInterviews } = useAppSelector(
@@ -29,10 +30,10 @@ const Interview: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page]);
+  }, [page, id]);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <OtherApplications
         interviews={otherInterviews}
         page={page}

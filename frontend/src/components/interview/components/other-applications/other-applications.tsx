@@ -17,6 +17,7 @@ const OtherApplications: FC<Props> = ({
 }) => {
   return (
     <div>
+      <h1>Other Applications</h1>
       <OtherApplicationsTable
         interviews={interviews}
         page={page}

@@ -11,8 +11,6 @@ const getOtherApplicationsRows = (
       ? interview.interviewer.userDetails.fullName
       : 'Not set';
 
-    const interviewDate = interview.interviewDate ?? 'Not set';
-
     return {
       [OtherApplicationsTableAccessor.ID]: interview.id,
       [OtherApplicationsTableAccessor.NAME]:
@@ -21,7 +19,7 @@ const getOtherApplicationsRows = (
       [OtherApplicationsTableAccessor.STATUS]:
         interview.status as InterviewStatus,
       [OtherApplicationsTableAccessor.INTERVIEWER]: interviewerName,
-      [OtherApplicationsTableAccessor.DATE]: interviewDate,
+      [OtherApplicationsTableAccessor.DATE]: interview.interviewDate,
     };
   });
 };
