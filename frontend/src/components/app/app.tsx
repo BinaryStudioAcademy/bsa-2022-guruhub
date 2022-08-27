@@ -111,10 +111,7 @@ const App: FC = () => {
           element={
             <AuthorizedWrapper>
               <ProtectedRoute
-                permissions={[
-                  PermissionKey.MANAGE_INTERVIEW,
-                  PermissionKey.MANAGE_INTERVIEWS,
-                ]}
+                permissions={[PermissionKey.MANAGE_INTERVIEW]}
                 component={<Interview />}
               />
             </AuthorizedWrapper>
