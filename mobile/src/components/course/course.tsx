@@ -12,12 +12,18 @@ import {
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppNavigate, useAppSelector, useEffect } from '~/hooks/hooks';
+import {
+  useAppNavigate,
+  useAppSelector,
+  useEffect,
+  useWindowDimensions,
+} from '~/hooks/hooks';
 
 import { styles } from './styles';
 
 const Course: FC = () => {
   const navigation = useAppNavigate();
+  const { width } = useWindowDimensions();
   const { course, dataStatus } = useAppSelector((state) => state.courses);
 
   useEffect(() => {
@@ -43,7 +49,9 @@ const Course: FC = () => {
           source={{ uri: course?.imageUrl ?? getImageUri(defaultCourseImage) }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {Boolean(course?.description) && <Content html={course?.description} />}
+        {Boolean(course?.description) && (
+          <Content html={course?.description} width={width} />
+        )}
       </View>
     </ScrollView>
   );
