@@ -8,6 +8,7 @@ import {
 } from '~/common/enums/enums';
 import { EntityPaginationRequestQueryDto } from '~/common/types/types';
 import { permission as permissionService } from '~/services/services';
+import { pagination as paginationParamsValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -24,6 +25,7 @@ const initPermissionsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: PermissionApiPath.ROOT,
+    schema: { params: paginationParamsValidationSchema },
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       rep,
