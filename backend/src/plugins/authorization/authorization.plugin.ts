@@ -5,7 +5,9 @@ import {
   ControllerHook,
   ExceptionMessage,
   HttpCode,
+  HttpMethod,
 } from '~/common/enums/enums';
+import { WhiteRoute } from '~/common/types/types';
 import { InvalidCredentialsError } from '~/exceptions/exceptions';
 import {
   token as tokenService,
@@ -13,7 +15,7 @@ import {
 } from '~/services/services';
 
 type Options = {
-  routesWhiteList: string[];
+  routesWhiteList: WhiteRoute[];
   services: {
     user: typeof userService;
     token: typeof tokenService;
@@ -25,13 +27,20 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
     try {
-      const isWhiteRoute = opts.routesWhiteList.some(
-        (route) => route === request.routerPath,
+      const whiteRoute = opts.routesWhiteList.find(
+        ({ route }) => route === request.routerPath,
       );
 
-      if (isWhiteRoute) {
+      const isWhiteRoute = Boolean(whiteRoute);
+
+      const isAllowedMethod = Boolean(
+        whiteRoute?.methods.includes(request.method as HttpMethod),
+      );
+
+      if (isWhiteRoute && isAllowedMethod) {
         return;
       }
+
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
 
       const { user, token } = opts.services;

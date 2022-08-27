@@ -1,14 +1,17 @@
 export {
-  CategoryGetAllItemResponseDto,
-  CategoryGetAllResponseDto,
-} from './category/category';
-export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestDto,
+  type CourseUpdateRequestParamsDto,
 } from './course/course';
-export { type CourseCategoryGetResponseDto } from './course-category/course-category';
+export {
+  type CategoryGetAllItemResponseDto,
+  type CategoryGetAllResponseDto,
+  type CourseCategoryGetByIdRequestParamsDto,
+  type CourseCategoryGetResponseDto,
+} from './course-category/course-category';
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
@@ -16,6 +19,10 @@ export {
   type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
 } from './course-module/course-module';
+export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+} from './courses-to-mentors/courses-to-mentors';
 export { type FileGetResponseDto } from './file/file';
 export {
   type GroupsConfigureRequestDto,
@@ -30,9 +37,12 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
-  InterviewsByIdResponseDto,
-  InterviewsGetAllItemResponseDto,
-  InterviewsGetAllResponseDto,
+  type InterviewsByIdResponseDto,
+  type InterviewsByIntervieweeIdRequestDto,
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsGetAllResponseDto,
+  type InterviewsResponseDto,
 } from './interview/interview';
 export {
   type EntityPagination,

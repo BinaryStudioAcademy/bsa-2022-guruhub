@@ -9,6 +9,7 @@ import {
   UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
+import { UsersError } from '~/exceptions/exceptions';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
 import { userDetails as userDetailsServ } from '~/services/services';
 
@@ -141,8 +142,15 @@ class User {
     }));
   }
 
-  public async delete(id: number): Promise<boolean> {
-    const deletedUsersCount = await this.#userRepository.delete(id);
+  public async delete(
+    loggedInUser: UserWithPermissions,
+    idToDelete: number,
+  ): Promise<boolean> {
+    if (loggedInUser.id === idToDelete) {
+      throw new UsersError();
+    }
+
+    const deletedUsersCount = await this.#userRepository.delete(idToDelete);
 
     return Boolean(deletedUsersCount);
   }

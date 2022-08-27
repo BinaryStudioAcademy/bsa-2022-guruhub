@@ -1,15 +1,21 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { DbTableName, InterviewStatus } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 import { CourseCategory } from '../course-category/course-category.model';
 import { User } from '../models';
 
 class Interview extends Abstract {
-  public 'interviewDate': string;
+  public 'interviewDate': string | null;
 
-  public 'status': string;
+  public 'status': InterviewStatus;
+
+  public 'categoryId': number;
+
+  public 'intervieweeUserId': number;
+
+  public 'interviewerUserId': number;
 
   public static override get relationMappings(): RelationMappings {
     return {

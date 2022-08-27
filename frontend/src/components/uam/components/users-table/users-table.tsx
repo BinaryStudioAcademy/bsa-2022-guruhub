@@ -1,5 +1,5 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
 import { UsersTableRow } from 'components/uam/common/types/types';
 import {
@@ -18,7 +18,12 @@ import styles from './styles.module.scss';
 const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
-  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
+
+  const { user, users, usersTotalCount } = useAppSelector((state) => ({
+    user: state.auth.user,
+    users: state.uam.users,
+    usersTotalCount: state.uam.usersTotalCount,
+  }));
 
   useEffect(() => {
     dispatch(
@@ -34,7 +39,7 @@ const UsersTable: FC = () => {
   };
 
   const columns = useMemo<Column<UsersTableRow>[]>(() => {
-    return getUsersColumns(handleUserDelete);
+    return getUsersColumns(user as UserWithPermissions, handleUserDelete);
   }, []);
 
   return (

@@ -22,6 +22,7 @@ const USER_PASSWORD_SALT_ROUNDS = 10;
 
 const TableName = {
   USERS: 'users',
+  USER_DETAILS: 'user_details',
   GROUPS: 'groups',
   PERMISSIONS: 'permissions',
   USERS_TO_GROUPS: 'users_to_groups',
@@ -93,7 +94,6 @@ async function seed(knex: Knex): Promise<void> {
       );
 
       const userData = {
-        fullName,
         email,
         passwordSalt,
         passwordHash,
@@ -102,6 +102,14 @@ async function seed(knex: Knex): Promise<void> {
       const [{ id: userId }] = await knex(TableName.USERS)
         .insert(userData)
         .returning(ColumnName.ID);
+
+      const detailsData = {
+        fullName,
+        gender: 'other',
+        userId,
+      };
+
+      await knex(TableName.USER_DETAILS).insert(detailsData);
 
       if (!group) {
         return;
