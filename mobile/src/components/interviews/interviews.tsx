@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
 
 import { DataStatus, PaginationDefaultValue } from '~/common/enums/enums';
-import { ScrollView, Spinner, View } from '~/components/common/common';
+import {
+  Pagination,
+  ScrollView,
+  Spinner,
+  View,
+} from '~/components/common/common';
 import { getTableRow } from '~/components/interviews/helpers/helpers';
 import {
   useAppDispatch,
@@ -19,8 +24,10 @@ const Interviews: FC = () => {
   const dispatch = useAppDispatch();
   const { interviews, interviewsTotalCount, interviewsDataStatus } =
     useAppSelector((state) => state.interviews);
-  const { page } = usePagination();
+
+  const { page, handlePageChange } = usePagination();
   const tableRows = getTableRow(interviews);
+
   const isInterviewsLoading = interviewsDataStatus === DataStatus.PENDING;
 
   useFocusEffect(
@@ -41,6 +48,14 @@ const Interviews: FC = () => {
       <ScrollView>
         <View style={styles.container}>
           <InterviewsTable tableData={tableRows} />
+          <View style={styles.paginationContainer}>
+            <Pagination
+              totalCount={interviewsTotalCount}
+              pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+              currentPage={page}
+              onPageChange={handlePageChange}
+            />
+          </View>
         </View>
       </ScrollView>
     </>
