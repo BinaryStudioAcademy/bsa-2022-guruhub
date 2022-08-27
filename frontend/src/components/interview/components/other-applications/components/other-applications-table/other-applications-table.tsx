@@ -1,5 +1,6 @@
+import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, InterviewsGetOtherItemResponseDto } from 'common/types/types';
-import { Table } from 'components/common/common';
+import { Pagination, Table } from 'components/common/common';
 import { OtherApplicationsTableRow } from 'components/interview/common/types/other-applications-table-row.type';
 import {
   getOtherApplicationsColumns,
@@ -10,9 +11,17 @@ import { Column } from 'react-table';
 
 type Props = {
   interviews: InterviewsGetOtherItemResponseDto[];
+  page: number;
+  onPageChange: (page: number) => void;
+  totalOtherInterviews: number;
 };
 
-const OtherApplicationsTable: FC<Props> = ({ interviews }) => {
+const OtherApplicationsTable: FC<Props> = ({
+  interviews,
+  page,
+  onPageChange,
+  totalOtherInterviews,
+}) => {
   const columns = useMemo<Column<OtherApplicationsTableRow>[]>(() => {
     return getOtherApplicationsColumns();
   }, []);
@@ -22,6 +31,12 @@ const OtherApplicationsTable: FC<Props> = ({ interviews }) => {
   return (
     <div>
       <Table data={data} columns={columns} />
+      <Pagination
+        currentPage={page}
+        onPageChange={onPageChange}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={totalOtherInterviews}
+      />
     </div>
   );
 };

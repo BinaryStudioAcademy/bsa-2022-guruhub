@@ -12,10 +12,12 @@ import { interviewActions } from 'store/actions';
 import { OtherApplications } from './components/components';
 
 const Interview: FC = () => {
-  const { otherInterviews } = useAppSelector((state) => state.interview);
+  const { otherInterviews, totalOtherInterviews } = useAppSelector(
+    (state) => state.interview,
+  );
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { page } = usePagination({
+  const { page, handlePageChange } = usePagination({
     queryName: 'otherInterviews',
   });
 
@@ -27,11 +29,16 @@ const Interview: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, []);
+  }, [page]);
 
   return (
     <div>
-      <OtherApplications interviews={otherInterviews} />
+      <OtherApplications
+        interviews={otherInterviews}
+        page={page}
+        onPageChange={handlePageChange}
+        totalOtherInterviews={totalOtherInterviews}
+      />
     </div>
   );
 };
