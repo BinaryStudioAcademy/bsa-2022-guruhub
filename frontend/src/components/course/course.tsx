@@ -74,10 +74,24 @@ const Course: FC = () => {
     dispatch(courseActions.chooseMentor({ id: mentorId }));
   };
 
+  const handleMentorsSearch = (mentorName: string): void => {
+    dispatch(
+      courseActions.getMentorsByCourseId({
+        courseId: Number(id),
+        filteringOpts: { mentorName },
+      }),
+    );
+  };
+
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(courseActions.getMentorsByCourseId({ id: Number(id) }));
+    dispatch(
+      courseActions.getMentorsByCourseId({
+        courseId: Number(id),
+        filteringOpts: { mentorName: '' },
+      }),
+    );
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
 
@@ -120,6 +134,7 @@ const Course: FC = () => {
         onModalToggle={handleChooseMentorModalToggle}
         mentors={mentors}
         onMentorSelectClick={handleMentorSelectClick}
+        onMentorSearch={handleMentorsSearch}
       />
       <div className={styles.info}>
         <div className={styles.courseHeadingContainer}>

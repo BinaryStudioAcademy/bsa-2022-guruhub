@@ -1,6 +1,7 @@
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
@@ -92,12 +93,20 @@ class Course {
       .execute();
   }
 
-  public getMentorsByCourseId(
-    courseId: number,
-  ): Promise<UserDetailsResponseDto[]> {
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    const { mentorName } = filteringOpts ?? {};
+
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
+      .andWhere((builder) => {
+        if (mentorName) {
+          builder.where('fullName', 'ilike', `%${mentorName}%`);
+        }
+      })
       .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
       .joinRelated('mentors.[userDetails]')
       .castTo<UserDetailsResponseDto[]>()

@@ -2,6 +2,7 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,
 } from './course/course';

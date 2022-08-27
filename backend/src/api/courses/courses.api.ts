@@ -10,6 +10,7 @@ import {
   CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetRequestParamsDto,
+  CourseMentorsFilteringDto,
   CourseSelectMentorRequestDto,
   CourseSelectMentorRequestParamsDto,
   CourseUpdateCategoryRequestDto,
@@ -24,6 +25,7 @@ import {
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
   courseMentorCreate as courseMentorCreateBodyValidationSchema,
+  courseMentorsFiltering as courseMentorsFilteringValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
 } from '~/validation-schemas/validation-schemas';
@@ -89,13 +91,23 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.$ID_MENTORS,
-    schema: { params: courseGetParamsValidationSchema },
+    schema: {
+      params: courseGetParamsValidationSchema,
+      querystring: courseMentorsFilteringValidationSchema,
+    },
     async handler(
-      req: FastifyRequest<{ Params: CourseGetRequestParamsDto }>,
+      req: FastifyRequest<{
+        Params: CourseGetRequestParamsDto;
+        Querystring: CourseMentorsFilteringDto;
+      }>,
       rep,
     ) {
       const { id } = req.params;
-      const mentors = await courseService.getMentorsByCourseId(id);
+      const { mentorName } = req.query;
+      const mentors = await courseService.getMentorsByCourseId({
+        courseId: id,
+        filteringOpts: { mentorName },
+      });
 
       rep.status(HttpCode.OK).send(mentors);
     },

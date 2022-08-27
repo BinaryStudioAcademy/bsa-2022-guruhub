@@ -3,6 +3,7 @@ import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
+  CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
@@ -108,11 +109,11 @@ const disableMentorBecoming = createAsyncThunk<boolean, void, AsyncThunkConfig>(
 
 const getMentorsByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
-  CourseGetRequestParamsDto,
+  CourseGetMentorsRequestDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async ({ id }, { extra }) => {
+>(ActionType.GET_MENTORS, async (payload, { extra }) => {
   const { coursesApi } = extra;
-  const mentors = await coursesApi.getMentorsByCourseId({ id });
+  const mentors = await coursesApi.getMentorsByCourseId(payload);
 
   return mentors;
 });

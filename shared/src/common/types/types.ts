@@ -1,8 +1,10 @@
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
   type CourseSelectMentorRequestDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
