@@ -5,8 +5,10 @@ import {
   InterviewsApiPath,
 } from 'common/enums/enums';
 import {
+  EntityPagination,
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -52,13 +54,24 @@ class InterviewsApi {
     );
   }
 
-  public getOtherByInterviewId(
-    id: number,
-  ): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#http.load<InterviewsGetAllItemResponseDto[]>(
-      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}${
-        InterviewsApiPath.OTHER
-      }`,
+  public getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    return this.#http.load<EntityPagination<InterviewsGetAllItemResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.ROOT
+      }${interviewId}${InterviewsApiPath.OTHER}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
+      },
     );
   }
 }
