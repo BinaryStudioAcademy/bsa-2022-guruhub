@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 
-import { DataStatus, PaginationDefaultValue } from '~/common/enums/enums';
+import { DataStatus } from '~/common/enums/enums';
 import {
   Pagination,
   ScrollView,
   Spinner,
   View,
 } from '~/components/common/common';
+import { DEFAULT_PAGE_SIZE } from '~/components/interviews/common/constants/constants';
 import { getTableRow } from '~/components/interviews/helpers/helpers';
 import {
   useAppDispatch,
@@ -35,7 +36,7 @@ const Interviews: FC = () => {
       dispatch(
         interviewsActions.getInterviews({
           page,
-          count: PaginationDefaultValue.DEFAULT_COUNT,
+          count: DEFAULT_PAGE_SIZE,
         }),
       );
     }, [page, interviewsTotalCount]),
@@ -51,7 +52,7 @@ const Interviews: FC = () => {
           <View style={styles.paginationContainer}>
             <Pagination
               totalCount={interviewsTotalCount}
-              pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+              pageSize={DEFAULT_PAGE_SIZE}
               currentPage={page}
               onPageChange={handlePageChange}
             />
