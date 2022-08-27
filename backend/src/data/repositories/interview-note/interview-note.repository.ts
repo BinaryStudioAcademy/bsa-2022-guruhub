@@ -21,7 +21,7 @@ class InterviewNote {
       .query()
       .select()
       .where({ interviewId })
-      .withGraphJoined('user')
+      .withGraphJoined('author')
       .castTo<InterviewNoteGetAllItemResponseDto[]>()
       .execute();
   }

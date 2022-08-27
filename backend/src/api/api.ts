@@ -24,7 +24,6 @@ import { initCategoriesApi } from './categories/categories.api';
 import { initCourseModulesApi } from './course-modules/course-modules.api';
 import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
-import { initInterviewNotesApi } from './interview-notes/interview-notes.api';
 import { initInterviewsApi } from './interviews/interviews.api';
 import { initMentorsApi } from './mentors/mentors.api';
 import { initPermissionsApi } from './permissions/permissions.api';
@@ -104,15 +103,9 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.register(initInterviewsApi, {
     services: {
       interview,
-    },
-    prefix: ApiPath.INTERVIEWS,
-  });
-
-  fastify.register(initInterviewNotesApi, {
-    services: {
       interviewNote,
     },
-    prefix: ApiPath.INTERVIEW_NOTES,
+    prefix: ApiPath.INTERVIEWS,
   });
 
   fastify.register(initMentorsApi, {

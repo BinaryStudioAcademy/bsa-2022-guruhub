@@ -8,8 +8,10 @@ import {
 import { PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
+type checkType = 'every' | 'oneOf';
+
 const checkHasPermissions =
-  <T>(...pagePermissions: PermissionKey[]) =>
+  <T>(type: checkType, ...pagePermissions: PermissionKey[]) =>
   async (req: FastifyRequest<T>): Promise<void> => {
     const { user } = req;
     const hasUser = Boolean(user);
@@ -21,16 +23,36 @@ const checkHasPermissions =
       });
     }
 
-    const hasUserPermission = checkHasPermission({
-      permissionKeys: pagePermissions,
-      userPermissions: user.permissions,
-    });
+    switch (type) {
+      case 'every': {
+        const hasUserAllPermissions = checkHasPermission({
+          permissionKeys: pagePermissions,
+          userPermissions: user.permissions,
+        });
 
-    if (!hasUserPermission) {
-      throw new PermissionsError({
-        message: ExceptionMessage.PERMISSION_LACK,
-        status: HttpCode.FORBIDDEN,
-      });
+        if (!hasUserAllPermissions) {
+          throw new PermissionsError({
+            message: ExceptionMessage.PERMISSION_LACK,
+            status: HttpCode.FORBIDDEN,
+          });
+        }
+        break;
+      }
+      case 'oneOf': {
+        const hasUserOnePermission = pagePermissions.some((permission) => {
+          return checkHasPermission({
+            permissionKeys: [permission],
+            userPermissions: user.permissions,
+          });
+        });
+
+        if (!hasUserOnePermission) {
+          throw new PermissionsError({
+            message: ExceptionMessage.PERMISSION_LACK,
+            status: HttpCode.FORBIDDEN,
+          });
+        }
+      }
     }
   };
 

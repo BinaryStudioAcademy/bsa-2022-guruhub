@@ -22,7 +22,7 @@ class InterviewNote extends Abstract {
           to: `${DbTableName.INTERVIEWS}.id`,
         },
       },
-      user: {
+      author: {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {

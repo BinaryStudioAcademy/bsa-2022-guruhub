@@ -6,7 +6,6 @@ export {
   CourseModulesApiPath,
   CoursesApiPath,
   GroupsApiPath,
-  InterviewNotesApiPath,
   InterviewsApiPath,
   MentorsApiPath,
   PermissionApiPath,
