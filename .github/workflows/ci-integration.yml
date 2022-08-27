@@ -6,6 +6,11 @@ on:
       - development
   workflow_dispatch:
 
+env:
+  DB_NAME: guruhub-ci-integration
+  DB_USER: postgres
+  DB_PASSWORD: postgres_p4$5w0rd
+
 jobs:
   ci-integration:
     runs-on: ubuntu-latest
@@ -56,12 +61,12 @@ jobs:
           NODE_ENV: production
           PORT: 3001
 
-          UDEMY_CLIENT_ID: ${{ env.UDEMY_CLIENT_ID }}
-          UDEMY_CLIENT_SECRET: ${{ env.UDEMY_CLIENT_SECRET }}
+          UDEMY_CLIENT_ID: ${{ secrets.UDEMY_CLIENT_ID }}
+          UDEMY_CLIENT_SECRET: ${{ secrets.UDEMY_CLIENT_SECRET }}
           UDEMY_BASE_URL: https://www.udemy.com/api-2.0/
 
-          AWS_ACCESS_KEY_ID: ${{ env.TEST_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ env.TEST_AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: eu-central-1
         run: |
           npm start & npx wait-on 'tcp:localhost:$PORT'
