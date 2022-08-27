@@ -3,6 +3,7 @@ import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllResponseDto,
+  InterviewsGetInterviewerResponseDto,
   InterviewsResponseDto,
   InterviewsUpdateRequestDto,
   PermissionsGetAllItemResponseDto,
@@ -72,6 +73,14 @@ class Interview {
     }
 
     return interview;
+  }
+
+  public async getInterviewersByCategoryId(
+    interviewId: number,
+  ): Promise<InterviewsGetInterviewerResponseDto[]> {
+    return await this.#interviewRepository.getInterviewersByCategoryId(
+      interviewId,
+    );
   }
 
   public async create({

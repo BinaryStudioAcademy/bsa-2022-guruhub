@@ -53,3 +53,20 @@
   background: var(--brand-green-100);
   border-radius: 16px;
 }
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.marginRight {
+  margin-right: 10px;
+}
+
+.customSelect {
+  margin-top: 25px;
+}
+
+.customSelect div {
+  padding: 0;
+}

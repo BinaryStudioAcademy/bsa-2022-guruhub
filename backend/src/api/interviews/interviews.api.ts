@@ -10,6 +10,7 @@ import {
 import {
   InterviewsByIntervieweeIdRequestDto,
   InterviewsCreateRequestBodyDto,
+  InterviewsGetInterviewersByCategoryRequestDto,
   InterviewsUpdateRequestDto,
   InterviewsUpdateRequestParamsDto,
 } from '~/common/types/types';
@@ -18,6 +19,7 @@ import { interview as interviewService } from '~/services/services';
 import {
   interviewByIntervieweeId as interviewByIntervieweeIdValidationSchema,
   interviewCreate as interviewCreateValidationSchema,
+  interviewGetInterviewersByCategory as interviewGetInterviewersByCategoryValidationSchema,
   interviewUpdate as interviewUpdateValidationSchema,
   interviewUpdateParams as interviewUpdateParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
@@ -126,6 +128,27 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
         );
 
       rep.status(HttpCode.OK).send(categoryIds);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: InterviewsApiPath.INTERVIEWERS_CATEGORY_$ID,
+    schema: { params: interviewGetInterviewersByCategoryValidationSchema },
+    preHandler: checkHasPermissions(PermissionKey.MANAGE_INTERVIEWS),
+    async handler(
+      req: FastifyRequest<{
+        Params: InterviewsGetInterviewersByCategoryRequestDto;
+      }>,
+      rep,
+    ) {
+      const { categoryId } = req.params;
+
+      const interviewers = await interviewService.getInterviewersByCategoryId(
+        categoryId,
+      );
+
+      rep.status(HttpCode.OK).send(interviewers);
     },
   });
 };

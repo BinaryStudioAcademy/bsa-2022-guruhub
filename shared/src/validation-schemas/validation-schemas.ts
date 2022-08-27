@@ -22,6 +22,7 @@ export {
 export {
   interviewByIntervieweeId,
   interviewCreate,
+  interviewGetInterviewersByCategory,
   interviewUpdate,
   interviewUpdateParams,
 } from './interview/interview';

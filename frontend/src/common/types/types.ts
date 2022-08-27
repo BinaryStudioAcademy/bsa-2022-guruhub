@@ -39,8 +39,12 @@ export { type HttpOptions } from './http/http';
 export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
+  type InterviewUpdateRequestArgumentsDto,
 } from './interview/interview';
 export {
   type CoursesToMentorsRequestDto,

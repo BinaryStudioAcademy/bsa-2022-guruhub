@@ -8,7 +8,9 @@ import {
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
   InterviewsResponseDto,
+  InterviewUpdateRequestArgumentsDto,
 } from 'common/types/types';
+import { InterviewsGetInterviewerResponseDto } from 'guruhub-shared';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -57,6 +59,33 @@ class InterviewsApi {
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getInterviewersByCategory(
+    categoryId: number,
+  ): Promise<InterviewsGetInterviewerResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.INTERVIEWERS
+      }${InterviewsApiPath.CATEGORY}${InterviewsApiPath.ROOT}${categoryId}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public update({
+    id,
+    payload,
+  }: InterviewUpdateRequestArgumentsDto): Promise<InterviewsGetAllItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
       },
     );
   }

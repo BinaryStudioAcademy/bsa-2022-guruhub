@@ -1,25 +1,47 @@
-import { FC } from 'common/types/types';
-import { useEffect, useParams } from 'hooks/hooks';
+import { DataStatus } from 'common/enums/enums';
+import {
+  FC,
+  InterviewsGetAllItemResponseDto,
+  InterviewsUpdateRequestDto,
+} from 'common/types/types';
+import { Spinner } from 'components/common/common';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useParams,
+} from 'hooks/hooks';
 import { interviewActions } from 'store/actions';
 
-import { DataStatus } from '../../common/enums/app/data-status.enum';
-import { useAppDispatch } from '../../hooks/use-app-dispatch/use-app-dispatch.hook';
-import { useAppSelector } from '../../hooks/use-app-selector/use-app-selector.hook';
-import { Spinner } from '../common/spinner/spinner';
-import { InterviewItem } from './components/interview-item/interview-item';
+import { InterviewItem } from './components/components';
 import styles from './styles.module.scss';
 
 const Interview: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { interview, dataStatus } = useAppSelector((state) => ({
+  const { interview, dataStatus, interviewers } = useAppSelector((state) => ({
     interview: state.interview.interview,
     dataStatus: state.interview.dataStatus,
+    interviewers: state.interview.interviewers,
   }));
 
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
   }, []);
+
+  useEffect(() => {
+    if (interview) {
+      dispatch(
+        interviewActions.getInterviewersByCategory({
+          categoryId: interview.courseCategory.id,
+        }),
+      );
+    }
+  }, [interview]);
+
+  const handleUpdateInterview = (payload: InterviewsUpdateRequestDto): void => {
+    dispatch(interviewActions.updateInterview({ id: Number(id), payload }));
+  };
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -27,7 +49,13 @@ const Interview: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <InterviewItem interview={interview} />
+      {interview && (
+        <InterviewItem
+          interview={interview as InterviewsGetAllItemResponseDto}
+          handleUpdateInterview={handleUpdateInterview}
+          interviewers={interviewers}
+        />
+      )}
     </div>
   );
 };

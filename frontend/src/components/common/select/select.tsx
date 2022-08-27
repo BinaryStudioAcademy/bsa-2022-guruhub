@@ -7,24 +7,33 @@ import {
 import { ErrorMessage } from 'components/common/common';
 import { useFormControl } from 'hooks/hooks';
 
+import { getValidClasses } from '../../../helpers/dom/get-valid-classes/get-valid-classes.helper';
 import styles from './styles.module.scss';
 
 type Props = {
   control: FormControl;
   errors: FormControlErrors;
   name: string;
-  options: SelectorOptions[];
+  options: SelectorOptions<string | number>[];
   setValue?: (name: string, value: string) => void;
   value?: string;
-  label: string;
+  label?: string;
+  className?: string;
 };
 
-const Select: FC<Props> = ({ name, control, errors, label, options }) => {
+const Select: FC<Props> = ({
+  name,
+  control,
+  errors,
+  label,
+  options,
+  className,
+}) => {
   const { field } = useFormControl({ name, control });
 
   return (
-    <div className={styles.wrapper}>
-      <label className={styles.title}>{label}</label>
+    <div className={getValidClasses(className, styles.wrapper)}>
+      {label && <label className={styles.title}>{label}</label>}
       <div className={styles.selectWrapper}>
         <select {...field} className={styles.select} name={name}>
           {options.map((option) => (

@@ -5,6 +5,8 @@ export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,

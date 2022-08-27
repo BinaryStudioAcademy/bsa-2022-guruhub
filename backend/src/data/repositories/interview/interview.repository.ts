@@ -3,6 +3,7 @@ import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetInterviewerResponseDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -24,6 +25,29 @@ class Interview {
       .withGraphJoined('interviewee')
       .withGraphJoined('interviewer')
       .castTo<InterviewsGetAllItemResponseDto[]>()
+      .execute();
+  }
+
+  public getInterviewersByCategoryId(
+    categoryId: number,
+  ): Promise<InterviewsGetInterviewerResponseDto[]> {
+    return this.#InterviewModel
+      .query()
+      .select('interviewer')
+      .where({ categoryId })
+      .where('status', InterviewStatus.COMPLETED)
+      .withGraphJoined(
+        'interviewee(selectIdEmail) as interviewer.userDetails(selectFullName)',
+      )
+      .modifiers({
+        selectIdEmail(builder) {
+          builder.select('id', 'email');
+        },
+        selectFullName(builder) {
+          builder.select('fullName');
+        },
+      })
+      .castTo<InterviewsGetInterviewerResponseDto[]>()
       .execute();
   }
 

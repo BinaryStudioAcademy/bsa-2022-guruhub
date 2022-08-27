@@ -1,8 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetInterviewerResponseDto,
+  InterviewsGetInterviewersByCategoryRequestDto,
   InterviewsUpdateRequestParamsDto,
+  InterviewUpdateRequestArgumentsDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -18,4 +22,29 @@ const getInterview = createAsyncThunk<
   return interview;
 });
 
-export { getInterview };
+const getInterviewersByCategory = createAsyncThunk<
+  InterviewsGetInterviewerResponseDto[],
+  InterviewsGetInterviewersByCategoryRequestDto,
+  AsyncThunkConfig
+>(ActionType.GET_INTERVIEWERS, async (request, { extra }) => {
+  const { interviewsApi } = extra;
+  const interview = await interviewsApi.getInterviewersByCategory(
+    request.categoryId,
+  );
+
+  return interview;
+});
+
+const updateInterview = createAsyncThunk<
+  InterviewsGetAllItemResponseDto,
+  InterviewUpdateRequestArgumentsDto,
+  AsyncThunkConfig
+>(ActionType.UPDATE_INTERVIEW, async (updateInterviewPayload, { extra }) => {
+  const { interviewsApi, notification } = extra;
+  const interview = await interviewsApi.update(updateInterviewPayload);
+  notification.success(NotificationMessage.INTERVIEW_UPDATE);
+
+  return interview;
+});
+
+export { getInterview, getInterviewersByCategory, updateInterview };
