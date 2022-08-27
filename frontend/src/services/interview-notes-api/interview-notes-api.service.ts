@@ -8,6 +8,7 @@ import {
   InterviewNoteCreateDto,
   InterviewNoteGetAllItemResponseDto,
   InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArguments,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -26,7 +27,9 @@ class InterviewNotesApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(interviewId: number): Promise<InterviewNoteGetAllResponseDto> {
+  public getAll({
+    interviewId,
+  }: InterviewNoteGetRequestArguments): Promise<InterviewNoteGetAllResponseDto> {
     return this.#http.load<InterviewNoteGetAllResponseDto>(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
         InterviewsApiPath.NOTES

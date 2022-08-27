@@ -6,6 +6,7 @@ import { CourseModulesApi } from './course-modules-api/course-modules-api.servic
 import { CoursesApi } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
+import { InterviewNotesApi } from './interview-notes-api/interview-notes-api.service';
 import { InterviewsApi } from './interviews-api/interviews-api.service';
 import { MentorsApi } from './mentors-api/mentors-api.service';
 import { Navigation } from './navigation/navigation.service';
@@ -69,6 +70,11 @@ const navigation = new Navigation();
 
 const interviewsApi = new InterviewsApi({ apiPrefix: ENV.API_PATH, http });
 
+const interviewNoteApi = new InterviewNotesApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const mentorsApi = new MentorsApi({ apiPrefix: ENV.API_PATH, http });
 
 export {
@@ -77,6 +83,7 @@ export {
   courseModulesApi,
   coursesApi,
   groupsApi,
+  interviewNoteApi,
   interviewsApi,
   mentorsApi,
   navigation,

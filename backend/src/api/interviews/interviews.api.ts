@@ -21,6 +21,9 @@ import {
 import {
   interviewByIntervieweeId as interviewByIntervieweeIdValidationSchema,
   interviewCreate as interviewCreateValidationSchema,
+  interviewNotesCreateArguments as interviewNotesCreateArgumentsValidationSchema,
+  interviewNotesCreateParams as interviewNotesCreateParamsValidationSchema,
+  interviewNotesGetAllParams as interviewNotesGetAllParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -41,7 +44,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     method: HttpMethod.GET,
     url: InterviewsApiPath.ROOT,
     preHandler: checkHasPermissions(
-      'every',
+      'oneOf',
       PermissionKey.MANAGE_INTERVIEWS,
       PermissionKey.MANAGE_INTERVIEW,
     ),
@@ -59,7 +62,11 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: InterviewsApiPath.$ID,
-    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_INTERVIEW),
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
+    ),
     async handler(req: FastifyRequest<{ Params: { id: number } }>, res) {
       const { id } = req.params;
       const interview = await interviewService.getById(id);
@@ -109,6 +116,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: `${InterviewsApiPath.$ID}${InterviewsApiPath.NOTES}`,
+    schema: { params: interviewNotesGetAllParamsValidationSchema },
     preHandler: checkHasPermissions(
       'oneOf',
       PermissionKey.MANAGE_INTERVIEW,
@@ -121,13 +129,17 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       const { id: interviewId } = req.params;
       const notes = await interviewNoteService.getAll(interviewId);
 
-      return rep.status(HttpCode.OK).send(notes);
+      return rep.status(HttpCode.OK).send({ items: notes });
     },
   });
 
   fastify.route({
     method: HttpMethod.POST,
     url: `${InterviewsApiPath.$ID}${InterviewsApiPath.NOTES}`,
+    schema: {
+      params: interviewNotesCreateParamsValidationSchema,
+      body: interviewNotesCreateArgumentsValidationSchema,
+    },
     preHandler: checkHasPermissions(
       'oneOf',
       PermissionKey.MANAGE_INTERVIEW,

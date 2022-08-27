@@ -3,4 +3,4 @@ type InterviewNoteCreateDto = {
   note: string;
 };
 
-export { InterviewNoteCreateDto };
+export { type InterviewNoteCreateDto };

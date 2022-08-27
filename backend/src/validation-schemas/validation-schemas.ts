@@ -21,6 +21,11 @@ export {
   interviewByIntervieweeId,
   interviewCreate,
 } from './interview/interview';
+export {
+  interviewNotesCreateArguments,
+  interviewNotesCreateParams,
+  interviewNotesGetAllParams,
+} from './interview-note/interview-note';
 export { mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
 export { userDelete, userSignIn, userSignUp } from './user/user';

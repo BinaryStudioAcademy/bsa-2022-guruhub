@@ -48,6 +48,7 @@ export {
   type InterviewNoteCreateRequestParamsDto,
   type InterviewNoteCreateRequsetDto,
   type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllRequestParamsDto,
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';
 export {

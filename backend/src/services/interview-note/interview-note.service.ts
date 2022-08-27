@@ -39,9 +39,7 @@ class InterviewNote {
       authorId,
     });
 
-    return {
-      ...createdNote,
-    };
+    return createdNote;
   }
 }
 
