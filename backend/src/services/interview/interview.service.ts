@@ -42,8 +42,8 @@ class Interview {
     };
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    return await this.#interviewRepository.getById(id);
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#interviewRepository.getById(id);
   }
 
   public async create({
