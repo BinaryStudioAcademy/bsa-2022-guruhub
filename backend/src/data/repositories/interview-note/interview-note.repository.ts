@@ -28,12 +28,14 @@ class InterviewNote {
 
   public create(
     interviewNote: InterviewNoteCreateRequestArgumentsDto,
-  ): Promise<InterviewNoteM> {
+  ): Promise<InterviewNoteGetAllItemResponseDto> {
     const { note, interviewId, authorId } = interviewNote;
 
     return this.#InterviewNoteModel
       .query()
       .insert({ note, interviewId, authorId })
+      .withGraphJoined('user')
+      .castTo<InterviewNoteGetAllItemResponseDto>()
       .execute();
   }
 }

@@ -39,7 +39,6 @@ async function up(knex: Knex): Promise<void> {
       .references(ColumnName.ID)
       .inTable(TableName.USERS)
       .notNullable()
-      .notNullable()
       .onDelete(DELETE_STRATEGY);
     table.text(ColumnName.NOTE).notNullable();
   });
