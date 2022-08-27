@@ -113,11 +113,6 @@ class Interview {
       .withGraphJoined('courseCategory')
       .withGraphJoined('interviewee(withoutPassword).[userDetails]')
       .withGraphJoined('interviewer(withoutPassword).[userDetails]')
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
       .limit(count)
       .offset(ELEMENTS_TO_SKIP)
       .castTo<InterviewsGetOtherItemResponseDto[]>();
