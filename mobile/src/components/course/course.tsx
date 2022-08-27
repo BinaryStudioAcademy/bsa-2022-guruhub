@@ -4,7 +4,10 @@ import RenderHtml from 'react-native-render-html';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { DataStatus, PermissionKey } from '~/common/enums/enums';
-import { CategoryGetAllItemResponseDto } from '~/common/types/types';
+import {
+  CategoryGetAllItemResponseDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
 import {
   BackButton,
   Dropdown,
@@ -47,7 +50,9 @@ const Course: FC = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [currentDropdownValue, setCurrentDropdownValue] = useState(null);
+  const [currentDropdownValue, setCurrentDropdownValue] = useState<
+    string | null
+  >(null);
   const [categoryItems, setCategoryItems] = useState<
     CategoryGetAllItemResponseDto[]
   >([]);
@@ -62,9 +67,9 @@ const Course: FC = () => {
   });
 
   const handleSelectNewCategory = (catId: string | null): void => {
-    if (catId && course?.id) {
+    if (catId) {
       const payload = {
-        courseId: course.id,
+        courseId: (course as CourseGetResponseDto).id,
         newCategoryId: +catId,
       };
 
@@ -86,6 +91,7 @@ const Course: FC = () => {
           </Pressable>
         ),
     });
+
     dispatch(coursesActions.getCategories());
   }, []);
 
@@ -116,13 +122,7 @@ const Course: FC = () => {
         <Text style={styles.h1}>{course?.title}</Text>
 
         <View style={styles.dropdownContainer}>
-          {!editMode && (
-            <Category
-              keyName={currentCategory?.key ?? 'unknown'}
-              name={currentCategory?.name ?? 'Unknown'}
-            />
-          )}
-          {editMode && (
+          {editMode ? (
             <Dropdown
               open={openDropdown}
               setOpen={setOpenDropdown}
@@ -131,6 +131,11 @@ const Course: FC = () => {
               items={categoryItems}
               setItems={setCategoryItems}
               onChangeValue={handleSelectNewCategory}
+            />
+          ) : (
+            <Category
+              keyName={currentCategory?.key ?? 'unknown'}
+              name={currentCategory?.name ?? 'Unknown'}
             />
           )}
         </View>

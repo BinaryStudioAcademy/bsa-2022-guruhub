@@ -17,7 +17,7 @@ type Props<T> = {
   value: T | null;
   setOpen: Dispatch<SetStateValue<boolean>>;
   setItems?: Dispatch<SetStateCallback<CategoryGetAllItemResponseDto[]>>;
-  setValue: Dispatch<SetStateCallback<T[] | null | any>>;
+  setValue: Dispatch<SetStateCallback<T | null>>;
   onChangeValue?: (value: T | null) => void;
   theme?: ThemeNameType;
   maxHeight?: number;
@@ -31,7 +31,7 @@ const Dropdown = <T extends string | number | boolean>({
   setValue,
   setItems,
   onChangeValue,
-  maxHeight = 200,
+  maxHeight = 400,
 }: PropsWithoutRef<Props<T>>): ReactElement => {
   return (
     <DropDownPicker
