@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import { CourseGetRequestParamsDto } from '~/common/types/courses/courses';
 import {
   FAB,
   FlatList,
@@ -30,6 +31,11 @@ const Courses: FC = (): ReactElement => {
 
   const handleCoursesLoad = (): void => {
     dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
+  };
+
+  const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
+    dispatch(coursesActions.getCourse(id));
+    navigation.navigate(AppScreenName.COURSE);
   };
 
   const handleRefresh = (): void => {
@@ -69,7 +75,7 @@ const Courses: FC = (): ReactElement => {
             data={courses}
             keyExtractor={({ id }): string => id.toString()}
             renderItem={({ item: course }): ReactElement => (
-              <CourseCard course={course} />
+              <CourseCard course={course} onCoursePress={handleCourseCard} />
             )}
             refreshControl={
               <RefreshControl

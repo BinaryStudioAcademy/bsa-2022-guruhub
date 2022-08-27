@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 
 import { sanitizeHTML } from '~/helpers/helpers';
+import { useWindowDimensions } from '~/hooks/hooks';
 
 import { defaultTagsStyles, styles } from './styles';
 
