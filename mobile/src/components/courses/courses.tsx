@@ -108,7 +108,7 @@ const Courses: FC = (): ReactElement => {
           <View style={styles.spinnerContainer}>
             <Spinner isOverflow />
           </View>
-        ) : courses.length ? (
+        ) : (
           <FlatList
             data={courses}
             keyExtractor={({ id }): string => id.toString()}
@@ -124,9 +124,10 @@ const Courses: FC = (): ReactElement => {
             }
             onEndReached={handleLoadMoreCourses}
             onEndReachedThreshold={0.1}
+            ListEmptyComponent={(): ReactElement => (
+              <Text style={styles.noCourses}>No courses found</Text>
+            )}
           />
-        ) : (
-          <Text style={styles.noCourses}>No courses found</Text>
         )}
 
         <FAB onPress={handleAddCourse} />
