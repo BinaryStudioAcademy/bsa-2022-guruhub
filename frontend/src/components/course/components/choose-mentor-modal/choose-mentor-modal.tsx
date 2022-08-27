@@ -7,12 +7,21 @@ type Props = {
   mentors: UserDetailsResponseDto[];
   isOpen: boolean;
   onModalToggle: (evt: React.MouseEvent) => void;
+  onMentorSelectClick: (mentorId: number) => void;
 };
 
-const ChooseMentorModal: FC<Props> = ({ mentors, isOpen, onModalToggle }) => {
+const ChooseMentorModal: FC<Props> = ({
+  mentors,
+  isOpen,
+  onModalToggle,
+  onMentorSelectClick,
+}) => {
   return (
     <Modal isOpen={isOpen} onClose={onModalToggle} title="Choose a mentor">
-      <MentorsList mentors={mentors} onClick={onModalToggle} />
+      <MentorsList
+        mentors={mentors}
+        onMentorSelectClick={onMentorSelectClick}
+      />
     </Modal>
   );
 };

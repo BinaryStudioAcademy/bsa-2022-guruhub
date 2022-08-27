@@ -17,7 +17,7 @@ import {
 import { checkHasPermissions } from '~/hooks/hooks';
 import {
   course as courseService,
-  menteesToMentors as menteesToMentorsService,
+  mentor as mentorService,
 } from '~/services/services';
 import {
   courseCreate as courseCreateValidationSchema,
@@ -31,12 +31,12 @@ import {
 type Options = {
   services: {
     course: typeof courseService;
-    menteesToMentors: typeof menteesToMentorsService;
+    mentor: typeof mentorService;
   };
 };
 
 const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { course: courseService } = opts.services;
+  const { course: courseService, mentor: mentorService } = opts.services;
 
   fastify.route({
     method: HttpMethod.GET,
@@ -140,14 +140,13 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { mentorId, menteeId } = req.body;
       const { id } = req.params;
-      const menteeToMentor =
-        await menteesToMentorsService.createMenteesToMentors({
-          courseId: id,
-          mentorId,
-          menteeId,
-        });
+      const chooseMentor = await mentorService.chooseMentor({
+        courseId: id,
+        mentorId,
+        menteeId,
+      });
 
-      return rep.status(HttpCode.CREATED).send(menteeToMentor);
+      return rep.status(HttpCode.CREATED).send(chooseMentor);
     },
   });
 };

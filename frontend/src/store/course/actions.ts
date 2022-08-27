@@ -12,6 +12,7 @@ import {
   CourseUpdateCategoryRequestArguments,
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
+  UserWithPermissions,
 } from 'common/types/types';
 import { notification } from 'services/services';
 
@@ -158,13 +159,9 @@ const chooseMentor = createAsyncThunk<
   } = getState();
   const { coursesApi } = extra;
 
-  if (!user || !course) {
-    return;
-  }
-
   await coursesApi.chooseMentor({
-    courseId: course.id,
-    menteeId: user.id,
+    courseId: (course as CourseGetResponseDto).id,
+    menteeId: (user as UserWithPermissions).id,
     mentorId: id,
   });
 
@@ -180,11 +177,12 @@ const updateisMentorChoosingEnabled = createAsyncThunk<
 >(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
   const {
     auth: { user },
-    course: { course, mentors },
+    course: { mentors },
   } = getState();
 
-  const isMentorChoosingEnabled =
-    user && course && !mentors.some((mentor) => mentor.id === user.id);
+  const isMentorChoosingEnabled = !mentors.some(
+    (mentor) => mentor.id === (user as UserWithPermissions).id,
+  );
 
   return Boolean(isMentorChoosingEnabled);
 });

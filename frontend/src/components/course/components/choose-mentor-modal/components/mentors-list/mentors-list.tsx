@@ -4,11 +4,11 @@ import { MentorCard } from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {
-  onClick: (evt: React.MouseEvent) => void;
+  onMentorSelectClick: (mentorId: number) => void;
   mentors: UserDetailsResponseDto[];
 };
 
-const MentorsList: FC<Props> = ({ onClick, mentors }) => {
+const MentorsList: FC<Props> = ({ onMentorSelectClick, mentors }) => {
   const hasMentors = Boolean(mentors.length);
 
   if (!hasMentors) {
@@ -22,7 +22,11 @@ const MentorsList: FC<Props> = ({ onClick, mentors }) => {
   return (
     <div className={styles.container}>
       {mentors.map((mentor) => (
-        <MentorCard key={mentor.id} mentor={mentor} onClick={onClick} />
+        <MentorCard
+          key={mentor.id}
+          mentor={mentor}
+          onClick={onMentorSelectClick}
+        />
       ))}
     </div>
   );

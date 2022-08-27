@@ -70,6 +70,10 @@ const Course: FC = () => {
     setChooseMentorModalOpen((prev) => !prev);
   };
 
+  const handleMentorSelectClick = (mentorId: number): void => {
+    dispatch(courseActions.chooseMentor({ id: mentorId }));
+  };
+
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
@@ -115,6 +119,7 @@ const Course: FC = () => {
         isOpen={isChooseMentorModalOpen}
         onModalToggle={handleChooseMentorModalToggle}
         mentors={mentors}
+        onMentorSelectClick={handleMentorSelectClick}
       />
       <div className={styles.info}>
         <div className={styles.courseHeadingContainer}>
