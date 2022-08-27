@@ -12,7 +12,9 @@ setTestsConfig({
   prefixUrl: API.PREFIX_URL,
   users: {
     student: USERS.STUDENT,
-    mentor: USERS.MENTOR,
+    jsMentor: USERS.JS_MENTOR,
+    pythonMentor: USERS.PYTHON_MENTOR,
+    csharpMentor: USERS.CSHARP_MENTOR,
     interviewsManager: USERS.INTERVIEWS_MANAGER,
     interviewer: USERS.INTERVIEWER,
     categoriesManager: USERS.CATEGORIES_MANAGER,
