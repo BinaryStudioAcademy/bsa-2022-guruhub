@@ -7,7 +7,7 @@ import {
 import {
   EntityPagination,
   InterviewsCreateRequestBodyDto,
-  InterviewsGetAllItemResponseDto,
+  InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
 } from 'common/types/types';
@@ -59,9 +59,9 @@ class InterviewsApi {
     count,
     page,
   }: InterviewsGetOtherRequestDto): Promise<
-    EntityPagination<InterviewsGetAllItemResponseDto>
+    EntityPagination<InterviewsGetOtherItemResponseDto>
   > {
-    return this.#http.load<EntityPagination<InterviewsGetAllItemResponseDto>>(
+    return this.#http.load<EntityPagination<InterviewsGetOtherItemResponseDto>>(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
         InterviewsApiPath.ROOT
       }${interviewId}${InterviewsApiPath.OTHER}`,

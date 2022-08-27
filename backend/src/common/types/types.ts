@@ -53,6 +53,7 @@ export {
   type InterviewsCreateRequestDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,
+  type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestArgumentsDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,

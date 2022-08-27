@@ -9,6 +9,8 @@ import {
 } from 'hooks/hooks';
 import { interviewActions } from 'store/actions';
 
+import { OtherApplications } from './components/components';
+
 const Interview: FC = () => {
   const { otherInterviews } = useAppSelector((state) => state.interview);
   const dispatch = useAppDispatch();
@@ -29,9 +31,7 @@ const Interview: FC = () => {
 
   return (
     <div>
-      {otherInterviews.map((int) => (
-        <p>{int.courseCategory.name}</p>
-      ))}
+      <OtherApplications interviews={otherInterviews} />
     </div>
   );
 };

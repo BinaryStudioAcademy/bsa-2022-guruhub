@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   EntityPagination,
-  InterviewsGetAllItemResponseDto,
+  InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getOtherByInterviewId = createAsyncThunk<
-  EntityPagination<InterviewsGetAllItemResponseDto>,
+  EntityPagination<InterviewsGetOtherItemResponseDto>,
   InterviewsGetOtherRequestDto,
   AsyncThunkConfig
 >(

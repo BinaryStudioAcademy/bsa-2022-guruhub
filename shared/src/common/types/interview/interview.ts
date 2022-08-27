@@ -4,5 +4,6 @@ export { type InterviewsByIntervieweeIdRequestDto } from './interviews-by-interv
 export { type InterviewsCreateRequestBodyDto } from './interviews-create-request-body-dto.type';
 export { type InterviewsGetAllItemResponseDto } from './interviews-get-all-item-response-dto.type';
 export { type InterviewsGetAllResponseDto } from './interviews-get-all-response-dto.type';
+export { type InterviewsGetOtherItemResponseDto } from './interviews-get-other-item-response-dto.type';
 export { type InterviewsGetOtherRequestDto } from './interviews-get-other-request-dto.type';
 export { type InterviewsResponseDto } from './interviews-response-dto.type';

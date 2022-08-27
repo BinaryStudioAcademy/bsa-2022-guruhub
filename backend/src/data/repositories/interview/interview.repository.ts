@@ -4,6 +4,7 @@ import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestArgumentsDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
@@ -23,13 +24,8 @@ class Interview {
     return this.#InterviewModel
       .query()
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
+      .withGraphJoined('interviewee')
+      .withGraphJoined('interviewer')
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -39,13 +35,8 @@ class Interview {
       .query()
       .select()
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
+      .withGraphJoined('interviewee')
+      .withGraphJoined('interviewer')
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
 
@@ -90,7 +81,7 @@ class Interview {
     return interview ?? null;
   }
 
-  public getByUserId(
+  public async getByUserId(
     userId: number,
   ): Promise<InterviewsGetAllItemResponseDto[]> {
     return this.#InterviewModel
@@ -99,13 +90,8 @@ class Interview {
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
+      .withGraphJoined('interviewee')
+      .withGraphJoined('interviewer')
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -116,7 +102,7 @@ class Interview {
     count,
     page,
   }: InterviewsGetOtherRequestArgumentsDto): Promise<
-    EntityPagination<InterviewsGetAllItemResponseDto>
+    EntityPagination<InterviewsGetOtherItemResponseDto>
   > {
     const ELEMENTS_TO_SKIP = page * count;
 
@@ -134,7 +120,7 @@ class Interview {
       })
       .limit(count)
       .offset(ELEMENTS_TO_SKIP)
-      .castTo<InterviewsGetAllItemResponseDto[]>();
+      .castTo<InterviewsGetOtherItemResponseDto[]>();
 
     const total = await this.#InterviewModel
       .query()

@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import { InterviewsGetAllItemResponseDto } from 'common/types/types';
+import { InterviewsGetOtherItemResponseDto } from 'common/types/types';
 
 import { getOtherByInterviewId } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  otherInterviews: InterviewsGetAllItemResponseDto[];
+  otherInterviews: InterviewsGetOtherItemResponseDto[];
   totalOtherInterviews: number;
 };
 
