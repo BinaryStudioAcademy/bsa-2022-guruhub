@@ -49,7 +49,7 @@ class UsersToGroups {
     await this.#UsersToGroupsModel
       .query()
       .where({ groupId })
-      .whereNotIn('user_id', userIds)
+      .whereNotIn('userId', userIds)
       .delete()
       .execute();
 
@@ -61,7 +61,7 @@ class UsersToGroups {
             groupId,
             userId,
           })
-          .onConflict(['user_id', 'group_id'])
+          .onConflict(['userId', 'groupId'])
           .ignore();
       }),
     );

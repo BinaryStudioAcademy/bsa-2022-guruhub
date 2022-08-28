@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   CourseFilteringDto,
+  CourseGetRequestParamsDto,
   CourseGetResponseDto,
 } from '~/common/types/types';
 import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
@@ -22,6 +23,18 @@ const getCourses = createAsyncThunk<
   return courses;
 });
 
+const getCourse = createAsyncThunk<
+  CourseGetResponseDto,
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.GET_COURSE, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const { id } = payload;
+  const course = await coursesApi.getById({ id });
+
+  return course;
+});
+
 const addCourse = createAsyncThunk<
   CourseGetResponseDto,
   CourseCreateRequestDto,
@@ -34,4 +47,4 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse, getCourses };
+export { addCourse, getCourse, getCourses };
