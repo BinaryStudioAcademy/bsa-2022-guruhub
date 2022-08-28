@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement, useRef } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
-import { ScrollView } from '~/components/common/common';
-import { useEffect, useState } from '~/hooks/hooks';
+import { FlatList } from '~/components/common/common';
 
 import { Category } from './components/category/category';
 import { styles } from './style';
@@ -13,35 +12,37 @@ type Props = {
   activeCategoryId: number | null;
 };
 
-const CategoryList: FC<Props> = ({ items, handleSelect, activeCategoryId }) => {
-  const [filteredCategories, setFilteredCategories] = useState<
-    CategoryGetAllItemResponseDto[]
-  >([]);
+const CategoryList: FC<Props> = ({
+  items: categories,
+  handleSelect,
+  activeCategoryId,
+}) => {
+  const categoryRef = useRef<FlatList>(null);
 
-  useEffect(() => {
-    if (activeCategoryId) {
-      const activeItem = items.filter((item) => item.id === activeCategoryId);
-      const notActiveItems = items.filter(
-        (item) => item.id !== activeCategoryId,
-      );
-      setFilteredCategories([...activeItem, ...notActiveItems]);
-    } else {
-      setFilteredCategories(items);
-    }
-  }, [activeCategoryId]);
+  const handlePress = (id: number, index: number): void => {
+    handleSelect(id);
+    categoryRef.current?.scrollToIndex({
+      animated: true,
+      index: index,
+    });
+  };
 
   return (
-    <ScrollView horizontal={true} style={styles.container}>
-      {filteredCategories.map((category) => (
+    <FlatList
+      ref={categoryRef}
+      data={categories}
+      keyExtractor={({ id }): string => id.toString()}
+      renderItem={({ item: category, index }): ReactElement => (
         <Category
-          key={category.id}
           name={category.name}
           keyName={category.key}
-          onPress={(): void => handleSelect(category.id)}
+          onPress={(): void => handlePress(category.id, index)}
           isActive={category.id === activeCategoryId}
         />
-      ))}
-    </ScrollView>
+      )}
+      style={styles.container}
+      horizontal={true}
+    />
   );
 };
 
