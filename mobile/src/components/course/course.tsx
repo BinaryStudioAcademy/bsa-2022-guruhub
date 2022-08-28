@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import React, { FC } from 'react';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
@@ -17,19 +16,23 @@ import {
 } from '~/components/common/common';
 import { checkHasPermission, getImageUri } from '~/helpers/helpers';
 import {
+  useAppDispatch,
   useAppNavigate,
   useAppSelector,
   useEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
+import { courseModulesActions } from '~/store/actions';
 
 import { Category } from './components/components';
+import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
 const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
 
   const { course, dataStatus } = useAppSelector((state) => state.courses);
   const currentCategory = (course as CourseGetResponseDto).category;
@@ -58,6 +61,12 @@ const Course: FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (course) {
+      dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+    }
+  }, [course]);
+
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
   }
@@ -84,6 +93,7 @@ const Course: FC = () => {
             width={width}
           />
         )}
+        <CourseModules />
       </View>
     </ScrollView>
   );

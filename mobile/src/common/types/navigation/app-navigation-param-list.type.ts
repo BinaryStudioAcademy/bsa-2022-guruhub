@@ -11,6 +11,7 @@ type AppNavigationParamList = {
   [AppScreenName.UAM_GROUPS_EDIT]: undefined;
   [AppScreenName.ADD_COURSE]: undefined;
   [AppScreenName.COURSE]: undefined;
+  [AppScreenName.EDIT_COURSE_CATEGORY]: undefined;
 };
 
 export { type AppNavigationParamList };

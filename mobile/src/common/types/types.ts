@@ -8,6 +8,11 @@ export {
   type CategoryGetAllResponseDto,
 } from './category/category';
 export {
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllRequestParamsDto,
+  type CourseModulesGetAllResponseDto,
+} from './course-modules/course-modules';
+export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
