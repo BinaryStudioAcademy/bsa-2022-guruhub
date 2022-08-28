@@ -58,6 +58,12 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         component: MyEducation,
         permissions: [],
       },
+      {
+        name: AppScreenName.UAM,
+        icon: 'uam',
+        component: UAM,
+        permissions: [PermissionKey.MANAGE_UAM],
+      },
     ],
   },
   {
@@ -75,12 +81,6 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         icon: 'settings',
         component: Settings,
         permissions: [],
-      },
-      {
-        name: AppScreenName.UAM,
-        icon: 'uam',
-        component: UAM,
-        permissions: [PermissionKey.MANAGE_UAM],
       },
     ],
   },
