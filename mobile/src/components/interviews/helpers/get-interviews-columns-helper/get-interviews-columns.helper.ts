@@ -13,8 +13,8 @@ const getInterviewsColumns = (): TableColumn<InterviewsTableData>[] => {
       accessor: InterviewsTableAccessor.NAME,
     },
     {
-      header: 'Direction',
-      accessor: InterviewsTableAccessor.DIRECTION,
+      header: 'Category',
+      accessor: InterviewsTableAccessor.CATEGORY,
     },
     {
       header: 'Status',

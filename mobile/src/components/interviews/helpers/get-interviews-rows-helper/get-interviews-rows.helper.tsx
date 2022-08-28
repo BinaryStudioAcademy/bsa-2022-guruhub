@@ -12,7 +12,7 @@ const getInterviewsRows = (
     return {
       id: item.id,
       name: item.interviewee.fullName,
-      direction: <Label text={item.courseCategory.name} color={'darkgreen'} />,
+      category: <Label text={item.courseCategory.name} color={'darkgreen'} />,
       status: <Label text={item.status} color={statusToColor[item.status]} />,
       interviewer: item.interviewer.fullName,
       date: item.interviewDate,

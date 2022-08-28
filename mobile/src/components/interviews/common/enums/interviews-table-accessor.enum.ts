@@ -1,7 +1,7 @@
 enum InterviewsTableAccessor {
   ID = 'id',
   NAME = 'name',
-  DIRECTION = 'direction',
+  CATEGORY = 'category',
   STATUS = 'status',
   INTERVIEWER = 'interviewer',
   DATE = 'date',
