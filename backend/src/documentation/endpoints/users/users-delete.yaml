@@ -9,7 +9,9 @@ delete:
         schema:
           $ref: '../../schemas/users/users-delete-request-dto.yaml'
   responses:
-    '204':
+    '200':
       description: User successfully deleted
     '404':
       description: User to delete not found
+    '400':
+        description: User can't delete himself
