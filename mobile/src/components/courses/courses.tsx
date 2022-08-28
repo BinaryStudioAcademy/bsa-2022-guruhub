@@ -29,6 +29,7 @@ import { styles } from './styles';
 const Courses: FC = (): ReactElement => {
   const [isLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
@@ -69,6 +70,22 @@ const Courses: FC = (): ReactElement => {
     setSearchValue(search);
   };
 
+  const handleCategorySelect = (id: number): void => {
+    if (activeCategoryId !== id) {
+      setActiveCategoryId(id);
+    } else {
+      setActiveCategoryId(null);
+    }
+  };
+
+  useEffect(() => {
+    if (activeCategoryId) {
+      dispatch(categoryActions.getCategoryById({ id: activeCategoryId }));
+    } else {
+      dispatch(categoryActions.clearCategory());
+    }
+  }, [activeCategoryId]);
+
   useEffect(() => {
     if (courseCategory) {
       payload.categoryKey = courseCategory.key;
@@ -84,6 +101,7 @@ const Courses: FC = (): ReactElement => {
   useFocusEffect(
     useCallback(() => {
       dispatch(categoryActions.getCategories());
+      setActiveCategoryId(null);
       handleCoursesLoad();
     }, []),
   );
@@ -97,7 +115,11 @@ const Courses: FC = (): ReactElement => {
       <View style={styles.searchFieldContainer}>
         <Search onSearch={handleSearch} />
       </View>
-      <CategoryList items={categories} />
+      <CategoryList
+        items={categories}
+        handleSelect={handleCategorySelect}
+        activeCategoryId={activeCategoryId}
+      />
       <View style={styles.container}>
         {dataStatus === DataStatus.PENDING ? (
           <View style={styles.spinnerContainer}>
