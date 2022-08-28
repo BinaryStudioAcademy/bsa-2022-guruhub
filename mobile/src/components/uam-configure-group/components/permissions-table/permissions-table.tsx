@@ -46,6 +46,8 @@ const PermissionsTable: FC<Props> = ({
           namePrefix: 'permissionIds',
         });
         reset(selectedPermissions);
+      } else {
+        reset({});
       }
     }, [permissions, checkedIds]),
   );

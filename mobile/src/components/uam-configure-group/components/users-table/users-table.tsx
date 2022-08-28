@@ -49,6 +49,8 @@ const UsersTable: FC<Props> = ({
           namePrefix: 'userIds',
         });
         reset(selectedUsers);
+      } else {
+        reset({});
       }
     }, [users.items, checkedIds]),
   );
