@@ -7,6 +7,7 @@ import { DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
   CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
+  CourseUpdateCategoryRequestDto,
 } from '~/common/types/types';
 import {
   BackButton,
@@ -26,6 +27,7 @@ import {
 } from '~/helpers/helpers';
 import {
   useAppDispatch,
+  useAppForm,
   useAppNavigate,
   useAppSelector,
   useCallback,
@@ -34,48 +36,53 @@ import {
   useState,
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
+import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
+import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { Category } from './components/components';
 import { styles, tagsStyles } from './styles';
 
 const Course: FC = () => {
+  const [editMode, setEditMode] = useState(false);
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
+
   const { course, dataStatus, categories } = useAppSelector(
     (state) => state.courses,
   );
   const currentCategory = course?.category;
 
-  const [editMode, setEditMode] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(false);
-  const [currentDropdownValue, setCurrentDropdownValue] = useState<
-    string | null
-  >(null);
-  const [categoryItems, setCategoryItems] = useState<
-    CategoryGetAllItemResponseDto[]
-  >([]);
-
   const handlePressEditIcon = (): void => {
     setEditMode((prev) => !prev);
   };
+
+  const { control, handleSubmit, reset } = useAppForm<
+    CourseUpdateCategoryRequestDto | CategoryGetAllItemResponseDto
+  >({
+    defaultValues: getDefaultUpdateCourseCategoryPayload(
+      currentCategory?.id ?? 0,
+    ),
+    validationSchema: courseUpdateCategoryValidationSchema,
+  });
 
   const hasEditCategoryPermission = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
 
-  const handleSelectNewCategory = (catId: string | null): void => {
-    if (catId) {
-      const payload = {
-        courseId: (course as CourseGetResponseDto).id,
-        newCategoryId: +catId,
-      };
+  const handleSelectNewCategory = (payload: number): void => {
+    // const { newCategoryId } = payload;
 
-      dispatch(coursesActions.updateCategory(payload));
-      handlePressEditIcon();
-    } else return;
+    dispatch(
+      coursesActions.updateCategory({
+        courseId: (course as CourseGetResponseDto).id,
+        newCategoryId: payload,
+      }),
+    );
+
+    handlePressEditIcon();
   };
 
   useEffect(() => {
@@ -95,15 +102,11 @@ const Course: FC = () => {
     dispatch(coursesActions.getCategories());
   }, []);
 
-  useEffect(() => {
-    setCategoryItems(categories);
-  }, [categories]);
-
   useFocusEffect(
     useCallback(() => {
       return () => {
         setEditMode(false);
-        setCurrentDropdownValue(null);
+        reset({ newCategoryId: 0 });
       };
     }, []),
   );
@@ -124,13 +127,12 @@ const Course: FC = () => {
         <View style={styles.dropdownContainer}>
           {editMode ? (
             <Dropdown
-              open={openDropdown}
-              setOpen={setOpenDropdown}
-              value={currentDropdownValue}
-              setValue={setCurrentDropdownValue}
-              items={categoryItems}
-              setItems={setCategoryItems}
-              onChangeValue={handleSelectNewCategory}
+              items={categories}
+              onSelectItem={(id): Promise<void> =>
+                handleSubmit(() => handleSelectNewCategory(id))()
+              }
+              control={control}
+              name="newCategoryId"
             />
           ) : (
             <Category

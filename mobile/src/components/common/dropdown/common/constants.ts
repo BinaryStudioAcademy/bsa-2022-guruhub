@@ -1,6 +1,6 @@
 import { AppColor } from '~/common/enums/enums';
 
-const dropDownSettings = {
+const DROPDOWN_SETTINGS = {
   theme: 'DARK',
   closeOnBackPressed: true,
   placeholder: 'Select category',
@@ -37,4 +37,4 @@ const dropDownSettings = {
   searchPlaceholderTextColor: 'white',
 };
 
-export { dropDownSettings };
+export { DROPDOWN_SETTINGS };

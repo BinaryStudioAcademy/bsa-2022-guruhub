@@ -4,4 +4,5 @@ export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestDto,
 } from 'guruhub-shared/common/types/types';
