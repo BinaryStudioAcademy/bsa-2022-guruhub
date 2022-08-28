@@ -3,8 +3,8 @@ enum InterviewStatus {
   IN_PROGRESS = 'In Progress',
   COMPLETED = 'Completed',
   REJECTED = 'Rejected',
-  NEW = 'new',
-  CANCELED = 'canceled',
+  NEW = 'New',
+  CANCELED = 'Canceled',
 }
 
 export { InterviewStatus };

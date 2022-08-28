@@ -60,6 +60,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithDetailsDto,
   type UserWithPermissions,
 } from './user/user';
 export {
