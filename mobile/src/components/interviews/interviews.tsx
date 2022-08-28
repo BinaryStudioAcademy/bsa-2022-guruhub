@@ -27,7 +27,7 @@ const Interviews: FC = () => {
     useAppSelector((state) => state.interviews);
 
   const { page, handlePageChange } = usePagination();
-  const tableRows = getInterviewsRows(interviews);
+  const interviewsRows = getInterviewsRows(interviews);
 
   const isInterviewsLoading = interviewsDataStatus === DataStatus.PENDING;
 
@@ -42,24 +42,24 @@ const Interviews: FC = () => {
     }, [page, interviewsTotalCount]),
   );
 
-  return (
-    <>
-      {isInterviewsLoading && <Spinner isOverflow />}
+  if (isInterviewsLoading) {
+    return <Spinner isOverflow />;
+  }
 
-      <ScrollView>
-        <View style={styles.container}>
-          <InterviewsTable tableData={tableRows} />
-          <View style={styles.paginationContainer}>
-            <Pagination
-              totalCount={interviewsTotalCount}
-              pageSize={DEFAULT_PAGE_SIZE}
-              currentPage={page}
-              onPageChange={handlePageChange}
-            />
-          </View>
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <InterviewsTable tableData={interviewsRows} />
+        <View style={styles.paginationContainer}>
+          <Pagination
+            totalCount={interviewsTotalCount}
+            pageSize={DEFAULT_PAGE_SIZE}
+            currentPage={page}
+            onPageChange={handlePageChange}
+          />
         </View>
-      </ScrollView>
-    </>
+      </View>
+    </ScrollView>
   );
 };
 
