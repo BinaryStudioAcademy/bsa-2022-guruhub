@@ -25,7 +25,7 @@ const initPermissionsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: PermissionApiPath.ROOT,
-    schema: { params: paginationParamsValidationSchema },
+    schema: { querystring: paginationParamsValidationSchema },
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       rep,
