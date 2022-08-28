@@ -11,6 +11,7 @@ type IconName =
   | 'uam'
   | 'plus'
   | 'edit'
+  | 'save'
   | 'trash';
 
 export { type IconName };

@@ -9,6 +9,7 @@ import Home from '~/assets/icons/home.svg';
 import Mentors from '~/assets/icons/mentors.svg';
 import Message from '~/assets/icons/message.svg';
 import Plus from '~/assets/icons/plus.svg';
+import Save from '~/assets/icons/save.svg';
 import Search from '~/assets/icons/search.svg';
 import Settings from '~/assets/icons/settings.svg';
 import Trash from '~/assets/icons/trash.svg';
@@ -30,5 +31,6 @@ const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   trash: Trash,
   plus: Plus,
   edit: Edit,
+  save: Save,
 };
 export { iconNameToIcon };

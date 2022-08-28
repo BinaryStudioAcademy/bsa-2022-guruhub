@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19.5,
   },
-  dropdownContainer: {
+  currentCategory: {
     alignSelf: 'flex-start',
     maxWidth: '50%',
     height: 60,

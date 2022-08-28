@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-import { AppColor } from '~/common/enums/enums';
 import {
   FormControl,
   FormControlPath,
@@ -9,16 +8,17 @@ import {
 } from '~/common/types/types';
 import { useFormControl, useState } from '~/hooks/hooks';
 
+import { styles } from './styles';
+
 type Props<T> = {
   items: T[];
-  onSelectItem: (id: number) => void;
   control: FormControl<T>;
   name: FormControlPath<T>;
 };
+
 const Dropdown = <T extends FormControlValues>({
   items,
   name,
-  onSelectItem,
   control,
 }: Props<T>): ReactElement => {
   const [open, setOpen] = useState(false);
@@ -32,41 +32,24 @@ const Dropdown = <T extends FormControlValues>({
       items={items}
       setOpen={setOpen}
       setValue={onChange}
-      onChangeValue={(id): void => {
-        onChange(id);
-        onSelectItem(id ?? 0);
-      }}
+      onChangeValue={onChange}
       theme="DARK"
       closeOnBackPressed={true}
       placeholder="Select category"
-      placeholderStyle={{
-        color: 'white',
-        fontWeight: 'bold',
-      }}
+      placeholderStyle={styles.placeholderStyle}
       searchPlaceholder="Search..."
       autoScroll={true}
-      labelStyle={{
-        fontWeight: 'bold',
-      }}
+      labelStyle={styles.labelStyle}
       searchable={true}
       schema={{
         label: 'name',
         value: 'id',
       }}
       listMode="MODAL"
-      dropDownContainerStyle={{
-        backgroundColor: 'white',
-        height: 100,
-      }}
-      listParentContainerStyle={{
-        backgroundColor: AppColor.BACKGROUND.GRAY_300,
-      }}
-      searchContainerStyle={{
-        backgroundColor: AppColor.BACKGROUND.GRAY_300,
-      }}
-      searchTextInputStyle={{
-        color: 'white',
-      }}
+      dropDownContainerStyle={styles.dropDownContainerStyle}
+      listParentContainerStyle={styles.listParentContainerStyle}
+      searchContainerStyle={styles.searchContainerStyle}
+      searchTextInputStyle={styles.searchTextInputStyle}
       searchPlaceholderTextColor="white"
     />
   );
