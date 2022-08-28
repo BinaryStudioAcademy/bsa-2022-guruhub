@@ -39,16 +39,12 @@ const PermissionsTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (checkedIds.length) {
-        const selectedPermissions = getSelectedItemsValues({
-          checkedIds,
-          items: permissions.map((item) => item.id),
-          namePrefix: 'permissionIds',
-        });
-        reset(selectedPermissions);
-      } else {
-        reset({});
-      }
+      const selectedPermissions = getSelectedItemsValues({
+        checkedIds,
+        items: permissions.map((item) => item.id),
+        namePrefix: 'permissionIds',
+      });
+      reset(selectedPermissions);
     }, [permissions, checkedIds]),
   );
 
