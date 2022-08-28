@@ -3,6 +3,7 @@ import { MMKV } from 'react-native-mmkv';
 import { ENV } from '~/common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
 import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
@@ -44,8 +45,14 @@ const coursesApi = new Courses({
   http,
 });
 
+const courseModulesApi = new CourseModulesApi({
+  http,
+  apiPrefix: ENV.APP.API_PATH,
+});
+
 export {
   authApi,
+  courseModulesApi,
   coursesApi,
   groupsApi,
   notification,

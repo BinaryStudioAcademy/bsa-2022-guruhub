@@ -42,14 +42,12 @@ const UsersTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (checkedIds.length) {
-        const selectedUsers = getSelectedItemsValues({
-          checkedIds,
-          items: users.items.map((item) => item.id),
-          namePrefix: 'userIds',
-        });
-        reset(selectedUsers);
-      }
+      const selectedUsers = getSelectedItemsValues({
+        checkedIds,
+        items: users.items.map((item) => item.id),
+        namePrefix: 'userIds',
+      });
+      reset(selectedUsers);
     }, [users.items, checkedIds]),
   );
 
