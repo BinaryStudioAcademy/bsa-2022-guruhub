@@ -1,5 +1,5 @@
-type InterviewNoteCreateRequsetDto = {
+type InterviewNoteCreateRequestDto = {
   note: string;
 };
 
-export { type InterviewNoteCreateRequsetDto };
+export { type InterviewNoteCreateRequestDto };

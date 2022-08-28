@@ -4,14 +4,14 @@ import {
   InterviewNoteCreateDto,
   InterviewNoteGetAllItemResponseDto,
   InterviewNoteGetAllResponseDto,
-  InterviewNoteGetRequestArguments,
+  InterviewNoteGetRequestArgumentsDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getNotes = createAsyncThunk<
   InterviewNoteGetAllResponseDto,
-  InterviewNoteGetRequestArguments,
+  InterviewNoteGetRequestArgumentsDto,
   AsyncThunkConfig
 >(ActionType.GET_NOTES, async (payload, { extra }) => {
   const { interviewNoteApi } = extra;

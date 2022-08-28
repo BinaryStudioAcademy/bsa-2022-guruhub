@@ -42,11 +42,11 @@ export {
 } from './interview/interview';
 export {
   type InterviewNoteCreateDto,
+  type InterviewNoteCreateRequestDto,
   type InterviewNoteCreateRequestParamsDto,
-  type InterviewNoteCreateRequsetDto,
   type InterviewNoteGetAllItemResponseDto,
   type InterviewNoteGetAllResponseDto,
-  type InterviewNoteGetRequestArguments,
+  type InterviewNoteGetRequestArgumentsDto,
 } from './interview-note/interview-note';
 export {
   type CoursesToMentorsRequestDto,

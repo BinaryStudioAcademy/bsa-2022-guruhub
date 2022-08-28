@@ -57,8 +57,8 @@ export {
 } from './interview/interview';
 export {
   type InterviewNoteCreateRequestArgumentsDto,
+  type InterviewNoteCreateRequestDto,
   type InterviewNoteCreateRequestParamsDto,
-  type InterviewNoteCreateRequsetDto,
   type InterviewNoteGetAllItemResponseDto,
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';

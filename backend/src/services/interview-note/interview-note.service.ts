@@ -22,24 +22,22 @@ class InterviewNote {
     this.#userRepository = userRepository;
   }
 
-  public async getAll(
+  public getAll(
     interviewId: number,
   ): Promise<InterviewNoteGetAllItemResponseDto[]> {
     return this.#interviewNoteRepository.getAll(interviewId);
   }
 
-  public async create(
+  public create(
     interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
   ): Promise<InterviewNoteGetAllItemResponseDto> {
     const { note, interviewId, authorId } = interviewNotCreateDto;
 
-    const createdNote = await this.#interviewNoteRepository.create({
+    return this.#interviewNoteRepository.create({
       note: sanitizeHTML(note),
       interviewId,
       authorId,
     });
-
-    return createdNote;
   }
 }
 

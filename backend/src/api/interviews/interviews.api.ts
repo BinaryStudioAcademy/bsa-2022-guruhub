@@ -8,8 +8,8 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  InterviewNoteCreateRequestDto,
   InterviewNoteCreateRequestParamsDto,
-  InterviewNoteCreateRequsetDto,
   InterviewsByIntervieweeIdRequestDto,
   InterviewsCreateRequestBodyDto,
 } from '~/common/types/types';
@@ -148,7 +148,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     async handler(
       req: FastifyRequest<{
         Params: InterviewNoteCreateRequestParamsDto;
-        Body: InterviewNoteCreateRequsetDto;
+        Body: InterviewNoteCreateRequestDto;
       }>,
       rep,
     ) {

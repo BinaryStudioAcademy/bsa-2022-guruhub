@@ -10,12 +10,12 @@ type Props = {
 const InterviewNoteCardList: FC<Props> = ({ notes }) => {
   return (
     <div className={styles.notesBlock}>
-      {notes.map((note) => (
+      {notes.map(({ id, note, author, createdAt }) => (
         <InterviewNoteCard
-          key={note.id}
-          note={note.note}
-          authorName={note.author.userDetails.fullName}
-          postDate={note.createdAt}
+          key={id}
+          note={note}
+          authorName={author.userDetails.fullName}
+          postDate={createdAt}
         />
       ))}
     </div>

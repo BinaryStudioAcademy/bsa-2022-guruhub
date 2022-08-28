@@ -1,6 +1,6 @@
 import {
   FC,
-  InterviewNoteCreateRequsetDto,
+  InterviewNoteCreateRequestDto,
   InterviewNoteGetAllItemResponseDto,
 } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
@@ -28,12 +28,12 @@ const HistorySection: FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { control, errors, handleSubmit } =
-    useAppForm<InterviewNoteCreateRequsetDto>({
+    useAppForm<InterviewNoteCreateRequestDto>({
       defaultValues: DEFAULT_CREATE_NOTE_PAYLOAD,
       validationSchema: interviewNotesCreateArguments,
     });
 
-  const handleNoteSubmit = (payload: InterviewNoteCreateRequsetDto): void => {
+  const handleNoteSubmit = (payload: InterviewNoteCreateRequestDto): void => {
     const { note } = payload;
     dispatch(interviewActions.createNote({ note, interviewId }));
   };
@@ -57,7 +57,7 @@ const HistorySection: FC<Props> = ({
             <Input
               type="text"
               label="Write your note"
-              name={getNameOf<InterviewNoteCreateRequsetDto>('note')}
+              name={getNameOf<InterviewNoteCreateRequestDto>('note')}
               control={control}
               errors={errors}
             />
