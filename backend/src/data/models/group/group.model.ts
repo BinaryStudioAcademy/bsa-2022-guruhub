@@ -18,8 +18,8 @@ class Group extends Abstract {
         join: {
           from: `${DbTableName.GROUPS}.id`,
           through: {
-            from: `${DbTableName.GROUPS_TO_PERMISSIONS}.group_id`,
-            to: `${DbTableName.GROUPS_TO_PERMISSIONS}.permission_id`,
+            from: `${DbTableName.GROUPS_TO_PERMISSIONS}.groupId`,
+            to: `${DbTableName.GROUPS_TO_PERMISSIONS}.permissionId`,
           },
           to: `${DbTableName.PERMISSIONS}.id`,
         },

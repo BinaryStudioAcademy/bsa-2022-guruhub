@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import { CourseGetRequestParamsDto } from '~/common/types/courses/courses';
 import { CourseFilteringDto } from '~/common/types/types';
 import {
   FAB,
@@ -50,8 +51,9 @@ const Courses: FC = (): ReactElement => {
     dispatch(coursesActions.getCourses(payload));
   };
 
-  const handleCourseCard = (): void => {
-    //add onPress
+  const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
+    dispatch(coursesActions.getCourse(id));
+    navigation.navigate(AppScreenName.COURSE);
   };
 
   const handleRefresh = (): void => {

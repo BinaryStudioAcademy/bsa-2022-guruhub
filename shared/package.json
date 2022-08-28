@@ -15,14 +15,15 @@
   "devDependencies": {
     "@types/change-case": "2.3.1",
     "@types/debounce": "1.2.1",
+    "@types/sanitize-html": "2.6.2",
     "tsc-alias": "1.6.11"
   },
   "dependencies": {
     "change-case": "4.1.2",
     "date-fns": "2.29.2",
     "debounce": "1.2.1",
-    "isomorphic-dompurify": "0.20.0",
-    "joi": "17.6.0"
+    "joi": "17.6.0",
+    "sanitize-html": "2.7.1"
   },
   "version": "0.0.2"
 }

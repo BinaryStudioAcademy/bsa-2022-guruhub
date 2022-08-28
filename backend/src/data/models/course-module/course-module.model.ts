@@ -17,7 +17,7 @@ class CourseModule extends Abstract {
         relation: Model.BelongsToOneRelation,
         modelClass: Course,
         join: {
-          from: `${DbTableName.COURSE_MODULES}.course_id`,
+          from: `${DbTableName.COURSE_MODULES}.courseId`,
           to: `${DbTableName.COURSES}.id`,
         },
       },
