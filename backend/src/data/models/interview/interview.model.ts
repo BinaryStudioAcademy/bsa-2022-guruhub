@@ -23,7 +23,7 @@ class Interview extends Abstract {
         relation: Model.HasOneRelation,
         modelClass: CourseCategory,
         join: {
-          from: `${DbTableName.INTERVIEWS}.category_id`,
+          from: `${DbTableName.INTERVIEWS}.categoryId`,
           to: `${DbTableName.COURSE_CATEGORIES}.id`,
         },
       },
@@ -31,7 +31,7 @@ class Interview extends Abstract {
         relation: Model.HasOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.INTERVIEWS}.interviewee_user_id`,
+          from: `${DbTableName.INTERVIEWS}.intervieweeUserId`,
           to: `${DbTableName.USERS}.id`,
         },
       },
@@ -39,7 +39,7 @@ class Interview extends Abstract {
         relation: Model.HasOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.INTERVIEWS}.interviewer_user_id`,
+          from: `${DbTableName.INTERVIEWS}.interviewerUserId`,
           to: `${DbTableName.USERS}.id`,
         },
       },

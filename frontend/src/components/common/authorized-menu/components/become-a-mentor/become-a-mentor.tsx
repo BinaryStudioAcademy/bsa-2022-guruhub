@@ -1,18 +1,14 @@
 import mentorImage from 'assets/img/mentor.png';
 import { FC } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { useAppDispatch } from 'hooks/hooks';
-import { courseActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
-const BecomeAMentor: FC = () => {
-  const dispatch = useAppDispatch();
+type Props = {
+  onClick: () => void;
+};
 
-  const handleClick = (): void => {
-    dispatch(courseActions.becomeAMentor());
-  };
-
+const BecomeAMentor: FC<Props> = ({ onClick }) => {
   return (
     <div className={styles.mentorWrapper}>
       <div className={styles.imageWrapper}>
@@ -28,7 +24,7 @@ const BecomeAMentor: FC = () => {
           label="Become a Mentor"
           btnType="filled"
           btnColor="blue"
-          onClick={handleClick}
+          onClick={onClick}
         />
       </div>
     </div>

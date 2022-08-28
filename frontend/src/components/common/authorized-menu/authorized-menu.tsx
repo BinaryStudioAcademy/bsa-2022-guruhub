@@ -1,5 +1,4 @@
 import { FC, UserWithPermissions } from 'common/types/types';
-import { useAppSelector } from 'hooks/hooks';
 
 import { routes } from './common';
 import { BecomeAMentor, NavigationMenu } from './components/components';
@@ -7,11 +6,15 @@ import styles from './styles.module.scss';
 
 type Props = {
   user: UserWithPermissions;
+  onBecomeAMentor: () => void;
+  isMentorBecomingEnabled: boolean;
 };
 
-const AuthorizedMenu: FC<Props> = ({ user }) => {
-  const { isMentorBecomingEnabled } = useAppSelector((state) => state.course);
-
+const AuthorizedMenu: FC<Props> = ({
+  user,
+  onBecomeAMentor,
+  isMentorBecomingEnabled,
+}) => {
   return (
     <div className={styles.menu}>
       {routes.map(({ name, subroutes }) => (
@@ -23,7 +26,7 @@ const AuthorizedMenu: FC<Props> = ({ user }) => {
           user={user}
         />
       ))}
-      {isMentorBecomingEnabled && <BecomeAMentor />}
+      {isMentorBecomingEnabled && <BecomeAMentor onClick={onBecomeAMentor} />}
     </div>
   );
 };

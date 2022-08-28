@@ -7,6 +7,7 @@ enum CustomExceptionName {
   COURSE_MODULE_ERROR = 'CourseModuleError',
   PERMISSION_ERROR = 'PermissionError',
   STORAGE_ERROR = 'StorageError',
+  USER_ERROR = 'UserError',
   INTERVIEW_ERROR = 'InterviewError',
   COURSES_TO_MENTORS_ERROR = 'CoursesToMentorsError',
   MENTEES_TO_MENTORS_ERROR = 'MenteesToMentorsError',

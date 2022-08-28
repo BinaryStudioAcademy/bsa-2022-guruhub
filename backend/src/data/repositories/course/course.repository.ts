@@ -74,7 +74,7 @@ class Course {
   }: CourseGetByIdAndVendorKeyArgumentsDto): Promise<CourseGetResponseDto | null> {
     const course = await this.#CourseModel
       .query()
-      .where('courses.original_id', originalId)
+      .where('courses.originalId', originalId)
       .andWhere('vendor.key', vendorKey)
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto>()
