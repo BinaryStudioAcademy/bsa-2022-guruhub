@@ -18,7 +18,7 @@ class MenteesToMentors extends Abstract {
         relation: Model.BelongsToOneRelation,
         modelClass: Course,
         join: {
-          from: `${DbTableName.MENTEES_TO_MENTORS}.course_id`,
+          from: `${DbTableName.MENTEES_TO_MENTORS}.courseId`,
           to: `${DbTableName.COURSES}.id`,
         },
       },
@@ -26,7 +26,7 @@ class MenteesToMentors extends Abstract {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.MENTEES_TO_MENTORS}.mentee_id`,
+          from: `${DbTableName.MENTEES_TO_MENTORS}.menteeId`,
           to: `${DbTableName.USERS}.id`,
         },
       },
@@ -34,7 +34,7 @@ class MenteesToMentors extends Abstract {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.MENTEES_TO_MENTORS}.mentor_id`,
+          from: `${DbTableName.MENTEES_TO_MENTORS}.mentorId`,
           to: `${DbTableName.USERS}.id`,
         },
       },

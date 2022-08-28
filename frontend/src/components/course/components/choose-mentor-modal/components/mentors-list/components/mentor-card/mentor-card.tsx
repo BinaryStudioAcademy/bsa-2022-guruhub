@@ -28,12 +28,7 @@ const MentorCard: FC<Props> = ({ onClick, mentor }) => {
       <div className={styles.infoContainer}>
         <p className={styles.fullName}>{mentor.fullName}</p>
         <div className={styles.button}>
-          <Button
-            label="Choose"
-            btnColor="blue"
-            onClick={handleClick}
-            type="submit"
-          />
+          <Button label="Choose" btnColor="blue" onClick={handleClick} />
         </div>
       </div>
     </div>

@@ -24,12 +24,12 @@ const initMentorsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { courseId, userId } = req.body;
 
-      const addMentorTocourse = await mentorService.addMentorToCourse({
+      const addedToCourseMentor = await mentorService.addMentorToCourse({
         courseId,
         userId,
       });
 
-      rep.status(HttpCode.CREATED).send(addMentorTocourse);
+      rep.status(HttpCode.CREATED).send(addedToCourseMentor);
     },
   });
 };

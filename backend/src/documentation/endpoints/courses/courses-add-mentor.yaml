@@ -24,4 +24,4 @@ post:
           schema:
             $ref: '../../schemas/courses/courses-add-mentor-response-dto.yaml'
     '400':
-      description: You are already mentee for this course
+      description: You already have a mentor for this course
