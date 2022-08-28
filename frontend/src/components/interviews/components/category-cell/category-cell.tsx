@@ -1,7 +1,7 @@
 import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
-import { InterviewsTableRow } from 'components/interviews/common/types/interviews-table-row.type';
+import { InterviewsTableRow } from 'components/interviews/common/types/types';
 import { changeStringCase } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 

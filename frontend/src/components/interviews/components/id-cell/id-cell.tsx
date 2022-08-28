@@ -10,7 +10,7 @@ const IdCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
   return (
     <Link
       to={`${AppRoute.INTERVIEW}/${value}` as AppRoute}
-      className={styles.id_link}
+      className={styles.idLink}
     >
       {value}
     </Link>
