@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { InterviewStatus } from '~/common/enums/enums';
 import { InterviewsGetAllItemResponseDto } from '~/common/types/types';
 import { statusToColor } from '~/components/interviews/common/maps/maps';
 import { InterviewsTableData } from '~/components/interviews/common/types/types';
@@ -13,7 +14,12 @@ const getInterviewsRows = (
       id: item.id,
       name: item.interviewee.fullName,
       category: <Label text={item.courseCategory.name} color={'darkgreen'} />,
-      status: <Label text={item.status} color={statusToColor[item.status]} />,
+      status: (
+        <Label
+          text={item.status}
+          color={statusToColor[item.status as InterviewStatus]}
+        />
+      ),
       interviewer: item.interviewer.fullName,
       date: item.interviewDate,
     };
