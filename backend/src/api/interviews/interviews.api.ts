@@ -127,9 +127,9 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       rep,
     ) {
       const { id: interviewId } = req.params;
-      const notes = await interviewNoteService.getAll(interviewId);
+      const notesDto = await interviewNoteService.getAll(interviewId);
 
-      return rep.status(HttpCode.OK).send({ items: notes });
+      return rep.status(HttpCode.OK).send(notesDto);
     },
   });
 

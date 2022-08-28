@@ -1,6 +1,9 @@
 import { InterviewNoteGetAllItemResponseDto } from 'guruhub-shared';
 
-import { InterviewNoteCreateRequestArgumentsDto } from '~/common/types/types';
+import {
+  InterviewNoteCreateRequestArgumentsDto,
+  InterviewNoteGetAllResponseDto,
+} from '~/common/types/types';
 import {
   interviewNote as interviewNoteRep,
   user as userRep,
@@ -22,10 +25,12 @@ class InterviewNote {
     this.#userRepository = userRepository;
   }
 
-  public getAll(
+  public async getAll(
     interviewId: number,
-  ): Promise<InterviewNoteGetAllItemResponseDto[]> {
-    return this.#interviewNoteRepository.getAll(interviewId);
+  ): Promise<InterviewNoteGetAllResponseDto> {
+    const items = await this.#interviewNoteRepository.getAll(interviewId);
+
+    return { items };
   }
 
   public create(
