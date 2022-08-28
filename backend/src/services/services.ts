@@ -4,12 +4,14 @@ import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
+  coursesToMentors as coursesToMentorsRepository,
   file as fileRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   interview as interviewRepository,
   permission as permissionRepository,
   user as userRepository,
+  userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
   vendor as vendorRepository,
 } from '~/data/repositories/repositories';
@@ -19,6 +21,8 @@ import { File } from './aws/file/file.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
+import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.service';
+import { Edx } from './edx/edx.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
@@ -28,6 +32,7 @@ import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
+import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
 import { Vendor } from './vendor/vendor.service';
 
@@ -35,12 +40,17 @@ const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
 
+const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
+
+const userDetails = new UserDetails({
+  userDetailsRepository,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
+  userDetailsService: userDetails,
 });
-
-const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
 const auth = new Auth({
   userService: user,
@@ -75,6 +85,15 @@ const http = new Http();
 const udemy = new Udemy({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
+  clientId: ENV.UDEMY.CLIENT_ID,
+  clientSecret: ENV.UDEMY.CLIENT_SECRET,
+});
+
+const edx = new Edx({
+  httpService: http,
+  baseUrl: ENV.EDX.BASE_URL,
+  clientId: ENV.EDX.CLIENT_ID,
+  clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
@@ -89,6 +108,7 @@ const course = new Course({
   vendorService: vendor,
   courseModuleService: courseModule,
   udemyService: udemy,
+  edxService: edx,
   courseCategoryService: courseCategory,
 });
 
@@ -103,11 +123,15 @@ const file = new File({
   fileRepository,
 });
 
+const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+
 export {
   auth,
   course,
   courseCategory,
   courseModule,
+  coursesToMentors,
+  edx,
   encrypt,
   file,
   group,
@@ -118,6 +142,7 @@ export {
   token,
   udemy,
   user,
+  userDetails,
   usersToGroups,
   vendor,
 };

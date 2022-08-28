@@ -7,8 +7,8 @@ import {
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
+  AuthorizedProtectedRoute,
   AuthorizedWrapper,
-  ProtectedRoute,
   Route,
   Routes,
   Spinner,
@@ -19,6 +19,7 @@ import { Dashboard } from 'components/dashboard/dashboard';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
+import { UserDetails } from 'components/user-details/user-details';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
@@ -56,28 +57,28 @@ const App: FC = () => {
         <Route
           path={AppRoute.UAM}
           element={
-            <AuthorizedWrapper>
-              <ProtectedRoute
-                permissions={[PermissionKey.MANAGE_UAM]}
-                component={<UAM />}
-              />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAM />}
+            />
           }
         />
         <Route
           path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
-            <AuthorizedWrapper>
-              <UAMConfigureGroup />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAMConfigureGroup />}
+            />
           }
         />
         <Route
           path={AppRoute.UAM_CONFIGURE_GROUP_$ID}
           element={
-            <AuthorizedWrapper>
-              <UAMConfigureGroup />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAMConfigureGroup />}
+            />
           }
         />
         <Route
@@ -87,6 +88,10 @@ const App: FC = () => {
               <Course />
             </AuthorizedWrapper>
           }
+        />
+        <Route
+          path={AppRoute.PROFILE}
+          element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}

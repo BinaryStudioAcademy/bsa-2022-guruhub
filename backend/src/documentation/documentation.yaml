@@ -26,7 +26,9 @@ paths:
   /courses:
     $ref: './endpoints/courses/courses.yaml'
   /courses/:id:
-    $ref: './endpoints/courses/courses-get-by-id.yaml'
+    $ref: './endpoints/courses/courses-by-id-operations.yaml'
+  /courses/:id/category:
+    $ref: './endpoints/courses/course-update-category-by-id.yaml'
   # Courses Modules
   /courses/:courseId/modules:
     $ref: './endpoints/courses-modules/courses-modules-get-all-by-course-id.yaml'
@@ -35,14 +37,21 @@ paths:
   # Categories
   /categories:
     $ref: './endpoints/categories/categories.yaml'
+  /categories/:id:
+    $ref: './endpoints/categories/categories-get-by-id.yaml'
   # Permissions
   /permissions:
     $ref: './endpoints/permissions/permissions-get-all.yaml'
   # Interviews
   /interviews:
-    $ref: './endpoints/interviews/interviews-get-all.yaml'
+    $ref: './endpoints/interviews/interviews.yaml'
   /interviews/{id}:
     $ref: './endpoints/interviews/interviews-get-by-id.yaml'
+  /interviews/interviewee/{intervieweeUserId}/categories:
+    $ref: './endpoints/interviews/interviews-interviewee-get-pending-or-passed-category-ids.yaml'
+  # Mentors
+  /mentors:
+    $ref: './endpoints/mentors/mentors.yaml'
 
 components:
   schemas:
@@ -72,6 +81,8 @@ components:
       $ref: './schemas/courses/course-get-by-id-request-dto.yaml'
     CourseGetByIdResponseDto:
       $ref: './schemas/courses/course-get-by-id-response-dto.yaml'
+    CoursesUpdateCategoryRequestDto:
+      $ref: './schemas/courses/course-update-category-request-dto.yaml'
     CoursesModulesGetAllByCourseIdRequestDto:
       $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-request-dto.yaml'
     CoursesModulesGetAllByCourseIdResponseDto:
@@ -82,12 +93,18 @@ components:
       $ref: './schemas/courses-modules/courses-modules-get-all-by-course-id-response-dto.yaml'
     CategoriesGetAllResponseDto:
       $ref: './schemas/categories/categories-get-all-response-dto.yaml'
+    CategoriesGetByIdRequestDto:
+      $ref: './schemas/categories/category-get-by-id-request-dto.yaml'
+    CategoriesGetByIdResponseDto:
+      $ref: './schemas/categories/category-get-by-id-response-dto.yaml'
     PermissionsGetAllResponseDto:
       $ref: './schemas/permissions/permissions-get-all-response-dto.yaml'
     InterviewsGetAllResponseDto:
       $ref: './schemas/interviews/interview-get-all-response-dto.yaml'
     InterviewsGetByIdResponseDto:
       $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
+    InterviewsGetPendingOrPassedCategoryIdsDto:
+      $ref: './schemas/interviews/interviews-interviewee-get-pending-or-passed-category-ids-response.yaml'
 
   securitySchemes:
     bearerAuth:

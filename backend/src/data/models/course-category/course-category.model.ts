@@ -17,7 +17,7 @@ class CourseCategory extends Abstract {
         modelClass: Interview,
         join: {
           from: `${DbTableName.COURSE_CATEGORIES}.id`,
-          to: `${DbTableName.INTERVIEWS}.category_id`,
+          to: `${DbTableName.INTERVIEWS}.categoryId`,
         },
       },
     };

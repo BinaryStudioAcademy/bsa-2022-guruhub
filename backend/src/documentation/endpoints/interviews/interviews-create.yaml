@@ -1,0 +1,18 @@
+summary: Add new interview
+tags:
+  - interviews
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/interviews/interviews-add-request-dto.yaml'
+responses:
+  '201':
+    description: Interview was successfully created
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/interviews/interviews-add-response-dto.yaml'
+  '400':
+    description: Invalid request body

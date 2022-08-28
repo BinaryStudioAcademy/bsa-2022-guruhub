@@ -1,6 +1,8 @@
 export { AuthorizedMenu } from './authorized-menu/authorized-menu';
+export { AuthorizedProtectedRoute } from './authorized-protected-route/authorized-protected-route';
 export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
 export { Button } from './button/button';
+export { Category } from './category/category';
 export { Checkbox } from './checkbox/checkbox';
 export { Content } from './content/content';
 export { Header } from './header/header';
@@ -12,6 +14,7 @@ export { Link } from './link/link';
 export { Modal } from './modal/modal';
 export { Pagination } from './pagination/pagination';
 export { ProtectedRoute } from './protected-route/protected-route';
+export { Select } from './select/select';
 export { Spinner } from './spinner/spinner';
 export { Table } from './table/table';
 export { Toast } from './toast/toast';

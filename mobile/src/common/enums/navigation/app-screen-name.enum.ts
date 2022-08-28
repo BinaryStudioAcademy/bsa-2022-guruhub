@@ -4,10 +4,11 @@ enum AppScreenName {
   MY_EDUCATION = 'My Education',
   BILLING = 'Billing',
   SETTINGS = 'Settings',
-  UAM = 'User Access Management',
+  UAM = 'UAM',
   UAM_GROUPS_CREATE = 'Create group',
   UAM_GROUPS_EDIT = 'Edit group',
-  ADD_COURSE = 'Add course',
+  ADD_COURSE = 'Add new course',
+  COURSE = 'Course',
 }
 
 export { AppScreenName };

@@ -6,7 +6,9 @@ export {
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   PermissionApiPath,
+  UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
 export { StringCase } from './case/case';
@@ -20,10 +22,19 @@ export {
   HttpMethod,
   HttpStatusMessage,
 } from './http/http';
+export { InterviewStatus } from './interview/interview';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
-export { UserValidationMessage, UserValidationRule } from './user/user';
+export {
+  UserGender,
+  UserValidationMessage,
+  UserValidationRule,
+} from './user/user';
+export {
+  UserDetailsValidationMessage,
+  UserDetailsValidationRule,
+} from './user-details/user-details';
 export { VendorKey } from './vendor/vendor';
