@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useRef } from 'react';
 
 import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetRequestParamsDto } from '~/common/types/courses/courses';
@@ -30,7 +30,6 @@ import { styles } from './styles';
 const Courses: FC = (): ReactElement => {
   const [isLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
@@ -42,13 +41,13 @@ const Courses: FC = (): ReactElement => {
     dataStatus: categoryDataStatus,
   } = useAppSelector((state) => state.categories);
 
-  const payload: CourseFilteringDto = {
+  const filter = useRef<CourseFilteringDto>({
     title: '',
     categoryKey: '',
-  };
+  });
 
   const handleCoursesLoad = (): void => {
-    dispatch(coursesActions.getCourses(payload));
+    dispatch(coursesActions.getCourses(filter.current));
   };
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
@@ -73,37 +72,24 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleCategorySelect = (id: number): void => {
-    if (activeCategoryId !== id) {
-      setActiveCategoryId(id);
+    if (!courseCategory || courseCategory.id !== id) {
+      dispatch(categoryActions.getCategoryById({ id }));
     } else {
-      setActiveCategoryId(null);
+      dispatch(categoryActions.clearCategory());
     }
   };
 
   useEffect(() => {
-    if (activeCategoryId) {
-      dispatch(categoryActions.getCategoryById({ id: activeCategoryId }));
-    } else {
-      dispatch(categoryActions.clearCategory());
-    }
-  }, [activeCategoryId]);
+    filter.current.categoryKey = courseCategory?.key || '';
+    filter.current.title = searchValue;
 
-  useEffect(() => {
-    if (courseCategory) {
-      payload.categoryKey = courseCategory.key;
-    }
-
-    if (searchValue) {
-      payload.title = searchValue;
-    }
-
-    dispatch(coursesActions.getCourses(payload));
+    dispatch(coursesActions.getCourses(filter.current));
   }, [courseCategory, searchValue]);
 
   useFocusEffect(
     useCallback(() => {
+      dispatch(categoryActions.clearCategory());
       dispatch(categoryActions.getCategories());
-      setActiveCategoryId(null);
       handleCoursesLoad();
     }, []),
   );
@@ -120,7 +106,7 @@ const Courses: FC = (): ReactElement => {
       <CategoryList
         items={categories}
         handleSelect={handleCategorySelect}
-        activeCategoryId={activeCategoryId}
+        activeCategoryId={courseCategory?.id}
       />
       <View style={styles.container}>
         {dataStatus === DataStatus.PENDING ? (

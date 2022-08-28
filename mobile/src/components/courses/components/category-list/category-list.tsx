@@ -10,7 +10,7 @@ import { styles } from './style';
 type Props = {
   items: CategoryGetAllItemResponseDto[];
   handleSelect: (id: number) => void;
-  activeCategoryId: number | null;
+  activeCategoryId: number | undefined;
 };
 
 const CategoryList: FC<Props> = ({ items, handleSelect, activeCategoryId }) => {

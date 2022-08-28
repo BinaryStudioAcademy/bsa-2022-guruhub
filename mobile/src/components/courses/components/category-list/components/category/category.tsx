@@ -16,7 +16,7 @@ type Props = {
 };
 
 const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
-  const [borderColor, setBorderColor] = useState('');
+  const [color, setColor] = useState('');
   const imageKeys = Object.keys(categoryKeyToImage);
   const hasImage = imageKeys.includes(keyName);
 
@@ -25,7 +25,7 @@ const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
   };
 
   useEffect(() => {
-    setBorderColor(getRandomColor());
+    setColor(getRandomColor());
   }, []);
 
   return (
@@ -34,7 +34,7 @@ const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
         style={{
           ...styles.container,
           ...(isActive && styles.activeItem),
-          borderColor,
+          borderColor: color,
         }}
       >
         {hasImage ? (
@@ -43,8 +43,8 @@ const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
           <View
             style={{
               ...styles.logoTextWrapper,
-              backgroundColor: borderColor,
-              borderColor: borderColor,
+              backgroundColor: color,
+              borderColor: color,
             }}
           >
             <Text style={styles.logoText}>{name[0].toUpperCase()}</Text>
