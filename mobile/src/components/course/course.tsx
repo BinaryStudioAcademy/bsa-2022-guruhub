@@ -31,10 +31,14 @@ import { styles } from './styles';
 const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
-  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
 
-  const { course, dataStatus } = useAppSelector((state) => state.courses);
+  const { user, course, dataStatus } = useAppSelector(({ auth, courses }) => ({
+    user: auth.user,
+    course: courses.course,
+    dataStatus: courses.dataStatus,
+  }));
+
   const currentCategory = (course as CourseGetResponseDto).category;
 
   const handleEditModeToggle = (): void => {
