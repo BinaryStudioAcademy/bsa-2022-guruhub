@@ -10,7 +10,7 @@ const getAllowedScreens = (
   const userPermissionKeys = userPermissions.map((item) => item.key);
 
   return screens.filter((screen) => {
-    const isNotRequiringPermissions = screen.permissions.length === 0;
+    const isNotRequiringPermissions = !screen.permissions.length;
 
     return (
       isNotRequiringPermissions ||
