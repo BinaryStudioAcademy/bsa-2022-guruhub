@@ -23,10 +23,21 @@ import { ModulesCardsContainer } from './components/modules-cards-container/modu
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
-  const { course, modules, categories, dataStatus } = useAppSelector(
-    (state) => state.course,
-  );
-  const { user } = useAppSelector((state) => state.auth);
+  const {
+    categories,
+    course,
+    modules,
+    dataStatus,
+    passedInterviewsCategoryIds,
+    user,
+  } = useAppSelector(({ auth, course }) => ({
+    categories: course.categories,
+    course: course.course,
+    modules: course.modules,
+    dataStatus: course.dataStatus,
+    passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
+    user: auth.user,
+  }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -46,8 +57,23 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
+    dispatch(courseActions.getMentorsByCourseId({ id: Number(id) }));
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(courseActions.updateIsMentorBecomingEnabled());
+
+    return () => {
+      dispatch(courseActions.disableMentorBecoming());
+    };
+  }, [user, course, passedInterviewsCategoryIds]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;

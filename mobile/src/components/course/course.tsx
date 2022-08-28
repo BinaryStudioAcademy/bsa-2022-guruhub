@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
-import RenderHtml from 'react-native-render-html';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { DataStatus, PermissionKey } from '~/common/enums/enums';
@@ -11,6 +9,7 @@ import {
 } from '~/common/types/types';
 import {
   BackButton,
+  Content,
   Dropdown,
   Icon,
   Image,
@@ -20,11 +19,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import {
-  checkHasPermission,
-  getImageUri,
-  sanitizeHTML,
-} from '~/helpers/helpers';
+import { checkHasPermission, getImageUri } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -34,13 +29,14 @@ import {
   useEffect,
   useFocusEffect,
   useState,
+  useWindowDimensions,
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { Category } from './components/components';
-import { styles, tagsStyles } from './styles';
+import { styles } from './styles';
 
 const Course: FC = () => {
   const [editMode, setEditMode] = useState(false);
@@ -52,6 +48,7 @@ const Course: FC = () => {
   const { course, dataStatus, categories } = useAppSelector(
     (state) => state.courses,
   );
+  const dataCourse = course as CourseGetResponseDto;
   const currentCategory = course?.category;
 
   const handlePressEditIcon = (): void => {
@@ -115,15 +112,10 @@ const Course: FC = () => {
     return <Spinner isOverflow />;
   }
 
-  if (!course) {
-    return <Text>There is no course with provided id</Text>;
-  }
-
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.h1}>{course?.title}</Text>
-
+        <Text style={styles.h1}>{dataCourse?.title}</Text>
         <View style={styles.dropdownContainer}>
           {editMode ? (
             <Dropdown
@@ -141,17 +133,15 @@ const Course: FC = () => {
             />
           )}
         </View>
+
         <Image
           style={styles.image}
           source={{ uri: course?.imageUrl ?? getImageUri(defaultCourseImage) }}
         />
         <Text style={styles.h2}>About this course</Text>
-        <RenderHtml
-          baseStyle={styles.text}
-          tagsStyles={tagsStyles}
-          contentWidth={width}
-          source={{ html: sanitizeHTML(course?.description) }}
-        />
+        {Boolean(course?.description) && (
+          <Content html={dataCourse?.description} width={width} />
+        )}
       </View>
     </ScrollView>
   );

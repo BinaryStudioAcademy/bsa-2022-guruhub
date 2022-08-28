@@ -46,12 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const tagsStyles = {
-  li: {
-    marginTop: -15,
-    marginBottom: 10,
-    marginLeft: 5,
-  },
-};
-
-export { styles, tagsStyles };
+export { styles };

@@ -1,6 +1,7 @@
 export { BackButton } from './back-button/back-button';
 export { Button } from './button/button';
 export { Checkbox } from './checkbox/checkbox';
+export { Content } from './content/content';
 export { Dropdown } from './dropdown/dropdown';
 export { FAB } from './fab/fab';
 export { Icon } from './icon/icon';
