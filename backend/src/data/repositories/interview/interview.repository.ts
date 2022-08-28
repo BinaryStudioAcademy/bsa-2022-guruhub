@@ -3,7 +3,6 @@ import {
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
-  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -21,20 +20,13 @@ class Interview {
   public getAll(): Promise<InterviewsGetAllItemResponseDto[]> {
     return this.#InterviewModel
       .query()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .modifyGraph('interviewee', (builder) => {
-        builder
-          .select('users.id', 'users.createdAt', 'email', 'fullName')
-          .joinRelated('userDetails')
-          .castTo<UsersGetResponseDto>();
-      })
-      .withGraphJoined('interviewer')
-      .modifyGraph('interviewer', (builder) => {
-        builder
-          .select('users.id', 'users.createdAt', 'email', 'fullName')
-          .joinRelated('userDetails')
-          .castTo<UsersGetResponseDto>();
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
       })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
@@ -44,20 +36,13 @@ class Interview {
     const interview = await this.#InterviewModel
       .query()
       .select()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .modifyGraph('interviewee', (builder) => {
-        builder
-          .select('users.id', 'users.createdAt', 'email', 'fullName')
-          .joinRelated('userDetails')
-          .castTo<UsersGetResponseDto>();
-      })
-      .withGraphJoined('interviewer')
-      .modifyGraph('interviewer', (builder) => {
-        builder
-          .select('users.id', 'users.createdAt', 'email', 'fullName')
-          .joinRelated('userDetails')
-          .castTo<UsersGetResponseDto>();
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
       })
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
@@ -111,20 +96,13 @@ class Interview {
       .select()
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .modifyGraph('interviewee', (builder) => {
-        builder
-          .select('users.id', 'users.createdAt', 'email', 'fullName')
-          .joinRelated('userDetails')
-          .castTo<UsersGetResponseDto>();
-      })
-      .withGraphJoined('interviewer')
-      .modifyGraph('interviewer', (builder) => {
-        builder
-          .select('users.id', 'users.createdAt', 'email', 'fullName')
-          .joinRelated('userDetails')
-          .castTo<UsersGetResponseDto>();
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
+      .modifiers({
+        withoutPassword(builder) {
+          builder.select('id', 'email', 'createdAt', 'updatedAt');
+        },
       })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
