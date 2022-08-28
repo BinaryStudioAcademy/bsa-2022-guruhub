@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import { CourseFilteringDto } from '~/common/types/types';
 import {
   FAB,
   FlatList,
@@ -27,8 +28,11 @@ import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
   const [isLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
+
   const { courses, dataStatus } = useAppSelector((state) => state.courses);
   const {
     categories,
@@ -36,8 +40,13 @@ const Courses: FC = (): ReactElement => {
     dataStatus: categoryDataStatus,
   } = useAppSelector((state) => state.categories);
 
+  const payload: CourseFilteringDto = {
+    title: '',
+    categoryKey: '',
+  };
+
   const handleCoursesLoad = (): void => {
-    dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
+    dispatch(coursesActions.getCourses(payload));
   };
 
   const handleCourseCard = (): void => {
@@ -57,38 +66,24 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleSearch = (search: string): void => {
-    if (!courseCategory) {
-      dispatch(coursesActions.getCourses({ title: search, categoryKey: '' }));
-    } else {
-      dispatch(
-        coursesActions.getCourses({
-          title: search,
-          categoryKey: courseCategory.key,
-        }),
-      );
-    }
+    setSearchValue(search);
   };
 
   useEffect(() => {
     if (courseCategory) {
-      dispatch(
-        coursesActions.getCourses({
-          title: '',
-          categoryKey: courseCategory.key,
-        }),
-      );
-    } else {
-      dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
+      payload.categoryKey = courseCategory.key;
     }
-  }, [courseCategory]);
 
-  useEffect(() => {
-    dispatch(categoryActions.clearCategory());
-    dispatch(categoryActions.getCategories());
-  }, []);
+    if (searchValue) {
+      payload.title = searchValue;
+    }
+
+    dispatch(coursesActions.getCourses(payload));
+  }, [courseCategory, searchValue]);
 
   useFocusEffect(
     useCallback(() => {
+      dispatch(categoryActions.getCategories());
       handleCoursesLoad();
     }, []),
   );
