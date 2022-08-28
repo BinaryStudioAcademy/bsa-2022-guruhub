@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/common/types/group-configure-users-table-row.type';
+import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/common/types/types';
 import { getFormattedDate } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 
