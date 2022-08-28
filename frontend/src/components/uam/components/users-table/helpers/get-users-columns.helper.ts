@@ -1,3 +1,4 @@
+import { UserWithPermissions } from 'common/types/types';
 import { UserTableAccessor } from 'components/uam/common/enums/enums';
 import {
   UsersTableActionsProps,
@@ -8,6 +9,7 @@ import { Column } from 'react-table';
 import { ActionsCell, DateCell } from '../components/components';
 
 const getUsersColumns = (
+  user: UserWithPermissions,
   onUserDelete: (userId: number) => void,
 ): Column<UsersTableRow>[] => {
   return [
@@ -33,6 +35,7 @@ const getUsersColumns = (
       accessor: ({ id }: UsersTableRow): UsersTableActionsProps => ({
         onDelete: onUserDelete,
         id,
+        isCurrentSignedUser: user.id === id,
       }),
       Cell: ActionsCell,
     },
