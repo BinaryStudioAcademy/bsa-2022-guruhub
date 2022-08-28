@@ -1,7 +1,7 @@
-import { sanitize } from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 const sanitizeHTML = (html: string): string => {
-  return sanitize(html, {});
+  return sanitizeHtml(html, {});
 };
 
 export { sanitizeHTML };

@@ -8,6 +8,7 @@ import {
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
+import { Course } from '~/components/course/course';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
 import { Mentors } from '~/components/mentors/mentors';
@@ -108,6 +109,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
       {
         name: AppScreenName.ADD_COURSE,
         component: AddCourse,
+        permissions: [],
+      },
+      {
+        name: AppScreenName.COURSE,
+        component: Course,
         permissions: [],
       },
     ],
