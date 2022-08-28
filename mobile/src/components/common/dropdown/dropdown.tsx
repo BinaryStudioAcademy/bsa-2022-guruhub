@@ -15,7 +15,6 @@ type Props<T> = {
   control: FormControl<T>;
   name: FormControlPath<T>;
 };
-
 const Dropdown = <T extends FormControlValues>({
   items,
   name,

@@ -70,8 +70,6 @@ const Course: FC = () => {
   });
 
   const handleSelectNewCategory = (payload: number): void => {
-    // const { newCategoryId } = payload;
-
     dispatch(
       coursesActions.updateCategory({
         courseId: (course as CourseGetResponseDto).id,
