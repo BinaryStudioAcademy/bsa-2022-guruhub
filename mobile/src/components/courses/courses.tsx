@@ -80,7 +80,7 @@ const Courses: FC = (): ReactElement => {
   };
 
   useEffect(() => {
-    filter.current.categoryKey = courseCategory?.key || '';
+    filter.current.categoryKey = courseCategory?.key ?? '';
     filter.current.title = searchValue;
 
     dispatch(coursesActions.getCourses(filter.current));
