@@ -8,7 +8,7 @@ import {
   View,
 } from '~/components/common/common';
 import { DEFAULT_PAGE_SIZE } from '~/components/interviews/common/constants/constants';
-import { getTableRow } from '~/components/interviews/helpers/helpers';
+import { getInterviewsRows } from '~/components/interviews/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -27,7 +27,7 @@ const Interviews: FC = () => {
     useAppSelector((state) => state.interviews);
 
   const { page, handlePageChange } = usePagination();
-  const tableRows = getTableRow(interviews);
+  const tableRows = getInterviewsRows(interviews);
 
   const isInterviewsLoading = interviewsDataStatus === DataStatus.PENDING;
 

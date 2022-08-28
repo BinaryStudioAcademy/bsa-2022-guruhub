@@ -5,7 +5,7 @@ import { statusToColor } from '~/components/interviews/common/maps/maps';
 import { InterviewsTableData } from '~/components/interviews/common/types/types';
 import { Label } from '~/components/interviews/interviews-table/components/components';
 
-const getTableRow = (
+const getInterviewsRows = (
   interviews: InterviewsGetAllItemResponseDto[],
 ): InterviewsTableData[] => {
   return interviews.map((item: InterviewsGetAllItemResponseDto) => {
@@ -20,4 +20,4 @@ const getTableRow = (
   });
 };
 
-export { getTableRow };
+export { getInterviewsRows };

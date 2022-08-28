@@ -1,2 +1,2 @@
-export { getInterviewsColumns } from './get-columns-helper/get-interviews-columns.helper';
-export { getTableRow } from './get-row-helper/get-interviews-row.helper';
+export { getInterviewsColumns } from './get-interviews-columns-helper/get-interviews-columns.helper';
+export { getInterviewsRows } from './get-interviews-rows-helper/get-interviews-rows.helper';
