@@ -26,13 +26,13 @@ const InterviewItem: FC<Props> = ({
 }) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-  const swapToEditMode = (value: boolean): void => {
-    setIsEditMode(value);
+  const handleToggleEditMode = (): void => {
+    setIsEditMode((prevValue) => !prevValue);
   };
 
   const interviewersOptions = useMemo<SelectorOptions<number>[]>(() => {
     return getInterviewersOptions(interviewers);
-  }, []);
+  }, [interviewers]);
 
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
@@ -53,7 +53,7 @@ const InterviewItem: FC<Props> = ({
               btnType="outlined"
               btnColor="blue"
               label="Edit"
-              onClick={swapToEditMode.bind(this, true)}
+              onClick={handleToggleEditMode}
             />
           )}
           {isEditMode && (
@@ -63,7 +63,7 @@ const InterviewItem: FC<Props> = ({
                 btnType="outlined"
                 btnColor="blue"
                 label="Cancel"
-                onClick={swapToEditMode.bind(this, false)}
+                onClick={handleToggleEditMode}
                 className={styles.marginRight}
               />
               <Button

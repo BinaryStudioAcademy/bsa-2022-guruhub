@@ -5,9 +5,9 @@ import {
   SelectorOptions,
 } from 'common/types/types';
 import { ErrorMessage } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 
-import { getValidClasses } from '../../../helpers/dom/get-valid-classes/get-valid-classes.helper';
 import styles from './styles.module.scss';
 
 type Props = {

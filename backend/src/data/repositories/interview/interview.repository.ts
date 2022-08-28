@@ -55,9 +55,9 @@ class Interview {
     const interview = await this.#InterviewModel
       .query()
       .select()
-      .withGraphFetched('courseCategory')
-      .withGraphFetched('interviewee(withoutPassword).[userDetails]')
-      .withGraphFetched('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .modifiers({
         withoutPassword(builder) {
           builder.select('id', 'email', 'createdAt', 'updatedAt');
@@ -130,10 +130,11 @@ class Interview {
 
     return this.#InterviewModel
       .query()
+      .select()
       .patchAndFetchById(id, { interviewerUserId })
-      .withGraphFetched('courseCategory')
-      .withGraphFetched('interviewee(withoutPassword).[userDetails]')
-      .withGraphFetched('interviewer.[userDetails]')
+      .withGraphFetched(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .modifiers({
         withoutPassword(builder) {
           builder.select('id', 'email', 'createdAt', 'updatedAt');
