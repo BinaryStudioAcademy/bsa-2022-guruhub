@@ -9,19 +9,16 @@ import { getRandomColor } from './helpers/get-random-color.helper';
 import { styles } from './style';
 
 type Props = {
-  id: number;
   keyName: string;
   name: string;
-  activeId: number | null;
+  isActive: boolean;
   onPress: () => void;
 };
 
-const Category: FC<Props> = ({ activeId, id, keyName, name, onPress }) => {
+const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
   const [borderColor, setBorderColor] = useState('');
   const imageKeys = Object.keys(categoryKeyToImage);
   const hasImage = imageKeys.includes(keyName);
-
-  const isActive = activeId && activeId === id;
 
   const handlePress = (): void => {
     onPress();
