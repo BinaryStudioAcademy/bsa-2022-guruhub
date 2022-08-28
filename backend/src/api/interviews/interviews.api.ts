@@ -110,7 +110,10 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       querystring: paginationValidationSchema,
       params: interviewByIdParamsValidationSchema,
     },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_INTERVIEW),
+    preHandler: checkHasPermissions(
+      PermissionKey.MANAGE_INTERVIEWS,
+      PermissionKey.MANAGE_INTERVIEW,
+    ),
     async handler(
       req: FastifyRequest<{
         Params: InterviewsByIdRequestParamsDto;
