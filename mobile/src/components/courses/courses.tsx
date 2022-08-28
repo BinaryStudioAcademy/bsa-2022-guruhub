@@ -106,7 +106,7 @@ const Courses: FC = (): ReactElement => {
       <CategoryList
         items={categories}
         handleSelect={handleCategorySelect}
-        activeCategoryId={courseCategory?.id}
+        activeCategoryId={courseCategory?.id || null}
       />
       <View style={styles.container}>
         {dataStatus === DataStatus.PENDING ? (
