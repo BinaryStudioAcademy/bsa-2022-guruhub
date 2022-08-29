@@ -1,7 +1,8 @@
-import React, { FC, ReactElement, useRef } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { FlatList } from '~/components/common/common';
+import { useRef } from '~/hooks/hooks';
 
 import { Category } from './components/category/category';
 import { styles } from './style';
