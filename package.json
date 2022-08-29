@@ -67,8 +67,5 @@
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
-  },
-  "dependencies": {
-    "wait-on": "6.0.1"
   }
 }
