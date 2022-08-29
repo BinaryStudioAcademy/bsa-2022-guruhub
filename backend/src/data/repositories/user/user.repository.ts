@@ -73,6 +73,7 @@ class User {
       )
       .joinRelated('groups.permissions')
       .where('users.id', id)
+      .distinct('groups:permissions.id')
       .castTo<PermissionM[]>()
       .execute();
   }

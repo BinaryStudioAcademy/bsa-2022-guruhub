@@ -4,7 +4,10 @@ import {
   GroupConfigureUsersTableActionsProps,
   GroupConfigureUsersTableRow,
 } from 'components/uam-configure-group/common/types/types';
-import { UserActionCell } from 'components/uam-configure-group/components/components';
+import {
+  DateCell,
+  UserActionCell,
+} from 'components/uam-configure-group/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
@@ -35,6 +38,11 @@ const getUserColumns = ({
     {
       Header: 'Email',
       accessor: UserTableAccessor.EMAIL,
+    },
+    {
+      Header: 'Created',
+      accessor: UserTableAccessor.CREATED_AT,
+      Cell: DateCell,
     },
     {
       Header: 'User ID',

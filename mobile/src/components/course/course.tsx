@@ -14,17 +14,21 @@ import {
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import {
+  useAppDispatch,
   useAppNavigate,
   useAppSelector,
   useEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
+import { courseModulesActions } from '~/store/actions';
 
+import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
 const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
+  const dispatch = useAppDispatch();
   const { course, dataStatus } = useAppSelector((state) => state.courses);
   const dataCourse = course as CourseGetResponseDto;
 
@@ -33,6 +37,12 @@ const Course: FC = () => {
       headerLeft: () => <BackButton onPress={navigation.goBack} />,
     });
   }, []);
+
+  useEffect(() => {
+    if (course) {
+      dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+    }
+  }, [course]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
@@ -50,6 +60,7 @@ const Course: FC = () => {
         {Boolean(course?.description) && (
           <Content html={dataCourse?.description} width={width} />
         )}
+        <CourseModules />
       </View>
     </ScrollView>
   );

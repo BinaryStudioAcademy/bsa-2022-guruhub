@@ -1,8 +1,15 @@
-import { InterviewStatus, PermissionKey } from '~/common/enums/enums';
 import {
+  ExceptionMessage,
+  InterviewStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
+import {
+  EntityPagination,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllResponseDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
@@ -38,28 +45,7 @@ class Interview {
     const interviews = await this.#interviewRepository.getAll();
 
     return {
-      items: interviews.map((interview) => ({
-        id: interview.id,
-        interviewDate: interview.interviewDate,
-        status: interview.status,
-        interviewee: {
-          id: interview.interviewee.id,
-          userDetails: interview.interviewee.userDetails,
-          email: interview.interviewee.email,
-          createdAt: interview.interviewee.createdAt,
-        },
-        interviewer: {
-          id: interview.interviewer.id,
-          userDetails: interview.interviewer.userDetails,
-          email: interview.interviewer.email,
-          createdAt: interview.interviewer.createdAt,
-        },
-        courseCategory: {
-          id: interview.courseCategory.id,
-          key: interview.courseCategory.key,
-          name: interview.courseCategory.name,
-        },
-      })),
+      items: interviews,
     };
   }
 
@@ -121,29 +107,34 @@ class Interview {
     const interviews = await this.#interviewRepository.getByUserId(userId);
 
     return {
-      items: interviews.map((interview) => ({
-        id: interview.id,
-        interviewDate: interview.interviewDate,
-        status: interview.status,
-        interviewee: {
-          id: interview.interviewee.id,
-          userDetails: interview.interviewee.userDetails,
-          email: interview.interviewee.email,
-          createdAt: interview.interviewee.createdAt,
-        },
-        interviewer: {
-          id: interview.interviewer.id,
-          userDetails: interview.interviewer.userDetails,
-          email: interview.interviewer.email,
-          createdAt: interview.interviewer.createdAt,
-        },
-        courseCategory: {
-          id: interview.courseCategory.id,
-          key: interview.courseCategory.key,
-          name: interview.courseCategory.name,
-        },
-      })),
+      items: interviews,
     };
+  }
+
+  public async getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    const interview = await this.getById(interviewId);
+
+    if (!interview) {
+      throw new InterviewsError({
+        message: ExceptionMessage.INTERVIEW_DOES_NOT_EXIST,
+      });
+    }
+
+    const intervieweeUserId = interview.interviewee.id;
+    const zeroIndexPage = page - 1;
+
+    return this.#interviewRepository.getOtherByInterviewId({
+      interviewId,
+      intervieweeUserId,
+      count,
+      page: zeroIndexPage,
+    });
   }
 }
 

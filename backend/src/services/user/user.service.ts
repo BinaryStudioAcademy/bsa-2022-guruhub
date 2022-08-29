@@ -42,9 +42,9 @@ class User {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<UsersGetResponseDto>
   > {
-    const ZERO_INDEXED_PAGE = page - 1;
+    const zeroIndexPage = page - 1;
     const result = await this.#userRepository.getAll({
-      page: ZERO_INDEXED_PAGE,
+      page: zeroIndexPage,
       count,
     });
 

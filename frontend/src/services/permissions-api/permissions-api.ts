@@ -1,5 +1,9 @@
 import { ApiPath, HttpMethod } from 'common/enums/enums';
-import { PermissionsGetAllResponseDto } from 'common/types/types';
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  PermissionsGetAllItemResponseDto,
+} from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -17,9 +21,17 @@ class PermissionsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<PermissionsGetAllResponseDto> {
+  public getAll(
+    paginationData?: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<PermissionsGetAllItemResponseDto>> {
+    const { page, count } = paginationData ?? {};
+
     return this.#http.load(`${this.#apiPrefix}${ApiPath.PERMISSIONS}`, {
       method: HttpMethod.GET,
+      queryString: {
+        page,
+        count,
+      },
     });
   }
 }
