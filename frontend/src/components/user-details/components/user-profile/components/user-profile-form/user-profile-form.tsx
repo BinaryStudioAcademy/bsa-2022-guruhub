@@ -93,17 +93,18 @@ const UserProfileForm: FC = () => {
           <div className={styles.buttonWrapper}>
             <Button
               type="button"
-              btnType="outlined"
-              btnColor="blue"
+              btnType="filled"
+              btnColor="gray"
               label="Cancel"
               onClick={handleGetUsers}
-              className={styles.marginRight}
+              className={styles.cancelBtn}
             />
             <Button
               onClick={handleSubmit(handleUpdateProfile)}
               type="submit"
               label="Save"
               btnColor="blue"
+              className={styles.saveBtn}
             />
           </div>
         </form>
