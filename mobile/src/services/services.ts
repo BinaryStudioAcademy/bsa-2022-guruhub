@@ -3,6 +3,7 @@ import { MMKV } from 'react-native-mmkv';
 import { ENV } from '~/common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { CategoriesApi } from './categories-api/categories-api.service';
 import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
 import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
@@ -46,6 +47,11 @@ const coursesApi = new Courses({
   http,
 });
 
+const categoriesApi = new CategoriesApi({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
+
 const courseModulesApi = new CourseModulesApi({
   http,
   apiPrefix: ENV.APP.API_PATH,
@@ -58,6 +64,7 @@ const interviewersApi = new InterviewsApi({
 
 export {
   authApi,
+  categoriesApi,
   courseModulesApi,
   coursesApi,
   groupsApi,

@@ -1,6 +1,7 @@
 export {
   ApiPath,
   AuthApiPath,
+  CategoriesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
   UsersApiPath,

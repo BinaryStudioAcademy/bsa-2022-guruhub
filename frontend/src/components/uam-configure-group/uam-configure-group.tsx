@@ -23,7 +23,7 @@ const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const isEdit = Boolean(id);
-  const { permissions, group, users } = useAppSelector(
+  const { permissions, group, users, permissionsTotalCount } = useAppSelector(
     (state) => state.uamConfigureGroup,
   );
   const { control, handleSubmit, errors, reset } =
@@ -35,15 +35,18 @@ const UAMConfigureGroup: FC = () => {
     items: permissionIds,
     handleToggle: handlePermissionToggle,
     setItems: setDefaultPermissionIds,
-  } = useSelectedItems<number>(group?.permissionIds ?? []);
+  } = useSelectedItems<number>([]);
   const {
     items: userIds,
     handleToggle: handleUserToggle,
     setItems: setDefaultUserIds,
-  } = useSelectedItems<number>(group?.userIds ?? []);
+  } = useSelectedItems<number>([]);
   const { page: usersPage, handlePageChange: handleUsersPageChange } =
     usePagination({ queryName: 'users' });
-
+  const {
+    page: permissionsPage,
+    handlePageChange: handlePermissionsPageChange,
+  } = usePagination({ queryName: 'permissions' });
   const handleCreateOrEdit = (values: GroupsConfigureRequestDto): void => {
     const { name } = values;
 
@@ -72,8 +75,15 @@ const UAMConfigureGroup: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(uamConfigureGroupActions.getPermissions());
+    dispatch(
+      uamConfigureGroupActions.getPermissions({
+        page: permissionsPage,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [permissionsPage]);
 
+  useEffect(() => {
     if (isEdit) {
       dispatch(uamConfigureGroupActions.getGroupById({ id: Number(id) }));
     }
@@ -89,7 +99,7 @@ const UAMConfigureGroup: FC = () => {
   }, [usersPage]);
 
   useEffect(() => {
-    if (group) {
+    if (group && isEdit) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
@@ -124,6 +134,9 @@ const UAMConfigureGroup: FC = () => {
         permissions={permissions}
         onCheckboxToggle={handlePermissionToggle}
         selectedPermissionIds={permissionIds}
+        page={permissionsPage}
+        onPageChange={handlePermissionsPageChange}
+        permissionsTotalCount={permissionsTotalCount}
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>
