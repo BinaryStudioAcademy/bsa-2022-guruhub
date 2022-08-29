@@ -21,7 +21,7 @@ const Module: FC<Props> = ({ index, title, description }): ReactElement => {
       <View style={styles.textWrapper}>
         <Text style={styles.title}>{title}</Text>
         {description && (
-          <Content html={description} width={0} style={styles.description} />
+          <Content html={description} style={styles.description} />
         )}
       </View>
     </View>

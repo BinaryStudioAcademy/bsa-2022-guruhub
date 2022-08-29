@@ -7,7 +7,7 @@ import { defaultTagsStyles, styles } from './styles';
 
 type Props = {
   html: string;
-  width: number;
+  width?: number;
   style?: MixedStyleDeclaration;
 };
 
