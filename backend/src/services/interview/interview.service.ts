@@ -125,16 +125,24 @@ class Interview {
     };
   }
 
-  public getAllNotes(
+  public async getAllNotes(
     interviewId: number,
   ): Promise<InterviewNoteGetAllResponseDto> {
-    return this.#interviewNoteService.getAll(interviewId);
+    const notes = await this.#interviewNoteService.getAll(interviewId);
+    const sortedNotes = notes.items.sort((leftNote, rightNote) => {
+      return (
+        new Date(rightNote.createdAt).getTime() -
+        new Date(leftNote.createdAt).getTime()
+      );
+    });
+
+    return { items: sortedNotes };
   }
 
   public createNote(
-    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+    interviewNoteCreateDto: InterviewNoteCreateRequestArgumentsDto,
   ): Promise<InterviewNoteGetAllItemResponseDto> {
-    return this.#interviewNoteService.create(interviewNotCreateDto);
+    return this.#interviewNoteService.create(interviewNoteCreateDto);
   }
 
   public async getOtherByInterviewId({
