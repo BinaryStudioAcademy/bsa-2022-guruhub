@@ -57,7 +57,7 @@ const Course: FC = () => {
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
 
-  const handleUpdateCategoryModalToggle = (evt: React.MouseEvent): void => {
+  const handleUpdateCategoryModalToggle = (evt?: React.MouseEvent): void => {
     evt?.stopPropagation();
     setUpdateCategoryModalOpen((prev) => !prev);
   };

@@ -6,12 +6,13 @@ import {
 } from 'common/enums/enums';
 import {
   EntityPagination,
+  EntityPaginationRequestQueryDto,
   InterviewNoteCreateDto,
   InterviewNoteGetAllItemResponseDto,
   InterviewNoteGetAllResponseDto,
   InterviewNoteGetRequestArgumentsDto,
   InterviewsCreateRequestBodyDto,
-  InterviewsGetAllResponseDto,
+  InterviewsGetAllItemResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
@@ -33,10 +34,22 @@ class InterviewsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<InterviewsGetAllResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.INTERVIEWS}`, {
-      method: HttpMethod.GET,
-    });
+  public getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    return this.#http.load<EntityPagination<InterviewsGetAllItemResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
+      },
+    );
   }
 
   public create(

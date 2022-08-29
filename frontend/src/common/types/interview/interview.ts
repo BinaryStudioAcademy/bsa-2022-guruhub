@@ -1,7 +1,6 @@
 export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
