@@ -2,6 +2,7 @@ type: object
 properties:
   id:
     type: integer
+    minimum: 1
     example: 1
   fullName:
     type: string
