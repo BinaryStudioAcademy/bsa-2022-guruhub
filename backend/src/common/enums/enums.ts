@@ -21,6 +21,7 @@ export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { InterviewStatus } from './interview/interview';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { SortOrder } from './sort-order/sort-order';
 export { StringCase } from './string/string';
 export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';

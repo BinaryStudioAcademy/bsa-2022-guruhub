@@ -1,5 +1,6 @@
 import { InterviewNoteGetAllItemResponseDto } from 'guruhub-shared';
 
+import { SortOrder } from '~/common/enums/enums';
 import { InterviewNoteCreateRequestArgumentsDto } from '~/common/types/types';
 import { InterviewNote as InterviewNoteM } from '~/data/models/models';
 
@@ -22,7 +23,7 @@ class InterviewNote {
       .select()
       .where({ interviewId })
       .withGraphJoined('author(withoutPassword).[userDetails]')
-      .orderBy('createdAt', 'desc')
+      .orderBy('createdAt', SortOrder.DESC)
       .castTo<InterviewNoteGetAllItemResponseDto[]>()
       .execute();
   }
