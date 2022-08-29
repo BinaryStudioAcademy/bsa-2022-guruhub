@@ -107,3 +107,32 @@ jobs:
           UAM_MANAGER_PASSWORD: 'Pa55word'
         run: |
           npm run test:development
+
+      - name: Generate Test Reports
+        id: generateTestReports
+        if: ${{ success() || failure() }}
+        working-directory: ./backend/tests
+        run: |
+          npm run generate-reports && zip allure-report
+
+      - name: Get Current Date
+        id: getCurrentDate
+        if: ${{ (success() || failure()) && (steps.generateTestReports.outcome == 'success') }}
+        run: |
+          echo "::set-output name=currentDate::$(date +'%Y-%m-%d_%H-%M-%S')"
+
+      - name: Save Allure Report
+        if: ${{ (success() || failure()) && (steps.getCurrentDate.outcome == 'success') }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ 'allure-report_' + steps.getCurrentDate.outputs.currentDate + '.zip' }}
+          path: ./backend/tests/allure-report.zip
+          retention-days: 14
+
+      - name: Save JUnit Report
+        if: ${{ (success() || failure()) && (steps.getCurrentDate.outcome == 'success') }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ 'junit-report_' + steps.getCurrentDate.outputs.currentDate + '.xml' }}
+          path: ./backend/tests/junit-report/junit-report.xml
+          retention-days: 14
