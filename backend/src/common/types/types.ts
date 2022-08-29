@@ -59,8 +59,16 @@ export {
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
 } from './interview/interview';
+export {
+  type InterviewNoteCreateRequestArgumentsDto,
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteCreateRequestParamsDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllResponseDto,
+} from './interview-note/interview-note';
 export { EntityPagination } from './pagination/pagination';
 export {
+  type CheckPermisssionType,
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';

@@ -115,7 +115,7 @@ class User {
     return this.#userRepository.getUserPermissions(id);
   }
 
-  public async getById(id: string): Promise<UserWithPermissions | null> {
+  public async getById(id: number): Promise<UserWithPermissions | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {

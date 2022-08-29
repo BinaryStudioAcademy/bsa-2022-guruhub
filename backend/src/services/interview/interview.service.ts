@@ -5,6 +5,9 @@ import {
 } from '~/common/enums/enums';
 import {
   EntityPagination,
+  InterviewNoteCreateRequestArgumentsDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllResponseDto,
@@ -17,15 +20,24 @@ import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
+import { interviewNote as interviewNoteServ } from '../services';
+
 type Constructor = {
   interviewRepository: typeof interviewRep;
+  interviewNoteService: typeof interviewNoteServ;
 };
 
 class Interview {
   #interviewRepository: typeof interviewRep;
 
-  public constructor({ interviewRepository }: Constructor) {
+  #interviewNoteService: typeof interviewNoteServ;
+
+  public constructor({
+    interviewRepository,
+    interviewNoteService,
+  }: Constructor) {
     this.#interviewRepository = interviewRepository;
+    this.#interviewNoteService = interviewNoteService;
   }
 
   public async getAll(args: {
@@ -109,6 +121,18 @@ class Interview {
     return {
       items: interviews,
     };
+  }
+
+  public getAllNotes(
+    interviewId: number,
+  ): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#interviewNoteService.getAll(interviewId);
+  }
+
+  public createNote(
+    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+  ): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#interviewNoteService.create(interviewNotCreateDto);
   }
 
   public async getOtherByInterviewId({
