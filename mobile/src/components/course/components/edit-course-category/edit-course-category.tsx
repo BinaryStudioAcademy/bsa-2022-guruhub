@@ -30,7 +30,11 @@ const EditCourseCategory: FC = () => {
   const dispatch = useAppDispatch();
 
   const { course, dataStatus, categories } = useAppSelector(
-    (state) => state.courses,
+    ({ courses, categories }) => ({
+      course: courses.course,
+      dataStatus: categories.dataStatus,
+      categories: categories.categories,
+    }),
   );
   const courseData = course as CourseGetResponseDto;
   const categoriesData = categories.map(({ name, id }) => ({
@@ -62,7 +66,7 @@ const EditCourseCategory: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(coursesActions.getCategories());
+    //dispatch(coursesActions.getCategories());
     navigation.setOptions({
       headerLeft: () => (
         <BackButton

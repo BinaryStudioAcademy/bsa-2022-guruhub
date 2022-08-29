@@ -1,31 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/common/enums/enums';
-import {
-  CategoryGetAllItemResponseDto,
-  CourseGetResponseDto,
-} from '~/common/types/types';
+import { CourseGetResponseDto } from '~/common/types/types';
 
-import {
-  addCourse,
-  getCategories,
-  getCourse,
-  getCourses,
-  updateCategory,
-} from './actions';
+import { addCourse, getCourse, getCourses, updateCategory } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   courses: CourseGetResponseDto[];
   course: CourseGetResponseDto | null;
-  categories: CategoryGetAllItemResponseDto[];
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   courses: [],
   course: null,
-  categories: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,18 +49,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
-
-  builder.addCase(getCategories.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(getCategories.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.categories = action.payload.items;
-  });
-  builder.addCase(getCategories.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-
   builder.addCase(updateCategory.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });

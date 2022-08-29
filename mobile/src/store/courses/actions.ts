@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
-  CategoryGetAllResponseDto,
   CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
@@ -49,17 +48,6 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-const getCategories = createAsyncThunk<
-  CategoryGetAllResponseDto,
-  void,
-  AsyncThunkConfig
->(ActionType.GET_CATEGORIES, async (_, { extra }) => {
-  const { categoriesApi } = extra;
-  const categoriesDto = await categoriesApi.getAll();
-
-  return categoriesDto;
-});
-
 const updateCategory = createAsyncThunk<
   CourseGetResponseDto,
   CourseUpdateCategoryRequestArguments,
@@ -71,4 +59,4 @@ const updateCategory = createAsyncThunk<
   return updatedCourse;
 });
 
-export { addCourse, getCategories, getCourse, getCourses, updateCategory };
+export { addCourse, getCourse, getCourses, updateCategory };
