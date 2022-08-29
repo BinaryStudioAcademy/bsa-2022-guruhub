@@ -24,10 +24,8 @@ import {
 import { coursesActions } from '~/store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import {
-  DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
-  DropDownPayload,
-} from './common/common';
+import { DropDownPayload } from './common/common';
+import { getDefaultValueforDropDown } from './helpers/get-categories-options-helper/helpers';
 import { styles } from './styles';
 
 const EditCourseCategory: FC = () => {
@@ -37,12 +35,12 @@ const EditCourseCategory: FC = () => {
   const { course, dataStatus, categories } = useAppSelector(
     (state) => state.courses,
   );
+  const currentCategory = course?.courseCategoryId;
 
   const { control, handleSubmit, reset, errors } = useAppForm<
     DropDownPayload | CategoryGetAllItemResponseDto
   >({
-    defaultValues: DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
-
+    defaultValues: getDefaultValueforDropDown(currentCategory),
     validationSchema: courseUpdateCategoryValidationSchema,
   });
 
@@ -75,10 +73,8 @@ const EditCourseCategory: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => {
-        reset(DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD);
-      };
-    }, []),
+      reset(getDefaultValueforDropDown(currentCategory));
+    }, [currentCategory]),
   );
 
   if (dataStatus === DataStatus.PENDING) {
