@@ -66,7 +66,6 @@ const EditCourseCategory: FC = () => {
   };
 
   useEffect(() => {
-    //dispatch(coursesActions.getCategories());
     navigation.setOptions({
       headerLeft: () => (
         <BackButton
