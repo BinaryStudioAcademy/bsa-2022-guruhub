@@ -7,7 +7,7 @@ type InterviewsGetAllItemResponseDto = {
   interviewDate: string;
   status: InterviewStatus;
   interviewee: UserWithDetailsDto;
-  interviewer: UserWithDetailsDto;
+  interviewer: UserWithDetailsDto | null;
   courseCategory: CategoryGetAllItemResponseDto;
 };
 
