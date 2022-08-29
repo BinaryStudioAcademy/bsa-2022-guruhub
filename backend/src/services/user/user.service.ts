@@ -90,10 +90,8 @@ class User {
     };
   }
 
-  public async getByEmail(
-    email: string,
-  ): Promise<UsersByEmailResponseDto | null> {
-    return await this.#userRepository.getByEmail(email);
+  public getByEmail(email: string): Promise<UsersByEmailResponseDto | null> {
+    return this.#userRepository.getByEmail(email);
   }
 
   public getUserPermissions(

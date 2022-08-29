@@ -63,7 +63,7 @@ class User {
       .execute();
   }
 
-  public async getUserPermissions(id: number): Promise<PermissionM[]> {
+  public getUserPermissions(id: number): Promise<PermissionM[]> {
     return this.#UserModel
       .query()
       .select(
@@ -78,7 +78,7 @@ class User {
       .execute();
   }
 
-  public async getByIds(ids: number[]): Promise<UserM[]> {
+  public getByIds(ids: number[]): Promise<UserM[]> {
     return this.#UserModel.query().findByIds(ids).execute();
   }
 
