@@ -1,0 +1,23 @@
+.status {
+  display: inline-block;
+  width: 100px;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+  border-radius: 16px;
+}
+
+.pending {
+  background-color: var(--brand-blue-100);
+}
+
+.completed {
+  background-color: var(--brand-green-100);
+}
+
+.rejected {
+  background-color: var(--brand-pink-100);
+}
+
+.inProgress {
+  background-color: var(--support-info-blue-100);
+}

@@ -13,6 +13,7 @@ type State = {
   users: UsersGetResponseDto[];
   usersTotalCount: number;
   permissions: PermissionsGetAllItemResponseDto[];
+  permissionsTotalCount: number;
   group: GroupsGetByIdResponseDto | null;
   groupUpdateDataStatus: DataStatus;
 };
@@ -22,6 +23,7 @@ const initialState: State = {
   users: [],
   usersTotalCount: 0,
   permissions: [],
+  permissionsTotalCount: 0,
   group: null,
   groupUpdateDataStatus: DataStatus.IDLE,
 };
@@ -45,6 +47,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getPermissions.fulfilled, (state, { payload }) => {
     state.groupCreateDataStatus = DataStatus.FULFILLED;
     state.permissions = payload.items;
+    state.permissionsTotalCount = payload.total;
   });
   builder.addCase(getPermissions.rejected, (state) => {
     state.groupCreateDataStatus = DataStatus.REJECTED;

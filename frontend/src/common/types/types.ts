@@ -40,6 +40,8 @@ export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
 } from './interview/interview';
 export {
@@ -75,6 +77,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UsersWithDetails,
   type UserWithPermissions,
 } from './user/user';
 export {

@@ -1,57 +1,49 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
-import { ScrollView } from '~/components/common/common';
-import { useEffect, useState } from '~/hooks/hooks';
+import { FlatList } from '~/components/common/common';
+import { useRef } from '~/hooks/hooks';
 
 import { Category } from './components/category/category';
 import { styles } from './style';
 
 type Props = {
   items: CategoryGetAllItemResponseDto[];
+  handleSelect: (id: number) => void;
+  activeCategoryId: number | null;
 };
 
-const CategoryList: FC<Props> = ({ items }) => {
-  const [activeCategoryIds, setActiveCategoryIds] = useState<number[]>([]);
-  const [filteredCategories, setFilteredCategories] = useState<
-    CategoryGetAllItemResponseDto[]
-  >([]);
+const CategoryList: FC<Props> = ({
+  items: categories,
+  handleSelect,
+  activeCategoryId,
+}) => {
+  const categoryRef = useRef<FlatList>(null);
 
-  const handlePress = (id: number): void => {
-    if (!activeCategoryIds.includes(id)) {
-      setActiveCategoryIds([...activeCategoryIds, id]);
-    } else {
-      setActiveCategoryIds(
-        activeCategoryIds.filter((activeId) => activeId !== id),
-      );
-    }
+  const handlePress = (id: number, index: number): void => {
+    handleSelect(id);
+    categoryRef.current?.scrollToIndex({
+      animated: true,
+      index: index,
+    });
   };
 
-  useEffect(() => {
-    if (activeCategoryIds.length) {
-      const activeSet = new Set(activeCategoryIds);
-      const activeItems = items.filter((item) => activeSet.has(item.id));
-      const notActiveItems = items.filter((item) => !activeSet.has(item.id));
-
-      setFilteredCategories([...activeItems, ...notActiveItems]);
-    } else {
-      setFilteredCategories(items);
-    }
-  }, [activeCategoryIds]);
-
-  const renderCategories = filteredCategories.map((category) => (
-    <Category
-      key={category.id}
-      name={category.name}
-      keyName={category.key}
-      onPress={(): void => handlePress(category.id)}
-    />
-  ));
-
   return (
-    <ScrollView horizontal={true} style={styles.container}>
-      {renderCategories}
-    </ScrollView>
+    <FlatList
+      ref={categoryRef}
+      data={categories}
+      keyExtractor={({ id }): string => id.toString()}
+      renderItem={({ item: category, index }): ReactElement => (
+        <Category
+          name={category.name}
+          keyName={category.key}
+          onPress={(): void => handlePress(category.id, index)}
+          isActive={category.id === activeCategoryId}
+        />
+      )}
+      style={styles.container}
+      horizontal={true}
+    />
   );
 };
 
