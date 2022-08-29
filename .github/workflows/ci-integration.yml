@@ -155,7 +155,7 @@ jobs:
           echo "::set-output name=branch-name::$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Send Success Report To Slack
-        if: ${{ success() }}
+        if: ${{ success() && (steps.get-current-branch-name.outcome == 'success') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -188,7 +188,7 @@ jobs:
             }
 
       - name: Send Failure Report To Slack
-        if: ${{ failure() }}
+        if: ${{ failure() && (steps.get-current-branch-name.outcome == 'success') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
