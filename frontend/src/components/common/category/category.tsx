@@ -20,7 +20,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
   });
 
   const handleClick = (): void => {
-    onClick && onClick(keyName);
+    onClick?.(keyName);
   };
 
   return (
