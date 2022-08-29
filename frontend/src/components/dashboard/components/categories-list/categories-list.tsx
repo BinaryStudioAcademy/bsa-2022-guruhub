@@ -30,7 +30,7 @@ const CategoriesList: FC<Props> = ({ items }) => {
           <Category
             keyName={category.key}
             name={category.name}
-            activeCategory={activeCategory}
+            isActive={activeCategory === category.key}
             onClick={handleClick}
           />
         </li>

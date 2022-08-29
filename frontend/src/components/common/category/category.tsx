@@ -9,11 +9,11 @@ import styles from './styles.module.scss';
 type Props = {
   keyName: string;
   name: string;
-  activeCategory?: string;
+  isActive?: boolean;
   onClick?: (keyName: string) => void;
 };
 
-const Category: FC<Props> = ({ keyName, name, activeCategory, onClick }) => {
+const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
@@ -25,10 +25,7 @@ const Category: FC<Props> = ({ keyName, name, activeCategory, onClick }) => {
 
   return (
     <button
-      className={getValidClasses(
-        styles.category,
-        activeCategory === keyName && styles.selected,
-      )}
+      className={getValidClasses(styles.category, isActive && styles.selected)}
       style={{ borderColor: getRandomColor() }}
       onClick={handleClick}
     >
