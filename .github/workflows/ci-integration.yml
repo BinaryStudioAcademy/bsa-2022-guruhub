@@ -72,7 +72,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: eu-central-1
         run: |
-          npm start & npx wait-on 'tcp:localhost:$PORT'
+          npm run start:build & npx wait-on 'tcp:localhost:$PORT'
 
       - name: Run Tests
         working-directory: ./backend/tests
