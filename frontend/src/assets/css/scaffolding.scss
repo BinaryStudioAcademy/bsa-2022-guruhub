@@ -56,3 +56,7 @@ select {
 ::-webkit-scrollbar-thumb {
   background: var(--background-gray-200);
 }
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--typography-text-gray-200);
+}
