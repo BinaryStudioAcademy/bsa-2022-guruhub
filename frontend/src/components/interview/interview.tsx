@@ -44,6 +44,7 @@ const Interview: FC = () => {
     totalOtherInterviewsNumber: state.interview.totalOtherInterviewsNumber,
   }));
   const [isInputOpen, setIsInputOpen] = useState<boolean>(false);
+  const hasInterview = Boolean(interview);
 
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
@@ -82,16 +83,24 @@ const Interview: FC = () => {
     return <Spinner />;
   }
 
+  if (!hasInterview) {
+    return (
+      <p className={styles.noSuchInterview}>
+        There is no interview with such an id
+      </p>
+    );
+  }
+
   return (
     <div className={styles.wrapper}>
-      {interview && (
-        <InterviewItem
-          interview={interview as InterviewsGetAllItemResponseDto}
-          handleUpdateInterview={handleUpdateInterview}
-          interviewers={interviewers}
-        />
-      )}
       <div className={styles.mainColumn}>
+        {interview && (
+          <InterviewItem
+            interview={interview as InterviewsGetAllItemResponseDto}
+            handleUpdateInterview={handleUpdateInterview}
+            interviewers={interviewers}
+          />
+        )}
         <h1>Other Applications</h1>
         <OtherApplicationsTable
           interviews={otherInterviews}

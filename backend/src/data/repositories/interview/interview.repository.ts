@@ -56,7 +56,7 @@ class Interview {
       .where({ categoryId })
       .where('status', InterviewStatus.COMPLETED)
       .withGraphJoined(
-        'interviewee(selectIdEmail) as interviewer.userDetails(selectFullName)',
+        'interviewee(withoutPassword) as interviewer.userDetails',
       )
       .castTo<InterviewsGetInterviewerResponseDto[]>()
       .execute();

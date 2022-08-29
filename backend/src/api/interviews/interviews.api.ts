@@ -155,7 +155,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
 
   fastify.route({
     method: HttpMethod.GET,
-    url: InterviewsApiPath.INTERVIEWERS_CATEGORY_$ID,
+    url: InterviewsApiPath.INTERVIEWERS_CATEGORIES_$ID,
     schema: { params: interviewGetInterviewersByCategoryValidationSchema },
     preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
     async handler(

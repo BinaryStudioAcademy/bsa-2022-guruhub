@@ -116,7 +116,7 @@ class InterviewsApi {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
         InterviewsApiPath.INTERVIEWERS
-      }${InterviewsApiPath.CATEGORY}${InterviewsApiPath.ROOT}${categoryId}`,
+      }${InterviewsApiPath.CATEGORIES}${InterviewsApiPath.ROOT}${categoryId}`,
       {
         method: HttpMethod.GET,
       },

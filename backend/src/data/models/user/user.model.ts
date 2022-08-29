@@ -46,9 +46,6 @@ class User extends Abstract {
       withoutPassword(builder): QueryBuilder<User> {
         return builder.select('id', 'email', 'createdAt', 'updatedAt');
       },
-      selectIdEmail(builder): QueryBuilder<User> {
-        return builder.select('id', 'email');
-      },
     };
   }
 }

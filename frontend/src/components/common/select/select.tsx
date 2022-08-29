@@ -2,7 +2,7 @@ import {
   FC,
   FormControl,
   FormControlErrors,
-  SelectorOptions,
+  SelectorOption,
 } from 'common/types/types';
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
@@ -14,10 +14,11 @@ type Props = {
   control: FormControl;
   errors: FormControlErrors;
   name: string;
-  options: SelectorOptions<string | number>[];
+  options: SelectorOption<string | number>[];
   setValue?: (name: string, value: string) => void;
   value?: string;
-  label?: string;
+  label: string;
+  hasVisuallyHiddenLabel?: boolean;
   className?: string;
 };
 
@@ -26,6 +27,7 @@ const Select: FC<Props> = ({
   control,
   errors,
   label,
+  hasVisuallyHiddenLabel = false,
   options,
   className,
 }) => {
@@ -33,7 +35,14 @@ const Select: FC<Props> = ({
 
   return (
     <div className={getValidClasses(className, styles.wrapper)}>
-      {label && <label className={styles.title}>{label}</label>}
+      <label
+        className={getValidClasses(
+          styles.title,
+          hasVisuallyHiddenLabel && styles.visuallyHidden,
+        )}
+      >
+        {label}
+      </label>
       <div className={styles.selectWrapper}>
         <select {...field} className={styles.select} name={name}>
           {options.map((option) => (

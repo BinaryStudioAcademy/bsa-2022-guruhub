@@ -3,7 +3,7 @@ import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
   InterviewsUpdateRequestDto,
-  SelectorOptions,
+  SelectorOption,
 } from 'common/types/types';
 import { Button, Select } from 'components/common/common';
 import { getFormattedDate, getNameOf } from 'helpers/helpers';
@@ -30,7 +30,7 @@ const InterviewItem: FC<Props> = ({
     setIsEditMode((prevValue) => !prevValue);
   };
 
-  const interviewersOptions = useMemo<SelectorOptions<number>[]>(() => {
+  const interviewersOptions = useMemo<SelectorOption<number>[]>(() => {
     return getInterviewersOptions(interviewers);
   }, [interviewers]);
 
@@ -108,13 +108,14 @@ const InterviewItem: FC<Props> = ({
             )}
             {isEditMode && (
               <Select
-                className={styles.customSelect}
                 options={interviewersOptions}
                 name={getNameOf<InterviewsUpdateRequestDto>(
                   'interviewerUserId',
                 )}
                 control={control}
                 errors={errors}
+                label="Interviewers"
+                hasVisuallyHiddenLabel
               />
             )}
           </div>

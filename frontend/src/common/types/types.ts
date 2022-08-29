@@ -83,7 +83,7 @@ export {
   type SVGProps,
   type URLSearchParamsInit,
 } from './react/react';
-export { SelectorOptions } from './selector-options/selector-options';
+export { SelectorOption } from './selector-option/selector-option';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export { type IconName } from './ui/ui';
 export {
@@ -93,7 +93,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-  type UserWithDetailsDto,
   type UserWithPermissions,
 } from './user/user';
 export {

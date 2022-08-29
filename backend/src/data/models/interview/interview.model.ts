@@ -1,10 +1,6 @@
 import { Model, RelationMappings } from 'objection';
 
 import { DbTableName, InterviewStatus } from '~/common/enums/enums';
-import {
-  CategoryGetAllItemResponseDto,
-  UsersGetResponseDto,
-} from '~/common/types/types';
 
 import { Abstract } from '../abstract/abstract.model';
 import { CourseCategory } from '../course-category/course-category.model';
@@ -20,12 +16,6 @@ class Interview extends Abstract {
   public 'intervieweeUserId': number;
 
   public 'interviewerUserId': number;
-
-  public 'courseCategory': CategoryGetAllItemResponseDto;
-
-  public 'interviewer': UsersGetResponseDto | null;
-
-  public 'interviewee': UsersGetResponseDto;
 
   public static override get relationMappings(): RelationMappings {
     return {
