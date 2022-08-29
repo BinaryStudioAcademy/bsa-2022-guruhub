@@ -35,12 +35,12 @@ const UAMConfigureGroup: FC = () => {
     items: permissionIds,
     handleToggle: handlePermissionToggle,
     setItems: setDefaultPermissionIds,
-  } = useSelectedItems<number>(group?.permissionIds ?? []);
+  } = useSelectedItems<number>([]);
   const {
     items: userIds,
     handleToggle: handleUserToggle,
     setItems: setDefaultUserIds,
-  } = useSelectedItems<number>(group?.userIds ?? []);
+  } = useSelectedItems<number>([]);
   const { page: usersPage, handlePageChange: handleUsersPageChange } =
     usePagination({ queryName: 'users' });
   const {
@@ -86,11 +86,7 @@ const UAMConfigureGroup: FC = () => {
   useEffect(() => {
     if (isEdit) {
       dispatch(uamConfigureGroupActions.getGroupById({ id: Number(id) }));
-
-      return;
     }
-    setDefaultPermissionIds([]);
-    setDefaultUserIds([]);
   }, []);
 
   useEffect(() => {
