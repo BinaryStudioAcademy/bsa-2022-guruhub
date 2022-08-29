@@ -32,7 +32,7 @@ const EditCourseCategory: FC = () => {
   const { course, dataStatus, categories } = useAppSelector(
     ({ courses, categories }) => ({
       course: courses.course,
-      dataStatus: categories.dataStatus,
+      dataStatus: courses.dataStatus,
       categories: categories.categories,
     }),
   );
