@@ -166,7 +166,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Integration API tests in \"${{ steps.get-current-branch-name.outputs.branch-name }}\" branch *passed* :white_check_mark:"
+                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *passed* :white_check_mark:"
                   }
                 },
                 {
@@ -179,7 +179,6 @@ jobs:
                         "text": ":file_folder: Download reports here",
                         "emoji": true
                       },
-                      "value": "download_reports",
                       "url": "${{ env.WORKFLOW_RUN_URL }}"
                     }
                   ]
@@ -199,7 +198,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Integration API tests in \"${{ steps.get-current-branch-name.outputs.branch-name }}\" branch *failed* :rotating_light:"
+                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *failed* :rotating_light:"
                   }
                 },
                 {
@@ -212,7 +211,6 @@ jobs:
                         "text": ":file_folder: Download reports here",
                         "emoji": true
                       },
-                      "value": "download_reports",
                       "url": "${{ env.WORKFLOW_RUN_URL }}"
                     }
                   ]
