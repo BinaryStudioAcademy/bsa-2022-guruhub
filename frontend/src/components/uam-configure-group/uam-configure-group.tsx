@@ -86,7 +86,11 @@ const UAMConfigureGroup: FC = () => {
   useEffect(() => {
     if (isEdit) {
       dispatch(uamConfigureGroupActions.getGroupById({ id: Number(id) }));
+
+      return;
     }
+    setDefaultPermissionIds([]);
+    setDefaultUserIds([]);
   }, []);
 
   useEffect(() => {
@@ -99,7 +103,7 @@ const UAMConfigureGroup: FC = () => {
   }, [usersPage]);
 
   useEffect(() => {
-    if (group) {
+    if (group && isEdit) {
       setDefaultPermissionIds(group.permissionIds);
       setDefaultUserIds(group.userIds);
       reset({ name: group.name });
