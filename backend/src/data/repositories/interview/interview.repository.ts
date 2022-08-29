@@ -23,24 +23,23 @@ class Interview {
   public getAll(): Promise<InterviewsGetAllItemResponseDto[]> {
     return this.#InterviewModel
       .query()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#InterviewModel
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#InterviewModel
       .query()
       .select()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .findById(id)
-      .castTo<InterviewsByIdResponseDto>();
-
-    return interview ?? null;
+      .castTo<InterviewsByIdResponseDto>()
+      .execute();
   }
 
   public create({
@@ -89,9 +88,9 @@ class Interview {
       .select()
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }

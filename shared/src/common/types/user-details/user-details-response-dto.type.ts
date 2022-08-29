@@ -5,6 +5,7 @@ type UserDetailsResponseDto = {
   fullName: string;
   gender: UserGender | null;
   avatarUrl: string | null;
+  dateOfBirth: string | null;
 };
 
 export { type UserDetailsResponseDto };

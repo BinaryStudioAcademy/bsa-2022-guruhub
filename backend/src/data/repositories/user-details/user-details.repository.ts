@@ -1,4 +1,7 @@
-import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
+import {
+  UserDetailsResponseDto,
+  UserDetailsUpdateInfoRequestDto,
+} from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
 type Constructor = {
@@ -15,7 +18,7 @@ class UserDetails {
   public create(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
-  ): Promise<UserDetailsM> {
+  ): Promise<UserDetailsResponseDto> {
     const { fullName, gender } = userDetails;
 
     return this.#UserDetailsModel
@@ -25,6 +28,7 @@ class UserDetails {
         gender,
         userId,
       })
+      .returning('*')
       .execute();
   }
 
