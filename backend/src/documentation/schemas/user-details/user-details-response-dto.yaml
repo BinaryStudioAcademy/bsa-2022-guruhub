@@ -6,17 +6,22 @@ properties:
     example: 1
   fullName:
     type: string
-    nullable: false
-    example: 'Daryna Mon'
+    example: John Doe
   gender:
     type: string
-    nullable: true
-    enum:
-      - male
-      - female
-      - other
-    example: female
+    example: male
   avatarUrl:
-      type: string
-      nullable: true
-      example: 'https://cdn-icons-png.flaticon.com/512/1053/1053244.png?w=360'
+    type: string
+    example: 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
+  createdAt:
+    type: string
+    example: '2022-08-25T14:44:55.216Z'
+  updatedAt:
+    type: string
+    example: '2022-08-25T14:44:55.216Z'
+  dateOfBirth:
+    type: string
+    example: '2022-08-25T14:44:55.216Z'
+  userId:
+    type: number
+    example: 1

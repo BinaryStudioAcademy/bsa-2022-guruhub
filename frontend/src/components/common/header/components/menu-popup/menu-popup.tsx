@@ -19,7 +19,6 @@ const Popup: FC<Props> = ({ onClose }) => {
   });
 
   const handleLogout = (): void => {
-    dispatch(authActions.logout());
     dispatch(authActions.logout()).unwrap().then(onClose);
   };
 

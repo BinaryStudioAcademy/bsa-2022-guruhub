@@ -4,7 +4,7 @@ import { SettingsMenuItem } from 'common/types/types';
 const settingsTabs: SettingsMenuItem[] = [
   {
     name: 'Appearance',
-    href: AppRoute.APPEARANCE,
+    href: AppRoute.SETTINGS_APPEARANCE,
     iconColorClass: 'brandBlue100',
   },
   {
@@ -14,17 +14,17 @@ const settingsTabs: SettingsMenuItem[] = [
   },
   {
     name: 'Security',
-    href: AppRoute.SECURITY,
+    href: AppRoute.SETTINGS_SECURITY,
     iconColorClass: 'brandPink100',
   },
   {
     name: 'Billing information',
-    href: AppRoute.BILLING,
+    href: AppRoute.SETTINGS_BILLING,
     iconColorClass: 'brandGreen100',
   },
   {
     name: 'Messages',
-    href: AppRoute.MESSAGES,
+    href: AppRoute.SETTINGS_MESSAGES,
     iconColorClass: 'brandYellow200',
   },
 ];

@@ -1,0 +1,18 @@
+.chooseMentorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  transform: translateY(70px);
+}
+
+.button {
+  padding: 79px 40px 30px;
+  background-color: var(--background-gray-300);
+  border-radius: 20px;
+}

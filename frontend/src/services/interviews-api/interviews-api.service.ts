@@ -5,7 +5,16 @@ import {
   InterviewsApiPath,
 } from 'common/enums/enums';
 import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  InterviewNoteCreateDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArgumentsDto,
   InterviewsCreateRequestBodyDto,
+  InterviewsGetAllItemResponseDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -20,9 +29,27 @@ class InterviewsApi {
 
   #apiPrefix: string;
 
-  public constructor({ apiPrefix, http }: Constructor) {
-    this.#apiPrefix = apiPrefix;
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
+    this.#apiPrefix = apiPrefix;
+  }
+
+  public getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    return this.#http.load<EntityPagination<InterviewsGetAllItemResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
+      },
+    );
   }
 
   public create(
@@ -47,6 +74,54 @@ class InterviewsApi {
       }/${intervieweeUserId}${InterviewsApiPath.CATEGORIES}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    return this.#http.load<EntityPagination<InterviewsGetOtherItemResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.ROOT
+      }${interviewId}${InterviewsApiPath.OTHER}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
+      },
+    );
+  }
+
+  public getAllNotes({
+    interviewId,
+  }: InterviewNoteGetRequestArgumentsDto): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#http.load<InterviewNoteGetAllResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      { method: HttpMethod.GET },
+    );
+  }
+
+  public createNote({
+    interviewId,
+    note,
+  }: InterviewNoteCreateDto): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#http.load<InterviewNoteGetAllItemResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ note }),
       },
     );
   }
