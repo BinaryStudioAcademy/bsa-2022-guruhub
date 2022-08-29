@@ -7,9 +7,7 @@ const getFormattedDate = (date: string, formatDate: FormatDate): string => {
     case 'distance': {
       return formatDistance(new Date(date), new Date());
     }
-    case 'yyyy-MM-dd': {
-      return format(new Date(date), formatDate);
-    }
+    case 'yyyy-MM-dd':
     case 'kk:mm, dd/MM/yyyy': {
       return format(new Date(date), formatDate);
     }
