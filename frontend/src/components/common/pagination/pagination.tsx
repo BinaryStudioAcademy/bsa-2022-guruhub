@@ -2,6 +2,8 @@ import { FC } from 'common/types/types';
 
 import styles from './styles.module.scss';
 
+const NO_ITEMS_PAGE_COUNT = 0;
+
 type Props = {
   totalCount: number;
   pageSize: number;
@@ -25,6 +27,9 @@ const Pagination: FC<Props> = ({
     onPageChange(currentPage - 1);
   };
 
+  const isNextBtnDisabled =
+    currentPage === totalPages || totalPages === NO_ITEMS_PAGE_COUNT;
+
   return (
     <div className={styles.paginationContainer}>
       <p className={styles.results}>{totalCount} results</p>
@@ -40,7 +45,7 @@ const Pagination: FC<Props> = ({
         <button
           className={styles.next}
           onClick={handleNextPageChange}
-          disabled={currentPage === totalPages || totalPages === 0}
+          disabled={isNextBtnDisabled}
         />
       </div>
     </div>
