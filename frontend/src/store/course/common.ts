@@ -10,6 +10,8 @@ enum ActionType {
   UPDATE_CATEGORY = 'course/update-category',
   DISABLE_MENTOR_BECOMING = 'course/disable-mentor-becoming',
   BECOME_A_MENTOR = 'course/become-a-mentor',
+  CHOOSE_A_MENTOR = 'course/choose-a-mentor',
+  SET_IS_MENTOR_CHOOSING_ENABLED = 'course/set-is-mentor-choosing-enabled',
 }
 
 export { ActionType };

@@ -29,6 +29,8 @@ paths:
     $ref: './endpoints/courses/courses-by-id-operations.yaml'
   /courses/:id/category:
     $ref: './endpoints/courses/course-update-category-by-id.yaml'
+  /courses/:id/mentors:
+    $ref: './endpoints/courses/courses-add-mentor.yaml'
   # Courses Modules
   /courses/:courseId/modules:
     $ref: './endpoints/courses-modules/courses-modules-get-all-by-course-id.yaml'
@@ -83,6 +85,10 @@ components:
       $ref: './schemas/courses/course-get-by-id-request-dto.yaml'
     CourseGetByIdResponseDto:
       $ref: './schemas/courses/course-get-by-id-response-dto.yaml'
+    CoursesAddMentorRequestDto:
+      $ref: './schemas/courses/courses-add-mentor-request-dto.yaml'
+    CoursesAddMentorResponseDto:
+      $ref: './schemas/courses/courses-add-mentor-response-dto.yaml'
     CoursesUpdateCategoryRequestDto:
       $ref: './schemas/courses/course-update-category-request-dto.yaml'
     CoursesModulesGetAllByCourseIdRequestDto:
