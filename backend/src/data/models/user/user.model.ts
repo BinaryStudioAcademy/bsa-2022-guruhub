@@ -1,4 +1,4 @@
-import { Model, RelationMappings } from 'objection';
+import { AnyQueryBuilder, Model, RelationMappings } from 'objection';
 
 import { DbTableName } from '~/common/enums/enums';
 
@@ -11,6 +11,18 @@ class User extends Abstract {
   public 'passwordHash': string;
 
   public 'passwordSalt': string;
+
+  public static override modifiers = {
+    selectIdEmail(builder: AnyQueryBuilder): void {
+      builder.select('id', 'email');
+    },
+    selectFullName(builder: AnyQueryBuilder): void {
+      builder.select('fullName');
+    },
+    withoutPassword(builder: AnyQueryBuilder): void {
+      builder.select('id', 'email', 'createdAt', 'updatedAt');
+    },
+  };
 
   public static override get relationMappings(): RelationMappings {
     return {

@@ -39,14 +39,6 @@ class Interview {
       .withGraphJoined(
         'interviewee(selectIdEmail) as interviewer.userDetails(selectFullName)',
       )
-      .modifiers({
-        selectIdEmail(builder) {
-          builder.select('id', 'email');
-        },
-        selectFullName(builder) {
-          builder.select('fullName');
-        },
-      })
       .castTo<InterviewsGetInterviewerResponseDto[]>()
       .execute();
   }
@@ -58,11 +50,6 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
       .findById(id)
       .castTo<InterviewsByIdResponseDto>();
 
@@ -115,9 +102,7 @@ class Interview {
       .select()
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
+      .withGraphJoined('[courseCategory, interviewee, interviewer]')
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -135,11 +120,6 @@ class Interview {
       .withGraphFetched(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
       .castTo<InterviewsByIdResponseDto>()
       .execute();
   }

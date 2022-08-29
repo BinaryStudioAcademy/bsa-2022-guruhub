@@ -95,10 +95,7 @@ const InterviewItem: FC<Props> = ({
             <p className={styles.header}>Date of interview</p>
             <p className={styles.interviewValue}>
               {interview?.interviewDate
-                ? getFormattedDate(
-                    interview?.interviewDate.toString(),
-                    'yyyy-MM-dd',
-                  )
+                ? getFormattedDate(interview?.interviewDate, 'yyyy-MM-dd')
                 : ''}
             </p>
           </div>
