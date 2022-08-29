@@ -43,16 +43,26 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
   fastify.route({
     method: HttpMethod.GET,
     url: InterviewsApiPath.ROOT,
+    schema: { querystring: paginationValidationSchema },
     preHandler: checkHasPermissions(
       'oneOf',
       PermissionKey.MANAGE_INTERVIEWS,
       PermissionKey.MANAGE_INTERVIEW,
     ),
-    async handler(req, res) {
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
       const { id, permissions } = req.user;
+      const {
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
       const interviews = await interviewService.getAll({
         userId: id,
         permissions,
+        count,
+        page,
       });
 
       return res.status(HttpCode.OK).send(interviews);
