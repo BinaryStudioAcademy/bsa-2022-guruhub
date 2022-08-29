@@ -1,7 +1,10 @@
 import { ApiPath, CategoriesApiPath, HttpMethod } from '~/common/enums/enums';
-import { CategoryGetAllResponseDto } from '~/common/types/types';
-
-import { Http } from '../http/http.service';
+import {
+  CategoryGetAllResponseDto,
+  CourseCategoryGetByIdRequestParamsDto,
+  CourseCategoryGetResponseDto,
+} from '~/common/types/types';
+import { Http } from '~/services/http/http.service';
 
 type Constructor = {
   http: Http;
@@ -21,6 +24,17 @@ class CategoriesApi {
   public getAll(): Promise<CategoryGetAllResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getById({
+    id,
+  }: CourseCategoryGetByIdRequestParamsDto): Promise<CourseCategoryGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}${id}`,
       {
         method: HttpMethod.GET,
       },
