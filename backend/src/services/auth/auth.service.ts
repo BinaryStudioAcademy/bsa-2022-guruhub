@@ -50,6 +50,7 @@ class Auth {
     }
 
     const user = await this.#userService.create(userRequestDto);
+
     const token = await this.#tokenService.create({ userId: user.id });
 
     return {
@@ -90,7 +91,7 @@ class Auth {
     return {
       id: user.id,
       email: user.email,
-      fullName: user.fullName,
+      userDetails: user.userDetails,
       createdAt: user.createdAt,
       permissions,
     };

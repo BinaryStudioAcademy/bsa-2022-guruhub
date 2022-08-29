@@ -1,8 +1,13 @@
 import { InterviewStatus } from '~/common/enums/enums';
 import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetByUserIdRequestDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestArgumentsDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -17,27 +22,40 @@ class Interview {
     this.#InterviewModel = InterviewModel;
   }
 
-  public getAll(): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#InterviewModel
+  public async getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    const elementsToSkip = page * count;
+    const items = await this.#InterviewModel
       .query()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
-      .castTo<InterviewsGetAllItemResponseDto[]>()
-      .execute();
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
+      .offset(elementsToSkip)
+      .limit(count)
+      .castTo<InterviewsGetAllItemResponseDto[]>();
+
+    const total = await this.#InterviewModel.query();
+
+    return {
+      items,
+      total: total.length,
+    };
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#InterviewModel
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#InterviewModel
       .query()
       .select()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .findById(id)
-      .castTo<InterviewsByIdResponseDto>();
-
-    return interview ?? null;
+      .castTo<InterviewsByIdResponseDto>()
+      .execute();
   }
 
   public create({
@@ -78,19 +96,66 @@ class Interview {
     return interview ?? null;
   }
 
-  public async getByUserId(
-    userId: number,
-  ): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#InterviewModel
+  public async getByUserId({
+    count,
+    page,
+    userId,
+  }: InterviewsGetByUserIdRequestDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    const elementsToSkip = page * count;
+
+    const items = await this.#InterviewModel
       .query()
       .select()
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
+      .offset(elementsToSkip)
+      .limit(count)
+      .castTo<InterviewsGetAllItemResponseDto[]>();
+
+    const total = await this.#InterviewModel
+      .query()
+      .select()
+      .where('intervieweeUserId', userId)
+      .orWhere('interviewerUserId', userId);
+
+    return { items, total: total.length };
+  }
+
+  public async getOtherByInterviewId({
+    interviewId,
+    intervieweeUserId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestArgumentsDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    const ELEMENTS_TO_SKIP = page * count;
+
+    const results = await this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhereNot('interviews.id', interviewId)
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
-      .castTo<InterviewsGetAllItemResponseDto[]>()
-      .execute();
+      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
+      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .limit(count)
+      .offset(ELEMENTS_TO_SKIP)
+      .castTo<InterviewsGetOtherItemResponseDto[]>();
+
+    const total = await this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhereNot('interviews.id', interviewId);
+
+    return {
+      items: results,
+      total: total.length,
+    };
   }
 }
 

@@ -40,7 +40,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       body: groupCreateValidationSchema,
     },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Body: GroupsConfigureRequestDto }>,
       rep,
@@ -57,7 +57,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     schema: {
       querystring: paginationQueryValidationSchema,
     },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       rep,
@@ -80,7 +80,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: GroupsApiPath.$ID,
     schema: { params: groupGetByIdValidationSchema },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_UAM),
     async handler(req: FastifyRequest<{ Params: { id: string } }>, rep) {
       const { id } = req.params;
 
@@ -97,7 +97,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       body: groupUpdateValidationSchema,
       params: groupUpdateParamsValidationSchema,
     },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{
         Body: GroupsUpdateRequestDto;
@@ -118,7 +118,7 @@ const initGroupsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.DELETE,
     url: GroupsApiPath.$ID,
     schema: { params: groupsDeleteValidationSchema },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_UAM),
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Params: GroupsDeleteRequestParamDto }>,
       rep,
