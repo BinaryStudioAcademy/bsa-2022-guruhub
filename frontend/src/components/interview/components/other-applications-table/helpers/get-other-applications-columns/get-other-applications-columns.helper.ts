@@ -7,7 +7,7 @@ import {
   DateCell,
   IdCell,
   StatusCell,
-} from '../../../components';
+} from '../../components/components';
 
 const getOtherApplicationsColumns = (): Column<OtherApplicationsTableRow>[] => {
   return [
