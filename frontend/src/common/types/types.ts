@@ -42,6 +42,7 @@ export { type HttpOptions } from './http/http';
 export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
+  type InterviewsGetAllResponseDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
@@ -88,7 +89,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-  type UsersWithDetails,
+  type UserWithDetailsDto,
   type UserWithPermissions,
 } from './user/user';
 export {

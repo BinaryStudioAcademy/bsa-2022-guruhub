@@ -24,7 +24,7 @@ class Interview {
     return this.#InterviewModel
       .query()
       .withGraphJoined(
-        '[courseCategory, interviewee.[userDetails], interviewer.[userDetails]]',
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
@@ -33,8 +33,9 @@ class Interview {
   public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
     return this.#InterviewModel
       .query()
+      .select()
       .withGraphJoined(
-        '[courseCategory, interviewee.[userDetails], interviewer.[userDetails]]',
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
       .findById(id)
       .castTo<InterviewsByIdResponseDto>()
@@ -88,7 +89,7 @@ class Interview {
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
       .withGraphJoined(
-        '[courseCategory, interviewee.[userDetails], interviewer.[userDetails]]',
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();

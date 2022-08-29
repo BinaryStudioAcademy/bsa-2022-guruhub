@@ -1,11 +1,13 @@
-import { CategoryGetAllItemResponseDto, UsersWithDetails } from '../types';
+import { InterviewStatus } from '~/common/enums/enums';
+
+import { CategoryGetAllItemResponseDto, UserWithDetailsDto } from '../types';
 
 type InterviewsGetAllItemResponseDto = {
   id: number;
   interviewDate: string;
-  status: string;
-  interviewee: UsersWithDetails;
-  interviewer: UsersWithDetails;
+  status: InterviewStatus;
+  interviewee: UserWithDetailsDto;
+  interviewer: UserWithDetailsDto | null;
   courseCategory: CategoryGetAllItemResponseDto;
 };
 

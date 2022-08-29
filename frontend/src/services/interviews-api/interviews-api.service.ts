@@ -11,6 +11,7 @@ import {
   InterviewNoteGetAllResponseDto,
   InterviewNoteGetRequestArgumentsDto,
   InterviewsCreateRequestBodyDto,
+  InterviewsGetAllResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
@@ -27,9 +28,15 @@ class InterviewsApi {
 
   #apiPrefix: string;
 
-  public constructor({ apiPrefix, http }: Constructor) {
-    this.#apiPrefix = apiPrefix;
+  public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
+    this.#apiPrefix = apiPrefix;
+  }
+
+  public getAll(): Promise<InterviewsGetAllResponseDto> {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.INTERVIEWS}`, {
+      method: HttpMethod.GET,
+    });
   }
 
   public create(
