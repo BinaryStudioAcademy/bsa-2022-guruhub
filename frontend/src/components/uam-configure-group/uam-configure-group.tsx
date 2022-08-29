@@ -23,7 +23,7 @@ const UAMConfigureGroup: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const isEdit = Boolean(id);
-  const { permissions, group, users } = useAppSelector(
+  const { permissions, group, users, permissionsTotalCount } = useAppSelector(
     (state) => state.uamConfigureGroup,
   );
   const { control, handleSubmit, errors, reset } =
@@ -136,6 +136,7 @@ const UAMConfigureGroup: FC = () => {
         selectedPermissionIds={permissionIds}
         page={permissionsPage}
         onPageChange={handlePermissionsPageChange}
+        permissionsTotalCount={permissionsTotalCount}
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>

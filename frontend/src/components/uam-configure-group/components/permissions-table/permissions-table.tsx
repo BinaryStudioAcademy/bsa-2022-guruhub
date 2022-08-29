@@ -4,7 +4,7 @@ import { Pagination, Table } from 'components/common/common';
 import { GroupConfigureFieldsName } from 'components/uam-configure-group/common/enums/enums';
 import { PermissionsTableRow } from 'components/uam-configure-group/common/types/types';
 import { getPermissionsColumns } from 'components/uam-configure-group/helpers/helpers';
-import { useAppSelector, useMemo } from 'hooks/hooks';
+import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
 import styles from './styles.module.scss';
@@ -15,6 +15,7 @@ type Props = {
   selectedPermissionIds: number[];
   page: number;
   onPageChange: (page: number) => void;
+  permissionsTotalCount: number;
 };
 
 const PermissionsTable: FC<Props> = ({
@@ -23,11 +24,8 @@ const PermissionsTable: FC<Props> = ({
   selectedPermissionIds,
   page,
   onPageChange,
+  permissionsTotalCount,
 }) => {
-  const { permissionsTotalCount } = useAppSelector(
-    (state) => state.uamConfigureGroup,
-  );
-
   const columns = useMemo<Column<PermissionsTableRow>[]>(() => {
     return getPermissionsColumns({
       name: GroupConfigureFieldsName.PERMISSION_IDS,
