@@ -7,25 +7,25 @@
 }
 
 .new {
-  background-color: #ecbc02;
+  background-color: var(--brand-yellow-300);
 }
 
 .rejected {
-  background-color: #7e19f7;
+  background-color: var(--brand-purple-100);
 }
 
 .canceled {
-  background-color: #f64848;
+  background-color: var(--brand-red-100);
 }
 
 .completed {
-  background-color: #7bdf00;
+  background-color: var(--brand-green-100);
 }
 
 .pending {
-  background-color: #03d7fc;
+  background-color: var(--brand-blue-200);
 }
 
 .inProgress {
-  background-color: #d605e8;
+  background-color: var(--brand-pink-200);
 }
