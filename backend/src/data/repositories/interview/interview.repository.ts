@@ -26,11 +26,6 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -102,11 +97,6 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
