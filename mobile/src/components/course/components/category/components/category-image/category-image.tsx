@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
 import { View } from '~/components/common/common';
+import { categoryKeyToImage } from '~/components/course/components/category/common/maps/maps';
 
-import { categoryKeyToImage } from '../../common/maps/maps';
 import { styles } from './style';
 
 type Props = {

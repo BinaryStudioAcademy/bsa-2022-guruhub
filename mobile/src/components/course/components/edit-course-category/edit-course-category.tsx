@@ -25,7 +25,7 @@ import { coursesActions } from '~/store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { DropDownPayload } from './common/common';
-import { getDefaultValueforDropDown } from './helpers/get-categories-options-helper/helpers';
+import { getDefaultValueforDropDown } from './helper/helpers';
 import { styles } from './styles';
 
 const EditCourseCategory: FC = () => {
