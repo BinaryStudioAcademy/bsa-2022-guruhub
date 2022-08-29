@@ -4,6 +4,7 @@ import { reducer as courses } from './courses/reducer';
 import { reducer as uam } from './uam/reducer';
 import { reducer as uamGroupEdit } from './uam-group-edit/reducer';
 import { reducer as uamGroupCreation } from './uam-groups-create/reducer';
+import { reducer as userDetails } from './user-details/reducer';
 
 const rootReducer = {
   auth,
@@ -12,6 +13,7 @@ const rootReducer = {
   uamGroupCreation,
   courses,
   courseModules,
+  userDetails,
 };
 
 export { rootReducer };
