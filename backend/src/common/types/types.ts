@@ -5,8 +5,12 @@ export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
@@ -54,7 +58,8 @@ export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsCreateRequestDto,
   type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
+  type InterviewsGetAllRequestDto,
+  type InterviewsGetByUserIdRequestDto,
   type InterviewsGetInterviewerResponseDto,
   type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsGetOtherItemResponseDto,
@@ -71,6 +76,10 @@ export {
   type InterviewNoteGetAllItemResponseDto,
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';
+export {
+  type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
+} from './mentees-to-mentors/mentees-to-mentors';
 export { EntityPagination } from './pagination/pagination';
 export {
   type CheckPermisssionType,

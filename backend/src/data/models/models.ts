@@ -7,6 +7,7 @@ export { Group } from './group/group.model';
 export { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.model';
 export { InterviewNote } from './interveiw-note/interview-note.model';
 export { Interview } from './interview/interview.model';
+export { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.model';
 export { Permission } from './permission/permission.model';
 export { User } from './user/user.model';
 export { UserDetails } from './user-details/user-details.model';

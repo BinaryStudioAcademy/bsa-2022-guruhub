@@ -2,10 +2,12 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,
 } from './course/course';
 export { courseCategoryGetByIdParams } from './course-category/course-category';
+export { courseMentorCreate } from './course-mentor/course-mentor';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,

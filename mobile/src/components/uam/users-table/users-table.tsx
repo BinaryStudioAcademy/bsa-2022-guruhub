@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import { getUsersColumns } from '~/components/uam/helpers/helpers';
+import { getFormattedDate } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -28,6 +29,7 @@ const UsersTable: FC = () => {
   const tableData = users.map((user) => ({
     ...user,
     fullName: user.userDetails.fullName,
+    createdAt: `${getFormattedDate(user.createdAt, 'distance')} ago`,
     action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
   }));
 

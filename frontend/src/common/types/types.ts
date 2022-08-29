@@ -2,8 +2,11 @@ export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
 } from './course/course';
 export {
@@ -39,7 +42,6 @@ export { type HttpOptions } from './http/http';
 export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
   type InterviewsGetInterviewerResponseDto,
   type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsGetOtherItemResponseDto,
@@ -60,6 +62,7 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type MenteesToMentorsRequestDto,
 } from './mentor/mentor';
 export {
   type NavigationMenuItem,

@@ -1,9 +1,11 @@
 import { InterviewStatus } from '~/common/enums/enums';
 import {
   EntityPagination,
+  EntityPaginationRequestQueryDto,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsGetByUserIdRequestDto,
   InterviewsGetInterviewerResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestArgumentsDto,
@@ -21,14 +23,28 @@ class Interview {
     this.#InterviewModel = InterviewModel;
   }
 
-  public getAll(): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#InterviewModel
+  public async getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    const elementsToSkip = page * count;
+    const items = await this.#InterviewModel
       .query()
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .castTo<InterviewsGetAllItemResponseDto[]>()
-      .execute();
+      .offset(elementsToSkip)
+      .limit(count)
+      .castTo<InterviewsGetAllItemResponseDto[]>();
+
+    const total = await this.#InterviewModel.query();
+
+    return {
+      items,
+      total: total.length,
+    };
   }
 
   public getInterviewersByCategoryId(
@@ -96,10 +112,16 @@ class Interview {
     return interview ?? null;
   }
 
-  public async getByUserId(
-    userId: number,
-  ): Promise<InterviewsGetAllItemResponseDto[]> {
-    return this.#InterviewModel
+  public async getByUserId({
+    count,
+    page,
+    userId,
+  }: InterviewsGetByUserIdRequestDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    const elementsToSkip = page * count;
+
+    const items = await this.#InterviewModel
       .query()
       .select()
       .where('intervieweeUserId', userId)
@@ -107,8 +129,17 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .castTo<InterviewsGetAllItemResponseDto[]>()
-      .execute();
+      .offset(elementsToSkip)
+      .limit(count)
+      .castTo<InterviewsGetAllItemResponseDto[]>();
+
+    const total = await this.#InterviewModel
+      .query()
+      .select()
+      .where('intervieweeUserId', userId)
+      .orWhere('interviewerUserId', userId);
+
+    return { items, total: total.length };
   }
 
   public update(interview: {

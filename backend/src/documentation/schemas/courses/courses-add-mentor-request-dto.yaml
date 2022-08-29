@@ -1,0 +1,8 @@
+type: object
+properties:
+  mentorId:
+    type: integer
+    example: 2
+  menteeId:
+    type: integer
+    example: 3

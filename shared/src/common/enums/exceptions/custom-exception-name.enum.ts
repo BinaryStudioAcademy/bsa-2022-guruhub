@@ -11,6 +11,7 @@ enum CustomExceptionName {
   USER_ERROR = 'UserError',
   INTERVIEW_ERROR = 'InterviewError',
   COURSES_TO_MENTORS_ERROR = 'CoursesToMentorsError',
+  MENTEES_TO_MENTORS_ERROR = 'MenteesToMentorsError',
 }
 
 export { CustomExceptionName };
