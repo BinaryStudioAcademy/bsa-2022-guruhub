@@ -16,9 +16,9 @@ import {
   httpService,
 } from '~/lib/services/services';
 import {
-  currentUserResponseSchema,
   errorResponseSchema,
   signInResponseSchema,
+  userWithPermissionsSchema,
 } from '~/tests/json-schemas/json-schemas';
 
 describe('Sign in tests', () => {
@@ -45,7 +45,7 @@ describe('Sign in tests', () => {
 
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
-    response.body.should.have.jsonSchema(currentUserResponseSchema);
+    response.body.should.have.jsonSchema(userWithPermissionsSchema);
     response.body.email.should.be.equal(testsConfig.users.student.email);
   });
 

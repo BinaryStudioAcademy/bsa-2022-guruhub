@@ -1,5 +1,7 @@
 import {
   ApiPath,
+  EntityPagination,
+  HttpErrorDto,
   PermissionApiPath,
   PermissionsGetAllItemResponseDto,
 } from 'guruhub-shared';
@@ -19,7 +21,9 @@ class PermissionsService {
     this.#httpService = httpService;
   }
 
-  public getAll(): Promise<Response<PermissionsGetAllItemResponseDto[]>> {
+  public getAll(): Promise<
+    Response<EntityPagination<PermissionsGetAllItemResponseDto> | HttpErrorDto>
+  > {
     return this.#httpService
       .request()
       .get()
