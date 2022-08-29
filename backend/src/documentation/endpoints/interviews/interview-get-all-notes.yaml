@@ -1,0 +1,15 @@
+summary: Get All Interview Notes
+tags:
+  - interviews
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: integer
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/interviews/interviews-get-all-notes-response-dto.yaml'

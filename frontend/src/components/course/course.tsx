@@ -95,23 +95,23 @@ const Course: FC = () => {
         onModalToggle={handleUpdateCategoryModalToggle}
       />
       <div className={styles.info}>
-        <h1>{course?.title}</h1>
-        <div className={styles.categoryWrapper}>
-          <div className={styles.categoryContainer}>
-            <Category
-              name={course.category?.name ?? 'Unknown'}
-              keyName={course.category?.key ?? 'unknown'}
-            />
-          </div>
+        <div className={styles.headingWrapper}>
+          <h1>{course?.title}</h1>
           {isCategoryEditAllowed && (
-            <>
+            <div className={styles.editButton}>
               <IconButton
                 label="edit category"
                 iconName="edit"
                 onClick={handleUpdateCategoryModalToggle}
               />
-            </>
+            </div>
           )}
+        </div>
+        <div className={styles.categoryContainer}>
+          <Category
+            name={course.category?.name ?? 'Unknown'}
+            keyName={course.category?.key ?? 'unknown'}
+          />
         </div>
         <div className={styles.image}>
           <Image

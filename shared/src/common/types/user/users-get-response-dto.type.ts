@@ -1,8 +1,10 @@
+import { UserDetailsResponseDto } from '~/common/types/types';
+
 type UsersGetResponseDto = {
   id: number;
   email: string;
-  fullName: string;
   createdAt: string;
+  userDetails: UserDetailsResponseDto;
 };
 
 export { type UsersGetResponseDto };
