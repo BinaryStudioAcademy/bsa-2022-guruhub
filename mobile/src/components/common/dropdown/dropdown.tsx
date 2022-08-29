@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import {
@@ -8,6 +7,7 @@ import {
   FormControlPath,
   FormControlValues,
 } from '~/common/types/types';
+import { Text } from '~/components/common/common';
 import { useFormControl, useState } from '~/hooks/hooks';
 
 import { styles } from './styles';
