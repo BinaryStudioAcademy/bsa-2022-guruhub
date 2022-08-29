@@ -43,7 +43,7 @@ const Interviews: FC = () => {
         status: (
           <StatusCell text={item.status} color={statusToColor[item.status]} />
         ),
-        interviewer: item.interviewer?.userDetails.fullName || '',
+        interviewer: item.interviewer?.userDetails.fullName ?? '',
         date: getFormattedDate(item.interviewDate, 'kk:mm, dd/MM/yyyy'),
       };
     },

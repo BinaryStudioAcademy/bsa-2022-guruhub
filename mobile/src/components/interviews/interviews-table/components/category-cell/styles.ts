@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 15,
+    marginRight: 7,
     alignItems: 'center',
     backgroundColor: AppColor.BRAND.BLUE_100,
     justifyContent: 'center',
