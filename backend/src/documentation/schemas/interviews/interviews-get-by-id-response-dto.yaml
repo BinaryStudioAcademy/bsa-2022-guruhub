@@ -19,9 +19,8 @@ properties:
       id:
         type: integer
         example: 2
-      fullName:
-        type: string
-        example: John Smith
+      userDetails:
+        $ref: '../user-details/user-details-response-dto.yaml'
       email:
         type: string
         example: john.smith@gmail.com
@@ -34,9 +33,8 @@ properties:
       id:
         type: integer
         example: 10
-      fullName:
-        type: string
-        example: John Adams
+      userDetails:
+        $ref: '../user-details/user-details-response-dto.yaml'
       email:
         type: string
         example: john.adams@gmail.com

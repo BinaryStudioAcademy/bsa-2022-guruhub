@@ -1,10 +1,10 @@
-import { UserDetailsResponseDto } from '../user-details/user-details';
+import { UserDetailsItemResponseDto } from '../types';
 
 type UserWithDetailsDto = {
   id: number;
   email: string;
   createdAt: string;
-  userDetails: UserDetailsResponseDto;
+  userDetails: UserDetailsItemResponseDto;
 };
 
-export { UserWithDetailsDto };
+export { type UserWithDetailsDto };

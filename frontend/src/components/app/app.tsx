@@ -7,8 +7,8 @@ import {
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
+  AuthorizedProtectedRoute,
   AuthorizedWrapper,
-  ProtectedRoute,
   Route,
   Routes,
   Spinner,
@@ -58,28 +58,28 @@ const App: FC = () => {
         <Route
           path={AppRoute.UAM}
           element={
-            <AuthorizedWrapper>
-              <ProtectedRoute
-                permissions={[PermissionKey.MANAGE_UAM]}
-                component={<UAM />}
-              />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAM />}
+            />
           }
         />
         <Route
           path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
-            <AuthorizedWrapper>
-              <UAMConfigureGroup />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAMConfigureGroup />}
+            />
           }
         />
         <Route
           path={AppRoute.UAM_CONFIGURE_GROUP_$ID}
           element={
-            <AuthorizedWrapper>
-              <UAMConfigureGroup />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAMConfigureGroup />}
+            />
           }
         />
         <Route
@@ -91,12 +91,8 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.PROFILE}
-          element={
-            <AuthorizedWrapper>
-              <ProtectedRoute component={<UserDetails />} />
-            </AuthorizedWrapper>
-          }
+          path={AppRoute.SETTINGS_PROFILE}
+          element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}
@@ -109,15 +105,13 @@ const App: FC = () => {
         <Route
           path={AppRoute.INTERVIEW}
           element={
-            <AuthorizedWrapper>
-              <ProtectedRoute
-                permissions={[
-                  PermissionKey.MANAGE_INTERVIEW,
-                  PermissionKey.MANAGE_INTERVIEWS,
-                ]}
-                component={<Interviews />}
-              />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEW,
+                PermissionKey.MANAGE_INTERVIEWS,
+              ]}
+              component={<Interviews />}
+            />
           }
         />
         <Route

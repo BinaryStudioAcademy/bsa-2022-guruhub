@@ -6,6 +6,7 @@ export { FilesError } from './files-error/files-error.exception';
 export { GroupsError } from './groups-error/groups-error.exception';
 export { InterviewsError } from './interviews-error/interviews-error.exception';
 export { PermissionsError } from './permission-error/permission-error.exception';
+export { UsersError } from './users-error/users-error.exception';
 export {
   HttpError,
   InvalidCredentialsError,

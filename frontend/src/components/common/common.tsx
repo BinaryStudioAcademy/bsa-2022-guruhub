@@ -1,4 +1,5 @@
 export { AuthorizedMenu } from './authorized-menu/authorized-menu';
+export { AuthorizedProtectedRoute } from './authorized-protected-route/authorized-protected-route';
 export { AuthorizedWrapper } from './authorized-wrapper/authorized-wrapper';
 export { Button } from './button/button';
 export { Category } from './category/category';

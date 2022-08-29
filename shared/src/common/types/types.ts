@@ -64,6 +64,7 @@ export {
   type UserWithPermissions,
 } from './user/user';
 export {
+  type UserDetailsItemResponseDto,
   type UserDetailsResponseDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';

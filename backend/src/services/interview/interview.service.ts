@@ -42,14 +42,8 @@ class Interview {
     };
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#interviewRepository.getById(id);
-
-    if (!interview) {
-      return null;
-    }
-
-    return interview;
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#interviewRepository.getById(id);
   }
 
   public async create({
