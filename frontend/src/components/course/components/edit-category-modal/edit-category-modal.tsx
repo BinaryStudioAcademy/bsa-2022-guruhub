@@ -46,8 +46,11 @@ const EditCategoryModal: FC<Props> = ({
 
   const handleModalSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
     const { newCategoryId } = payload;
-    dispatch(courseActions.updateCategory({ courseId, newCategoryId }));
-    onModalToggle();
+    dispatch(courseActions.updateCategory({ courseId, newCategoryId }))
+      .unwrap()
+      .then(() => {
+        onModalToggle();
+      });
   };
 
   return (
