@@ -27,6 +27,7 @@ const UsersTable: FC = () => {
 
   const tableData = users.map((user) => ({
     ...user,
+    fullName: user.userDetails.fullName,
     action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
   }));
 

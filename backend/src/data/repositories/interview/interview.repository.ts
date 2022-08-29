@@ -30,22 +30,16 @@ class Interview {
       .execute();
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#InterviewModel
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#InterviewModel
       .query()
       .select()
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
-      .modifiers({
-        withoutPassword(builder) {
-          builder.select('id', 'email', 'createdAt', 'updatedAt');
-        },
-      })
       .findById(id)
-      .castTo<InterviewsByIdResponseDto>();
-
-    return interview ?? null;
+      .castTo<InterviewsByIdResponseDto>()
+      .execute();
   }
 
   public create({

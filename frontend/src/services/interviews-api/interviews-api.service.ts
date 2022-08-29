@@ -6,6 +6,10 @@ import {
 } from 'common/enums/enums';
 import {
   EntityPagination,
+  InterviewNoteCreateDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArgumentsDto,
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllResponseDto,
   InterviewsGetOtherItemResponseDto,
@@ -78,6 +82,33 @@ class InterviewsApi {
           count,
           page,
         },
+      },
+    );
+  }
+
+  public getAllNotes({
+    interviewId,
+  }: InterviewNoteGetRequestArgumentsDto): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#http.load<InterviewNoteGetAllResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      { method: HttpMethod.GET },
+    );
+  }
+
+  public createNote({
+    interviewId,
+    note,
+  }: InterviewNoteCreateDto): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#http.load<InterviewNoteGetAllItemResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ note }),
       },
     );
   }
