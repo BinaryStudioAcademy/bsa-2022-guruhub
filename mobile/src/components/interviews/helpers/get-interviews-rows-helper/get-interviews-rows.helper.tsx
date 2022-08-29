@@ -4,7 +4,7 @@ import { InterviewStatus } from '~/common/enums/enums';
 import { InterviewsGetAllItemResponseDto } from '~/common/types/types';
 import { statusToColor } from '~/components/interviews/common/maps/maps';
 import { InterviewsTableData } from '~/components/interviews/common/types/types';
-import { Label } from '~/components/interviews/interviews-table/components/components';
+import { StatusCell } from '~/components/interviews/interviews-table/components/components';
 
 const getInterviewsRows = (
   interviews: InterviewsGetAllItemResponseDto[],
@@ -13,9 +13,11 @@ const getInterviewsRows = (
     return {
       id: item.id,
       name: item.interviewee.fullName,
-      category: <Label text={item.courseCategory.name} color={'darkgreen'} />,
+      category: (
+        <StatusCell text={item.courseCategory.name} color={'darkgreen'} />
+      ),
       status: (
-        <Label
+        <StatusCell
           text={item.status}
           color={statusToColor[item.status as InterviewStatus]}
         />

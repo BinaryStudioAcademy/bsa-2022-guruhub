@@ -9,7 +9,7 @@ type Props = {
   color?: string;
 };
 
-const Label: FC<Props> = ({ text, color = 'transparent' }) => {
+const StatusCell: FC<Props> = ({ text, color = 'transparent' }) => {
   return (
     <Text style={{ ...styles.label, ...{ backgroundColor: color } }}>
       {text}
@@ -17,4 +17,4 @@ const Label: FC<Props> = ({ text, color = 'transparent' }) => {
   );
 };
 
-export { Label };
+export { StatusCell };
