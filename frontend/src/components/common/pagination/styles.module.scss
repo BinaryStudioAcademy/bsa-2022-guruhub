@@ -21,6 +21,7 @@
 .next {
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 .back::before,
@@ -31,7 +32,6 @@
   width: 5px;
   height: 5px;
   border-top: 1.5px solid var(--typography-text-100-inverse);
-  cursor: pointer;
 }
 
 .back::before {
