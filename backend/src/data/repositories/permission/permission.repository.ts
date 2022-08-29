@@ -1,3 +1,7 @@
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import { Permission as PermissionM } from '~/data/models/models';
 
 type Constructor = {
@@ -11,8 +15,16 @@ class Permission {
     this.#PermissionModel = PermissionModel;
   }
 
-  public async getAll(): Promise<PermissionM[]> {
-    return this.#PermissionModel.query();
+  public async getAll({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<EntityPagination<PermissionM>> {
+    const result = await this.#PermissionModel.query().page(page, count);
+
+    return {
+      items: result.results,
+      total: result.total,
+    };
   }
 
   public async getByIds(ids: number[]): Promise<PermissionM[]> {

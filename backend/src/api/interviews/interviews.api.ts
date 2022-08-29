@@ -5,22 +5,27 @@ import {
   HttpMethod,
   InterviewsApiPath,
   InterviewStatus,
+  PaginationDefaultValue,
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  EntityPaginationRequestQueryDto,
   InterviewNoteCreateRequestDto,
   InterviewNoteCreateRequestParamsDto,
+  InterviewsByIdRequestParamsDto,
   InterviewsByIntervieweeIdRequestDto,
   InterviewsCreateRequestBodyDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import { interview as interviewService } from '~/services/services';
 import {
+  interviewByIdParams as interviewByIdParamsValidationSchema,
   interviewByIntervieweeId as interviewByIntervieweeIdValidationSchema,
   interviewCreate as interviewCreateValidationSchema,
   interviewNotesCreateArguments as interviewNotesCreateArgumentsValidationSchema,
   interviewNotesCreateParams as interviewNotesCreateParamsValidationSchema,
   interviewNotesGetAllParams as interviewNotesGetAllParamsValidationSchema,
+  pagination as paginationValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -157,6 +162,41 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       });
 
       return rep.status(HttpCode.CREATED).send(newNote);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: InterviewsApiPath.$ID_OTHER,
+    schema: {
+      querystring: paginationValidationSchema,
+      params: interviewByIdParamsValidationSchema,
+    },
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEWS,
+      PermissionKey.MANAGE_INTERVIEW,
+    ),
+    async handler(
+      req: FastifyRequest<{
+        Params: InterviewsByIdRequestParamsDto;
+        Querystring: EntityPaginationRequestQueryDto;
+      }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const {
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+
+      const otherInterviews = await interviewService.getOtherByInterviewId({
+        interviewId: id,
+        count,
+        page,
+      });
+
+      rep.status(HttpCode.OK).send(otherInterviews);
     },
   });
 };
