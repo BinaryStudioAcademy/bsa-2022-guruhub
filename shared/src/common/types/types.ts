@@ -41,11 +41,14 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
+  type InterviewsByIdRequestParamsDto,
   type InterviewsByIdResponseDto,
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllResponseDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
 } from './interview/interview';
 export {
@@ -68,9 +71,11 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UsersWithDetails,
   type UserWithPermissions,
 } from './user/user';
 export {
+  type UserDetailsItemResponseDto,
   type UserDetailsResponseDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';

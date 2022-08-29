@@ -6,7 +6,14 @@ export {
 export {
   type CategoryGetAllItemResponseDto,
   type CategoryGetAllResponseDto,
+  type CourseCategoryGetByIdRequestParamsDto,
+  type CourseCategoryGetResponseDto,
 } from './category/category';
+export {
+  type CourseModulesGetAllItemResponseDto,
+  type CourseModulesGetAllRequestParamsDto,
+  type CourseModulesGetAllResponseDto,
+} from './course-modules/course-modules';
 export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,

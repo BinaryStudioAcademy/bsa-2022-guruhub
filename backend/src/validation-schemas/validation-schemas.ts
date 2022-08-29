@@ -20,6 +20,7 @@ export {
   groupUpdateParams,
 } from './group/group';
 export {
+  interviewByIdParams,
   interviewByIntervieweeId,
   interviewCreate,
 } from './interview/interview';
