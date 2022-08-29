@@ -7,9 +7,8 @@ const getOtherApplicationsRows = (
   interviews: InterviewsGetOtherItemResponseDto[],
 ): OtherApplicationsTableRow[] => {
   return interviews.map((interview): OtherApplicationsTableRow => {
-    const interviewerName = interview.interviewer
-      ? interview.interviewer.userDetails.fullName
-      : 'Not set';
+    const interviewerName =
+      interview.interviewer?.userDetails?.fullName ?? 'Not set';
 
     return {
       [OtherApplicationsTableAccessor.ID]: interview.id,
