@@ -8,8 +8,6 @@
   padding: 40px;
   overflow-y: scroll;
   background-color: var(--background-gray-300);
-  scrollbar-width: thin;
-  scrollbar-color: var(--background-gray-200) var(--background-gray-300);
 }
 
 .bottomLine:not(:last-child) {

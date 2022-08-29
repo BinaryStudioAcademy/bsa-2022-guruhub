@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--background-gray-200) var(--background-gray-300);
 }
 
 body {
