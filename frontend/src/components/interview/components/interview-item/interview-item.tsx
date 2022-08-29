@@ -103,7 +103,7 @@ const InterviewItem: FC<Props> = ({
             <p className={styles.header}>Interviewer</p>
             {!isEditMode && (
               <p className={styles.interviewValue}>
-                {interview?.interviewer.email}
+                {interview?.interviewer?.email}
               </p>
             )}
             {isEditMode && (

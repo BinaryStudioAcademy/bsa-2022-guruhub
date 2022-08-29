@@ -5,9 +5,14 @@ import {
   HttpMethod,
   InterviewsApiPath,
   InterviewStatus,
+  PaginationDefaultValue,
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  EntityPaginationRequestQueryDto,
+  InterviewNoteCreateRequestDto,
+  InterviewNoteCreateRequestParamsDto,
+  InterviewsByIdRequestParamsDto,
   InterviewsByIntervieweeIdRequestDto,
   InterviewsCreateRequestBodyDto,
   InterviewsGetInterviewersByCategoryRequestDto,
@@ -17,11 +22,16 @@ import {
 import { checkHasPermissions } from '~/hooks/hooks';
 import { interview as interviewService } from '~/services/services';
 import {
+  interviewByIdParams as interviewByIdParamsValidationSchema,
   interviewByIntervieweeId as interviewByIntervieweeIdValidationSchema,
   interviewCreate as interviewCreateValidationSchema,
   interviewGetInterviewersByCategory as interviewGetInterviewersByCategoryValidationSchema,
+  interviewNotesCreateArguments as interviewNotesCreateArgumentsValidationSchema,
+  interviewNotesCreateParams as interviewNotesCreateParamsValidationSchema,
+  interviewNotesGetAllParams as interviewNotesGetAllParamsValidationSchema,
   interviewUpdate as interviewUpdateValidationSchema,
   interviewUpdateParams as interviewUpdateParamsValidationSchema,
+  pagination as paginationValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -40,6 +50,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     method: HttpMethod.GET,
     url: InterviewsApiPath.ROOT,
     preHandler: checkHasPermissions(
+      'oneOf',
       PermissionKey.MANAGE_INTERVIEWS,
       PermissionKey.MANAGE_INTERVIEW,
     ),
@@ -58,6 +69,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     method: HttpMethod.GET,
     url: InterviewsApiPath.$ID,
     preHandler: checkHasPermissions(
+      'oneOf',
       PermissionKey.MANAGE_INTERVIEW,
       PermissionKey.MANAGE_INTERVIEWS,
     ),
@@ -76,7 +88,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       body: interviewUpdateValidationSchema,
       params: interviewUpdateParamsValidationSchema,
     },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_INTERVIEWS),
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
     async handler(
       req: FastifyRequest<{
         Body: InterviewsUpdateRequestDto;
@@ -135,7 +147,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     method: HttpMethod.GET,
     url: InterviewsApiPath.INTERVIEWERS_CATEGORY_$ID,
     schema: { params: interviewGetInterviewersByCategoryValidationSchema },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_INTERVIEWS),
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
     async handler(
       req: FastifyRequest<{
         Params: InterviewsGetInterviewersByCategoryRequestDto;
@@ -149,6 +161,93 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       );
 
       rep.status(HttpCode.OK).send(interviewers);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: `${InterviewsApiPath.$ID}${InterviewsApiPath.NOTES}`,
+    schema: { params: interviewNotesGetAllParamsValidationSchema },
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
+    ),
+    async handler(
+      req: FastifyRequest<{ Params: InterviewNoteCreateRequestParamsDto }>,
+      rep,
+    ) {
+      const { id: interviewId } = req.params;
+      const notesDto = await interviewService.getAllNotes(interviewId);
+
+      return rep.status(HttpCode.OK).send(notesDto);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.POST,
+    url: `${InterviewsApiPath.$ID}${InterviewsApiPath.NOTES}`,
+    schema: {
+      params: interviewNotesCreateParamsValidationSchema,
+      body: interviewNotesCreateArgumentsValidationSchema,
+    },
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
+    ),
+    async handler(
+      req: FastifyRequest<{
+        Params: InterviewNoteCreateRequestParamsDto;
+        Body: InterviewNoteCreateRequestDto;
+      }>,
+      rep,
+    ) {
+      const { id: authorId } = req.user;
+      const { id: interviewId } = req.params;
+      const { note } = req.body;
+      const newNote = await interviewService.createNote({
+        note,
+        interviewId,
+        authorId,
+      });
+
+      return rep.status(HttpCode.CREATED).send(newNote);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: InterviewsApiPath.$ID_OTHER,
+    schema: {
+      querystring: paginationValidationSchema,
+      params: interviewByIdParamsValidationSchema,
+    },
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEWS,
+      PermissionKey.MANAGE_INTERVIEW,
+    ),
+    async handler(
+      req: FastifyRequest<{
+        Params: InterviewsByIdRequestParamsDto;
+        Querystring: EntityPaginationRequestQueryDto;
+      }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const {
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+
+      const otherInterviews = await interviewService.getOtherByInterviewId({
+        interviewId: id,
+        count,
+        page,
+      });
+
+      rep.status(HttpCode.OK).send(otherInterviews);
     },
   });
 };

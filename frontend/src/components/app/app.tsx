@@ -16,6 +16,8 @@ import {
 import { Course } from 'components/course/course';
 import { CourseModule } from 'components/course-module/course-module';
 import { Dashboard } from 'components/dashboard/dashboard';
+import { Interview } from 'components/interview/interview';
+import { Interviews } from 'components/interviews/interviews';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
@@ -23,8 +25,6 @@ import { UserDetails } from 'components/user-details/user-details';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
 import { authActions } from 'store/actions';
-
-import { Interview } from '../interview/interview';
 
 const App: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
@@ -92,7 +92,7 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.PROFILE}
+          path={AppRoute.SETTINGS_PROFILE}
           element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
@@ -104,6 +104,30 @@ const App: FC = () => {
           }
         />
         <Route
+          path={AppRoute.INTERVIEW}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEW,
+                PermissionKey.MANAGE_INTERVIEWS,
+              ]}
+              component={<Interviews />}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.INTERVIEWS_$ID}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEWS,
+                PermissionKey.MANAGE_INTERVIEW,
+              ]}
+              component={<Interview />}
+            />
+          }
+        />
+        <Route
           path={AppRoute.ANY}
           element={
             <AuthorizedWrapper>
@@ -111,7 +135,6 @@ const App: FC = () => {
             </AuthorizedWrapper>
           }
         />
-
         <Route
           path={AppRoute.INTERVIEWS_$ID}
           element={

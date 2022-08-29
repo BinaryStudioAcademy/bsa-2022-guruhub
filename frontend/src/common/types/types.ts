@@ -39,13 +39,24 @@ export { type HttpOptions } from './http/http';
 export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
+  type InterviewsGetAllResponseDto,
   type InterviewsGetInterviewerResponseDto,
   type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
   type InterviewUpdateRequestArgumentsDto,
 } from './interview/interview';
+export {
+  type InterviewNoteCreateDto,
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteCreateRequestParamsDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllResponseDto,
+  type InterviewNoteGetRequestArgumentsDto,
+} from './interview-note/interview-note';
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
@@ -79,6 +90,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithDetailsDto,
   type UserWithPermissions,
 } from './user/user';
 export {

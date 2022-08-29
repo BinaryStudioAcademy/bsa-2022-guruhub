@@ -1,9 +1,12 @@
 import { InterviewStatus } from '~/common/enums/enums';
 import {
+  EntityPagination,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestArgumentsDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -21,9 +24,9 @@ class Interview {
   public getAll(): Promise<InterviewsGetAllItemResponseDto[]> {
     return this.#InterviewModel
       .query()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee')
-      .withGraphJoined('interviewer')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -43,17 +46,16 @@ class Interview {
       .execute();
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#InterviewModel
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#InterviewModel
       .query()
       .select()
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
       .findById(id)
-      .castTo<InterviewsByIdResponseDto>();
-
-    return interview ?? null;
+      .castTo<InterviewsByIdResponseDto>()
+      .execute();
   }
 
   public create({
@@ -102,7 +104,9 @@ class Interview {
       .select()
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
-      .withGraphJoined('[courseCategory, interviewee, interviewer]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .castTo<InterviewsGetAllItemResponseDto[]>()
       .execute();
   }
@@ -122,6 +126,38 @@ class Interview {
       )
       .castTo<InterviewsByIdResponseDto>()
       .execute();
+  }
+
+  public async getOtherByInterviewId({
+    interviewId,
+    intervieweeUserId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestArgumentsDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    const ELEMENTS_TO_SKIP = page * count;
+
+    const results = await this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhereNot('interviews.id', interviewId)
+      .withGraphJoined('courseCategory')
+      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
+      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .limit(count)
+      .offset(ELEMENTS_TO_SKIP)
+      .castTo<InterviewsGetOtherItemResponseDto[]>();
+
+    const total = await this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhereNot('interviews.id', interviewId);
+
+    return {
+      items: results,
+      total: total.length,
+    };
   }
 }
 

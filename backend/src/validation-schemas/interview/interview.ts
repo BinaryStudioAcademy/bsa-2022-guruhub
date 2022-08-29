@@ -1,4 +1,5 @@
 export {
+  interviewByIdParams,
   interviewByIntervieweeId,
   interviewCreate,
   interviewGetInterviewersByCategory,

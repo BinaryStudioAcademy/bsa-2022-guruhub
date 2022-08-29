@@ -1,9 +1,19 @@
-import { InterviewStatus, PermissionKey } from '~/common/enums/enums';
 import {
+  ExceptionMessage,
+  InterviewStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
+import {
+  EntityPagination,
+  InterviewNoteCreateRequestArgumentsDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
   InterviewsGetAllResponseDto,
   InterviewsGetInterviewerResponseDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewsUpdateRequestDto,
   PermissionsGetAllItemResponseDto,
@@ -12,15 +22,24 @@ import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
+import { interviewNote as interviewNoteServ } from '../services';
+
 type Constructor = {
   interviewRepository: typeof interviewRep;
+  interviewNoteService: typeof interviewNoteServ;
 };
 
 class Interview {
   #interviewRepository: typeof interviewRep;
 
-  public constructor({ interviewRepository }: Constructor) {
+  #interviewNoteService: typeof interviewNoteServ;
+
+  public constructor({
+    interviewRepository,
+    interviewNoteService,
+  }: Constructor) {
     this.#interviewRepository = interviewRepository;
+    this.#interviewNoteService = interviewNoteService;
   }
 
   public async getAll(args: {
@@ -40,47 +59,20 @@ class Interview {
     const interviews = await this.#interviewRepository.getAll();
 
     return {
-      items: interviews.map((interview) => ({
-        id: interview.id,
-        interviewDate: interview.interviewDate,
-        status: interview.status,
-        interviewee: {
-          id: interview.interviewee.id,
-          fullName: interview.interviewee.fullName,
-          email: interview.interviewee.email,
-          createdAt: interview.interviewee.createdAt,
-        },
-        interviewer: {
-          id: interview.interviewer.id,
-          fullName: interview.interviewer.fullName,
-          email: interview.interviewer.email,
-          createdAt: interview.interviewer.createdAt,
-        },
-        courseCategory: {
-          id: interview.courseCategory.id,
-          key: interview.courseCategory.key,
-          name: interview.courseCategory.name,
-        },
-      })),
+      items: interviews,
     };
   }
 
   public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
     const interview = await this.#interviewRepository.getById(id);
 
-    if (!interview) {
-      return null;
-    }
-
-    return interview;
+    return interview ?? null;
   }
 
-  public async getInterviewersByCategoryId(
+  public getInterviewersByCategoryId(
     interviewId: number,
   ): Promise<InterviewsGetInterviewerResponseDto[]> {
-    return await this.#interviewRepository.getInterviewersByCategoryId(
-      interviewId,
-    );
+    return this.#interviewRepository.getInterviewersByCategoryId(interviewId);
   }
 
   public async create({
@@ -137,28 +129,7 @@ class Interview {
     const interviews = await this.#interviewRepository.getByUserId(userId);
 
     return {
-      items: interviews.map((interview) => ({
-        id: interview.id,
-        interviewDate: interview.interviewDate,
-        status: interview.status,
-        interviewee: {
-          id: interview.interviewee.id,
-          fullName: interview.interviewee.fullName,
-          email: interview.interviewee.email,
-          createdAt: interview.interviewee.createdAt,
-        },
-        interviewer: {
-          id: interview.interviewer.id,
-          fullName: interview.interviewer.fullName,
-          email: interview.interviewer.email,
-          createdAt: interview.interviewer.createdAt,
-        },
-        courseCategory: {
-          id: interview.courseCategory.id,
-          key: interview.courseCategory.key,
-          name: interview.courseCategory.name,
-        },
-      })),
+      items: interviews,
     };
   }
 
@@ -175,6 +146,44 @@ class Interview {
     });
 
     return interview;
+  }
+
+  public getAllNotes(
+    interviewId: number,
+  ): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#interviewNoteService.getAll(interviewId);
+  }
+
+  public createNote(
+    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+  ): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#interviewNoteService.create(interviewNotCreateDto);
+  }
+
+  public async getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    const interview = await this.getById(interviewId);
+
+    if (!interview) {
+      throw new InterviewsError({
+        message: ExceptionMessage.INTERVIEW_DOES_NOT_EXIST,
+      });
+    }
+
+    const intervieweeUserId = interview.interviewee.id;
+    const zeroIndexPage = page - 1;
+
+    return this.#interviewRepository.getOtherByInterviewId({
+      interviewId,
+      intervieweeUserId,
+      count,
+      page: zeroIndexPage,
+    });
   }
 }
 

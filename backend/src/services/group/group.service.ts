@@ -72,9 +72,9 @@ class Group {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<GroupsItemResponseDto>
   > {
-    const ZERO_INDEXED_PAGE = page - 1;
+    const zeroIndexPage = page - 1;
     const result = await this.#groupsRepository.getAll({
-      page: ZERO_INDEXED_PAGE,
+      page: zeroIndexPage,
       count,
     });
 
@@ -83,6 +83,7 @@ class Group {
         id: group.id,
         name: group.name,
         key: group.key,
+        createdAt: group.createdAt,
       })),
       total: result.total,
     };
