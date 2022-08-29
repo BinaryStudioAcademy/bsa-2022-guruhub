@@ -4,9 +4,24 @@
   display: flex;
   flex-direction: column;
   min-width: 290px;
-  height: 89.6vh;
+  height: calc(100vh - 96px);
   padding: 40px;
+  overflow-y: scroll;
   background-color: var(--background-gray-300);
+  scrollbar-width: thin;
+  scrollbar-color: var(--background-gray-200) var(--background-gray-300);
+}
+
+.menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: var(--background-gray-300);
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background: var(--background-gray-200);
 }
 
 .bottomLine:not(:last-child) {
