@@ -20,6 +20,10 @@ const CategoryList: FC<Props> = ({
 }) => {
   const categoryRef = useRef<FlatList>(null);
 
+  const sortedCategories = [...categories].sort((a, b) =>
+    a.key.localeCompare(b.key),
+  );
+
   const handlePress = (id: number, index: number): void => {
     handleSelect(id);
     categoryRef.current?.scrollToIndex({
@@ -31,7 +35,7 @@ const CategoryList: FC<Props> = ({
   return (
     <FlatList
       ref={categoryRef}
-      data={categories}
+      data={sortedCategories}
       keyExtractor={({ id }): string => id.toString()}
       renderItem={({ item: category, index }): ReactElement => (
         <Category
