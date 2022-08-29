@@ -125,7 +125,7 @@ jobs:
         if: ${{ (success() || failure()) && (steps.getCurrentDate.outcome == 'success') }}
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ 'allure-report_' + steps.getCurrentDate.outputs.currentDate + '.zip' }}
+          name: ${{ format('allure-report_{0}.zip', steps.getCurrentDate.outputs.currentDate) }}
           path: ./backend/tests/allure-report.zip
           retention-days: 14
 
@@ -133,6 +133,6 @@ jobs:
         if: ${{ (success() || failure()) && (steps.getCurrentDate.outcome == 'success') }}
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ 'junit-report_' + steps.getCurrentDate.outputs.currentDate + '.xml' }}
+          name: ${{ format('junit-report_{0}.xml', steps.getCurrentDate.outputs.currentDate) }}
           path: ./backend/tests/junit-report/junit-report.xml
           retention-days: 14
