@@ -1,7 +1,7 @@
 import { DataStatus, UserGender } from 'common/enums/enums';
 import {
   FC,
-  SelectorOptions,
+  SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Input, Select } from 'components/common/common';
@@ -58,7 +58,7 @@ const UserProfileForm: FC = () => {
     dispatch(userDetailsActions.getUserDetails());
   };
 
-  const genderOptions = useMemo<SelectorOptions[]>(() => {
+  const genderOptions = useMemo<SelectorOption[]>(() => {
     return getGenderOptions();
   }, []);
 

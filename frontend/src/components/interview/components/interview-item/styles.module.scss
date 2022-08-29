@@ -1,0 +1,64 @@
+.wrapper {
+  min-width: 100%;
+  height: fit-content;
+  padding: 14px 30px;
+  background: var(--background-gray-300);
+  border-radius: 10px;
+}
+
+.headerInterview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.parameters {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.interviewForm {
+  width: 100%;
+  margin-top: 14px;
+  padding: 25px 0;
+  border-top: 1px solid #393b4d;
+}
+
+.interviewRow {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  align-items: center;
+  grid-gap: 45px 25px;
+}
+
+.header {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.interviewValue {
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.courseCategory {
+  width: fit-content;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: var(--brand-green-100);
+  border-radius: 16px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.marginRight {
+  margin-right: 10px;
+}
