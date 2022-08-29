@@ -2,7 +2,7 @@ import { FC } from 'common/types/types';
 import { Icon } from 'components/common/common';
 import { Input } from 'components/common/input/input';
 import { debounce } from 'helpers/helpers';
-import { useAppForm, useEffect, useFormControl } from 'hooks/hooks';
+import { useAppForm, useEffect, useFormWatch } from 'hooks/hooks';
 
 import { DEFAULT_SEARCH_PAYLOAD, SEARCH_DELAY_MS } from './common/constants';
 import { SearchPayload } from './common/types/types';
@@ -17,8 +17,7 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
-  const { field } = useFormControl({ name: 'search', control });
-  const { value } = field;
+  const value = useFormWatch({ name: 'search', control });
 
   const handleSearch = (): void => onSearch(value);
   const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
