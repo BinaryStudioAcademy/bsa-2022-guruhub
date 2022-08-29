@@ -179,11 +179,11 @@ const updateisMentorChoosingEnabled = createAsyncThunk<
     course: { mentors },
   } = getState();
 
-  const isMentorChoosingEnabled = !mentors.some(
+  const isMentorCheck = mentors.some(
     (mentor) => mentor.id === (user as UserWithPermissions).id,
   );
 
-  return Boolean(isMentorChoosingEnabled);
+  return !isMentorCheck;
 });
 
 const getCategories = createAsyncThunk<
