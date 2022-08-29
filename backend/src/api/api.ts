@@ -9,9 +9,9 @@ import {
   course,
   courseCategory,
   courseModule,
-  coursesToMentors,
   group,
   interview,
+  mentor,
   permission,
   token,
   user,
@@ -82,6 +82,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.register(initCoursesApi, {
     services: {
       course,
+      mentor,
     },
     prefix: ApiPath.COURSES,
   });
@@ -92,6 +93,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     },
     prefix: ApiPath.CATEGORIES,
   });
+
   fastify.register(initCourseModulesApi, {
     services: {
       courseModule,
@@ -108,7 +110,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
 
   fastify.register(initMentorsApi, {
     services: {
-      coursesToMentors,
+      mentor,
     },
     prefix: ApiPath.MENTORS,
   });

@@ -3,8 +3,9 @@ import {
   CourseCreateArgumentsDto,
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMentorsRequestDto,
   CourseGetResponseDto,
-  UsersGetResponseDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
@@ -186,10 +187,14 @@ class Course {
     return course ?? null;
   }
 
-  public getMentorsByCourseId(
-    courseId: number,
-  ): Promise<UsersGetResponseDto[]> {
-    return this.#courseRepository.getMentorsByCourseId(courseId);
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#courseRepository.getMentorsByCourseId({
+      courseId,
+      filteringOpts,
+    });
   }
 
   public updateCategory(

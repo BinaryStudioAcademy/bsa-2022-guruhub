@@ -20,5 +20,6 @@ enum ExceptionMessage {
   INTERVIEW_EXIST = 'Interview for this category was either passed or is in progress.',
   INTERVIEW_DOES_NOT_EXIST = 'Interview with that ID does not exist.',
   ALREADY_MENTOR_FOR_COURSE = 'You are already a mentor for this course.',
+  ALREADY_HAVE_MENTOR_FOR_COURSE = 'You already have a mentor for this course.',
 }
 export { ExceptionMessage };
