@@ -50,6 +50,10 @@
   letter-spacing: 4px;
 }
 
+.input[type='password']::placeholder {
+  letter-spacing: normal;
+}
+
 .visuallyHidden {
   visibility: hidden;
 }
