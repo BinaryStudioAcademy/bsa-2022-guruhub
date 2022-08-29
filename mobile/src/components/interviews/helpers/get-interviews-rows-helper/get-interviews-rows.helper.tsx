@@ -15,7 +15,7 @@ const getInterviewsRows = (
   return interviews.map((item: InterviewsGetAllItemResponseDto) => {
     return {
       id: item.id,
-      name: item.interviewee.fullName,
+      name: item.interviewee.email,
       category: <CategoryCell category={item.courseCategory} />,
       status: (
         <StatusCell
@@ -23,7 +23,7 @@ const getInterviewsRows = (
           color={statusToColor[item.status as InterviewStatus]}
         />
       ),
-      interviewer: item.interviewer.fullName,
+      interviewer: item.interviewer.email,
       date: item.interviewDate,
     };
   });
