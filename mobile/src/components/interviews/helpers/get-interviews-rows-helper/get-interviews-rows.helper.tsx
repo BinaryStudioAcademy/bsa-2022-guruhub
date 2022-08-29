@@ -4,7 +4,10 @@ import { InterviewStatus } from '~/common/enums/enums';
 import { InterviewsGetAllItemResponseDto } from '~/common/types/types';
 import { statusToColor } from '~/components/interviews/common/maps/maps';
 import { InterviewsTableData } from '~/components/interviews/common/types/types';
-import { StatusCell } from '~/components/interviews/interviews-table/components/components';
+import {
+  CategoryCell,
+  StatusCell,
+} from '~/components/interviews/interviews-table/components/components';
 
 const getInterviewsRows = (
   interviews: InterviewsGetAllItemResponseDto[],
@@ -13,9 +16,7 @@ const getInterviewsRows = (
     return {
       id: item.id,
       name: item.interviewee.fullName,
-      category: (
-        <StatusCell text={item.courseCategory.name} color={'darkgreen'} />
-      ),
+      category: <CategoryCell category={item.courseCategory} />,
       status: (
         <StatusCell
           text={item.status}

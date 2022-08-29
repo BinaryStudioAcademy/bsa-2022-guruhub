@@ -11,7 +11,7 @@ type Props = {
 
 const StatusCell: FC<Props> = ({ text, color = 'transparent' }) => {
   return (
-    <Text style={{ ...styles.label, ...{ backgroundColor: color } }}>
+    <Text style={{ ...styles.statusCell, ...{ backgroundColor: color } }}>
       {text}
     </Text>
   );
