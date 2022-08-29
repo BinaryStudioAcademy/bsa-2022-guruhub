@@ -133,18 +133,10 @@ class Interview {
     });
   }
 
-  public async getAllNotes(
+  public getAllNotes(
     interviewId: number,
   ): Promise<InterviewNoteGetAllResponseDto> {
-    const notes = await this.#interviewNoteService.getAll(interviewId);
-    const sortedNotes = notes.items.sort((leftNote, rightNote) => {
-      return (
-        new Date(rightNote.createdAt).getTime() -
-        new Date(leftNote.createdAt).getTime()
-      );
-    });
-
-    return { items: sortedNotes };
+    return this.#interviewNoteService.getAll(interviewId);
   }
 
   public createNote(

@@ -22,6 +22,7 @@ class InterviewNote {
       .select()
       .where({ interviewId })
       .withGraphJoined('author(withoutPassword).[userDetails]')
+      .orderBy('createdAt', 'desc')
       .castTo<InterviewNoteGetAllItemResponseDto[]>()
       .execute();
   }
