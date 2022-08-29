@@ -28,3 +28,14 @@
 .errorMessage {
   color: red;
 }
+
+.nameField {
+  width: 100%;
+  height: 48px;
+  padding: 16px;
+  padding-left: 35px;
+  color: var(--typography-text-100-inverse);
+  background: var(--background-gray-200);
+  border: none;
+  border-radius: 28px;
+}
