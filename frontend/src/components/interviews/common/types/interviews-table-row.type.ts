@@ -5,7 +5,7 @@ type InterviewsTableRow = {
   name: string;
   category: string;
   status: InterviewStatus;
-  interviewer: string | null;
+  interviewer: string;
   date: string;
 };
 
