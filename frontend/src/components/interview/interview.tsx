@@ -51,14 +51,17 @@ const Interview: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (interview) {
-      dispatch(
-        interviewActions.getInterviewersByCategory({
-          categoryId: interview.courseCategory.id,
-        }),
-      );
+    if (!hasInterview) {
+      return;
     }
-  }, [interview]);
+
+    dispatch(
+      interviewActions.getInterviewersByCategory({
+        categoryId: (interview as InterviewsGetAllItemResponseDto)
+          .courseCategory.id,
+      }),
+    );
+  }, [hasInterview]);
 
   const handleUpdateInterview = (payload: InterviewsUpdateRequestDto): void => {
     dispatch(interviewActions.updateInterview({ id: Number(id), payload }));

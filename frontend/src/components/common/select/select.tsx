@@ -38,7 +38,7 @@ const Select: FC<Props> = ({
       <label
         className={getValidClasses(
           styles.title,
-          hasVisuallyHiddenLabel && styles.visuallyHidden,
+          hasVisuallyHiddenLabel && 'visually-hidden',
         )}
       >
         {label}

@@ -83,9 +83,8 @@ export {
   type SVGProps,
   type URLSearchParamsInit,
 } from './react/react';
-export { SelectorOption } from './selector-option/selector-option';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
-export { type IconName } from './ui/ui';
+export { type IconName, type SelectorOption } from './ui/ui';
 export {
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
