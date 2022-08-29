@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   categoryName: {
     color: AppColor.TEXT.GRAY_100,
-    paddingLeft: 5,
+    paddingLeft: 7,
   },
   withoutImgText: {
     color: AppColor.TEXT.GRAY_100,
@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 15,
-    borderWidth: 1,
     alignItems: 'center',
     backgroundColor: AppColor.BRAND.BLUE_100,
     justifyContent: 'center',
