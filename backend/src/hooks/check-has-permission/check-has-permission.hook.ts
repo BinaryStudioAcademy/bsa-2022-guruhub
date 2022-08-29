@@ -5,11 +5,12 @@ import {
   HttpCode,
   PermissionKey,
 } from '~/common/enums/enums';
+import { CheckPermisssionType } from '~/common/types/types';
 import { PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
 const checkHasPermissions =
-  <T>(...pagePermissions: PermissionKey[]) =>
+  <T>(type: CheckPermisssionType, ...pagePermissions: PermissionKey[]) =>
   async (req: FastifyRequest<T>): Promise<void> => {
     const { user } = req;
     const hasUser = Boolean(user);
@@ -21,12 +22,13 @@ const checkHasPermissions =
       });
     }
 
-    const hasUserPermission = checkHasPermission({
+    const hasUserAllPermissions = checkHasPermission({
+      checkMode: type,
       permissionKeys: pagePermissions,
       userPermissions: user.permissions,
     });
 
-    if (!hasUserPermission) {
+    if (!hasUserAllPermissions) {
       throw new PermissionsError({
         message: ExceptionMessage.PERMISSION_LACK,
         status: HttpCode.FORBIDDEN,

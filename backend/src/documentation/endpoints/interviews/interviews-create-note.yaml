@@ -1,0 +1,21 @@
+summary: Create An Interview Notes
+tags:
+  - interviews
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: integer
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/interviews/interviews-create-note-request-dto.yaml'
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/interviews/interviews-create-note-response-dto.yaml'
