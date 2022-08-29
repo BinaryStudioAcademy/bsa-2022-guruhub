@@ -38,60 +38,12 @@ class Interview {
     const interviews = await this.#interviewRepository.getAll();
 
     return {
-      items: interviews.map((interview) => ({
-        id: interview.id,
-        interviewDate: interview.interviewDate,
-        status: interview.status,
-        interviewee: {
-          id: interview.interviewee.id,
-          fullName: interview.interviewee.fullName,
-          email: interview.interviewee.email,
-          createdAt: interview.interviewee.createdAt,
-        },
-        interviewer: {
-          id: interview.interviewer.id,
-          fullName: interview.interviewer.fullName,
-          email: interview.interviewer.email,
-          createdAt: interview.interviewer.createdAt,
-        },
-        courseCategory: {
-          id: interview.courseCategory.id,
-          key: interview.courseCategory.key,
-          name: interview.courseCategory.name,
-        },
-      })),
+      items: interviews,
     };
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#interviewRepository.getById(id);
-
-    if (!interview) {
-      return null;
-    }
-
-    return {
-      id: interview.id,
-      interviewDate: interview.interviewDate,
-      status: interview.status,
-      interviewee: {
-        id: interview.interviewee.id,
-        fullName: interview.interviewee.fullName,
-        email: interview.interviewee.email,
-        createdAt: interview.interviewee.createdAt,
-      },
-      interviewer: {
-        id: interview.interviewer.id,
-        fullName: interview.interviewer.fullName,
-        email: interview.interviewer.email,
-        createdAt: interview.interviewer.createdAt,
-      },
-      courseCategory: {
-        id: interview.courseCategory.id,
-        key: interview.courseCategory.key,
-        name: interview.courseCategory.name,
-      },
-    };
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#interviewRepository.getById(id);
   }
 
   public async create({
@@ -148,28 +100,7 @@ class Interview {
     const interviews = await this.#interviewRepository.getByUserId(userId);
 
     return {
-      items: interviews.map((interview) => ({
-        id: interview.id,
-        interviewDate: interview.interviewDate,
-        status: interview.status,
-        interviewee: {
-          id: interview.interviewee.id,
-          fullName: interview.interviewee.fullName,
-          email: interview.interviewee.email,
-          createdAt: interview.interviewee.createdAt,
-        },
-        interviewer: {
-          id: interview.interviewer.id,
-          fullName: interview.interviewer.fullName,
-          email: interview.interviewer.email,
-          createdAt: interview.interviewer.createdAt,
-        },
-        courseCategory: {
-          id: interview.courseCategory.id,
-          key: interview.courseCategory.key,
-          name: interview.courseCategory.name,
-        },
-      })),
+      items: interviews,
     };
   }
 }
