@@ -60,7 +60,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         permissions: [],
       },
       {
-        name: AppScreenName.INTERVIEW,
+        name: AppScreenName.INTERVIEWS,
         icon: 'interview',
         component: Interviews,
         permissions: [

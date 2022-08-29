@@ -9,7 +9,7 @@ enum AppScreenName {
   UAM_GROUPS_EDIT = 'Edit group',
   ADD_COURSE = 'Add new course',
   COURSE = 'Course',
-  INTERVIEW = 'Interview',
+  INTERVIEWS = 'Interviews',
 }
 
 export { AppScreenName };
