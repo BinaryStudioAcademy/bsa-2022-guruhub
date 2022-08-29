@@ -1,4 +1,1 @@
-export {
-  type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
-} from 'guruhub-shared/common/types/types';
+export { type InterviewsGetAllItemResponseDto } from 'guruhub-shared/common/types/types';
