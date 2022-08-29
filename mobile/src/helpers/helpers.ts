@@ -1,3 +1,4 @@
+export { getFormattedDate } from './date/date';
 export { debounce } from './debounce/debounce';
 export { getImageUri } from './image/image';
 export { checkHasPermission } from './permissions/permissions';

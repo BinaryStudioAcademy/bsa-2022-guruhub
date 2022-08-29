@@ -89,6 +89,15 @@ async function seed(knex: Knex): Promise<void> {
 
   await Promise.all(
     usersToCreate.map(async ({ fullName, group, email, password }) => {
+      const existingUser = await knex(TableName.USERS)
+        .select(ColumnName.ID)
+        .where({ email })
+        .first();
+
+      if (existingUser) {
+        return;
+      }
+
       const { salt: passwordSalt, hash: passwordHash } = await hashUserPassword(
         password,
       );
