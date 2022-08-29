@@ -28,7 +28,7 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
-export { SortOrder } from './sort-order/sort-order.enum';
+export { SortOrder } from './sort/sort';
 export {
   UserGender,
   UserValidationMessage,
