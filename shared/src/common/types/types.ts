@@ -1,8 +1,12 @@
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
@@ -53,6 +57,10 @@ export {
   type InterviewNoteGetAllRequestParamsDto,
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';
+export {
+  type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
+} from './mentees-to-mentors/mentees-to-mentors';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,

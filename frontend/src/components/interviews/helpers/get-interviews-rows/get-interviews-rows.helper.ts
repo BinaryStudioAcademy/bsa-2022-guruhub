@@ -7,7 +7,7 @@ const getInterviewsRows = (
 ): InterviewsTableRow[] => {
   return interviews.map((interview): InterviewsTableRow => {
     const interviewerName =
-      interview.interviewer?.userDetails?.fullName ?? 'Not set';
+      interview.interviewer?.userDetails?.fullName ?? 'Not assigned yet';
 
     return {
       [InterviewsTableAccessor.ID]: interview.id,
