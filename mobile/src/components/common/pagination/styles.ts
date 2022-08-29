@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
   },
   enabled: {
     borderColor: 'white',
+  },
+  results: {
+    fontFamily: AppFontFamily.INTER_500,
+    fontSize: 14,
+    color: AppColor.TEXT.GRAY_200,
+    position: 'absolute',
+    left: 0,
   },
 });
 
