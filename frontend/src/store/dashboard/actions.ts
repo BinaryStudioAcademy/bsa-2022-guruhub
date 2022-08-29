@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
@@ -38,9 +39,10 @@ const addCourse = createAsyncThunk<
   CourseCreateRequestDto,
   AsyncThunkConfig
 >(ActionType.ADD_COURSE, async (createCoursePayload, { extra }) => {
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
   const { url } = createCoursePayload;
   const course = await coursesApi.create(url);
+  notification.success(NotificationMessage.COURSE_ADD);
 
   return course;
 });
