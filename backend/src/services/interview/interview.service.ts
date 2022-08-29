@@ -44,13 +44,13 @@ class Interview {
         status: interview.status,
         interviewee: {
           id: interview.interviewee.id,
-          fullName: interview.interviewee.fullName,
+          userDetails: interview.interviewee.userDetails,
           email: interview.interviewee.email,
           createdAt: interview.interviewee.createdAt,
         },
         interviewer: {
           id: interview.interviewer.id,
-          fullName: interview.interviewer.fullName,
+          userDetails: interview.interviewer.userDetails,
           email: interview.interviewer.email,
           createdAt: interview.interviewer.createdAt,
         },
@@ -64,34 +64,7 @@ class Interview {
   }
 
   public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#interviewRepository.getById(id);
-
-    if (!interview) {
-      return null;
-    }
-
-    return {
-      id: interview.id,
-      interviewDate: interview.interviewDate,
-      status: interview.status,
-      interviewee: {
-        id: interview.interviewee.id,
-        fullName: interview.interviewee.fullName,
-        email: interview.interviewee.email,
-        createdAt: interview.interviewee.createdAt,
-      },
-      interviewer: {
-        id: interview.interviewer.id,
-        fullName: interview.interviewer.fullName,
-        email: interview.interviewer.email,
-        createdAt: interview.interviewer.createdAt,
-      },
-      courseCategory: {
-        id: interview.courseCategory.id,
-        key: interview.courseCategory.key,
-        name: interview.courseCategory.name,
-      },
-    };
+    return await this.#interviewRepository.getById(id);
   }
 
   public async create({
@@ -154,13 +127,13 @@ class Interview {
         status: interview.status,
         interviewee: {
           id: interview.interviewee.id,
-          fullName: interview.interviewee.fullName,
+          userDetails: interview.interviewee.userDetails,
           email: interview.interviewee.email,
           createdAt: interview.interviewee.createdAt,
         },
         interviewer: {
           id: interview.interviewer.id,
-          fullName: interview.interviewer.fullName,
+          userDetails: interview.interviewer.userDetails,
           email: interview.interviewer.email,
           createdAt: interview.interviewer.createdAt,
         },

@@ -52,7 +52,7 @@ class User {
       items: result.items.map((user) => ({
         id: user.id,
         email: user.email,
-        fullName: user.fullName,
+        userDetails: user.userDetails,
         createdAt: user.createdAt,
       })),
       total: result.total,
@@ -76,7 +76,7 @@ class User {
       passwordHash,
     });
 
-    await this.#userDetailsService.create(user.id, {
+    const userDetails = await this.#userDetailsService.create(user.id, {
       fullName,
       gender: null,
     });
@@ -85,7 +85,7 @@ class User {
       id: user.id,
       email: user.email,
       createdAt: user.createdAt,
-      fullName,
+      userDetails,
       permissions: [],
     };
   }
@@ -99,14 +99,7 @@ class User {
       return null;
     }
 
-    return {
-      id: user.id,
-      email: user.email,
-      fullName: user.fullName,
-      passwordHash: user.passwordHash,
-      passwordSalt: user.passwordSalt,
-      createdAt: user.createdAt,
-    };
+    return user;
   }
 
   public getUserPermissions(
@@ -126,7 +119,7 @@ class User {
     return {
       id: user.id,
       email: user.email,
-      fullName: user.fullName,
+      userDetails: user.userDetails,
       createdAt: user.createdAt,
       permissions,
     };
