@@ -22,9 +22,8 @@ const Category: FC<Props> = ({ keyName, name, onPress }) => {
   const hasImage = imageKeys.includes(keyName);
 
   const handlePress = (): void => {
-    if (!onPress) return;
     setIsActive(!isActive);
-    onPress();
+    onPress?.();
   };
 
   useEffect(() => {

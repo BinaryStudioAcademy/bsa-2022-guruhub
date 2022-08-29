@@ -7,9 +7,8 @@ import {
 } from '~/common/types/types';
 import {
   BackButton,
+  Button,
   Dropdown,
-  Icon,
-  Pressable,
   Spinner,
   View,
 } from '~/components/common/common';
@@ -39,7 +38,7 @@ const EditCourseCategory: FC = () => {
     (state) => state.courses,
   );
 
-  const { control, handleSubmit, reset } = useAppForm<
+  const { control, handleSubmit, reset, errors } = useAppForm<
     DropDownPayload | CategoryGetAllItemResponseDto
   >({
     defaultValues: DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
@@ -64,23 +63,14 @@ const EditCourseCategory: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(coursesActions.getCategories());
     navigation.setOptions({
       headerLeft: () => (
         <BackButton
           onPress={(): void => navigation.navigate(AppScreenName.COURSE)}
         />
       ),
-      headerRight: () => (
-        <Pressable
-          style={styles.saveIconContainer}
-          onPress={handleSubmit(handleSelectNewCategory)}
-        >
-          <Icon width={20} height={20} name="save" color="white" />
-        </Pressable>
-      ),
     });
-
-    dispatch(coursesActions.getCategories());
   }, []);
 
   useFocusEffect(
@@ -97,7 +87,15 @@ const EditCourseCategory: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Dropdown items={categories} control={control} name="newCategoryId" />
+      <Dropdown
+        items={categories}
+        control={control}
+        name="newCategoryId"
+        errors={errors}
+      />
+      <View style={styles.saveButtonContainer}>
+        <Button label="Save" onPress={handleSubmit(handleSelectNewCategory)} />
+      </View>
     </View>
   );
 };

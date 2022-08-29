@@ -2,11 +2,13 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    marginTop: 20,
+    paddingHorizontal: 10,
   },
-  saveIconContainer: {
-    marginTop: 10,
-    marginRight: 10,
+  saveButtonContainer: {
+    alignSelf: 'center',
+    marginTop: 20,
+    width: 150,
   },
 });
 

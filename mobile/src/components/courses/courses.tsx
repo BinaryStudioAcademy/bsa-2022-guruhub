@@ -33,10 +33,8 @@ const Courses: FC = (): ReactElement => {
     dispatch(coursesActions.getCourses({ title: '', categoryKey: '' }));
   };
 
-  const handleCourseCard = async (
-    id: CourseGetRequestParamsDto,
-  ): Promise<void> => {
-    await dispatch(coursesActions.getCourse(id)).unwrap();
+  const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
+    dispatch(coursesActions.getCourse(id));
     navigation.navigate(AppScreenName.COURSE);
   };
 

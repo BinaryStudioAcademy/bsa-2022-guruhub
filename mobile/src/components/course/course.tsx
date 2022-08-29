@@ -39,7 +39,7 @@ const Course: FC = () => {
     dataStatus: courses.dataStatus,
   }));
 
-  const currentCategory = (course as CourseGetResponseDto).category;
+  const currentCategory = course?.category;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);

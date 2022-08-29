@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   placeholderStyle: {
@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
   },
   searchTextInputStyle: {
     color: 'white',
+  },
+  error: {
+    fontFamily: AppFontFamily.INTER_600,
+    fontSize: 12,
+    lineHeight: 16,
+    color: AppColor.SUPPORT.ERROR_RED_100,
+    marginTop: 9,
   },
 });
 
