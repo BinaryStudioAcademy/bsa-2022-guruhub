@@ -13,7 +13,7 @@ const getInterviewsRows = (
       [InterviewsTableAccessor.CATEGORY]: interview.courseCategory.name,
       [InterviewsTableAccessor.STATUS]: interview.status,
       [InterviewsTableAccessor.INTERVIEWER]:
-        interview.interviewer?.userDetails.fullName,
+        interview.interviewer?.userDetails.fullName ?? null,
       [InterviewsTableAccessor.DATE]: interview.interviewDate,
     }),
   );
