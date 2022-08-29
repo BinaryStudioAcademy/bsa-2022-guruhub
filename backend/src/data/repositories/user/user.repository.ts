@@ -54,7 +54,7 @@ class User {
       .execute();
   }
 
-  public getById(id: string): Promise<UsersGetResponseDto | null> {
+  public getById(id: number): Promise<UsersGetResponseDto | null> {
     return this.#UserModel
       .query()
       .findById(id)
