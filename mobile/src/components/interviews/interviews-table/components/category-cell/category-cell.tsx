@@ -1,8 +1,8 @@
 import { CategoryGetAllItemResponseDto } from 'guruhub-shared/common/types/types';
 import React, { FC, ReactElement } from 'react';
 
+import { categoryKeyToImage } from '~/common/maps/maps';
 import { Text, View } from '~/components/common/common';
-import { categoryKeyToImage } from '~/components/courses/components/category-list/common/maps/category-key-to-image.map';
 
 import { styles } from './styles';
 
