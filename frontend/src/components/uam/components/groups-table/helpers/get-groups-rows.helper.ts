@@ -8,6 +8,7 @@ const getGroupsRows = (
     [GroupsTableAccessor.ID]: group.id,
     [GroupsTableAccessor.NAME]: group.name,
     [GroupsTableAccessor.KEY]: group.key,
+    [GroupsTableAccessor.CREATED_AT]: group.createdAt,
   }));
 };
 

@@ -2,17 +2,17 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { HttpCode, HttpMethod, MentorsApiPath } from '~/common/enums/enums';
 import { CoursesToMentorsRequestDto } from '~/common/types/types';
-import { coursesToMentors as coursesToMentorsServ } from '~/services/services';
+import { mentor as mentorService } from '~/services/services';
 import { mentorCreateBody as mentorCreateBodyValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
-    coursesToMentors: typeof coursesToMentorsServ;
+    mentor: typeof mentorService;
   };
 };
 
 const initMentorsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { coursesToMentors: coursesToMentorsService } = opts.services;
+  const { mentor: mentorService } = opts.services;
 
   fastify.route({
     method: HttpMethod.POST,
@@ -24,11 +24,12 @@ const initMentorsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { courseId, userId } = req.body;
 
-      const courseToMentor = await coursesToMentorsService.createMentorToCourse(
-        { courseId, userId },
-      );
+      const addedToCourseMentor = await mentorService.addMentorToCourse({
+        courseId,
+        userId,
+      });
 
-      rep.status(HttpCode.CREATED).send(courseToMentor);
+      rep.status(HttpCode.CREATED).send(addedToCourseMentor);
     },
   });
 };

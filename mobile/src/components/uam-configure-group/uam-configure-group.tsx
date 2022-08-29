@@ -121,7 +121,6 @@ const UAMConfigureGroup: FC = () => {
     if (group) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
-
     navigation.navigate(AppScreenName.UAM);
   };
 
@@ -158,6 +157,8 @@ const UAMConfigureGroup: FC = () => {
         reset(CREATE_GROUP_DEFAULT_PAYLOAD);
         handleUserPageChange(PaginationDefaultValue.DEFAULT_PAGE);
         handlePermissionsPageChange(PaginationDefaultValue.DEFAULT_PAGE);
+        setDefaultPermissionIds([]);
+        setDefaultUserIds([]);
       };
     }, []),
   );
@@ -184,14 +185,14 @@ const UAMConfigureGroup: FC = () => {
           users={users}
           onCheckboxToggle={handleToggleUsers}
           pagination={paginationForUsersTable}
-          checkedIds={isGroupEdit ? group.userIds : []}
+          checkedIds={userIds}
         />
         <Text style={styles.title}>Attach permissions policies</Text>
         <PermissionsTable
           permissions={permissions.items}
           onCheckboxToggle={handleTogglePermissions}
           pagination={paginationForPermissionsTable}
-          checkedIds={isGroupEdit ? group.permissionIds : []}
+          checkedIds={permissionIds}
         />
         <View style={styles.buttonsContainer}>
           <Button

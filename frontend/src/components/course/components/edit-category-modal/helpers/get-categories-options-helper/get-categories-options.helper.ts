@@ -1,12 +1,12 @@
 import {
   CategoryGetAllItemResponseDto,
-  SelectorOptions,
+  SelectorOption,
 } from 'common/types/types';
 
 const getCategoriesOptions = (
   categories: CategoryGetAllItemResponseDto[],
-): SelectorOptions[] => {
-  return categories.map<SelectorOptions>((category) => ({
+): SelectorOption[] => {
+  return categories.map<SelectorOption>((category) => ({
     name: category.name,
     value: `${category.id}`,
   }));

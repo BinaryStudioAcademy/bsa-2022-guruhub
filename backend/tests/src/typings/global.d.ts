@@ -7,7 +7,9 @@ declare namespace globalThis {
     prefixUrl: string;
     users: {
       student: UserSignInRequestDto;
-      mentor: UserSignInRequestDto;
+      jsMentor: UserSignInRequestDto;
+      pythonMentor: UserSignInRequestDto;
+      csharpMentor: UserSignInRequestDto;
       interviewsManager: UserSignInRequestDto;
       interviewer: UserSignInRequestDto;
       categoriesManager: UserSignInRequestDto;
