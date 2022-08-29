@@ -44,3 +44,15 @@ select {
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-gray-300);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--background-gray-200);
+}
