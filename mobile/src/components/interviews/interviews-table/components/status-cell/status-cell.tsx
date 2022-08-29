@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Text } from '~/components/common/common';
+import { Text, View } from '~/components/common/common';
 
 import { styles } from './styles';
 
@@ -11,7 +11,11 @@ type Props = {
 
 const StatusCell: FC<Props> = ({ text, color = 'transparent' }) => {
   return (
-    <Text style={{ ...styles.statusCell, backgroundColor: color }}>{text}</Text>
+    <View style={styles.statusCellWrapper}>
+      <Text style={{ ...styles.statusCell, backgroundColor: color }}>
+        {text}
+      </Text>
+    </View>
   );
 };
 
