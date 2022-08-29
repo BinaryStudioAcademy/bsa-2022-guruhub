@@ -12,14 +12,24 @@ type Props = {
 
 const CategoryCell: FC<Props> = ({ category }) => {
   const renderCategoryImage = (categoryKey: string): ReactElement => {
-    const Image = categoryKeyToImage[categoryKey];
+    if (category.key in categoryKeyToImage) {
+      const Image = categoryKeyToImage[categoryKey];
 
-    return <Image width={24} height={24} />;
+      return <Image width={24} height={24} />;
+    }
+
+    return (
+      <View style={styles.withoutImgTextWrp}>
+        <Text style={styles.withoutImgText}>
+          {category.name[0].toUpperCase()}
+        </Text>
+      </View>
+    );
   };
 
   return (
     <View style={styles.categoryCell}>
-      {category.key in categoryKeyToImage && renderCategoryImage(category.key)}
+      {renderCategoryImage(category.key)}
       <Text style={styles.categoryName}>{category.name}</Text>
     </View>
   );
