@@ -14,10 +14,10 @@ const getNotes = createAsyncThunk<
   InterviewNoteGetRequestArgumentsDto,
   AsyncThunkConfig
 >(ActionType.GET_NOTES, async (payload, { extra }) => {
-  const { interviewNoteApi } = extra;
+  const { interviewsApi } = extra;
   const { interviewId } = payload;
 
-  const notesPayload = await interviewNoteApi.getAll({ interviewId });
+  const notesPayload = await interviewsApi.getAllNotes({ interviewId });
 
   return notesPayload;
 });
@@ -27,10 +27,10 @@ const createNote = createAsyncThunk<
   InterviewNoteCreateDto,
   AsyncThunkConfig
 >(ActionType.CREATE_NOTE, async (payload, { extra }) => {
-  const { interviewNoteApi } = extra;
+  const { interviewsApi } = extra;
   const { interviewId, note } = payload;
 
-  const newNote = await interviewNoteApi.create({ interviewId, note });
+  const newNote = await interviewsApi.createNote({ interviewId, note });
 
   return newNote;
 });

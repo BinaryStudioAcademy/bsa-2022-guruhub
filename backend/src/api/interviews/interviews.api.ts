@@ -14,10 +14,7 @@ import {
   InterviewsCreateRequestBodyDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
-import {
-  interview as interviewService,
-  interviewNote as interviewNoteService,
-} from '~/services/services';
+import { interview as interviewService } from '~/services/services';
 import {
   interviewByIntervieweeId as interviewByIntervieweeIdValidationSchema,
   interviewCreate as interviewCreateValidationSchema,
@@ -29,7 +26,6 @@ import {
 type Options = {
   services: {
     interview: typeof interviewService;
-    interviewNote: typeof interviewNoteService;
   };
 };
 
@@ -37,8 +33,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
   fastify,
   opts,
 ) => {
-  const { interview: interviewService, interviewNote: interviewNoteService } =
-    opts.services;
+  const { interview: interviewService } = opts.services;
 
   fastify.route({
     method: HttpMethod.GET,
@@ -127,7 +122,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       rep,
     ) {
       const { id: interviewId } = req.params;
-      const notesDto = await interviewNoteService.getAll(interviewId);
+      const notesDto = await interviewService.getAllNotes(interviewId);
 
       return rep.status(HttpCode.OK).send(notesDto);
     },
@@ -155,7 +150,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       const { id: authorId } = req.user;
       const { id: interviewId } = req.params;
       const { note } = req.body;
-      const newNote = await interviewNoteService.create({
+      const newNote = await interviewService.createNote({
         note,
         interviewId,
         authorId,

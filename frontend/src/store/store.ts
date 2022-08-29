@@ -5,7 +5,6 @@ import {
   courseModulesApi,
   coursesApi,
   groupsApi,
-  interviewNoteApi,
   interviewsApi,
   mentorsApi,
   navigation,
@@ -32,7 +31,6 @@ const extraArgument = {
   categoriesApi,
   courseModulesApi,
   interviewsApi,
-  interviewNoteApi,
   mentorsApi,
 };
 

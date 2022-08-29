@@ -4,25 +4,18 @@ import {
   InterviewNoteCreateRequestArgumentsDto,
   InterviewNoteGetAllResponseDto,
 } from '~/common/types/types';
-import {
-  interviewNote as interviewNoteRep,
-  user as userRep,
-} from '~/data/repositories/repositories';
+import { interviewNote as interviewNoteRep } from '~/data/repositories/repositories';
 import { sanitizeHTML } from '~/helpers/helpers';
 
 type Constructor = {
   interviewNoteRepository: typeof interviewNoteRep;
-  userRepository: typeof userRep;
 };
 
 class InterviewNote {
   #interviewNoteRepository: typeof interviewNoteRep;
 
-  #userRepository: typeof userRep;
-
-  public constructor({ interviewNoteRepository, userRepository }: Constructor) {
+  public constructor({ interviewNoteRepository }: Constructor) {
     this.#interviewNoteRepository = interviewNoteRepository;
-    this.#userRepository = userRepository;
   }
 
   public async getAll(

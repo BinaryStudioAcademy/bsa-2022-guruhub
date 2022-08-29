@@ -5,6 +5,10 @@ import {
   InterviewsApiPath,
 } from 'common/enums/enums';
 import {
+  InterviewNoteCreateDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArgumentsDto,
   InterviewsCreateRequestBodyDto,
   InterviewsResponseDto,
 } from 'common/types/types';
@@ -47,6 +51,33 @@ class InterviewsApi {
       }/${intervieweeUserId}${InterviewsApiPath.CATEGORIES}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getAllNotes({
+    interviewId,
+  }: InterviewNoteGetRequestArgumentsDto): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#http.load<InterviewNoteGetAllResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      { method: HttpMethod.GET },
+    );
+  }
+
+  public createNote({
+    interviewId,
+    note,
+  }: InterviewNoteCreateDto): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#http.load<InterviewNoteGetAllItemResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ note }),
       },
     );
   }

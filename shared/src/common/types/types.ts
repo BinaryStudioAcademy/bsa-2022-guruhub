@@ -56,6 +56,7 @@ export {
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
+  type CheckPermisssionType,
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';

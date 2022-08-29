@@ -64,6 +64,7 @@ export {
 } from './interview-note/interview-note';
 export { EntityPagination } from './pagination/pagination';
 export {
+  type CheckPermisssionType,
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';

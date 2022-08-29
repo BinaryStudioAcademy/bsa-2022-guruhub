@@ -41,7 +41,7 @@ const HistorySection: FC<Props> = ({
   return (
     <div className={styles.history}>
       <div className={styles.historyHeading}>
-        <h1>History</h1>
+        <h2>History</h2>
         {!isOpen && (
           <Button
             label="+ Add"

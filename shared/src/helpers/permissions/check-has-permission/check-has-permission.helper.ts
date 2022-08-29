@@ -1,12 +1,13 @@
 import { PermissionKey } from '~/common/enums/enums';
-import { PermissionsGetAllItemResponseDto } from '~/common/types/types';
-
-type checkType = 'every' | 'oneOf';
+import {
+  CheckPermisssionType,
+  PermissionsGetAllItemResponseDto,
+} from '~/common/types/types';
 
 type Args = {
   permissionKeys: PermissionKey[];
   userPermissions: PermissionsGetAllItemResponseDto[];
-  checkMode?: checkType;
+  checkMode?: CheckPermisssionType;
 };
 
 const checkHasPermission = ({

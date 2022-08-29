@@ -114,13 +114,13 @@ const course = new Course({
   courseCategoryService: courseCategory,
 });
 
-const interview = new Interview({
-  interviewRepository,
-});
-
 const interviewNote = new InterviewNote({
   interviewNoteRepository,
-  userRepository,
+});
+
+const interview = new Interview({
+  interviewRepository,
+  interviewNoteService: interviewNote,
 });
 
 const file = new File({

@@ -12,7 +12,6 @@ import {
   coursesToMentors,
   group,
   interview,
-  interviewNote,
   permission,
   token,
   user,
@@ -103,7 +102,6 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.register(initInterviewsApi, {
     services: {
       interview,
-      interviewNote,
     },
     prefix: ApiPath.INTERVIEWS,
   });

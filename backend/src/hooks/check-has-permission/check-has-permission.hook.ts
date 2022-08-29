@@ -5,13 +5,12 @@ import {
   HttpCode,
   PermissionKey,
 } from '~/common/enums/enums';
+import { CheckPermisssionType } from '~/common/types/types';
 import { PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
-type CheckType = 'every' | 'oneOf';
-
 const checkHasPermissions =
-  <T>(type: CheckType, ...pagePermissions: PermissionKey[]) =>
+  <T>(type: CheckPermisssionType, ...pagePermissions: PermissionKey[]) =>
   async (req: FastifyRequest<T>): Promise<void> => {
     const { user } = req;
     const hasUser = Boolean(user);
