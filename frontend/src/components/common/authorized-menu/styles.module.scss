@@ -3,9 +3,11 @@
   top: 96px;
   display: flex;
   flex-direction: column;
+  width: 290px;
   min-width: 290px;
-  height: 89.6vh;
+  height: calc(100vh - 96px);
   padding: 40px;
+  overflow-y: scroll;
   background-color: var(--background-gray-300);
 }
 
