@@ -22,15 +22,20 @@ const checkHasPermission = ({
     return true;
   }
 
+  const permissionsMap = new Map<string, string>();
+  userPermissionKeys.forEach((permission) => {
+    permissionsMap.set(permission, permission);
+  });
+
   switch (checkMode) {
     case 'every': {
       return permissionKeys.every((pagePermission) => {
-        return userPermissionKeys.includes(pagePermission);
+        return permissionsMap.has(pagePermission);
       });
     }
     case 'oneOf': {
       return permissionKeys.some((pagePermission) => {
-        return userPermissionKeys.includes(pagePermission);
+        return permissionsMap.has(pagePermission);
       });
     }
   }

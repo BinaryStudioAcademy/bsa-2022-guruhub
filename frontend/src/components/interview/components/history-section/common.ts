@@ -1,4 +1,6 @@
-const DEFAULT_CREATE_NOTE_PAYLOAD = {
+import { InterviewNoteCreateRequestDto } from 'common/types/types';
+
+const DEFAULT_CREATE_NOTE_PAYLOAD: InterviewNoteCreateRequestDto = {
   note: '',
 };
 

@@ -27,9 +27,9 @@ class InterviewNote {
   }
 
   public create(
-    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+    interviewNoteCreateDto: InterviewNoteCreateRequestArgumentsDto,
   ): Promise<InterviewNoteGetAllItemResponseDto> {
-    const { note, interviewId, authorId } = interviewNotCreateDto;
+    const { note, interviewId, authorId } = interviewNoteCreateDto;
 
     return this.#interviewNoteRepository.create({
       note: sanitizeHTML(note),
