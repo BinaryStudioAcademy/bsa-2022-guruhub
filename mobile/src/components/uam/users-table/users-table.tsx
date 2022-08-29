@@ -28,6 +28,7 @@ const UsersTable: FC = () => {
 
   const tableData = users.map((user) => ({
     ...user,
+    fullName: user.userDetails.fullName,
     createdAt: `${getFormattedDate(user.createdAt, 'distance')} ago`,
     action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
   }));

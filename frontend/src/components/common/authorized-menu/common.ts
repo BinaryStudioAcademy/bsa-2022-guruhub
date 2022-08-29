@@ -26,12 +26,6 @@ const routes: NavigationMenuItem[] = [
           PermissionKey.MANAGE_INTERVIEW,
         ],
       },
-      {
-        name: 'UAM',
-        iconName: 'education',
-        href: AppRoute.UAM,
-        permissions: [PermissionKey.MANAGE_UAM],
-      },
     ],
   },
   {
@@ -48,6 +42,12 @@ const routes: NavigationMenuItem[] = [
         iconName: 'settings',
         href: AppRoute.SETTINGS_PROFILE,
         permissions: [],
+      },
+      {
+        name: 'UAM',
+        iconName: 'uam',
+        href: AppRoute.UAM,
+        permissions: [PermissionKey.MANAGE_UAM],
       },
     ],
   },

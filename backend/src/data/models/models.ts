@@ -5,6 +5,7 @@ export { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.model'
 export { File } from './file/file.model';
 export { Group } from './group/group.model';
 export { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.model';
+export { InterviewNote } from './interveiw-note/interview-note.model';
 export { Interview } from './interview/interview.model';
 export { Permission } from './permission/permission.model';
 export { User } from './user/user.model';
