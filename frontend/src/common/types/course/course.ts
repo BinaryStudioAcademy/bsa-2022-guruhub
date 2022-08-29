@@ -2,6 +2,9 @@ export { type CourseUpdateCategoryRequestArguments } from './course-update-categ
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestParamsDto,
 } from 'guruhub-shared/common/types/types';

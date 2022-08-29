@@ -5,6 +5,7 @@ enum AppRoute {
   MENTORS = '/mentors',
   EDUCATION = '/education',
   INTERVIEW = '/interviews',
+  INTERVIEWS_$ID = '/interviews/:id',
   SETTINGS_BILLING = '/settings/billing',
   SETTINGS_PROFILE = '/settings/profile',
   UAM = '/uam',
@@ -16,7 +17,6 @@ enum AppRoute {
   COURSES_$ID = '/courses/:id',
   COURSES = '/courses',
   COURSES_$ID_MODULES_$ID = '/courses/:courseId/modules/:moduleId',
-  INTERVIEWS_$ID = '/interviews/:id',
   ANY = '*',
 }
 

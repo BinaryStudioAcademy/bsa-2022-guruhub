@@ -18,8 +18,12 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
-import { EditCategoryModal } from './components/components';
-import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
+import {
+  ChooseMentorButton,
+  ChooseMentorModal,
+  EditCategoryModal,
+  ModulesCardsContainer,
+} from './components/components';
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
@@ -30,6 +34,8 @@ const Course: FC = () => {
     dataStatus,
     passedInterviewsCategoryIds,
     user,
+    mentors,
+    isMentorChoosingEnabled,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -37,6 +43,8 @@ const Course: FC = () => {
     dataStatus: course.dataStatus,
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
+    mentors: course.mentors,
+    isMentorChoosingEnabled: course.isMentorChoosingEnabled,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -54,10 +62,36 @@ const Course: FC = () => {
     setUpdateCategoryModalOpen((prev) => !prev);
   };
 
+  const [isChooseMentorModalOpen, setChooseMentorModalOpen] =
+    useState<boolean>(false);
+
+  const handleChooseMentorModalToggle = (evt: React.MouseEvent): void => {
+    evt.stopPropagation();
+    setChooseMentorModalOpen((prev) => !prev);
+  };
+
+  const handleMentorSelectClick = (mentorId: number): void => {
+    dispatch(courseActions.chooseMentor({ id: mentorId }));
+  };
+
+  const handleMentorsSearch = (mentorName: string): void => {
+    dispatch(
+      courseActions.getMentorsByCourseId({
+        courseId: Number(id),
+        filteringOpts: { mentorName },
+      }),
+    );
+  };
+
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(courseActions.getMentorsByCourseId({ id: Number(id) }));
+    dispatch(
+      courseActions.getMentorsByCourseId({
+        courseId: Number(id),
+        filteringOpts: { mentorName: '' },
+      }),
+    );
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
 
@@ -69,6 +103,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(courseActions.updateIsMentorBecomingEnabled());
+    dispatch(courseActions.updateisMentorChoosingEnabled());
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
@@ -94,24 +129,31 @@ const Course: FC = () => {
         categories={categories}
         onModalToggle={handleUpdateCategoryModalToggle}
       />
+      <ChooseMentorModal
+        isOpen={isChooseMentorModalOpen}
+        onModalToggle={handleChooseMentorModalToggle}
+        mentors={mentors}
+        onMentorSelectClick={handleMentorSelectClick}
+        onMentorSearch={handleMentorsSearch}
+      />
       <div className={styles.info}>
-        <h1>{course?.title}</h1>
-        <div className={styles.categoryWrapper}>
-          <div className={styles.categoryContainer}>
-            <Category
-              name={course.category?.name ?? 'Unknown'}
-              keyName={course.category?.key ?? 'unknown'}
-            />
-          </div>
+        <div className={styles.headingWrapper}>
+          <h1>{course?.title}</h1>
           {isCategoryEditAllowed && (
-            <>
+            <div className={styles.editButton}>
               <IconButton
                 label="edit category"
                 iconName="edit"
                 onClick={handleUpdateCategoryModalToggle}
               />
-            </>
+            </div>
           )}
+        </div>
+        <div className={styles.categoryContainer}>
+          <Category
+            name={course.category?.name ?? 'Unknown'}
+            keyName={course.category?.key ?? 'unknown'}
+          />
         </div>
         <div className={styles.image}>
           <Image
@@ -129,7 +171,11 @@ const Course: FC = () => {
         </div>
       </div>
 
-      <div className={styles.additional}></div>
+      <div className={styles.additional}>
+        {isMentorChoosingEnabled && (
+          <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+        )}
+      </div>
     </div>
   );
 };

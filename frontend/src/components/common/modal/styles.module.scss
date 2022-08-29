@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: var(--z-index-level-five);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -14,9 +14,12 @@
 .modalContainer {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: 60%;
+  width: 100%;
+  max-width: 700px;
+  min-height: 400px;
   margin: auto;
+  padding: 10px;
+  overflow-y: auto;
   color: white;
   background-color: var(--background-gray-400);
 }
