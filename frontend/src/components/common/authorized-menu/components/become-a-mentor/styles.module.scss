@@ -6,12 +6,11 @@
 }
 
 .imageWrapper {
-  transform: translateY(-250px);
+  position: absolute;
 }
 
 .buttonWrapper {
-  position: relative;
-  margin-top: 100px;
+  margin-top: 110px;
   padding: 79px 38px 21px 18px;
   background-color: var(--background-gray-400);
   border-radius: 23px;

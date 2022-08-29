@@ -11,20 +11,20 @@ type Props = {
 const BecomeAMentor: FC<Props> = ({ onClick }) => {
   return (
     <div className={styles.mentorWrapper}>
-      <div className={styles.buttonWrapper}>
-        <Button
-          label="Become a Mentor"
-          btnType="filled"
-          btnColor="blue"
-          onClick={onClick}
-        />
-      </div>
       <div className={styles.imageWrapper}>
         <Image
           src={mentorImage}
           alt="Mentor Image"
           height="100%"
           width="100%"
+        />
+      </div>
+      <div className={styles.buttonWrapper}>
+        <Button
+          label="Become a Mentor"
+          btnType="filled"
+          btnColor="blue"
+          onClick={onClick}
         />
       </div>
     </div>
