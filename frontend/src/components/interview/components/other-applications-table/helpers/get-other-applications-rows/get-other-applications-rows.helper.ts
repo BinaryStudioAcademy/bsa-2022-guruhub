@@ -1,8 +1,5 @@
 import { InterviewsGetOtherItemResponseDto } from 'common/types/types';
-import {
-  OtherApplicationsTableAccessor,
-  TableDefaultValue,
-} from 'components/interview/common/enums/enums';
+import { OtherApplicationsTableAccessor } from 'components/interview/common/enums/enums';
 import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
 
 const getOtherApplicationsRows = (
@@ -10,8 +7,7 @@ const getOtherApplicationsRows = (
 ): OtherApplicationsTableRow[] => {
   return interviews.map((interview): OtherApplicationsTableRow => {
     const interviewerName =
-      interview.interviewer?.userDetails?.fullName ??
-      TableDefaultValue.VALUE_NOT_SET;
+      interview.interviewer?.userDetails?.fullName ?? 'Not set';
 
     return {
       [OtherApplicationsTableAccessor.ID]: interview.id,
