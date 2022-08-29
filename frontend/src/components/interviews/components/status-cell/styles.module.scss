@@ -6,14 +6,26 @@
   border-radius: 15px;
 }
 
-.New {
-  background-color: #16b320;
+.new {
+  background-color: #ecbc02;
 }
 
-.Rejected {
+.rejected {
   background-color: #7e19f7;
 }
 
-.Canceled {
+.canceled {
   background-color: #f64848;
+}
+
+.completed {
+  background-color: #7bdf00;
+}
+
+.pending {
+  background-color: #03d7fc;
+}
+
+.inProgress {
+  background-color: #d605e8;
 }
