@@ -11,9 +11,6 @@ const getFormattedDate = (date: string, formatDate: FormatDate): string => {
     case 'kk:mm, dd/MM/yyyy': {
       return format(new Date(date), formatDate);
     }
-    case 'kk:mm, dd/MM/yyyy': {
-      return format(new Date(date), 'kk:mm, dd/MM/yyyy');
-    }
   }
 };
 
