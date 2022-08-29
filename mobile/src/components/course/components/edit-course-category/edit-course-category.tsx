@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import {
-  CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
+  CourseUpdateCategoryRequestDto,
 } from '~/common/types/types';
 import {
   BackButton,
@@ -17,15 +17,12 @@ import {
   useAppForm,
   useAppNavigate,
   useAppSelector,
-  useCallback,
   useEffect,
-  useFocusEffect,
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import { DropDownPayload } from './common/common';
-import { getDefaultValueforDropDown } from './helper/helpers';
+import { DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD } from './common/common';
 import { styles } from './styles';
 
 const EditCourseCategory: FC = () => {
@@ -35,19 +32,23 @@ const EditCourseCategory: FC = () => {
   const { course, dataStatus, categories } = useAppSelector(
     (state) => state.courses,
   );
-  const currentCategory = course?.courseCategoryId;
+  const courseData = course as CourseGetResponseDto;
+  const categoriesData = categories.map(({ name, id }) => ({
+    label: name,
+    value: id,
+  }));
 
-  const { control, handleSubmit, reset, errors } = useAppForm<
-    DropDownPayload | CategoryGetAllItemResponseDto
-  >({
-    defaultValues: getDefaultValueforDropDown(currentCategory),
-    validationSchema: courseUpdateCategoryValidationSchema,
-  });
+  const { control, handleSubmit, reset, errors } =
+    useAppForm<CourseUpdateCategoryRequestDto>({
+      defaultValues: {},
+      validationSchema: courseUpdateCategoryValidationSchema,
+    });
 
   const handleSelectNewCategory = (
-    payload: DropDownPayload | CategoryGetAllItemResponseDto,
+    payload: CourseUpdateCategoryRequestDto,
   ): void => {
-    const newCategoryId = (payload as DropDownPayload).newCategoryId;
+    const newCategoryId = (payload as CourseUpdateCategoryRequestDto)
+      .newCategoryId;
 
     if (newCategoryId) {
       dispatch(
@@ -71,11 +72,12 @@ const EditCourseCategory: FC = () => {
     });
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      reset(getDefaultValueforDropDown(currentCategory));
-    }, [currentCategory]),
-  );
+  useEffect(() => {
+    reset({
+      newCategoryId:
+        courseData.courseCategoryId ?? DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
+    });
+  }, [courseData.courseCategoryId]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
@@ -84,7 +86,7 @@ const EditCourseCategory: FC = () => {
   return (
     <View style={styles.container}>
       <Dropdown
-        items={categories}
+        items={categoriesData}
         control={control}
         name="newCategoryId"
         errors={errors}

@@ -1,1 +1,1 @@
-export { type DropDownPayload } from './types/dropdown.type';
+export { DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD } from './constants/set-category.constant';

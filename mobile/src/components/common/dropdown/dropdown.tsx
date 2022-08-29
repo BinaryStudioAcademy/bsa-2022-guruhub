@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
 
 import {
   FormControl,
@@ -13,7 +13,7 @@ import { useFormControl, useState } from '~/hooks/hooks';
 import { styles } from './styles';
 
 type Props<T> = {
-  items: T[];
+  items: ItemType<string | number>[];
   control: FormControl<T>;
   name: FormControlPath<T>;
   onSelectItem?: () => void;
@@ -50,10 +50,6 @@ const Dropdown = <T extends FormControlValues>({
         autoScroll={true}
         labelStyle={styles.labelStyle}
         searchable={true}
-        schema={{
-          label: 'name',
-          value: 'id',
-        }}
         listMode="MODAL"
         dropDownContainerStyle={styles.dropDownContainerStyle}
         listParentContainerStyle={styles.listParentContainerStyle}
