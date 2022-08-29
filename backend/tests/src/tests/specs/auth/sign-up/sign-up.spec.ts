@@ -1,6 +1,7 @@
 import {
   HttpCode,
   HttpStatusMessage,
+  UserDetailsResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
   UserWithPermissions,
@@ -23,8 +24,13 @@ import { signUpRequestMock } from '~/tests/mocks/mocks';
 
 describe('Sign up tests', () => {
   let signUpData: UserSignUpRequestDto;
-  let expectedSignUpResponse: Pick<UserWithPermissions, 'fullName' | 'email'>;
-  let expectedUserData: Pick<UserWithPermissions, 'id' | 'fullName' | 'email'>;
+  let expectedSignUpResponse: Pick<UserWithPermissions, 'email'> & {
+    userDetails: Pick<UserDetailsResponseDto, 'fullName'>;
+  };
+
+  let expectedUserData: Pick<UserWithPermissions, 'id' | 'email'> & {
+    userDetails: Pick<UserDetailsResponseDto, 'fullName'>;
+  };
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
@@ -50,7 +56,9 @@ describe('Sign up tests', () => {
     signUpData = signUpRequestMock();
 
     expectedSignUpResponse = {
-      fullName: signUpData.fullName,
+      userDetails: {
+        fullName: signUpData.fullName,
+      },
       email: signUpData.email,
     };
 

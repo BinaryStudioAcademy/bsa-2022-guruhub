@@ -83,6 +83,7 @@ class Group {
         id: group.id,
         name: group.name,
         key: group.key,
+        createdAt: group.createdAt,
       })),
       total: result.total,
     };

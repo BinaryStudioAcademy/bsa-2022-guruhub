@@ -3,7 +3,7 @@ import { GroupsTableAccessor } from 'components/uam/common/enums/enums';
 import { GroupsTableActionsProps } from 'components/uam/common/types/types';
 import { Column } from 'react-table';
 
-import { ActionsCell } from '../components/components';
+import { ActionsCell, DateCell } from '../components/components';
 
 const getGroupsColumns = (
   onGroupDelete: (groupId: number) => void,
@@ -20,6 +20,11 @@ const getGroupsColumns = (
     {
       Header: 'Key',
       accessor: GroupsTableAccessor.KEY,
+    },
+    {
+      Header: 'Created',
+      accessor: GroupsTableAccessor.CREATED_AT,
+      Cell: DateCell,
     },
     {
       Header: 'Actions',

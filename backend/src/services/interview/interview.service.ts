@@ -65,8 +65,10 @@ class Interview {
     });
   }
 
-  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    return this.#interviewRepository.getById(id);
+  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    const interview = await this.#interviewRepository.getById(id);
+
+    return interview ?? null;
   }
 
   public async create({

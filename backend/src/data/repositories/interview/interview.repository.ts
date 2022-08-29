@@ -31,9 +31,9 @@ class Interview {
     const elementsToSkip = page * count;
     const items = await this.#InterviewModel
       .query()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .offset(elementsToSkip)
       .limit(count)
       .castTo<InterviewsGetAllItemResponseDto[]>();
@@ -46,17 +46,16 @@ class Interview {
     };
   }
 
-  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    const interview = await this.#InterviewModel
+  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    return this.#InterviewModel
       .query()
       .select()
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .findById(id)
-      .castTo<InterviewsByIdResponseDto>();
-
-    return interview ?? null;
+      .castTo<InterviewsByIdResponseDto>()
+      .execute();
   }
 
   public create({
@@ -111,9 +110,9 @@ class Interview {
       .select()
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
-      .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
       .offset(elementsToSkip)
       .limit(count)
       .castTo<InterviewsGetAllItemResponseDto[]>();
