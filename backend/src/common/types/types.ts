@@ -54,7 +54,6 @@ export {
   type InterviewsCreateRequestDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllRequestDto,
-  type InterviewsGetAllResponseDto,
   type InterviewsGetByUserIdRequestDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestArgumentsDto,

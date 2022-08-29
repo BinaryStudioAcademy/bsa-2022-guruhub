@@ -40,7 +40,7 @@ const Pagination: FC<Props> = ({
         <button
           className={styles.next}
           onClick={handleNextPageChange}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages === 0}
         />
       </div>
     </div>

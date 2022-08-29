@@ -42,7 +42,6 @@ export {
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
