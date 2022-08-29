@@ -1,14 +1,17 @@
 .mentorWrapper {
   display: flex;
+  flex-shrink: 0.5;
   flex-direction: column;
   align-items: center;
 }
 
 .imageWrapper {
-  transform: translateY(70px);
+  transform: translateY(-250px);
 }
 
 .buttonWrapper {
+  position: relative;
+  margin-top: 100px;
   padding: 79px 38px 21px 18px;
   background-color: var(--background-gray-400);
   border-radius: 23px;
