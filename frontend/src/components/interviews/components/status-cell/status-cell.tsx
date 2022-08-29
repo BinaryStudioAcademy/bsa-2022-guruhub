@@ -7,18 +7,13 @@ import { CellProps } from 'react-table';
 import styles from './styles.module.scss';
 
 const StatusCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
+  const camelCaseStatus = changeStringCase({
+    caseType: StringCase.CAMEL_CASE,
+    stringToChange: value,
+  });
+
   return (
-    <span
-      className={getValidClasses([
-        styles[
-          changeStringCase({
-            stringToChange: value,
-            caseType: StringCase.CAMEL_CASE,
-          })
-        ],
-        styles.status,
-      ])}
-    >
+    <span className={getValidClasses(styles.status, styles[camelCaseStatus])}>
       {value}
     </span>
   );
