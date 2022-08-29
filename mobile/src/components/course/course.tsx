@@ -83,6 +83,7 @@ const Course: FC = () => {
           <Category
             keyName={currentCategory?.key ?? 'unknown'}
             name={currentCategory?.name ?? 'Unknown'}
+            isActive={false}
           />
         </View>
 
