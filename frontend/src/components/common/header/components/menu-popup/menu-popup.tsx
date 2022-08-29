@@ -19,7 +19,6 @@ const Popup: FC<Props> = ({ onClose }) => {
   });
 
   const handleLogout = (): void => {
-    dispatch(authActions.logout());
     dispatch(authActions.logout()).unwrap().then(onClose);
   };
 
@@ -28,7 +27,7 @@ const Popup: FC<Props> = ({ onClose }) => {
       <ul className={styles.ul}>
         <li className={styles.li}>
           <div>
-            <Button label="Profile" btnColor="gray" to={AppRoute.PROFILE} />
+            <Button label="Profile" to={AppRoute.SETTINGS_PROFILE} />
           </div>
         </li>
         <li className={styles.li}>

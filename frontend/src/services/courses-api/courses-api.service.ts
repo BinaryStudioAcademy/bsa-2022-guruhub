@@ -6,11 +6,14 @@ import {
 } from 'common/enums/enums';
 import {
   CourseFilteringDto,
+  CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
+  MenteesToMentorsRequestDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -79,15 +82,57 @@ class CoursesApi {
     );
   }
 
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          mentorName: filteringOpts.mentorName,
+        },
+      },
+    );
+  }
+
+  public chooseMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
+      },
+    );
+  }
+
   public updateCategory({
     courseId,
     newCategoryId,
   }: CourseUpdateCategoryRequestArguments): Promise<CourseGetResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}/${courseId}`, {
-      method: HttpMethod.PATCH,
-      contentType: ContentType.JSON,
-      payload: JSON.stringify({ newCategoryId }),
-    });
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.CATEGORY
+      }`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ newCategoryId }),
+      },
+    );
   }
 }
 

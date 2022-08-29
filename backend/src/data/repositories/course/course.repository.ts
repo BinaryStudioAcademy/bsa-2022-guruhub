@@ -1,7 +1,9 @@
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -72,7 +74,7 @@ class Course {
   }: CourseGetByIdAndVendorKeyArgumentsDto): Promise<CourseGetResponseDto | null> {
     const course = await this.#CourseModel
       .query()
-      .where('courses.original_id', originalId)
+      .where('courses.originalId', originalId)
       .andWhere('vendor.key', vendorKey)
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto>()
@@ -88,6 +90,26 @@ class Course {
       .withGraphJoined('[vendor, category]')
       .first()
       .castTo<CourseGetResponseDto>()
+      .execute();
+  }
+
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    const { mentorName } = filteringOpts ?? {};
+
+    return this.#CourseModel
+      .query()
+      .where({ 'courses.id': courseId })
+      .andWhere((builder) => {
+        if (mentorName) {
+          builder.where('fullName', 'ilike', `%${mentorName}%`);
+        }
+      })
+      .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
+      .joinRelated('mentors.[userDetails]')
+      .castTo<UserDetailsResponseDto[]>()
       .execute();
   }
 

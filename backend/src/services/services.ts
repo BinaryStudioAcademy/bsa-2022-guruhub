@@ -4,10 +4,13 @@ import {
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
+  coursesToMentors as coursesToMentorsRepository,
   file as fileRepository,
   group as groupsRepository,
   groupsToPermissions as groupsToPermissionsRepository,
   interview as interviewRepository,
+  interviewNote as interviewNoteRepository,
+  menteesToMentors as menteesToMentorsRepository,
   permission as permissionRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
@@ -20,11 +23,16 @@ import { File } from './aws/file/file.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
+import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.service';
+import { Edx } from './edx/edx.service';
 import { Encrypt } from './encrypt/encrypt.service';
 import { Group } from './group/group.service';
 import { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.service';
 import { Http } from './http/http.service';
 import { Interview } from './interview/interview.service';
+import { InterviewNote } from './interview-note/interview-note.service';
+import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
+import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
@@ -82,6 +90,15 @@ const http = new Http();
 const udemy = new Udemy({
   httpService: http,
   baseUrl: ENV.UDEMY.BASE_URL,
+  clientId: ENV.UDEMY.CLIENT_ID,
+  clientSecret: ENV.UDEMY.CLIENT_SECRET,
+});
+
+const edx = new Edx({
+  httpService: http,
+  baseUrl: ENV.EDX.BASE_URL,
+  clientId: ENV.EDX.CLIENT_ID,
+  clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
@@ -96,11 +113,17 @@ const course = new Course({
   vendorService: vendor,
   courseModuleService: courseModule,
   udemyService: udemy,
+  edxService: edx,
   courseCategoryService: courseCategory,
+});
+
+const interviewNote = new InterviewNote({
+  interviewNoteRepository,
 });
 
 const interview = new Interview({
   interviewRepository,
+  interviewNoteService: interviewNote,
 });
 
 const file = new File({
@@ -110,17 +133,31 @@ const file = new File({
   fileRepository,
 });
 
+const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
+const mentor = new Mentor({
+  menteesToMentorsService: menteesToMentors,
+  coursesToMentorsService: coursesToMentors,
+});
+
 export {
   auth,
   course,
   courseCategory,
   courseModule,
+  coursesToMentors,
+  edx,
   encrypt,
   file,
   group,
   groupsToPermissions,
   http,
   interview,
+  interviewNote,
+  menteesToMentors,
+  mentor,
   permission,
   token,
   udemy,

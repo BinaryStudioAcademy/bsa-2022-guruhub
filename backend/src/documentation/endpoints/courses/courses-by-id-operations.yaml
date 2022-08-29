@@ -1,4 +1,2 @@
 get:
   $ref: './courses-get-by-id.yaml'
-patch:
-  $ref: './course-update-category-by-id.yaml'

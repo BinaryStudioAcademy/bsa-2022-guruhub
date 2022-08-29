@@ -2,8 +2,11 @@ export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
 } from './course/course';
 export {
@@ -37,6 +40,27 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsGetAllResponseDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
+  type InterviewsResponseDto,
+} from './interview/interview';
+export {
+  type InterviewNoteCreateDto,
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteCreateRequestParamsDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllResponseDto,
+  type InterviewNoteGetRequestArgumentsDto,
+} from './interview-note/interview-note';
+export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+  type MenteesToMentorsRequestDto,
+} from './mentor/mentor';
+export {
   type NavigationMenuItem,
   type SubNavigationMenuItem,
 } from './navigation-menu/navigation-menu';
@@ -65,6 +89,7 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
+  type UserWithDetailsDto,
   type UserWithPermissions,
 } from './user/user';
 export {

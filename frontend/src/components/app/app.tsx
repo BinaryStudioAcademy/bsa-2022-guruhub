@@ -7,8 +7,8 @@ import {
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
 import {
+  AuthorizedProtectedRoute,
   AuthorizedWrapper,
-  ProtectedRoute,
   Route,
   Routes,
   Spinner,
@@ -16,6 +16,8 @@ import {
 import { Course } from 'components/course/course';
 import { CourseModule } from 'components/course-module/course-module';
 import { Dashboard } from 'components/dashboard/dashboard';
+import { Interview } from 'components/interview/interview';
+import { Interviews } from 'components/interviews/interviews';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
@@ -57,28 +59,28 @@ const App: FC = () => {
         <Route
           path={AppRoute.UAM}
           element={
-            <AuthorizedWrapper>
-              <ProtectedRoute
-                permissions={[PermissionKey.MANAGE_UAM]}
-                component={<UAM />}
-              />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAM />}
+            />
           }
         />
         <Route
           path={AppRoute.UAM_CONFIGURE_GROUP}
           element={
-            <AuthorizedWrapper>
-              <UAMConfigureGroup />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAMConfigureGroup />}
+            />
           }
         />
         <Route
           path={AppRoute.UAM_CONFIGURE_GROUP_$ID}
           element={
-            <AuthorizedWrapper>
-              <UAMConfigureGroup />
-            </AuthorizedWrapper>
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_UAM]}
+              component={<UAMConfigureGroup />}
+            />
           }
         />
         <Route
@@ -90,12 +92,8 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.PROFILE}
-          element={
-            <AuthorizedWrapper>
-              <ProtectedRoute component={<UserDetails />} />
-            </AuthorizedWrapper>
-          }
+          path={AppRoute.SETTINGS_PROFILE}
+          element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}
@@ -106,11 +104,44 @@ const App: FC = () => {
           }
         />
         <Route
+          path={AppRoute.INTERVIEW}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEW,
+                PermissionKey.MANAGE_INTERVIEWS,
+              ]}
+              component={<Interviews />}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.INTERVIEWS_$ID}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEWS,
+                PermissionKey.MANAGE_INTERVIEW,
+              ]}
+              component={<Interview />}
+            />
+          }
+        />
+        <Route
           path={AppRoute.ANY}
           element={
             <AuthorizedWrapper>
               <NotFound />
             </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.INTERVIEWS_$ID}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_INTERVIEWS]}
+              component={<Interview />}
+            />
           }
         />
       </Routes>
