@@ -196,13 +196,13 @@ class Interview {
     }
 
     const intervieweeUserId = interview.interviewee.id;
-    const ZERO_INDEXED_PAGE = page - 1;
+    const zeroIndexPage = page - 1;
 
     return this.#interviewRepository.getOtherByInterviewId({
       interviewId,
       intervieweeUserId,
       count,
-      page: ZERO_INDEXED_PAGE,
+      page: zeroIndexPage,
     });
   }
 }

@@ -10,7 +10,7 @@ import {
 } from 'hooks/hooks';
 import { interviewActions } from 'store/actions';
 
-import { OtherApplications } from './components/components';
+import { OtherApplicationsTable } from './components/components';
 import styles from './styles.module.scss';
 
 const Interview: FC = () => {
@@ -38,7 +38,8 @@ const Interview: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <OtherApplications
+      <h1>Other Applications</h1>
+      <OtherApplicationsTable
         interviews={otherInterviews}
         page={page}
         onPageChange={handlePageChange}
