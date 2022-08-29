@@ -38,10 +38,7 @@ const Dashboard: FC = () => {
   }
 
   const handleNewCourseModalToggle = (evt: React.MouseEvent | void): void => {
-    if (evt && evt.target) {
-      evt.stopPropagation();
-    }
-
+    evt?.stopPropagation();
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
   };
 
