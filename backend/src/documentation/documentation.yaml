@@ -49,6 +49,8 @@ paths:
     $ref: './endpoints/interviews/interviews.yaml'
   /interviews/{id}:
     $ref: './endpoints/interviews/interviews-get-by-id.yaml'
+  /interviews/:id/notes:
+    $ref: './endpoints/interviews/interview-notes-operations.yaml'
   /interviews/interviewee/{intervieweeUserId}/categories:
     $ref: './endpoints/interviews/interviews-interviewee-get-pending-or-passed-category-ids.yaml'
   # Mentors
@@ -109,6 +111,14 @@ components:
       $ref: './schemas/interviews/interview-get-all-response-dto.yaml'
     InterviewsGetByIdResponseDto:
       $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
+    InterviewsGetAllNotesRequestDto:
+      $ref: './schemas/interviews/interviews-get-all-notes-request-dto.yaml'
+    InterviewsGetAllNotesResponseDto:
+      $ref: './schemas/interviews/interviews-get-all-notes-response-dto.yaml'
+    InterviewsCreateNoteRequestDto:
+      $ref: './schemas/interviews/interviews-create-note-request-dto.yaml'
+    InterviewsCreateNoteResponseDto:
+      $ref: './schemas/interviews/interviews-create-note-response-dto.yaml'
     InterviewsGetPendingOrPassedCategoryIdsDto:
       $ref: './schemas/interviews/interviews-interviewee-get-pending-or-passed-category-ids-response.yaml'
 

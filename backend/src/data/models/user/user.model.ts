@@ -12,14 +12,6 @@ class User extends Abstract {
 
   public 'passwordSalt': string;
 
-  public static override get modifiers(): Modifiers<QueryBuilder<User>> {
-    return {
-      withoutPassword(builder): QueryBuilder<User> {
-        return builder.select('id', 'email', 'createdAt', 'updatedAt');
-      },
-    };
-  }
-
   public static override get relationMappings(): RelationMappings {
     return {
       groups: {
@@ -47,6 +39,14 @@ class User extends Abstract {
 
   public static override get tableName(): string {
     return DbTableName.USERS;
+  }
+
+  public static override get modifiers(): Modifiers<QueryBuilder<User>> {
+    return {
+      withoutPassword(builder): QueryBuilder<User> {
+        return builder.select('id', 'email', 'createdAt', 'updatedAt');
+      },
+    };
   }
 }
 

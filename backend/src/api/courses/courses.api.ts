@@ -120,7 +120,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       params: courseUpdateParamsValidationSchema,
       body: courseUpdateCategoryValidationSchema,
     },
-    preHandler: checkHasPermissions(PermissionKey.MANAGE_CATEGORIES),
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_CATEGORIES),
     async handler(
       req: FastifyRequest<{
         Params: CourseGetRequestParamsDto;
