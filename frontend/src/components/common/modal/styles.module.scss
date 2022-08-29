@@ -14,8 +14,9 @@
 .modalContainer {
   display: flex;
   flex-direction: column;
-  width: 700px;
-  height: 400px;
+  width: 100%;
+  max-width: 700px;
+  min-height: 400px;
   margin: auto;
   padding: 10px;
   color: white;
