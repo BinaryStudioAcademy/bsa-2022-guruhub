@@ -10,11 +10,12 @@ import {
   InterviewNoteGetAllResponseDto,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
-  InterviewsGetAllResponseDto,
+  InterviewsGetAllItemResponseDto,
+  InterviewsGetAllRequestDto,
+  InterviewsGetByUserIdRequestDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
-  PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
@@ -40,25 +41,28 @@ class Interview {
     this.#interviewNoteService = interviewNoteService;
   }
 
-  public async getAll(args: {
-    userId: number;
-    permissions: PermissionsGetAllItemResponseDto[];
-  }): Promise<InterviewsGetAllResponseDto> {
-    const { userId, permissions } = args;
+  public getAll(
+    args: InterviewsGetAllRequestDto,
+  ): Promise<EntityPagination<InterviewsGetAllItemResponseDto>> {
+    const { userId, permissions, page, count } = args;
     const hasInterviewsPermission = checkHasPermission({
       permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
       userPermissions: permissions,
     });
+    const zeroIndexPage = page - 1;
 
     if (!hasInterviewsPermission) {
-      return this.getByUserId(userId);
+      return this.getByUserId({
+        userId,
+        page: zeroIndexPage,
+        count,
+      });
     }
 
-    const interviews = await this.#interviewRepository.getAll();
-
-    return {
-      items: interviews,
-    };
+    return this.#interviewRepository.getAll({
+      page: zeroIndexPage,
+      count,
+    });
   }
 
   public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
@@ -115,14 +119,18 @@ class Interview {
     );
   }
 
-  public async getByUserId(
-    userId: number,
-  ): Promise<InterviewsGetAllResponseDto> {
-    const interviews = await this.#interviewRepository.getByUserId(userId);
-
-    return {
-      items: interviews,
-    };
+  public getByUserId({
+    count,
+    page,
+    userId,
+  }: InterviewsGetByUserIdRequestDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    return this.#interviewRepository.getByUserId({
+      userId,
+      page,
+      count,
+    });
   }
 
   public async getAllNotes(
