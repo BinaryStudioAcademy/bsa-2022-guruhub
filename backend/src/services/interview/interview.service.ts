@@ -5,52 +5,70 @@ import {
 } from '~/common/enums/enums';
 import {
   EntityPagination,
+  InterviewNoteCreateRequestArgumentsDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
   InterviewsByIdResponseDto,
   InterviewsCreateRequestDto,
-  InterviewsGetAllResponseDto,
+  InterviewsGetAllItemResponseDto,
+  InterviewsGetAllRequestDto,
+  InterviewsGetByUserIdRequestDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
-  PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
+import { interviewNote as interviewNoteServ } from '../services';
+
 type Constructor = {
   interviewRepository: typeof interviewRep;
+  interviewNoteService: typeof interviewNoteServ;
 };
 
 class Interview {
   #interviewRepository: typeof interviewRep;
 
-  public constructor({ interviewRepository }: Constructor) {
+  #interviewNoteService: typeof interviewNoteServ;
+
+  public constructor({
+    interviewRepository,
+    interviewNoteService,
+  }: Constructor) {
     this.#interviewRepository = interviewRepository;
+    this.#interviewNoteService = interviewNoteService;
   }
 
-  public async getAll(args: {
-    userId: number;
-    permissions: PermissionsGetAllItemResponseDto[];
-  }): Promise<InterviewsGetAllResponseDto> {
-    const { userId, permissions } = args;
+  public getAll(
+    args: InterviewsGetAllRequestDto,
+  ): Promise<EntityPagination<InterviewsGetAllItemResponseDto>> {
+    const { userId, permissions, page, count } = args;
     const hasInterviewsPermission = checkHasPermission({
       permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
       userPermissions: permissions,
     });
+    const zeroIndexPage = page - 1;
 
     if (!hasInterviewsPermission) {
-      return this.getByUserId(userId);
+      return this.getByUserId({
+        userId,
+        page: zeroIndexPage,
+        count,
+      });
     }
 
-    const interviews = await this.#interviewRepository.getAll();
-
-    return {
-      items: interviews,
-    };
+    return this.#interviewRepository.getAll({
+      page: zeroIndexPage,
+      count,
+    });
   }
 
-  public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
-    return this.#interviewRepository.getById(id);
+  public async getById(id: number): Promise<InterviewsByIdResponseDto | null> {
+    const interview = await this.#interviewRepository.getById(id);
+
+    return interview ?? null;
   }
 
   public async create({
@@ -101,14 +119,30 @@ class Interview {
     );
   }
 
-  public async getByUserId(
-    userId: number,
-  ): Promise<InterviewsGetAllResponseDto> {
-    const interviews = await this.#interviewRepository.getByUserId(userId);
+  public getByUserId({
+    count,
+    page,
+    userId,
+  }: InterviewsGetByUserIdRequestDto): Promise<
+    EntityPagination<InterviewsGetAllItemResponseDto>
+  > {
+    return this.#interviewRepository.getByUserId({
+      userId,
+      page,
+      count,
+    });
+  }
 
-    return {
-      items: interviews,
-    };
+  public getAllNotes(
+    interviewId: number,
+  ): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#interviewNoteService.getAll(interviewId);
+  }
+
+  public createNote(
+    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+  ): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#interviewNoteService.create(interviewNotCreateDto);
   }
 
   public async getOtherByInterviewId({

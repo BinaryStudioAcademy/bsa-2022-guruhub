@@ -23,6 +23,7 @@ const extraArgument = {
   coursesApi,
   usersApi,
   groupsApi,
+  interviewsApi,
   storage,
   notification,
   userDetailsApi,
@@ -30,7 +31,6 @@ const extraArgument = {
   permissionsApi,
   categoriesApi,
   courseModulesApi,
-  interviewsApi,
   mentorsApi,
 };
 

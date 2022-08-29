@@ -5,6 +5,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-  type UsersWithDetails,
+  type UserWithDetailsDto,
   type UserWithPermissions,
 } from 'guruhub-shared/common/types/types';

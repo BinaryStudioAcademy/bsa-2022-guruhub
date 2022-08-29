@@ -1,10 +1,10 @@
 import { UserDetailsItemResponseDto } from '../types';
 
-type UsersWithDetails = {
+type UserWithDetailsDto = {
   id: number;
   email: string;
   createdAt: string;
   userDetails: UserDetailsItemResponseDto;
 };
 
-export { type UsersWithDetails };
+export { type UserWithDetailsDto };

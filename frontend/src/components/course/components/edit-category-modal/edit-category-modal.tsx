@@ -20,7 +20,7 @@ type Props = {
   defaultCategoryId: number | undefined;
   isOpen: boolean;
   categories: CategoryGetAllItemResponseDto[];
-  onModalToggle: (evt: React.MouseEvent) => void;
+  onModalToggle: (evt?: React.MouseEvent) => void;
 };
 
 const EditCategoryModal: FC<Props> = ({
@@ -46,7 +46,11 @@ const EditCategoryModal: FC<Props> = ({
 
   const handleModalSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
     const { newCategoryId } = payload;
-    dispatch(courseActions.updateCategory({ courseId, newCategoryId }));
+    dispatch(courseActions.updateCategory({ courseId, newCategoryId }))
+      .unwrap()
+      .then(() => {
+        onModalToggle();
+      });
   };
 
   return (

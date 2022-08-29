@@ -1,0 +1,11 @@
+.category {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 10px;
+  color: var(--typography-text-100-inverse);
+}
+
+.categoryName {
+  margin-left: 5px;
+}
