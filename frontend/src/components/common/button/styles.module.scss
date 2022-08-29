@@ -46,6 +46,7 @@
 .button-upload:hover {
   color: var(--typography-text-100-inverse);
   background: var(--background-gray-400);
+  border: 2px solid var(--hover-blue-100);
 }
 
 .icon-gray {
