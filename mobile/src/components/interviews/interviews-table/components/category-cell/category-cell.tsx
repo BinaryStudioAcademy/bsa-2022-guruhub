@@ -1,7 +1,7 @@
-import { CategoryGetAllItemResponseDto } from 'guruhub-shared/common/types/types';
 import React, { FC, ReactElement } from 'react';
 
 import { categoryKeyToImage } from '~/common/maps/maps';
+import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
 
 import { styles } from './styles';
