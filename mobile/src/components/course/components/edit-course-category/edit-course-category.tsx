@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
-import {
-  CourseGetResponseDto,
-  CourseUpdateCategoryRequestDto,
-} from '~/common/types/types';
+import { CourseUpdateCategoryRequestDto } from '~/common/types/types';
 import {
   BackButton,
   Button,
@@ -36,7 +33,7 @@ const EditCourseCategory: FC = () => {
       categories: categories.categories,
     }),
   );
-  const courseData = course as CourseGetResponseDto;
+  const courseCategoryId = course?.courseCategoryId;
   const categoriesData = categories.map(({ name, id }) => ({
     label: name,
     value: id,
@@ -53,10 +50,10 @@ const EditCourseCategory: FC = () => {
   ): void => {
     const { newCategoryId } = payload;
 
-    if (newCategoryId) {
+    if (course) {
       dispatch(
         coursesActions.updateCategory({
-          courseId: courseData.id,
+          courseId: course.id,
           newCategoryId,
         }),
       );
@@ -75,11 +72,13 @@ const EditCourseCategory: FC = () => {
   }, []);
 
   useEffect(() => {
-    reset({
-      newCategoryId:
-        courseData.courseCategoryId ?? DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
-    });
-  }, [courseData.courseCategoryId]);
+    if (course) {
+      reset({
+        newCategoryId:
+          course.courseCategoryId ?? DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
+      });
+    }
+  }, [courseCategoryId]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;

@@ -74,32 +74,34 @@ const Course: FC = () => {
     return <Spinner isOverflow />;
   }
 
+  if (!course) {
+    return <Text>There is no course with provided id </Text>;
+  }
+
   return (
     <ScrollView>
-      {course && (
-        <View style={styles.container}>
-          <Text style={styles.h1}>{course?.title}</Text>
-          <View style={styles.currentCategory}>
-            <Category
-              keyName={currentCategory?.key ?? 'unknown'}
-              name={currentCategory?.name ?? 'Unknown'}
-              isActive={false}
-            />
-          </View>
-
-          <Image
-            style={styles.image}
-            source={{
-              uri: course?.imageUrl ?? getImageUri(defaultCourseImage),
-            }}
+      <View style={styles.container}>
+        <Text style={styles.h1}>{course?.title}</Text>
+        <View style={styles.currentCategory}>
+          <Category
+            keyName={currentCategory?.key ?? 'unknown'}
+            name={currentCategory?.name ?? 'Unknown'}
+            isActive={false}
           />
-          <Text style={styles.h2}>About this course</Text>
-          {course.description && (
-            <Content html={course.description} width={width} />
-          )}
-          <CourseModules />
         </View>
-      )}
+
+        <Image
+          style={styles.image}
+          source={{
+            uri: course?.imageUrl ?? getImageUri(defaultCourseImage),
+          }}
+        />
+        <Text style={styles.h2}>About this course</Text>
+        {course.description && (
+          <Content html={course.description} width={width} />
+        )}
+        <CourseModules />
+      </View>
     </ScrollView>
   );
 };
