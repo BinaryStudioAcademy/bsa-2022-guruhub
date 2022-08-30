@@ -35,7 +35,7 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
   return (
     <div className={styles.searchWrapper}>
       <Icon name="search" className={styles.searchIcon} />
-      <form>
+      <form onChange={handleSearch}>
         <Input
           control={control}
           errors={errors}
