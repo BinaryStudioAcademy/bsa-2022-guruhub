@@ -8,7 +8,11 @@ export {
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from 'guruhub-shared/common/types/types';

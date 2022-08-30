@@ -2,7 +2,7 @@ import {
   CategoryGetAllItemResponseDto,
   CourseUpdateCategoryRequestDto,
   FC,
-  SelectorOptions,
+  SelectorOption,
 } from 'common/types/types';
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
@@ -40,7 +40,7 @@ const EditCategoryModal: FC<Props> = ({
       validationSchema: courseUpdateCategoryValidationSchema,
     });
 
-  const categoriesOptions = useMemo<SelectorOptions<string>[]>(() => {
+  const categoriesOptions = useMemo<SelectorOption<string>[]>(() => {
     return getCategoriesOptions(categories);
   }, [categories]);
 

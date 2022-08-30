@@ -1,4 +1,4 @@
-import { permissionSchema } from '../../json-schemas';
+import { permissionSchema, userDetailsSchema } from '../../json-schemas';
 
 const userWithPermissionsSchema = {
   type: 'object',
@@ -9,10 +9,8 @@ const userWithPermissionsSchema = {
     email: {
       type: 'string',
     },
+    userDetails: userDetailsSchema,
     createdAt: {
-      type: 'string',
-    },
-    fullName: {
       type: 'string',
     },
     permissions: {
@@ -20,7 +18,7 @@ const userWithPermissionsSchema = {
       items: permissionSchema,
     },
   },
-  required: ['id', 'email'],
+  required: ['id', 'email', 'userDetails', 'createdAt', 'permissions'],
 };
 
 export { userWithPermissionsSchema };

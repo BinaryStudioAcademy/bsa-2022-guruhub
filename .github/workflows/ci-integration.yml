@@ -10,6 +10,9 @@ env:
   DB_NAME: guruhub-ci-integration
   DB_USER: postgres
   DB_PASSWORD: postgres_p4$5w0rd
+  SLACK_CHANNEL_ID: C03NC177WDU
+  SLACK_BOT_TOKEN: ${{ secrets.TESTS_NOTIFICATIONS_SLACK_TOKEN }}
+  WORKFLOW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
 jobs:
   ci-integration:
@@ -38,6 +41,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version-file: .nvmrc
+
+      - name: Install JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
 
       - name: Install Dependencies
         run: |
@@ -72,15 +81,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: eu-central-1
         run: |
-          npm run start:build & npx wait-on 'tcp:localhost:$PORT'
+          npm run start:build & npx wait-on $(echo tcp:localhost:$PORT)
 
       - name: Run Tests
+        id: run-tests
         working-directory: ./backend/tests
         env:
           LOCAL_API_PREFIX_URL: http://localhost:3001/api/v1
 
-          STUDENT_EMAIL: 'test.student@guruhub.club'
-          STUDENT_PASSWORD: 'Pa55word'
+          STUDENT_EMAIL: test.student@guruhub.club
+          STUDENT_PASSWORD: Pa55word
 
           JS_MENTOR_EMAIL: test.jsmentor@guruhub.club
           JS_MENTOR_PASSWORD: Pa55word
@@ -91,19 +101,119 @@ jobs:
           CSHARP_MENTOR_EMAIL: test.csharpmentor@guruhub.club
           CSHARP_MENTOR_PASSWORD: Pa55word
 
-          INTERVIEWS_MANAGER_EMAIL: 'test.interviewsmanager@guruhub.club'
-          INTERVIEWS_MANAGER_PASSWORD: 'Pa55word'
+          INTERVIEWS_MANAGER_EMAIL: test.interviewsmanager@guruhub.club
+          INTERVIEWS_MANAGER_PASSWORD: Pa55word
 
-          INTERVIEWER_EMAIL: 'test.interviewer@guruhub.club'
-          INTERVIEWER_PASSWORD: 'Pa55word'
+          INTERVIEWER_EMAIL: test.interviewer@guruhub.club
+          INTERVIEWER_PASSWORD: Pa55word
 
-          CATEGORIES_MANAGER_EMAIL: 'test.categoriesmanager@guruhub.club'
-          CATEGORIES_MANAGER_PASSWORD: 'Pa55word'
+          CATEGORIES_MANAGER_EMAIL: test.categoriesmanager@guruhub.club
+          CATEGORIES_MANAGER_PASSWORD: Pa55word
 
-          MENTORING_MANAGER_EMAIL: 'test.mentoringmanager@guruhub.club'
-          MENTORING_MANAGER_PASSWORD: 'Pa55word'
+          MENTORING_MANAGER_EMAIL: test.mentoringmanager@guruhub.club
+          MENTORING_MANAGER_PASSWORD: Pa55word
 
-          UAM_MANAGER_EMAIL: 'admin@guruhub.club'
-          UAM_MANAGER_PASSWORD: 'Pa55word'
+          UAM_MANAGER_EMAIL: admin@guruhub.club
+          UAM_MANAGER_PASSWORD: Pa55word
         run: |
           npm run test:development
+
+      - name: Generate Test Reports
+        id: generate-test-reports
+        if: ${{ (success() || failure()) && ((steps.run-tests.outcome == 'success') || (steps.run-tests.outcome == 'failure')) }}
+        working-directory: ./backend/tests
+        run: |
+          npm run generate-reports && zip -r allure-report.zip allure-report
+
+      - name: Get Current Date
+        id: get-current-date
+        if: ${{ (success() || failure()) && (steps.generate-test-reports.outcome == 'success') }}
+        run: |
+          echo "::set-output name=current-date::$(date +'%Y-%m-%d_%H-%M-%S')"
+
+      - name: Save Allure Report
+        id: save-allure-report
+        if: ${{ (success() || failure()) && (steps.get-current-date.outcome == 'success') }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ format('allure-report_{0}', steps.get-current-date.outputs.current-date) }}
+          path: ./backend/tests/allure-report.zip
+          retention-days: 14
+
+      - name: Save JUnit Report
+        if: ${{ (success() || failure()) && (steps.get-current-date.outcome == 'success') }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ format('junit-report_{0}', steps.get-current-date.outputs.current-date) }}
+          path: ./backend/tests/junit-report/junit-report.xml
+          retention-days: 14
+
+      - name: Get Current Branch Name
+        id: get-current-branch-name
+        if: ${{ success() || failure() }}
+        run: |
+          echo "::set-output name=branch-name::$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Send Success Report To Slack
+        if: ${{ success() && (steps.get-current-branch-name.outcome == 'success') }}
+        uses: slackapi/slack-github-action@v1.21.0
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *passed* :white_check_mark:"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":file_folder: Download reports here",
+                        "emoji": true
+                      },
+                      "url": "${{ env.WORKFLOW_RUN_URL }}"
+                    }
+                  ]
+                }
+              ]
+            }
+
+      - name: Send Failure Report To Slack
+        if: ${{ failure() && (steps.get-current-branch-name.outcome == 'success') }}
+        uses: slackapi/slack-github-action@v1.21.0
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *failed* :rotating_light:"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":file_folder: Download reports here",
+                        "emoji": true
+                      },
+                      "url": "${{ env.WORKFLOW_RUN_URL }}"
+                    }
+                  ]
+                }
+              ]
+            }
