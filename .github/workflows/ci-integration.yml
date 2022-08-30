@@ -209,7 +209,7 @@ jobs:
           echo "::set-output name=error::${{ steps.get-error-tests-count.outputs.info }}"
 
       - name: Send Success Report To Slack
-        if: ${{ success() && (steps.report-data.outcome == 'success') }}
+        if: ${{ success() && (steps.report-data.outcome == 'success' && steps.run-tests.outcome == 'success') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -249,7 +249,7 @@ jobs:
             }
 
       - name: Send Failure Report To Slack
-        if: ${{ failure() && (steps.report-data.outcome == 'success') }}
+        if: ${{ failure() && (steps.report-data.outcome == 'success' && steps.run-tests.outcome == 'failure') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
@@ -276,7 +276,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":white_check_mark: ${{ steps.report-data.outputs.passed }}/${{ steps.report-data.outputs.total }} passed\\n:warning: ${{ steps.report-data.outputs.skipped }}/${{ steps.report-data.outputs.total }} skipped\n\n:x: ${{ steps.report-data.outputs.failed }}/${{ steps.report-data.outputs.total }} failed\n\n:red_circle: ${{ steps.report-data.outputs.error }}/${{ steps.report-data.outputs.total }} had execution error"
+                    "text": ":white_check_mark: ${{ steps.report-data.outputs.passed }}/${{ steps.report-data.outputs.total }} passed\n\n:warning: ${{ steps.report-data.outputs.skipped }}/${{ steps.report-data.outputs.total }} skipped\n\n:x: ${{ steps.report-data.outputs.failed }}/${{ steps.report-data.outputs.total }} failed\n\n:red_circle: ${{ steps.report-data.outputs.error }}/${{ steps.report-data.outputs.total }} had execution error"
                   }
                 },
                 {
@@ -297,7 +297,7 @@ jobs:
             }
 
       - name: Send Unable To Determine Results Message To Slack
-        if: ${{ failure() && ((steps.get-current-branch-name.outcome == 'failure') || (steps.get-total-tests-count.outcome == 'success') || (steps.get-skipped-tests-count.outcome == 'failure') || (steps.get-failed-tests-count.outcome == 'failure') || (steps.get-error-tests-count.outcome == 'failure') || (steps.get-passed-tests-count.outcome == 'failure')) }}
+        if: ${{ failure() && (steps.get-current-branch-name.outcome == 'failure' || steps.get-total-tests-count.outcome == 'failure' || steps.get-skipped-tests-count.outcome == 'failure' || steps.get-failed-tests-count.outcome == 'failure' || steps.get-error-tests-count.outcome == 'failure' || steps.get-passed-tests-count.outcome == 'failure') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
