@@ -1,3 +1,4 @@
+import { getValidClasses } from 'helpers/helpers';
 import { ReactElement } from 'react';
 import { Column, useTable } from 'react-table';
 
@@ -7,12 +8,14 @@ type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
   placeholder?: string;
+  onRowClick?: (row: Data) => void;
 };
 
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
   placeholder = 'No data to display',
+  onRowClick,
 }: Props<Data>): ReactElement => {
   const tableInstance = useTable({
     columns,
@@ -47,9 +50,16 @@ const Table = <Data extends Record<string, unknown>>({
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
+          const handleRowClick = (): void => {
+            onRowClick?.(row.original);
+          };
 
           return (
-            <tr {...row.getRowProps()}>
+            <tr
+              {...row.getRowProps()}
+              onClick={handleRowClick}
+              className={getValidClasses(onRowClick && styles.row)}
+            >
               {row.cells.map((cell) => {
                 return (
                   <td
