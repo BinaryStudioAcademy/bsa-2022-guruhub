@@ -2,7 +2,8 @@ import { FC } from 'common/types/types';
 import { Icon } from 'components/common/common';
 import { Input } from 'components/common/input/input';
 import { debounce } from 'helpers/helpers';
-import { useAppForm, useEffect, useFormWatch } from 'hooks/hooks';
+import { useAppForm, useEffect } from 'hooks/hooks';
+import { useForm } from 'react-hook-form';
 
 import { DEFAULT_SEARCH_PAYLOAD, SEARCH_DELAY_MS } from './common/constants';
 import { SearchPayload } from './common/types/types';
@@ -17,29 +18,34 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
-  const value = useFormWatch({ name: 'search', control });
+  const { getValues } = useForm({
+    mode: 'onChange',
+    defaultValues: DEFAULT_SEARCH_PAYLOAD,
+  });
 
-  const handleSearch = (): void => onSearch(value);
+  const handleSearch = (): void => onSearch(getValues('search'));
   const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
 
   useEffect(() => {
     debounceHandleSearch();
 
     return () => debounceHandleSearch.clear();
-  }, [value]);
+  }, [getValues('search')]);
 
   return (
     <div className={styles.searchWrapper}>
       <Icon name="search" className={styles.searchIcon} />
-      <Input
-        control={control}
-        errors={errors}
-        name="search"
-        label="search"
-        placeholder="Search or type"
-        inputClassName={styles.searchfield}
-        hasVisuallyHiddenLabel
-      />
+      <form>
+        <Input
+          control={control}
+          errors={errors}
+          name="search"
+          label="search"
+          placeholder="Search or type"
+          inputClassName={styles.searchfield}
+          hasVisuallyHiddenLabel
+        />
+      </form>
     </div>
   );
 };
