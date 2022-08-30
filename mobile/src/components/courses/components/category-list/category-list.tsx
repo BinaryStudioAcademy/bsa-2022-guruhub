@@ -21,7 +21,7 @@ const CategoryList: FC<Props> = ({
   const categoryRef = useRef<FlatList>(null);
 
   const sortedCategories = useMemo((): CategoryGetAllItemResponseDto[] => {
-    return [...categories].sort((a, b) => a.key.localeCompare(b.key));
+    return categories.slice().sort((a, b) => a.key.localeCompare(b.key));
   }, [categories]);
 
   const handlePress = (id: number, index: number): void => {
