@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { FlatList } from '~/components/common/common';
-import { useRef } from '~/hooks/hooks';
+import { useMemo, useRef } from '~/hooks/hooks';
 
 import { Category } from './components/category/category';
 import { styles } from './style';
@@ -20,6 +20,10 @@ const CategoryList: FC<Props> = ({
 }) => {
   const categoryRef = useRef<FlatList>(null);
 
+  const sortedCategories = useMemo((): CategoryGetAllItemResponseDto[] => {
+    return categories.slice().sort((a, b) => a.key.localeCompare(b.key));
+  }, [categories]);
+
   const handlePress = (id: number, index: number): void => {
     handleSelect(id);
     categoryRef.current?.scrollToIndex({
@@ -31,7 +35,7 @@ const CategoryList: FC<Props> = ({
   return (
     <FlatList
       ref={categoryRef}
-      data={categories}
+      data={sortedCategories}
       keyExtractor={({ id }): string => id.toString()}
       renderItem={({ item: category, index }): ReactElement => (
         <Category
