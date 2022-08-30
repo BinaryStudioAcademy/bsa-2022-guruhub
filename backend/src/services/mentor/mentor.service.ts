@@ -45,26 +45,31 @@ class Mentor {
     });
   }
 
-  public async checkIsMentorOrHasMentor({
+  public async checkIsMentor({
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
-    const courseToMentor =
-      await this.#coursesToMentorsService.getByUserIdAndCourseId({
+    const isMentor = await this.#coursesToMentorsService.getByUserIdAndCourseId(
+      {
         courseId,
         userId,
-      });
+      },
+    );
 
-    const menteesToMentors =
+    return !!isMentor;
+  }
+
+  public async checkHasMentor({
+    courseId,
+    userId,
+  }: CoursesToMentorsRequestDto): Promise<boolean> {
+    const hasMentor =
       await this.#menteesToMentorsService.getByCourseIdAndMenteeId({
         courseId,
         menteeId: userId,
       });
 
-    const isMentor = Boolean(courseToMentor);
-    const hasMentor = Boolean(menteesToMentors);
-
-    return isMentor || hasMentor;
+    return !!hasMentor;
   }
 }
 

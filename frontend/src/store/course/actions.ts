@@ -176,11 +176,15 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
 >(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, async ({ id }, { extra }) => {
   const { coursesApi } = extra;
 
-  const isMentorCheck = await coursesApi.checkIsMentorOrHasMentor({
+  const isMentorCheck = await coursesApi.checkIsMentor({
     courseId: id,
   });
+  const hasMentorCheck = await coursesApi.checkHasMentor({
+    courseId: id,
+  });
+  const check = isMentorCheck || hasMentorCheck;
 
-  return !isMentorCheck;
+  return !check;
 });
 
 const getCategories = createAsyncThunk<

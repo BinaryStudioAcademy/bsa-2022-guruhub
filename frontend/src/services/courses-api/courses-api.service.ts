@@ -119,12 +119,25 @@ class CoursesApi {
     );
   }
 
-  public checkIsMentorOrHasMentor({
+  public checkIsMentor({
     courseId,
   }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
-        CoursesApiPath.MENTOR
+        CoursesApiPath.IS_MENTOR_CHECK
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public checkHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.HAS_MENTOR_CHECK
       }`,
       {
         method: HttpMethod.GET,

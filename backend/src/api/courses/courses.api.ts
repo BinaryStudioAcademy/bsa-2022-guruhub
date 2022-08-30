@@ -117,7 +117,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.GET,
-    url: CoursesApiPath.$ID_MENTOR,
+    url: CoursesApiPath.$ID_IS_MENTOR_CHECK,
     schema: {
       params: courseCheckIsMentorParamsValidationSchema,
     },
@@ -130,12 +130,36 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { id } = req.params;
       const { user } = req;
 
-      const isMentorOrHasMentor = await mentorService.checkIsMentorOrHasMentor({
+      const isMentor = await mentorService.checkIsMentor({
         courseId: id,
         userId: user.id,
       });
 
-      rep.status(HttpCode.OK).send(isMentorOrHasMentor);
+      rep.status(HttpCode.OK).send(isMentor);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_HAS_MENTOR_CHECK,
+    schema: {
+      params: courseCheckIsMentorParamsValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseCheckIsMentorRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const { user } = req;
+
+      const hasMentor = await mentorService.checkHasMentor({
+        courseId: id,
+        userId: user.id,
+      });
+
+      rep.status(HttpCode.OK).send(hasMentor);
     },
   });
 
