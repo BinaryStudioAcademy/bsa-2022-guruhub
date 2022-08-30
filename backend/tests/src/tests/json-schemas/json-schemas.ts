@@ -1,8 +1,7 @@
+export { signInResponseSchema, signUpResponseSchema } from './auth/auth';
 export {
-  currentUserResponseSchema,
-  signInResponseSchema,
-  signUpResponseSchema,
-} from './auth/auth';
-export { permissionSchema } from './permissions/permissions';
+  allPermissionsSchema,
+  permissionSchema,
+} from './permissions/permissions';
 export { errorResponseSchema } from './shared/shared';
-export { userWithPermissionsSchema } from './user/user';
+export { userDetailsSchema, userWithPermissionsSchema } from './user/user';
