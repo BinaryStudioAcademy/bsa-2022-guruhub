@@ -76,7 +76,9 @@ const Settings: FC = () => {
       <View style={styles.avatarSection}>
         <Image
           style={styles.avatar}
-          source={{ uri: getImageUri(defaultUserAvatar) }}
+          source={{
+            uri: userDetails?.avatarUrl ?? getImageUri(defaultUserAvatar),
+          }}
         />
       </View>
       <Input
