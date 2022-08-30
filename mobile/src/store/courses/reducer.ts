@@ -9,12 +9,14 @@ type State = {
   dataStatus: DataStatus;
   courses: CourseGetResponseDto[];
   course: CourseGetResponseDto | null;
+  isMentorBecomingVisible: boolean;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   courses: [],
   course: null,
+  isMentorBecomingVisible: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
