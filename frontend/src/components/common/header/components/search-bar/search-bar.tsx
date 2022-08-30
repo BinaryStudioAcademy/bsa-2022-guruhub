@@ -41,7 +41,10 @@ const SearchBar: FC<Props> = ({ onSearch }) => {
   return (
     <div className={styles.searchWrapper}>
       <Icon name="search" className={styles.searchIcon} />
-      <form onChange={handlePassOuterFormInputValue}>
+      <form
+        className={styles.outerForm}
+        onChange={handlePassOuterFormInputValue}
+      >
         <Input
           control={control}
           errors={errors}
