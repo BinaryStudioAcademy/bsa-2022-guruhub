@@ -222,14 +222,14 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch *passed* :100:"
-                  },
+                  }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
                     "text": ":white_check_mark: ${{ steps.report-data.outputs.total }}/${{ steps.report-data.outputs.total }} passed"
-                  },
+                  }
                 },
                 {
                   "type": "actions",
