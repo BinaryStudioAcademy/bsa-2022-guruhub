@@ -1,4 +1,5 @@
 export {
+  type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMentorsRequestDto,

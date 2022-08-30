@@ -44,6 +44,32 @@ class Mentor {
       userId,
     });
   }
+
+  public async checkIsMentorOrHasMentor({
+    courseId,
+    userId,
+  }: CoursesToMentorsRequestDto): Promise<boolean> {
+    const courseToMentor =
+      await this.#coursesToMentorsService.getByUserIdAndCourseId({
+        courseId,
+        userId,
+      });
+
+    const menteesToMentors =
+      await this.#menteesToMentorsService.getByCourseIdAndMenteeId({
+        courseId,
+        menteeId: userId,
+      });
+
+    const isMentor = Boolean(courseToMentor);
+    const hasMentor = Boolean(menteesToMentors);
+
+    if (isMentor || hasMentor) {
+      return true;
+    }
+
+    return false;
+  }
 }
 
 export { Mentor };

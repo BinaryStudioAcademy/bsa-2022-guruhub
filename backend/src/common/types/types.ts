@@ -1,5 +1,6 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,

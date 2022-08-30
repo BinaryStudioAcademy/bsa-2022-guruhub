@@ -119,6 +119,19 @@ class CoursesApi {
     );
   }
 
+  public checkIsMentorOrHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTOR
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public updateCategory({
     courseId,
     newCategoryId,
