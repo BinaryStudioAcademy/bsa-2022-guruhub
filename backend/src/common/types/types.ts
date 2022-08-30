@@ -1,5 +1,10 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type ChatMessageCreateRequestDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,

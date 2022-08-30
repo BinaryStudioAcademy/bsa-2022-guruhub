@@ -1,4 +1,9 @@
 export {
+  type ChatMessageCreateRequestDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMentorsRequestDto,
