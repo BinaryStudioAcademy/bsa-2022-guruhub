@@ -12,6 +12,7 @@ enum ColumnName {
   UPDATED_AT = 'updated_at',
   MENTEES_TO_MENTORS_ID = 'mentees_to_mentors_id',
   MODULE_ID = 'module_id',
+  STATUS = 'status',
 }
 
 async function up(knex: Knex): Promise<void> {
@@ -35,6 +36,7 @@ async function up(knex: Knex): Promise<void> {
       .references(ColumnName.ID)
       .inTable(TableName.COURSE_MODULES)
       .notNullable();
+    table.string(ColumnName.STATUS).notNullable();
   });
 }
 
