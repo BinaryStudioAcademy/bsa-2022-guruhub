@@ -14,28 +14,34 @@ type Props = {
 };
 
 const SearchBar: FC<Props> = ({ onSearch }) => {
-  const { control, errors } = useAppForm<SearchPayload>({
+  const { control, errors, getValues } = useAppForm<SearchPayload>({
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
-  const { getValues } = useForm({
-    mode: 'onChange',
-    defaultValues: DEFAULT_SEARCH_PAYLOAD,
-  });
+  const { setValue: setOuterFormValue, getValues: getOuterFormValues } =
+    useForm({
+      mode: 'onChange',
+      defaultValues: DEFAULT_SEARCH_PAYLOAD,
+    });
 
-  const handleSearch = (): void => onSearch(getValues('search'));
+  const handleSearch = (): void => onSearch(getOuterFormValues('search'));
   const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
+
+  const handlePassOuterFormInputValue = (): void => {
+    setOuterFormValue('search', getValues('search'));
+    debounceHandleSearch();
+  };
 
   useEffect(() => {
     debounceHandleSearch();
 
     return () => debounceHandleSearch.clear();
-  }, [getValues('search')]);
+  }, [getOuterFormValues('search')]);
 
   return (
     <div className={styles.searchWrapper}>
       <Icon name="search" className={styles.searchIcon} />
-      <form onChange={handleSearch}>
+      <form onChange={handlePassOuterFormInputValue}>
         <Input
           control={control}
           errors={errors}
