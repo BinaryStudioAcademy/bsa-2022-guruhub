@@ -17,10 +17,12 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
-import { courseModulesActions } from '~/store/actions';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
@@ -43,6 +45,16 @@ const Course: FC = () => {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
     }
   }, [course]);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(coursesActions.updateVisibilityBecomeMentor());
+
+      return () => {
+        dispatch(coursesActions.setBecomeMentorInvisible());
+      };
+    }, [course]),
+  );
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
