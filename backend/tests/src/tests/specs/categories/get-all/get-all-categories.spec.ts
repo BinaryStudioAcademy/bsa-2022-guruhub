@@ -4,7 +4,7 @@ import { CATEGORY_KEYS } from '~/lib/common/constants/objects.constants';
 import { apiSessionStorage, categoriesService } from '~/lib/services/services';
 import { allCategoriesSchema } from '~/tests/json-schemas/json-schemas';
 
-describe('Get all permissions tests', () => {
+describe('Get all categories tests', () => {
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
   after(() => apiSessionStorage.removeSession('default'));
