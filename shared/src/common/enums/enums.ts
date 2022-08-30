@@ -28,6 +28,7 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { TaskStatus } from './task/task';
 export {
   UserGender,
   UserValidationMessage,
