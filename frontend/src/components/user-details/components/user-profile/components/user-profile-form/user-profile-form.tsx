@@ -1,7 +1,7 @@
 import { DataStatus, UserGender } from 'common/enums/enums';
 import {
   FC,
-  SelectorOptions,
+  SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Input, Select } from 'components/common/common';
@@ -58,7 +58,7 @@ const UserProfileForm: FC = () => {
     dispatch(userDetailsActions.getUserDetails());
   };
 
-  const genderOptions = useMemo<SelectorOptions[]>(() => {
+  const genderOptions = useMemo<SelectorOption[]>(() => {
     return getGenderOptions();
   }, []);
 
@@ -93,17 +93,18 @@ const UserProfileForm: FC = () => {
           <div className={styles.buttonWrapper}>
             <Button
               type="button"
-              btnType="outlined"
-              btnColor="blue"
+              btnType="filled"
+              btnColor="gray"
               label="Cancel"
               onClick={handleGetUsers}
-              className={styles.marginRight}
+              className={styles.cancelBtn}
             />
             <Button
               onClick={handleSubmit(handleUpdateProfile)}
               type="submit"
               label="Save"
               btnColor="blue"
+              className={styles.saveBtn}
             />
           </div>
         </form>

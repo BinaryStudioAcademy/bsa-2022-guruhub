@@ -27,8 +27,8 @@ class User {
   > {
     const { results, total } = await this.#UserModel
       .query()
-      .select('users.id', 'users.createdAt', 'email', 'fullName')
-      .joinRelated('userDetails')
+      .select()
+      .withGraphJoined('userDetails')
       .page(page, count)
       .castTo<Page<UserM & UsersGetResponseDto>>();
 
@@ -38,41 +38,28 @@ class User {
     };
   }
 
-  public async getByEmail(
-    email: string,
-  ): Promise<UsersByEmailResponseDto | null> {
-    const user = await this.#UserModel
+  public getByEmail(email: string): Promise<UsersByEmailResponseDto | null> {
+    return this.#UserModel
       .query()
-      .select(
-        'users.id',
-        'users.createdAt',
-        'email',
-        'fullName',
-        'passwordHash',
-        'passwordSalt',
-      )
-      .joinRelated('userDetails')
+      .select()
+      .withGraphJoined('userDetails')
       .where({ email })
       .first()
-      .castTo<UsersByEmailResponseDto>();
-
-    return user ?? null;
+      .castTo<UsersByEmailResponseDto>()
+      .execute();
   }
 
-  public async getById(id: string): Promise<UsersGetResponseDto | null> {
-    const user = await this.#UserModel
+  public getById(id: number): Promise<UsersGetResponseDto | null> {
+    return this.#UserModel
       .query()
-      .select('users.id', 'users.createdAt', 'email', 'fullName')
-      .joinRelated('userDetails')
-      .where({ 'users.id': id })
-      .first()
-      .castTo<UsersGetResponseDto>();
-
-    return user ?? null;
+      .findById(id)
+      .withGraphJoined('userDetails')
+      .castTo<UsersGetResponseDto>()
+      .execute();
   }
 
-  public async getUserPermissions(id: number): Promise<PermissionM[]> {
-    const permissions = await this.#UserModel
+  public getUserPermissions(id: number): Promise<PermissionM[]> {
+    return this.#UserModel
       .query()
       .select(
         'groups:permissions.id',
@@ -82,38 +69,33 @@ class User {
       .joinRelated('groups.permissions')
       .where('users.id', id)
       .distinct('groups:permissions.id')
-      .castTo<PermissionM[]>();
-
-    return permissions;
+      .castTo<PermissionM[]>()
+      .execute();
   }
 
-  public async getByIds(ids: number[]): Promise<UserM[]> {
-    const users = await this.#UserModel.query().findByIds(ids);
-
-    return users;
+  public getByIds(ids: number[]): Promise<UserM[]> {
+    return this.#UserModel.query().findByIds(ids).execute();
   }
 
-  public async create(user: {
+  public create(user: {
     email: string;
     passwordSalt: string;
     passwordHash: string;
   }): Promise<UserM> {
     const { email, passwordSalt, passwordHash } = user;
 
-    return this.#UserModel.query().insert({
-      email,
-      passwordSalt,
-      passwordHash,
-    });
+    return this.#UserModel
+      .query()
+      .insert({
+        email,
+        passwordSalt,
+        passwordHash,
+      })
+      .execute();
   }
 
-  public async delete(userId: number): Promise<number> {
-    const deletedUsersCount = await this.#UserModel
-      .query()
-      .delete()
-      .where({ id: userId });
-
-    return deletedUsersCount;
+  public delete(userId: number): Promise<number> {
+    return this.#UserModel.query().delete().where({ id: userId }).execute();
   }
 }
 

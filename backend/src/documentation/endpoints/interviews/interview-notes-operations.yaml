@@ -1,0 +1,4 @@
+get:
+  $ref: './interview-get-all-notes.yaml'
+post:
+  $ref: './interviews-create-note.yaml'

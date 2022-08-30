@@ -38,6 +38,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               name={getNameOf<UserSignUpRequestDto>('fullName')}
               control={control}
               errors={errors}
+              placeholder="Enter your full name"
             />
             <Input
               type="text"
@@ -45,6 +46,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               name={getNameOf<UserSignUpRequestDto>('email')}
               control={control}
               errors={errors}
+              placeholder="Enter your email"
             />
             <Input
               type="password"
@@ -52,6 +54,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               name={getNameOf<UserSignUpRequestDto>('password')}
               control={control}
               errors={errors}
+              placeholder="Enter your password"
             />
           </div>
           <div className={styles.buttonWrapper}>

@@ -1,7 +1,9 @@
 export {
   ApiPath,
   AuthApiPath,
+  CategoriesApiPath,
   GroupsApiPath,
+  InterviewsApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
@@ -10,6 +12,7 @@ export { CoursesApiPath } from './courses/courses';
 export { CustomExceptionName, ExceptionMessage } from './exeptions/exeptions';
 export { ContentType } from './file/file';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
+export { InterviewStatus } from './interviews/interview-status.enum';
 export {
   AppScreenName,
   AuthScreenName,

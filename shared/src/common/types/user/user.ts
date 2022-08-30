@@ -6,4 +6,3 @@ export { type UserSignUpResponseDto } from './user-sign-up-response-dto.type';
 export { type UserWithPermissions } from './user-with-permissions.type';
 export { type UsersBasicInfoDto } from './users-basic-info-dto.type';
 export { type UsersGetResponseDto } from './users-get-response-dto.type';
-export { type UsersWithDetails } from './users-with-details.type';

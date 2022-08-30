@@ -1,8 +1,12 @@
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
@@ -37,18 +41,36 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
+  type InterviewsByIdRequestParamsDto,
   type InterviewsByIdResponseDto,
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from './interview/interview';
+export {
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteCreateRequestParamsDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllRequestParamsDto,
+  type InterviewNoteGetAllResponseDto,
+} from './interview-note/interview-note';
+export {
+  type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
+} from './mentees-to-mentors/mentees-to-mentors';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
+  type CheckPermisssionType,
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
@@ -60,7 +82,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-  type UsersWithDetails,
   type UserWithPermissions,
 } from './user/user';
 export {

@@ -1,0 +1,28 @@
+type: array
+items:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    note:
+      type: string
+      example: note
+    createdAt:
+      type: string
+      example: '2022-08-18T21:00:00.000Z'
+    author:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        email:
+          type: string
+          example: example@example.com
+        fullName:
+          type: string
+          example: FullName
+        createdAt:
+          type: string
+          example: '2022-08-18T21:00:00.000Z'

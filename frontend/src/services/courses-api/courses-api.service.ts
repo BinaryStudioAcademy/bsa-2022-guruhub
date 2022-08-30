@@ -6,12 +6,14 @@ import {
 } from 'common/enums/enums';
 import {
   CourseFilteringDto,
+  CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
-  UsersGetResponseDto,
+  MenteesToMentorsRequestDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -81,14 +83,38 @@ class CoursesApi {
   }
 
   public getMentorsByCourseId({
-    id,
-  }: CourseGetRequestParamsDto): Promise<UsersGetResponseDto[]> {
-    return this.#http.load<UsersGetResponseDto[]>(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}${
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
       }`,
       {
         method: HttpMethod.GET,
+        queryString: {
+          mentorName: filteringOpts.mentorName,
+        },
+      },
+    );
+  }
+
+  public chooseMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
       },
     );
   }

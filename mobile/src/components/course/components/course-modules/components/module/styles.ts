@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_200,
     fontSize: 14,
     lineHeight: 19,
+    paddingRight: 20,
   },
 });
 

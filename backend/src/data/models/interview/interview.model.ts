@@ -20,7 +20,7 @@ class Interview extends Abstract {
   public static override get relationMappings(): RelationMappings {
     return {
       courseCategory: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: CourseCategory,
         join: {
           from: `${DbTableName.INTERVIEWS}.categoryId`,
@@ -28,7 +28,7 @@ class Interview extends Abstract {
         },
       },
       interviewee: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
           from: `${DbTableName.INTERVIEWS}.intervieweeUserId`,
@@ -36,7 +36,7 @@ class Interview extends Abstract {
         },
       },
       interviewer: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
           from: `${DbTableName.INTERVIEWS}.interviewerUserId`,

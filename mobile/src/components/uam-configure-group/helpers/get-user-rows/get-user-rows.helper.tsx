@@ -4,6 +4,7 @@ import { FormControl, UsersGetResponseDto } from '~/common/types/types';
 import { Checkbox } from '~/components/common/common';
 import { UserTableAccessor } from '~/components/uam-configure-group/common/enums/enums';
 import { UsersTableRow } from '~/components/uam-configure-group/common/types/types';
+import { getFormattedDate } from '~/helpers/helpers';
 
 type Props = {
   users: UsersGetResponseDto[];
@@ -24,9 +25,12 @@ const getUserRows = ({ users, onToggle, control }: Props): UsersTableRow[] => {
         />
       ),
       [UserTableAccessor.ID]: user.id,
-      [UserTableAccessor.FULL_NAME]: user.fullName,
+      [UserTableAccessor.FULL_NAME]: user.userDetails.fullName,
       [UserTableAccessor.EMAIL]: user.email,
-      [UserTableAccessor.CREATED_AT]: user.createdAt,
+      [UserTableAccessor.CREATED_AT]: getFormattedDate(
+        user.createdAt,
+        'kk:mm, dd/MM/yyyy',
+      ),
     };
   });
 };
