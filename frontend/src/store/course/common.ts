@@ -13,6 +13,7 @@ enum ActionType {
   BECOME_A_MENTOR = 'course/become-a-mentor',
   CHOOSE_A_MENTOR = 'course/choose-a-mentor',
   SET_IS_MENTOR_CHOOSING_ENABLED = 'course/set-is-mentor-choosing-enabled',
+  CHECK_IS_MENTOR = 'course/check-is-a-mentor',
 }
 
 export { ActionType };

@@ -8,6 +8,7 @@ import {
 } from 'common/types/types';
 
 import {
+  checkIsMentor,
   chooseMentor,
   createMentor,
   disableMentorBecoming,
@@ -19,7 +20,7 @@ import {
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
 } from './actions';
 
 type State = {
@@ -32,6 +33,7 @@ type State = {
   mentors: UserDetailsResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
   menteesByCourseId: UserDetailsResponseDto[];
+  isMentorOnTheCourse: boolean;
 };
 
 const initialState: State = {
@@ -44,6 +46,7 @@ const initialState: State = {
   mentors: [],
   categories: [],
   menteesByCourseId: [],
+  isMentorOnTheCourse: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -120,11 +123,15 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorBecomingEnabled = payload;
   });
 
+  builder.addCase(chooseMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
   builder.addCase(chooseMentor.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
   });
   builder.addCase(
-    updateisMentorChoosingEnabled.fulfilled,
+    updateIsMentorChoosingEnabled.fulfilled,
     (state, { payload }) => {
       state.isMentorChoosingEnabled = payload;
     },
@@ -137,6 +144,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.menteesByCourseId = payload;
   });
   builder.addCase(getMenteesByCourseId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(checkIsMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentorOnTheCourse = payload;
+  });
+  builder.addCase(checkIsMentor.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

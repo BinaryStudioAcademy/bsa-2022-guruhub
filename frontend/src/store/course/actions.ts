@@ -180,21 +180,34 @@ const chooseMentor = createAsyncThunk<
   return;
 });
 
-const updateisMentorChoosingEnabled = createAsyncThunk<
+const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
-  void,
+  CourseGetRequestParamsDto,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
-  const {
-    auth: { user },
-    course: { mentors },
-  } = getState();
+>(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, async ({ id }, { extra }) => {
+  const { coursesApi } = extra;
 
-  const isMentorCheck = mentors.some(
-    (mentor) => mentor.id === (user as UserWithPermissions).id,
-  );
+  const isMentorCheck = await coursesApi.checkIsMentor({
+    courseId: id,
+  });
+  const hasMentorCheck = await coursesApi.checkHasMentor({
+    courseId: id,
+  });
+  const check = isMentorCheck || hasMentorCheck;
 
-  return !isMentorCheck;
+  return !check;
+});
+
+const checkIsMentor = createAsyncThunk<
+  boolean,
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHECK_IS_MENTOR, ({ id }, { extra }) => {
+  const { coursesApi } = extra;
+
+  return coursesApi.checkIsMentor({
+    courseId: id,
+  });
 });
 
 const getCategories = createAsyncThunk<
@@ -222,6 +235,7 @@ const updateCategory = createAsyncThunk<
 
 export {
   becomeAMentor,
+  checkIsMentor,
   chooseMentor,
   createInterview,
   createMentor,
@@ -234,5 +248,5 @@ export {
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
 };

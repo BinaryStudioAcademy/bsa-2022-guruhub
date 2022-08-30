@@ -4,7 +4,7 @@ import { MentorCard } from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {
-  onMentorSelectClick: (mentorId: number) => void;
+  onMentorSelectClick: (mentorId: number, evt: React.MouseEvent) => void;
   mentors: UserDetailsResponseDto[];
 };
 
