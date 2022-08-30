@@ -30,7 +30,12 @@ const Course: FC = () => {
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
   const { course, dataStatus } = useAppSelector((state) => state.courses);
+  const { courseModules, dataStatus: modulesDataStatus } = useAppSelector(
+    (state) => state.courseModules,
+  );
+
   const dataCourse = course as CourseGetResponseDto;
+  const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   useEffect(() => {
     navigation.setOptions({
@@ -60,7 +65,10 @@ const Course: FC = () => {
         {Boolean(course?.description) && (
           <Content html={dataCourse?.description} width={width} />
         )}
-        <CourseModules />
+        <CourseModules
+          courseModules={courseModules}
+          isLoading={moduleIsLoading}
+        />
       </View>
     </ScrollView>
   );
