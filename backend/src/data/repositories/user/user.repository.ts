@@ -42,12 +42,7 @@ class User {
     return this.#UserModel
       .query()
       .select()
-      .withGraphJoined('userDetails(selectFullName)')
-      .modifiers({
-        selectFullName(builder) {
-          builder.select('fullName');
-        },
-      })
+      .withGraphJoined('userDetails')
       .where({ email })
       .first()
       .castTo<UsersByEmailResponseDto>()

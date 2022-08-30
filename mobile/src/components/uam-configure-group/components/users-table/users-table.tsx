@@ -64,7 +64,7 @@ const UsersTable: FC<Props> = ({
       <Table
         columns={userColumns}
         data={userRows}
-        columnWidthArr={[50, 50, 200, 250, 150]}
+        columnWidthArr={[50, 50, 200, 250, 155]}
       />
       <Pagination
         totalCount={users.total}

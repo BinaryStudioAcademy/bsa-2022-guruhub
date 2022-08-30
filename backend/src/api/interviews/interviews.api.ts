@@ -15,6 +15,9 @@ import {
   InterviewsByIdRequestParamsDto,
   InterviewsByIntervieweeIdRequestDto,
   InterviewsCreateRequestBodyDto,
+  InterviewsGetInterviewersByCategoryRequestDto,
+  InterviewsUpdateRequestDto,
+  InterviewsUpdateRequestParamsDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import { interview as interviewService } from '~/services/services';
@@ -22,9 +25,12 @@ import {
   interviewByIdParams as interviewByIdParamsValidationSchema,
   interviewByIntervieweeId as interviewByIntervieweeIdValidationSchema,
   interviewCreate as interviewCreateValidationSchema,
+  interviewGetInterviewersByCategory as interviewGetInterviewersByCategoryValidationSchema,
   interviewNotesCreateArguments as interviewNotesCreateArgumentsValidationSchema,
   interviewNotesCreateParams as interviewNotesCreateParamsValidationSchema,
   interviewNotesGetAllParams as interviewNotesGetAllParamsValidationSchema,
+  interviewUpdate as interviewUpdateValidationSchema,
+  interviewUpdateParams as interviewUpdateParamsValidationSchema,
   pagination as paginationValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -86,6 +92,30 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
   });
 
   fastify.route({
+    method: HttpMethod.PUT,
+    url: InterviewsApiPath.$ID,
+    schema: {
+      body: interviewUpdateValidationSchema,
+      params: interviewUpdateParamsValidationSchema,
+    },
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
+    async handler(
+      req: FastifyRequest<{
+        Body: InterviewsUpdateRequestDto;
+        Params: InterviewsUpdateRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const interview = await interviewService.update({
+        id: req.params.id,
+        interviewUpdateInfoRequestDto: req.body,
+      });
+
+      return rep.status(HttpCode.OK).send(interview);
+    },
+  });
+
+  fastify.route({
     method: HttpMethod.POST,
     url: InterviewsApiPath.ROOT,
     schema: { body: interviewCreateValidationSchema },
@@ -120,6 +150,27 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
         );
 
       rep.status(HttpCode.OK).send(categoryIds);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: InterviewsApiPath.INTERVIEWERS_CATEGORIES_$ID,
+    schema: { params: interviewGetInterviewersByCategoryValidationSchema },
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
+    async handler(
+      req: FastifyRequest<{
+        Params: InterviewsGetInterviewersByCategoryRequestDto;
+      }>,
+      rep,
+    ) {
+      const { categoryId } = req.params;
+
+      const interviewers = await interviewService.getInterviewersByCategoryId(
+        categoryId,
+      );
+
+      rep.status(HttpCode.OK).send(interviewers);
     },
   });
 
