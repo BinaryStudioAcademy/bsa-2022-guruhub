@@ -1,3 +1,5 @@
+import { Page } from 'objection';
+
 import {
   EntityPagination,
   TaskNoteCreateArgumentsDto,
@@ -24,20 +26,16 @@ class TaskNote {
   }: TaskNoteGetAllArgumentsDto): Promise<
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
-    const elementsToSkip = page * count;
-    const results = await this.#TaskNodeModel
+    const { results, total } = await this.#TaskNodeModel
       .query()
       .where({ taskId })
-      .withGraphJoined('author(withoutPassword).[userDetails]')
-      .castTo<TaskNoteGetItemResponseDto[]>()
-      .offset(elementsToSkip)
-      .limit(count);
-
-    const total = await this.#TaskNodeModel.query().where({ taskId });
+      .withGraphFetched('author(withoutPassword).[userDetails]')
+      .page(page, count)
+      .castTo<Page<TaskNoteM & TaskNoteGetItemResponseDto>>();
 
     return {
       items: results,
-      total: total.length,
+      total,
     };
   }
 
@@ -49,7 +47,7 @@ class TaskNote {
     return this.#TaskNodeModel
       .query()
       .insert({ authorId, taskId, note })
-      .withGraphJoined('author(withoutPassword).[userDetails]')
+      .withGraphFetched('author(withoutPassword).[userDetails]')
       .castTo<TaskNoteGetItemResponseDto>()
       .execute();
   }

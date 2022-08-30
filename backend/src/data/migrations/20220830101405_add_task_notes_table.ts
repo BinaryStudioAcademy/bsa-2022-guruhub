@@ -12,6 +12,7 @@ enum ColumnName {
   UPDATED_AT = 'updated_at',
   TASK_ID = 'task_id',
   AUTHOR_ID = 'author_id',
+  NOTE = 'note',
 }
 
 async function up(knex: Knex): Promise<void> {
@@ -35,6 +36,7 @@ async function up(knex: Knex): Promise<void> {
       .references(ColumnName.ID)
       .inTable(TableName.TASKS)
       .notNullable();
+    table.text(ColumnName.NOTE).notNullable();
   });
 }
 

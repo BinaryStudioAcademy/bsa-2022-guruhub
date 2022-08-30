@@ -88,7 +88,9 @@ export {
 } from './permission/permission';
 export { type TaskGetItemReponseDto } from './task/task';
 export {
+  type TaskNoteByIdRequestParamsDto,
   type TaskNoteCreateArgumentsDto,
+  type TaskNoteCreateRequestBodyDto,
   type TaskNoteGetAllArgumentsDto,
   type TaskNoteGetItemResponseDto,
 } from './task-note/task-note';

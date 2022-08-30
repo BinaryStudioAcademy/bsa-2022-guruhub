@@ -9,6 +9,7 @@ export {
   InterviewsApiPath,
   MentorsApiPath,
   PermissionApiPath,
+  TasksApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';

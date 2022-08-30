@@ -24,7 +24,13 @@ class TaskNote {
   }: TaskNoteGetAllArgumentsDto): Promise<
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
-    return this.#taskNoteRepository.getAll({ count, page, taskId });
+    const zeroIndexedPage = page - 1;
+
+    return this.#taskNoteRepository.getAll({
+      count,
+      page: zeroIndexedPage,
+      taskId,
+    });
   }
 
   public create({
