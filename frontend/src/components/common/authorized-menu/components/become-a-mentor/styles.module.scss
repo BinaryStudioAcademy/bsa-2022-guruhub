@@ -1,8 +1,11 @@
 .mentorWrapper {
   display: flex;
-  flex-shrink: 0.5;
   flex-direction: column;
   align-items: center;
+  width: 225px;
+  height: 150px;
+  background-color: var(--background-gray-400);
+  border-radius: 20px;
 }
 
 .imageWrapper {
@@ -11,16 +14,6 @@
 }
 
 .button {
+  margin-right: 20px;
   margin-bottom: 20px;
-}
-
-.buttonBackground {
-  position: absolute;
-  right: 25px;
-  bottom: 10px;
-  z-index: -1;
-  width: 225px;
-  height: 150px;
-  background-color: var(--background-gray-400);
-  border-radius: 20px;
 }

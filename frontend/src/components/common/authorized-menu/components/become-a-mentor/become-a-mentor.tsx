@@ -28,7 +28,6 @@ const BecomeAMentor: FC<Props> = ({ onClick }) => {
           className={styles.button}
         />
       </div>
-      <div className={styles.buttonBackground}></div>
     </div>
   );
 };
