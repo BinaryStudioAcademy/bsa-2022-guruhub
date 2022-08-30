@@ -48,6 +48,9 @@ const UserProfileForm: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
+        dateOfBirth: userDetails.dateOfBirth
+          ? (new Date(userDetails.dateOfBirth as string) as unknown as string)
+          : null,
       });
     }
   }, [userDetails]);
