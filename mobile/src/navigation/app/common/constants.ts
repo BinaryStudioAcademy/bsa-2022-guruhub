@@ -11,6 +11,7 @@ import { Billing } from '~/components/billing/billing';
 import { Course } from '~/components/course/course';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
+import { Interviews } from '~/components/interviews/interviews';
 import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
 import { Settings } from '~/components/setting/setting';
@@ -57,6 +58,15 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         icon: 'education',
         component: MyEducation,
         permissions: [],
+      },
+      {
+        name: AppScreenName.INTERVIEWS,
+        icon: 'interview',
+        component: Interviews,
+        permissions: [
+          PermissionKey.MANAGE_INTERVIEW,
+          PermissionKey.MANAGE_INTERVIEWS,
+        ],
       },
     ],
   },

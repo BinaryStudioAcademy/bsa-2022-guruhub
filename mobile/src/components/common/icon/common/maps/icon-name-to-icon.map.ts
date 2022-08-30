@@ -5,6 +5,7 @@ import Billing from '~/assets/icons/billing.svg';
 import Book from '~/assets/icons/book.svg';
 import Education from '~/assets/icons/education.svg';
 import Home from '~/assets/icons/home.svg';
+import Interview from '~/assets/icons/interview.svg';
 import Mentors from '~/assets/icons/mentors.svg';
 import Message from '~/assets/icons/message.svg';
 import Plus from '~/assets/icons/plus.svg';
@@ -28,5 +29,6 @@ const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   uam: UAM,
   trash: Trash,
   plus: Plus,
+  interview: Interview,
 };
 export { iconNameToIcon };
