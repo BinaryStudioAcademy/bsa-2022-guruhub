@@ -12,6 +12,8 @@ import {
   interviewNote as interviewNoteRepository,
   menteesToMentors as menteesToMentorsRepository,
   permission as permissionRepository,
+  task as taskRepository,
+  taskNote as taskNoteRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -34,6 +36,8 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
+import { Task } from './task/task.service';
+import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
@@ -142,6 +146,10 @@ const mentor = new Mentor({
   coursesToMentorsService: coursesToMentors,
 });
 
+const task = new Task({ taskRepository });
+
+const taskNote = new TaskNote({ taskNoteRepository });
+
 export {
   auth,
   course,
@@ -159,6 +167,8 @@ export {
   menteesToMentors,
   mentor,
   permission,
+  task,
+  taskNote,
   token,
   udemy,
   user,

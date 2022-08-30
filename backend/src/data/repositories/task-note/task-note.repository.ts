@@ -2,6 +2,7 @@ import {
   EntityPagination,
   TaskNoteCreateArgumentsDto,
   TaskNoteGetAllArgumentsDto,
+  TaskNoteGetItemResponseDto,
 } from '~/common/types/types';
 import { TaskNote as TaskNoteM } from '~/data/models/models';
 
@@ -20,16 +21,23 @@ class TaskNote {
     count,
     page,
     taskId,
-  }: TaskNoteGetAllArgumentsDto): Promise<EntityPagination<TaskNoteM>> {
-    const { results, total } = await this.#TaskNodeModel
+  }: TaskNoteGetAllArgumentsDto): Promise<
+    EntityPagination<TaskNoteGetItemResponseDto>
+  > {
+    const elementsToSkip = page * count;
+    const results = await this.#TaskNodeModel
       .query()
       .where({ taskId })
-      .withGraphFetched('author(withoutPassword).[userDetails]')
-      .page(page, count);
+      .withGraphJoined('author(withoutPassword).[userDetails]')
+      .castTo<TaskNoteGetItemResponseDto[]>()
+      .offset(elementsToSkip)
+      .limit(count);
+
+    const total = await this.#TaskNodeModel.query().where({ taskId });
 
     return {
       items: results,
-      total,
+      total: total.length,
     };
   }
 
@@ -37,10 +45,12 @@ class TaskNote {
     authorId,
     taskId,
     note,
-  }: TaskNoteCreateArgumentsDto): Promise<TaskNoteM> {
+  }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
     return this.#TaskNodeModel
       .query()
       .insert({ authorId, taskId, note })
+      .withGraphJoined('author(withoutPassword).[userDetails]')
+      .castTo<TaskNoteGetItemResponseDto>()
       .execute();
   }
 }

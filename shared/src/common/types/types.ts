@@ -74,6 +74,8 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export { type TaskGetItemReponseDto } from './task/task';
+export { type TaskNoteGetItemResponseDto } from './task-note/task-note';
 export {
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
