@@ -49,7 +49,7 @@ const UserProfileForm: FC = () => {
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
         dateOfBirth: userDetails.dateOfBirth
-          ? (new Date(userDetails.dateOfBirth as string) as unknown as string)
+          ? (new Date(userDetails.dateOfBirth) as unknown as string)
           : null,
       });
     }
