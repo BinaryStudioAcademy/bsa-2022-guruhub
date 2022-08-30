@@ -51,13 +51,12 @@ const EditCourseCategory: FC = () => {
   const handleSelectNewCategory = (
     payload: CourseUpdateCategoryRequestDto,
   ): void => {
-    const newCategoryId = (payload as CourseUpdateCategoryRequestDto)
-      .newCategoryId;
+    const { newCategoryId } = payload;
 
     if (newCategoryId) {
       dispatch(
         coursesActions.updateCategory({
-          courseId: (course as CourseGetResponseDto).id,
+          courseId: courseData.id,
           newCategoryId,
         }),
       );

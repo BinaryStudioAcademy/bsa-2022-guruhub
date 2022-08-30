@@ -40,6 +40,7 @@ const Course: FC = () => {
   }));
 
   const currentCategory = course?.category;
+  const dataCourse = course as CourseGetResponseDto;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -78,7 +79,7 @@ const Course: FC = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.h1}>{(course as CourseGetResponseDto).title}</Text>
+        <Text style={styles.h1}>{dataCourse.title}</Text>
         <View style={styles.currentCategory}>
           <Category
             keyName={currentCategory?.key ?? 'unknown'}
@@ -92,11 +93,8 @@ const Course: FC = () => {
           source={{ uri: course?.imageUrl ?? getImageUri(defaultCourseImage) }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {Boolean(course?.description) && (
-          <Content
-            html={(course as CourseGetResponseDto).description}
-            width={width}
-          />
+        {Boolean(dataCourse.description) && (
+          <Content html={dataCourse.description} width={width} />
         )}
         <CourseModules />
       </View>
