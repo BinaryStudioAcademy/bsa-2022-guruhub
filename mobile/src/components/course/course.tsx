@@ -97,7 +97,7 @@ const Course: FC = () => {
           }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {course.description && (
+        {Boolean(course.description) && (
           <Content html={course.description} width={width} />
         )}
         <CourseModules />

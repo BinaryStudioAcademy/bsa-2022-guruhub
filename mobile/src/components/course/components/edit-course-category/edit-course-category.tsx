@@ -19,7 +19,6 @@ import {
 import { coursesActions } from '~/store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import { DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD } from './common/common';
 import { styles } from './styles';
 
 const EditCourseCategory: FC = () => {
@@ -45,6 +44,10 @@ const EditCourseCategory: FC = () => {
       validationSchema: courseUpdateCategoryValidationSchema,
     });
 
+  const navigateToCourseScreen = (): void => {
+    navigation.navigate(AppScreenName.COURSE);
+  };
+
   const handleSelectNewCategory = (
     payload: CourseUpdateCategoryRequestDto,
   ): void => {
@@ -57,25 +60,20 @@ const EditCourseCategory: FC = () => {
           newCategoryId,
         }),
       );
-      navigation.navigate(AppScreenName.COURSE);
+      navigateToCourseScreen();
     }
   };
 
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <BackButton
-          onPress={(): void => navigation.navigate(AppScreenName.COURSE)}
-        />
-      ),
+      headerLeft: () => <BackButton onPress={navigateToCourseScreen} />,
     });
   }, []);
 
   useEffect(() => {
     if (course) {
       reset({
-        newCategoryId:
-          course.courseCategoryId ?? DEFAUTL_UPDATE_COURSE_CATEGORY_PAYLOAD,
+        newCategoryId: course.courseCategoryId,
       });
     }
   }, [courseCategoryId]);
