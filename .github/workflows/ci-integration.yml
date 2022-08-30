@@ -190,10 +190,10 @@ jobs:
         id: get-passed-tests-count
         if: ${{ success() || failure() }}
         env:
-          TOTAL: ${{ steps.get-total-tests-count.info }}
-          SKIPPED: ${{ steps.get-skipped-tests-count.info }}
-          FAILED: ${{ steps.get-failed-tests-count.info }}
-          ERROR: ${{ steps.get-error-tests-count.info }}
+          TOTAL: ${{ steps.get-total-tests-count.outputs.info }}
+          SKIPPED: ${{ steps.get-skipped-tests-count.outputs.info }}
+          FAILED: ${{ steps.get-failed-tests-count.outputs.info }}
+          ERROR: ${{ steps.get-error-tests-count.outputs.info }}
         run: |
           echo "::set-output name=info::$(($TOTAL-$SKIPPED-$FAILED-$ERROR))"
 
