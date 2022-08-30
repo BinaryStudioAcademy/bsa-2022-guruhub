@@ -1,4 +1,4 @@
-import { Model, RelationMappings } from 'objection';
+import { Model, Modifiers, QueryBuilder, RelationMappings } from 'objection';
 
 import { DbTableName } from '~/common/enums/enums';
 
@@ -43,6 +43,14 @@ class MenteesToMentors extends Abstract {
 
   public static override get tableName(): string {
     return DbTableName.MENTEES_TO_MENTORS;
+  }
+
+  public static override get modifiers(): Modifiers<QueryBuilder<User>> {
+    return {
+      selectMentee(builder): QueryBuilder<User> {
+        return builder.select('mentee');
+      },
+    };
   }
 }
 

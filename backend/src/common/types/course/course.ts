@@ -4,6 +4,7 @@ export { type CourseGetByIdAndVendorKeyArgumentsDto } from './course-get-by-id-a
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,

@@ -1,5 +1,6 @@
 export { type CourseCreateRequestDto } from './course-create-request-dto.type';
 export { type CourseFilteringDto } from './course-filtering-dto.type';
+export { type CourseGetMenteesByMentorRequestDto } from './course-get-mentees-by-mentor-request-dto.type';
 export { type CourseGetMentorsRequestDto } from './course-get-mentors-request-dto.type';
 export { type CourseGetRequestParamsDto } from './course-get-request-dto.type';
 export { type CourseGetResponseDto } from './course-get-response-dto.type';
