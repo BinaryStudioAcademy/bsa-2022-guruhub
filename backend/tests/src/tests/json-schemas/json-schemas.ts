@@ -1,4 +1,5 @@
 export { signInResponseSchema, signUpResponseSchema } from './auth/auth';
+export { allCategoriesSchema, categorySchema } from './categories/categories';
 export {
   allPermissionsSchema,
   permissionSchema,
