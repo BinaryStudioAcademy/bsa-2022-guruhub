@@ -2,6 +2,7 @@ export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,

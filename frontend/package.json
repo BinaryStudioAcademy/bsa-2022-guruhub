@@ -7,8 +7,8 @@
     "npm": ">=8.8 <9"
   },
   "scripts": {
-    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to .",
-    "lint:css": "npx stylelint \"src/**/*.scss\"",
+    "lint:js": "npx eslint \"src/**/*.{ts,tsx}\" --resolve-plugins-relative-to . --fix",
+    "lint:css": "npx stylelint \"src/**/*.scss\" --fix",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:css && npm run lint:js && npm run lint:type",
     "start": "react-scripts start",

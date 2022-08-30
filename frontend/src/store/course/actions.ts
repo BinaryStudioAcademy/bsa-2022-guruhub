@@ -116,6 +116,17 @@ const getMentorsByCourseId = createAsyncThunk<
   return mentors;
 });
 
+const getMenteesByCourseId = createAsyncThunk<
+  UserDetailsResponseDto[],
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.GET_MENTOR_MENTEES, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const mentees = await coursesApi.getMenteesByCourseId(payload.id);
+
+  return mentees;
+});
+
 const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.BECOME_A_MENTOR,
   (_, { dispatch, getState }) => {
@@ -217,6 +228,7 @@ export {
   disableMentorBecoming,
   getCategories,
   getCourse,
+  getMenteesByCourseId,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,

@@ -13,6 +13,7 @@ import {
   disableMentorBecoming,
   getCategories,
   getCourse,
+  getMenteesByCourseId,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
@@ -30,6 +31,7 @@ type State = {
   isMentorChoosingEnabled: boolean;
   mentors: UserDetailsResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
+  menteesByCourseId: UserDetailsResponseDto[];
 };
 
 const initialState: State = {
@@ -41,6 +43,7 @@ const initialState: State = {
   isMentorChoosingEnabled: false,
   mentors: [],
   categories: [],
+  menteesByCourseId: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -126,6 +129,16 @@ const reducer = createReducer(initialState, (builder) => {
       state.isMentorChoosingEnabled = payload;
     },
   );
+  builder.addCase(getMenteesByCourseId.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getMenteesByCourseId.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.menteesByCourseId = payload;
+  });
+  builder.addCase(getMenteesByCourseId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
 });
 
 export { reducer };

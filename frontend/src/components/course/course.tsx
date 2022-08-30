@@ -23,6 +23,7 @@ import {
   ChooseMentorModal,
   EditCategoryModal,
   ModulesCardsContainer,
+  MyStudentsContainer,
 } from './components/components';
 import styles from './styles.module.scss';
 
@@ -35,6 +36,7 @@ const Course: FC = () => {
     passedInterviewsCategoryIds,
     user,
     mentors,
+    mentees,
     isMentorChoosingEnabled,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
@@ -45,6 +47,7 @@ const Course: FC = () => {
     user: auth.user,
     mentors: course.mentors,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
+    mentees: course.menteesByCourseId,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -93,6 +96,7 @@ const Course: FC = () => {
       }),
     );
     dispatch(courseActions.getCategories());
+    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -170,7 +174,9 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-
+      <div className={styles.myStudents}>
+        <MyStudentsContainer mentees={mentees} />
+      </div>
       <div className={styles.additional}>
         {isMentorChoosingEnabled && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
