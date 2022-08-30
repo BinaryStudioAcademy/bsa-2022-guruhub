@@ -123,7 +123,7 @@ jobs:
         if: ${{ (success() || failure()) && ((steps.run-tests.outcome == 'success') || (steps.run-tests.outcome == 'failure')) }}
         working-directory: ./backend/tests
         run: |
-          npm run generate-reports && zip -r allure-report.zip allure-report
+          npm run generate-reports
 
       - name: Get Current Date
         id: get-current-date
@@ -137,7 +137,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ format('allure-report_{0}', steps.get-current-date.outputs.current-date) }}
-          path: ./backend/tests/allure-report.zip
+          path: ./backend/tests/allure-report
           retention-days: 14
 
       - name: Save JUnit Report
