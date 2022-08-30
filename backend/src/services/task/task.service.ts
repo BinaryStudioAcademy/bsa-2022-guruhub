@@ -1,5 +1,6 @@
 import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
 import {
+  TaskGetByMenteeIdAndModuleId,
   TaskGetItemReponseDto,
   TaskManipulateRequestArgumentsDto,
   TaskNoteCreateArgumentsDto,
@@ -37,6 +38,7 @@ class Task {
       authorId,
       note,
       taskId,
+      status,
     });
 
     await this.updateStatus(taskId, status);
@@ -48,8 +50,9 @@ class Task {
     authorId,
     note,
     taskId,
+    status,
   }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
-    return this.#taskNoteService.create({ authorId, note, taskId });
+    return this.#taskNoteService.create({ authorId, note, taskId, status });
   }
 
   public updateStatus(
@@ -61,6 +64,16 @@ class Task {
 
   public getById(taskId: number): Promise<TaskGetItemReponseDto | null> {
     return this.#taskRepository.getById(taskId);
+  }
+
+  public getByMenteeIdAndModuleId({
+    moduleId,
+    menteeId,
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
+    return this.#taskRepository.getByMenteeIdAndModuleId({
+      moduleId,
+      menteeId,
+    });
   }
 
   private async checkIsChangeable(taskId: number): Promise<void> {

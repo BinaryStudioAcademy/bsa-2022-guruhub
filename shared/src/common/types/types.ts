@@ -76,6 +76,7 @@ export {
 } from './permission/permission';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
   type TaskGetItemReponseDto,
   type TaskManipulateRequestArgumentsDto,
 } from './task/task';

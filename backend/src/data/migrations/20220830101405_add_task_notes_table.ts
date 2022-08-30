@@ -13,6 +13,7 @@ enum ColumnName {
   TASK_ID = 'task_id',
   AUTHOR_ID = 'author_id',
   NOTE = 'note',
+  STATUS = 'status',
 }
 
 async function up(knex: Knex): Promise<void> {
@@ -37,6 +38,7 @@ async function up(knex: Knex): Promise<void> {
       .inTable(TableName.TASKS)
       .notNullable();
     table.text(ColumnName.NOTE).notNullable();
+    table.string(ColumnName.STATUS).notNullable();
   });
 }
 

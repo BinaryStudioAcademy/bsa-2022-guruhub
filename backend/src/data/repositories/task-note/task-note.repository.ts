@@ -43,10 +43,11 @@ class TaskNote {
     authorId,
     taskId,
     note,
+    status,
   }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
     return this.#TaskNodeModel
       .query()
-      .insert({ authorId, taskId, note })
+      .insert({ authorId, taskId, note, status })
       .withGraphFetched('author(withoutPassword).[userDetails]')
       .castTo<TaskNoteGetItemResponseDto>()
       .execute();

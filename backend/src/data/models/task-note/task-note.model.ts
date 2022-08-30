@@ -1,6 +1,6 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { DbTableName, TaskStatus } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 import { User } from '../models';
@@ -11,6 +11,8 @@ class TaskNote extends Abstract {
   public 'taskId': number;
 
   public 'authorId': number;
+
+  public 'status': TaskStatus;
 
   public static override get relationMappings(): RelationMappings {
     return {

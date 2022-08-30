@@ -37,8 +37,9 @@ class TaskNote {
     authorId,
     note,
     taskId,
+    status,
   }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
-    return this.#taskNoteRepository.create({ authorId, note, taskId });
+    return this.#taskNoteRepository.create({ authorId, note, taskId, status });
   }
 }
 
