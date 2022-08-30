@@ -17,12 +17,12 @@ const AuthorizedMenu: FC<Props> = ({
 }) => {
   return (
     <div className={styles.menu}>
-      {routes.map(({ name, subroutes }) => (
+      {routes.map(({ name, subroutes }, index) => (
         <NavigationMenu
           key={name}
           name={name}
           subroutes={subroutes}
-          className={styles.bottomLine}
+          className={index < routes.length - 1 ? styles.bottomLine : ''}
           user={user}
         />
       ))}
