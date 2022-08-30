@@ -33,14 +33,35 @@ const Dashboard: FC = () => {
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 
-  if (dataStatus === DataStatus.PENDING) {
-    return <Spinner />;
-  }
-
   const handleNewCourseModalToggle = (evt: React.MouseEvent | void): void => {
     evt?.stopPropagation();
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
   };
+
+  if (dataStatus === DataStatus.PENDING) {
+    return (
+      <div className={styles.dashboard}>
+        <div className={styles.headerWrapper}>
+          <div className={styles.header}>
+            <h1 className={styles.headingText}>Courses</h1>
+            {hasUser && (
+              <Button
+                label="+ Add new course"
+                btnColor="blue"
+                onClick={handleNewCourseModalToggle}
+              />
+            )}
+            <AddCourseModal
+              isModalOpen={isNewCourseModalOpen}
+              onModalToggle={handleNewCourseModalToggle}
+            />
+          </div>
+          <CategoriesList items={categories} />
+        </div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.dashboard}>
