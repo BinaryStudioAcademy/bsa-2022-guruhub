@@ -47,4 +47,26 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse, getCourse, getCourses };
+const updateVisibilityBecomeMentor = createAsyncThunk<
+  boolean,
+  void,
+  AsyncThunkConfig
+>(ActionType.UPDATE_VISIBILITY_BECOME_MENTOR, async () => {
+  return true;
+});
+
+const setBecomeMentorInvisible = createAsyncThunk<
+  boolean,
+  void,
+  AsyncThunkConfig
+>(ActionType.SET_BECOME_MENTOR_INVISIBLE, async () => {
+  return false;
+});
+
+export {
+  addCourse,
+  getCourse,
+  getCourses,
+  setBecomeMentorInvisible,
+  updateVisibilityBecomeMentor,
+};

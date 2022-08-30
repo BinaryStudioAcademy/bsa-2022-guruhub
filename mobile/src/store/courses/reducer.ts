@@ -3,7 +3,13 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import { CourseGetResponseDto } from '~/common/types/types';
 
-import { addCourse, getCourse, getCourses } from './actions';
+import {
+  addCourse,
+  getCourse,
+  getCourses,
+  setBecomeMentorInvisible,
+  updateVisibilityBecomeMentor,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -50,6 +56,15 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(
+    updateVisibilityBecomeMentor.fulfilled,
+    (state, { payload }) => {
+      state.isMentorBecomingVisible = payload;
+    },
+  );
+  builder.addCase(setBecomeMentorInvisible.fulfilled, (state, { payload }) => {
+    state.isMentorBecomingVisible = payload;
   });
 });
 
