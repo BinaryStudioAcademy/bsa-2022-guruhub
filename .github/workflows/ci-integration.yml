@@ -154,20 +154,78 @@ jobs:
         run: |
           echo "::set-output name=branch-name::$(echo ${GITHUB_REF#refs/heads/})"
 
+      - name: Get Total Tests Count
+        id: get-total-tests-count
+        if: ${{ success() || failure() }}
+        uses: mavrosxristoforos/get-xml-info@1.1.0
+        with:
+          xml-file: ./backend/tests/junit-report/junit-report.xml
+          xpath: //testsuites/@tests
+
+      - name: Get Skipped Tests Count
+        id: get-skipped-tests-count
+        if: ${{ success() || failure() }}
+        uses: mavrosxristoforos/get-xml-info@1.1.0
+        with:
+          xml-file: ./backend/tests/junit-report/junit-report.xml
+          xpath: //testsuites/@skipped
+
+      - name: Get Failed Tests Count
+        id: get-failed-tests-count
+        if: ${{ success() || failure() }}
+        uses: mavrosxristoforos/get-xml-info@1.1.0
+        with:
+          xml-file: ./backend/tests/junit-report/junit-report.xml
+          xpath: //testsuites/@failures
+
+      - name: Get Error Tests Count
+        id: get-error-tests-count
+        if: ${{ success() || failure() }}
+        uses: mavrosxristoforos/get-xml-info@1.1.0
+        with:
+          xml-file: ./backend/tests/junit-report/junit-report.xml
+          xpath: //testsuites/@errors
+
+      - name: Get Passed Tests Count
+        id: get-passed-tests-count
+        if: ${{ success() || failure() }}
+        uses: mavrosxristoforos/get-xml-info@1.1.0
+        run: |
+          echo "::set-output name=info::${{ steps.get-total-tests-count.info - steps.get-failed-tests-count.info - steps.get-skipped-tests-count.info - steps.get-error-tests-count.info }}"
+
+      - name: Get Slack Report Data
+        id: report-data # Short for better readability
+        if: ${{ (success() || failue()) && (steps.get-current-branch-name.outcome == 'success') && (steps.get-total-tests-count.outcome == 'success') && (steps.get-skipped-tests-count.outcome == 'success') && (steps.get-failed-tests-count.outcome == 'success') && (steps.get-error-tests-count.outcome == 'success') && (steps.get-passed-tests-count.outcome == 'success') }}
+        run: |
+          echo "::set-output name=branch::${{ steps.get-current-branch-name.outputs.branch-name }}"
+          echo "::set-output name=total::${{ steps.get-total-tests-count.outputs.info }}"
+          echo "::set-output name=passed::${{ steps.get-passed-tests-count.outputs.info }}"
+          echo "::set-output name=skipped::${{ steps.get-skipped-tests-count.outputs.info }}"
+          echo "::set-output name=failed::${{ steps.get-failed-tests-count.outputs.info }}"
+          echo "::set-output name=error::${{ steps.get-error-tests-count.outputs.info }}"
+
       - name: Send Success Report To Slack
-        if: ${{ success() && (steps.get-current-branch-name.outcome == 'success') }}
+        if: ${{ success() && (steps.report-data.outcome == 'success') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
             {
+              "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch passed",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *passed* :white_check_mark:"
-                  }
+                    "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch *passed* :100:"
+                  },
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":white_check_mark: ${{ steps.report-data.outputs.total }}/${{ steps.report-data.outputs.total }} passed"
+                  },
                 },
                 {
                   "type": "actions",
@@ -187,18 +245,34 @@ jobs:
             }
 
       - name: Send Failure Report To Slack
-        if: ${{ failure() && (steps.get-current-branch-name.outcome == 'success') }}
+        if: ${{ failure() && (steps.report-data.outcome == 'success') }}
         uses: slackapi/slack-github-action@v1.21.0
         with:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
             {
+              "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch failed"
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *failed* :rotating_light:"
+                    "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch *failed* :rotating_light:"
+                  }
+                },
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Details",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":white_check_mark: ${{ steps.report-data.outputs.passed }}/${{ steps.report-data.outputs.total }} passed\\n:warning: ${{ steps.report-data.outputs.skipped }}/${{ steps.report-data.outputs.total }} skipped\n\n:x: ${{ steps.report-data.outputs.failed }}/${{ steps.report-data.outputs.total }} failed\n\n:red_circle: ${{ steps.report-data.outputs.error }}/${{ steps.report-data.outputs.total }} had execution error"
                   }
                 },
                 {
