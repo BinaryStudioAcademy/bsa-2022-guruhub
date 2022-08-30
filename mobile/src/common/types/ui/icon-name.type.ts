@@ -12,6 +12,7 @@ type IconName =
   | 'plus'
   | 'edit'
   | 'save'
-  | 'trash';
+  | 'trash'
+  | 'interview';
 
 export { type IconName };

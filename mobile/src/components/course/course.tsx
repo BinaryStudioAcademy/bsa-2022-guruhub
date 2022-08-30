@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
-import { CourseGetResponseDto } from '~/common/types/types';
 import {
   BackButton,
   Content,
@@ -40,7 +39,6 @@ const Course: FC = () => {
   }));
 
   const currentCategory = course?.category;
-  const dataCourse = course as CourseGetResponseDto;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -78,26 +76,30 @@ const Course: FC = () => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.h1}>{dataCourse.title}</Text>
-        <View style={styles.currentCategory}>
-          <Category
-            keyName={currentCategory?.key ?? 'unknown'}
-            name={currentCategory?.name ?? 'Unknown'}
-            isActive={false}
-          />
-        </View>
+      {course && (
+        <View style={styles.container}>
+          <Text style={styles.h1}>{course?.title}</Text>
+          <View style={styles.currentCategory}>
+            <Category
+              keyName={currentCategory?.key ?? 'unknown'}
+              name={currentCategory?.name ?? 'Unknown'}
+              isActive={false}
+            />
+          </View>
 
-        <Image
-          style={styles.image}
-          source={{ uri: course?.imageUrl ?? getImageUri(defaultCourseImage) }}
-        />
-        <Text style={styles.h2}>About this course</Text>
-        {dataCourse.description && (
-          <Content html={dataCourse.description} width={width} />
-        )}
-        <CourseModules />
-      </View>
+          <Image
+            style={styles.image}
+            source={{
+              uri: course?.imageUrl ?? getImageUri(defaultCourseImage),
+            }}
+          />
+          <Text style={styles.h2}>About this course</Text>
+          {course.description && (
+            <Content html={course.description} width={width} />
+          )}
+          <CourseModules />
+        </View>
+      )}
     </ScrollView>
   );
 };

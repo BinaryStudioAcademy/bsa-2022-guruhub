@@ -12,6 +12,7 @@ type AppNavigationParamList = {
   [AppScreenName.ADD_COURSE]: undefined;
   [AppScreenName.COURSE]: undefined;
   [AppScreenName.EDIT_COURSE_CATEGORY]: undefined;
+  [AppScreenName.INTERVIEWS]: undefined;
 };
 
 export { type AppNavigationParamList };

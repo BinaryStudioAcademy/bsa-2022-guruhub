@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
 
-import { Pressable, Text, View } from '~/components/common/common';
-import { CategoryImage } from '~/components/course/components/category/components/components';
+import { categoryKeyToImage } from '~/common/maps/maps';
+import {
+  CategoryImage,
+  Pressable,
+  Text,
+  View,
+} from '~/components/common/common';
 import { useEffect, useState } from '~/hooks/hooks';
 
-import { categoryKeyToImage } from './common/maps/maps';
 import { getRandomColor } from './helpers/get-random-color.helper';
 import { styles } from './style';
 
