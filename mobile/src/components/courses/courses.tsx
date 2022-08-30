@@ -30,6 +30,7 @@ import { styles } from './styles';
 const Courses: FC = (): ReactElement => {
   const [isLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
@@ -72,12 +73,18 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleCategorySelect = (id: number): void => {
-    if (!courseCategory || courseCategory.id !== id) {
-      dispatch(categoryActions.getCategoryById({ id }));
+    const newActiveCategoryId = activeCategoryId !== id ? id : null;
+
+    setActiveCategoryId(newActiveCategoryId);
+  };
+
+  useEffect(() => {
+    if (activeCategoryId) {
+      dispatch(categoryActions.getCategoryById({ id: activeCategoryId }));
     } else {
       dispatch(categoryActions.clearCategory());
     }
-  };
+  }, [activeCategoryId]);
 
   useEffect(() => {
     filter.current.categoryKey = courseCategory?.key ?? '';
@@ -106,7 +113,7 @@ const Courses: FC = (): ReactElement => {
       <CategoryList
         items={categories}
         handleSelect={handleCategorySelect}
-        activeCategoryId={courseCategory?.id || null}
+        activeCategoryId={activeCategoryId}
       />
       <View style={styles.container}>
         {dataStatus === DataStatus.PENDING ? (
