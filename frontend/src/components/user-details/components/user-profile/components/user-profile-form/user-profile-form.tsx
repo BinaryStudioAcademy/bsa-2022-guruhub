@@ -1,3 +1,5 @@
+import 'react-datepicker/dist/react-datepicker.css';
+
 import { DataStatus, UserGender } from 'common/enums/enums';
 import {
   FC,
@@ -13,6 +15,8 @@ import {
   useEffect,
   useMemo,
 } from 'hooks/hooks';
+import DatePicker from 'react-datepicker';
+import { Controller } from 'react-hook-form';
 import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
@@ -79,6 +83,27 @@ const UserProfileForm: FC = () => {
                 errors={errors}
                 placeholder="Enter your full name"
               />
+              <div className={styles.dateWrapper}>
+                <span className={styles.bdLabel}>Birth date</span>
+                <Controller
+                  control={control}
+                  name={getNameOf<UserDetailsUpdateInfoRequestDto>(
+                    'dateOfBirth',
+                  )}
+                  render={({ field }): JSX.Element => (
+                    <DatePicker
+                      selected={field.value}
+                      onChange={(date): void => field.onChange(date)}
+                      className={styles.datePickerInput}
+                      calendarClassName={styles.datePicker}
+                      dayClassName={(): string => styles.datePickerDay}
+                      showYearDropdown
+                      showMonthDropdown
+                      dropdownMode="select"
+                    />
+                  )}
+                />
+              </div>
             </div>
             <div className={styles.grid}>
               <Select

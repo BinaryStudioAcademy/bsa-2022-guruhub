@@ -26,6 +26,11 @@ const userDetailsUpdateInfo = Joi.object({
     .messages({
       'string.empty': UserDetailsValidationMessage.GENDER_REQUIRE,
     }),
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')]: Joi.date()
+    .required()
+    .messages({
+      'string.empty': UserDetailsValidationMessage.BIRTHDATE_REQUIRE,
+    }),
 });
 
 export { userDetailsUpdateInfo };
