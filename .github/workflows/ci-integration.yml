@@ -190,7 +190,7 @@ jobs:
         id: get-passed-tests-count
         if: ${{ success() || failure() }}
         run: |
-          echo "::set-output name=info::${{ steps.get-total-tests-count.info - steps.get-failed-tests-count.info - steps.get-skipped-tests-count.info - steps.get-error-tests-count.info }}"
+          echo "::set-output name=info::$((${{ steps.get-total-tests-count.info }} - ${{ steps.get-failed-tests-count.info }} - ${{ steps.get-skipped-tests-count.info }} - ${{ steps.get-error-tests-count.info }}))"
 
       - name: Get Slack Report Data
         id: report-data # Short for better readability
