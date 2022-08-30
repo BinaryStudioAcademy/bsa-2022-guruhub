@@ -1,4 +1,4 @@
-import { ApiPath, CategoriesApiPath, HttpMethod } from 'common/enums/enums';
+import { ApiPath, HttpMethod } from 'common/enums/enums';
 import { CategoryGetAllResponseDto } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -18,12 +18,9 @@ class CategoriesApi {
   }
 
   public getAll(): Promise<CategoryGetAllResponseDto> {
-    return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
-      {
-        method: HttpMethod.GET,
-      },
-    );
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.CATEGORIES}`, {
+      method: HttpMethod.GET,
+    });
   }
 }
 

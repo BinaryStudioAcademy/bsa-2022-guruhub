@@ -1,5 +1,5 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Pagination, Table } from 'components/common/common';
 import { UsersTableRow } from 'components/uam/common/types/types';
 import {
@@ -12,13 +12,18 @@ import {
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
 
-import { getUsersColumns } from './helpers/helpers';
+import { getUsersColumns, getUserTableData } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
-  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
+
+  const { user, users, usersTotalCount } = useAppSelector((state) => ({
+    user: state.auth.user,
+    users: state.uam.users,
+    usersTotalCount: state.uam.usersTotalCount,
+  }));
 
   useEffect(() => {
     dispatch(
@@ -34,13 +39,17 @@ const UsersTable: FC = () => {
   };
 
   const columns = useMemo<Column<UsersTableRow>[]>(() => {
-    return getUsersColumns(handleUserDelete);
+    return getUsersColumns(user as UserWithPermissions, handleUserDelete);
   }, []);
+
+  const usersData = useMemo<UsersTableRow[]>(() => {
+    return getUserTableData(users);
+  }, [users]);
 
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={users} columns={columns} />
+      <Table data={usersData} columns={columns} />
       <Pagination
         currentPage={page}
         onPageChange={handlePageChange}

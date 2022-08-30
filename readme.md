@@ -179,13 +179,13 @@ erDiagram
   }
 
   interview_notes }|--|| interviews : interview_id
-  interview_notes }|--|| users : created_by_user_id
+  interview_notes }|--|| users : author_id
   interview_notes {
     int id PK
     dateTime created_at
     dateTime updated_at
     int interview_id FK
-    int created_by_user_id FK
+    int author_id FK
     text note
   }
 
@@ -196,6 +196,16 @@ erDiagram
     dateTime updated_at
     varchar url
     varchar content_type
+  }
+
+  courses_to_mentors }|--|| courses : course_id
+  courses_to_mentors }|--|| users : user_id
+  courses_to_mentors {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int user_id FK
+    int course_id FK
   }
 ```
 

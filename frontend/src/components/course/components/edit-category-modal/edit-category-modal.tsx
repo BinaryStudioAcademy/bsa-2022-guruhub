@@ -2,7 +2,7 @@ import {
   CategoryGetAllItemResponseDto,
   CourseUpdateCategoryRequestDto,
   FC,
-  SelectorOptions,
+  SelectorOption,
 } from 'common/types/types';
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
@@ -20,7 +20,7 @@ type Props = {
   defaultCategoryId: number | undefined;
   isOpen: boolean;
   categories: CategoryGetAllItemResponseDto[];
-  onModalToggle: (evt: React.MouseEvent) => void;
+  onModalToggle: (evt?: React.MouseEvent) => void;
 };
 
 const EditCategoryModal: FC<Props> = ({
@@ -40,13 +40,17 @@ const EditCategoryModal: FC<Props> = ({
       validationSchema: courseUpdateCategoryValidationSchema,
     });
 
-  const categoriesOptions = useMemo<SelectorOptions<string>[]>(() => {
+  const categoriesOptions = useMemo<SelectorOption<string>[]>(() => {
     return getCategoriesOptions(categories);
   }, [categories]);
 
   const handleModalSubmit = (payload: CourseUpdateCategoryRequestDto): void => {
     const { newCategoryId } = payload;
-    dispatch(courseActions.updateCategory({ courseId, newCategoryId }));
+    dispatch(courseActions.updateCategory({ courseId, newCategoryId }))
+      .unwrap()
+      .then(() => {
+        onModalToggle();
+      });
   };
 
   return (

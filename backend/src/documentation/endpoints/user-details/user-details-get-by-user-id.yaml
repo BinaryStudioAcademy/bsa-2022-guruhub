@@ -1,0 +1,11 @@
+summary: Get User details
+tags:
+  - userDetails
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/user-details/user-details-response-dto.yaml'
+security:
+  - bearerAuth: []

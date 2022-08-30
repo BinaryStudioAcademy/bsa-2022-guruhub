@@ -1,4 +1,6 @@
 import { reducer as auth } from './auth/reducer';
+import { reducer as categories } from './categories/reducer';
+import { reducer as courseModules } from './course-modules/reducer';
 import { reducer as courses } from './courses/reducer';
 import { reducer as uam } from './uam/reducer';
 import { reducer as uamGroupEdit } from './uam-group-edit/reducer';
@@ -10,6 +12,8 @@ const rootReducer = {
   uamGroupEdit,
   uamGroupCreation,
   courses,
+  categories,
+  courseModules,
 };
 
 export { rootReducer };

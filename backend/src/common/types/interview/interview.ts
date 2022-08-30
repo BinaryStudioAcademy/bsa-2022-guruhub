@@ -1,5 +1,18 @@
+export { type InterviewsCreateRequestDto } from './interviews-create-request-dto.type';
+export { type InterviewsGetAllRequestDto } from './interviews-get-all-request-dto.type';
+export { type InterviewsGetByUserIdRequestDto } from './interviews-get-by-user-id-request-dto.type';
+export { type InterviewsGetOtherRequestArgumentsDto } from './interviews-get-other-request-arguments-dto.type';
 export {
-  InterviewsByIdResponseDto,
-  InterviewsGetAllItemResponseDto,
-  InterviewsGetAllResponseDto,
+  type InterviewsByIdRequestParamsDto,
+  type InterviewsByIdResponseDto,
+  type InterviewsByIntervieweeIdRequestDto,
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
+  type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from 'guruhub-shared/common/types/types';

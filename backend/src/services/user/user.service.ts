@@ -9,6 +9,7 @@ import {
   UserWithPermissions,
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
+import { UsersError } from '~/exceptions/exceptions';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
 import { userDetails as userDetailsServ } from '~/services/services';
 
@@ -41,9 +42,9 @@ class User {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<UsersGetResponseDto>
   > {
-    const ZERO_INDEXED_PAGE = page - 1;
+    const zeroIndexPage = page - 1;
     const result = await this.#userRepository.getAll({
-      page: ZERO_INDEXED_PAGE,
+      page: zeroIndexPage,
       count,
     });
 
@@ -51,7 +52,7 @@ class User {
       items: result.items.map((user) => ({
         id: user.id,
         email: user.email,
-        fullName: user.fullName,
+        userDetails: user.userDetails,
         createdAt: user.createdAt,
       })),
       total: result.total,
@@ -75,7 +76,7 @@ class User {
       passwordHash,
     });
 
-    await this.#userDetailsService.create(user.id, {
+    const userDetails = await this.#userDetailsService.create(user.id, {
       fullName,
       gender: null,
     });
@@ -84,7 +85,7 @@ class User {
       id: user.id,
       email: user.email,
       createdAt: user.createdAt,
-      fullName,
+      userDetails,
       permissions: [],
     };
   }
@@ -94,18 +95,7 @@ class User {
   ): Promise<UsersByEmailResponseDto | null> {
     const user = await this.#userRepository.getByEmail(email);
 
-    if (!user) {
-      return null;
-    }
-
-    return {
-      id: user.id,
-      email: user.email,
-      fullName: user.fullName,
-      passwordHash: user.passwordHash,
-      passwordSalt: user.passwordSalt,
-      createdAt: user.createdAt,
-    };
+    return user ?? null;
   }
 
   public getUserPermissions(
@@ -114,18 +104,19 @@ class User {
     return this.#userRepository.getUserPermissions(id);
   }
 
-  public async getById(id: string): Promise<UserWithPermissions | null> {
+  public async getById(id: number): Promise<UserWithPermissions | null> {
     const user = await this.#userRepository.getById(id);
 
     if (!user) {
       return null;
     }
+
     const permissions = await this.#userRepository.getUserPermissions(user.id);
 
     return {
       id: user.id,
       email: user.email,
-      fullName: user.fullName,
+      userDetails: user.userDetails,
       createdAt: user.createdAt,
       permissions,
     };
@@ -141,8 +132,15 @@ class User {
     }));
   }
 
-  public async delete(id: number): Promise<boolean> {
-    const deletedUsersCount = await this.#userRepository.delete(id);
+  public async delete(
+    loggedInUser: UserWithPermissions,
+    idToDelete: number,
+  ): Promise<boolean> {
+    if (loggedInUser.id === idToDelete) {
+      throw new UsersError();
+    }
+
+    const deletedUsersCount = await this.#userRepository.delete(idToDelete);
 
     return Boolean(deletedUsersCount);
   }

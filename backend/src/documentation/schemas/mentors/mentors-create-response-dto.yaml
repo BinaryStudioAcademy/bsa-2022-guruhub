@@ -1,0 +1,17 @@
+type: object
+properties:
+  id:
+    type: number
+    example: 1
+  courseId:
+    type: number
+    example: 2
+  userId:
+    type: number
+    example: 3
+  createdAt:
+    type: string
+    example: '2022-08-25T05:42:23.698Z'
+  updatedAt:
+    type: string
+    example: '2022-08-25T05:42:23.698Z'

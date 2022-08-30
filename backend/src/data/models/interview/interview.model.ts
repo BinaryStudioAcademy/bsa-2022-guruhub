@@ -1,39 +1,45 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { DbTableName, InterviewStatus } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 import { CourseCategory } from '../course-category/course-category.model';
 import { User } from '../models';
 
 class Interview extends Abstract {
-  public 'interviewDate': string;
+  public 'interviewDate': string | null;
 
-  public 'status': string;
+  public 'status': InterviewStatus;
+
+  public 'categoryId': number;
+
+  public 'intervieweeUserId': number;
+
+  public 'interviewerUserId': number;
 
   public static override get relationMappings(): RelationMappings {
     return {
       courseCategory: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: CourseCategory,
         join: {
-          from: `${DbTableName.INTERVIEWS}.category_id`,
+          from: `${DbTableName.INTERVIEWS}.categoryId`,
           to: `${DbTableName.COURSE_CATEGORIES}.id`,
         },
       },
       interviewee: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.INTERVIEWS}.interviewee_user_id`,
+          from: `${DbTableName.INTERVIEWS}.intervieweeUserId`,
           to: `${DbTableName.USERS}.id`,
         },
       },
       interviewer: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: `${DbTableName.INTERVIEWS}.interviewer_user_id`,
+          from: `${DbTableName.INTERVIEWS}.interviewerUserId`,
           to: `${DbTableName.USERS}.id`,
         },
       },
