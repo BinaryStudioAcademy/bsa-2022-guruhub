@@ -1,9 +1,11 @@
 import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
 import {
+  EntityPagination,
   TaskGetByMenteeIdAndModuleId,
   TaskGetItemReponseDto,
   TaskManipulateRequestArgumentsDto,
   TaskNoteCreateArgumentsDto,
+  TaskNoteGetAllArgumentsDto,
   TaskNoteGetItemResponseDto,
 } from '~/common/types/types';
 import { task as taskRep } from '~/data/repositories/repositories';
@@ -74,6 +76,16 @@ class Task {
       moduleId,
       menteeId,
     });
+  }
+
+  public getAllNotes({
+    count,
+    page,
+    taskId,
+  }: TaskNoteGetAllArgumentsDto): Promise<
+    EntityPagination<TaskNoteGetItemResponseDto>
+  > {
+    return this.#taskNoteService.getAll({ count, page, taskId });
   }
 
   private async checkIsChangeable(taskId: number): Promise<void> {

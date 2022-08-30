@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { TaskGetByMenteeIdAndModuleId } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const taskByMenteeIdMentorIdModuleId = Joi.object({
+const taskByMenteeIdAndModuleId = Joi.object({
   [getNameOf<TaskGetByMenteeIdAndModuleId>('moduleId')]: Joi.number()
     .integer()
     .required(),
@@ -12,4 +12,4 @@ const taskByMenteeIdMentorIdModuleId = Joi.object({
     .required(),
 });
 
-export { taskByMenteeIdMentorIdModuleId };
+export { taskByMenteeIdAndModuleId };

@@ -1,13 +1,22 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
-import { HttpCode } from 'guruhub-shared';
 
-import { HttpMethod, TasksApiPath, TaskStatus } from '~/common/enums/enums';
 import {
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValue,
+  TasksApiPath,
+  TaskStatus,
+} from '~/common/enums/enums';
+import {
+  EntityPaginationRequestQueryDto,
   TaskByIdRequestParamsDto,
+  TaskGetByMenteeIdAndModuleId,
   TaskNoteCreateRequestBodyDto,
 } from '~/common/types/types';
 import { task as taskService } from '~/services/services';
 import {
+  pagination as paginationValidationSchema,
+  taskByMenteeIdAndModuleId as taskByMenteeIdAndModuleIdValidationSchema,
   tasksByIdParams as tasksByIdParamsValidationSchema,
   tasksCreateRequestBody as tasksCreateRequestBodyValidationSchema,
 } from '~/validation-schemas/validation-schemas';
@@ -105,6 +114,45 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       rep.status(HttpCode.CREATED).send(newNote);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: TasksApiPath.MODULES_$ID_MENTEES_$ID,
+    schema: { params: taskByMenteeIdAndModuleIdValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: TaskGetByMenteeIdAndModuleId }>,
+      rep,
+    ) {
+      const { menteeId, moduleId } = req.params;
+      const task = taskService.getByMenteeIdAndModuleId({ menteeId, moduleId });
+      rep.status(HttpCode.OK).send(task);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: TasksApiPath.TASKS_$ID_NOTES,
+    schema: {
+      params: tasksByIdParamsValidationSchema,
+      querystring: paginationValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: TaskByIdRequestParamsDto;
+        Querystring: EntityPaginationRequestQueryDto;
+      }>,
+      rep,
+    ) {
+      const { taskId } = req.params;
+      const {
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+      const notes = await taskService.getAllNotes({ taskId, count, page });
+
+      rep.status(HttpCode.OK).send(notes);
     },
   });
 };
