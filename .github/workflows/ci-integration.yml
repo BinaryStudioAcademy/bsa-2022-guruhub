@@ -195,7 +195,7 @@ jobs:
 
       - name: Get Slack Report Data
         id: report-data # Short for better readability
-        if: ${{ (success() || failue()) && (steps.get-current-branch-name.outcome == 'success') && (steps.get-total-tests-count.outcome == 'success') && (steps.get-skipped-tests-count.outcome == 'success') && (steps.get-failed-tests-count.outcome == 'success') && (steps.get-error-tests-count.outcome == 'success') && (steps.get-passed-tests-count.outcome == 'success') }}
+        if: ${{ (success() || failure()) && (steps.get-current-branch-name.outcome == 'success') && (steps.get-total-tests-count.outcome == 'success') && (steps.get-skipped-tests-count.outcome == 'success') && (steps.get-failed-tests-count.outcome == 'success') && (steps.get-error-tests-count.outcome == 'success') && (steps.get-passed-tests-count.outcome == 'success') }}
         run: |
           echo "::set-output name=branch::${{ steps.get-current-branch-name.outputs.branch-name }}"
           echo "::set-output name=total::${{ steps.get-total-tests-count.outputs.info }}"
@@ -273,6 +273,46 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": ":white_check_mark: ${{ steps.report-data.outputs.passed }}/${{ steps.report-data.outputs.total }} passed\\n:warning: ${{ steps.report-data.outputs.skipped }}/${{ steps.report-data.outputs.total }} skipped\n\n:x: ${{ steps.report-data.outputs.failed }}/${{ steps.report-data.outputs.total }} failed\n\n:red_circle: ${{ steps.report-data.outputs.error }}/${{ steps.report-data.outputs.total }} had execution error"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":file_folder: Download reports here",
+                        "emoji": true
+                      },
+                      "url": "${{ env.WORKFLOW_RUN_URL }}"
+                    }
+                  ]
+                }
+              ]
+            }
+
+      - name: Send Unable To Determine Results Message To Slack
+        if: ${{ failure() && ((steps.get-current-branch-name.outcome == 'failure') || (steps.get-total-tests-count.outcome == 'success') || (steps.get-skipped-tests-count.outcome == 'failure') || (steps.get-failed-tests-count.outcome == 'failure') || (steps.get-error-tests-count.outcome == 'failure') || (steps.get-passed-tests-count.outcome == 'failure')) }}
+        uses: slackapi/slack-github-action@v1.21.0
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch failed"
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch *failed* :rotating_light:"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":sos: *Unable to retrieve details*"
                   }
                 },
                 {
