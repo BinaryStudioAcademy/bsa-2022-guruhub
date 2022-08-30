@@ -86,9 +86,12 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
-export { type TaskGetItemReponseDto } from './task/task';
 export {
-  type TaskNoteByIdRequestParamsDto,
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+} from './task/task';
+export {
+  type TaskByIdRequestParamsDto,
   type TaskNoteCreateArgumentsDto,
   type TaskNoteCreateRequestBodyDto,
   type TaskNoteGetAllArgumentsDto,

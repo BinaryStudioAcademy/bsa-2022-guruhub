@@ -1,77 +1,108 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { HttpCode } from 'guruhub-shared';
 
+import { HttpMethod, TasksApiPath, TaskStatus } from '~/common/enums/enums';
 import {
-  HttpMethod,
-  PaginationDefaultValue,
-  TasksApiPath,
-} from '~/common/enums/enums';
-import {
-  EntityPaginationRequestQueryDto,
-  TaskNoteByIdRequestParamsDto,
+  TaskByIdRequestParamsDto,
   TaskNoteCreateRequestBodyDto,
 } from '~/common/types/types';
-import { taskNote as taskNoteService } from '~/services/services';
+import { task as taskService } from '~/services/services';
 import {
-  pagination as paginationValidationSchema,
-  taskNotesByIdParams as taskNotesByIdParamsValidationSchema,
-  taskNotesCreateRequestBody as taskNotesCreateRequestBodyValidationSchema,
+  tasksByIdParams as tasksByIdParamsValidationSchema,
+  tasksCreateRequestBody as tasksCreateRequestBodyValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
-    taskNote: typeof taskNoteService;
+    task: typeof taskService;
   };
 };
 
 const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { taskNote: taskNoteService } = opts.services;
+  const { task: taskService } = opts.services;
 
   fastify.route({
-    method: HttpMethod.GET,
-    url: TasksApiPath.TASKS_$ID_NOTES,
+    method: HttpMethod.POST,
+    url: TasksApiPath.TASKS_$ID_UPLOAD,
     schema: {
-      querystring: paginationValidationSchema,
-      params: taskNotesByIdParamsValidationSchema,
+      params: tasksByIdParamsValidationSchema,
+      body: tasksCreateRequestBodyValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
-        Params: TaskNoteByIdRequestParamsDto;
-        Querystring: EntityPaginationRequestQueryDto;
+        Body: TaskNoteCreateRequestBodyDto;
+        Params: TaskByIdRequestParamsDto;
       }>,
       rep,
     ) {
+      const { note } = req.body;
       const { taskId } = req.params;
-      const {
-        count = PaginationDefaultValue.DEFAULT_COUNT,
-        page = PaginationDefaultValue.DEFAULT_PAGE,
-      } = req.query;
+      const { id: authorId } = req.user;
 
-      const taskNotes = await taskNoteService.getAll({ taskId, count, page });
+      const newNote = await taskService.manipulate({
+        note,
+        authorId,
+        taskId,
+        status: TaskStatus.PENDING,
+      });
 
-      rep.status(HttpCode.OK).send(taskNotes);
+      rep.status(HttpCode.CREATED).send(newNote);
     },
   });
 
   fastify.route({
     method: HttpMethod.POST,
-    url: TasksApiPath.TASKS_$ID_NOTES,
+    url: TasksApiPath.TASKS_$ID_APPROVE,
     schema: {
-      params: taskNotesByIdParamsValidationSchema,
-      body: taskNotesCreateRequestBodyValidationSchema,
+      params: tasksByIdParamsValidationSchema,
+      body: tasksCreateRequestBodyValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
-        Params: TaskNoteByIdRequestParamsDto;
         Body: TaskNoteCreateRequestBodyDto;
+        Params: TaskByIdRequestParamsDto;
       }>,
       rep,
     ) {
-      const { taskId } = req.params;
       const { note } = req.body;
+      const { taskId } = req.params;
       const { id: authorId } = req.user;
 
-      const newNote = await taskNoteService.create({ authorId, note, taskId });
+      const newNote = await taskService.manipulate({
+        note,
+        authorId,
+        taskId,
+        status: TaskStatus.COMPLETED,
+      });
+
+      rep.status(HttpCode.CREATED).send(newNote);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.POST,
+    url: TasksApiPath.TASKS_$ID_REJECT,
+    schema: {
+      params: tasksByIdParamsValidationSchema,
+      body: tasksCreateRequestBodyValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Body: TaskNoteCreateRequestBodyDto;
+        Params: TaskByIdRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { note } = req.body;
+      const { taskId } = req.params;
+      const { id: authorId } = req.user;
+
+      const newNote = await taskService.manipulate({
+        note,
+        authorId,
+        taskId,
+        status: TaskStatus.REJECTED,
+      });
 
       rep.status(HttpCode.CREATED).send(newNote);
     },

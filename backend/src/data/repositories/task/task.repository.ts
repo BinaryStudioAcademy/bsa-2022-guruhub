@@ -18,6 +18,12 @@ class Task {
       .patchAndFetchById(taskId, { status })
       .execute();
   }
+
+  public async getById(id: number): Promise<TaskM | null> {
+    const task = await this.#TaskModel.query().findById(id);
+
+    return task ?? null;
+  }
 }
 
 export { Task };

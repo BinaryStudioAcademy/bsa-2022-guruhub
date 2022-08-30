@@ -36,9 +36,6 @@ export {
 } from './interview-note/interview-note';
 export { mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
-export {
-  taskNotesByIdParams,
-  taskNotesCreateRequestBody,
-} from './task-notes/task-notes';
+export { tasksByIdParams, tasksCreateRequestBody } from './task/task';
 export { userDelete, userSignIn, userSignUp } from './user/user';
 export { userDetailsUpdateInfo } from './user-details/user-details';

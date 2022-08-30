@@ -13,7 +13,7 @@ import {
   interview,
   mentor,
   permission,
-  taskNote,
+  task,
   token,
   user,
   userDetails,
@@ -119,7 +119,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
 
   fastify.register(initTasksApi, {
     services: {
-      taskNote,
+      task,
     },
     prefix: ApiPath.TASKS,
   });

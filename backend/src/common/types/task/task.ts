@@ -1,1 +1,4 @@
-export { type TaskGetItemReponseDto } from 'guruhub-shared/common/types/types';
+export {
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+} from 'guruhub-shared/common/types/types';

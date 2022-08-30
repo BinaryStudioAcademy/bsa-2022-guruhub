@@ -146,9 +146,9 @@ const mentor = new Mentor({
   coursesToMentorsService: coursesToMentors,
 });
 
-const task = new Task({ taskRepository });
-
 const taskNote = new TaskNote({ taskNoteRepository });
+
+const task = new Task({ taskRepository, taskNoteService: taskNote });
 
 export {
   auth,

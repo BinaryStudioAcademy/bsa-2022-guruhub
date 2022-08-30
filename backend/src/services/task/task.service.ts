@@ -1,16 +1,55 @@
-import { TaskStatus } from '~/common/enums/enums';
-import { TaskGetItemReponseDto } from '~/common/types/types';
+import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
+import {
+  TaskGetItemReponseDto,
+  TaskManipulateRequestArgumentsDto,
+  TaskNoteCreateArgumentsDto,
+  TaskNoteGetItemResponseDto,
+} from '~/common/types/types';
 import { task as taskRep } from '~/data/repositories/repositories';
+import { TasksError } from '~/exceptions/exceptions';
+
+import { taskNote as taskNoteServ } from '../services';
 
 type Constructor = {
   taskRepository: typeof taskRep;
+  taskNoteService: typeof taskNoteServ;
 };
 
 class Task {
   #taskRepository: typeof taskRep;
 
-  public constructor({ taskRepository }: Constructor) {
+  #taskNoteService: typeof taskNoteServ;
+
+  public constructor({ taskRepository, taskNoteService }: Constructor) {
     this.#taskRepository = taskRepository;
+    this.#taskNoteService = taskNoteService;
+  }
+
+  public async manipulate({
+    note,
+    taskId,
+    authorId,
+    status,
+  }: TaskManipulateRequestArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
+    await this.checkIsChangeable(taskId);
+
+    const newNote = await this.createNote({
+      authorId,
+      note,
+      taskId,
+    });
+
+    await this.updateStatus(taskId, status);
+
+    return newNote;
+  }
+
+  public createNote({
+    authorId,
+    note,
+    taskId,
+  }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
+    return this.#taskNoteService.create({ authorId, note, taskId });
   }
 
   public updateStatus(
@@ -18,6 +57,24 @@ class Task {
     status: TaskStatus,
   ): Promise<TaskGetItemReponseDto> {
     return this.#taskRepository.updateStatus(taskId, status);
+  }
+
+  public getById(taskId: number): Promise<TaskGetItemReponseDto | null> {
+    return this.#taskRepository.getById(taskId);
+  }
+
+  private async checkIsChangeable(taskId: number): Promise<void> {
+    const task = await this.getById(taskId);
+
+    if (!task) {
+      throw new TasksError();
+    }
+
+    if (task.status === TaskStatus.COMPLETED) {
+      throw new TasksError({
+        message: ExceptionMessage.TASK_COMPLETED,
+      });
+    }
   }
 }
 
