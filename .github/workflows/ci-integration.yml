@@ -195,7 +195,7 @@ jobs:
           FAILED: ${{ steps.get-failed-tests-count.info }}
           ERROR: ${{ steps.get-error-tests-count.info }}
         run: |
-          echo "::set-output name=info::$(($TOTAL - $SKIPPED - $FAILED - $ERROR))"
+          echo "::set-output name=info::$(($TOTAL-$SKIPPED-$FAILED-$ERROR))"
 
       - name: Get Slack Report Data
         id: report-data # Short for better readability
@@ -303,13 +303,13 @@ jobs:
           channel-id: ${{ env.SLACK_CHANNEL_ID }}
           payload: |
             {
-              "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch failed",
+              "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch failed",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Integration API tests in ${{ steps.report-data.outputs.branch }} branch *failed* :rotating_light:"
+                    "text": "Integration API tests in ${{ steps.get-current-branch-name.outputs.branch-name }} branch *failed* :rotating_light:"
                   }
                 },
                 {
