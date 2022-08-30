@@ -207,6 +207,17 @@ erDiagram
     int user_id FK
     int course_id FK
   }
+
+  chat_messages }|--|| user : sender_id
+  chat_messages }|--|| user : receiver_id
+  chat_messages {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int sender_id FK
+    int receiver_id FK
+    text message
+  }
 ```
 
 ## 🧑‍💻 CI
