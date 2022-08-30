@@ -2,10 +2,12 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,
 } from './course/course';
 export { courseCategoryGetByIdParams } from './course-categories/course-categories';
+export { courseMentorCreate } from './course-mentor/course-mentor';
 export {
   courseModuleGetParams,
   courseModulesGetAllParams,
@@ -20,9 +22,18 @@ export {
   groupUpdateParams,
 } from './group/group';
 export {
+  interviewByIdParams,
   interviewByIntervieweeId,
   interviewCreate,
+  interviewGetInterviewersByCategory,
+  interviewUpdate,
+  interviewUpdateParams,
 } from './interview/interview';
+export {
+  interviewNotesCreateArguments,
+  interviewNotesCreateParams,
+  interviewNotesGetAllParams,
+} from './interview-note/interview-note';
 export { mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
 export { userDelete, userSignIn, userSignUp } from './user/user';

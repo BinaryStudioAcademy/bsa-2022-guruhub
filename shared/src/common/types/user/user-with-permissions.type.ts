@@ -1,10 +1,13 @@
-import { PermissionsGetAllItemResponseDto } from '../permission/permission';
+import {
+  PermissionsGetAllItemResponseDto,
+  UserDetailsResponseDto,
+} from '~/common/types/types';
 
 type UserWithPermissions = {
   id: number;
   email: string;
-  fullName: string;
   createdAt: string;
+  userDetails: UserDetailsResponseDto;
   permissions: PermissionsGetAllItemResponseDto[];
 };
 

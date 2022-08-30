@@ -1,11 +1,12 @@
 type: object
 properties:
+  id:
+    type: integer
+    minimum: 1
+    example: 1
   fullName:
     type: string
     example: John Doe
-  id:
-    type: number
-    example: 1
   gender:
     type: string
     example: male

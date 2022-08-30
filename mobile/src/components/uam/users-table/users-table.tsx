@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import { getUsersColumns } from '~/components/uam/helpers/helpers';
+import { getFormattedDate } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -27,6 +28,8 @@ const UsersTable: FC = () => {
 
   const tableData = users.map((user) => ({
     ...user,
+    fullName: user.userDetails.fullName,
+    createdAt: getFormattedDate(user.createdAt, 'kk:mm, dd/MM/yyyy'),
     action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
   }));
 
@@ -46,7 +49,7 @@ const UsersTable: FC = () => {
         <Table
           columns={usersColumns}
           data={tableData}
-          columnWidthArr={[50, 190, 250, 150, 100]}
+          columnWidthArr={[50, 190, 250, 155, 100]}
         />
       </View>
       <Pagination

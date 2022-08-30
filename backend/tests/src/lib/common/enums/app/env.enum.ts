@@ -6,8 +6,12 @@ const {
   LOCAL_API_PREFIX_URL,
   STUDENT_EMAIL,
   STUDENT_PASSWORD,
-  MENTOR_EMAIL,
-  MENTOR_PASSWORD,
+  JS_MENTOR_EMAIL,
+  JS_MENTOR_PASSWORD,
+  PYTHON_MENTOR_EMAIL,
+  PYTHON_MENTOR_PASSWORD,
+  CSHARP_MENTOR_EMAIL,
+  CSHARP_MENTOR_PASSWORD,
   INTERVIEWS_MANAGER_EMAIL,
   INTERVIEWS_MANAGER_PASSWORD,
   INTERVIEWER_EMAIL,
@@ -43,9 +47,17 @@ const ENV = {
       email: STUDENT_EMAIL ?? '',
       password: STUDENT_PASSWORD ?? '',
     },
-    MENTOR: {
-      email: MENTOR_EMAIL ?? '',
-      password: MENTOR_PASSWORD ?? '',
+    JS_MENTOR: {
+      email: JS_MENTOR_EMAIL ?? '',
+      password: JS_MENTOR_PASSWORD ?? '',
+    },
+    PYTHON_MENTOR: {
+      email: PYTHON_MENTOR_EMAIL ?? '',
+      password: PYTHON_MENTOR_PASSWORD ?? '',
+    },
+    CSHARP_MENTOR: {
+      email: CSHARP_MENTOR_EMAIL ?? '',
+      password: CSHARP_MENTOR_PASSWORD ?? '',
     },
     INTERVIEWS_MANAGER: {
       email: INTERVIEWS_MANAGER_EMAIL ?? '',

@@ -10,6 +10,7 @@ type IconName =
   | 'delete'
   | 'search'
   | 'leftArrow'
-  | 'interview';
+  | 'interview'
+  | 'uam';
 
 export { IconName };

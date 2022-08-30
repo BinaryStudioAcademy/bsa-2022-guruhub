@@ -1,3 +1,5 @@
+import { ContentType } from 'allure-js-commons';
+import { allure } from 'allure-mocha/runtime';
 import FormData from 'form-data';
 import { Got, Headers } from 'got';
 
@@ -129,13 +131,40 @@ class RequestBuilder {
       this.authorize();
     }
 
-    // TODO: wrap in allure step
+    const response: Response<T> = await allure.createStep(
+      this.#getAllureStepName(),
+      async () => {
+        if (this.#options.json) {
+          allure.createAttachment(
+            'Request body',
+            JSON.stringify(this.#options.json, null, 2),
+            ContentType.JSON,
+          );
+        }
 
-    // There's an issue in got's types with options we never gonna need.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const response = await this.#got<T>(this.#options as any);
+        if (this.#options.body) {
+          allure.createAttachment(
+            'Request body',
+            (this.#options.body as FormData).getBuffer(),
+            ContentType.TEXT,
+          );
+        }
 
-    return response as Response<T>;
+        // There's an issue in got's types with options we never gonna need.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const response = await this.#got<T>(this.#options as any);
+
+        allure.createAttachment(
+          'Response body',
+          JSON.stringify(response.body, null, 2),
+          ContentType.JSON,
+        );
+
+        return response;
+      },
+    )();
+
+    return response;
   }
 
   #getToken(): string | undefined {
@@ -144,6 +173,20 @@ class RequestBuilder {
     }
 
     return this.#sessionStorage.get('token');
+  }
+
+  #getAllureStepName(): string {
+    const method = (this.#options.method ?? 'get').toUpperCase();
+    const url = this.#options.url ?? '/';
+
+    const qs = this.#options.searchParams
+      ? '?' +
+        Object.entries(this.#options.searchParams)
+          .map(([name, value]) => `${name}=${value}`)
+          .join('&')
+      : '';
+
+    return `${method} ${url}${qs}`;
   }
 }
 

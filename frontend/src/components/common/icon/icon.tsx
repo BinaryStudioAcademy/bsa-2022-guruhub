@@ -10,6 +10,7 @@ import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/trash-can-solid.svg';
+import { ReactComponent as UamIcon } from 'assets/icons/uam.svg';
 import { FC, IconName, SVGProps } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
 
@@ -28,6 +29,7 @@ const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   search: SearchIcon,
   leftArrow: LeftArrow,
   interview: Interview,
+  uam: UamIcon,
 };
 
 type Props = {

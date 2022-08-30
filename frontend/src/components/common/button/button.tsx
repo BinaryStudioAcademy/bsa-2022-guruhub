@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 type Props = {
   label: string;
   hasVisuallyHiddenLabel?: boolean;
-  btnColor?: 'blue' | 'gray';
+  btnColor?: 'blue' | 'gray' | 'red';
   type?: 'button' | 'submit';
   btnType?: 'filled' | 'outlined' | 'upload' | 'icon';
   to?: AppRoute;
