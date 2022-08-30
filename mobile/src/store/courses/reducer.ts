@@ -1,12 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/common/enums/enums';
-import { CourseGetResponseDto } from '~/common/types/types';
+import {
+  CourseGetResponseDto,
+  UserDetailsResponseDto,
+} from '~/common/types/types';
 
 import {
   addCourse,
   getCourse,
   getCourses,
+  getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateVisibilityBecomeMentor,
 } from './actions';
@@ -14,6 +18,7 @@ import {
 type State = {
   dataStatus: DataStatus;
   courses: CourseGetResponseDto[];
+  mentors: UserDetailsResponseDto[];
   course: CourseGetResponseDto | null;
   isMentorBecomingVisible: boolean;
 };
@@ -21,6 +26,7 @@ type State = {
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   courses: [],
+  mentors: [],
   course: null,
   isMentorBecomingVisible: false,
 };
@@ -65,6 +71,12 @@ const reducer = createReducer(initialState, (builder) => {
   );
   builder.addCase(setBecomeMentorInvisible.fulfilled, (state, { payload }) => {
     state.isMentorBecomingVisible = payload;
+  });
+  builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
+    state.mentors = payload;
+  });
+  builder.addCase(getMentorsByCourseId.rejected, (state) => {
+    state.mentors = [];
   });
 });
 

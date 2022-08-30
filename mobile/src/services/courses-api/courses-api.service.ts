@@ -6,8 +6,10 @@ import {
 } from '~/common/enums/enums';
 import {
   CourseFilteringDto,
+  CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -60,6 +62,23 @@ class Courses {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify({ url }),
+      },
+    );
+  }
+
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.GET,
+        queryParams: {
+          mentorName: filteringOpts.mentorName,
+        },
       },
     );
   }

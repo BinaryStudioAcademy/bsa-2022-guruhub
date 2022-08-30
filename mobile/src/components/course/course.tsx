@@ -43,6 +43,14 @@ const Course: FC = () => {
   useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+      dispatch(
+        coursesActions.getMentorsByCourseId({
+          courseId: course.id,
+          filteringOpts: {
+            mentorName: '',
+          },
+        }),
+      );
     }
   }, [course]);
 

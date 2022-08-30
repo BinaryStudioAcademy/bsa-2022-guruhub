@@ -3,8 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   CourseFilteringDto,
+  CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
 
@@ -47,6 +49,17 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
+const getMentorsByCourseId = createAsyncThunk<
+  UserDetailsResponseDto[],
+  CourseGetMentorsRequestDto,
+  AsyncThunkConfig
+>(ActionType.GET_MENTORS, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const mentors = await coursesApi.getMentorsByCourseId(payload);
+
+  return mentors;
+});
+
 const updateVisibilityBecomeMentor = createAsyncThunk<
   boolean,
   void,
@@ -67,6 +80,7 @@ export {
   addCourse,
   getCourse,
   getCourses,
+  getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateVisibilityBecomeMentor,
 };
