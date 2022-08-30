@@ -93,7 +93,7 @@ const Course: FC = () => {
           source={{ uri: course?.imageUrl ?? getImageUri(defaultCourseImage) }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {Boolean(dataCourse.description) && (
+        {dataCourse.description && (
           <Content html={dataCourse.description} width={width} />
         )}
         <CourseModules />
