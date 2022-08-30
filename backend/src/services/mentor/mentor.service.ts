@@ -64,11 +64,7 @@ class Mentor {
     const isMentor = Boolean(courseToMentor);
     const hasMentor = Boolean(menteesToMentors);
 
-    if (isMentor || hasMentor) {
-      return true;
-    }
-
-    return false;
+    return isMentor || hasMentor;
   }
 }
 

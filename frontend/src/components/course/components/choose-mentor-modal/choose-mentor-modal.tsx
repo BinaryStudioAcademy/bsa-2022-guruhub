@@ -7,7 +7,7 @@ type Props = {
   mentors: UserDetailsResponseDto[];
   isOpen: boolean;
   onModalToggle: (evt: React.MouseEvent) => void;
-  onMentorSelectClick: (mentorId: number) => void;
+  onMentorSelectClick: (mentorId: number, evt: React.MouseEvent) => void;
   onMentorSearch: (mentorName: string) => void;
 };
 

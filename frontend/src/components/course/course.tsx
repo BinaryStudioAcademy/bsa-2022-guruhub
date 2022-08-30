@@ -65,16 +65,19 @@ const Course: FC = () => {
   const [isChooseMentorModalOpen, setChooseMentorModalOpen] =
     useState<boolean>(false);
 
-  const handleChooseMentorModalToggle = (evt?: React.MouseEvent): void => {
-    evt?.stopPropagation();
+  const handleChooseMentorModalToggle = (evt: React.MouseEvent): void => {
+    evt.stopPropagation();
     setChooseMentorModalOpen((prev) => !prev);
   };
 
-  const handleMentorSelectClick = (mentorId: number): void => {
+  const handleMentorSelectClick = (
+    mentorId: number,
+    evt: React.MouseEvent,
+  ): void => {
     dispatch(courseActions.chooseMentor({ id: mentorId }))
       .unwrap()
       .then(() => {
-        handleChooseMentorModalToggle();
+        handleChooseMentorModalToggle(evt);
       });
   };
 
@@ -107,7 +110,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(courseActions.updateIsMentorBecomingEnabled());
-    dispatch(courseActions.updateisMentorChoosingEnabled({ id: Number(id) }));
+    dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());

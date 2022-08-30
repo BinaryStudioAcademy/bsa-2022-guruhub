@@ -18,7 +18,7 @@ import {
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
 } from './actions';
 
 type State = {
@@ -121,7 +121,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorChoosingEnabled = false;
   });
   builder.addCase(
-    updateisMentorChoosingEnabled.fulfilled,
+    updateIsMentorChoosingEnabled.fulfilled,
     (state, { payload }) => {
       state.isMentorChoosingEnabled = payload;
     },

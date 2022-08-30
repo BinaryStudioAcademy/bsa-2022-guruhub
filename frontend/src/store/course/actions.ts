@@ -169,7 +169,7 @@ const chooseMentor = createAsyncThunk<
   return;
 });
 
-const updateisMentorChoosingEnabled = createAsyncThunk<
+const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
   CourseGetRequestParamsDto,
   AsyncThunkConfig
@@ -219,5 +219,5 @@ export {
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
 };
