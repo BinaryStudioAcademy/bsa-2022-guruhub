@@ -92,6 +92,7 @@ export {
 export {
   type TaskNoteGetItemResponseDto,
   type TaskNoteManipulateRequestBodyDto,
+  type TaskNoteManipulateRequestDto,
 } from './task-note/task-note';
 export { type IconName, type SelectorOption } from './ui/ui';
 export {

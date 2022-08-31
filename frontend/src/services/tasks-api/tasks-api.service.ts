@@ -10,7 +10,7 @@ import {
   TaskGetByMenteeIdAndModuleId,
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
-  TaskNoteManipulateRequestBodyDto,
+  TaskNoteManipulateRequestDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -29,16 +29,16 @@ class TasksApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public manipulate(
-    taskId: number,
-    payload: TaskNoteManipulateRequestBodyDto,
-  ): Promise<TaskNoteGetItemResponseDto> {
+  public manipulate({
+    body,
+    taskId,
+  }: TaskNoteManipulateRequestDto): Promise<TaskNoteGetItemResponseDto> {
     return this.#http.load<TaskNoteGetItemResponseDto>(
       `${this.#apiPrefix}${ApiPath.TASKS}${taskId}`,
       {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
-        payload: JSON.stringify(payload),
+        payload: JSON.stringify(body),
       },
     );
   }
@@ -46,8 +46,8 @@ class TasksApi {
   public getByMenteeIdAndModuleId({
     menteeId,
     moduleId,
-  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
-    return this.#http.load<TaskGetItemReponseDto | null>(
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto> {
+    return this.#http.load<TaskGetItemReponseDto>(
       `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.MODULES}/${moduleId}${
         TasksApiPath.MENTEES
       }${menteeId}`,
