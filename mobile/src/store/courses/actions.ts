@@ -9,7 +9,10 @@ import {
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
-import { createInterview } from '~/store/interviews/actions';
+import {
+  createInterview,
+  getPassedInterviewCategoryIds,
+} from '~/store/interviews/actions';
 
 import { ActionType } from './common';
 
@@ -93,11 +96,23 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
     if (!user || !course) {
       return;
     }
-    const payload = {
-      intervieweeUserId: user.id,
-      categoryId: course.courseCategoryId,
-    };
-    dispatch(createInterview(payload));
+
+    const passedCategoryInterviews = await dispatch(
+      getPassedInterviewCategoryIds(user.id),
+    );
+    const isCategoryPassed = (
+      passedCategoryInterviews.payload as number[]
+    ).includes(course.courseCategoryId);
+
+    if (isCategoryPassed) {
+      //todo
+    } else {
+      const payload = {
+        intervieweeUserId: user.id,
+        categoryId: course.courseCategoryId,
+      };
+      dispatch(createInterview(payload));
+    }
   },
 );
 
