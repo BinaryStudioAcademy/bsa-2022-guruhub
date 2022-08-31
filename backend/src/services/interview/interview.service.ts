@@ -163,9 +163,9 @@ class Interview {
   }
 
   public createNote(
-    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+    interviewNoteCreateDto: InterviewNoteCreateRequestArgumentsDto,
   ): Promise<InterviewNoteGetAllItemResponseDto> {
-    return this.#interviewNoteService.create(interviewNotCreateDto);
+    return this.#interviewNoteService.create(interviewNoteCreateDto);
   }
 
   public async getOtherByInterviewId({

@@ -6,9 +6,11 @@ import {
   courseModulesApi,
   coursesApi,
   groupsApi,
+  interviewersApi,
   notification,
   permissionsApi,
   storage,
+  userDetailsApi,
   usersApi,
 } from '~/services/services';
 
@@ -20,11 +22,13 @@ const extraArgument = {
   groupsApi,
   notification,
   storage,
+  userDetailsApi,
   usersApi,
   permissionsApi,
   coursesApi,
   categoriesApi,
   courseModulesApi,
+  interviewersApi,
 };
 
 const store = configureStore({

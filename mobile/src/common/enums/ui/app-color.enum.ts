@@ -7,8 +7,13 @@ const AppColor = {
   },
   BRAND: {
     BLUE_100: '#2563EB',
+    BLUE_200: '#03D7FC',
     PINK_100: '#C565C7',
+    PINK_200: '#D605E8',
+    PURPLE_100: '#7E19F7',
     GREEN_100: '#15BE4F',
+    RED_100: '#F64848',
+    YELLOW_300: '#ECBC02',
     YELLOW_200: '#F6C648',
     YELLOW_100: '#FEEAAA',
   },

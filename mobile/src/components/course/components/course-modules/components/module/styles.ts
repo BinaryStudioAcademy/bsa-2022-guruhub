@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     marginLeft: 14,
+    paddingRight: 20,
   },
   title: {
     fontFamily: AppFontFamily.INTER_600,
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_200,
     fontSize: 14,
     lineHeight: 19,
-    paddingRight: 20,
   },
 });
 

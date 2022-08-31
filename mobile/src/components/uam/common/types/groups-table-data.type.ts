@@ -4,6 +4,7 @@ type GroupsTableData = {
   id: number;
   name: string;
   key: string;
+  createdAt: string;
   action?: ReactElement;
 };
 
