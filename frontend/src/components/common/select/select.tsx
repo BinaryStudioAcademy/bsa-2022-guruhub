@@ -7,7 +7,7 @@ import {
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
-import ReactSelect from 'react-select';
+import ReactSelect, { SingleValue } from 'react-select';
 
 import styles from './styles.module.scss';
 
@@ -36,6 +36,15 @@ const Select: FC<Props> = ({
 }) => {
   const { field } = useFormControl({ name, control });
 
+  const getOptionValue = (
+    value: string,
+  ): SelectorOption<string | number> | undefined => {
+    return options.find((c) => c.value === value);
+  };
+
+  const onChange = (val: SingleValue<SelectorOption<string | number>>): void =>
+    field.onChange(val?.value);
+
   return (
     <div
       className={getValidClasses(className, styles.wrapper)}
@@ -53,12 +62,9 @@ const Select: FC<Props> = ({
       </label>
       <ReactSelect
         options={options}
-        {...field}
-        defaultValue={options.find(
-          (c) => c.value === String(defaultCategoryId),
-        )}
-        value={options.find((c) => c.value === field.value)}
-        onChange={(val): void => field.onChange(val?.value)}
+        defaultValue={getOptionValue(String(defaultCategoryId))}
+        value={getOptionValue(field.value)}
+        onChange={onChange}
         name={name}
         isSearchable={false}
         className={styles.select}
