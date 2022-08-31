@@ -8,7 +8,6 @@ import {
 } from 'common/types/types';
 
 import {
-  checkIsMentor,
   chooseMentor,
   createMentor,
   disableMentorBecoming,
@@ -32,8 +31,7 @@ type State = {
   isMentorChoosingEnabled: boolean;
   mentors: UserDetailsResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
-  menteesByCourseId: UserDetailsResponseDto[];
-  isMentorOnTheCourse: boolean;
+  menteesByCourseId: UserDetailsResponseDto[] | null;
 };
 
 const initialState: State = {
@@ -45,8 +43,7 @@ const initialState: State = {
   isMentorChoosingEnabled: false,
   mentors: [],
   categories: [],
-  menteesByCourseId: [],
-  isMentorOnTheCourse: false,
+  menteesByCourseId: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -144,16 +141,6 @@ const reducer = createReducer(initialState, (builder) => {
     state.menteesByCourseId = payload;
   });
   builder.addCase(getMenteesByCourseId.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-  builder.addCase(checkIsMentor.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.isMentorOnTheCourse = payload;
-  });
-  builder.addCase(checkIsMentor.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

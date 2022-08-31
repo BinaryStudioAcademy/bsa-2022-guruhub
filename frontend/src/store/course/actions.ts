@@ -117,14 +117,20 @@ const getMentorsByCourseId = createAsyncThunk<
 });
 
 const getMenteesByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UserDetailsResponseDto[] | null,
   CourseGetRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTOR_MENTEES, async (payload, { extra }) => {
   const { coursesApi } = extra;
-  const mentees = await coursesApi.getMenteesByCourseId(payload.id);
+  const isMentorCheck = await coursesApi.checkIsMentor({
+    courseId: payload.id,
+  });
 
-  return mentees;
+  if (!isMentorCheck) {
+    return null;
+  }
+
+  return coursesApi.getMenteesByCourseId(payload.id);
 });
 
 const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(

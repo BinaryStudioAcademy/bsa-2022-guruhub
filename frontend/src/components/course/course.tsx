@@ -38,7 +38,6 @@ const Course: FC = () => {
     mentors,
     mentees,
     isMentorChoosingEnabled,
-    isMentorOnTheCourse,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -49,7 +48,6 @@ const Course: FC = () => {
     mentors: course.mentors,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
     mentees: course.menteesByCourseId,
-    isMentorOnTheCourse: course.isMentorOnTheCourse,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -96,6 +94,7 @@ const Course: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
     dispatch(
@@ -109,7 +108,6 @@ const Course: FC = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    dispatch(courseActions.checkIsMentor({ id: Number(id) }));
     dispatch(courseActions.updateIsMentorBecomingEnabled());
     dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
 
@@ -123,12 +121,6 @@ const Course: FC = () => {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
     }
   }, [user]);
-
-  useEffect(() => {
-    if (isMentorOnTheCourse) {
-      dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
-    }
-  }, [isMentorOnTheCourse]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -191,7 +183,7 @@ const Course: FC = () => {
         </div>
       </div>
       <div className={styles.rightBlock}>
-        {isMentorOnTheCourse && <MyStudentsContainer mentees={mentees} />}
+        {mentees && <MyStudentsContainer mentees={mentees} />}
       </div>
       <div className={styles.rightBlock}>
         {isMentorChoosingEnabled && (
