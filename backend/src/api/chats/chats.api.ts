@@ -2,13 +2,13 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { ChatsApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
-  ChatMessageCreateRequestParamsDto,
+  ChatMessageCreateRequestBodyDto,
   ChatMessageGetAllRequestParamsDto,
 } from '~/common/types/types';
 import { chatMessage as chatMessageService } from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
-  chatMessageGetAll as chatMessageGetAllValidationSchema,
+  chatMessageGetAllParams as chatMessageGetAllParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -36,7 +36,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: ChatsApiPath.$ID,
     schema: {
-      params: chatMessageGetAllValidationSchema,
+      params: chatMessageGetAllParamsValidationSchema,
     },
     async handler(
       req: FastifyRequest<{ Params: ChatMessageGetAllRequestParamsDto }>,
@@ -58,7 +58,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: ChatsApiPath.ROOT,
     schema: { body: chatMessageCreateArgumentsValidationSchema },
     async handler(
-      req: FastifyRequest<{ Body: ChatMessageCreateRequestParamsDto }>,
+      req: FastifyRequest<{ Body: ChatMessageCreateRequestBodyDto }>,
       rep,
     ) {
       const { id: userId } = req.user;

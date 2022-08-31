@@ -1,4 +1,4 @@
 export {
   chatMessageCreateArguments,
-  chatMessageGetAll,
+  chatMessageGetAllParams,
 } from 'guruhub-shared/validation-schemas/validation-schemas';
