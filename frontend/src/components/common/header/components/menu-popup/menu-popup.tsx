@@ -1,30 +1,30 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button } from 'components/common/common';
-import { useAppDispatch, useHandleClickOutside, useRef } from 'hooks/hooks';
+import { useAppDispatch, useHandleClickOutside } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  onClose: (evt: React.MouseEvent | void) => void;
+  onClose: () => void;
 };
 
 const Popup: FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
-  const popupRef = useRef<HTMLDivElement>(null);
-  useHandleClickOutside({
-    ref: popupRef,
-    onClick: onClose,
-  });
+
+  const { handleDisableContentContainerClick, handleOutsideClick } =
+    useHandleClickOutside({
+      onClose,
+    });
 
   const handleLogout = (): void => {
     dispatch(authActions.logout()).unwrap().then(onClose);
   };
 
   return (
-    <div className={styles.popup} ref={popupRef}>
-      <ul className={styles.ul}>
+    <div className={styles.popup} onClick={handleOutsideClick}>
+      <ul className={styles.ul} onClick={handleDisableContentContainerClick}>
         <li className={styles.li}>
           <div>
             <Button
@@ -36,7 +36,11 @@ const Popup: FC<Props> = ({ onClose }) => {
         </li>
         <li className={styles.li}>
           <div>
-            <Button label="Sign Out" onClick={handleLogout} />
+            <Button
+              label="Sign Out"
+              onClick={handleLogout}
+              className={styles.signOut}
+            />
           </div>
         </li>
       </ul>
