@@ -18,7 +18,7 @@ import {
 
 type State = {
   dataStatus: DataStatus;
-  dateBecomeMentorStatus: DataStatus;
+  dataBecomeMentorStatus: DataStatus;
   courses: CourseGetResponseDto[];
   mentors: UserDetailsResponseDto[];
   course: CourseGetResponseDto | null;
@@ -27,7 +27,7 @@ type State = {
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  dateBecomeMentorStatus: DataStatus.IDLE,
+  dataBecomeMentorStatus: DataStatus.IDLE,
   courses: [],
   mentors: [],
   course: null,
@@ -82,10 +82,10 @@ const reducer = createReducer(initialState, (builder) => {
     state.mentors = [];
   });
   builder.addCase(becomeMentor.pending, (state) => {
-    state.dateBecomeMentorStatus = DataStatus.PENDING;
+    state.dataBecomeMentorStatus = DataStatus.PENDING;
   });
   builder.addCase(becomeMentor.fulfilled, (state) => {
-    state.dateBecomeMentorStatus = DataStatus.FULFILLED;
+    state.dataBecomeMentorStatus = DataStatus.FULFILLED;
   });
 });
 

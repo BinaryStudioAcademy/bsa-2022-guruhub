@@ -14,7 +14,7 @@ type Props = {
 
 const BecomeMentor: FC<Props> = ({ onPress }) => {
   const dataStatus = useAppSelector(
-    ({ courses }) => courses.dateBecomeMentorStatus,
+    ({ courses }) => courses.dataBecomeMentorStatus,
   );
 
   if (dataStatus == DataStatus.PENDING) {
