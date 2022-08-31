@@ -6,6 +6,7 @@ import {
   InterviewsCreateRequestDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetByUserIdRequestDto,
+  InterviewsGetInterviewerResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestArgumentsDto,
 } from '~/common/types/types';
@@ -44,6 +45,21 @@ class Interview {
       items,
       total: total.length,
     };
+  }
+
+  public getInterviewersByCategoryId(
+    categoryId: number,
+  ): Promise<InterviewsGetInterviewerResponseDto[]> {
+    return this.#InterviewModel
+      .query()
+      .select('interviewer')
+      .where({ categoryId })
+      .where('status', InterviewStatus.COMPLETED)
+      .withGraphJoined(
+        'interviewee(withoutPassword) as interviewer.userDetails',
+      )
+      .castTo<InterviewsGetInterviewerResponseDto[]>()
+      .execute();
   }
 
   public getById(id: number): Promise<InterviewsByIdResponseDto | null> {
@@ -124,6 +140,23 @@ class Interview {
       .orWhere('interviewerUserId', userId);
 
     return { items, total: total.length };
+  }
+
+  public update(interview: {
+    id: number;
+    interviewerUserId: number;
+  }): Promise<InterviewsByIdResponseDto> {
+    const { id, interviewerUserId } = interview;
+
+    return this.#InterviewModel
+      .query()
+      .select()
+      .patchAndFetchById(id, { interviewerUserId })
+      .withGraphFetched(
+        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+      )
+      .castTo<InterviewsByIdResponseDto>()
+      .execute();
   }
 
   public async getOtherByInterviewId({

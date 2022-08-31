@@ -7,11 +7,19 @@ import {
   ValidationSchema,
 } from 'common/types/types';
 import { getFormValidationResolver } from 'helpers/helpers';
-import { useForm, UseFormHandleSubmit, UseFormReset } from 'react-hook-form';
+import {
+  FieldValues,
+  useForm,
+  UseFormHandleSubmit,
+  UseFormReset,
+  UseFormWatch,
+  ValidationMode,
+} from 'react-hook-form';
 
 type UseAppFormArgs = {
   defaultValues: Record<string, unknown>;
   validationSchema?: ValidationSchema;
+  mode?: keyof ValidationMode;
 };
 
 type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
@@ -19,6 +27,7 @@ type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   errors: FormControlErrors;
   setValue: FormControlSetValues;
   getValues: FormControlGetValues;
+  watch: UseFormWatch<FieldValues>;
   handleSubmit: UseFormHandleSubmit<T>;
   reset: UseFormReset<T>;
 };
@@ -26,6 +35,7 @@ type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
 const useAppForm = <T extends FormControlValues = FormControlValues>({
   validationSchema,
   defaultValues,
+  mode,
 }: UseAppFormArgs): UseAppFormResult<T> => {
   const {
     control,
@@ -33,8 +43,10 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     setValue,
     getValues,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormControlValues>({
+    mode,
     defaultValues,
     resolver: validationSchema
       ? getFormValidationResolver(validationSchema)
@@ -46,6 +58,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     setValue,
     getValues,
     reset,
+    watch,
     control,
     errors,
   };

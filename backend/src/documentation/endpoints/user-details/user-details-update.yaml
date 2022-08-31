@@ -1,0 +1,19 @@
+summary: Update user details
+tags:
+  - userDetails
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/user-details/user-details-update-request-dto.yaml'
+responses:
+  '200':
+    description: User details were updated successfully
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/user-details/user-details-response-dto.yaml'
+  '400':
+    description: Invalid data sent
+security:
+  - bearerAuth: []

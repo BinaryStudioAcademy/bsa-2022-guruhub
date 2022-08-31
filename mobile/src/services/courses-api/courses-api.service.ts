@@ -8,6 +8,7 @@ import {
   CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseUpdateCategoryRequestArguments,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -60,6 +61,22 @@ class Courses {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify({ url }),
+      },
+    );
+  }
+
+  public updateCategory({
+    courseId,
+    newCategoryId,
+  }: CourseUpdateCategoryRequestArguments): Promise<CourseGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.CATEGORY
+      }`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ newCategoryId }),
       },
     );
   }

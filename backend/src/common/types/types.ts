@@ -15,6 +15,7 @@ export {
   type CourseUpdateRequestParamsDto,
 } from './course/course';
 export {
+  type CategoryGetAllItemResponseDto,
   type CategoryGetAllResponseDto,
   type CourseCategoryGetByIdRequestParamsDto,
   type CourseCategoryGetResponseDto,
@@ -59,10 +60,14 @@ export {
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetAllRequestDto,
   type InterviewsGetByUserIdRequestDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestArgumentsDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from './interview/interview';
 export {
   type InterviewNoteCreateRequestArgumentsDto,

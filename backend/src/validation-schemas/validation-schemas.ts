@@ -23,6 +23,9 @@ export {
   interviewByIdParams,
   interviewByIntervieweeId,
   interviewCreate,
+  interviewGetInterviewersByCategory,
+  interviewUpdate,
+  interviewUpdateParams,
 } from './interview/interview';
 export {
   interviewNotesCreateArguments,

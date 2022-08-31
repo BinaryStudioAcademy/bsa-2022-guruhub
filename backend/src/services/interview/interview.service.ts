@@ -13,9 +13,11 @@ import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetAllRequestDto,
   InterviewsGetByUserIdRequestDto,
+  InterviewsGetInterviewerResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
+  InterviewsUpdateRequestDto,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
@@ -69,6 +71,12 @@ class Interview {
     const interview = await this.#interviewRepository.getById(id);
 
     return interview ?? null;
+  }
+
+  public getInterviewersByCategoryId(
+    interviewId: number,
+  ): Promise<InterviewsGetInterviewerResponseDto[]> {
+    return this.#interviewRepository.getInterviewersByCategoryId(interviewId);
   }
 
   public async create({
@@ -133,6 +141,21 @@ class Interview {
     });
   }
 
+  public async update(data: {
+    id: number;
+    interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
+  }): Promise<InterviewsByIdResponseDto> {
+    const { id, interviewUpdateInfoRequestDto } = data;
+    const { interviewerUserId } = interviewUpdateInfoRequestDto;
+
+    const interview = await this.#interviewRepository.update({
+      id,
+      interviewerUserId,
+    });
+
+    return interview;
+  }
+
   public getAllNotes(
     interviewId: number,
   ): Promise<InterviewNoteGetAllResponseDto> {
@@ -140,9 +163,9 @@ class Interview {
   }
 
   public createNote(
-    interviewNotCreateDto: InterviewNoteCreateRequestArgumentsDto,
+    interviewNoteCreateDto: InterviewNoteCreateRequestArgumentsDto,
   ): Promise<InterviewNoteGetAllItemResponseDto> {
-    return this.#interviewNoteService.create(interviewNotCreateDto);
+    return this.#interviewNoteService.create(interviewNoteCreateDto);
   }
 
   public async getOtherByInterviewId({
