@@ -75,6 +75,7 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
+  type UserGetMentorParamsDto,
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
