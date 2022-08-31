@@ -67,7 +67,10 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const { menteeId, moduleId } = req.params;
-      const task = taskService.getByMenteeIdAndModuleId({ menteeId, moduleId });
+      const task = await taskService.getByMenteeIdAndModuleId({
+        menteeId,
+        moduleId,
+      });
       rep.status(HttpCode.OK).send(task);
     },
   });

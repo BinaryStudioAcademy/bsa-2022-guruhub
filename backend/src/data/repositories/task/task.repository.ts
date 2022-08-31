@@ -34,7 +34,7 @@ class Task {
       .query()
       .where('tasks.moduleId', moduleId)
       .andWhere('menteesToMentors.menteeId', menteeId)
-      .withGraphFetched('menteesToMentors')
+      .withGraphJoined('menteesToMentors')
       .first();
 
     return task ?? null;
