@@ -13,10 +13,10 @@ type Constructor = {
 };
 
 class TaskNote {
-  #TaskNodeModel: typeof TaskNoteM;
+  #TaskNoteModel: typeof TaskNoteM;
 
   public constructor({ TaskNoteModel }: Constructor) {
-    this.#TaskNodeModel = TaskNoteModel;
+    this.#TaskNoteModel = TaskNoteModel;
   }
 
   public async getAll({
@@ -26,7 +26,7 @@ class TaskNote {
   }: TaskNoteGetAllArgumentsDto): Promise<
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
-    const { results, total } = await this.#TaskNodeModel
+    const { results, total } = await this.#TaskNoteModel
       .query()
       .where({ taskId })
       .withGraphFetched('author(withoutPassword).[userDetails]')
@@ -45,7 +45,7 @@ class TaskNote {
     note,
     status,
   }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
-    return this.#TaskNodeModel
+    return this.#TaskNoteModel
       .query()
       .insert({ authorId, taskId, note, status })
       .withGraphFetched('author(withoutPassword).[userDetails]')
