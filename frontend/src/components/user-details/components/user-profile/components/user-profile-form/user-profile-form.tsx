@@ -1,5 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css';
-
 import { DataStatus, UserGender } from 'common/enums/enums';
 import {
   FC,

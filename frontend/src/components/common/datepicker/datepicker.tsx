@@ -1,3 +1,5 @@
+import 'react-datepicker/dist/react-datepicker.css';
+
 import {
   FC,
   FormControl,
@@ -20,15 +22,21 @@ type Props = {
 const Datepicker: FC<Props> = ({ control, name, label, errors }) => {
   const { field } = useFormControl({ name, control });
 
+  const handleChange = (date: Date | null): void => {
+    field.onChange(date);
+  };
+
+  const getDayClassName = (): string => styles.datePickerDay;
+
   return (
     <div className={styles.dateWrapper}>
       <span className={styles.bdLabel}>{label}</span>
       <DatePicker
         selected={field.value}
-        onChange={(date): void => field.onChange(date)}
+        onChange={handleChange}
         className={styles.datePickerInput}
         calendarClassName={styles.datePicker}
-        dayClassName={(): string => styles.datePickerDay}
+        dayClassName={getDayClassName}
         showYearDropdown
         showMonthDropdown
         dropdownMode="select"
