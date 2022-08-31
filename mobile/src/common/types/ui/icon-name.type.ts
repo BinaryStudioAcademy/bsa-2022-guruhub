@@ -10,6 +10,9 @@ type IconName =
   | 'book'
   | 'uam'
   | 'plus'
-  | 'trash';
+  | 'edit'
+  | 'save'
+  | 'trash'
+  | 'interview';
 
 export { type IconName };

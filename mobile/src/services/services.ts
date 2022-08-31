@@ -8,9 +8,11 @@ import { CourseModulesApi } from './course-modules-api/course-modules-api.servic
 import { Courses } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
+import { InterviewsApi } from './interviews-api/interviews-api.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api.service';
 import { Storage } from './storage/storage.service';
+import { UserDetailsApi } from './user-details-api/user-details-api.service';
 import { UsersApi } from './users-api/users-api.service';
 
 const storage = new Storage({
@@ -30,6 +32,11 @@ const groupsApi = new GroupsApi({
 });
 
 const usersApi = new UsersApi({
+  http,
+  apiPrefix: ENV.APP.API_PATH,
+});
+
+const userDetailsApi = new UserDetailsApi({
   http,
   apiPrefix: ENV.APP.API_PATH,
 });
@@ -56,14 +63,21 @@ const courseModulesApi = new CourseModulesApi({
   apiPrefix: ENV.APP.API_PATH,
 });
 
+const interviewersApi = new InterviewsApi({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
+
 export {
   authApi,
   categoriesApi,
   courseModulesApi,
   coursesApi,
   groupsApi,
+  interviewersApi,
   notification,
   permissionsApi,
   storage,
+  userDetailsApi,
   usersApi,
 };
