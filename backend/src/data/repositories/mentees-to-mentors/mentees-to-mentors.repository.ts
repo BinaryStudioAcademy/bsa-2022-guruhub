@@ -30,15 +30,16 @@ class MenteesToMentors {
   public async getByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
-  }): Promise<MenteesToMentorsM | null> {
+  }): Promise<boolean> {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
+      .select(1)
       .where({ courseId })
       .andWhere({ menteeId })
       .first();
 
-    return menteeToMentor ?? null;
+    return !!menteeToMentor;
   }
 }
 

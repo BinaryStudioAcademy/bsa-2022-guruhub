@@ -20,11 +20,10 @@ class CoursesToMentors {
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsResponseDto> {
-    const courseToMentor = await this.getByUserIdAndCourseId({
+    const isMentor = await this.getByUserIdAndCourseId({
       courseId,
       userId,
     });
-    const isMentor = Boolean(courseToMentor);
 
     if (isMentor) {
       throw new CoursesToMentorsError();
@@ -39,7 +38,7 @@ class CoursesToMentors {
   public getByUserIdAndCourseId({
     courseId,
     userId,
-  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsResponseDto | null> {
+  }: CoursesToMentorsRequestDto): Promise<boolean> {
     return this.#coursesToMentorsRepository.getByUserIdAndCourseId({
       courseId,
       userId,
