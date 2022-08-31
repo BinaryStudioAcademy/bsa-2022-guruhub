@@ -7,6 +7,7 @@ import {
   coursesApi,
   groupsApi,
   interviewersApi,
+  mentorsApi,
   notification,
   permissionsApi,
   storage,
@@ -18,15 +19,16 @@ import { rootReducer } from './root-reducer';
 
 const extraArgument = {
   authApi,
-  groupsApi,
-  notification,
-  storage,
-  usersApi,
-  permissionsApi,
-  coursesApi,
   categoriesApi,
   courseModulesApi,
+  coursesApi,
+  groupsApi,
   interviewersApi,
+  mentorsApi,
+  notification,
+  permissionsApi,
+  storage,
+  usersApi,
 };
 
 const store = configureStore({

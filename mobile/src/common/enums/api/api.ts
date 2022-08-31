@@ -4,5 +4,6 @@ export {
   CategoriesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   UsersApiPath,
 } from 'guruhub-shared/common/enums/enums';

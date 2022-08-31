@@ -6,6 +6,9 @@ import {
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CoursesToMentorsRequestDto,
+  CoursesToMentorsResponseDto,
+  InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
@@ -85,6 +88,16 @@ const setBecomeMentorInvisible = createAsyncThunk<
   return false;
 });
 
+const createMentor = createAsyncThunk<
+  CoursesToMentorsResponseDto,
+  CoursesToMentorsRequestDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_MENTOR, async (payload, { extra }) => {
+  const { mentorsApi } = extra;
+
+  return mentorsApi.create(payload);
+});
+
 const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.BECOME_MENTOR,
   async (_, { dispatch, getState }) => {
@@ -105,9 +118,13 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
     ).includes(course.courseCategoryId);
 
     if (isCategoryPassed) {
-      //todo
+      const payload: CoursesToMentorsRequestDto = {
+        userId: user.id,
+        courseId: course.id,
+      };
+      dispatch(createMentor(payload));
     } else {
-      const payload = {
+      const payload: InterviewsCreateRequestBodyDto = {
         intervieweeUserId: user.id,
         categoryId: course.courseCategoryId,
       };
@@ -119,6 +136,7 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
 export {
   addCourse,
   becomeMentor,
+  createMentor,
   getCourse,
   getCourses,
   getMentorsByCourseId,

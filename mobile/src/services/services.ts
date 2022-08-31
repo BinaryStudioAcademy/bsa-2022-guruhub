@@ -1,6 +1,7 @@
 import { MMKV } from 'react-native-mmkv';
 
 import { ENV } from '~/common/enums/enums';
+import { MentorsApi } from '~/services/mentors-api/mentors-api.service';
 
 import { AuthApi } from './auth-api/auth-api.service';
 import { CategoriesApi } from './categories-api/categories-api.service';
@@ -62,6 +63,11 @@ const interviewersApi = new InterviewsApi({
   http,
 });
 
+const mentorsApi = new MentorsApi({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
+
 export {
   authApi,
   categoriesApi,
@@ -69,6 +75,7 @@ export {
   coursesApi,
   groupsApi,
   interviewersApi,
+  mentorsApi,
   notification,
   permissionsApi,
   storage,

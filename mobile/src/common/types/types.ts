@@ -42,6 +42,10 @@ export {
   type InterviewsResponseDto,
 } from './interviews/interviews';
 export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+} from './mentor/mentor';
+export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
   type DrawerNavigationItem,

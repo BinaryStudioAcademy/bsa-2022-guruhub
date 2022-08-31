@@ -4,6 +4,7 @@ export {
   CategoriesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   UsersApiPath,
 } from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
