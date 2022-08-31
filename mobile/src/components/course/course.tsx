@@ -40,7 +40,6 @@ const Course: FC = () => {
       modulesDataStatus: courseModules.dataStatus,
     }));
 
-  const dataCourse = course as CourseGetResponseDto;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const currentCategory = course?.category;
