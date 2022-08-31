@@ -37,15 +37,11 @@ const Settings: FC = () => {
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
-      defaultValues: {
-        ...DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
-      },
+      defaultValues: DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
 
-  const handleGetUsers = (): void => {
-    dispatch(userDetailsActions.getUserDetails());
-  };
+  const handleCancel = (): void => reset();
 
   const handleUpdateProfile = (
     payload: UserDetailsUpdateInfoRequestDto,
@@ -105,12 +101,14 @@ const Settings: FC = () => {
           <Button
             label="Cancel"
             variant={ButtonVariant.SECONDARY}
-            onPress={handleGetUsers}
+            onPress={handleCancel}
           />
           <Button label="Save" onPress={handleSubmit(handleUpdateProfile)} />
         </Stack>
       </View>
-      <Button label="Sign Out" onPress={handleLogout} />
+      <View style={styles.singOutWrapper}>
+        <Button label="Sign Out" onPress={handleLogout} />
+      </View>
     </View>
   );
 };

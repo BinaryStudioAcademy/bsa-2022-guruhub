@@ -6,19 +6,9 @@ const DEFAULT_UPDATE_USER_DETAILS_PAYLOAD: UserDetailsUpdateInfoRequestDto = {
   gender: UserGender.MALE,
 };
 
-const GENDER_OPTIONS = [
-  {
-    label: UserGender.MALE,
-    value: UserGender.MALE,
-  },
-  {
-    label: UserGender.FEMALE,
-    value: UserGender.FEMALE,
-  },
-  {
-    label: UserGender.OTHER,
-    value: UserGender.OTHER,
-  },
-];
+const GENDER_OPTIONS = Object.values(UserGender).map((gender) => ({
+  label: gender,
+  value: gender,
+}));
 
 export { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD, GENDER_OPTIONS };

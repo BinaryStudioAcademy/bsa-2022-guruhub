@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginVertical: 20,
   },
+  singOutWrapper: {
+    width: 215,
+    alignSelf: 'center',
+  },
 });
 
 export { styles };
