@@ -40,4 +40,14 @@ const createInterview = createAsyncThunk<void, void, AsyncThunkConfig>(
   },
 );
 
-export { createInterview, getInterviews };
+const getPassedInterviewCategoryIds = createAsyncThunk<
+  number[],
+  number,
+  AsyncThunkConfig
+>(ActionType.GET_PASSED_INTERVIEW_CATEGORY_IDS, async (payload, { extra }) => {
+  const { interviewersApi } = extra;
+
+  return interviewersApi.getPassedInterviewCategoryIds(payload);
+});
+
+export { createInterview, getInterviews, getPassedInterviewCategoryIds };

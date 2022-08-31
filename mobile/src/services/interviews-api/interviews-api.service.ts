@@ -58,6 +58,18 @@ class InterviewsApi {
       },
     );
   }
+
+  public getPassedInterviewCategoryIds(payload: number): Promise<number[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}
+      ${InterviewsApiPath.INTERVIEWEE}/${payload}${
+        InterviewsApiPath.CATEGORIES
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
 }
 
 export { InterviewsApi };
