@@ -23,6 +23,7 @@ import {
 
 describe('Get all permissions tests', () => {
   before(() => apiSessionStorage.addAndEnterSession('default'));
+
   after(() => apiSessionStorage.removeSession('default'));
 
   before('should log in as UAM manager', async () => {
