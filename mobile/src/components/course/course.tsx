@@ -40,23 +40,23 @@ const Course: FC = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (course) {
-      dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
-      dispatch(
-        coursesActions.getMentorsByCourseId({
-          courseId: course.id,
-          filteringOpts: {
-            mentorName: '',
-          },
-        }),
-      );
-    }
-  }, [course]);
-
   useFocusEffect(
     useCallback(() => {
-      dispatch(coursesActions.updateVisibilityBecomeMentor());
+      if (course) {
+        dispatch(
+          courseModulesActions.getCourseModules({ courseId: course.id }),
+        );
+        dispatch(
+          coursesActions.getMentorsByCourseId({
+            courseId: course.id,
+            filteringOpts: {
+              mentorName: '',
+            },
+          }),
+        )
+          .unwrap()
+          .then(() => dispatch(coursesActions.updateVisibilityBecomeMentor()));
+      }
 
       return () => {
         dispatch(coursesActions.setBecomeMentorInvisible());

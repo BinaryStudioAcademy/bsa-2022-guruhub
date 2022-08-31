@@ -64,8 +64,13 @@ const updateVisibilityBecomeMentor = createAsyncThunk<
   boolean,
   void,
   AsyncThunkConfig
->(ActionType.UPDATE_VISIBILITY_BECOME_MENTOR, async () => {
-  return true;
+>(ActionType.UPDATE_VISIBILITY_BECOME_MENTOR, async (_, { getState }) => {
+  const {
+    auth: { user },
+    courses: { mentors },
+  } = getState();
+
+  return !mentors.some((mentor) => mentor.id === user?.id);
 });
 
 const setBecomeMentorInvisible = createAsyncThunk<
