@@ -1,1 +1,1 @@
-export { SearchValue } from './search-values.enum';
+export { SearchValue } from './search-value.enum';
