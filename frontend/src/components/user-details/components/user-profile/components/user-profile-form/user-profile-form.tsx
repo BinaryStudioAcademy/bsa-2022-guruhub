@@ -6,7 +6,7 @@ import {
   SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
-import { Button, Input, Select } from 'components/common/common';
+import { Button, Datepicker, Input, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -15,8 +15,6 @@ import {
   useEffect,
   useMemo,
 } from 'hooks/hooks';
-import DatePicker from 'react-datepicker';
-import { Controller } from 'react-hook-form';
 import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
@@ -86,27 +84,12 @@ const UserProfileForm: FC = () => {
                 errors={errors}
                 placeholder="Enter your full name"
               />
-              <div className={styles.dateWrapper}>
-                <span className={styles.bdLabel}>Birth date</span>
-                <Controller
-                  control={control}
-                  name={getNameOf<UserDetailsUpdateInfoRequestDto>(
-                    'dateOfBirth',
-                  )}
-                  render={({ field }): JSX.Element => (
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date): void => field.onChange(date)}
-                      className={styles.datePickerInput}
-                      calendarClassName={styles.datePicker}
-                      dayClassName={(): string => styles.datePickerDay}
-                      showYearDropdown
-                      showMonthDropdown
-                      dropdownMode="select"
-                    />
-                  )}
-                />
-              </div>
+              <Datepicker
+                control={control}
+                errors={errors}
+                name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
+                label="Birth date"
+              />
             </div>
             <div className={styles.grid}>
               <Select

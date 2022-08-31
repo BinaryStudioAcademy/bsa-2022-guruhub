@@ -5,6 +5,7 @@ export { Button } from './button/button';
 export { Category } from './category/category';
 export { Checkbox } from './checkbox/checkbox';
 export { Content } from './content/content';
+export { Datepicker } from './datepicker/datepicker';
 export { Header } from './header/header';
 export { Icon } from './icon/icon';
 export { IconButton } from './icon-button/icon-button';
