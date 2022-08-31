@@ -1,4 +1,5 @@
 export {
+  type UserGetMentorRequestParamsDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,

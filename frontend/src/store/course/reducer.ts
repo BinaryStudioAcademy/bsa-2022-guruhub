@@ -5,6 +5,7 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
   UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
@@ -13,6 +14,7 @@ import {
   disableMentorBecoming,
   getCategories,
   getCourse,
+  getMentor,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
@@ -29,6 +31,7 @@ type State = {
   isMentorBecomingEnabled: boolean;
   isMentorChoosingEnabled: boolean;
   mentors: UserDetailsResponseDto[];
+  mentor: UsersGetResponseDto | null;
   categories: CategoryGetAllItemResponseDto[];
 };
 
@@ -40,6 +43,7 @@ const initialState: State = {
   isMentorBecomingEnabled: false,
   isMentorChoosingEnabled: false,
   mentors: [],
+  mentor: null,
   categories: [],
 };
 
@@ -117,9 +121,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorBecomingEnabled = payload;
   });
 
-  builder.addCase(chooseMentor.fulfilled, (state) => {
+  builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
     state.isMentorChoosingEnabled = false;
+    state.mentor = payload.mentor;
   });
+
+  builder.addCase(getMentor.fulfilled, (state, { payload }) => {
+    state.isMentorChoosingEnabled = !payload;
+    state.mentor = payload ? payload.mentor : null;
+  });
+
   builder.addCase(
     updateisMentorChoosingEnabled.fulfilled,
     (state, { payload }) => {

@@ -1,6 +1,7 @@
 .container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 0 30px;
   color: #ffffff;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .additional {
-  width: 25%;
+  width: 35%;
 }
 
 .image {
