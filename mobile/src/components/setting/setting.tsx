@@ -5,6 +5,7 @@ import { ButtonVariant, DataStatus, UserGender } from '~/common/enums/enums';
 import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import {
   Button,
+  Dropdown,
   Image,
   Input,
   Spinner,
@@ -38,6 +39,21 @@ const Settings: FC = () => {
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
+
+  const gender = [
+    {
+      label: 'male',
+      value: 'male',
+    },
+    {
+      label: 'female',
+      value: 'female',
+    },
+    {
+      label: 'other',
+      value: 'other',
+    },
+  ];
 
   const handleGetUsers = (): void => {
     dispatch(userDetailsActions.getUserDetails());
@@ -81,13 +97,21 @@ const Settings: FC = () => {
           }}
         />
       </View>
-      <Input
-        label="Name"
-        name="fullName"
-        control={control}
-        errors={errors}
-        placeholder="Enter your full name"
-      />
+      <Stack space={20}>
+        <Input
+          label="Name"
+          name="fullName"
+          control={control}
+          errors={errors}
+          placeholder="Enter your full name"
+        />
+        <Dropdown
+          name="gender"
+          items={gender}
+          control={control}
+          errors={errors}
+        />
+      </Stack>
       <View style={styles.buttons}>
         <Stack space={20} isHorizontal>
           <Button
