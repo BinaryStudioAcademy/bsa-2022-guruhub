@@ -30,11 +30,11 @@ class ChatMessage {
     return { items: chatMessages };
   }
 
-  public async getAllChatsLastMessages(
+  public async getAllLastMessages(
     userId: number,
   ): Promise<ChatMessageGetAllResponseDto> {
     const chatLastMessages =
-      await this.#chatMessageRepository.getAllChatsLastMessages(userId);
+      await this.#chatMessageRepository.getAllLastMessages(userId);
 
     return { items: chatLastMessages };
   }

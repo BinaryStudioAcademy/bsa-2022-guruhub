@@ -55,7 +55,7 @@ class ChatMessage {
       .execute();
   }
 
-  public async getAllChatsLastMessages(
+  public async getAllLastMessages(
     userId: number,
   ): Promise<ChatMessageGetAllItemResponseDto[]> {
     const usersMentors = await this.#MenteesToMentors
@@ -77,7 +77,7 @@ class ChatMessage {
 
     const lastMessagesWithMentorsAndMentees = Promise.all(
       chatOpponentsIds.map((chatOpponentId) => {
-        return this.getLastChatMessage({
+        return this.getLastMessage({
           userId,
           chatOpponentId: chatOpponentId as number,
         });
@@ -87,7 +87,7 @@ class ChatMessage {
     return lastMessagesWithMentorsAndMentees;
   }
 
-  private getLastChatMessage({
+  private getLastMessage({
     userId,
     chatOpponentId,
   }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto> {

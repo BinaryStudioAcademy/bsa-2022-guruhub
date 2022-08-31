@@ -26,7 +26,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     async handler(req, rep) {
       const { id } = req.user;
       const allChatsLastMessagesMessagesDto =
-        await chatMessageService.getAllChatsLastMessages(id);
+        await chatMessageService.getAllLastMessages(id);
 
       return rep.status(HttpCode.OK).send(allChatsLastMessagesMessagesDto);
     },
