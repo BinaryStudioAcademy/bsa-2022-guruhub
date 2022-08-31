@@ -1,6 +1,6 @@
 export {
   chatMessageCreateArguments,
-  chatMessageGetAll,
+  chatMessageGetAllParams,
 } from './chat-message/chat-message';
 export {
   courseCreate,

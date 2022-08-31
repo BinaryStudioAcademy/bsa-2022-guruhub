@@ -1,6 +1,6 @@
 export {
+  type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
-  type ChatMessageCreateRequestParamsDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,

@@ -15,7 +15,7 @@ class ChatMessage extends Abstract {
   public static override get relationMappings(): RelationMappings {
     return {
       sender: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
           from: `${DbTableName.CHAT_MESSAGES}.senderId`,
@@ -23,7 +23,7 @@ class ChatMessage extends Abstract {
         },
       },
       receiver: {
-        relation: Model.HasOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
           from: `${DbTableName.CHAT_MESSAGES}.receiverId`,

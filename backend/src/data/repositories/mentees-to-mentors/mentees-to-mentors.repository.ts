@@ -40,6 +40,24 @@ class MenteesToMentors {
 
     return menteeToMentor ?? null;
   }
+
+  public getMentees(userId: number): Promise<Array<number>> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('mentees_to_mentors.mentee_id')
+      .where({ mentorId: userId })
+      .castTo<Array<number>>()
+      .execute();
+  }
+
+  public getMentors(userId: number): Promise<Array<number>> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('mentees_to_mentors.mentor_id')
+      .where({ menteeId: userId })
+      .castTo<Array<number>>()
+      .execute();
+  }
 }
 
 export { MenteesToMentors };

@@ -4,24 +4,17 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetRequestDto,
 } from '~/common/types/types';
-import {
-  ChatMessage as ChatMessageM,
-  MenteesToMentors as MenteesToMentorsM,
-} from '~/data/models/models';
+import { ChatMessage as ChatMessageM } from '~/data/models/models';
 
 type Constructor = {
   ChatMessageModel: typeof ChatMessageM;
-  MenteesToMentors: typeof MenteesToMentorsM;
 };
 
 class ChatMessage {
   #ChatMessageModel: typeof ChatMessageM;
 
-  #MenteesToMentors: typeof MenteesToMentorsM;
-
-  public constructor({ ChatMessageModel, MenteesToMentors }: Constructor) {
+  public constructor({ ChatMessageModel }: Constructor) {
     this.#ChatMessageModel = ChatMessageModel;
-    this.#MenteesToMentors = MenteesToMentors;
   }
 
   public getAll({
@@ -55,39 +48,7 @@ class ChatMessage {
       .execute();
   }
 
-  public async getAllLastMessages(
-    userId: number,
-  ): Promise<ChatMessageGetAllItemResponseDto[]> {
-    const usersMentors = await this.#MenteesToMentors
-      .query()
-      .select()
-      .where({ menteeId: userId })
-      .returning('mentees_to_mentors.mentor_id')
-      .castTo<Array<number>>()
-      .execute();
-    const usersMentees = await this.#MenteesToMentors
-      .query()
-      .select()
-      .where({ mentorId: userId })
-      .returning('mentees_to_mentors.mentee_id')
-      .castTo<Array<number>>()
-      .execute();
-
-    const chatOpponentsIds = [...usersMentors, ...usersMentees];
-
-    const lastMessagesWithMentorsAndMentees = Promise.all(
-      chatOpponentsIds.map((chatOpponentId) => {
-        return this.getLastMessage({
-          userId,
-          chatOpponentId: chatOpponentId as number,
-        });
-      }),
-    );
-
-    return lastMessagesWithMentorsAndMentees;
-  }
-
-  private getLastMessage({
+  public getLastMessage({
     userId,
     chatOpponentId,
   }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto> {

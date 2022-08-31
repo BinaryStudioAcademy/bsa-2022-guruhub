@@ -1,12 +1,12 @@
 import * as Joi from 'joi';
 
-import { ChatMessageCreateRequestParamsDto } from '~/common/types/types';
+import { ChatMessageCreateRequestBodyDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
 const chatMessageCreateArguments = Joi.object({
-  [getNameOf<ChatMessageCreateRequestParamsDto>('message')]:
+  [getNameOf<ChatMessageCreateRequestBodyDto>('message')]:
     Joi.string().required(),
-  [getNameOf<ChatMessageCreateRequestParamsDto>('chatOpponentId')]: Joi.number()
+  [getNameOf<ChatMessageCreateRequestBodyDto>('chatOpponentId')]: Joi.number()
     .integer()
     .required(),
 });

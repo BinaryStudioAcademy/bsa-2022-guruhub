@@ -121,7 +121,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
     services: {
       chatMessage,
     },
-    prefix: ApiPath.MENTORS,
+    prefix: ApiPath.CHATS,
   });
 };
 

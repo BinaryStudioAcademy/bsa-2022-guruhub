@@ -146,6 +146,7 @@ const mentor = new Mentor({
 
 const chatMessage = new ChatMessage({
   chatMessageRepository,
+  menteesToMentorsRepository,
 });
 
 export {
