@@ -15,8 +15,8 @@ import { styles } from './style';
 type Props = {
   keyName: string;
   name: string;
+  onPress?: () => void;
   isActive: boolean;
-  onPress: () => void;
 };
 
 const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
@@ -25,7 +25,7 @@ const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
   const hasImage = imageKeys.includes(keyName);
 
   const handlePress = (): void => {
-    onPress();
+    onPress?.();
   };
 
   useEffect(() => {

@@ -10,6 +10,8 @@ type IconName =
   | 'book'
   | 'uam'
   | 'plus'
+  | 'edit'
+  | 'save'
   | 'trash'
   | 'interview';
 

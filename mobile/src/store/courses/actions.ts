@@ -5,6 +5,7 @@ import {
   CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseUpdateCategoryRequestArguments,
 } from '~/common/types/types';
 import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
 
@@ -47,4 +48,15 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse, getCourse, getCourses };
+const updateCategory = createAsyncThunk<
+  CourseGetResponseDto,
+  CourseUpdateCategoryRequestArguments,
+  AsyncThunkConfig
+>(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const updatedCourse = await coursesApi.updateCategory(payload);
+
+  return updatedCourse;
+});
+
+export { addCourse, getCourse, getCourses, updateCategory };
