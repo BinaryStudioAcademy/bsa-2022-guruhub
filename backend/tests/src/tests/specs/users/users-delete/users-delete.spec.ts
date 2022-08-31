@@ -51,6 +51,7 @@ describe('Users delete tests', () => {
     const response = (await authService.signUp(
       userToDeleteData,
     )) as Response<UserSignUpResponseDto>;
+
     httpService.setToken(response.body.token);
     userToDeleteId = response.body.user.id;
 
@@ -75,6 +76,7 @@ describe('Users delete tests', () => {
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signInResponseSchema);
+    JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
   });
 
   before('should log in as a student', async () => {
@@ -91,15 +93,19 @@ describe('Users delete tests', () => {
   });
 
   it(`should return an error after deleting user by user without Manage UAM permission:
-        id:${userToDeleteId}
         email:${userToDeleteData.email}
         password:${userToDeleteData.password}`, async () => {
     apiSessionStorage.enterSession('student');
-    const response = await usersService.delete(userToDeleteId);
+    const response = (await usersService.delete(
+      userToDeleteId,
+    )) as Response<HttpErrorDto>;
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.FORBIDDEN);
     response.should.have.normalExecutionTime;
+    response.body.should.have.jsonSchema(errorResponseSchema);
+    response.body.error.should.be.equal(HttpStatusMessage.FORBIDDEN);
+    response.body.message.should.be.equal(ExceptionMessage.PERMISSION_LACK);
   });
 
   it('should delete user by user with Manage UAM permission', async () => {
