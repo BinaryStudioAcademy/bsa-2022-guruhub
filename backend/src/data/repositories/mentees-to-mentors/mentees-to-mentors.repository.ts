@@ -27,7 +27,7 @@ class MenteesToMentors {
       .execute();
   }
 
-  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
+  public async checkByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
   }): Promise<boolean> {

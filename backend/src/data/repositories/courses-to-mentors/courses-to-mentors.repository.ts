@@ -22,7 +22,7 @@ class CoursesToMentors {
       .execute();
   }
 
-  public async getByUserIdAndCourseId({
+  public async checkByUserIdAndCourseId({
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
