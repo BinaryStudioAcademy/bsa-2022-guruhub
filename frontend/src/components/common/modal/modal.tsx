@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { useHandleClickOutside } from 'hooks/hooks';
+import { useHandleClickOutside, useRef } from 'hooks/hooks';
 import { ReactNode } from 'react';
 
 import { IconButton } from '../common';
@@ -13,24 +13,19 @@ type Props = {
 };
 
 const Modal: FC<Props> = ({ isOpen, onClose, children, title }) => {
-  const { handleDisableContentContainerClick, handleOutsideClick } =
-    useHandleClickOutside({
-      onClose,
-    });
+  const popupRef = useRef<HTMLDivElement>(null);
+  useHandleClickOutside({
+    ref: popupRef,
+    onClick: onClose,
+  });
 
   if (!isOpen) {
     return null;
   }
 
   return (
-    <div
-      className={styles.modalBackgroundContainer}
-      onClick={handleOutsideClick}
-    >
-      <div
-        className={styles.modalContainer}
-        onClick={handleDisableContentContainerClick}
-      >
+    <div className={styles.modalBackgroundContainer}>
+      <div className={styles.modalContainer} ref={popupRef}>
         <div className={styles.crossContainer}>
           <IconButton iconName="cross" onClick={onClose} label="Close modal" />
         </div>

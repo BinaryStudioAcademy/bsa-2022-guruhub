@@ -1,34 +1,30 @@
-import { useCallback } from 'hooks/hooks';
+import React, { RefObject, useEffect } from 'react';
 
 type UseHandleClickOutsideArgs = {
-  onClose: () => void;
-};
-
-type UseHandleClickOutsideReturn = {
-  handleOutsideClick: () => void;
-  handleDisableContentContainerClick: (
-    evt: React.MouseEvent | MouseEvent,
-  ) => void;
+  ref: RefObject<HTMLElement>;
+  onClick: () => void;
 };
 
 const useHandleClickOutside = ({
-  onClose,
-}: UseHandleClickOutsideArgs): UseHandleClickOutsideReturn => {
-  const handleOutsideClick = useCallback(() => {
-    onClose();
-  }, [onClose]);
+  ref,
+  onClick,
+}: UseHandleClickOutsideArgs): void => {
+  useEffect(() => {
+    const handleClickOutside = (evt: React.MouseEvent | MouseEvent): void => {
+      if (
+        (evt.target as Node).contains(ref.current) &&
+        evt.target !== ref.current
+      ) {
+        onClick();
+      }
+    };
 
-  const handleDisableContentContainerClick = useCallback(
-    (evt: React.MouseEvent | MouseEvent) => {
-      evt.stopPropagation();
-    },
-    [],
-  );
+    document.addEventListener('click', handleClickOutside);
 
-  return {
-    handleOutsideClick,
-    handleDisableContentContainerClick,
-  };
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [onClick]);
 };
 
 export { useHandleClickOutside };
