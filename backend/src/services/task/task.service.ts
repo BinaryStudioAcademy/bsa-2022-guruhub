@@ -34,7 +34,17 @@ class Task {
     authorId,
     status,
   }: TaskManipulateRequestArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
-    await this.checkIsChangeable(taskId);
+    const task = await this.getById(taskId);
+
+    if (!task) {
+      throw new TasksError();
+    }
+
+    if (task.status === TaskStatus.COMPLETED) {
+      throw new TasksError({
+        message: ExceptionMessage.TASK_COMPLETED,
+      });
+    }
 
     const newNote = await this.createNote({
       authorId,
@@ -86,20 +96,6 @@ class Task {
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
     return this.#taskNoteService.getAll({ count, page, taskId });
-  }
-
-  private async checkIsChangeable(taskId: number): Promise<void> {
-    const task = await this.getById(taskId);
-
-    if (!task) {
-      throw new TasksError();
-    }
-
-    if (task.status === TaskStatus.COMPLETED) {
-      throw new TasksError({
-        message: ExceptionMessage.TASK_COMPLETED,
-      });
-    }
   }
 }
 
