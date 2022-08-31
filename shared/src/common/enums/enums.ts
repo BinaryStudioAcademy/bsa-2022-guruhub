@@ -29,6 +29,7 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { SortOrder } from './sort/sort';
 export { TaskStatus } from './task/task';
 export {
   UserGender,
