@@ -1,4 +1,4 @@
-export { courseCreate } from './course/course';
+export { courseCreate, courseUpdateCategory } from './course/course';
 export {
   groupCreate,
   groupCreateClient,
