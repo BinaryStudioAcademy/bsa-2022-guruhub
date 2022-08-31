@@ -1,5 +1,1 @@
-enum SortOrder {
-  DESC = 'desc',
-}
-
-export { SortOrder };
+export { SortOrder } from './sort-order';
