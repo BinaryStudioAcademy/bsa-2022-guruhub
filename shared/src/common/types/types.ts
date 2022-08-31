@@ -81,8 +81,8 @@ export {
   type TaskManipulateRequestArgumentsDto,
 } from './task/task';
 export {
-  type TaskNoteCreateRequestBodyDto,
   type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
 export {
   type UsersBasicInfoDto,

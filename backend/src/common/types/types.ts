@@ -94,9 +94,9 @@ export {
 } from './task/task';
 export {
   type TaskNoteCreateArgumentsDto,
-  type TaskNoteCreateRequestBodyDto,
   type TaskNoteGetAllArgumentsDto,
   type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
 export { type TokenPayload } from './token/token';
 export {

@@ -37,7 +37,7 @@ export { pagination } from './pagination/pagination';
 export {
   taskByMenteeIdAndModuleId,
   tasksByIdParams,
-  tasksCreateRequestBody,
+  tasksManipulateRequestBody,
 } from './task/task';
 export { userDelete, userSignIn, userSignUp } from './user/user';
 export { userDetailsUpdateInfo } from './user-details/user-details';

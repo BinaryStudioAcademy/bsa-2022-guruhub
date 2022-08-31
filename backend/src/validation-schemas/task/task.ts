@@ -1,5 +1,5 @@
 export {
   taskByMenteeIdAndModuleId,
   tasksByIdParams,
-  tasksCreateRequestBody,
+  tasksManipulateRequestBody,
 } from 'guruhub-shared/validation-schemas/validation-schemas';

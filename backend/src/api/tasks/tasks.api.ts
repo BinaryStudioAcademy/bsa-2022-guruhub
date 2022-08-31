@@ -5,20 +5,19 @@ import {
   HttpMethod,
   PaginationDefaultValue,
   TasksApiPath,
-  TaskStatus,
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
   TaskByIdRequestParamsDto,
   TaskGetByMenteeIdAndModuleId,
-  TaskNoteCreateRequestBodyDto,
+  TaskNoteManipulateRequestBodyDto,
 } from '~/common/types/types';
 import { task as taskService } from '~/services/services';
 import {
   pagination as paginationValidationSchema,
   taskByMenteeIdAndModuleId as taskByMenteeIdAndModuleIdValidationSchema,
   tasksByIdParams as tasksByIdParamsValidationSchema,
-  tasksCreateRequestBody as tasksCreateRequestBodyValidationSchema,
+  tasksManipulateRequestBody as tasksManipulateRequestBodyValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -32,19 +31,19 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.POST,
-    url: TasksApiPath.TASKS_$ID_UPLOAD,
+    url: TasksApiPath.TASKS_$ID,
     schema: {
       params: tasksByIdParamsValidationSchema,
-      body: tasksCreateRequestBodyValidationSchema,
+      body: tasksManipulateRequestBodyValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
-        Body: TaskNoteCreateRequestBodyDto;
+        Body: TaskNoteManipulateRequestBodyDto;
         Params: TaskByIdRequestParamsDto;
       }>,
       rep,
     ) {
-      const { note } = req.body;
+      const { note, status } = req.body;
       const { taskId } = req.params;
       const { id: authorId } = req.user;
 
@@ -52,65 +51,7 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         note,
         authorId,
         taskId,
-        status: TaskStatus.PENDING,
-      });
-
-      rep.status(HttpCode.CREATED).send(newNote);
-    },
-  });
-
-  fastify.route({
-    method: HttpMethod.POST,
-    url: TasksApiPath.TASKS_$ID_APPROVE,
-    schema: {
-      params: tasksByIdParamsValidationSchema,
-      body: tasksCreateRequestBodyValidationSchema,
-    },
-    async handler(
-      req: FastifyRequest<{
-        Body: TaskNoteCreateRequestBodyDto;
-        Params: TaskByIdRequestParamsDto;
-      }>,
-      rep,
-    ) {
-      const { note } = req.body;
-      const { taskId } = req.params;
-      const { id: authorId } = req.user;
-
-      const newNote = await taskService.manipulate({
-        note,
-        authorId,
-        taskId,
-        status: TaskStatus.COMPLETED,
-      });
-
-      rep.status(HttpCode.CREATED).send(newNote);
-    },
-  });
-
-  fastify.route({
-    method: HttpMethod.POST,
-    url: TasksApiPath.TASKS_$ID_REJECT,
-    schema: {
-      params: tasksByIdParamsValidationSchema,
-      body: tasksCreateRequestBodyValidationSchema,
-    },
-    async handler(
-      req: FastifyRequest<{
-        Body: TaskNoteCreateRequestBodyDto;
-        Params: TaskByIdRequestParamsDto;
-      }>,
-      rep,
-    ) {
-      const { note } = req.body;
-      const { taskId } = req.params;
-      const { id: authorId } = req.user;
-
-      const newNote = await taskService.manipulate({
-        note,
-        authorId,
-        taskId,
-        status: TaskStatus.REJECTED,
+        status,
       });
 
       rep.status(HttpCode.CREATED).send(newNote);
