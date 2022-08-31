@@ -182,9 +182,9 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
   const hasMentorCheck = await coursesApi.checkHasMentor({
     courseId: id,
   });
-  const check = isMentorCheck || hasMentorCheck;
+  const isMentorChoosingEnabled = isMentorCheck || hasMentorCheck;
 
-  return !check;
+  return !isMentorChoosingEnabled;
 });
 
 const getCategories = createAsyncThunk<
