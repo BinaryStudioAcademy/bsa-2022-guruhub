@@ -3,7 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import { InterviewsGetAllItemResponseDto } from '~/common/types/types';
 
-import { createInterview, getInterviews } from './actions';
+import { getInterviews } from './actions';
 
 type State = {
   interviewsDataStatus: DataStatus;
@@ -30,14 +30,6 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getInterviews.rejected, (state) => {
     state.interviewsDataStatus = DataStatus.REJECTED;
-  });
-
-  builder.addCase(createInterview.fulfilled, () => {
-    //todo notify
-  });
-
-  builder.addCase(createInterview.rejected, () => {
-    //todo notify
   });
 });
 

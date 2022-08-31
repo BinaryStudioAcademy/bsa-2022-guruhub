@@ -9,6 +9,7 @@ import {
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
+import { createInterview } from '~/store/interviews/actions';
 
 import { ActionType } from './common';
 
@@ -81,8 +82,28 @@ const setBecomeMentorInvisible = createAsyncThunk<
   return false;
 });
 
+const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.BECOME_MENTOR,
+  async (_, { dispatch, getState }) => {
+    const {
+      courses: { course },
+      auth: { user },
+    } = getState();
+
+    if (!user || !course) {
+      return;
+    }
+    const payload = {
+      intervieweeUserId: user.id,
+      categoryId: course.courseCategoryId,
+    };
+    dispatch(createInterview(payload));
+  },
+);
+
 export {
   addCourse,
+  becomeMentor,
   getCourse,
   getCourses,
   getMentorsByCourseId,

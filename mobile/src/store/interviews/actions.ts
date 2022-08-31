@@ -1,11 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
+  NotificationMessage,
+  NotificationType,
+} from '~/common/enums/notification/notification';
+import {
   AsyncThunkConfig,
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
 } from '~/common/types/types';
+import { notify } from '~/store/app/actions';
 
 import { ActionType } from './common';
 
@@ -19,26 +25,21 @@ const getInterviews = createAsyncThunk<
   return interviewersApi.getPage({ page, count });
 });
 
-const createInterview = createAsyncThunk<void, void, AsyncThunkConfig>(
-  ActionType.CREATE_INTERVIEW,
-  async (_, { extra, getState }) => {
-    const {
-      courses: { course },
-      auth: { user },
-    } = getState();
-    const { interviewersApi } = extra;
+const createInterview = createAsyncThunk<
+  void,
+  InterviewsCreateRequestBodyDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_INTERVIEW, async (payload, { extra, dispatch }) => {
+  const { interviewersApi } = extra;
 
-    if (!user || !course) {
-      return;
-    }
-
-    await interviewersApi.createInterview({
-      intervieweeUserId: user.id,
-      categoryId: course.courseCategoryId,
-    });
-    //todo notify
-  },
-);
+  await interviewersApi.createInterview(payload);
+  dispatch(
+    notify({
+      type: NotificationType.SUCCESS,
+      message: NotificationMessage.INTERVIEW_CREATE,
+    }),
+  );
+});
 
 const getPassedInterviewCategoryIds = createAsyncThunk<
   number[],
