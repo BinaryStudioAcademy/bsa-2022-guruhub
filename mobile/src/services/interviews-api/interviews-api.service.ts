@@ -1,8 +1,15 @@
-import { ApiPath, HttpMethod, InterviewsApiPath } from '~/common/enums/enums';
+import {
+  ApiPath,
+  ContentType,
+  HttpMethod,
+  InterviewsApiPath,
+} from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsResponseDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
@@ -35,6 +42,19 @@ class InterviewsApi {
           page,
           count,
         },
+      },
+    );
+  }
+
+  public createInterview(
+    payload: InterviewsCreateRequestBodyDto,
+  ): Promise<InterviewsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
       },
     );
   }

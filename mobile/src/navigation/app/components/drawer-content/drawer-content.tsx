@@ -10,16 +10,18 @@ import {
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppSelector } from '~/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
 import {
   BecomeMentor,
   DrawerList,
 } from '~/navigation/app/components/components';
+import { createInterview } from '~/store/interviews/actions';
 
 import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
+  const dispatch = useAppDispatch();
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
   const visibleNavigationItems = NAVIGATION_ITEMS.filter(
@@ -31,7 +33,7 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   );
 
   const handleBecomeMentor = (): void => {
-    // TODO: navigate to application screen
+    dispatch(createInterview());
   };
 
   return (

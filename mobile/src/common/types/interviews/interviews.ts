@@ -1,1 +1,5 @@
-export { type InterviewsGetAllItemResponseDto } from 'guruhub-shared/common/types/types';
+export {
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsResponseDto,
+} from 'guruhub-shared/common/types/types';

@@ -19,4 +19,25 @@ const getInterviews = createAsyncThunk<
   return interviewersApi.getPage({ page, count });
 });
 
-export { getInterviews };
+const createInterview = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.CREATE_INTERVIEW,
+  async (_, { extra, getState }) => {
+    const {
+      courses: { course },
+      auth: { user },
+    } = getState();
+    const { interviewersApi } = extra;
+
+    if (!user || !course) {
+      return;
+    }
+
+    await interviewersApi.createInterview({
+      intervieweeUserId: user.id,
+      categoryId: course.courseCategoryId,
+    });
+    //todo notify
+  },
+);
+
+export { createInterview, getInterviews };

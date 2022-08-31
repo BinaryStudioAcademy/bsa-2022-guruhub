@@ -36,7 +36,11 @@ export {
   type GroupUpdateRequestParamsDto,
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
-export { type InterviewsGetAllItemResponseDto } from './interviews/interviews';
+export {
+  type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsResponseDto,
+} from './interviews/interviews';
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
