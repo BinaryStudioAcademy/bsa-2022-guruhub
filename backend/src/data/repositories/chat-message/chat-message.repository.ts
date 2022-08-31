@@ -2,6 +2,7 @@ import { SortOrder } from '~/common/enums/enums';
 import {
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
+  ChatMessageGetRequestDto,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 
@@ -16,28 +17,28 @@ class ChatMessage {
     this.#ChatMessageModel = ChatMessageModel;
   }
 
-  public getAll(
-    senderId: number,
-    receiverId: number,
-  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+  public getAll({
+    senderId,
+    receiverId,
+  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto[]> {
     return this.#ChatMessageModel
       .query()
       .select()
-      .where({ senderId })
-      .andWhere({ receiverId })
+      .where({ senderId, receiverId })
+      .orWhere({ senderId: receiverId, receiverId: senderId })
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();
   }
 
-  public getLast(
-    senderId: number,
-    receiverId: number,
-  ): Promise<ChatMessageGetAllItemResponseDto> {
+  public getLast({
+    senderId,
+    receiverId,
+  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
       .select()
-      .where({ senderId })
-      .andWhere({ receiverId })
+      .where({ senderId, receiverId })
+      .orWhere({ senderId: receiverId, receiverId: senderId })
       .orderBy('createdAt', SortOrder.DESC)
       .first()
       .castTo<ChatMessageGetAllItemResponseDto>()

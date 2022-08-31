@@ -2,6 +2,7 @@ export {
   type ChatMessageCreateRequestDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetRequestDto,
 } from './chat-message/chat-message';
 export {
   type CourseCreateRequestDto,

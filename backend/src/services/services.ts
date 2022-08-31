@@ -1,6 +1,7 @@
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
+  chatMessage as chatMessageRepository,
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
@@ -20,6 +21,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { File } from './aws/file/file.service';
+import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
@@ -142,8 +144,13 @@ const mentor = new Mentor({
   coursesToMentorsService: coursesToMentors,
 });
 
+const chatMessage = new ChatMessage({
+  chatMessageRepository,
+});
+
 export {
   auth,
+  chatMessage,
   course,
   courseCategory,
   courseModule,
