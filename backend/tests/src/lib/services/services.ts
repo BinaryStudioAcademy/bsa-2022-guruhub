@@ -4,6 +4,7 @@ import { SessionStorage } from '~/lib/helpers/helpers';
 import { AuthService } from './auth/auth.service';
 import { HttpService } from './http/http.service';
 import { PermissionsService } from './permissions/permissions.service';
+import { UsersService } from './users/users.service';
 
 const sessionStorage = new SessionStorage<ApiSession>();
 
@@ -13,9 +14,12 @@ const authService = new AuthService({ httpService });
 
 const permissionsService = new PermissionsService({ httpService });
 
+const usersService = new UsersService({ httpService });
+
 export {
   sessionStorage as apiSessionStorage,
   authService,
   httpService,
   permissionsService,
+  usersService,
 };
