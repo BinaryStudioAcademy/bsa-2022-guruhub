@@ -1,6 +1,7 @@
 import {
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
+  ChatMessageGetAllResponseDto,
   ChatMessageGetRequestDto,
 } from '~/common/types/types';
 import { chatMessage as chatMessageRep } from '~/data/repositories/repositories';
@@ -17,18 +18,23 @@ class ChatMessage {
     this.#chatMessageRepository = chatMessageRepository;
   }
 
-  public getAll({
-    senderId,
-    receiverId,
+  public getAllMessagesInChat({
+    userId,
+    chatOpponentId,
   }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto[]> {
-    return this.#chatMessageRepository.getAll({ senderId, receiverId });
+    return this.#chatMessageRepository.getAllMessagesInChat({
+      userId,
+      chatOpponentId,
+    });
   }
 
-  public getLast({
-    senderId,
-    receiverId,
-  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
-    return this.#chatMessageRepository.getLast({ senderId, receiverId });
+  public async getAllChatsLastMessages(
+    userId: number,
+  ): Promise<ChatMessageGetAllResponseDto> {
+    const chatLastMessages =
+      await this.#chatMessageRepository.getAllChatsLastMessages(userId);
+
+    return { items: chatLastMessages };
   }
 
   public create(

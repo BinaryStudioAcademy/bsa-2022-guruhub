@@ -1,6 +1,6 @@
 type ChatMessageGetRequestDto = {
-  senderId: number;
-  receiverId: number;
+  userId: number;
+  chatOpponentId: number;
 };
 
 export { type ChatMessageGetRequestDto };

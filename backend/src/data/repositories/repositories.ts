@@ -82,6 +82,7 @@ const menteesToMentors = new MenteesToMentors({ MenteesToMentorsModel });
 
 const chatMessage = new ChatMessage({
   ChatMessageModel,
+  MenteesToMentors: MenteesToMentorsModel,
 });
 
 export {
