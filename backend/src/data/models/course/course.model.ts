@@ -54,6 +54,18 @@ class Course extends Abstract {
           to: `${DbTableName.USERS}.id`,
         },
       },
+      mentorsWithMentees: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: `${DbTableName.COURSES}.id`,
+          through: {
+            from: `${DbTableName.MENTEES_TO_MENTORS}.courseId`,
+            to: `${DbTableName.MENTEES_TO_MENTORS}.mentorId`,
+          },
+          to: `${DbTableName.USERS}.id`,
+        },
+      },
       category: {
         relation: Model.HasOneRelation,
         modelClass: CourseCategory,

@@ -121,9 +121,10 @@ class Course {
     return this.#CourseModel
       .query()
       .select('mentees.id', 'fullName', 'avatarUrl')
-      .joinRelated('[mentees.[userDetails], mentors]')
-      .where('mentors.id', mentorId)
+      .joinRelated('[mentees.[userDetails], mentorsWithMentees]')
+      .where('mentorsWithMentees.id', mentorId)
       .where('courses.id', courseId)
+      .distinct('mentees.id')
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }
