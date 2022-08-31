@@ -7,6 +7,7 @@ import {
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
+import ReactSelect from 'react-select';
 
 import styles from './styles.module.scss';
 
@@ -20,6 +21,7 @@ type Props = {
   label: string;
   hasVisuallyHiddenLabel?: boolean;
   className?: string;
+  defaultCategoryId?: number;
 };
 
 const Select: FC<Props> = ({
@@ -30,11 +32,17 @@ const Select: FC<Props> = ({
   hasVisuallyHiddenLabel = false,
   options,
   className,
+  defaultCategoryId,
 }) => {
   const { field } = useFormControl({ name, control });
 
   return (
-    <div className={getValidClasses(className, styles.wrapper)}>
+    <div
+      className={getValidClasses(className, styles.wrapper)}
+      onClick={(e: React.MouseEvent): void => {
+        e.stopPropagation();
+      }}
+    >
       <label
         className={getValidClasses(
           styles.title,
@@ -43,16 +51,18 @@ const Select: FC<Props> = ({
       >
         {label}
       </label>
-      <div className={styles.selectWrapper}>
-        <select {...field} className={styles.select} name={name}>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-        <span className="focus"></span>
-      </div>
+      <ReactSelect
+        options={options}
+        {...field}
+        defaultValue={options.find(
+          (c) => c.value === String(defaultCategoryId),
+        )}
+        value={options.find((c) => c.value === field.value)}
+        onChange={(val): void => field.onChange(val?.value)}
+        name={name}
+        isSearchable={false}
+        className={styles.select}
+      />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
       </span>

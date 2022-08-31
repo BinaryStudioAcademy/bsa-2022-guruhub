@@ -63,6 +63,7 @@ const EditCategoryModal: FC<Props> = ({
             errors={errors}
             name={getNameOf<CourseUpdateCategoryRequestDto>('newCategoryId')}
             label="Course categories"
+            defaultCategoryId={defaultCategoryId}
           />
         </div>
         <div>
