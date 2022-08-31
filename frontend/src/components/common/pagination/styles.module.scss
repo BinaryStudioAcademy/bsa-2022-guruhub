@@ -1,11 +1,17 @@
 .paginationContainer {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.paginationContainer::after {
+  flex: 1;
+  content: '';
 }
 
 .results {
-  padding-left: 15px;
+  flex: 1;
   color: var(--typography-text-gray-200);
 }
 
