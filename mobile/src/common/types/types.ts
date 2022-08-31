@@ -18,6 +18,8 @@ export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestArguments,
+  type CourseUpdateCategoryRequestDto,
 } from './courses/courses';
 export {
   type FormControl,
