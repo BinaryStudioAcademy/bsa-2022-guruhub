@@ -15,6 +15,7 @@ export {
   type CourseModulesGetAllResponseDto,
 } from './course-modules/course-modules';
 export {
+  type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,

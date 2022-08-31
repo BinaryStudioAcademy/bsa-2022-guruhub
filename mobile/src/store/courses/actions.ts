@@ -1,7 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
+  NotificationMessage,
+  NotificationType,
+} from '~/common/enums/notification/notification';
+import {
   AsyncThunkConfig,
+  CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
@@ -11,7 +16,7 @@ import {
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
-import { CourseCreateRequestDto } from '~/components/courses/components/add-course/common/constants/constants';
+import { notify } from '~/store/app/actions';
 import {
   createInterview,
   getPassedInterviewCategoryIds,
@@ -122,7 +127,18 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         userId: user.id,
         courseId: course.id,
       };
-      dispatch(createMentor(payload));
+      dispatch(createMentor(payload))
+        .then(() => {
+          dispatch(setBecomeMentorInvisible());
+        })
+        .then(() => {
+          dispatch(
+            notify({
+              type: NotificationType.SUCCESS,
+              message: NotificationMessage.MENTOR_ADD,
+            }),
+          );
+        });
     } else {
       const payload: InterviewsCreateRequestBodyDto = {
         intervieweeUserId: user.id,

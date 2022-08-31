@@ -87,6 +87,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(becomeMentor.fulfilled, (state) => {
     state.dataBecomeMentorStatus = DataStatus.FULFILLED;
   });
+  builder.addCase(becomeMentor.rejected, (state) => {
+    state.dataBecomeMentorStatus = DataStatus.REJECTED;
+  });
 });
 
 export { reducer };
