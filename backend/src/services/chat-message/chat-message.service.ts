@@ -18,14 +18,16 @@ class ChatMessage {
     this.#chatMessageRepository = chatMessageRepository;
   }
 
-  public getAllMessagesInChat({
+  public async getAll({
     userId,
     chatOpponentId,
-  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto[]> {
-    return this.#chatMessageRepository.getAllMessagesInChat({
+  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllResponseDto> {
+    const chatMessages = await this.#chatMessageRepository.getAll({
       userId,
       chatOpponentId,
     });
+
+    return { items: chatMessages };
   }
 
   public async getAllChatsLastMessages(

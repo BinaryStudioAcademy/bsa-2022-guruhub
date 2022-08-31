@@ -24,7 +24,7 @@ class ChatMessage {
     this.#MenteesToMentors = MenteesToMentors;
   }
 
-  public getAllMessagesInChat({
+  public getAll({
     userId,
     chatOpponentId,
   }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto[]> {
@@ -87,7 +87,7 @@ class ChatMessage {
     return lastMessagesWithMentorsAndMentees;
   }
 
-  public getLastChatMessage({
+  private getLastChatMessage({
     userId,
     chatOpponentId,
   }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
