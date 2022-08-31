@@ -8,13 +8,13 @@ properties:
         id:
           type: integer
           example: 1
-        note:
+        message:
           type: string
-          example: note
+          example: message
         createdAt:
           type: string
           example: '2022-08-18T21:00:00.000Z'
-        author:
+        receiver:
           type: object
           properties:
             id:
@@ -23,9 +23,16 @@ properties:
             email:
               type: string
               example: example@example.com
-            fullName:
-              type: string
-              example: FullName
-            createdAt:
-              type: string
-              example: '2022-08-18T21:00:00.000Z'
+            userDetails:
+              type: object
+              properties:
+                id:
+                  type: number
+                  example: 1
+                fullName:
+                  type: string
+                  example: fullName
+                avatarUrl:
+                  oneOf:
+                    - type: string
+                    - type: null

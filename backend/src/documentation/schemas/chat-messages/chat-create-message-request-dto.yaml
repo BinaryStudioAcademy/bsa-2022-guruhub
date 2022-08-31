@@ -1,0 +1,11 @@
+type: object
+properties:
+  message:
+    type: string
+    example: message
+  receiverId:
+    type: number
+    example: 1
+  senderId:
+    type: number
+    example: 1

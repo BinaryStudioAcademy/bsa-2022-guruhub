@@ -1,0 +1,15 @@
+summary: Create Chat Message
+tags:
+  - chatMessages
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/chat-messages/chat-create-message-request-dto.yaml'
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/chat-messages/chat-get-message-response-dto.yaml'

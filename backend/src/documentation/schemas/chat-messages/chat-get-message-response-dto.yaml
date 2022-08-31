@@ -1,0 +1,33 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  message:
+    type: string
+    example: message
+  createdAt:
+    type: string
+    example: '2022-08-18T21:00:00.000Z'
+  receiver:
+    type: object
+    properties:
+      id:
+        type: number
+        example: 1
+      email:
+        type: string
+        example: example@example.com
+      userDetails:
+        type: object
+        properties:
+          id:
+            type: number
+            example: 1
+          fullName:
+            type: string
+            example: fullName
+          avatarUrl:
+            oneOf:
+              - type: string
+              - type: null

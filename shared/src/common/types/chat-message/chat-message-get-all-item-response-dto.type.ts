@@ -2,9 +2,9 @@ import { ChatMessageUserResponseDto } from './chat-message-user-response-dto-typ
 
 type ChatMessageGetAllItemResponseDto = {
   id: number;
-  toUserId: ChatMessageUserResponseDto;
-  fromUserId: ChatMessageUserResponseDto;
-  text: string;
+  receiver: ChatMessageUserResponseDto;
+  sender: ChatMessageUserResponseDto;
+  message: string;
   createdAt: string;
 };
 
