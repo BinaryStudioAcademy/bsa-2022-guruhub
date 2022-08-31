@@ -23,6 +23,10 @@ import {
 import { authActions, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
 
+import {
+  DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
+  GENDER_OPTIONS,
+} from './common/contants';
 import { styles } from './styles';
 
 const Settings: FC = () => {
@@ -34,26 +38,10 @@ const Settings: FC = () => {
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
       defaultValues: {
-        fullName: '',
-        gender: UserGender.MALE,
+        ...DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
-
-  const gender = [
-    {
-      label: 'male',
-      value: 'male',
-    },
-    {
-      label: 'female',
-      value: 'female',
-    },
-    {
-      label: 'other',
-      value: 'other',
-    },
-  ];
 
   const handleGetUsers = (): void => {
     dispatch(userDetailsActions.getUserDetails());
@@ -107,7 +95,7 @@ const Settings: FC = () => {
         />
         <Dropdown
           name="gender"
-          items={gender}
+          items={GENDER_OPTIONS}
           control={control}
           errors={errors}
         />
