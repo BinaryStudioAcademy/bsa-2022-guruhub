@@ -117,21 +117,25 @@ const getMentorsByCourseId = createAsyncThunk<
 });
 
 const getMenteesByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[] | null,
+  UserDetailsResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
->(ActionType.GET_MENTOR_MENTEES, async (payload, { extra }) => {
-  const { coursesApi } = extra;
-  const isMentorCheck = await coursesApi.checkIsMentor({
-    courseId: payload.id,
-  });
+>(
+  ActionType.GET_MENTOR_MENTEES,
+  async (payload, { extra, dispatch, getState }) => {
+    const { coursesApi } = extra;
+    const {
+      course: { isMentor },
+    } = getState();
+    await dispatch(checkIsMentor({ id: payload.id }));
 
-  if (!isMentorCheck) {
-    return null;
-  }
+    if (!isMentor) {
+      return [];
+    }
 
-  return coursesApi.getMenteesByCourseId(payload.id);
-});
+    return coursesApi.getMenteesByCourseId(payload.id);
+  },
+);
 
 const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.BECOME_A_MENTOR,

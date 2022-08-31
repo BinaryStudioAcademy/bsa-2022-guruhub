@@ -38,6 +38,8 @@ const Course: FC = () => {
     mentors,
     mentees,
     isMentorChoosingEnabled,
+    isMentor,
+    areMenteesFetched,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -48,6 +50,8 @@ const Course: FC = () => {
     mentors: course.mentors,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
     mentees: course.menteesByCourseId,
+    isMentor: course.isMentor,
+    areMenteesFetched: course.areMenteesFetched,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -94,7 +98,6 @@ const Course: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
     dispatch(
@@ -103,6 +106,7 @@ const Course: FC = () => {
         filteringOpts: { mentorName: '' },
       }),
     );
+    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
 
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
@@ -183,7 +187,9 @@ const Course: FC = () => {
         </div>
       </div>
       <div className={styles.rightBlock}>
-        {mentees && <MyStudentsContainer mentees={mentees} />}
+        {isMentor && areMenteesFetched && (
+          <MyStudentsContainer mentees={mentees} />
+        )}
       </div>
       <div className={styles.rightBlock}>
         {isMentorChoosingEnabled && (
