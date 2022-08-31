@@ -56,7 +56,7 @@ class ChatMessage {
       chatOpponentsIds.map((chatOpponentId) => {
         return this.#chatMessageRepository.getLastMessage({
           userId,
-          chatOpponentId: chatOpponentId as number,
+          chatOpponentId,
         });
       }),
     );

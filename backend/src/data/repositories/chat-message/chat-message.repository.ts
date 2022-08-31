@@ -4,24 +4,17 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetRequestDto,
 } from '~/common/types/types';
-import {
-  ChatMessage as ChatMessageM,
-  MenteesToMentors as MenteesToMentorsM,
-} from '~/data/models/models';
+import { ChatMessage as ChatMessageM } from '~/data/models/models';
 
 type Constructor = {
   ChatMessageModel: typeof ChatMessageM;
-  MenteesToMentors: typeof MenteesToMentorsM;
 };
 
 class ChatMessage {
   #ChatMessageModel: typeof ChatMessageM;
 
-  #MenteesToMentorsModel: typeof MenteesToMentorsM;
-
-  public constructor({ ChatMessageModel, MenteesToMentors }: Constructor) {
+  public constructor({ ChatMessageModel }: Constructor) {
     this.#ChatMessageModel = ChatMessageModel;
-    this.#MenteesToMentorsModel = MenteesToMentors;
   }
 
   public getAll({
