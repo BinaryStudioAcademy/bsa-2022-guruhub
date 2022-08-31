@@ -16,6 +16,8 @@ enum ColumnName {
   STATUS = 'status',
 }
 
+const DELETE_STRATEGY = 'CASCADE';
+
 async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TableName.TASK_NOTES, (table) => {
     table.increments(ColumnName.ID).primary();
@@ -31,12 +33,14 @@ async function up(knex: Knex): Promise<void> {
       .integer(ColumnName.AUTHOR_ID)
       .references(ColumnName.ID)
       .inTable(TableName.USERS)
-      .notNullable();
+      .notNullable()
+      .onDelete(DELETE_STRATEGY);
     table
       .integer(ColumnName.TASK_ID)
       .references(ColumnName.ID)
       .inTable(TableName.TASKS)
-      .notNullable();
+      .notNullable()
+      .onDelete(DELETE_STRATEGY);
     table.text(ColumnName.NOTE).notNullable();
     table.string(ColumnName.STATUS).notNullable();
   });

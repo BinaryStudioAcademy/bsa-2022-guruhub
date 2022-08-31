@@ -15,6 +15,8 @@ enum ColumnName {
   STATUS = 'status',
 }
 
+const DELETE_STRATEGY = 'CASCADE';
+
 async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TableName.TASKS, (table) => {
     table.increments(ColumnName.ID).primary();
@@ -35,7 +37,8 @@ async function up(knex: Knex): Promise<void> {
       .integer(ColumnName.MODULE_ID)
       .references(ColumnName.ID)
       .inTable(TableName.COURSE_MODULES)
-      .notNullable();
+      .notNullable()
+      .onDelete(DELETE_STRATEGY);
     table.string(ColumnName.STATUS).notNullable();
   });
 }
