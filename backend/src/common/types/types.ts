@@ -94,6 +94,7 @@ export {
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UserGetMentorRequestParamsDto,
   type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
   type UsersDeleteRequestParamsDto,
