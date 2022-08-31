@@ -55,11 +55,12 @@ const HistorySection: FC<Props> = ({
         {isOpen && (
           <form onSubmit={handleSubmit(handleNoteSubmit)}>
             <Input
-              type="text"
+              type="textarea"
               label="Write your note"
               name={getNameOf<InterviewNoteCreateRequestDto>('note')}
               control={control}
               errors={errors}
+              textAreaRows={3}
             />
             <div className={styles.actionButtonsSection}>
               <Button
