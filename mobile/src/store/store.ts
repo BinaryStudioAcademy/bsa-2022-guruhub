@@ -10,6 +10,7 @@ import {
   notification,
   permissionsApi,
   storage,
+  userDetailsApi,
   usersApi,
 } from '~/services/services';
 
@@ -21,6 +22,7 @@ const extraArgument = {
   groupsApi,
   notification,
   storage,
+  userDetailsApi,
   usersApi,
   permissionsApi,
   coursesApi,

@@ -81,7 +81,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(createNote.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.notes = [...state.notes, payload];
+    state.notes = [payload, ...state.notes];
   });
   builder.addCase(createNote.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
