@@ -19,6 +19,7 @@ type Props<T extends FormControlValues> = {
   control: FormControl<T>;
   errors: FormControlErrors<T>;
   placeholder?: string;
+  isSecure?: boolean;
 };
 
 const Input = <T extends FormControlValues>({
@@ -27,15 +28,16 @@ const Input = <T extends FormControlValues>({
   control,
   errors,
   placeholder,
+  isSecure,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
-  const [isSecure, setisSecure] = useState(name === 'password');
+  const [visibility, setVisibility] = useState(isSecure);
 
   const { value, onChange, onBlur } = field;
   const error = errors[name]?.message as string;
 
   const handleOnPress = (): void => {
-    setisSecure(!isSecure);
+    setVisibility(!visibility);
   };
 
   return (
@@ -49,12 +51,12 @@ const Input = <T extends FormControlValues>({
           onChangeText={onChange}
           onBlur={onBlur}
           style={styles.input}
-          secureTextEntry={isSecure}
+          secureTextEntry={visibility}
         />
-        {name === 'password' && (
+        {isSecure && (
           <Pressable style={styles.button} onPress={handleOnPress}>
             <Icon
-              name={isSecure ? 'visibilityOff' : 'visibility'}
+              name={visibility ? 'visibilityOff' : 'visibility'}
               color={AppColor.TEXT.GRAY_200}
               width={24}
               height={24}

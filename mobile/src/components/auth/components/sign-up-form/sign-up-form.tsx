@@ -47,6 +47,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
             name="password"
             control={control}
             errors={errors}
+            isSecure
           />
         </View>
         <View style={styles.buttonWrapper}>
