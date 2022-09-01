@@ -28,6 +28,7 @@ const ChooseMentor: FC = () => {
     }));
 
   const courseId = course?.id;
+  const isMentorsLoading = dataStatus === DataStatus.PENDING;
 
   const handleChooseButton = (mentorId: number): void => {
     dispatch(coursesActions.chooseMentor({ id: mentorId }));
@@ -67,7 +68,7 @@ const ChooseMentor: FC = () => {
         <Search onSearch={handleSearch} />
       </View>
       <View style={styles.container}>
-        {dataStatus === DataStatus.PENDING ? (
+        {isMentorsLoading ? (
           <View style={styles.spinnerContainer}>
             <Spinner isOverflow />
           </View>

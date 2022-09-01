@@ -12,8 +12,10 @@ const styles = StyleSheet.create({
   },
   avatar: {
     height: '100%',
+    resizeMode: 'contain',
   },
   avatarContainer: {
+    backgroundColor: '#CECCCD',
     width: '100%',
     height: 255,
   },

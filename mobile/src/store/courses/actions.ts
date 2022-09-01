@@ -84,6 +84,7 @@ const chooseMentor = createAsyncThunk<
     auth: { user },
   } = getState();
   const { coursesApi } = extra;
+
   await coursesApi.chooseMentor({
     courseId: (course as CourseGetResponseDto).id,
     menteeId: (user as UserWithPermissions).id,
