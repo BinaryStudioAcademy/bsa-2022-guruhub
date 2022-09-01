@@ -72,8 +72,14 @@ const reducer = createReducer(initialState, (builder) => {
     state.notes = [payload, ...state.notes];
     state.totalNotesNumber += 1;
   });
+  builder.addCase(checkIsMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
   builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
     state.isMentor = payload;
+  });
+  builder.addCase(checkIsMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 });
 
