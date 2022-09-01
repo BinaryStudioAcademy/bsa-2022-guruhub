@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   footerImage: {
     marginLeft: 20,
     marginBottom: 10,
-    resizeMode: 'contain',
     width: 219,
     height: 182,
   },
