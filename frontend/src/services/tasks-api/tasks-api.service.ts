@@ -34,7 +34,7 @@ class TasksApi {
     taskId,
   }: TaskNoteManipulateRequestDto): Promise<TaskNoteGetItemResponseDto> {
     return this.#http.load<TaskNoteGetItemResponseDto>(
-      `${this.#apiPrefix}${ApiPath.TASKS}${taskId}`,
+      `${this.#apiPrefix}${ApiPath.TASKS}/${taskId}`,
       {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,

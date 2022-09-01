@@ -18,6 +18,10 @@ enum ColumnName {
 
 const DELETE_STRATEGY = 'CASCADE';
 
+const STATUS_VALUES = ['Uncompleted', 'Pending', 'Rejected', 'Completed'];
+
+const STATUS_UNCOMPLETED = 'Uncompleted';
+
 async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(TableName.TASK_NOTES, (table) => {
     table.increments(ColumnName.ID).primary();
@@ -42,7 +46,10 @@ async function up(knex: Knex): Promise<void> {
       .notNullable()
       .onDelete(DELETE_STRATEGY);
     table.text(ColumnName.NOTE).notNullable();
-    table.string(ColumnName.STATUS).notNullable();
+    table
+      .enum(ColumnName.STATUS, STATUS_VALUES)
+      .notNullable()
+      .defaultTo(STATUS_UNCOMPLETED);
   });
 }
 

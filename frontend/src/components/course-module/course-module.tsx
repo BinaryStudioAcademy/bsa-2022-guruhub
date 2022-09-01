@@ -1,5 +1,10 @@
-import { AppRoute, DataStatus } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { AppRoute, DataStatus, TaskStatus } from 'common/enums/enums';
+import {
+  FC,
+  TaskGetItemReponseDto,
+  TaskNoteFormRequestDto,
+  TaskNoteManipulateRequestBodyDto,
+} from 'common/types/types';
 import { Content, IconButton, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
@@ -14,11 +19,13 @@ import { TaskManipulate, TaskNotes } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
-  const [selectedUserId] = useState<number | null>(2);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const { courseId, moduleId } = useParams();
-  const { dataStatus, courseModule, notes, task } = useAppSelector(
-    (state) => state.courseModule,
-  );
+  const { dataStatus, courseModule, notes, task, mentors, user } =
+    useAppSelector((state) => ({
+      ...state.courseModule,
+      user: state.auth.user,
+    }));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -29,6 +36,21 @@ const CourseModule: FC = () => {
       }),
     );
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setSelectedUserId(user.id);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(
+      courseModuleActions.getMentorsByCourseId({
+        courseId: Number(courseId),
+        filteringOpts: { mentorName: '' },
+      }),
+    );
+  }, [courseId]);
 
   useEffect(() => {
     if (task) {
@@ -46,6 +68,38 @@ const CourseModule: FC = () => {
       );
     }
   }, [selectedUserId]);
+
+  const handleManipulateNote = (
+    payload: TaskNoteManipulateRequestBodyDto,
+  ): void => {
+    const { note, status } = payload;
+    const body = {
+      note,
+      status,
+    };
+
+    dispatch(
+      courseModuleActions.createNote({
+        body,
+        taskId: (task as TaskGetItemReponseDto).id,
+      }),
+    );
+  };
+
+  const handleSendOnReview = (payload: TaskNoteFormRequestDto): void => {
+    const { note } = payload;
+    handleManipulateNote({ note, status: TaskStatus.PENDING });
+  };
+
+  const handleApprove = (payload: TaskNoteFormRequestDto): void => {
+    const { note } = payload;
+    handleManipulateNote({ note, status: TaskStatus.COMPLETED });
+  };
+
+  const handleReject = (payload: TaskNoteFormRequestDto): void => {
+    const { note } = payload;
+    handleManipulateNote({ note, status: TaskStatus.REJECTED });
+  };
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -76,8 +130,15 @@ const CourseModule: FC = () => {
         <Content html={courseModule?.description ?? ''} />
       </div>
       <div>
-        <TaskManipulate />
-        <TaskNotes notes={notes} />
+        {user && task && task.status !== TaskStatus.COMPLETED && (
+          <TaskManipulate
+            onSendOnReview={handleSendOnReview}
+            onApprove={handleApprove}
+            onReject={handleReject}
+            isMentor={mentors.some((mentor) => mentor.id === user.id)}
+          />
+        )}
+        {user && task && <TaskNotes notes={notes} />}
       </div>
     </div>
   );

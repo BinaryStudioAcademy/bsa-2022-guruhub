@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRoute, NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
+  CourseGetMentorsRequestDto,
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
   EntityPagination,
@@ -10,6 +11,7 @@ import {
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -35,8 +37,10 @@ const createNote = createAsyncThunk<
   TaskNoteManipulateRequestDto,
   AsyncThunkConfig
 >(ActionType.MANIPULATE_TASK_NOTE, async ({ body, taskId }, { extra }) => {
-  const { tasksApi } = extra;
+  const { tasksApi, notification } = extra;
   const newNote = await tasksApi.manipulate({ body, taskId });
+
+  notification.success(NotificationMessage.NOTE_ADD);
 
   return newNote;
 });
@@ -63,4 +67,15 @@ const getNotes = createAsyncThunk<
   return notes;
 });
 
-export { createNote, getById, getNotes, getTask };
+const getMentorsByCourseId = createAsyncThunk<
+  UserDetailsResponseDto[],
+  CourseGetMentorsRequestDto,
+  AsyncThunkConfig
+>(ActionType.GET_MENTORS, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const mentors = await coursesApi.getMentorsByCourseId(payload);
+
+  return mentors;
+});
+
+export { createNote, getById, getMentorsByCourseId, getNotes, getTask };

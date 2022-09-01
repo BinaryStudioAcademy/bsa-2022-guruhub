@@ -4,9 +4,16 @@ import {
   CourseModuleGetByIdResponseDto,
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 
-import { createNote, getById, getNotes, getTask } from './actions';
+import {
+  createNote,
+  getById,
+  getMentorsByCourseId,
+  getNotes,
+  getTask,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -14,6 +21,7 @@ type State = {
   task: TaskGetItemReponseDto | null;
   notes: TaskNoteGetItemResponseDto[];
   totalNotesNumber: number;
+  mentors: UserDetailsResponseDto[];
 };
 
 const initialState: State = {
@@ -22,6 +30,7 @@ const initialState: State = {
   task: null,
   notes: [],
   totalNotesNumber: 0,
+  mentors: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,15 +69,12 @@ const reducer = createReducer(initialState, (builder) => {
     state.notes = [];
     state.totalNotesNumber = 0;
   });
-  builder.addCase(createNote.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
   builder.addCase(createNote.fulfilled, (state, { payload }) => {
     state.notes.push(payload);
     state.totalNotesNumber += 1;
   });
-  builder.addCase(createNote.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+  builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
+    state.mentors = payload;
   });
 });
 

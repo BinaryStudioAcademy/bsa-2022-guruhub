@@ -1,0 +1,46 @@
+import { FC, TaskNoteFormRequestDto } from 'common/types/types';
+import { Button, Input } from 'components/common/common';
+import { getNameOf } from 'helpers/helpers';
+import { useAppForm } from 'hooks/hooks';
+import { taskNoteCreate } from 'validation-schemas/validation-schemas';
+
+import styles from './styles.module.scss';
+
+type Props = {
+  onSubmit: (payload: TaskNoteFormRequestDto) => void;
+  defaultValues: TaskNoteFormRequestDto;
+};
+
+const TaskManipulateStudent: FC<Props> = ({ onSubmit, defaultValues }) => {
+  const { control, errors, handleSubmit, reset } =
+    useAppForm<TaskNoteFormRequestDto>({
+      defaultValues,
+      validationSchema: taskNoteCreate,
+    });
+
+  const handleNoteSubmit = (payload: TaskNoteFormRequestDto): void => {
+    onSubmit(payload);
+    reset();
+  };
+
+  return (
+    <form onSubmit={handleSubmit(handleNoteSubmit)} className={styles.form}>
+      <Input
+        control={control}
+        errors={errors}
+        label="Enter message"
+        name={getNameOf<TaskNoteFormRequestDto>('note')}
+      />
+      <div className={styles.buttonWrapper}>
+        <Button
+          label="Send on review"
+          type="submit"
+          btnType="filled"
+          btnColor="blue"
+        />
+      </div>
+    </form>
+  );
+};
+
+export { TaskManipulateStudent };

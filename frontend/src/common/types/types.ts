@@ -90,6 +90,7 @@ export {
   type TaskGetItemReponseDto,
 } from './task/task';
 export {
+  type TaskNoteFormRequestDto,
   type TaskNoteGetItemResponseDto,
   type TaskNoteManipulateRequestBodyDto,
   type TaskNoteManipulateRequestDto,

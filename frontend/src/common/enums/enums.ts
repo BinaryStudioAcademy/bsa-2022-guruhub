@@ -23,5 +23,6 @@ export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { StringCase } from './string/string';
 export { TaskStatus } from './task/task';
+export { TaskNoteValidationRule } from './task-note/task-note';
 export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';

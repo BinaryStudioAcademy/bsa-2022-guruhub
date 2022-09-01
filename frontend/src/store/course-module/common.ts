@@ -3,6 +3,7 @@ enum ActionType {
   MANIPULATE_TASK_NOTE = 'course-module/manipulate-task-note',
   GET_TASK = 'course-module/get-task',
   GET_NOTES = 'course-module/get-notes',
+  GET_MENTORS = 'course-module/get-mentors',
 }
 
 export { ActionType };

@@ -13,9 +13,12 @@ type Props = {
   status: TaskStatus;
 };
 
-const TaskNoteCard: FC<Props> = ({ note, author, createdAt }) => {
+const TaskNoteCard: FC<Props> = ({ note, author, createdAt, status }) => {
   return (
     <div className={styles.card}>
+      <div>
+        <p>Status: {status}</p>
+      </div>
       <div className={styles.cardContentWrapper}>
         <Content html={note} />
         <div className={styles.postDateSection}>

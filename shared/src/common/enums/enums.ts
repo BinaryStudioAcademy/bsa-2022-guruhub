@@ -31,6 +31,7 @@ export {
 export { PermissionKey } from './permissions/permissions';
 export { SortOrder } from './sort/sort';
 export { TaskStatus } from './task/task';
+export { TaskNoteValidationRule } from './task-note/task-note';
 export {
   UserGender,
   UserValidationMessage,
