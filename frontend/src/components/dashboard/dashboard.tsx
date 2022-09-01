@@ -33,10 +33,6 @@ const Dashboard: FC = () => {
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 
-  if (dataStatus === DataStatus.PENDING) {
-    return <Spinner />;
-  }
-
   const handleNewCourseModalToggle = (evt: React.MouseEvent | void): void => {
     evt?.stopPropagation();
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
@@ -61,7 +57,11 @@ const Dashboard: FC = () => {
         </div>
         <CategoriesList items={categories} />
       </div>
-      <CoursesList courses={courses} />
+      {dataStatus === DataStatus.PENDING ? (
+        <Spinner />
+      ) : (
+        <CoursesList courses={courses} />
+      )}
     </div>
   );
 };
