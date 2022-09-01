@@ -27,18 +27,19 @@ class MenteesToMentors {
       .execute();
   }
 
-  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
+  public async checkIsMentee(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
-  }): Promise<MenteesToMentorsM | null> {
+  }): Promise<boolean> {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
+      .select(1)
       .where({ courseId })
       .andWhere({ menteeId })
       .first();
 
-    return menteeToMentor ?? null;
+    return Boolean(menteeToMentor);
   }
 
   public getMentors(userId: number): Promise<IdContainer[]> {

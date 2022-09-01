@@ -7,6 +7,7 @@ export {
   type ChatMessageGetRequestDto,
 } from './chat-message/chat-message';
 export {
+  type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMentorsRequestDto,
