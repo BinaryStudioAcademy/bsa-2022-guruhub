@@ -28,8 +28,8 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
     (item) => item.isVisible,
   );
 
-  const isBecomeMentorVisible = useAppSelector(
-    ({ courses }) => courses.isMentorBecomingVisible,
+  const { isMentorBecomingVisible, dataBecomeMentorStatus } = useAppSelector(
+    (rootState) => rootState.courses,
   );
 
   const handleBecomeMentor = (): void => {
@@ -54,7 +54,12 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
             />
           </View>
         ))}
-        {isBecomeMentorVisible && <BecomeMentor onPress={handleBecomeMentor} />}
+        {isMentorBecomingVisible && (
+          <BecomeMentor
+            dataStatus={dataBecomeMentorStatus}
+            onPress={handleBecomeMentor}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );

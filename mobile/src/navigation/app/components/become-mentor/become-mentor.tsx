@@ -4,19 +4,15 @@ import saly from '~/assets/images/saly.png';
 import { DataStatus } from '~/common/enums/enums';
 import { Button, Image, Spinner, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppSelector } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
 type Props = {
+  dataStatus: DataStatus;
   onPress: () => void;
 };
 
-const BecomeMentor: FC<Props> = ({ onPress }) => {
-  const dataStatus = useAppSelector(
-    ({ courses }) => courses.dataBecomeMentorStatus,
-  );
-
+const BecomeMentor: FC<Props> = ({ onPress, dataStatus }) => {
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
