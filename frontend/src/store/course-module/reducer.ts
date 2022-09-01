@@ -70,7 +70,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.totalNotesNumber = 0;
   });
   builder.addCase(createNote.fulfilled, (state, { payload }) => {
-    state.notes.push(payload);
+    state.notes = [payload, ...state.notes];
     state.totalNotesNumber += 1;
   });
   builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {

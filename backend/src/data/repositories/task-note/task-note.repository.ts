@@ -1,5 +1,6 @@
 import { Page } from 'objection';
 
+import { SortOrder } from '~/common/enums/enums';
 import {
   EntityPagination,
   TaskNoteCreateArgumentsDto,
@@ -30,6 +31,7 @@ class TaskNote {
       .query()
       .where({ taskId })
       .withGraphFetched('author(withoutPassword).[userDetails]')
+      .orderBy('createdAt', SortOrder.DESC)
       .page(page, count)
       .castTo<Page<TaskNoteM & TaskNoteGetItemResponseDto>>();
 
