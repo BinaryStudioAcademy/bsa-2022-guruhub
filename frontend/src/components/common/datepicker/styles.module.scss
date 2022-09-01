@@ -37,6 +37,7 @@
 }
 
 .errorMessage {
+  position: absolute;
   height: 16px;
   overflow: hidden;
   color: var(--support-error-red-100);

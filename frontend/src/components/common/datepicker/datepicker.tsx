@@ -41,6 +41,7 @@ const Datepicker: FC<Props> = ({ control, name, label, errors }) => {
         showMonthDropdown
         dropdownMode="select"
         dateFormat="dd.MM.yyyy"
+        placeholderText="Enter date of birth"
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
