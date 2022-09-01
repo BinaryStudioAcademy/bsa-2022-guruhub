@@ -69,7 +69,11 @@ const Course: FC = () => {
   };
 
   const handleMentorSelectClick = (mentorId: number): void => {
-    dispatch(courseActions.chooseMentor({ id: mentorId }));
+    dispatch(courseActions.chooseMentor({ id: mentorId }))
+      .unwrap()
+      .then(() => {
+        handleChooseMentorModalToggle();
+      });
   };
 
   const handleMentorsSearch = (mentorName: string): void => {
@@ -101,7 +105,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(courseActions.updateIsMentorBecomingEnabled());
-    dispatch(courseActions.updateisMentorChoosingEnabled());
+    dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
