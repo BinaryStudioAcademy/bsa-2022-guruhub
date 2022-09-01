@@ -41,21 +41,45 @@ class MenteesToMentors {
     return menteeToMentor ?? null;
   }
 
-  public getMentees(userId: number): Promise<Array<number>> {
+  public getMentees(userId: number): Promise<MenteesToMentorsM[]> {
     return this.#MenteesToMentorsModel
       .query()
       .select('mentees_to_mentors.mentee_id')
       .where({ mentorId: userId })
-      .castTo<Array<number>>()
       .execute();
   }
 
-  public getMentors(userId: number): Promise<Array<number>> {
+  public getMentors(userId: number): Promise<MenteesToMentorsM[]> {
     return this.#MenteesToMentorsModel
       .query()
       .select('mentees_to_mentors.mentor_id')
       .where({ menteeId: userId })
-      .castTo<Array<number>>()
+      .execute();
+  }
+
+  public getMentorsByFullName(
+    userId: number,
+    fullName: string,
+  ): Promise<MenteesToMentorsM[]> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('mentor.id')
+      .where({ menteeId: userId })
+      .andWhere('fullName', 'like', '%' + fullName + '%')
+      .withGraphJoined('mentor(withoutPassword).[userDetails]')
+      .execute();
+  }
+
+  public getMenteesByFullName(
+    userId: number,
+    fullName: string,
+  ): Promise<MenteesToMentorsM[]> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('mentee.id')
+      .where({ mentorId: userId })
+      .andWhere('fullName', 'like', '%' + fullName + '%')
+      .withGraphJoined('mentee(withoutPassword).[userDetails]')
       .execute();
   }
 }

@@ -3,11 +3,13 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { ChatsApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
   ChatMessageCreateRequestBodyDto,
+  ChatMessageFilteringDto,
   ChatMessageGetAllRequestParamsDto,
 } from '~/common/types/types';
 import { chatMessage as chatMessageService } from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
+  chatMessageFiltering as сhatMessageFilteringValidationSchema,
   chatMessageGetAllParams as chatMessageGetAllParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -23,10 +25,20 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: ChatsApiPath.ROOT,
-    async handler(req, rep) {
+    schema: {
+      querystring: сhatMessageFilteringValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Querystring: ChatMessageFilteringDto;
+      }>,
+      rep,
+    ) {
       const { id } = req.user;
+      const { fullName } = req.query;
+
       const allChatsLastMessagesMessagesDto =
-        await chatMessageService.getAllLastMessages(id);
+        await chatMessageService.getAllLastMessages(id, { fullName });
 
       return rep.status(HttpCode.OK).send(allChatsLastMessagesMessagesDto);
     },

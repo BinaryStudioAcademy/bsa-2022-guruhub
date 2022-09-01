@@ -1,5 +1,6 @@
 import {
   ChatMessageCreateRequestDto,
+  ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllResponseDto,
   ChatMessageGetRequestDto,
@@ -42,26 +43,33 @@ class ChatMessage {
 
   public async getAllLastMessages(
     userId: number,
-  ): Promise<ChatMessageGetAllResponseDto> {
-    const usersMentors = await this.#menteesToMentorsRepository.getMentors(
-      userId,
-    );
-    const usersMentees = await this.#menteesToMentorsRepository.getMentees(
-      userId,
-    );
+    filteringOpts: ChatMessageFilteringDto,
+  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+    const { fullName } = filteringOpts;
+    const usersMentors =
+      await this.#menteesToMentorsRepository.getMentorsByFullName(
+        userId,
+        fullName,
+      );
 
-    const chatOpponentsIds = [...usersMentors, ...usersMentees];
+    const userMentorsIds = usersMentors.map((mentor) => mentor.id);
 
-    const lastMessagesWithMentorsAndMentees = await Promise.all(
-      chatOpponentsIds.map((chatOpponentId) => {
-        return this.#chatMessageRepository.getLastMessage({
-          userId,
-          chatOpponentId,
-        });
-      }),
-    );
+    const usersMentees =
+      await this.#menteesToMentorsRepository.getMenteesByFullName(
+        userId,
+        fullName,
+      );
+    const userMenteesIds = usersMentees.map((mentees) => mentees.id);
 
-    return { items: lastMessagesWithMentorsAndMentees };
+    const menteesAndMentors = [...userMentorsIds, ...userMenteesIds];
+
+    const lastMessagesWithMentorsAndMentees =
+      await this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
+        userId,
+        menteesAndMentors,
+      );
+
+    return lastMessagesWithMentorsAndMentees;
   }
 
   public create(
