@@ -30,6 +30,14 @@
   padding: 20px;
 }
 
+.tableBodyRowData:first-child {
+  width: 2%;
+}
+
+.tableBodyRowData:last-child {
+  width: 11%;
+}
+
 .tableHeadRowHeader:last-child {
   border-right: none;
 }
