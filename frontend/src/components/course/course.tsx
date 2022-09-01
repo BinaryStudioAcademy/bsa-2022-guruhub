@@ -68,14 +68,11 @@ const Course: FC = () => {
     setChooseMentorModalOpen((prev) => !prev);
   };
 
-  const handleMentorSelectClick = (
-    mentorId: number,
-    evt: React.MouseEvent,
-  ): void => {
+  const handleMentorSelectClick = (mentorId: number): void => {
     dispatch(courseActions.chooseMentor({ id: mentorId }))
       .unwrap()
       .then(() => {
-        handleChooseMentorModalToggle(evt);
+        handleChooseMentorModalToggle();
       });
   };
 
