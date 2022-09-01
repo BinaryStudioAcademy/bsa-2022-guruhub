@@ -2,7 +2,7 @@ import { FC, TaskNoteFormRequestDto } from 'common/types/types';
 import { Button, Input } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
-import { taskNoteCreate } from 'validation-schemas/validation-schemas';
+import { taskNoteCreate as taskNoteCreateValidationSchema } from 'validation-schemas/validation-schemas';
 
 import styles from './styles.module.scss';
 
@@ -20,7 +20,7 @@ const TaskManipulateMentor: FC<Props> = ({
   const { control, errors, handleSubmit, reset } =
     useAppForm<TaskNoteFormRequestDto>({
       defaultValues,
-      validationSchema: taskNoteCreate,
+      validationSchema: taskNoteCreateValidationSchema,
     });
 
   const handleNoteApprove = (payload: TaskNoteFormRequestDto): void => {
