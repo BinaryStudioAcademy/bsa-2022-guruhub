@@ -4,7 +4,7 @@ import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 const DEFAULT_UPDATE_USER_DETAILS_PAYLOAD: UserDetailsUpdateInfoRequestDto = {
   fullName: '',
   gender: UserGender.MALE,
-  dateOfBirth: '',
+  dateOfBirth: null,
 };
 
 const GENDER_OPTIONS = Object.values(UserGender).map((gender) => ({
