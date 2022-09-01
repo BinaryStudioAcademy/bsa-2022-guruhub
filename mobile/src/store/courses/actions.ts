@@ -17,7 +17,7 @@ import {
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
-import { app, interviewsActions } from '~/store/actions';
+import { app, coursesActions, interviewsActions } from '~/store/actions';
 
 import { ActionType } from './common';
 
@@ -62,9 +62,10 @@ const getMentorsByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async (payload, { extra }) => {
+>(ActionType.GET_MENTORS, async (payload, { dispatch, extra }) => {
   const { coursesApi } = extra;
   const mentors = await coursesApi.getMentorsByCourseId(payload);
+  dispatch(coursesActions.updateVisibilityBecomeMentor());
 
   return mentors;
 });

@@ -83,9 +83,7 @@ const Course: FC = () => {
               mentorName: '',
             },
           }),
-        )
-          .unwrap()
-          .then(() => dispatch(coursesActions.updateVisibilityBecomeMentor()));
+        );
       }
 
       return () => {
