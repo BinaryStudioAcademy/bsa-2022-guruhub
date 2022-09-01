@@ -35,7 +35,7 @@ const InterviewParameters: FC<Props> = ({
 
   const interviewDate = interview.interviewDate
     ? getFormattedDate(interview.interviewDate, 'kk:mm, dd/MM/yyyy')
-    : '';
+    : 'Not assigned yet';
 
   const interviewersData = interviewers.map((interviewer) => ({
     label: interviewer.interviewer.userDetails.fullName,
@@ -104,7 +104,8 @@ const InterviewParameters: FC<Props> = ({
             <Text style={styles.rowTitle}>Interviewer</Text>
             {!isEditMode ? (
               <Text style={styles.rowContent}>
-                {interview.interviewer?.userDetails.fullName ?? ''}
+                {interview.interviewer?.userDetails.fullName ||
+                  'Not assigned yet'}
               </Text>
             ) : (
               <View style={styles.rowContent}>
