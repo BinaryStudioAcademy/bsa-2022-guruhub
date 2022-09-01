@@ -44,9 +44,7 @@ const UserProfileForm: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
-        dateOfBirth: userDetails.dateOfBirth
-          ? new Date(userDetails.dateOfBirth)
-          : null,
+        dateOfBirth: userDetails.dateOfBirth ?? null,
       });
     }
   }, [userDetails]);

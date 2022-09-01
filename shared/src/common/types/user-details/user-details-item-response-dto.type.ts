@@ -3,7 +3,7 @@ import { UserGender } from '~/common/enums/enums';
 type UserDetailsItemResponseDto = {
   avatarUrl: string | null;
   createdAt: string;
-  dateOfBirth: string | null;
+  dateOfBirth: Date | null;
   fullName: string;
   gender: UserGender | null;
   id: number;
