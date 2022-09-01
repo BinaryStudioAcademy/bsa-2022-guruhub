@@ -24,23 +24,27 @@ const styles = StyleSheet.create({
   },
   rowData: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
     marginTop: 25,
   },
   rowTitle: {
+    flex: 2,
+    marginRight: 30,
+  },
+  title: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_100,
     fontSize: 14,
     lineHeight: 19,
-    width: 90,
-    marginRight: 30,
   },
   rowContent: {
+    flex: 3,
+    alignItems: 'flex-start',
+  },
+  content: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_200,
     fontSize: 14,
     lineHeight: 19,
-    maxWidth: 180,
   },
 });
 

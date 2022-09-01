@@ -7,7 +7,7 @@ import {
   InterviewsUpdateRequestDto,
   UserWithPermissions,
 } from '~/common/types/types';
-import { Dropdown, ScrollView, Text, View } from '~/components/common/common';
+import { Dropdown, Text, View } from '~/components/common/common';
 import { Category } from '~/components/course/components/components';
 import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useState } from '~/hooks/hooks';
@@ -72,55 +72,69 @@ const InterviewParameters: FC<Props> = ({
           />
         )}
       </View>
-      <ScrollView horizontal>
-        <View>
-          <View style={styles.rowData}>
-            <Text style={styles.rowTitle}>Name</Text>
-            <Text style={styles.rowContent}>
+      <View>
+        <View style={styles.rowData}>
+          <View style={styles.rowTitle}>
+            <Text style={styles.title}>Name</Text>
+          </View>
+          <View style={styles.rowContent}>
+            <Text style={styles.content}>
               {interview.interviewee.userDetails.fullName ?? ''}
             </Text>
           </View>
-          <View style={styles.rowData}>
-            <Text style={styles.rowTitle}>Email</Text>
-            <Text style={styles.rowContent}>
+        </View>
+        <View style={styles.rowData}>
+          <View style={styles.rowTitle}>
+            <Text style={styles.title}>Email</Text>
+          </View>
+          <View style={styles.rowContent}>
+            <Text style={styles.content}>
               {interview.interviewee.email ?? ''}
             </Text>
           </View>
-          <View style={styles.rowData}>
-            <Text style={styles.rowTitle}>Type of course</Text>
-            <View style={styles.rowContent}>
-              <Category
-                keyName={interview.courseCategory.key ?? 'unknown'}
-                name={interview.courseCategory.name ?? 'Unknown'}
-                isActive={false}
-              />
-            </View>
+        </View>
+        <View style={styles.rowData}>
+          <View style={styles.rowTitle}>
+            <Text style={styles.title}>Type of course</Text>
           </View>
-          <View style={styles.rowData}>
-            <Text style={styles.rowTitle}>Date of interview</Text>
-            <Text style={styles.rowContent}>{interviewDate}</Text>
+          <View style={styles.rowContent}>
+            <Category
+              keyName={interview.courseCategory.key ?? 'unknown'}
+              name={interview.courseCategory.name ?? 'Unknown'}
+              isActive={false}
+            />
           </View>
-          <View style={styles.rowData}>
-            <Text style={styles.rowTitle}>Interviewer</Text>
+        </View>
+        <View style={styles.rowData}>
+          <View style={styles.rowTitle}>
+            <Text style={styles.title}>Date of interview</Text>
+          </View>
+          <View style={styles.rowContent}>
+            <Text style={styles.content}>{interviewDate}</Text>
+          </View>
+        </View>
+        <View style={styles.rowData}>
+          <View style={styles.rowTitle}>
+            <Text style={styles.title}>Interviewer</Text>
+          </View>
+          <View style={styles.rowContent}>
             {!isEditMode ? (
-              <Text style={styles.rowContent}>
+              <Text style={styles.content}>
                 {interview.interviewer?.userDetails.fullName ||
                   'Not assigned yet'}
               </Text>
             ) : (
-              <View style={styles.rowContent}>
-                <Dropdown
-                  items={interviewersData}
-                  control={control}
-                  errors={errors}
-                  name="interviewerUserId"
-                  selectingObjectName="interviewer"
-                />
-              </View>
+              <Dropdown
+                items={interviewersData}
+                control={control}
+                errors={errors}
+                name="interviewerUserId"
+                selectingObjectName="interviewer"
+              />
             )}
           </View>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
