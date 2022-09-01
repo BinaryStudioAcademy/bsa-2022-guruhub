@@ -13,6 +13,7 @@ export { ScrollView } from './scrollview/scrollview';
 export { Search } from './search/search';
 export { Spinner } from './spinner/spinner';
 export { Stack } from './stack/stack';
+export { StatusCell } from './status-cell/status-cell';
 export { Table } from './table/table';
 export { Text } from './text/text';
 export { Toast } from './toast/toast';
