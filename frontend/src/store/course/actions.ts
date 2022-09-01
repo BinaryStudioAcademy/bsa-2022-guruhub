@@ -185,20 +185,21 @@ const chooseMentor = createAsyncThunk<
 
 const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
-  CourseGetRequestParamsDto,
+  void,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, async ({ id }, { extra }) => {
-  const { coursesApi } = extra;
+>(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
+  const {
+    auth: { user },
+    course: { mentors, mentor },
+  } = getState();
+  const isMentorCheck = mentors.some(
+    (mentor) => mentor.id === (user as UserWithPermissions).id,
+  );
 
-  const isMentorCheck = await coursesApi.checkIsMentor({
-    courseId: id,
-  });
-  const hasMentorCheck = await coursesApi.checkHasMentor({
-    courseId: id,
-  });
-  const isMentorChoosingEnabled = !(isMentorCheck || hasMentorCheck);
-  
-  return isMentorChoosingEnabled;
+  return !(isMentorCheck || mentor);
+  const canChooseMentor = !(isMentorCheck || mentor);
+
+  return canChooseMentor;
 });
 
 const getCategories = createAsyncThunk<
