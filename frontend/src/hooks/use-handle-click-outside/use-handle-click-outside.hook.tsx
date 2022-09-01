@@ -11,10 +11,10 @@ const useHandleClickOutside = ({
 }: UseHandleClickOutsideArgs): void => {
   useEffect(() => {
     const handleClickOutside = (evt: React.MouseEvent | MouseEvent): void => {
-      if (
-        (evt.target as Node).contains(ref.current) &&
-        evt.target !== ref.current
-      ) {
+      const hasCurrentNode = (evt.target as Node).contains(ref.current);
+      const isCurrentNode = evt.target === ref.current;
+
+      if (hasCurrentNode && !isCurrentNode) {
         onClick();
       }
     };
