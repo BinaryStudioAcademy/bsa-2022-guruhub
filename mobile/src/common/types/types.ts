@@ -50,6 +50,7 @@ export {
   type AuthNavigationParamList,
   type DrawerNavigationItem,
   type DrawerNavigationList,
+  type InterviewNavigationParamList,
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
