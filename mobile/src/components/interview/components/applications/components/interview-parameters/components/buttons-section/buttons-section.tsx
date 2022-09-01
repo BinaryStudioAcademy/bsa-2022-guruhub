@@ -37,8 +37,8 @@ const ButtonsSection: FC<Props> = ({
         label="Save"
         variant={ButtonVariant.PRIMARY}
         onPress={handleEditInterviewer}
-        style={{ ...styles.button, marginLeft: 10 }}
-        isLoader={isLoading}
+        style={{ ...styles.button, ...styles.saveButton }}
+        isLoading={isLoading}
       />
     </View>
   );

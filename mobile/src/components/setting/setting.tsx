@@ -94,7 +94,7 @@ const Settings: FC = () => {
           items={GENDER_OPTIONS}
           control={control}
           errors={errors}
-          selectingObjectName="gender"
+          placeholder="Select gender"
         />
       </Stack>
       <View style={styles.buttons}>

@@ -25,9 +25,7 @@ const Applications: FC = () => {
 
   const handleUpdateInterview = (payload: InterviewsUpdateRequestDto): void => {
     if (interview) {
-      dispatch(
-        interviewActions.updateInterview({ id: interview?.id, payload }),
-      );
+      dispatch(interviewActions.updateInterview({ id: interview.id, payload }));
     }
   };
 
@@ -35,7 +33,7 @@ const Applications: FC = () => {
     if (interview) {
       dispatch(
         interviewActions.getInterviewersByCategory({
-          categoryId: interview?.courseCategory.id,
+          categoryId: interview.courseCategory.id,
         }),
       );
     }

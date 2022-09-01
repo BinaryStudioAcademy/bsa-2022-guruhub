@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 8,
   },
+  saveButton: {
+    marginLeft: 10,
+  },
 });
 
 export { styles };

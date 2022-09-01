@@ -95,7 +95,7 @@ const InterviewParameters: FC<Props> = ({
         </View>
         <View style={styles.rowData}>
           <View style={styles.rowTitle}>
-            <Text style={styles.title}>Type of course</Text>
+            <Text style={styles.title}>Category</Text>
           </View>
           <View style={styles.rowContent}>
             <Category
@@ -129,7 +129,7 @@ const InterviewParameters: FC<Props> = ({
                 control={control}
                 errors={errors}
                 name="interviewerUserId"
-                selectingObjectName="interviewer"
+                placeholder="Select interviewer"
               />
             )}
           </View>

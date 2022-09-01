@@ -13,7 +13,7 @@ type Props = {
   variant?: ButtonVariant;
   onPress: () => void;
   style?: ViewStyle;
-  isLoader?: boolean;
+  isLoading?: boolean;
 };
 
 const Button: FC<Props> = ({
@@ -22,7 +22,7 @@ const Button: FC<Props> = ({
   variant,
   onPress,
   style,
-  isLoader,
+  isLoading,
 }) => {
   const textMarginLeft = icon ? 10 : 0;
 
@@ -39,7 +39,7 @@ const Button: FC<Props> = ({
           height={20}
         />
       )}
-      {!isLoader ? (
+      {!isLoading ? (
         <Text
           style={{
             ...styles.label,
