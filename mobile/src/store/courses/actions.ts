@@ -106,22 +106,23 @@ const createMentor = createAsyncThunk<
 
 const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.BECOME_MENTOR,
-  async (_, { dispatch, getState }) => {
+  async (_, { dispatch, getState, extra }) => {
     const {
       courses: { course },
       auth: { user },
     } = getState();
 
+    const { interviewersApi } = extra;
+
     if (!user || !course) {
       return;
     }
 
-    const passedCategoryInterviews = await dispatch(
-      interviewsActions.getPassedInterviewCategoryIds(user.id),
+    const passedCategoryInterviews =
+      await interviewersApi.getPassedInterviewCategoryIds(user.id);
+    const isCategoryPassed = passedCategoryInterviews.includes(
+      course.courseCategoryId,
     );
-    const isCategoryPassed = (
-      passedCategoryInterviews.payload as number[]
-    ).includes(course.courseCategoryId);
 
     if (isCategoryPassed) {
       const payload: CoursesToMentorsRequestDto = {
