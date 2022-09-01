@@ -121,6 +121,7 @@ const UAMConfigureGroup: FC = () => {
           name={GroupConfigureFieldsName.NAME}
           placeholder="Enter group name"
           type="text"
+          inputClassName={styles.nameField}
         />
       </form>
       <UsersTable

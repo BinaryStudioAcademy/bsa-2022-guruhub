@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
-import { Text, View } from '~/components/common/common';
+import { Content, Text, View } from '~/components/common/common';
+import { useWindowDimensions } from '~/hooks/hooks';
 
 import { styles } from './styles';
 
@@ -11,7 +12,8 @@ type Props = {
 };
 
 const Module: FC<Props> = ({ index, title, description }): ReactElement => {
-  const moduleSequenceNumber = `${index + 1}`;
+  const { width } = useWindowDimensions();
+  const moduleSequenceNumber = `${index + 1}.`;
 
   return (
     <View style={styles.container}>
@@ -20,7 +22,13 @@ const Module: FC<Props> = ({ index, title, description }): ReactElement => {
       </View>
       <View style={styles.textWrapper}>
         <Text style={styles.title}>{title}</Text>
-        {description && <Text style={styles.description}>{description}</Text>}
+        {description && (
+          <Content
+            html={description}
+            width={width}
+            style={styles.description}
+          />
+        )}
       </View>
     </View>
   );

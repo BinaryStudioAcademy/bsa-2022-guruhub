@@ -14,4 +14,6 @@ delete:
     '404':
       description: User to delete not found
     '400':
-        description: User can't delete himself
+      description: User can't delete himself
+    '403':
+      description: You do not have permission to access this resource

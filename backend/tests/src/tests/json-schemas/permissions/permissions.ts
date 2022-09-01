@@ -1,1 +1,2 @@
-export { permissionSchema } from './one/one-permission.schema';
+export { allPermissionsSchema } from './all/all';
+export { permissionSchema } from './one/one';

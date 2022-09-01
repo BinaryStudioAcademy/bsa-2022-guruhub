@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     marginLeft: 14,
+    paddingRight: 20,
   },
   title: {
     fontFamily: AppFontFamily.INTER_600,

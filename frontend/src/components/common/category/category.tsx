@@ -2,6 +2,7 @@ import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { changeStringCase } from 'helpers/helpers';
+import { useMemo } from 'hooks/hooks';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
@@ -17,8 +18,12 @@ const Category: FC<Props> = ({ keyName, name }) => {
     caseType: StringCase.KEBAB_CASE,
   });
 
+  const color = useMemo(() => {
+    return getRandomColor();
+  }, []);
+
   return (
-    <div className={styles.category} style={{ borderColor: getRandomColor() }}>
+    <div className={styles.category} style={{ borderColor: color }}>
       <Image
         width="30px"
         height="30px"

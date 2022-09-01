@@ -17,15 +17,17 @@ const AuthorizedMenu: FC<Props> = ({
 }) => {
   return (
     <div className={styles.menu}>
-      {routes.map(({ name, subroutes }) => (
-        <NavigationMenu
-          key={name}
-          name={name}
-          subroutes={subroutes}
-          className={styles.bottomLine}
-          user={user}
-        />
-      ))}
+      <div>
+        {routes.map(({ name, subroutes }) => (
+          <NavigationMenu
+            key={name}
+            name={name}
+            subroutes={subroutes}
+            className={styles.bottomLine}
+            user={user}
+          />
+        ))}
+      </div>
       {isMentorBecomingEnabled && <BecomeAMentor onClick={onBecomeAMentor} />}
     </div>
   );

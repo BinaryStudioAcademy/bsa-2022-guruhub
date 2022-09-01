@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: '100%',
-    height: 13,
+    height: 17,
     resizeMode: 'contain',
   },
 });

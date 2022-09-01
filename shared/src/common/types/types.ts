@@ -47,9 +47,13 @@ export {
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
   type InterviewsGetOtherItemResponseDto,
   type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from './interview/interview';
 export {
   type InterviewNoteCreateRequestDto,
@@ -79,7 +83,6 @@ export {
   type UserSignInResponseDto,
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-  type UserWithDetailsDto,
   type UserWithPermissions,
 } from './user/user';
 export {

@@ -31,3 +31,4 @@ const proc = childProcess.exec(
 
 proc.stdout.pipe(process.stdout);
 proc.stderr.pipe(process.stderr);
+proc.on('exit', (code) => process.exit(code));
