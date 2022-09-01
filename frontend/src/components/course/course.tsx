@@ -104,7 +104,7 @@ const Course: FC = () => {
       dispatch(
         courseActions.getMentor({
           courseId: Number(id),
-          id: user.id,
+          menteeId: user.id,
         }),
       );
     }

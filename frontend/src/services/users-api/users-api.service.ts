@@ -2,8 +2,6 @@ import { ApiPath, HttpMethod, UsersApiPath } from 'common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  MenteesToMentorsResponseDto,
-  UserGetMentorRequestParamsDto,
   UsersDeleteRequestParamsDto,
   UsersGetResponseDto,
 } from 'common/types/types';
@@ -37,20 +35,6 @@ class UsersApi {
           page,
           count,
         },
-      },
-    );
-  }
-
-  public getMentor({
-    id,
-    courseId,
-  }: UserGetMentorRequestParamsDto): Promise<MenteesToMentorsResponseDto> {
-    return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.USERS}${
-        UsersApiPath.ROOT
-      }${id}/courses/${courseId}/mentor`,
-      {
-        method: HttpMethod.GET,
       },
     );
   }

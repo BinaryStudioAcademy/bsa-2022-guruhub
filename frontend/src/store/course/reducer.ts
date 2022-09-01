@@ -127,7 +127,9 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(getMentor.fulfilled, (state, { payload }) => {
-    state.isMentorChoosingEnabled = !payload;
+    const hasMentor = Boolean(payload);
+    const canChooseMentor = !hasMentor && state.isMentorChoosingEnabled;
+    state.isMentorChoosingEnabled = canChooseMentor;
     state.mentor = payload ? payload.mentor : null;
   });
 

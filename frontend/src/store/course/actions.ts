@@ -11,10 +11,10 @@ import {
   CourseSelectMentorRequestParamsDto,
   CoursesToMentorsRequestDto,
   CourseUpdateCategoryRequestArguments,
+  GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
-  UserGetMentorRequestParamsDto,
   UserWithPermissions,
 } from 'common/types/types';
 import { notification } from 'services/services';
@@ -60,12 +60,12 @@ const createInterview = createAsyncThunk<
 
 const getMentor = createAsyncThunk<
   MenteesToMentorsResponseDto | null,
-  UserGetMentorRequestParamsDto,
+  GetMentorRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTOR, async (payload, { extra }) => {
-  const { usersApi } = extra;
+  const { mentorsApi } = extra;
 
-  const menteeToMentor = await usersApi.getMentor(payload);
+  const menteeToMentor = await mentorsApi.getMentor(payload);
 
   return menteeToMentor;
 });
@@ -197,7 +197,9 @@ const updateisMentorChoosingEnabled = createAsyncThunk<
     (mentor) => mentor.id === (user as UserWithPermissions).id,
   );
 
-  return !(isMentorCheck || mentor);
+  const canChooseMentor = !(isMentorCheck || mentor);
+
+  return canChooseMentor;
 });
 
 const getCategories = createAsyncThunk<

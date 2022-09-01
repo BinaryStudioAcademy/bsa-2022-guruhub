@@ -62,6 +62,7 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
@@ -87,7 +88,6 @@ export {
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export { type IconName, type SelectorOption } from './ui/ui';
 export {
-  type UserGetMentorRequestParamsDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
