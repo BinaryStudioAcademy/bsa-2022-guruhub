@@ -71,8 +71,7 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         menteeId,
         moduleId,
       });
-
-      rep.status(task ? HttpCode.OK : HttpCode.NOT_FOUND).send(task);
+      rep.status(HttpCode.OK).send(task);
     },
   });
 

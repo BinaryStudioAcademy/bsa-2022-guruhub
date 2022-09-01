@@ -22,5 +22,3 @@ get:
         application/json:
           schema:
             $ref: '../../schemas/tasks/tasks-get-by-mentee-id-and-module-id-response-dto.yaml'
-    '404':
-      description: Task was not found
