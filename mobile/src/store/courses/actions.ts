@@ -131,18 +131,14 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         userId: user.id,
         courseId: course.id,
       };
-      dispatch(createMentor(payload))
-        .then(() => {
-          dispatch(setBecomeMentorInvisible());
-        })
-        .then(() => {
-          dispatch(
-            notify({
-              type: NotificationType.SUCCESS,
-              message: NotificationMessage.MENTOR_ADD,
-            }),
-          );
-        });
+      await dispatch(createMentor(payload));
+      dispatch(setBecomeMentorInvisible());
+      dispatch(
+        notify({
+          type: NotificationType.SUCCESS,
+          message: NotificationMessage.MENTOR_ADD,
+        }),
+      );
     } else {
       const payload: InterviewsCreateRequestBodyDto = {
         intervieweeUserId: user.id,
