@@ -75,15 +75,9 @@ const CourseModule: FC = () => {
   const handleManipulateNote = (
     payload: TaskNoteManipulateRequestBodyDto,
   ): void => {
-    const { note, status } = payload;
-    const body = {
-      note,
-      status,
-    };
-
     dispatch(
       courseModuleActions.createNote({
-        body,
+        body: payload,
         taskId: (task as TaskGetItemReponseDto).id,
       }),
     );
