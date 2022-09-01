@@ -51,7 +51,7 @@ const coursesToCreate: CourseCreateData[] = [
     categoryKey: 'javascript',
     mentor: {
       fullName: 'JS Mentor',
-      email: 'test.jsmentor@gmail.com',
+      email: 'test.jsmentor@guruhub.club',
       password: 'Pa55word',
     },
   },
@@ -63,7 +63,7 @@ const coursesToCreate: CourseCreateData[] = [
     categoryKey: 'python',
     mentor: {
       fullName: 'Python Mentor',
-      email: 'test.pythonmentor@gmail.com',
+      email: 'test.pythonmentor@guruhub.club',
       password: 'Pa55word',
     },
   },
@@ -75,7 +75,7 @@ const coursesToCreate: CourseCreateData[] = [
     categoryKey: 'c_sharp',
     mentor: {
       fullName: 'C# Mentor',
-      email: 'test.csharpmentor@gmail.com',
+      email: 'test.csharpmentor@guruhub.club',
       password: 'Pa55word',
     },
   },

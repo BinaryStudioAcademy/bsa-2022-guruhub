@@ -4,6 +4,7 @@ export {
   CategoriesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
@@ -22,3 +23,4 @@ export { NotificationType } from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permission/permission';
 export { AppColor, AppFontFamily, ButtonVariant } from './ui/ui';
+export { UserGender } from './user/user.enum';

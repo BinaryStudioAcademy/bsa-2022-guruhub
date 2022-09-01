@@ -31,12 +31,16 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
+  const { user, course, dataStatus, courseModules, modulesDataStatus } =
+    useAppSelector(({ auth, courses, courseModules }) => ({
+      user: auth.user,
+      course: courses.course,
+      dataStatus: courses.dataStatus,
+      courseModules: courseModules.courseModules,
+      modulesDataStatus: courseModules.dataStatus,
+    }));
 
-  const { user, course, dataStatus } = useAppSelector(({ auth, courses }) => ({
-    user: auth.user,
-    course: courses.course,
-    dataStatus: courses.dataStatus,
-  }));
+  const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const currentCategory = course?.category;
   const parentNavigator = navigation.getParent();
@@ -102,7 +106,10 @@ const Course: FC = () => {
         {Boolean(course.description) && (
           <Content html={course.description} width={width} />
         )}
-        <CourseModules />
+        <CourseModules
+          courseModules={courseModules}
+          isLoading={moduleIsLoading}
+        />
       </View>
     </ScrollView>
   );
