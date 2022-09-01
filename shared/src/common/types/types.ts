@@ -62,6 +62,7 @@ export {
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';
 export {
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
@@ -75,7 +76,6 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
-  type UserGetMentorRequestParamsDto,
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,

@@ -9,30 +9,23 @@ import {
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
-  UserGetMentorRequestParamsDto,
   UsersDeleteRequestParamsDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
-import {
-  menteesToMentors as menteesToMentorsService,
-  user as userService,
-} from '~/services/services';
+import { user as userService } from '~/services/services';
 import {
   pagination as paginationQueryValidationSchema,
   userDelete as userDeleteRequestParamsValidationSchema,
-  userGetMentor as userGetMentorRequestParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
     user: typeof userService;
-    menteesToMentors: typeof menteesToMentorsService;
   };
 };
 
 const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { user: userService, menteesToMentors: menteesToMentorsService } =
-    opts.services;
+  const { user: userService } = opts.services;
 
   fastify.route({
     method: HttpMethod.GET,
@@ -57,26 +50,6 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(users);
-    },
-  });
-
-  fastify.route({
-    method: HttpMethod.GET,
-    url: UsersApiPath.$ID_COURSES_$ID_MENTOR,
-    schema: { params: userGetMentorRequestParamsValidationSchema },
-    async handler(
-      req: FastifyRequest<{ Params: UserGetMentorRequestParamsDto }>,
-      rep,
-    ) {
-      const { id, courseId } = req.params;
-
-      const menteeToMentor =
-        await menteesToMentorsService.getByCourseIdAndMenteeId({
-          courseId,
-          menteeId: id,
-        });
-
-      return rep.status(HttpCode.OK).send(menteeToMentor);
     },
   });
 
