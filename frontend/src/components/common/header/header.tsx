@@ -3,7 +3,12 @@ import logo from 'assets/img/logo.svg';
 import { AppRoute, SearchValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
-import { useAppSelector, useLocation, useSearch, useState } from 'hooks/hooks';
+import {
+  useAppSelector,
+  useCourseSearch,
+  useLocation,
+  useState,
+} from 'hooks/hooks';
 
 import { Popup, SearchBar } from './components/components';
 import styles from './styles.module.scss';
@@ -21,7 +26,7 @@ const Header: FC = () => {
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
-  const { performSearch } = useSearch();
+  const { performSearch } = useCourseSearch();
 
   const handleSearch = (search: string): void => {
     performSearch(SearchValue.TITLE, search);

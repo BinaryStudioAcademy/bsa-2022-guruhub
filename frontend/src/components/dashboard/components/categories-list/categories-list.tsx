@@ -1,7 +1,7 @@
 import { SearchValue } from 'common/enums/enums';
 import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
 import { Category } from 'components/common/common';
-import { useSearch } from 'hooks/hooks';
+import { useCourseSearch } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const CategoriesList: FC<Props> = ({ items }) => {
-  const { searchParams, performSearch } = useSearch();
+  const { searchParams, performSearch } = useCourseSearch();
 
   const activeCategory = searchParams.get(SearchValue.CATEGORY) ?? '';
 

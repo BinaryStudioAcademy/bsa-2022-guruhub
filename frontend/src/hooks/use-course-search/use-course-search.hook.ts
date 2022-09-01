@@ -2,12 +2,12 @@ import { SearchValue } from 'common/enums/enums';
 import { useAppDispatch, useSearchParams } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
-type UseSearchResult = {
+type UseCourseSearchResult = {
   searchParams: URLSearchParams;
   performSearch: (name: string, value: string) => void;
 };
 
-const useSearch = (): UseSearchResult => {
+const useCourseSearch = (): UseCourseSearchResult => {
   const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,4 +32,4 @@ const useSearch = (): UseSearchResult => {
   return { searchParams, performSearch };
 };
 
-export { useSearch };
+export { useCourseSearch };
