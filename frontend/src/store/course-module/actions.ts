@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRoute, NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
-  CourseGetMentorsRequestDto,
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
   EntityPagination,
@@ -11,7 +10,6 @@ import {
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
-  UserDetailsResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -67,15 +65,14 @@ const getNotes = createAsyncThunk<
   return notes;
 });
 
-const getMentorsByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
-  CourseGetMentorsRequestDto,
-  AsyncThunkConfig
->(ActionType.GET_MENTORS, async (payload, { extra }) => {
-  const { coursesApi } = extra;
-  const mentors = await coursesApi.getMentorsByCourseId(payload);
+const checkIsMentor = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+  ActionType.CHECK_IS_MENTOR,
+  async (courseId, { extra }) => {
+    const { coursesApi } = extra;
+    const isMentor = await coursesApi.checkIsMentor({ courseId });
 
-  return mentors;
-});
+    return isMentor;
+  },
+);
 
-export { createNote, getById, getMentorsByCourseId, getNotes, getTask };
+export { checkIsMentor, createNote, getById, getNotes, getTask };

@@ -21,7 +21,7 @@ import styles from './styles.module.scss';
 const CourseModule: FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const { courseId, moduleId } = useParams();
-  const { dataStatus, courseModule, notes, task, mentors, user } =
+  const { dataStatus, courseModule, notes, task, isMentor, user } =
     useAppSelector((state) => ({
       ...state.courseModule,
       user: state.auth.user,
@@ -47,12 +47,7 @@ const CourseModule: FC = () => {
   }, [user]);
 
   useEffect(() => {
-    dispatch(
-      courseModuleActions.getMentorsByCourseId({
-        courseId: Number(courseId),
-        filteringOpts: { mentorName: '' },
-      }),
-    );
+    dispatch(courseModuleActions.checkIsMentor(Number(courseId)));
   }, [courseId]);
 
   useEffect(() => {
@@ -132,7 +127,7 @@ const CourseModule: FC = () => {
             onSendOnReview={handleSendOnReview}
             onApprove={handleApprove}
             onReject={handleReject}
-            isMentor={mentors.some((mentor) => mentor.id === user.id)}
+            isMentor={isMentor}
           />
         )}
         {user && task && <TaskNotes notes={notes} />}

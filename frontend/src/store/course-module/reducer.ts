@@ -4,13 +4,12 @@ import {
   CourseModuleGetByIdResponseDto,
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
-  UserDetailsResponseDto,
 } from 'common/types/types';
 
 import {
+  checkIsMentor,
   createNote,
   getById,
-  getMentorsByCourseId,
   getNotes,
   getTask,
 } from './actions';
@@ -21,7 +20,7 @@ type State = {
   task: TaskGetItemReponseDto | null;
   notes: TaskNoteGetItemResponseDto[];
   totalNotesNumber: number;
-  mentors: UserDetailsResponseDto[];
+  isMentor: boolean;
 };
 
 const initialState: State = {
@@ -30,7 +29,7 @@ const initialState: State = {
   task: null,
   notes: [],
   totalNotesNumber: 0,
-  mentors: [],
+  isMentor: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -73,8 +72,8 @@ const reducer = createReducer(initialState, (builder) => {
     state.notes = [payload, ...state.notes];
     state.totalNotesNumber += 1;
   });
-  builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
-    state.mentors = payload;
+  builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
+    state.isMentor = payload;
   });
 });
 
