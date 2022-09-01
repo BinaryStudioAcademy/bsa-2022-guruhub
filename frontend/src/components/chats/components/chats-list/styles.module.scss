@@ -1,0 +1,19 @@
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-gray-200);
+}
+
+.messagesTitle {
+  margin-left: 20px;
+  color: var(--typography-text-100-inverse);
+}
+
+.noChatsTitle {
+  margin-left: 20px;
+  color: var(--typography-text-gray-200);
+}
+
+.chatsList {
+  list-style-type: none;
+}

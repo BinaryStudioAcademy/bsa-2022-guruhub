@@ -1,4 +1,4 @@
-import { MenteesToMentorsRequestDto } from '~/common/types/types';
+import { IdContainer, MenteesToMentorsRequestDto } from '~/common/types/types';
 import { MenteesToMentors as MenteesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -27,33 +27,36 @@ class MenteesToMentors {
       .execute();
   }
 
-  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
+  public async checkIsMentee(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
-  }): Promise<MenteesToMentorsM | null> {
+  }): Promise<boolean> {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
+      .select(1)
       .where({ courseId })
       .andWhere({ menteeId })
       .first();
 
-    return menteeToMentor ?? null;
+    return Boolean(menteeToMentor);
   }
 
-  public getMentees(userId: number): Promise<MenteesToMentorsM[]> {
+  public getMentors(userId: number): Promise<IdContainer[]> {
     return this.#MenteesToMentorsModel
       .query()
-      .select('mentees_to_mentors.mentee_id')
-      .where({ mentorId: userId })
+      .select('mentorId as id')
+      .where({ menteeId: userId })
+      .castTo<IdContainer[]>()
       .execute();
   }
 
-  public getMentors(userId: number): Promise<MenteesToMentorsM[]> {
+  public getMentees(userId: number): Promise<IdContainer[]> {
     return this.#MenteesToMentorsModel
       .query()
-      .select('mentees_to_mentors.mentor_id')
-      .where({ menteeId: userId })
+      .select('menteeId as id')
+      .where({ mentorId: userId })
+      .castTo<IdContainer[]>()
       .execute();
   }
 

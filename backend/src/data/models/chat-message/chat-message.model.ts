@@ -8,6 +8,8 @@ import { User } from '../models';
 class ChatMessage extends Abstract {
   public 'message': string;
 
+  public 'chatId': string;
+
   public 'senderId': number;
 
   public 'receiverId': number;

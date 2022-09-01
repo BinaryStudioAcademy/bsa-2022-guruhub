@@ -1,0 +1,33 @@
+.chat {
+  display: flex;
+  padding: 5px;
+  color: var(--background-gray-200);
+  cursor: pointer;
+}
+
+.chatContentWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatOpponentAndDateLastMessageWasSentWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lastMessageWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.chatOpponentFullName {
+  color: var(--typography-text-100-inverse);
+}
+
+.dateTheLastMessageWasSent {
+  color: var(--typography-text-gray-200);
+}
+
+.lastMessage {
+  color: var(--typography-text-gray-200);
+}
