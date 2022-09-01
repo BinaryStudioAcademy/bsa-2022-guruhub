@@ -7,11 +7,12 @@ import { authActions } from 'store/actions';
 import styles from './styles.module.scss';
 
 type Props = {
-  onClose: (evt: React.MouseEvent | void) => void;
+  onClose: () => void;
 };
 
 const Popup: FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
+
   const popupRef = useRef<HTMLDivElement>(null);
   useHandleClickOutside({
     ref: popupRef,
@@ -23,23 +24,29 @@ const Popup: FC<Props> = ({ onClose }) => {
   };
 
   return (
-    <div className={styles.popup} ref={popupRef}>
-      <ul className={styles.ul}>
-        <li className={styles.li}>
-          <div>
-            <Button
-              label="Profile"
-              btnColor="gray"
-              to={AppRoute.SETTINGS_PROFILE}
-            />
-          </div>
-        </li>
-        <li className={styles.li}>
-          <div>
-            <Button label="Sign Out" onClick={handleLogout} />
-          </div>
-        </li>
-      </ul>
+    <div className={styles.popup}>
+      <div className={styles.wrapper} ref={popupRef}>
+        <ul className={styles.ul}>
+          <li className={styles.li}>
+            <div>
+              <Button
+                label="Profile"
+                btnColor="gray"
+                to={AppRoute.SETTINGS_PROFILE}
+              />
+            </div>
+          </li>
+          <li className={styles.li}>
+            <div>
+              <Button
+                label="Sign Out"
+                onClick={handleLogout}
+                className={styles.signOut}
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

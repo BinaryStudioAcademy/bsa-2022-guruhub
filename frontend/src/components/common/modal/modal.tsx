@@ -7,14 +7,13 @@ import styles from './styles.module.scss';
 
 type Props = {
   isOpen: boolean;
-  onClose: (evt: React.MouseEvent) => void;
+  onClose: () => void;
   title: string;
   children: ReactNode;
 };
 
 const Modal: FC<Props> = ({ isOpen, onClose, children, title }) => {
   const popupRef = useRef<HTMLDivElement>(null);
-
   useHandleClickOutside({
     ref: popupRef,
     onClick: onClose,
