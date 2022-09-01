@@ -39,7 +39,7 @@ const Course: FC = () => {
     mentees,
     isMentorChoosingEnabled,
     isMentor,
-    areMenteesFetched,
+    menteesByCourseDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -51,7 +51,7 @@ const Course: FC = () => {
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
-    areMenteesFetched: course.areMenteesFetched,
+    menteesByCourseDataStatus: course.menteesByCourseDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -107,8 +107,16 @@ const Course: FC = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    dispatch(courseActions.updateIsMentorBecomingEnabled());
-    dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (course) {
+      dispatch(courseActions.updateIsMentorBecomingEnabled());
+      dispatch(courseActions.updateIsMentorChoosingEnabled());
+    }
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
@@ -182,7 +190,7 @@ const Course: FC = () => {
         </div>
       </div>
       <div className={styles.rightBlock}>
-        {isMentor && areMenteesFetched && (
+        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
           <MyStudentsContainer mentees={mentees} />
         )}
       </div>

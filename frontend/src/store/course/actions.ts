@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { NotificationMessage } from 'common/enums/enums';
+import { NotificationMessage, PermissionKey } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
@@ -85,15 +85,19 @@ const updateIsMentorBecomingEnabled = createAsyncThunk<
   boolean,
   void,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, (_, { getState }) => {
+>(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, async (_, { extra, getState }) => {
   const {
-    auth: { user },
-    course: { course, mentors },
+    course: { course },
   } = getState();
 
+  const { coursesApi } = extra;
+
+  const isMentorCheck = await coursesApi.checkIsMentor({
+    courseId: (course as CourseGetResponseDto).id,
+  });
+
   const isMentorBecomingEnabled =
-    course?.courseCategoryId &&
-    !mentors.some((mentor) => mentor.id === user?.id);
+    (course as CourseGetResponseDto).courseCategoryId && !isMentorCheck;
 
   return Boolean(isMentorBecomingEnabled);
 });
@@ -126,14 +130,24 @@ const getMenteesByCourseId = createAsyncThunk<
     const { coursesApi } = extra;
     const {
       course: { isMentor },
+      auth: { user },
     } = getState();
-    await dispatch(checkIsMentor({ id: payload.id }));
 
-    if (!isMentor) {
-      return [];
+    if (
+      (user as UserWithPermissions).permissions.find(
+        (permission) => permission.key === PermissionKey.MANAGE_MENTORING,
+      )
+    ) {
+      await dispatch(checkIsMentor({ id: payload.id }));
+
+      if (!isMentor) {
+        return [];
+      }
+
+      return coursesApi.getMenteesByCourseId(payload.id);
     }
 
-    return coursesApi.getMenteesByCourseId(payload.id);
+    return [];
   },
 );
 
@@ -192,16 +206,20 @@ const chooseMentor = createAsyncThunk<
 
 const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
-  CourseGetRequestParamsDto,
+  void,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, async ({ id }, { extra }) => {
+>(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, async (_, { extra, getState }) => {
+  const {
+    course: { course },
+  } = getState();
+
   const { coursesApi } = extra;
 
   const isMentorCheck = await coursesApi.checkIsMentor({
-    courseId: id,
+    courseId: (course as CourseGetResponseDto).id,
   });
   const hasMentorCheck = await coursesApi.checkHasMentor({
-    courseId: id,
+    courseId: (course as CourseGetResponseDto).id,
   });
   const isMentorChoosingEnabled = isMentorCheck || hasMentorCheck;
 

@@ -33,7 +33,7 @@ type State = {
   mentors: UserDetailsResponseDto[];
   categories: CategoryGetAllItemResponseDto[];
   menteesByCourseId: UserDetailsResponseDto[];
-  areMenteesFetched: boolean;
+  menteesByCourseDataStatus: DataStatus;
   isMentor: boolean;
 };
 
@@ -47,7 +47,7 @@ const initialState: State = {
   mentors: [],
   categories: [],
   menteesByCourseId: [],
-  areMenteesFetched: false,
+  menteesByCourseDataStatus: DataStatus.IDLE,
   isMentor: false,
 };
 
@@ -140,16 +140,16 @@ const reducer = createReducer(initialState, (builder) => {
   );
   builder.addCase(getMenteesByCourseId.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
-    state.areMenteesFetched = false;
+    state.menteesByCourseDataStatus = DataStatus.PENDING;
   });
   builder.addCase(getMenteesByCourseId.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.menteesByCourseId = payload;
-    state.areMenteesFetched = true;
+    state.menteesByCourseDataStatus = DataStatus.FULFILLED;
   });
   builder.addCase(getMenteesByCourseId.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
-    state.areMenteesFetched = false;
+    state.menteesByCourseDataStatus = DataStatus.REJECTED;
   });
   builder.addCase(checkIsMentor.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
