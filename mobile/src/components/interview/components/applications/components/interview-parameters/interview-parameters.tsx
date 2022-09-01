@@ -13,7 +13,7 @@ import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import { ButtonsSection } from './components/buttons-section';
+import { ButtonsSection } from './components/components';
 import { styles } from './styles';
 
 type Props = {

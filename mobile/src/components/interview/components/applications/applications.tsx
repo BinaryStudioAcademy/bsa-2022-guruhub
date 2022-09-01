@@ -6,7 +6,7 @@ import { ScrollView, Spinner, Text } from '~/components/common/common';
 import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { interviewActions } from '~/store/actions';
 
-import { InterviewParameters } from './components/interview-parameters/interview-parameters';
+import { InterviewParameters } from './components/components';
 import { styles } from './styles';
 
 const Applications: FC = () => {
