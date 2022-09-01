@@ -78,14 +78,20 @@ class Task {
     return this.#taskRepository.getById(taskId);
   }
 
-  public getByMenteeIdAndModuleId({
+  public async getByMenteeIdAndModuleId({
     moduleId,
     menteeId,
-  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
-    return this.#taskRepository.getByMenteeIdAndModuleId({
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto> {
+    const task = await this.#taskRepository.getByMenteeIdAndModuleId({
       moduleId,
       menteeId,
     });
+
+    if (!task) {
+      throw new TasksError();
+    }
+
+    return task;
   }
 
   public getAllNotes({
