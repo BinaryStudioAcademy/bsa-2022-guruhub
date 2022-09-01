@@ -85,6 +85,7 @@ const UserProfileForm: FC = () => {
                 errors={errors}
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
                 label="Birth date"
+                placeholderText="Enter date of birth"
               />
             </div>
             <div className={styles.grid}>
