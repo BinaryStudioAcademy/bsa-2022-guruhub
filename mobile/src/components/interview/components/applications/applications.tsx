@@ -6,7 +6,7 @@ import { ScrollView, Spinner, Text } from '~/components/common/common';
 import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { interviewActions } from '~/store/actions';
 
-import { InterviewParameters } from './components/components';
+import { ApplicationForm } from './components/components';
 import { styles } from './styles';
 
 const Applications: FC = () => {
@@ -47,7 +47,7 @@ const Applications: FC = () => {
     <ScrollView style={styles.wrapper}>
       <Text style={styles.title}>Application for an interview</Text>
       {interview && (
-        <InterviewParameters
+        <ApplicationForm
           interview={interview}
           isInterviewLoading={isInterviewLoading}
           interviewers={interviewers}

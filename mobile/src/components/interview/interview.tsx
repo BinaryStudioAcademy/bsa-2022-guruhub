@@ -1,16 +1,11 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { FC } from 'react';
 
-import { AppScreenName, InterviewScreenName } from '~/common/enums/enums';
-import { InterviewNavigationParamList } from '~/common/types/types';
-import { BackButton, Icon, Pressable, View } from '~/components/common/common';
+import { AppScreenName } from '~/common/enums/enums';
+import { BackButton, Icon, Pressable } from '~/components/common/common';
 import { useAppNavigate, useEffect } from '~/hooks/hooks';
+import { Interview as InterviewScreen } from '~/navigation/interview/interview.navigation';
 
-import { SCREEN_OPTIONS } from './common/constants';
-import { Applications, History } from './components/components';
 import { styles } from './styles';
-
-const Tab = createMaterialTopTabNavigator<InterviewNavigationParamList>();
 
 const Interview: FC = () => {
   const navigation = useAppNavigate();
@@ -34,17 +29,7 @@ const Interview: FC = () => {
     });
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Tab.Navigator screenOptions={SCREEN_OPTIONS}>
-        <Tab.Screen
-          name={InterviewScreenName.APPLICATIONS}
-          component={Applications}
-        />
-        <Tab.Screen name={InterviewScreenName.HISTORY} component={History} />
-      </Tab.Navigator>
-    </View>
-  );
+  return <InterviewScreen />;
 };
 
 export { Interview };

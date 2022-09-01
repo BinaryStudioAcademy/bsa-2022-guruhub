@@ -23,7 +23,7 @@ type Props = {
   handleUpdateInterview: (payload: InterviewsUpdateRequestDto) => void;
 };
 
-const InterviewParameters: FC<Props> = ({
+const ApplicationForm: FC<Props> = ({
   interview,
   interviewers,
   user,
@@ -138,4 +138,4 @@ const InterviewParameters: FC<Props> = ({
   );
 };
 
-export { InterviewParameters };
+export { ApplicationForm };
