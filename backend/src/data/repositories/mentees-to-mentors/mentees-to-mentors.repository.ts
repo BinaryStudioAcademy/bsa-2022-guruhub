@@ -31,7 +31,7 @@ class MenteesToMentors {
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
   }
-
+  
   public async getByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
@@ -46,6 +46,21 @@ class MenteesToMentors {
       .first();
 
     return menteeToMentor ?? null;
+  }
+  
+  public async checkIsMentee(getMenteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<boolean> {
+    const { courseId, menteeId } = getMenteesToMentors;
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(1)
+      .where({ courseId })
+      .andWhere({ menteeId })
+      .first();
+
+    return Boolean(menteeToMentor);
   }
 }
 

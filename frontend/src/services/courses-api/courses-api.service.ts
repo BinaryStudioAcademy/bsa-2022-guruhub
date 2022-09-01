@@ -120,6 +120,32 @@ class CoursesApi {
     );
   }
 
+  public checkIsMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.IS_MENTOR_CHECK
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public checkHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.HAS_MENTOR_CHECK
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public updateCategory({
     courseId,
     newCategoryId,

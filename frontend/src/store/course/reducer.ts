@@ -20,7 +20,7 @@ import {
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
 } from './actions';
 
 type State = {
@@ -121,7 +121,11 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorBecomingEnabled = payload;
   });
 
+  builder.addCase(chooseMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
   builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
     state.mentor = payload.mentor;
   });
@@ -134,7 +138,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(
-    updateisMentorChoosingEnabled.fulfilled,
+    updateIsMentorChoosingEnabled.fulfilled,
     (state, { payload }) => {
       state.isMentorChoosingEnabled = payload;
     },
