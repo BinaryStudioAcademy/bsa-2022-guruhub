@@ -12,7 +12,7 @@ class UserDetails extends Abstract {
 
   public 'avatarUrl': string | null;
 
-  public 'dateOfBirth': string | null;
+  public 'dateOfBirth': Date | null;
 
   public 'userId': number;
 

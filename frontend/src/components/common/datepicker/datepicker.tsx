@@ -26,7 +26,7 @@ const Datepicker: FC<Props> = ({ control, name, label, errors }) => {
     field.onChange(date);
   };
 
-  const getDayClassName = (): string => styles.datePickerDay;
+  const handleDayClassNameGet = (): string => styles.datePickerDay;
 
   return (
     <div className={styles.dateWrapper}>
@@ -36,10 +36,11 @@ const Datepicker: FC<Props> = ({ control, name, label, errors }) => {
         onChange={handleChange}
         className={styles.datePickerInput}
         calendarClassName={styles.datePicker}
-        dayClassName={getDayClassName}
+        dayClassName={handleDayClassNameGet}
         showYearDropdown
         showMonthDropdown
         dropdownMode="select"
+        dateFormat="dd.MM.yyyy"
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
