@@ -6,7 +6,7 @@ import { MentorsList, SearchBar } from './components/components';
 type Props = {
   mentors: UserDetailsResponseDto[];
   isOpen: boolean;
-  onModalToggle: (evt: React.MouseEvent) => void;
+  onModalToggle: () => void;
   onMentorSelectClick: (mentorId: number) => void;
   onMentorSearch: (mentorName: string) => void;
 };

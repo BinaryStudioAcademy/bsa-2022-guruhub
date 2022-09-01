@@ -57,21 +57,23 @@ const Course: FC = () => {
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
 
-  const handleUpdateCategoryModalToggle = (evt?: React.MouseEvent): void => {
-    evt?.stopPropagation();
+  const handleUpdateCategoryModalToggle = (): void => {
     setUpdateCategoryModalOpen((prev) => !prev);
   };
 
   const [isChooseMentorModalOpen, setChooseMentorModalOpen] =
     useState<boolean>(false);
 
-  const handleChooseMentorModalToggle = (evt: React.MouseEvent): void => {
-    evt.stopPropagation();
+  const handleChooseMentorModalToggle = (): void => {
     setChooseMentorModalOpen((prev) => !prev);
   };
 
   const handleMentorSelectClick = (mentorId: number): void => {
-    dispatch(courseActions.chooseMentor({ id: mentorId }));
+    dispatch(courseActions.chooseMentor({ id: mentorId }))
+      .unwrap()
+      .then(() => {
+        handleChooseMentorModalToggle();
+      });
   };
 
   const handleMentorsSearch = (mentorName: string): void => {
@@ -103,7 +105,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(courseActions.updateIsMentorBecomingEnabled());
-    dispatch(courseActions.updateisMentorChoosingEnabled());
+    dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());

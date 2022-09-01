@@ -1,3 +1,4 @@
+export { courseCheckIsMentorParams } from './course-check-is-mentor-params.validation-schema';
 export { courseCreate } from './course-create.validation-schema';
 export { courseFiltering } from './course-filtering.validation-schema';
 export { courseGetParams } from './course-get-params.validation-schema';

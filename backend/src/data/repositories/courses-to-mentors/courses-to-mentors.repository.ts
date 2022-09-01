@@ -22,17 +22,18 @@ class CoursesToMentors {
       .execute();
   }
 
-  public async getByUserIdAndCourseId({
+  public async checkIsMentor({
     courseId,
     userId,
-  }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsM | null> {
+  }: CoursesToMentorsRequestDto): Promise<boolean> {
     const courseToMentor = await this.#CoursesToMentorsModel
       .query()
+      .select(1)
       .where({ courseId })
       .andWhere({ userId })
       .first();
 
-    return courseToMentor ?? null;
+    return Boolean(courseToMentor);
   }
 }
 
