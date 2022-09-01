@@ -11,6 +11,7 @@ enum ColumnName {
   UPDATED_AT = 'updated_at',
   SENDER_ID = 'sender_id',
   RECEIVER_ID = 'receiver_id',
+  CHAT_ID = 'chat_id',
   MESSAGE = 'message',
 }
 
@@ -40,6 +41,7 @@ async function up(knex: Knex): Promise<void> {
       .notNullable()
       .onDelete(DELETE_STRATEGY);
     table.text(ColumnName.MESSAGE).notNullable();
+    table.string(ColumnName.CHAT_ID).notNullable();
   });
 }
 
