@@ -2,6 +2,7 @@ import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
 import { CategoriesApi } from './categories-api/categories-api.service';
+import { ChatsApi } from './chats-api/chats-api.service';
 import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
 import { CoursesApi } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
@@ -48,6 +49,11 @@ const permissionsApi = new PermissionsApi({
   http,
 });
 
+const chatsApi = new ChatsApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const coursesApi = new CoursesApi({
   apiPrefix: ENV.API_PATH,
   http,
@@ -74,6 +80,7 @@ const mentorsApi = new MentorsApi({ apiPrefix: ENV.API_PATH, http });
 export {
   authApi,
   categoriesApi,
+  chatsApi,
   courseModulesApi,
   coursesApi,
   groupsApi,

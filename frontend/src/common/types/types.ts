@@ -1,5 +1,10 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMentorsRequestDto,
