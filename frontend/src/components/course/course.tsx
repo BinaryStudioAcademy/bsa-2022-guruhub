@@ -104,8 +104,10 @@ const Course: FC = () => {
   }, [user]);
 
   useEffect(() => {
-    dispatch(courseActions.updateIsMentorBecomingEnabled());
-    dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
+    if (course) {
+      dispatch(courseActions.updateIsMentorBecomingEnabled());
+      dispatch(courseActions.updateIsMentorChoosingEnabled());
+    }
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
