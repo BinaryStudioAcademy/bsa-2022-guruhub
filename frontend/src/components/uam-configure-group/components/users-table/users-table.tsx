@@ -1,6 +1,6 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
-import { Pagination, Table } from 'components/common/common';
+import { Table } from 'components/common/common';
 import { GroupConfigureFieldsName } from 'components/uam-configure-group/common/enums/enums';
 import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/common/types/types';
 import {
@@ -47,8 +47,9 @@ const UsersTable: FC<Props> = ({
       <p className={styles.groupSubHeading}>
         Add users to the Group - Optional
       </p>
-      <Table data={usersData} columns={columns} />
-      <Pagination
+      <Table
+        data={usersData}
+        columns={columns}
         currentPage={page}
         onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

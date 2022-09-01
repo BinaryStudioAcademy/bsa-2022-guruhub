@@ -1,7 +1,6 @@
 import {
   ApiPath,
   AuthApiPath,
-  CategoriesApiPath,
   CourseModulesApiPath,
   CoursesApiPath,
   ENV,
@@ -21,7 +20,7 @@ const WHITE_ROUTES: WhiteRoute[] = [
     methods: [HttpMethod.POST],
   },
   {
-    route: `${ENV.API.V1_PREFIX}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
+    route: `${ENV.API.V1_PREFIX}${ApiPath.CATEGORIES}`,
     methods: [HttpMethod.GET],
   },
   {

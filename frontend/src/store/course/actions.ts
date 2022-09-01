@@ -99,15 +99,19 @@ const updateIsMentorBecomingEnabled = createAsyncThunk<
   boolean,
   void,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, (_, { getState }) => {
+>(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, async (_, { extra, getState }) => {
   const {
-    auth: { user },
-    course: { course, mentors },
+    course: { course },
   } = getState();
 
+  const { coursesApi } = extra;
+
+  const isMentorCheck = await coursesApi.checkIsMentor({
+    courseId: (course as CourseGetResponseDto).id,
+  });
+
   const isMentorBecomingEnabled =
-    course?.courseCategoryId &&
-    !mentors.some((mentor) => mentor.id === user?.id);
+    (course as CourseGetResponseDto).courseCategoryId && !isMentorCheck;
 
   return Boolean(isMentorBecomingEnabled);
 });
