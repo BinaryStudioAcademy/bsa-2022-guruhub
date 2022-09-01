@@ -21,7 +21,6 @@ type Props = {
   label: string;
   hasVisuallyHiddenLabel?: boolean;
   className?: string;
-  defaultCategoryId?: number;
 };
 
 const Select: FC<Props> = ({
@@ -32,25 +31,27 @@ const Select: FC<Props> = ({
   hasVisuallyHiddenLabel = false,
   options,
   className,
-  defaultCategoryId,
 }) => {
   const { field } = useFormControl({ name, control });
 
-  const getOptionValue = (
+  const handleOptionValue = (
     value: string,
   ): SelectorOption<string | number> | undefined => {
     return options.find((c) => c.value === value);
   };
 
-  const onChange = (val: SingleValue<SelectorOption<string | number>>): void =>
-    field.onChange(val?.value);
+  const handleChange = (
+    val: SingleValue<SelectorOption<string | number>>,
+  ): void => field.onChange(val?.value);
+
+  const handleClick = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+  };
 
   return (
     <div
       className={getValidClasses(className, styles.wrapper)}
-      onClick={(e: React.MouseEvent): void => {
-        e.stopPropagation();
-      }}
+      onClick={handleClick}
     >
       <label
         className={getValidClasses(
@@ -62,9 +63,9 @@ const Select: FC<Props> = ({
       </label>
       <ReactSelect
         options={options}
-        defaultValue={getOptionValue(String(defaultCategoryId))}
-        value={getOptionValue(field.value)}
-        onChange={onChange}
+        defaultValue={handleOptionValue(String(field.value))}
+        value={handleOptionValue(field.value)}
+        onChange={handleChange}
         name={name}
         isSearchable={false}
         className={styles.select}
