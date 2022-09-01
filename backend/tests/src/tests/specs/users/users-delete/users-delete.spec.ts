@@ -32,14 +32,15 @@ describe('Users delete tests', () => {
   let userToDeleteId = 0;
 
   after(() => {
-    apiSessionStorage.removeSession('user to delete');
+    apiSessionStorage.removeSession('user_to_delete');
     apiSessionStorage.removeSession('student');
-    apiSessionStorage.removeSession('UAM Manager');
+    apiSessionStorage.removeSession('uam_manager');
     apiSessionStorage.removeSession('unauthorized');
   });
 
   before('should create test user to be delete', async () => {
-    apiSessionStorage.addAndEnterSession('user to delete');
+    apiSessionStorage.addAndEnterSession('user_to_delete');
+
     expectedSignUpResponse = {
       email: userToDeleteData.email,
     };
@@ -66,25 +67,30 @@ describe('Users delete tests', () => {
   });
 
   before('should log in as a UAM manager', async () => {
-    apiSessionStorage.addAndEnterSession('UAM Manager');
+    apiSessionStorage.addAndEnterSession('uam_manager');
+
     const response = (await authService.signIn(
       testsConfig.users.uamManager,
     )) as Response<UserSignInResponseDto>;
+
     httpService.setToken(response.body.token);
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signInResponseSchema);
-    JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
   });
 
   before('should log in as a student', async () => {
     apiSessionStorage.addAndEnterSession('student');
+
     const response = (await authService.signIn(
       testsConfig.users.student,
     )) as Response<UserSignInResponseDto>;
+
     httpService.setToken(response.body.token);
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.OK);
@@ -96,9 +102,11 @@ describe('Users delete tests', () => {
         email:${userToDeleteData.email}
         password:${userToDeleteData.password}`, async () => {
     apiSessionStorage.enterSession('student');
+
     const response = (await usersService.delete(
       userToDeleteId,
     )) as Response<HttpErrorDto>;
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.FORBIDDEN);
@@ -109,29 +117,37 @@ describe('Users delete tests', () => {
   });
 
   it('should delete user by user with Manage UAM permission', async () => {
-    apiSessionStorage.enterSession('UAM Manager');
+    apiSessionStorage.enterSession('uam_manager');
+
     const response = await usersService.delete(userToDeleteId);
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
+    response.body.should.be.equal(true);
   });
 
   it(`should return ${HttpCode.NOT_FOUND} ${HttpStatusMessage.NOT_FOUND} after second attempt to delete user by user with Manage UAM permission`, async () => {
-    apiSessionStorage.enterSession('UAM Manager');
+    apiSessionStorage.enterSession('uam_manager');
+
     const response = await usersService.delete(userToDeleteId);
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.NOT_FOUND);
     response.should.have.normalExecutionTime;
+    response.body.should.be.equal(false);
   });
 
   it('should not let deleted user to authorize', async () => {
-    apiSessionStorage.enterSession('user to delete');
+    apiSessionStorage.enterSession('user_to_delete');
+
     const response = (await authService.signIn({
       email: userToDeleteData.email,
       password: userToDeleteData.password,
     })) as Response<HttpErrorDto>;
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.BAD_REQUEST);
@@ -143,9 +159,11 @@ describe('Users delete tests', () => {
 
   it('should reject to delete user for unauthorized user', async () => {
     apiSessionStorage.addAndEnterSession('unauthorized');
+
     const response = (await usersService.delete(
       userToDeleteId,
     )) as Response<HttpErrorDto>;
+
     apiSessionStorage.exitSession();
 
     response.should.have.status(HttpCode.UNAUTHORIZED);
