@@ -13,6 +13,8 @@ type IconName =
   | 'edit'
   | 'save'
   | 'trash'
-  | 'interview';
+  | 'interview'
+  | 'visibility'
+  | 'visibilityOff';
 
 export { type IconName };
