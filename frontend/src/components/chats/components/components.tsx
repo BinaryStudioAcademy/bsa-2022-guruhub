@@ -1,1 +1,1 @@
-export { ChatsList } from './chatsList/chatsList';
+export { ChatsList } from './chats-list/chats-list';
