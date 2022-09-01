@@ -7,10 +7,10 @@ import styles from './styles.module.scss';
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
-  totalCount: number;
-  pageSize: number;
-  currentPage: number;
-  onPageChange: (newPage: number) => void;
+  totalCount?: number;
+  pageSize?: number;
+  currentPage?: number;
+  onPageChange?: (newPage: number) => void;
   placeholder?: string;
 };
 
@@ -32,6 +32,7 @@ const Table = <Data extends Record<string, unknown>>({
     tableInstance;
 
   const hasData = Boolean(data.length);
+  const hasPagination = totalCount && pageSize && currentPage && onPageChange;
 
   if (!hasData) {
     return <p className={styles.placeholder}>{placeholder}</p>;
@@ -75,12 +76,14 @@ const Table = <Data extends Record<string, unknown>>({
           })}
         </tbody>
       </table>
-      <Pagination
-        currentPage={currentPage}
-        onPageChange={onPageChange}
-        pageSize={pageSize}
-        totalCount={totalCount}
-      />
+      {hasPagination && (
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+          pageSize={pageSize}
+          totalCount={totalCount}
+        />
+      )}
     </>
   );
 };
