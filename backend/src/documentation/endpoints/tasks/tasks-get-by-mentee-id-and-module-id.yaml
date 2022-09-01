@@ -1,0 +1,26 @@
+get:
+  summary: Get task by Mentee Id and Module Id
+  parameters:
+    - in: path
+      name: moduleId
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of the module of course
+    - in: path
+      name: menteeId
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of the mentee of course
+  tags:
+    - tasks
+  responses:
+    '200':
+      description: Task was received successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/tasks/tasks-get-by-mentee-id-and-module-id-response-dto.yaml'
+    '404':
+      description: Task was not found
