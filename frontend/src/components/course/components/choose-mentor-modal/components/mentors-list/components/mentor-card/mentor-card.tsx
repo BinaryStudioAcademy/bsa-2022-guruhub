@@ -6,12 +6,12 @@ import styles from './styles.module.scss';
 
 type Props = {
   mentor: UserDetailsResponseDto;
-  onClick: (mentorId: number, evt: React.MouseEvent) => void;
+  onClick: (mentorId: number) => void;
 };
 
 const MentorCard: FC<Props> = ({ onClick, mentor }) => {
-  const handleClick = (evt: React.MouseEvent): void => {
-    onClick(mentor.id, evt);
+  const handleClick = (): void => {
+    onClick(mentor.id);
   };
 
   return (
