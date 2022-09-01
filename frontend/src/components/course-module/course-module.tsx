@@ -40,7 +40,10 @@ const CourseModule: FC = () => {
   useEffect(() => {
     if (user) {
       setSelectedUserId(user.id);
+
+      return;
     }
+    setSelectedUserId(null);
   }, [user]);
 
   useEffect(() => {
