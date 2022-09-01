@@ -19,6 +19,7 @@ type Props = {
   type?: 'text' | 'email' | 'date' | 'password';
   hasVisuallyHiddenLabel?: boolean;
   inputClassName?: string;
+  rows?: number;
 };
 
 const Input: FC<Props> = ({
@@ -30,8 +31,26 @@ const Input: FC<Props> = ({
   type = 'text',
   hasVisuallyHiddenLabel = false,
   inputClassName = '',
+  rows,
 }) => {
   const { field } = useFormControl({ name, control });
+
+  const inputArea = rows ? (
+    <textarea
+      {...field}
+      name={name}
+      placeholder={placeholder}
+      className={getValidClasses(styles.input, inputClassName)}
+      rows={rows}
+    />
+  ) : (
+    <input
+      {...field}
+      type={type}
+      placeholder={placeholder}
+      className={getValidClasses(styles.input, inputClassName)}
+    />
+  );
 
   return (
     <label className={getValidClasses(styles.label)}>
@@ -43,12 +62,7 @@ const Input: FC<Props> = ({
       >
         {label}
       </span>
-      <input
-        {...field}
-        type={type}
-        placeholder={placeholder}
-        className={getValidClasses(styles.input, inputClassName)}
-      />
+      {inputArea}
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
       </span>
