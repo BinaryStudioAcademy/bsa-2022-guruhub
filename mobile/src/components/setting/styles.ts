@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
     height: 136,
     marginRight: 20,
   },
-  inputLabel: {
+  label: {
     color: AppColor.TEXT.GRAY_100,
     fontFamily: AppFontFamily.INTER_500,
     fontSize: 14,
     lineHeight: 16,
-    marginBottom: 10,
+    paddingBottom: 9,
   },
   buttons: {
     alignSelf: 'flex-end',

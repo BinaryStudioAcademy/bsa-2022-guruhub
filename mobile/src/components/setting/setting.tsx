@@ -89,18 +89,21 @@ const Settings: FC = () => {
           errors={errors}
           placeholder="Enter your full name"
         />
-        <Dropdown
-          name="gender"
-          items={GENDER_OPTIONS}
-          control={control}
-          errors={errors}
-        />
+        <View>
+          <Text style={styles.label}>Gender</Text>
+          <Dropdown
+            name="gender"
+            items={GENDER_OPTIONS}
+            control={control}
+            errors={errors}
+          />
+        </View>
       </Stack>
       <View style={styles.buttons}>
         <Stack space={20} isHorizontal>
           <Button
             label="Cancel"
-            variant={ButtonVariant.SECONDARY}
+            variant={ButtonVariant.GREY}
             onPress={handleCancel}
           />
           <Button label="Save" onPress={handleSubmit(handleUpdateProfile)} />
