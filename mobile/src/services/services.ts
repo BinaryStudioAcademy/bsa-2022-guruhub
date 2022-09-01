@@ -13,6 +13,7 @@ import { InterviewsApi } from './interviews-api/interviews-api.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api.service';
 import { Storage } from './storage/storage.service';
+import { UserDetailsApi } from './user-details-api/user-details-api.service';
 import { UsersApi } from './users-api/users-api.service';
 
 const storage = new Storage({
@@ -32,6 +33,11 @@ const groupsApi = new GroupsApi({
 });
 
 const usersApi = new UsersApi({
+  http,
+  apiPrefix: ENV.APP.API_PATH,
+});
+
+const userDetailsApi = new UserDetailsApi({
   http,
   apiPrefix: ENV.APP.API_PATH,
 });
@@ -79,5 +85,6 @@ export {
   notification,
   permissionsApi,
   storage,
+  userDetailsApi,
   usersApi,
 };

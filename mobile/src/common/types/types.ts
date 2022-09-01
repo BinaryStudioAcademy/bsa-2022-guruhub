@@ -20,6 +20,8 @@ export {
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestArguments,
+  type CourseUpdateCategoryRequestDto,
 } from './courses/courses';
 export {
   type FormControl,
@@ -75,4 +77,8 @@ export {
   type UserSignUpResponseDto,
   type UserWithPermissions,
 } from './user/user';
+export {
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateInfoRequestDto,
+} from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

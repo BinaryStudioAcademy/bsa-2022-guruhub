@@ -4,12 +4,14 @@ import {
   HttpCode,
   HttpMethod,
   PaginationDefaultValue,
+  PermissionKey,
   UsersApiPath,
 } from '~/common/enums/enums';
 import {
   EntityPaginationRequestQueryDto,
   UsersDeleteRequestParamsDto,
 } from '~/common/types/types';
+import { checkHasPermissions } from '~/hooks/hooks';
 import { user as userService } from '~/services/services';
 import {
   pagination as paginationQueryValidationSchema,
@@ -55,6 +57,7 @@ const initUsersApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.DELETE,
     url: UsersApiPath.$ID,
     schema: { params: userDeleteRequestParamsValidationSchema },
+    preHandler: checkHasPermissions('every', PermissionKey.MANAGE_UAM),
     async handler(
       req: FastifyRequest<{ Params: UsersDeleteRequestParamsDto }>,
       rep,

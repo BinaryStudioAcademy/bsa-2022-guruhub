@@ -10,6 +10,7 @@ import {
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   UserDetailsResponseDto,
+  CourseUpdateCategoryRequestArguments,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -79,6 +80,22 @@ class Courses {
         queryParams: {
           mentorName: filteringOpts.mentorName,
         },
+      },
+    );
+  }
+
+  public updateCategory({
+    courseId,
+    newCategoryId,
+  }: CourseUpdateCategoryRequestArguments): Promise<CourseGetResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.CATEGORY
+      }`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ newCategoryId }),
       },
     );
   }

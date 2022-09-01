@@ -15,6 +15,7 @@ import {
   CoursesToMentorsResponseDto,
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
+  CourseUpdateCategoryRequestArguments,
 } from '~/common/types/types';
 import { notify } from '~/store/app/actions';
 import {
@@ -152,6 +153,17 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   },
 );
 
+const updateCategory = createAsyncThunk<
+  CourseGetResponseDto,
+  CourseUpdateCategoryRequestArguments,
+  AsyncThunkConfig
+>(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const updatedCourse = await coursesApi.updateCategory(payload);
+
+  return updatedCourse;
+});
+
 export {
   addCourse,
   becomeMentor,
@@ -161,4 +173,5 @@ export {
   getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateVisibilityBecomeMentor,
+  updateCategory,
 };

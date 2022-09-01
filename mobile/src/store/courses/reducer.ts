@@ -14,6 +14,7 @@ import {
   getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateVisibilityBecomeMentor,
+  updateCategory,
 } from './actions';
 
 type State = {
@@ -64,6 +65,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.FULFILLED;
   });
   builder.addCase(addCourse.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(updateCategory.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(updateCategory.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.course = action.payload;
+  });
+  builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
   builder.addCase(
