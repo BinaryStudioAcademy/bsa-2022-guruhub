@@ -32,7 +32,7 @@ const Datepicker: FC<Props> = ({ control, name, label, errors }) => {
     <div className={styles.dateWrapper}>
       <span className={styles.bdLabel}>{label}</span>
       <DatePicker
-        selected={new Date(field.value)}
+        selected={field.value ? new Date(field.value) : null}
         onChange={handleChange}
         className={styles.datePickerInput}
         calendarClassName={styles.datePicker}
