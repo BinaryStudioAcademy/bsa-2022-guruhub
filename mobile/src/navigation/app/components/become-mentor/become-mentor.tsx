@@ -17,7 +17,7 @@ const BecomeMentor: FC<Props> = ({ onPress }) => {
     ({ courses }) => courses.dataBecomeMentorStatus,
   );
 
-  if (dataStatus == DataStatus.PENDING) {
+  if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
 
