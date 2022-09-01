@@ -11,7 +11,7 @@ import {
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
 } from '~/common/types/types';
-import { notify } from '~/store/app/actions';
+import { app } from '~/store/actions';
 
 import { ActionType } from './common';
 
@@ -34,7 +34,7 @@ const createInterview = createAsyncThunk<
 
   await interviewersApi.createInterview(payload);
   dispatch(
-    notify({
+    app.notify({
       type: NotificationType.SUCCESS,
       message: NotificationMessage.INTERVIEW_CREATE,
     }),

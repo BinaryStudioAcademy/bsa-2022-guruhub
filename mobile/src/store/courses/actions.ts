@@ -17,11 +17,7 @@ import {
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
-import { notify } from '~/store/app/actions';
-import {
-  createInterview,
-  getPassedInterviewCategoryIds,
-} from '~/store/interviews/actions';
+import { app, interviewsActions } from '~/store/actions';
 
 import { ActionType } from './common';
 
@@ -120,7 +116,7 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
     }
 
     const passedCategoryInterviews = await dispatch(
-      getPassedInterviewCategoryIds(user.id),
+      interviewsActions.getPassedInterviewCategoryIds(user.id),
     );
     const isCategoryPassed = (
       passedCategoryInterviews.payload as number[]
@@ -134,7 +130,7 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
       await dispatch(createMentor(payload));
       dispatch(setBecomeMentorInvisible());
       dispatch(
-        notify({
+        app.notify({
           type: NotificationType.SUCCESS,
           message: NotificationMessage.MENTOR_ADD,
         }),
@@ -144,7 +140,7 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         intervieweeUserId: user.id,
         categoryId: course.courseCategoryId,
       };
-      dispatch(createInterview(payload));
+      dispatch(interviewsActions.createInterview(payload));
     }
   },
 );

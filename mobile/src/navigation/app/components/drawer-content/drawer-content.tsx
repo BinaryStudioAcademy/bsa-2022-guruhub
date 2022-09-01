@@ -16,7 +16,7 @@ import {
   BecomeMentor,
   DrawerList,
 } from '~/navigation/app/components/components';
-import { becomeMentor } from '~/store/courses/actions';
+import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
@@ -33,7 +33,7 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   );
 
   const handleBecomeMentor = (): void => {
-    dispatch(becomeMentor());
+    dispatch(coursesActions.becomeMentor());
   };
 
   return (
