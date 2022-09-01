@@ -7,6 +7,7 @@ export {
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetRequestDto,
 } from './chat-message/chat-message';
+export { IdContainer } from './common/common';
 export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,

@@ -3,6 +3,7 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllResponseDto,
   ChatMessageGetRequestDto,
+  IdContainer,
 } from '~/common/types/types';
 import {
   chatMessage as chatMessageRep,
@@ -43,20 +44,18 @@ class ChatMessage {
   public async getAllLastMessages(
     userId: number,
   ): Promise<ChatMessageGetAllResponseDto> {
-    const usersMentors = await this.#menteesToMentorsRepository.getMentors(
-      userId,
-    );
-    const usersMentees = await this.#menteesToMentorsRepository.getMentees(
-      userId,
-    );
+    const usersMentorsDto: IdContainer[] =
+      await this.#menteesToMentorsRepository.getMentors(userId);
+    const usersMenteesDto: IdContainer[] =
+      await this.#menteesToMentorsRepository.getMentees(userId);
 
-    const chatOpponentsIds = [...usersMentors, ...usersMentees];
+    const chatOpponentsIds = [...usersMentorsDto, ...usersMenteesDto];
 
     const lastMessagesWithMentorsAndMentees = await Promise.all(
-      chatOpponentsIds.map((chatOpponentId) => {
+      chatOpponentsIds.map((chatOpponentIdConteiner) => {
         return this.#chatMessageRepository.getLastMessage({
           userId,
-          chatOpponentId,
+          chatOpponentId: chatOpponentIdConteiner.id,
         });
       }),
     );
