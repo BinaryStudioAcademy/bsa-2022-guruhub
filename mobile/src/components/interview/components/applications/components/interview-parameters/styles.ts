@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 10,
+    marginBottom: 25,
   },
   headerContainer: {
     flexDirection: 'row',
