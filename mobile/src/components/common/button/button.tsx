@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
+import { ViewStyle } from 'react-native';
 
 import { ButtonVariant } from '~/common/enums/enums';
 import { IconName } from '~/common/types/types';
-import { Icon, Pressable, Text } from '~/components/common/common';
+import { Icon, Pressable, Spinner, Text } from '~/components/common/common';
 
 import { styles } from './styles';
 
@@ -11,14 +12,23 @@ type Props = {
   icon?: IconName;
   variant?: ButtonVariant;
   onPress: () => void;
+  style?: ViewStyle;
+  isLoader?: boolean;
 };
 
-const Button: FC<Props> = ({ label, icon, variant, onPress }) => {
+const Button: FC<Props> = ({
+  label,
+  icon,
+  variant,
+  onPress,
+  style,
+  isLoader,
+}) => {
   const textMarginLeft = icon ? 10 : 0;
 
   return (
     <Pressable
-      style={[styles.button, styles[`button${variant}`]]}
+      style={[styles.button, styles[`button${variant}`], style]}
       onPress={onPress}
     >
       {icon && (
@@ -29,15 +39,19 @@ const Button: FC<Props> = ({ label, icon, variant, onPress }) => {
           height={20}
         />
       )}
-      <Text
-        style={{
-          ...styles.label,
-          ...styles[`button${variant}Label`],
-          marginLeft: textMarginLeft,
-        }}
-      >
-        {label}
-      </Text>
+      {!isLoader ? (
+        <Text
+          style={{
+            ...styles.label,
+            ...styles[`button${variant}Label`],
+            marginLeft: textMarginLeft,
+          }}
+        >
+          {label}
+        </Text>
+      ) : (
+        <Spinner />
+      )}
     </Pressable>
   );
 };
