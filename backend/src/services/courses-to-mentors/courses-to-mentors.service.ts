@@ -20,7 +20,7 @@ class CoursesToMentors {
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<CoursesToMentorsResponseDto> {
-    const isMentor = await this.checkByUserIdAndCourseId({
+    const isMentor = await this.checkIsMentor({
       courseId,
       userId,
     });
@@ -35,11 +35,11 @@ class CoursesToMentors {
     });
   }
 
-  public checkByUserIdAndCourseId({
+  public checkIsMentor({
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
-    return this.#coursesToMentorsRepository.checkByUserIdAndCourseId({
+    return this.#coursesToMentorsRepository.checkIsMentor({
       courseId,
       userId,
     });

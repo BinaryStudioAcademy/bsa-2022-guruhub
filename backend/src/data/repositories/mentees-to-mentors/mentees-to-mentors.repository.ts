@@ -27,7 +27,7 @@ class MenteesToMentors {
       .execute();
   }
 
-  public async checkByCourseIdAndMenteeId(getMenteesToMentors: {
+  public async checkIsMentee(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
   }): Promise<boolean> {
@@ -39,7 +39,7 @@ class MenteesToMentors {
       .andWhere({ menteeId })
       .first();
 
-    return !!menteeToMentor;
+    return Boolean(menteeToMentor);
   }
 }
 

@@ -49,7 +49,7 @@ class Mentor {
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
-    return this.#coursesToMentorsService.checkByUserIdAndCourseId({
+    return this.#coursesToMentorsService.checkIsMentor({
       courseId,
       userId,
     });
@@ -59,7 +59,7 @@ class Mentor {
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
-    return this.#menteesToMentorsService.checkByCourseIdAndMenteeId({
+    return this.#menteesToMentorsService.checkIsMentee({
       courseId,
       menteeId: userId,
     });

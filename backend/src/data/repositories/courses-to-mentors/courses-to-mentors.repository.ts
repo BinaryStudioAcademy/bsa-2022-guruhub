@@ -22,7 +22,7 @@ class CoursesToMentors {
       .execute();
   }
 
-  public async checkByUserIdAndCourseId({
+  public async checkIsMentor({
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
@@ -33,7 +33,7 @@ class CoursesToMentors {
       .andWhere({ userId })
       .first();
 
-    return !!courseToMentor;
+    return Boolean(courseToMentor);
   }
 }
 
