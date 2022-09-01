@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
-  BackButton,
   Content,
   Icon,
   Image,
@@ -43,7 +42,6 @@ const Course: FC = () => {
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const currentCategory = course?.category;
-  const parentNavigator = navigation.getParent();
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -53,14 +51,6 @@ const Course: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
-
-  useEffect(() => {
-    if (parentNavigator) {
-      parentNavigator.setOptions({
-        headerLeft: () => <BackButton onPress={navigation.goBack} />,
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (course) {
