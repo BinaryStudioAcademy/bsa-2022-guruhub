@@ -6,6 +6,8 @@ import { taskNoteCreate as taskNoteCreateValidationSchema } from 'validation-sch
 
 import styles from './styles.module.scss';
 
+const INPUT_NUMBER_OF_ROWS = 5;
+
 type Props = {
   onSubmit: (payload: TaskNoteFormRequestDto) => void;
   defaultValues: TaskNoteFormRequestDto;
@@ -30,6 +32,7 @@ const TaskManipulateStudent: FC<Props> = ({ onSubmit, defaultValues }) => {
         errors={errors}
         label="Enter message"
         name={getNameOf<TaskNoteFormRequestDto>('note')}
+        rows={INPUT_NUMBER_OF_ROWS}
       />
       <div className={styles.buttonWrapper}>
         <Button

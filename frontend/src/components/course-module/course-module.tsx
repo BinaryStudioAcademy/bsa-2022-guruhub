@@ -19,7 +19,7 @@ import { TaskManipulate, TaskNotes } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(2);
   const { courseId, moduleId } = useParams();
   const { dataStatus, courseModule, notes, task, isMentor, user } =
     useAppSelector((state) => ({
@@ -44,7 +44,7 @@ const CourseModule: FC = () => {
       return;
     }
     setSelectedUserId(null);
-  }, [user, isMentor, dataStatus]);
+  }, [user]);
 
   useEffect(() => {
     dispatch(courseModuleActions.checkIsMentor(Number(courseId)));

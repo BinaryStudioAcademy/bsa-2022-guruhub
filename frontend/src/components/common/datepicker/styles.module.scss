@@ -1,0 +1,46 @@
+.datePickerInput {
+  padding: 6px 15px;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 24px;
+  background: var(--background-gray-300);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  outline: none;
+}
+
+.datePicker {
+  font-family: Inter, sans-serif;
+  background-color: var(--background-gray-300);
+}
+
+.datePickerDay {
+  color: var(--typography-text-100-inverse);
+}
+
+.datePickerDay:hover {
+  background-color: var(--hover-blue-100);
+}
+
+.bdLabel {
+  margin-bottom: 2px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.dateWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.errorMessage {
+  height: 16px;
+  overflow: hidden;
+  color: var(--support-error-red-100);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+}

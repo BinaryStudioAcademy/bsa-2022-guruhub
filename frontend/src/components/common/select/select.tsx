@@ -7,6 +7,7 @@ import {
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
+import ReactSelect, { SingleValue } from 'react-select';
 
 import styles from './styles.module.scss';
 
@@ -33,8 +34,25 @@ const Select: FC<Props> = ({
 }) => {
   const { field } = useFormControl({ name, control });
 
+  const handleOptionValue = (
+    value: string,
+  ): SelectorOption<string | number> | undefined => {
+    return options.find((c) => c.value === value);
+  };
+
+  const handleChange = (
+    val: SingleValue<SelectorOption<string | number>>,
+  ): void => field.onChange(val?.value);
+
+  const handleClick = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className={getValidClasses(className, styles.wrapper)}>
+    <div
+      className={getValidClasses(className, styles.wrapper)}
+      onClick={handleClick}
+    >
       <label
         className={getValidClasses(
           styles.title,
@@ -43,16 +61,15 @@ const Select: FC<Props> = ({
       >
         {label}
       </label>
-      <div className={styles.selectWrapper}>
-        <select {...field} className={styles.select} name={name}>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-        <span className="focus"></span>
-      </div>
+      <ReactSelect
+        options={options}
+        defaultValue={handleOptionValue(String(field.value))}
+        value={handleOptionValue(field.value)}
+        onChange={handleChange}
+        name={name}
+        isSearchable={false}
+        className={styles.select}
+      />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
       </span>
