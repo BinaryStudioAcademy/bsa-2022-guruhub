@@ -39,6 +39,7 @@ const Course: FC = () => {
   }));
 
   const currentCategory = course?.category;
+  const parentNavigator = navigation.getParent();
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -50,18 +51,11 @@ const Course: FC = () => {
   });
 
   useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackButton onPress={navigation.goBack} />,
-      headerRight: () =>
-        hasEditCategoryPermission && (
-          <Pressable
-            style={styles.editIconContainer}
-            onPress={handleEditModeToggle}
-          >
-            <Icon width={25} height={25} name="edit" color="white" />
-          </Pressable>
-        ),
-    });
+    if (parentNavigator) {
+      parentNavigator.setOptions({
+        headerLeft: () => <BackButton onPress={navigation.goBack} />,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -88,6 +82,14 @@ const Course: FC = () => {
             name={currentCategory?.name ?? 'Unknown'}
             isActive={false}
           />
+          {hasEditCategoryPermission && (
+            <Pressable
+              style={styles.editIconContainer}
+              onPress={handleEditModeToggle}
+            >
+              <Icon width={25} height={25} name="edit" color="white" />
+            </Pressable>
+          )}
         </View>
 
         <Image

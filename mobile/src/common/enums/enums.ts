@@ -15,6 +15,7 @@ export { InterviewStatus } from './interviews/interview-status.enum';
 export {
   AppScreenName,
   AuthScreenName,
+  CourseScreenName,
   RootScreenName,
 } from './navigation/navigation';
 export { NotificationType } from './notification/notification';

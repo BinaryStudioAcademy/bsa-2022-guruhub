@@ -16,10 +16,14 @@ export {
 } from './course-modules/course-modules';
 export {
   type CourseFilteringDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
   type CourseUpdateCategoryRequestDto,
+  type MenteesToMentorsRequestDto,
+  type UserDetailsResponseDto,
 } from './courses/courses';
 export {
   type FormControl,
@@ -41,6 +45,7 @@ export { type InterviewsGetAllItemResponseDto } from './interviews/interviews';
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
+  type CourseNavigationParamList,
   type DrawerNavigationItem,
   type DrawerNavigationList,
   type NavigationScreenProps,
