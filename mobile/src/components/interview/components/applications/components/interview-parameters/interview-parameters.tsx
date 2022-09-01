@@ -7,8 +7,7 @@ import {
   InterviewsUpdateRequestDto,
   UserWithPermissions,
 } from '~/common/types/types';
-import { Dropdown, Text, View } from '~/components/common/common';
-import { Category } from '~/components/course/components/components';
+import { Category, Dropdown, Text, View } from '~/components/common/common';
 import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';

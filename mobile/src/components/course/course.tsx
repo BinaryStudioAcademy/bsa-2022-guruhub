@@ -23,7 +23,7 @@ import {
 } from '~/hooks/hooks';
 import { courseModulesActions } from '~/store/actions';
 
-import { Category } from './components/components';
+import { CourseCategory } from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
@@ -87,7 +87,7 @@ const Course: FC = () => {
       <View style={styles.container}>
         <Text style={styles.h1}>{course?.title}</Text>
         <View style={styles.currentCategory}>
-          <Category
+          <CourseCategory
             keyName={currentCategory?.key ?? 'unknown'}
             name={currentCategory?.name ?? 'Unknown'}
             isActive={false}
