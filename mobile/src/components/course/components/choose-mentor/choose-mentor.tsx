@@ -56,7 +56,7 @@ const ChooseMentor: FC = () => {
   if (!isMentorChoosingEnabled) {
     return (
       <Text style={styles.isMentorChoosingEnabled}>
-        You already mentor on this course!{' '}
+        You already mentor on this course!
       </Text>
     );
   }
