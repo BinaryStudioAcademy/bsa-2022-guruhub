@@ -18,6 +18,8 @@ export {
   type CourseFilteringDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseUpdateCategoryRequestArguments,
+  type CourseUpdateCategoryRequestDto,
 } from './courses/courses';
 export {
   type FormControl,
@@ -35,6 +37,7 @@ export {
   type GroupUpdateRequestParamsDto,
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
+export { type InterviewsGetAllItemResponseDto } from './interviews/interviews';
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
@@ -63,4 +66,8 @@ export {
   type UserSignUpResponseDto,
   type UserWithPermissions,
 } from './user/user';
+export {
+  type UserDetailsResponseDto,
+  type UserDetailsUpdateInfoRequestDto,
+} from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';
