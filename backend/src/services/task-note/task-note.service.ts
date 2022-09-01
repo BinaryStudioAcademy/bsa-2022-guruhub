@@ -5,6 +5,7 @@ import {
   TaskNoteGetItemResponseDto,
 } from '~/common/types/types';
 import { taskNote as taskNoteRep } from '~/data/repositories/repositories';
+import { sanitizeHTML } from '~/helpers/helpers';
 
 type Constructor = {
   taskNoteRepository: typeof taskNoteRep;
@@ -39,7 +40,12 @@ class TaskNote {
     taskId,
     status,
   }: TaskNoteCreateArgumentsDto): Promise<TaskNoteGetItemResponseDto> {
-    return this.#taskNoteRepository.create({ authorId, note, taskId, status });
+    return this.#taskNoteRepository.create({
+      authorId,
+      note: sanitizeHTML(note),
+      taskId,
+      status,
+    });
   }
 }
 

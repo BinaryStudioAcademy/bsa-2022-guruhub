@@ -50,7 +50,7 @@ class TasksApi {
     return this.#http.load<TaskGetItemReponseDto>(
       `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.MODULES}/${moduleId}${
         TasksApiPath.MENTEES
-      }${menteeId}`,
+      }/${menteeId}`,
       {
         method: HttpMethod.GET,
       },
