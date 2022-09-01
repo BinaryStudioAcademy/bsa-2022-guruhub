@@ -9,8 +9,8 @@ import {
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
-  UserDetailsResponseDto,
   CourseUpdateCategoryRequestArguments,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';

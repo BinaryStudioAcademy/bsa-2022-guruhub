@@ -13,8 +13,8 @@ import {
   getCourses,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
-  updateVisibilityBecomeMentor,
   updateCategory,
+  updateVisibilityBecomeMentor,
 } from './actions';
 
 type State = {

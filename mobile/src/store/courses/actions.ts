@@ -13,9 +13,9 @@ import {
   CourseGetResponseDto,
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
+  CourseUpdateCategoryRequestArguments,
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
-  CourseUpdateCategoryRequestArguments,
 } from '~/common/types/types';
 import { notify } from '~/store/app/actions';
 import {
@@ -172,6 +172,6 @@ export {
   getCourses,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
-  updateVisibilityBecomeMentor,
   updateCategory,
+  updateVisibilityBecomeMentor,
 };
