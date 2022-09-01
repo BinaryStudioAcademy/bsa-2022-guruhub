@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import { AppColor, DataStatus } from '~/common/enums/enums';
 import {
@@ -9,7 +9,12 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { useAppDispatch, useAppSelector, useState } from '~/hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useState,
+} from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { MentorCard } from './components/components';
@@ -17,7 +22,6 @@ import { styles } from './styles';
 
 const ChooseMentor: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [isLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { mentors, dataStatus, course, isMentorChoosingEnabled } =
     useAppSelector(({ courses }) => ({
@@ -82,7 +86,7 @@ const ChooseMentor: FC = () => {
             refreshControl={
               <RefreshControl
                 colors={[AppColor.BRAND.BLUE_100]}
-                refreshing={isLoading}
+                refreshing={false}
                 onRefresh={handleMentorsLoad}
               />
             }
