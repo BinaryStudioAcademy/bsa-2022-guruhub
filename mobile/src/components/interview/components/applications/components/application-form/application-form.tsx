@@ -100,7 +100,6 @@ const ApplicationForm: FC<Props> = ({
             <Category
               keyName={interview.courseCategory.key ?? 'unknown'}
               name={interview.courseCategory.name ?? 'Unknown'}
-              isActive={false}
             />
           </View>
         </View>
