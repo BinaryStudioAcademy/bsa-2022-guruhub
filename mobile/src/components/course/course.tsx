@@ -33,14 +33,21 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
-  const { user, course, dataStatus, courseModules, modulesDataStatus } =
-    useAppSelector(({ auth, courses, courseModules }) => ({
-      user: auth.user,
-      course: courses.course,
-      dataStatus: courses.dataStatus,
-      courseModules: courseModules.courseModules,
-      modulesDataStatus: courseModules.dataStatus,
-    }));
+  const {
+    user,
+    course,
+    dataStatus,
+    courseModules,
+    modulesDataStatus,
+    mentors,
+  } = useAppSelector(({ auth, courses, courseModules }) => ({
+    user: auth.user,
+    course: courses.course,
+    mentors: courses.mentors,
+    dataStatus: courses.dataStatus,
+    courseModules: courseModules.courseModules,
+    modulesDataStatus: courseModules.dataStatus,
+  }));
 
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
@@ -85,11 +92,17 @@ const Course: FC = () => {
           }),
         );
       }
+    }, [course]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(coursesActions.updateVisibilityBecomeMentor());
 
       return () => {
         dispatch(coursesActions.setBecomeMentorInvisible());
       };
-    }, [course]),
+    }, [mentors]),
   );
 
   if (dataStatus === DataStatus.PENDING) {
