@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ViewStyle } from 'react-native';
 
-import { ButtonVariant } from '~/common/enums/enums';
+import { AppColor, ButtonVariant } from '~/common/enums/enums';
 import { IconName } from '~/common/types/types';
 import {
   Icon,
@@ -20,7 +20,6 @@ type Props = {
   onPress: () => void;
   style?: ViewStyle;
   isLoading?: boolean;
-  loaderColor?: string;
 };
 
 const Button: FC<Props> = ({
@@ -30,20 +29,25 @@ const Button: FC<Props> = ({
   onPress,
   style,
   isLoading,
-  loaderColor,
 }) => {
   const textMarginLeft = icon ? 10 : 0;
+  const loaderColor =
+    variant === ButtonVariant.PRIMARY
+      ? AppColor.TEXT.GRAY_100
+      : AppColor.BRAND.BLUE_100;
 
   return (
     <Pressable
-      style={[
-        styles.button,
-        styles[`button${variant}`],
-        isLoading && styles.loaderButton,
-        style,
-      ]}
+      style={[styles.button, styles[`button${variant}`], style]}
       onPress={onPress}
+      disabled={isLoading}
     >
+      {isLoading && (
+        <View style={styles.loader}>
+          <Spinner color={loaderColor} />
+        </View>
+      )}
+
       {icon && (
         <Icon
           name={icon}
@@ -52,32 +56,16 @@ const Button: FC<Props> = ({
           height={20}
         />
       )}
-      {!isLoading ? (
-        <Text
-          style={{
-            ...styles.label,
-            ...styles[`button${variant}Label`],
-            marginLeft: textMarginLeft,
-          }}
-        >
-          {label}
-        </Text>
-      ) : (
-        <View style={styles.loaderWrapper}>
-          <View style={styles.loader}>
-            <Spinner color={loaderColor} />
-          </View>
-          <Text
-            style={{
-              ...styles.label,
-              ...styles[`button${variant}Label`],
-              marginLeft: textMarginLeft,
-            }}
-          >
-            {label}
-          </Text>
-        </View>
-      )}
+
+      <Text
+        style={{
+          ...styles.label,
+          ...styles[`button${variant}Label`],
+          marginLeft: textMarginLeft,
+        }}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 };

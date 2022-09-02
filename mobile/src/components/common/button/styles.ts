@@ -10,11 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     paddingVertical: 16,
-    paddingHorizontal: 20,
-  },
-  loaderButton: {
     paddingHorizontal: 30,
-    position: 'relative',
   },
   loaderWrapper: {
     alignItems: 'center',
@@ -22,7 +18,7 @@ const styles = StyleSheet.create({
   },
   loader: {
     position: 'absolute',
-    left: -23,
+    left: 5,
   },
   label: {
     fontFamily: AppFontFamily.INTER_600,
