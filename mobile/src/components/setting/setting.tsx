@@ -26,7 +26,7 @@ import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '
 import {
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
   GENDER_OPTIONS,
-} from './common/contants';
+} from './common/constants';
 import { styles } from './styles';
 
 const Settings: FC = () => {
