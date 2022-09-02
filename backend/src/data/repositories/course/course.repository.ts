@@ -107,8 +107,14 @@ class Course {
           builder.where('fullName', 'ilike', `%${mentorName}%`);
         }
       })
-      .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
-      .joinRelated('mentors.[userDetails]')
+      .select(
+        'mentors.id',
+        'mentors:userDetails.fullName',
+        'mentors:userDetails.gender',
+        'mentors:userDetails:avatar.url',
+        'mentors:userDetails.dateOfBirth',
+      )
+      .withGraphJoined('mentors.[userDetails.[avatar]]')
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }

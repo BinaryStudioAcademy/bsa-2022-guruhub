@@ -23,7 +23,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getUserDetails.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.userDetails = action.payload;
-    state.avatarUrl = action.payload?.avatarUrl;
+    state.avatarUrl = action.payload?.avatar?.url ?? null;
   });
   builder.addCase(getUserDetails.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
