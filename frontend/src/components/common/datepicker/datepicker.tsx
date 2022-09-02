@@ -17,7 +17,7 @@ type Props = {
   errors: FormControlErrors;
   name: FormControlPath;
   label: string;
-  placeholderText?: string;
+  placeholder?: string;
 };
 
 const Datepicker: FC<Props> = ({
@@ -25,7 +25,7 @@ const Datepicker: FC<Props> = ({
   name,
   label,
   errors,
-  placeholderText,
+  placeholder,
 }) => {
   const { field } = useFormControl({ name, control });
 
@@ -48,7 +48,7 @@ const Datepicker: FC<Props> = ({
         showMonthDropdown
         dropdownMode="select"
         dateFormat="dd.MM.yyyy"
-        placeholderText={placeholderText}
+        placeholderText={placeholder}
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
