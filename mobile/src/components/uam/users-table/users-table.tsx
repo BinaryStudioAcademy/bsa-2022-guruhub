@@ -18,7 +18,13 @@ import { styles } from './styles';
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
-  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
+  const { users, usersTotalCount, currentUserID } = useAppSelector(
+    ({ uam, auth }) => ({
+      users: uam.users,
+      usersTotalCount: uam.usersTotalCount,
+      currentUserID: auth.user?.id,
+    }),
+  );
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -26,12 +32,22 @@ const UsersTable: FC = () => {
 
   const usersColumns = getUsersColumns();
 
-  const tableData = users.map((user) => ({
-    ...user,
-    fullName: user.userDetails.fullName,
-    createdAt: getFormattedDate(user.createdAt, 'kk:mm, dd/MM/yyyy'),
-    action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
-  }));
+  const tableData = users.map((user) => {
+    if (currentUserID === user.id) {
+      return {
+        ...user,
+        fullName: user.userDetails.fullName,
+        createdAt: getFormattedDate(user.createdAt, 'kk:mm, dd/MM/yyyy'),
+      };
+    }
+
+    return {
+      ...user,
+      fullName: user.userDetails.fullName,
+      createdAt: getFormattedDate(user.createdAt, 'kk:mm, dd/MM/yyyy'),
+      action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
+    };
+  });
 
   useEffect(() => {
     dispatch(
