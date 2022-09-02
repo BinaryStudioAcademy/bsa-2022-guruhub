@@ -71,14 +71,20 @@ class ChatMessage {
   public create(
     chatMessageCreateDto: ChatMessageCreateRequestDto,
   ): Promise<ChatMessageGetAllItemResponseDto> {
-    const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
+    const { receiverId, senderId, message, chatId, status } =
+      chatMessageCreateDto;
 
     return this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
       chatId: chatId ?? this.#uuidService.createUuid(),
+      status,
     });
+  }
+
+  public hasUnreadMessages(userId: number): Promise<boolean> {
+    return this.#chatMessageRepository.hasUnreadMessages(userId);
   }
 }
 

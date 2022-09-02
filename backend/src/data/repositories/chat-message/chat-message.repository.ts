@@ -1,4 +1,4 @@
-import { SortOrder } from '~/common/enums/enums';
+import { ChatMessageStatus, SortOrder } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
   ChatGetLastMessagesRequestDto,
@@ -39,10 +39,17 @@ class ChatMessage {
     receiverId,
     message,
     chatId,
+    status,
   }: ChatMessageCreateRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
-      .insert({ senderId, receiverId, message, chatId: chatId as string })
+      .insert({
+        senderId,
+        receiverId,
+        message,
+        chatId: chatId as string,
+        status,
+      })
       .withGraphFetched(
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )
@@ -66,6 +73,17 @@ class ChatMessage {
       )
       .castTo<ChatMessageGetAllItemResponseDto>()
       .execute();
+  }
+
+  public async hasUnreadMessages(userId: number): Promise<boolean> {
+    const hasUnreadMessages = await this.#ChatMessageModel
+      .query()
+      .select(1)
+      .where({ receiverId: userId })
+      .andWhere({ status: ChatMessageStatus.UNREAD })
+      .first();
+
+    return Boolean(hasUnreadMessages);
   }
 }
 

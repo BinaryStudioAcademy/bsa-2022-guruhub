@@ -1,4 +1,9 @@
-import { ApiPath, ContentType, HttpMethod } from 'common/enums/enums';
+import {
+  ApiPath,
+  ChatsApiPath,
+  ContentType,
+  HttpMethod,
+} from 'common/enums/enums';
 import {
   ChatMessageCreateRequestBodyDto,
   ChatMessageGetAllItemResponseDto,
@@ -50,6 +55,15 @@ class ChatsApi {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
         payload: JSON.stringify(chatMessageDto),
+      },
+    );
+  }
+
+  public hasUnreadMessages(): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.CHATS}${ChatsApiPath.HAS_UNREAD_MESSAGES}`,
+      {
+        method: HttpMethod.GET,
       },
     );
   }

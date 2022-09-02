@@ -27,6 +27,8 @@ paths:
     $ref: './endpoints/chat-messages/chat-messages-root-operations.yaml'
   /chats/:chatId:
     $ref: './endpoints/chat-messages/chat-get-all-messages.yaml'
+  /chats/has-unread-messages:
+    $ref: './endpoints/chat-messages/chat-has-unread-messages.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'

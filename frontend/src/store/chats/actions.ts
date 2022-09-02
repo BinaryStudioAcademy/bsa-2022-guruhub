@@ -48,4 +48,30 @@ const createMessage = createAsyncThunk<
   return newMessage;
 });
 
-export { createMessage, getLastMessages, getMessages };
+const checkHasUnreadMessages = createAsyncThunk<
+  boolean,
+  void,
+  AsyncThunkConfig
+>(ActionType.CHECK_HAS_UNREAD_MESSAGES, async (_, { extra }) => {
+  const { chatsApi } = extra;
+
+  const hasUnreadMessages = await chatsApi.hasUnreadMessages();
+
+  return hasUnreadMessages;
+});
+
+const cleanHasUnreadMessages = createAsyncThunk<
+  boolean,
+  void,
+  AsyncThunkConfig
+>(ActionType.CLEAN_HAS_UNREAD_MESSAGES, () => {
+  return false;
+});
+
+export {
+  checkHasUnreadMessages,
+  cleanHasUnreadMessages,
+  createMessage,
+  getLastMessages,
+  getMessages,
+};

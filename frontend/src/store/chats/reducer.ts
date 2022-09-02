@@ -2,13 +2,20 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import { ChatMessageGetAllItemResponseDto } from 'common/types/types';
 
-import { createMessage, getLastMessages, getMessages } from './actions';
+import {
+  checkHasUnreadMessages,
+  cleanHasUnreadMessages,
+  createMessage,
+  getLastMessages,
+  getMessages,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
+  hasUnreadMessages: boolean;
 };
 
 const initialState: State = {
@@ -16,6 +23,7 @@ const initialState: State = {
   lastMessages: [],
   currentChatMessages: [],
   currentChatId: null,
+  hasUnreadMessages: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -51,6 +59,21 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(createMessage.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(checkHasUnreadMessages.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkHasUnreadMessages.fulfilled, (state, action) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.hasUnreadMessages = action.payload;
+  });
+  builder.addCase(checkHasUnreadMessages.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(cleanHasUnreadMessages.fulfilled, (state, { payload }) => {
+    state.hasUnreadMessages = payload;
   });
 });
 

@@ -26,3 +26,4 @@ export { SortOrder } from './sort/sort';
 export { StringCase } from './string/string';
 export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';
+export { ChatMessageStatus } from './сhat/chat';

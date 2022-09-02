@@ -1,6 +1,11 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { ChatsApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
+import {
+  ChatMessageStatus,
+  ChatsApiPath,
+  HttpCode,
+  HttpMethod,
+} from '~/common/enums/enums';
 import {
   ChatMessageCreateRequestBodyDto,
   ChatMessageGetAllRequestParamsDto,
@@ -66,9 +71,22 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         receiverId,
         message,
         chatId,
+        status: ChatMessageStatus.UNREAD,
       });
 
       return rep.status(HttpCode.CREATED).send(newChatMessage);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: ChatsApiPath.HAS_UNREAD_MESSAGES,
+    async handler(req, rep) {
+      const { id } = req.user;
+
+      const hasUnreadMessages = await chatMessageService.hasUnreadMessages(id);
+
+      return rep.status(HttpCode.OK).send(hasUnreadMessages);
     },
   });
 };
