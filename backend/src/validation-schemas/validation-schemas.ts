@@ -36,4 +36,7 @@ export {
 export { mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
 export { userDelete, userSignIn, userSignUp } from './user/user';
-export { userDetailsUpdateInfo } from './user-details/user-details';
+export {
+  userDetailsUpdateInfo,
+  userDetailsUpdateParams,
+} from './user-details/user-details';

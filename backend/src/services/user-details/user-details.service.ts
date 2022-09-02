@@ -57,11 +57,17 @@ class UserDetails {
     userId: number,
     file: Buffer,
   ): Promise<UserDetailsResponseDto> {
+    const user = await this.#userDetailsRepository.getByUserId(userId);
+
+    if (!user) {
+      throw new Error();
+    }
+
     const newFile = await this.#fileService.uploadFile({
-      bucket: 'avatars',
+      bucket: `${user.fullName.toLowerCase()}-avatar`,
       contentType: ContentType.IMAGE,
       file,
-      fileName: 'test',
+      fileName: Date.now().toString(),
     });
 
     return this.#userDetailsRepository.updateAvatarFileId(userId, newFile.id);

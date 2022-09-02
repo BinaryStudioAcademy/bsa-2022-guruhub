@@ -67,7 +67,7 @@ class UserDetails {
     return this.#UserDetailsModel
       .query()
       .findOne({ userId })
-      .patchAndFetch({ avatarFileId: fileId })
+      .patch({ avatarFileId: fileId })
       .withGraphJoined('avatar')
       .castTo<UserDetailsResponseDto>()
       .execute();

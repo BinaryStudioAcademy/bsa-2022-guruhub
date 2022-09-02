@@ -19,6 +19,10 @@ const upload: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
     try {
+      if (!request.isMultipart()) {
+        return;
+      }
+
       const data = await request.file();
       const isAllowedExtension = allowedExtensions.some(
         (extension) => extension === data.mimetype,
