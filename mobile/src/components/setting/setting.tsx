@@ -72,43 +72,54 @@ const Settings: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <View style={styles.avatarSection}>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: userDetails?.avatarUrl ?? getImageUri(defaultUserAvatar),
-          }}
-        />
-      </View>
-      <Stack space={20}>
-        <Input
-          label="Name"
-          name="fullName"
-          control={control}
-          errors={errors}
-          placeholder="Enter your full name"
-        />
-        <Dropdown
-          name="gender"
-          items={GENDER_OPTIONS}
-          control={control}
-          errors={errors}
-          placeholder="Select gender"
-        />
-      </Stack>
-      <View style={styles.buttons}>
-        <Stack space={20} isHorizontal>
-          <Button
-            label="Cancel"
-            variant={ButtonVariant.SECONDARY}
-            onPress={handleCancel}
+      <View style={styles.profileWrapper}>
+        <Text style={styles.title}>Profile</Text>
+        <View style={styles.avatarSection}>
+          <Image
+            style={styles.avatar}
+            source={{
+              uri: userDetails?.avatarUrl ?? getImageUri(defaultUserAvatar),
+            }}
           />
-          <Button label="Save" onPress={handleSubmit(handleUpdateProfile)} />
+        </View>
+        <Stack space={20}>
+          <Input
+            label="Name"
+            name="fullName"
+            control={control}
+            errors={errors}
+            placeholder="Enter your full name"
+          />
+          <Dropdown
+            name="gender"
+            items={GENDER_OPTIONS}
+            control={control}
+            errors={errors}
+            placeholder="Select gender"
+          />
         </Stack>
+        <View style={styles.buttons}>
+          <Stack space={20} isHorizontal>
+            <View style={styles.button}>
+              <Button
+                label="Cancel"
+                variant={ButtonVariant.SECONDARY}
+                onPress={handleCancel}
+                size="small"
+              />
+            </View>
+            <View style={styles.button}>
+              <Button
+                label="Save"
+                onPress={handleSubmit(handleUpdateProfile)}
+                size="small"
+              />
+            </View>
+          </Stack>
+        </View>
       </View>
       <View style={styles.singOutWrapper}>
-        <Button label="Sign Out" onPress={handleLogout} />
+        <Button label="Sign Out" onPress={handleLogout} size="large" />
       </View>
     </View>
   );
