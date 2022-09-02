@@ -1,8 +1,9 @@
 import {
+  ChatGetAllMessagesRequestDto,
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
+  ChatMessageGetAllLastResponseDto,
   ChatMessageGetAllResponseDto,
-  ChatMessageGetRequestDto,
   IdContainer,
 } from '~/common/types/types';
 import {
@@ -10,40 +11,44 @@ import {
   menteesToMentors as menteesToMentorsRep,
 } from '~/data/repositories/repositories';
 import { sanitizeHTML } from '~/helpers/helpers';
+import { uuid as uuidServ } from '~/services/services';
 
 type Constructor = {
+  uuidService: typeof uuidServ;
   chatMessageRepository: typeof chatMessageRep;
   menteesToMentorsRepository: typeof menteesToMentorsRep;
 };
 
 class ChatMessage {
+  #uuidService: typeof uuidServ;
+
   #chatMessageRepository: typeof chatMessageRep;
 
   #menteesToMentorsRepository: typeof menteesToMentorsRep;
 
   public constructor({
+    uuidService,
     chatMessageRepository,
     menteesToMentorsRepository,
   }: Constructor) {
+    this.#uuidService = uuidService;
     this.#chatMessageRepository = chatMessageRepository;
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
 
   public async getAll({
-    userId,
-    chatOpponentId,
-  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllResponseDto> {
+    chatId,
+  }: ChatGetAllMessagesRequestDto): Promise<ChatMessageGetAllResponseDto> {
     const chatMessages = await this.#chatMessageRepository.getAll({
-      userId,
-      chatOpponentId,
+      chatId,
     });
 
-    return { items: chatMessages };
+    return { items: chatMessages, chatId };
   }
 
   public async getAllLastMessages(
     userId: number,
-  ): Promise<ChatMessageGetAllResponseDto> {
+  ): Promise<ChatMessageGetAllLastResponseDto> {
     const usersMentorsDto: IdContainer[] =
       await this.#menteesToMentorsRepository.getMentors(userId);
     const usersMenteesDto: IdContainer[] =
@@ -66,12 +71,13 @@ class ChatMessage {
   public create(
     chatMessageCreateDto: ChatMessageCreateRequestDto,
   ): Promise<ChatMessageGetAllItemResponseDto> {
-    const { receiverId, senderId, message } = chatMessageCreateDto;
+    const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
 
     return this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
+      chatId: chatId ?? this.#uuidService.createUuid(),
     });
   }
 }

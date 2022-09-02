@@ -25,10 +25,10 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: ChatsApiPath.ROOT,
     async handler(req, rep) {
       const { id } = req.user;
-      const allChatsLastMessagesMessagesDto =
+      const allChatsLastMessagesDto =
         await chatMessageService.getAllLastMessages(id);
 
-      return rep.status(HttpCode.OK).send(allChatsLastMessagesMessagesDto);
+      return rep.status(HttpCode.OK).send(allChatsLastMessagesDto);
     },
   });
 
@@ -42,11 +42,9 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       req: FastifyRequest<{ Params: ChatMessageGetAllRequestParamsDto }>,
       rep,
     ) {
-      const { id: userId } = req.user;
-      const { id: chatOpponentId } = req.params;
+      const { chatId } = req.params;
       const chatMessagesDto = await chatMessageService.getAll({
-        userId,
-        chatOpponentId,
+        chatId,
       });
 
       return rep.status(HttpCode.OK).send(chatMessagesDto);
@@ -62,11 +60,12 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const { id: userId } = req.user;
-      const { message, chatOpponentId } = req.body;
+      const { message, chatId, receiverId } = req.body;
       const newChatMessage = await chatMessageService.create({
         senderId: userId,
-        receiverId: chatOpponentId,
+        receiverId,
         message,
+        chatId,
       });
 
       return rep.status(HttpCode.CREATED).send(newChatMessage);

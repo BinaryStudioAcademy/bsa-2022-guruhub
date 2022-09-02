@@ -3,11 +3,11 @@ get:
   tags:
     - chatMessages
   parameters:
-    - name: id
+    - name: chatId
       in: path
       required: true
       schema:
-        type: integer
+        type: string
   responses:
     '200':
       content:

@@ -1,11 +1,13 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type ChatGetAllMessagesRequestDto,
+  type ChatGetLastMessagesRequestDto,
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
   type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessageGetRequestDto,
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {

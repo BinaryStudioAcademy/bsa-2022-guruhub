@@ -1,6 +1,7 @@
 type ChatMessageCreateRequestBodyDto = {
   message: string;
-  chatOpponentId: number;
+  receiverId: number;
+  chatId: string | null;
 };
 
 export { type ChatMessageCreateRequestBodyDto };
