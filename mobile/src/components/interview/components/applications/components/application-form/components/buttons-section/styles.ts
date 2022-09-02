@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
-    paddingVertical: 8,
+    paddingVertical: 6,
+    width: 100,
   },
 });
 
