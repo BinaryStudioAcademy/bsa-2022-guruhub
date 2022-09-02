@@ -4,7 +4,7 @@ import {
   FormControlErrors,
   FormControlPath,
 } from 'common/types/types';
-import { ErrorMessage } from 'components/common/common';
+import { ErrorMessage, PasswordInput } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 
@@ -34,6 +34,7 @@ const Input: FC<Props> = ({
   rows,
 }) => {
   const { field } = useFormControl({ name, control });
+  const isPassword = type === 'password';
 
   const inputArea = rows ? (
     <textarea
@@ -53,7 +54,12 @@ const Input: FC<Props> = ({
   );
 
   return (
-    <label className={getValidClasses(styles.label)}>
+    <label
+      className={getValidClasses(
+        styles.label,
+        isPassword && styles.passwordField,
+      )}
+    >
       <span
         className={getValidClasses(
           styles.title,
@@ -62,7 +68,16 @@ const Input: FC<Props> = ({
       >
         {label}
       </span>
-      {inputArea}
+      {isPassword ? (
+        <PasswordInput
+          control={control}
+          name={name}
+          inputClassName={styles.input}
+          placeholder="Enter your password"
+        />
+      ) : (
+        inputArea
+      )}
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
       </span>
