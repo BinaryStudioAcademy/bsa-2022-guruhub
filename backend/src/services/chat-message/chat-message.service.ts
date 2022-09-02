@@ -4,8 +4,8 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllResponseDto,
   ChatMessageGetRequestDto,
-  IdContainer,
 } from '~/common/types/types';
+import { ChatMessage as ChatMessageM } from '~/data/models/models';
 import {
   chatMessage as chatMessageRep,
   menteesToMentors as menteesToMentorsRep,
@@ -60,63 +60,26 @@ class ChatMessage {
         userId,
         fullName,
       );
+
     const userMenteesIds = usersMentees.map((mentees) => mentees.id);
 
     const menteesAndMentors = [...userMentorsIds, ...userMenteesIds];
 
-    const lastMessagesWithMentorsAndMentees =
-      await this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
+    const lastMessagesInChats =
+      await this.#chatMessageRepository.getLastMessagesInChatsIds(
         userId,
         menteesAndMentors,
       );
+    const lastMessagesInChatsIds = lastMessagesInChats.map(
+      (chatMessage: ChatMessageM) => chatMessage.id,
+    );
+
+    const lastMessagesWithMentorsAndMentees =
+      await this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
+        lastMessagesInChatsIds,
+      );
 
     return lastMessagesWithMentorsAndMentees;
-  }
-
-  public async getAllLastMessages(
-    userId: number,
-  ): Promise<ChatMessageGetAllResponseDto> {
-    const usersMentors = await this.#menteesToMentorsRepository.getMentors(
-      userId,
-    );
-    const usersMentees = await this.#menteesToMentorsRepository.getMentees(
-      userId,
-    );
-
-    const chatOpponentsIds = [...usersMentors, ...usersMentees];
-
-    const lastMessagesWithMentorsAndMentees = await Promise.all(
-      chatOpponentsIds.map((chatOpponentId) => {
-        return this.#chatMessageRepository.getLastMessage({
-          userId,
-          chatOpponentId,
-        });
-      }),
-    );
-
-    return { items: lastMessagesWithMentorsAndMentees };
-  }
-
-  public async getAllLastMessages(
-    userId: number,
-  ): Promise<ChatMessageGetAllResponseDto> {
-    const usersMentorsDto: IdContainer[] =
-      await this.#menteesToMentorsRepository.getMentors(userId);
-    const usersMenteesDto: IdContainer[] =
-      await this.#menteesToMentorsRepository.getMentees(userId);
-
-    const chatOpponentsIds = [...usersMentorsDto, ...usersMenteesDto];
-
-    const lastMessagesWithMentorsAndMentees = await Promise.all(
-      chatOpponentsIds.map((chatOpponentIdConteiner) => {
-        return this.#chatMessageRepository.getLastMessage({
-          userId,
-          chatOpponentId: chatOpponentIdConteiner.id,
-        });
-      }),
-    );
-
-    return { items: lastMessagesWithMentorsAndMentees };
   }
 
   public create(

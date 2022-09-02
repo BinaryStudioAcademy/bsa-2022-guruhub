@@ -66,25 +66,34 @@ class ChatMessage {
       .execute();
   }
 
-  public getLastMessagesWithMentorsAndMentees(
+  public getLastMessagesInChatsIds(
     userId: number,
     menteesAndMentors: number[],
-  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+  ): Promise<ChatMessageM[]> {
     return this.#ChatMessageModel
       .query()
-      .select('senderId', 'receiverId')
+      .max('id as id')
       .where((builder) =>
-        builder
-          .where('senderId', userId)
-          .whereIn('receiverId', menteesAndMentors),
-      )
-      .orWhere((builder) =>
         builder
           .where('receiverId', userId)
           .whereIn('senderId', menteesAndMentors),
       )
-      .groupBy('senderId', 'receiverId', 'createdAt')
-      .orderBy('createdAt', SortOrder.DESC)
+      .orWhere((builder) =>
+        builder
+          .where('senderId', userId)
+          .whereIn('receiverId', menteesAndMentors),
+      )
+      .groupBy('chatId')
+      .execute();
+  }
+
+  public getLastMessagesWithMentorsAndMentees(
+    lastMessagesInChatsIds: number[],
+  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+    return this.#ChatMessageModel
+      .query()
+      .select('*')
+      .whereIn('id', lastMessagesInChatsIds)
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();
   }
