@@ -1,6 +1,6 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, InterviewsGetOtherItemResponseDto } from 'common/types/types';
-import { Pagination, Table } from 'components/common/common';
+import { Table } from 'components/common/common';
 import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
 import {
   getOtherApplicationsColumns,
@@ -32,8 +32,9 @@ const OtherApplicationsTable: FC<Props> = ({
 
   return (
     <div>
-      <Table data={data} columns={columns} />
-      <Pagination
+      <Table
+        data={data}
+        columns={columns}
         currentPage={page}
         onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
