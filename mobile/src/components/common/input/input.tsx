@@ -56,7 +56,7 @@ const Input = <T extends FormControlValues>({
         {isSecure && (
           <Pressable style={styles.button} onPress={handleOnPress}>
             <Icon
-              name={visibility ? 'visibilityOff' : 'visibility'}
+              name={!visibility ? 'visibility' : 'visibilityOff'}
               color={AppColor.TEXT.GRAY_200}
               width={24}
               height={24}
