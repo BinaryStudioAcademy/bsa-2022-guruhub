@@ -21,5 +21,6 @@ enum ExceptionMessage {
   INTERVIEW_DOES_NOT_EXIST = 'Interview with that ID does not exist.',
   ALREADY_MENTOR_FOR_COURSE = 'You are already a mentor for this course.',
   ALREADY_HAVE_MENTOR_FOR_COURSE = 'You already have a mentor for this course.',
+  INVALID_FILE_TYPE = 'The uploaded file has an invalid type.',
 }
 export { ExceptionMessage };

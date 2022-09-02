@@ -24,6 +24,8 @@ async function up(knex: Knex): Promise<void> {
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
+    // doesn't work
+    table.dropForeign(ColumnName.AVATAR_FILE_ID);
     table.string(ColumnName.AVATAR_FILE_ID).alter();
     table.renameColumn(ColumnName.AVATAR_FILE_ID, ColumnName.AVATAR_URL);
   });
