@@ -18,14 +18,18 @@ const ButtonsSection: FC<Props> = ({
   handleEditInterviewer,
   isLoading,
 }) => {
-  return !isEditMode ? (
-    <Button
-      label="Edit"
-      variant={ButtonVariant.SECONDARY}
-      onPress={toggleEditMode}
-      style={styles.button}
-    />
-  ) : (
+  if (!isEditMode) {
+    return (
+      <Button
+        label="Edit"
+        variant={ButtonVariant.SECONDARY}
+        onPress={toggleEditMode}
+        style={styles.button}
+      />
+    );
+  }
+
+  return (
     <View style={styles.container}>
       <Button
         label="Cancel"
