@@ -1,0 +1,25 @@
+.messageCardWrapper {
+  background: var(--background-gray-300);
+}
+
+.currentUserMessage {
+  display: flex;
+}
+
+.chatOpponentMessage {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.messageTimePost {
+  display: flex;
+  color: var(--background-gray-300);
+}
+
+.userAvatarWrapper {
+  align-items: flex-start;
+}
+
+.messageWrapper {
+  word-break: break-all;
+}
