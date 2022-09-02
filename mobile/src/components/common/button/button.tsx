@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { ViewStyle } from 'react-native';
 
 import { AppColor, ButtonVariant } from '~/common/enums/enums';
 import { IconName } from '~/common/types/types';
@@ -13,12 +12,14 @@ import {
 
 import { styles } from './styles';
 
+type buttonSize = 'small' | 'large';
+
 type Props = {
   label: string;
   icon?: IconName;
   variant?: ButtonVariant;
+  size: buttonSize;
   onPress: () => void;
-  style?: ViewStyle;
   isLoading?: boolean;
 };
 
@@ -27,7 +28,7 @@ const Button: FC<Props> = ({
   icon,
   variant,
   onPress,
-  style,
+  size,
   isLoading,
 }) => {
   const textMarginLeft = icon ? 10 : 0;
@@ -36,9 +37,15 @@ const Button: FC<Props> = ({
       ? AppColor.TEXT.GRAY_100
       : AppColor.BRAND.BLUE_100;
 
+  const sizeStyle = size === 'small' ? 'buttonSmall' : 'buttonLarge';
+
   return (
     <Pressable
-      style={[styles.button, styles[`button${variant}`], style]}
+      style={[
+        styles.button,
+        styles[`button${variant}`],
+        styles[`${sizeStyle}`],
+      ]}
       onPress={onPress}
       disabled={isLoading}
     >

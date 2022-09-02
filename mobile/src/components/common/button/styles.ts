@@ -9,8 +9,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    paddingVertical: 16,
     paddingHorizontal: 30,
+  },
+  buttonSmall: {
+    paddingVertical: 8,
+  },
+  buttonLarge: {
+    paddingVertical: 16,
   },
   loaderWrapper: {
     alignItems: 'center',
