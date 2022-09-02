@@ -66,6 +66,7 @@ const AddCourse: FC = () => {
         <Button
           label="Submit course"
           onPress={handleSubmit(handleSubmitCourse)}
+          size="large"
         />
       </View>
     </View>
