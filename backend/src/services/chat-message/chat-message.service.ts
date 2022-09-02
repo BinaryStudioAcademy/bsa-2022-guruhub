@@ -47,39 +47,34 @@ class ChatMessage {
     filteringOpts: ChatMessageFilteringDto,
   ): Promise<ChatMessageGetAllItemResponseDto[]> {
     const { fullName } = filteringOpts;
-    const usersMentors =
-      await this.#menteesToMentorsRepository.getMentorsByFullName(
+
+    const userMenteesOrMentors =
+      await this.#menteesToMentorsRepository.getMenteesOrMentorsByFullName(
         userId,
-        fullName,
+        fullName ?? '',
       );
 
-    const userMentorsIds = usersMentors.map((mentor) => mentor.id);
-
-    const usersMentees =
-      await this.#menteesToMentorsRepository.getMenteesByFullName(
-        userId,
-        fullName,
-      );
-
-    const userMenteesIds = usersMentees.map((mentees) => mentees.id);
-
-    const menteesAndMentors = [...userMentorsIds, ...userMenteesIds];
+    const userMenteesOrMentorsIds = userMenteesOrMentors.map(
+      (menteesOrMentors) => {
+        return menteesOrMentors.menteeId === userId
+          ? menteesOrMentors.mentorId
+          : menteesOrMentors.menteeId;
+      },
+    );
 
     const lastMessagesInChats =
       await this.#chatMessageRepository.getLastMessagesInChatsIds(
         userId,
-        menteesAndMentors,
+        userMenteesOrMentorsIds,
       );
+
     const lastMessagesInChatsIds = lastMessagesInChats.map(
       (chatMessage: ChatMessageM) => chatMessage.id,
     );
 
-    const lastMessagesWithMentorsAndMentees =
-      await this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
-        lastMessagesInChatsIds,
-      );
-
-    return lastMessagesWithMentorsAndMentees;
+    return this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
+      lastMessagesInChatsIds,
+    );
   }
 
   public create(

@@ -1,4 +1,4 @@
-import { IdContainer, MenteesToMentorsRequestDto } from '~/common/types/types';
+import { MenteesToMentorsRequestDto } from '~/common/types/types';
 import { MenteesToMentors as MenteesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -42,47 +42,26 @@ class MenteesToMentors {
     return Boolean(menteeToMentor);
   }
 
-  public getMentors(userId: number): Promise<IdContainer[]> {
-    return this.#MenteesToMentorsModel
-      .query()
-      .select('mentorId as id')
-      .where({ menteeId: userId })
-      .castTo<IdContainer[]>()
-      .execute();
-  }
-
-  public getMentees(userId: number): Promise<IdContainer[]> {
-    return this.#MenteesToMentorsModel
-      .query()
-      .select('menteeId as id')
-      .where({ mentorId: userId })
-      .castTo<IdContainer[]>()
-      .execute();
-  }
-
-  public getMentorsByFullName(
+  public getMenteesOrMentorsByFullName(
     userId: number,
     fullName: string,
   ): Promise<MenteesToMentorsM[]> {
     return this.#MenteesToMentorsModel
       .query()
-      .select('mentor.id')
-      .where({ menteeId: userId })
-      .andWhere('fullName', 'like', '%' + fullName + '%')
-      .withGraphJoined('mentor(withoutPassword).[userDetails]')
-      .execute();
-  }
-
-  public getMenteesByFullName(
-    userId: number,
-    fullName: string,
-  ): Promise<MenteesToMentorsM[]> {
-    return this.#MenteesToMentorsModel
-      .query()
-      .select('mentee.id')
-      .where({ mentorId: userId })
-      .andWhere('fullName', 'like', '%' + fullName + '%')
-      .withGraphJoined('mentee(withoutPassword).[userDetails]')
+      .select('menteeId', 'mentorId')
+      .where((builder) =>
+        builder
+          .where('mentorId', userId)
+          .where('mentee:userDetails.fullName', 'like', '%' + fullName + '%'),
+      )
+      .orWhere((builder) =>
+        builder
+          .where('menteeId', userId)
+          .where('mentor:userDetails.fullName', 'like', '%' + fullName + '%'),
+      )
+      .withGraphJoined(
+        '[mentee(withoutPassword).[userDetails], mentor(withoutPassword).[userDetails]]',
+      )
       .execute();
   }
 }

@@ -6,6 +6,7 @@ type ChatMessageGetAllItemResponseDto = {
   sender: ChatMessageUserResponseDto;
   message: string;
   createdAt: string;
+  chatId: string;
 };
 
 export { type ChatMessageGetAllItemResponseDto };

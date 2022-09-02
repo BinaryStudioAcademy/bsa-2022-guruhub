@@ -92,8 +92,11 @@ class ChatMessage {
   ): Promise<ChatMessageGetAllItemResponseDto[]> {
     return this.#ChatMessageModel
       .query()
-      .select('*')
-      .whereIn('id', lastMessagesInChatsIds)
+      .select('chatMessages.id', 'message', 'createdAt', 'chatId')
+      .whereIn('chatMessages.id', lastMessagesInChatsIds)
+      .withGraphFetched(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();
   }
