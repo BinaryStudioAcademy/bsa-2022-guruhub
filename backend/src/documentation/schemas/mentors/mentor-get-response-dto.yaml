@@ -1,0 +1,62 @@
+type: object
+properties:
+  id:
+    type: number
+    example: 1
+  createdAt:
+    type: string
+    example: '2022-08-30T19:39:07.840Z'
+  updatedAt:
+    type: string
+    example: '2022-08-30T19:39:07.840Z'
+  courseId:
+    type: number
+    example: 1
+  mentorId:
+    type: number
+    example: 1
+  menteeId:
+    type: number
+    example: 2
+  mentor:
+    type: object
+    properties:
+      id:
+        type: number
+        example: 1
+      email:
+        type: string
+        example: 'john.doe@gmail.com'
+      createdAt:
+        type: string
+        example: '2022-08-11T19:52:55.452Z'
+      updatedAt:
+        type: string
+        example: '2022-08-11T19:52:55.452Z'
+      userDetails:
+        type: object
+        properties:
+          id:
+            type: number
+            example: 1
+          fullName:
+            type: string
+            example: 'John Doe'
+          gender:
+            type: string
+            example: male
+          avatarUrl:
+            type: string
+            example: 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
+          createdAt:
+            type: string
+            example: '2022-08-11T19:52:55.452Z'
+          updatedAt:
+            type: string
+            example: '2022-08-11T19:52:55.452Z'
+          dateOfBirth:
+            type: string
+            example: '2000-08-11T19:52:55.452Z'
+          userId:
+            type: number
+            example: 1
