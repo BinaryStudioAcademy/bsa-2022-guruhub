@@ -63,11 +63,13 @@ class UserDetails {
   public updateAvatarFileId(
     userId: number,
     fileId: number,
-  ): Promise<UserDetailsM> {
+  ): Promise<UserDetailsResponseDto> {
     return this.#UserDetailsModel
       .query()
       .findOne({ userId })
       .patchAndFetch({ avatarFileId: fileId })
+      .withGraphJoined('avatar')
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 }

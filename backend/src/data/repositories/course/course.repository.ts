@@ -109,12 +109,12 @@ class Course {
       })
       .select(
         'mentors.id',
-        'mentors:userDetails.fullName',
-        'mentors:userDetails.gender',
-        'mentors:userDetails:avatar.url',
-        'mentors:userDetails.dateOfBirth',
+        'fullName',
+        'gender',
+        'dateOfBirth',
+        'mentors:userDetails:avatar as avatar',
       )
-      .withGraphJoined('mentors.[userDetails.[avatar]]')
+      .withGraphJoined('mentors(withoutPassword).[userDetails.[avatar]]')
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }

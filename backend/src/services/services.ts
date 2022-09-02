@@ -47,8 +47,16 @@ const encrypt = new Encrypt({
 
 const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
+const file = new File({
+  region: ENV.AWS.REGION,
+  accessKeyId: ENV.AWS.ACCESS_KEY_ID,
+  secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
+  fileRepository,
+});
+
 const userDetails = new UserDetails({
   userDetailsRepository,
+  fileService: file,
 });
 
 const user = new User({
@@ -124,13 +132,6 @@ const interviewNote = new InterviewNote({
 const interview = new Interview({
   interviewRepository,
   interviewNoteService: interviewNote,
-});
-
-const file = new File({
-  region: ENV.AWS.REGION,
-  accessKeyId: ENV.AWS.ACCESS_KEY_ID,
-  secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
-  fileRepository,
 });
 
 const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
