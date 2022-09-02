@@ -13,7 +13,7 @@ type Props = {
 const IdCell: FC<Props> = ({ id, onPress }) => {
   return (
     <Pressable onPress={(): void => onPress({ id })}>
-      <Text style={styles.id}>{`${id}`}</Text>
+      <Text style={styles.id}>{id.toString()}</Text>
     </Pressable>
   );
 };

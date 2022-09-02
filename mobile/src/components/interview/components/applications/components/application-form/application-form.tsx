@@ -9,7 +9,7 @@ import {
 } from '~/common/types/types';
 import { Category, Dropdown, Text, View } from '~/components/common/common';
 import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
-import { useAppForm, useState } from '~/hooks/hooks';
+import { useAppForm, useEffect, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { ButtonsSection } from './components/components';
@@ -32,6 +32,12 @@ const ApplicationForm: FC<Props> = ({
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const { control, handleSubmit, errors, reset } =
+    useAppForm<InterviewsUpdateRequestDto>({
+      defaultValues: {},
+      validationSchema: interviewUpdateValidationSchema,
+    });
+
   const interviewDate = interview.interviewDate
     ? getFormattedDate(interview.interviewDate, 'kk:mm, dd/MM/yyyy')
     : 'Not assigned yet';
@@ -41,8 +47,11 @@ const ApplicationForm: FC<Props> = ({
     value: interviewer.interviewer.id,
   }));
 
-  const hasEditInterviewPermission = checkHasPermission({
-    permissionKeys: [PermissionKey.MANAGE_INTERVIEW],
+  const canEditInterviewPermission = checkHasPermission({
+    permissionKeys: [
+      PermissionKey.MANAGE_INTERVIEWS,
+      PermissionKey.MANAGE_INTERVIEW,
+    ],
     userPermissions: user?.permissions ?? [],
   });
 
@@ -50,19 +59,17 @@ const ApplicationForm: FC<Props> = ({
     setIsEditMode(!isEditMode);
   };
 
-  const { control, handleSubmit, errors } =
-    useAppForm<InterviewsUpdateRequestDto>({
-      defaultValues: {
-        interviewerUserId: interview?.interviewer?.id,
-      },
-      validationSchema: interviewUpdateValidationSchema,
-    });
+  useEffect(() => {
+    if (interview) {
+      reset({ interviewerUserId: interview.interviewer?.id });
+    }
+  }, [interview]);
 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Parameters</Text>
-        {hasEditInterviewPermission && (
+        {canEditInterviewPermission && (
           <ButtonsSection
             isEditMode={isEditMode}
             toggleEditMode={toggleEditMode}
