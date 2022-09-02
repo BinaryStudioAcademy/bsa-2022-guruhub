@@ -33,9 +33,15 @@ const HistorySection: FC<Props> = ({
       validationSchema: interviewNotesCreateArguments,
     });
 
+  const handleToggleNoteContentClear = (): void => {
+    control._formValues.note = '';
+    onToggle();
+  };
+
   const handleNoteSubmit = (payload: InterviewNoteCreateRequestDto): void => {
     const { note } = payload;
     dispatch(interviewActions.createNote({ note, interviewId }));
+    onToggle();
   };
 
   return (
@@ -61,13 +67,14 @@ const HistorySection: FC<Props> = ({
               control={control}
               errors={errors}
               rows={3}
+              placeholder="Your note here"
             />
             <div className={styles.actionButtonsSection}>
               <Button
                 label="Cancel"
                 btnColor="red"
                 btnType="outlined"
-                onClick={onToggle}
+                onClick={handleToggleNoteContentClear}
               />
               <Button label="Submit" btnColor="blue" type="submit" />
             </div>

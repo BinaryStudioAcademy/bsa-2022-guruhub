@@ -5,13 +5,14 @@
   min-height: 100px;
   margin-top: 10px;
   padding: 10px;
-  background: var(--background-gray-200);
+  background: var(--background-gray-300);
   border-radius: 20px;
 }
 
 .cardContentWrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 3px;
 }
 
@@ -24,4 +25,8 @@
 
 .authorNameSection {
   margin-left: 5px;
+}
+
+.noteContent {
+  word-break: break-all;
 }
