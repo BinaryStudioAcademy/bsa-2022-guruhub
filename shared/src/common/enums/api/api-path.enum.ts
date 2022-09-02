@@ -1,5 +1,6 @@
 enum ApiPath {
   AUTH = '/auth',
+  CHATS = '/chats',
   INTERVIEWS = '/interviews',
   PERMISSIONS = '/permissions',
   GROUPS = '/groups',

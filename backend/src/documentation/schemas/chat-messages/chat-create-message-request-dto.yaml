@@ -1,0 +1,16 @@
+type: object
+properties:
+  message:
+    type: string
+    example: message
+  receiverId:
+    type: number
+    example: 1
+  senderId:
+    type: number
+    example: 1
+  chatId:
+    oneOf:
+      - type: string
+      - type: null
+    example: TeSt-ID

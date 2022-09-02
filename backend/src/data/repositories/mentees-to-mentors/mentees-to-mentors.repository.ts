@@ -1,4 +1,4 @@
-import { MenteesToMentorsRequestDto } from '~/common/types/types';
+import { IdContainer, MenteesToMentorsRequestDto } from '~/common/types/types';
 import { MenteesToMentors as MenteesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -40,6 +40,24 @@ class MenteesToMentors {
       .first();
 
     return Boolean(menteeToMentor);
+  }
+
+  public getMentors(userId: number): Promise<IdContainer[]> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('mentorId as id')
+      .where({ menteeId: userId })
+      .castTo<IdContainer[]>()
+      .execute();
+  }
+
+  public getMentees(userId: number): Promise<IdContainer[]> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('menteeId as id')
+      .where({ mentorId: userId })
+      .castTo<IdContainer[]>()
+      .execute();
   }
 }
 

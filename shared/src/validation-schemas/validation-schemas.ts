@@ -1,4 +1,8 @@
 export {
+  chatMessageCreateArguments,
+  chatMessageGetAllParams,
+} from './chat-message/chat-message';
+export {
   courseCheckIsMentorParams,
   courseCreate,
   courseFiltering,

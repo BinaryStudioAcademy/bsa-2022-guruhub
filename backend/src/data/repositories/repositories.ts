@@ -1,4 +1,5 @@
 import {
+  ChatMessage as ChatMessageModel,
   Course as CourseModel,
   CourseCategory as CourseCategoryModel,
   CourseModule as CourseModuleModel,
@@ -16,6 +17,7 @@ import {
   Vendor as VendorModel,
 } from '~/data/models/models';
 
+import { ChatMessage } from './chat-message/chat-message.repository';
 import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
 import { CourseModule } from './course-module/course-module.repository';
@@ -78,7 +80,12 @@ const coursesToMentors = new CoursesToMentors({ CoursesToMentorsModel });
 
 const menteesToMentors = new MenteesToMentors({ MenteesToMentorsModel });
 
+const chatMessage = new ChatMessage({
+  ChatMessageModel,
+});
+
 export {
+  chatMessage,
   course,
   courseCategory,
   courseModule,

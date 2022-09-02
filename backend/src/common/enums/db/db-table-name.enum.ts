@@ -3,6 +3,7 @@ enum DbTableName {
   USER_DETAILS = 'user_details',
   PERMISSIONS = 'permissions',
   MIGRATIONS = 'migrations',
+  CHAT_MESSAGES = 'chat_messages',
   COURSE_CATEGORIES = 'course_categories',
   COURSES = 'courses',
   COURSE_MODULES = 'course_modules',

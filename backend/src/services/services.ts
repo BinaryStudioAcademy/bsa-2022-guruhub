@@ -1,6 +1,7 @@
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
+  chatMessage as chatMessageRepository,
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
@@ -20,6 +21,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { File } from './aws/file/file.service';
+import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
@@ -39,11 +41,14 @@ import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
+import { Uuid } from './uuid/uuid.service';
 import { Vendor } from './vendor/vendor.service';
 
 const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
+
+const uuid = new Uuid();
 
 const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
@@ -142,8 +147,15 @@ const mentor = new Mentor({
   coursesToMentorsService: coursesToMentors,
 });
 
+const chatMessage = new ChatMessage({
+  uuidService: uuid,
+  chatMessageRepository,
+  menteesToMentorsRepository,
+});
+
 export {
   auth,
+  chatMessage,
   course,
   courseCategory,
   courseModule,
@@ -164,5 +176,6 @@ export {
   user,
   userDetails,
   usersToGroups,
+  uuid,
   vendor,
 };

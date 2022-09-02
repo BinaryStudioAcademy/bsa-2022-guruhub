@@ -6,6 +6,7 @@ import { ValidationSchema } from '~/common/types/types';
 import { authorization as authorizationPlugin } from '~/plugins/plugins';
 import {
   auth,
+  chatMessage,
   course,
   courseCategory,
   courseModule,
@@ -20,6 +21,7 @@ import {
 
 import { initAuthApi } from './auth/auth.api';
 import { initCategoriesApi } from './categories/categories.api';
+import { initChatsApi } from './chats/chats.api';
 import { initCourseModulesApi } from './course-modules/course-modules.api';
 import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
@@ -113,6 +115,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       mentor,
     },
     prefix: ApiPath.MENTORS,
+  });
+
+  fastify.register(initChatsApi, {
+    services: {
+      chatMessage,
+    },
+    prefix: ApiPath.CHATS,
   });
 };
 

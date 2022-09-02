@@ -22,6 +22,11 @@ paths:
     $ref: './endpoints/groups/groups-basic-operations.yaml'
   /groups/:id:
     $ref: './endpoints/groups/groups-manipulate.yaml'
+  # Chat Messages
+  /chats:
+    $ref: './endpoints/chat-messages/chat-messages-root-operations.yaml'
+  /chats/:chatId:
+    $ref: './endpoints/chat-messages/chat-get-all-messages.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
@@ -85,6 +90,12 @@ components:
       $ref: './schemas/groups/groups-create-request-dto.yaml'
     GroupsUpdateRequestDto:
       $ref: './schemas/groups/groups-update-request-dto.yaml'
+    ChatCreateMessageRequestDto:
+      $ref: './schemas/chat-messages/chat-create-message-request-dto.yaml'
+    ChatGetAllMessagesResponseDto:
+      $ref: './schemas/chat-messages/chat-get-all-messages-response-dto.yaml'
+    ChatCreateMessageResponseDto:
+      $ref: './schemas/chat-messages/chat-get-message-response-dto.yaml'
     CourseCreateRequestDto:
       $ref: './schemas/courses/course-add-request-dto.yaml'
     CourseGetByIdRequestDto:
