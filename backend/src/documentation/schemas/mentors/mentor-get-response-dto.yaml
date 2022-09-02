@@ -1,7 +1,7 @@
 type: object
 properties:
   id:
-    type: number
+    type: integer
     example: 1
   createdAt:
     type: string
@@ -10,19 +10,19 @@ properties:
     type: string
     example: '2022-08-30T19:39:07.840Z'
   courseId:
-    type: number
+    type: integer
     example: 1
   mentorId:
-    type: number
+    type: integer
     example: 1
   menteeId:
-    type: number
+    type: integer
     example: 2
   mentor:
     type: object
     properties:
       id:
-        type: number
+        type: integer
         example: 1
       email:
         type: string
@@ -37,7 +37,7 @@ properties:
         type: object
         properties:
           id:
-            type: number
+            type: integer
             example: 1
           fullName:
             type: string
@@ -58,5 +58,5 @@ properties:
             type: string
             example: '2000-08-11T19:52:55.452Z'
           userId:
-            type: number
+            type: integer
             example: 1
