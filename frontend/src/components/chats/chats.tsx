@@ -7,11 +7,13 @@ import { ChatsList } from './components/components';
 import styles from './styles.module.scss';
 
 const Chats: FC = () => {
-  const { lastMessages, dataStatus: chatDataStatus } = useAppSelector(
-    (state) => state.chats,
-  );
-  const { user, dataStatus: authDataStatus } = useAppSelector(
-    (state) => state.auth,
+  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
+    ({ auth, chats }) => ({
+      authDataStatus: auth.dataStatus,
+      user: auth.user,
+      chatDataStatus: chats.dataStatus,
+      lastMessages: chats.lastMessages,
+    }),
   );
 
   if (

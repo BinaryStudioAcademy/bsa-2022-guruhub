@@ -31,10 +31,10 @@ class ChatsApi {
   }
 
   public getAllChatMessages(
-    chatOpponentId: number,
+    chatId: string,
   ): Promise<ChatMessageGetAllResponseDto> {
     return this.#http.load<ChatMessageGetAllResponseDto>(
-      `${this.#apiPrefix}${ApiPath.CHATS}/${chatOpponentId}`,
+      `${this.#apiPrefix}${ApiPath.CHATS}/${chatId}`,
       {
         method: HttpMethod.GET,
       },
