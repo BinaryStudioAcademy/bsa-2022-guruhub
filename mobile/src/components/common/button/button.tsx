@@ -12,13 +12,11 @@ import {
 
 import { styles } from './styles';
 
-type buttonSize = 'small' | 'large';
-
 type Props = {
   label: string;
   icon?: IconName;
   variant?: ButtonVariant;
-  size: buttonSize;
+  size: 'small' | 'large';
   onPress: () => void;
   isLoading?: boolean;
 };
