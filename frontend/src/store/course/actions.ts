@@ -15,6 +15,7 @@ import {
   UserDetailsResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
+import { checkHasPermission } from 'helpers/helpers';
 import { notification } from 'services/services';
 
 import { ActionType } from './common';
@@ -132,11 +133,10 @@ const getMenteesByCourseId = createAsyncThunk<
       course: { isMentor },
       auth: { user },
     } = getState();
-    const hasMentoringPermission = (
-      user as UserWithPermissions
-    ).permissions.find(
-      (permission) => permission.key === PermissionKey.MANAGE_MENTORING,
-    );
+    const hasMentoringPermission = checkHasPermission({
+      userPermissions: (user as UserWithPermissions).permissions,
+      permissionKeys: [PermissionKey.MANAGE_MENTORING],
+    });
 
     if (hasMentoringPermission) {
       await dispatch(checkIsMentor({ id: payload.id }));
