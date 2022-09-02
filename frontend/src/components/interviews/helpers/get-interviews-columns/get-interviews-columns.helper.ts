@@ -15,29 +15,35 @@ const getInterviewsColumns = (): Column<InterviewsTableRow>[] => {
       Header: 'Id',
       accessor: InterviewsTableAccessor.ID,
       Cell: IdCell,
+      width: '5%',
     },
     {
       Header: 'Name',
       accessor: InterviewsTableAccessor.NAME,
+      width: '19%',
     },
     {
       Header: 'Category',
       accessor: InterviewsTableAccessor.CATEGORY,
       Cell: CategoryCell,
+      width: '19%',
     },
     {
       Header: 'Status',
       accessor: InterviewsTableAccessor.STATUS,
       Cell: StatusCell,
+      width: '19%',
     },
     {
       Header: 'Interviewer',
       accessor: InterviewsTableAccessor.INTERVIEWER,
+      width: '19%',
     },
     {
       Header: 'Date',
       accessor: InterviewsTableAccessor.DATE,
       Cell: DateCell,
+      width: '19%',
     },
   ];
 };

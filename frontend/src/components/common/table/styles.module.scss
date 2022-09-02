@@ -23,19 +23,12 @@
   font-size: 14px;
   font-style: normal;
   line-height: 24px;
+  text-overflow: ellipsis;
 }
 
 .tableHeadRowHeader,
 .tableBodyRowData {
   padding: 20px;
-}
-
-.tableBodyRowData:first-child {
-  width: 2%;
-}
-
-.tableBodyRowData:last-child {
-  width: 11%;
 }
 
 .tableHeadRowHeader:last-child {
