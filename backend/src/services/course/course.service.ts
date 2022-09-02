@@ -144,6 +144,7 @@ class Course {
           url,
           vendorKey: VendorKey.EDX,
           originalId: course_id.toString(),
+          imageUrl: null,
         });
 
         return course;
