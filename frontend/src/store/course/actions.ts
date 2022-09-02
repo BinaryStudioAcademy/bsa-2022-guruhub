@@ -106,12 +106,12 @@ const updateIsMentorBecomingEnabled = createAsyncThunk<
 
   const { coursesApi } = extra;
 
-  const isMentorCheck = await coursesApi.checkIsMentor({
+  const isMentor = await coursesApi.checkIsMentor({
     courseId: (course as CourseGetResponseDto).id,
   });
 
   const isMentorBecomingEnabled =
-    (course as CourseGetResponseDto).courseCategoryId && !isMentorCheck;
+    (course as CourseGetResponseDto).courseCategoryId && !isMentor;
 
   return Boolean(isMentorBecomingEnabled);
 });
@@ -196,11 +196,11 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
     auth: { user },
     course: { mentors, mentor },
   } = getState();
-  const isMentorCheck = mentors.some(
+  const isMentor = mentors.some(
     (mentor) => mentor.id === (user as UserWithPermissions).id,
   );
   const hasMentor = Boolean(mentor);
-  const canChooseMentor = !(isMentorCheck || hasMentor);
+  const canChooseMentor = !(isMentor || hasMentor);
 
   return canChooseMentor;
 });
