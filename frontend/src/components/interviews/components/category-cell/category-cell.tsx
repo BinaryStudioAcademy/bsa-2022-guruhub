@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 const CategoryCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
   const keyNameKebabCase = changeStringCase({
-    stringToChange: value,
+    stringToChange: value.key,
     caseType: StringCase.KEBAB_CASE,
   });
 
@@ -19,11 +19,11 @@ const CategoryCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
         width="30px"
         height="30px"
         src={`/category-icons/${keyNameKebabCase}.svg`}
-        alt={`${value} img`}
+        alt={`${value.name} img`}
         isCircular
       />
 
-      <p className={styles.categoryName}>{value}</p>
+      <p className={styles.categoryName}>{value.name}</p>
     </div>
   );
 };

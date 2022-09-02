@@ -13,7 +13,7 @@ const getInterviewsRows = (
       [InterviewsTableAccessor.ID]: interview.id,
       [InterviewsTableAccessor.NAME]:
         interview.interviewee.userDetails.fullName,
-      [InterviewsTableAccessor.CATEGORY]: interview.courseCategory.name,
+      [InterviewsTableAccessor.CATEGORY]: interview.courseCategory,
       [InterviewsTableAccessor.STATUS]: interview.status,
       [InterviewsTableAccessor.INTERVIEWER]: interviewerName,
       [InterviewsTableAccessor.DATE]: interview.interviewDate,

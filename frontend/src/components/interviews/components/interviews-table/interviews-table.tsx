@@ -1,6 +1,6 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Pagination, Table } from 'components/common/common';
+import { Table } from 'components/common/common';
 import { InterviewsTableRow } from 'components/interviews/common/types/types';
 import {
   getInterviewsColumns,
@@ -44,8 +44,9 @@ const InterviewTable: FC = () => {
 
   return (
     <div className={styles.table}>
-      <Table data={data} columns={columns} />
-      <Pagination
+      <Table
+        data={data}
+        columns={columns}
         currentPage={page}
         onPageChange={handlePageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
