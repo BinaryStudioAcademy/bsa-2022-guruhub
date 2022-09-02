@@ -14,7 +14,7 @@
     "migrate:dev:rollback": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:rollback --all",
     "seed:dev": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js seed:run",
     "seed:dev:make": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js seed:make -x ts",
-    "lint:js": "npx eslint \"src/**/*.ts\" --fix",
+    "lint:js": "npx eslint \"src/**/*.ts\"",
     "lint:type": "npx tsc --noEmit",
     "lint": "npm run lint:js && npm run lint:type",
     "start:dev": "nodemon --ignore ./tests --exec ts-node --files -r tsconfig-paths/register ./src/server.ts",
