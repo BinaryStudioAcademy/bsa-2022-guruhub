@@ -27,14 +27,14 @@ const HistorySection: FC<Props> = ({
   onToggle,
 }) => {
   const dispatch = useAppDispatch();
-  const { control, errors, handleSubmit } =
+  const { control, errors, handleSubmit, reset } =
     useAppForm<InterviewNoteCreateRequestDto>({
       defaultValues: DEFAULT_CREATE_NOTE_PAYLOAD,
       validationSchema: interviewNotesCreateArguments,
     });
 
   const handleToggleNoteContentClear = (): void => {
-    control._formValues.note = '';
+    reset();
     onToggle();
   };
 
