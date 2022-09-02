@@ -132,12 +132,13 @@ const getMenteesByCourseId = createAsyncThunk<
       course: { isMentor },
       auth: { user },
     } = getState();
+    const hasMentoringPermission = (
+      user as UserWithPermissions
+    ).permissions.find(
+      (permission) => permission.key === PermissionKey.MANAGE_MENTORING,
+    );
 
-    if (
-      (user as UserWithPermissions).permissions.find(
-        (permission) => permission.key === PermissionKey.MANAGE_MENTORING,
-      )
-    ) {
+    if (hasMentoringPermission) {
       await dispatch(checkIsMentor({ id: payload.id }));
 
       if (!isMentor) {
