@@ -1,0 +1,17 @@
+.currentChatWrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+.currentChatHeader {
+  background: var(--background-gray-300);
+}
+
+.currentChatContent {
+  display: flex;
+  background: var(--background-gray-400);
+}
+
+.currentChatFooter {
+  background: var(--background-gray-300);
+}
