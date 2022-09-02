@@ -42,7 +42,7 @@ const ApplicationForm: FC<Props> = ({
   }));
 
   const hasEditInterviewPermission = checkHasPermission({
-    permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
+    permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
     userPermissions: user?.permissions ?? [],
   });
 
