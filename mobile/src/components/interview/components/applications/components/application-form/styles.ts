@@ -47,6 +47,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19,
   },
+  button: {
+    paddingVertical: 7,
+    width: 100,
+  },
+  buttonsWrapper: {
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  buttonHide: {
+    opacity: 0,
+  },
 });
 
 export { styles };

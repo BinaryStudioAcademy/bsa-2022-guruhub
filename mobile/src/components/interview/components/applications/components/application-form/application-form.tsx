@@ -1,13 +1,19 @@
 import React, { FC } from 'react';
 
-import { PermissionKey } from '~/common/enums/enums';
+import { ButtonVariant, PermissionKey } from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
   InterviewsUpdateRequestDto,
   UserWithPermissions,
 } from '~/common/types/types';
-import { Category, Dropdown, Text, View } from '~/components/common/common';
+import {
+  Button,
+  Category,
+  Dropdown,
+  Text,
+  View,
+} from '~/components/common/common';
 import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useEffect, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
@@ -70,12 +76,14 @@ const ApplicationForm: FC<Props> = ({
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Parameters</Text>
         {canEditInterviewPermission && (
-          <ButtonsSection
-            isEditMode={isEditMode}
-            toggleEditMode={toggleEditMode}
-            handleEditInterviewer={handleSubmit(handleUpdateInterview)}
-            isLoading={isInterviewLoading}
-          />
+          <View style={isEditMode && styles.buttonHide}>
+            <Button
+              label="Edit"
+              variant={ButtonVariant.SECONDARY}
+              onPress={toggleEditMode}
+              size="small"
+            />
+          </View>
         )}
       </View>
       <View>
@@ -140,6 +148,15 @@ const ApplicationForm: FC<Props> = ({
           </View>
         </View>
       </View>
+      {isEditMode && (
+        <View style={styles.buttonsWrapper}>
+          <ButtonsSection
+            toggleEditMode={toggleEditMode}
+            handleEditInterviewer={handleSubmit(handleUpdateInterview)}
+            isLoading={isInterviewLoading}
+          />
+        </View>
+      )}
     </View>
   );
 };
