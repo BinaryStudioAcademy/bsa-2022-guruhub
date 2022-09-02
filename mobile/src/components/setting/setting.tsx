@@ -103,7 +103,7 @@ const Settings: FC = () => {
         <Stack space={20} isHorizontal>
           <Button
             label="Cancel"
-            variant={ButtonVariant.GREY}
+            variant={ButtonVariant.CANCEL}
             onPress={handleCancel}
           />
           <Button label="Save" onPress={handleSubmit(handleUpdateProfile)} />

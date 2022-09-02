@@ -1,7 +1,7 @@
 enum ButtonVariant {
   PRIMARY = 'Primary',
   SECONDARY = 'Secondary',
-  GREY = 'Grey',
+  CANCEL = 'Cancel',
 }
 
 export { ButtonVariant };
