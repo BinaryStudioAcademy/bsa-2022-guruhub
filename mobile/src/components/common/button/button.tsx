@@ -3,7 +3,13 @@ import { ViewStyle } from 'react-native';
 
 import { ButtonVariant } from '~/common/enums/enums';
 import { IconName } from '~/common/types/types';
-import { Icon, Pressable, Spinner, Text } from '~/components/common/common';
+import {
+  Icon,
+  Pressable,
+  Spinner,
+  Text,
+  View,
+} from '~/components/common/common';
 
 import { styles } from './styles';
 
@@ -14,6 +20,7 @@ type Props = {
   onPress: () => void;
   style?: ViewStyle;
   isLoading?: boolean;
+  loaderColor?: string;
 };
 
 const Button: FC<Props> = ({
@@ -23,12 +30,18 @@ const Button: FC<Props> = ({
   onPress,
   style,
   isLoading,
+  loaderColor,
 }) => {
   const textMarginLeft = icon ? 10 : 0;
 
   return (
     <Pressable
-      style={[styles.button, styles[`button${variant}`], style]}
+      style={[
+        styles.button,
+        styles[`button${variant}`],
+        isLoading && styles.loaderButton,
+        style,
+      ]}
       onPress={onPress}
     >
       {icon && (
@@ -50,7 +63,20 @@ const Button: FC<Props> = ({
           {label}
         </Text>
       ) : (
-        <Spinner />
+        <View style={styles.loaderWrapper}>
+          <View style={styles.loader}>
+            <Spinner color={loaderColor} />
+          </View>
+          <Text
+            style={{
+              ...styles.label,
+              ...styles[`button${variant}Label`],
+              marginLeft: textMarginLeft,
+            }}
+          >
+            {label}
+          </Text>
+        </View>
       )}
     </Pressable>
   );

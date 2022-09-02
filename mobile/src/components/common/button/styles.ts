@@ -12,6 +12,18 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 20,
   },
+  loaderButton: {
+    paddingHorizontal: 30,
+    position: 'relative',
+  },
+  loaderWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  loader: {
+    position: 'absolute',
+    left: -23,
+  },
   label: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_100,

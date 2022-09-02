@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { ButtonVariant } from '~/common/enums/enums';
-import { Button, View } from '~/components/common/common';
+import { AppColor, ButtonVariant } from '~/common/enums/enums';
+import { Button, Stack } from '~/components/common/common';
 
 import { styles } from './styles';
 
@@ -30,7 +30,7 @@ const ButtonsSection: FC<Props> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Stack isHorizontal space={10}>
       <Button
         label="Cancel"
         variant={ButtonVariant.SECONDARY}
@@ -41,10 +41,11 @@ const ButtonsSection: FC<Props> = ({
         label="Save"
         variant={ButtonVariant.PRIMARY}
         onPress={handleEditInterviewer}
-        style={{ ...styles.button, ...styles.saveButton }}
+        style={styles.button}
         isLoading={isLoading}
+        loaderColor={AppColor.TEXT.GRAY_100}
       />
-    </View>
+    </Stack>
   );
 };
 
