@@ -8,10 +8,7 @@ import {
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
-import {
-  ChooseMentor,
-  EditCourseCategory,
-} from '~/components/course/components/components';
+import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
 import { Interviews } from '~/components/interviews/interviews';
@@ -134,11 +131,6 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.EDIT_COURSE_CATEGORY,
         component: EditCourseCategory,
         permissions: [PermissionKey.MANAGE_CATEGORIES],
-      },
-      {
-        name: AppScreenName.CHOOSE_A_MENTOR,
-        component: ChooseMentor,
-        permissions: [],
       },
     ],
   },

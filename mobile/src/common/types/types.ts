@@ -50,6 +50,7 @@ export {
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
+  type TabNavigationItem,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
 export {

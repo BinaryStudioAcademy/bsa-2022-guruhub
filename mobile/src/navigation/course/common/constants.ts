@@ -1,6 +1,13 @@
 import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
+import {
+  AppColor,
+  AppFontFamily,
+  CourseScreenName,
+} from '~/common/enums/enums';
+import { TabNavigationItem } from '~/common/types/types';
+import { ChooseMentor } from '~/components/course/components/components';
+import { Course } from '~/components/course/course';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
@@ -21,4 +28,17 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-export { SCREEN_OPTIONS };
+const COURSE_TAB_ITEMS: TabNavigationItem[] = [
+  {
+    name: CourseScreenName.ABOUT,
+    component: Course,
+    permissions: [],
+  },
+  {
+    name: CourseScreenName.MY_MENTOR,
+    component: ChooseMentor,
+    permissions: [],
+  },
+];
+
+export { COURSE_TAB_ITEMS, SCREEN_OPTIONS };
