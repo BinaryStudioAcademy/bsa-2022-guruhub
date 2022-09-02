@@ -60,6 +60,7 @@ const HistorySection: FC<Props> = ({
               name={getNameOf<InterviewNoteCreateRequestDto>('note')}
               control={control}
               errors={errors}
+              rows={3}
             />
             <div className={styles.actionButtonsSection}>
               <Button

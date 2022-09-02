@@ -1,4 +1,4 @@
-export { courseCreate } from './course/course';
+export { courseCreate, courseUpdateCategory } from './course/course';
 export {
   groupCreate,
   groupCreateClient,
@@ -6,3 +6,4 @@ export {
   groupUpdateParams,
 } from './group/group';
 export { userSignIn, userSignUp } from './user/user';
+export { userDetailsUpdateInfo } from './user-details/user-details';

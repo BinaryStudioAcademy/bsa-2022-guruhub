@@ -7,7 +7,7 @@ const getCategoriesOptions = (
   categories: CategoryGetAllItemResponseDto[],
 ): SelectorOption[] => {
   return categories.map<SelectorOption>((category) => ({
-    name: category.name,
+    label: category.name,
     value: `${category.id}`,
   }));
 };

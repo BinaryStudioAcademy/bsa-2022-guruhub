@@ -1,6 +1,7 @@
 export { signInResponseSchema, signUpResponseSchema } from './auth/auth';
 export { interviewCreationSchema } from './interview/interview-creation';
 export { interviewGetAllSchema } from './interview/interview-get-all';
+export { allCategoriesSchema, categorySchema } from './categories/categories';
 export {
   allPermissionsSchema,
   permissionSchema,

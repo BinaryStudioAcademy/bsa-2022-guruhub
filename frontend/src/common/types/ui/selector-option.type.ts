@@ -1,5 +1,5 @@
 type SelectorOption<T = string> = {
-  name: string;
+  label: string;
   value: T;
 };
 
