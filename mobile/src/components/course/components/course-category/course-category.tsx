@@ -31,15 +31,11 @@ const CourseCategory: FC<Props> = ({ isActive, keyName, name, onPress }) => {
   return (
     <Pressable onPress={handlePress}>
       <View
-        style={
-          color
-            ? {
-                ...styles.categoryListContainer,
-                ...(isActive && styles.activeItem),
-                borderColor: color,
-              }
-            : styles.container
-        }
+        style={{
+          ...styles.categoryListContainer,
+          ...(isActive && styles.activeItem),
+          borderColor: color,
+        }}
       >
         {hasImage ? (
           <CategoryImage name={keyName} />
