@@ -9,12 +9,12 @@ import { styles } from './styles';
 
 type Props = {
   mentor: UserDetailsResponseDto;
-  onPressChoose: (mentorId: number) => void;
+  onChoose: (mentorId: number) => void;
 };
 
-const MentorCard: FC<Props> = ({ mentor, onPressChoose }) => {
-  const handlePressChoose = (): void => {
-    onPressChoose(mentor.id);
+const MentorCard: FC<Props> = ({ mentor, onChoose }) => {
+  const handleChoose = (): void => {
+    onChoose(mentor.id);
   };
 
   return (
@@ -32,7 +32,7 @@ const MentorCard: FC<Props> = ({ mentor, onPressChoose }) => {
         <Text style={styles.fullName}>{mentor.fullName}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button label="Choose" onPress={handlePressChoose} />
+        <Button label="Choose" onPress={handleChoose} />
       </View>
     </View>
   );

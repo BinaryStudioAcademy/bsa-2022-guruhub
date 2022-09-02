@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   noMentors: {
+    marginLeft: 15,
     fontSize: 16,
     color: 'white',
-    textAlign: 'center',
   },
   spinnerContainer: {
     flex: 1,

@@ -81,7 +81,7 @@ const ChooseMentor: FC = () => {
             data={mentors}
             keyExtractor={({ id }): string => id.toString()}
             renderItem={({ item: mentor }): ReactElement => (
-              <MentorCard mentor={mentor} onPressChoose={handleChooseButton} />
+              <MentorCard mentor={mentor} onChoose={handleChooseButton} />
             )}
             refreshControl={
               <RefreshControl
