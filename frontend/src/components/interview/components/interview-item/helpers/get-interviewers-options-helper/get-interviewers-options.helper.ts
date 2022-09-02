@@ -5,7 +5,7 @@ const getInterviewersOptions = (
   interviewers: InterviewsGetInterviewerResponseDto[],
 ): SelectorOption<number>[] => {
   return interviewers.map<SelectorOption<number>>((it) => ({
-    name: it.interviewer.email,
+    label: it.interviewer.email,
     value: it.interviewer.id,
   }));
 };

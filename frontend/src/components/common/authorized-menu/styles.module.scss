@@ -7,6 +7,7 @@
   min-width: 295px;
   height: calc(100vh - 96px);
   padding: 40px;
+  overflow-x: hidden;
   overflow-y: scroll;
   background-color: var(--background-gray-300);
 }

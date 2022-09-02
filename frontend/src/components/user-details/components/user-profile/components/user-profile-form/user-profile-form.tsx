@@ -4,7 +4,7 @@ import {
   SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
-import { Button, Input, Select } from 'components/common/common';
+import { Button, Datepicker, Input, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -44,6 +44,7 @@ const UserProfileForm: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
+        dateOfBirth: userDetails.dateOfBirth ?? null,
       });
     }
   }, [userDetails]);
@@ -78,6 +79,12 @@ const UserProfileForm: FC = () => {
                 control={control}
                 errors={errors}
                 placeholder="Enter your full name"
+              />
+              <Datepicker
+                control={control}
+                errors={errors}
+                name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
+                label="Birth date"
               />
             </div>
             <div className={styles.grid}>

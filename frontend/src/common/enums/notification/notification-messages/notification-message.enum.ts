@@ -8,6 +8,7 @@ enum NotificationMessage {
   INTERVIEW_UPDATE = 'Interview has been successfully updated!',
   MENTOR_CHOOSE = 'You have successfully chose a mentor for this course!',
   COURSE_ADD = 'Course has been successfully added!',
+  PROFILE_DETAILS_UPDATE = 'Successful update!',
 }
 
 export { NotificationMessage };
