@@ -71,7 +71,8 @@ class Course {
   public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
-    const { description, title, url, vendorKey, originalId } = courseRequestDto;
+    const { description, title, url, vendorKey, originalId, imageUrl } =
+      courseRequestDto;
 
     const vendor = await this.#vendorService.getByKey(vendorKey);
 
@@ -98,6 +99,7 @@ class Course {
       url,
       vendorId: vendor.id,
       originalId,
+      imageUrl,
     });
 
     return {
@@ -116,7 +118,7 @@ class Course {
       case CourseHost.W_UDEMY: {
         const courseData = await this.#udemyService.getCourseByUrl(urlObject);
 
-        const { description, title, url, id } = courseData;
+        const { description, title, url, id, image_480x270 } = courseData;
 
         const course = await this.create({
           description,
@@ -124,6 +126,7 @@ class Course {
           url,
           vendorKey: VendorKey.UDEMY,
           originalId: id.toString(),
+          imageUrl: image_480x270,
         });
 
         await this.#courseModuleService.createModulesByCourseId(id, course.id);

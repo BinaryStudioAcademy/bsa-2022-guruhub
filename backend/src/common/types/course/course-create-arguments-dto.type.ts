@@ -6,6 +6,7 @@ type CourseCreateArgumentsDto = {
   url: string;
   vendorKey: VendorKey;
   originalId: string;
+  imageUrl?: string;
 };
 
 export { type CourseCreateArgumentsDto };
