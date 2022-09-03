@@ -92,6 +92,7 @@ const Settings: FC = () => {
           />
           <Dropdown
             name="gender"
+            label="Gender"
             items={GENDER_OPTIONS}
             control={control}
             errors={errors}
@@ -103,7 +104,7 @@ const Settings: FC = () => {
             <View style={styles.button}>
               <Button
                 label="Cancel"
-                variant={ButtonVariant.SECONDARY}
+                variant={ButtonVariant.CANCEL}
                 onPress={handleCancel}
                 size="small"
               />
