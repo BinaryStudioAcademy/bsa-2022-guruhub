@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
+import { wordCapitalize } from '~/helpers/helpers';
 
 import { styles } from './styles';
 
@@ -16,7 +17,7 @@ type Props = {
   label: string;
   icon?: IconName;
   variant?: ButtonVariant;
-  size: 'small' | 'large';
+  size?: 'small' | 'large';
   onPress: () => void;
   isLoading?: boolean;
 };
@@ -26,7 +27,7 @@ const Button: FC<Props> = ({
   icon,
   variant,
   onPress,
-  size,
+  size = 'large',
   isLoading,
 }) => {
   const textMarginLeft = icon ? 10 : 0;
@@ -35,15 +36,11 @@ const Button: FC<Props> = ({
       ? AppColor.TEXT.GRAY_100
       : AppColor.BRAND.BLUE_100;
 
-  const sizeStyle = size === 'small' ? 'buttonSmall' : 'buttonLarge';
+  const sizeStyle = `button${wordCapitalize(size)}`;
 
   return (
     <Pressable
-      style={[
-        styles.button,
-        styles[`button${variant}`],
-        styles[`${sizeStyle}`],
-      ]}
+      style={[styles.button, styles[`button${variant}`], styles[sizeStyle]]}
       onPress={onPress}
       disabled={isLoading}
     >
