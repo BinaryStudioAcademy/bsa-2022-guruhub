@@ -2,30 +2,38 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import saly from '~/assets/images/saly.png';
 import { AppScreenName } from '~/common/enums/enums';
 import {
-  Button,
   Image,
   SafeAreaView,
   ScrollView,
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
+import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
-import { DrawerList } from '~/navigation/app/components/components';
+import {
+  BecomeMentor,
+  DrawerList,
+} from '~/navigation/app/components/components';
+import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
+  const dispatch = useAppDispatch();
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
   const visibleNavigationItems = NAVIGATION_ITEMS.filter(
     (item) => item.isVisible,
   );
 
+  const { isMentorBecomingVisible, dataBecomeMentorStatus } = useAppSelector(
+    (rootState) => rootState.courses,
+  );
+
   const handleBecomeMentor = (): void => {
-    // TODO: navigate to application screen
+    dispatch(coursesActions.becomeMentor());
   };
 
   return (
@@ -46,13 +54,12 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
             />
           </View>
         ))}
-        <View style={styles.footer}>
-          <Image
-            style={styles.footerImage}
-            source={{ uri: getImageUri(saly) }}
+        {isMentorBecomingVisible && (
+          <BecomeMentor
+            dataStatus={dataBecomeMentorStatus}
+            onPress={handleBecomeMentor}
           />
-          <Button label="Become A Mentor" onPress={handleBecomeMentor} />
-        </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

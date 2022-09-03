@@ -13,6 +13,7 @@ import { Navigation } from './navigation/navigation.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api';
 import { Storage } from './storage/storage.service';
+import { TasksApi } from './tasks-api/tasks-api.service';
 import { UserDetailsApi } from './user-details-api/user-details-api.service';
 import { UsersApi } from './users-api/users-api.service';
 
@@ -77,6 +78,8 @@ const interviewsApi = new InterviewsApi({ apiPrefix: ENV.API_PATH, http });
 
 const mentorsApi = new MentorsApi({ apiPrefix: ENV.API_PATH, http });
 
+const tasksApi = new TasksApi({ apiPrefix: ENV.API_PATH, http });
+
 export {
   authApi,
   categoriesApi,
@@ -90,6 +93,7 @@ export {
   notification,
   permissionsApi,
   storage,
+  tasksApi,
   userDetailsApi,
   usersApi,
 };

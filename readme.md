@@ -218,6 +218,17 @@ erDiagram
     int receiver_id FK
     text message
   }
+
+  task_notes }|--|| tasks : task_id
+  task_notes }|--|| users : author_id
+  task_notes {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int task_id FK
+    int author_id FK
+    enum status
+  }
 ```
 
 ## 🧑‍💻 CI

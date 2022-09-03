@@ -89,6 +89,7 @@ const EditCourseCategory: FC = () => {
         control={control}
         name="newCategoryId"
         errors={errors}
+        placeholder="Select category"
       />
       <View style={styles.saveButtonContainer}>
         <Button label="Save" onPress={handleSubmit(handleSelectNewCategory)} />

@@ -1,0 +1,38 @@
+type: object
+properties:
+  items:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        taskId:
+          type: number
+          example: 1
+        author:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 1
+            email:
+              type: string
+              example: john.doe@gmail.com
+            userDetails:
+              $ref: '../user-details/user-details-response-dto.yaml'
+        note:
+          type: string
+          example: Example task note message
+        status:
+          type: string
+          enum:
+            - Uncompleted
+            - Pending
+            - Rejected
+            - Completed
+          example: Pending
+  total:
+    type: number
+    example: 10

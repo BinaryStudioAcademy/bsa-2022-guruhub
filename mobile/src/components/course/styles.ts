@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     lineHeight: 19.5,
   },
   currentCategory: {
-    alignSelf: 'flex-start',
-    maxWidth: '50%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     height: 60,
   },
   editIconContainer: {

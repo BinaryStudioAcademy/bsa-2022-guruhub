@@ -1,0 +1,25 @@
+summary: Create a task note
+parameters:
+  - in: path
+    name: taskId
+    schema:
+      type: integer
+    required: true
+    description: Numeric ID of the task to create a note for
+tags:
+  - tasks
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/tasks/tasks-create-request-dto.yaml'
+responses:
+  '201':
+    description: Task note was added successfully
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/tasks/tasks-create-response-dto.yaml'
+  '400':
+    description: Invalid request body
