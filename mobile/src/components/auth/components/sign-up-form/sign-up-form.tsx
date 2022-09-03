@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 
 import { UserSignUpRequestDto } from '~/common/types/types';
-import { Button, Input, Text, View } from '~/components/common/common';
+import {
+  Button,
+  Input,
+  InputSecure,
+  Text,
+  View,
+} from '~/components/common/common';
 import { useAppForm } from '~/hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from '~/validation-schemas/validation-schemas';
 
@@ -41,13 +47,12 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
           />
         </View>
         <View style={styles.inputWrapper}>
-          <Input
+          <InputSecure
             label="Password"
             placeholder="Enter your password"
             name="password"
             control={control}
             errors={errors}
-            isSecure
           />
         </View>
         <View style={styles.buttonWrapper}>

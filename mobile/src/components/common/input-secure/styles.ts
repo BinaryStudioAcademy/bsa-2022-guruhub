@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: AppColor.BACKGROUND.GRAY_300,
     paddingStart: 15,
-    paddingEnd: 15,
+    paddingEnd: 60,
     paddingTop: 7,
     paddingBottom: 7,
   },
@@ -30,6 +30,16 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     color: AppColor.SUPPORT.ERROR_RED_100,
     marginTop: 9,
+  },
+  button: {
+    justifyContent: 'center',
+    height: 30,
+    paddingLeft: 10,
+    paddingRight: 20,
+    marginTop: -14,
+    position: 'absolute',
+    top: '50%',
+    right: 0,
   },
 });
 
