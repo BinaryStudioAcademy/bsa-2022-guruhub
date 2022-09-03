@@ -6,6 +6,7 @@ export { useFormControl } from './use-form-control/use-form-control.hook';
 export { useHandleClickOutside } from './use-handle-click-outside/use-handle-click-outside.hook';
 export { usePagination } from './use-pagination/use-pagination.hook';
 export { useSelectedItems } from './use-selected-items/use-selected-items.hook';
+export { useUserSearch } from './use-user-search/use-user-search.hook';
 export { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 export {
   useLocation,

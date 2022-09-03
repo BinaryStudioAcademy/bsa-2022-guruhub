@@ -6,9 +6,11 @@ import { getNameOf } from '~/helpers/helpers';
 const chatMessageCreateArguments = Joi.object({
   [getNameOf<ChatMessageCreateRequestBodyDto>('message')]:
     Joi.string().required(),
-  [getNameOf<ChatMessageCreateRequestBodyDto>('chatOpponentId')]: Joi.number()
+  [getNameOf<ChatMessageCreateRequestBodyDto>('receiverId')]: Joi.number()
     .integer()
     .required(),
+  [getNameOf<ChatMessageCreateRequestBodyDto>('chatId')]:
+    Joi.string().required(),
 });
 
 export { chatMessageCreateArguments };

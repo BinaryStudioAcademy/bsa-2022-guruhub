@@ -7,13 +7,15 @@ import { createMessage, getLastMessages, getMessages } from './actions';
 type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
-  messages: ChatMessageGetAllItemResponseDto[];
+  currentChatMessages: ChatMessageGetAllItemResponseDto[];
+  currentChatId: string | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   lastMessages: [],
-  messages: [],
+  currentChatMessages: [],
+  currentChatId: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,7 +24,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getLastMessages.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.lastMessages = action.payload.items;
+    state.lastMessages = action.payload;
   });
   builder.addCase(getLastMessages.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -34,6 +36,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getMessages.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.lastMessages = action.payload.items;
+    state.currentChatId = action.payload.chatId;
   });
   builder.addCase(getMessages.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -44,7 +47,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(createMessage.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.messages = [...state.messages, action.payload];
+    state.currentChatMessages = [...state.currentChatMessages, action.payload];
   });
   builder.addCase(createMessage.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;

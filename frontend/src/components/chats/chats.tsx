@@ -1,18 +1,37 @@
-import { DataStatus } from 'common/enums/enums';
+import { DataStatus, SearchValue } from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
-import { useAppSelector } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useUserSearch,
+} from 'hooks/hooks';
+import { chatsActions } from 'store/actions';
 
-import { ChatsList } from './components/components';
+import { ChatsList, SearchUser } from './components/components';
 import styles from './styles.module.scss';
 
 const Chats: FC = () => {
-  const { lastMessages, dataStatus: chatDataStatus } = useAppSelector(
-    (state) => state.chats,
+  const dispatch = useAppDispatch();
+  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
+    ({ auth, chats }) => ({
+      authDataStatus: auth.dataStatus,
+      user: auth.user,
+      chatDataStatus: chats.dataStatus,
+      lastMessages: chats.lastMessages,
+    }),
   );
-  const { user, dataStatus: authDataStatus } = useAppSelector(
-    (state) => state.auth,
-  );
+
+  useEffect(() => {
+    dispatch(chatsActions.getLastMessages({ fullName: '' }));
+  }, [dispatch]);
+
+  const { performSearch, searchParams } = useUserSearch();
+
+  const handleSearch = (search: string): void => {
+    performSearch(SearchValue.FULLNAME, search);
+  };
 
   if (
     chatDataStatus === DataStatus.PENDING ||
@@ -23,10 +42,13 @@ const Chats: FC = () => {
 
   return (
     <div className={styles.chats}>
-      <ChatsList
-        chatsList={lastMessages}
-        currentUserId={(user as UserWithPermissions).id}
-      />
+      <div className={styles.lastMessagesColumn}>
+        <SearchUser searchParams={searchParams} onSearch={handleSearch} />
+        <ChatsList
+          chatsList={lastMessages}
+          currentUserId={(user as UserWithPermissions).id}
+        />
+      </div>
     </div>
   );
 };

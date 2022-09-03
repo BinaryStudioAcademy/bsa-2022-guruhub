@@ -9,3 +9,8 @@ properties:
   senderId:
     type: number
     example: 1
+  chatId:
+    oneOf:
+      - type: string
+      - type: null
+    example: TeSt-ID

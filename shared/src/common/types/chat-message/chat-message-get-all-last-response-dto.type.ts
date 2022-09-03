@@ -1,8 +1,7 @@
 import { ChatMessageGetAllItemResponseDto } from './chat-message-get-all-item-response-dto.type';
 
-type ChatMessageGetAllResponseDto = {
+type ChatMessageGetAllLastResponseDto = {
   items: ChatMessageGetAllItemResponseDto[];
-  chatId: string;
 };
 
-export { type ChatMessageGetAllResponseDto };
+export { type ChatMessageGetAllLastResponseDto };

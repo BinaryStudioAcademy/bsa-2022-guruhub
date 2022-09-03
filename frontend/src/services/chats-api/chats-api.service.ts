@@ -1,6 +1,7 @@
 import { ApiPath, ContentType, HttpMethod } from 'common/enums/enums';
 import {
   ChatMessageCreateRequestBodyDto,
+  ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllResponseDto,
 } from 'common/types/types';
@@ -21,20 +22,22 @@ class ChatsApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAllChatsLastMessages(): Promise<ChatMessageGetAllResponseDto> {
-    return this.#http.load<ChatMessageGetAllResponseDto>(
-      `${this.#apiPrefix}${ApiPath.CHATS}`,
-      {
-        method: HttpMethod.GET,
+  public getAllChatsLastMessages(opts: {
+    filtering: ChatMessageFilteringDto;
+  }): Promise<ChatMessageGetAllItemResponseDto[]> {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.CHATS}`, {
+      method: HttpMethod.GET,
+      queryString: {
+        fullName: opts.filtering.fullName,
       },
-    );
+    });
   }
 
   public getAllChatMessages(
-    chatOpponentId: number,
+    chatId: string,
   ): Promise<ChatMessageGetAllResponseDto> {
     return this.#http.load<ChatMessageGetAllResponseDto>(
-      `${this.#apiPrefix}${ApiPath.CHATS}/${chatOpponentId}`,
+      `${this.#apiPrefix}${ApiPath.CHATS}/${chatId}`,
       {
         method: HttpMethod.GET,
       },

@@ -9,6 +9,9 @@ properties:
   createdAt:
     type: string
     example: '2022-08-18T21:00:00.000Z'
+  chatId:
+    type: string
+    example: TeSt-ID
   receiver:
     type: object
     properties:

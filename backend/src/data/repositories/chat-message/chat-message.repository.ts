@@ -1,8 +1,9 @@
 import { SortOrder } from '~/common/enums/enums';
 import {
+  ChatGetAllMessagesRequestDto,
+  ChatGetLastMessagesRequestDto,
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
-  ChatMessageGetRequestDto,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 
@@ -18,14 +19,14 @@ class ChatMessage {
   }
 
   public getAll({
-    userId,
-    chatOpponentId,
-  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto[]> {
+    chatId,
+  }: ChatGetAllMessagesRequestDto): Promise<
+    ChatMessageGetAllItemResponseDto[]
+  > {
     return this.#ChatMessageModel
       .query()
       .select()
-      .where({ senderId: userId, receiverId: chatOpponentId })
-      .orWhere({ senderId: chatOpponentId, receiverId: userId })
+      .where({ chatId })
       .withGraphJoined(
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )
@@ -37,10 +38,11 @@ class ChatMessage {
     senderId,
     receiverId,
     message,
+    chatId,
   }: ChatMessageCreateRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
-      .insert({ senderId, receiverId, message })
+      .insert({ senderId, receiverId, message, chatId: chatId as string })
       .withGraphFetched(
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )
@@ -51,7 +53,7 @@ class ChatMessage {
   public getLastMessage({
     userId,
     chatOpponentId,
-  }: ChatMessageGetRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
+  }: ChatGetLastMessagesRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
       .select()
