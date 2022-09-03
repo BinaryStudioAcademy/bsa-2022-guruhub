@@ -13,6 +13,7 @@ enum CustomExceptionName {
   COURSES_TO_MENTORS_ERROR = 'CoursesToMentorsError',
   MENTEES_TO_MENTORS_ERROR = 'MenteesToMentorsError',
   INVALID_FILE = 'InvalidFileError',
+  TASKS_ERROR = 'TasksError',
 }
 
 export { CustomExceptionName };

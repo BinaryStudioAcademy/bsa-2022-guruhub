@@ -19,6 +19,7 @@ import {
   interview,
   mentor,
   permission,
+  task,
   token,
   user,
   userDetails,
@@ -32,6 +33,7 @@ import { initGroupsApi } from './groups/groups.api';
 import { initInterviewsApi } from './interviews/interviews.api';
 import { initMentorsApi } from './mentors/mentors.api';
 import { initPermissionsApi } from './permissions/permissions.api';
+import { initTasksApi } from './tasks/tasks.api';
 import { initUserDetailsApi } from './user-details/user-details.api';
 import { initUsersApi } from './users/users.api';
 
@@ -126,6 +128,13 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       mentor,
     },
     prefix: ApiPath.MENTORS,
+  });
+
+  fastify.register(initTasksApi, {
+    services: {
+      task,
+    },
+    prefix: ApiPath.TASKS,
   });
 };
 

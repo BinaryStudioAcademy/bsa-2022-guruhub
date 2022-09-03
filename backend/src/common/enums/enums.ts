@@ -9,6 +9,7 @@ export {
   InterviewsApiPath,
   MentorsApiPath,
   PermissionApiPath,
+  TasksApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
@@ -23,5 +24,6 @@ export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SortOrder } from './sort/sort';
 export { StringCase } from './string/string';
+export { TaskStatus } from './task/task';
 export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';

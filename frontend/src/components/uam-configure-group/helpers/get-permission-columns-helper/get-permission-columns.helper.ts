@@ -27,14 +27,17 @@ const getPermissionsColumns = ({
         isChecked: selectedPermissionIds.includes(id),
       }),
       Cell: PermissionsActionsCell,
+      width: '5%',
     },
     {
       Header: 'Policy name',
       accessor: PermissionTableAccessor.NAME,
+      width: '85%',
     },
     {
       Header: 'Policy ID',
       accessor: PermissionTableAccessor.ID,
+      width: '10%',
     },
   ];
 };

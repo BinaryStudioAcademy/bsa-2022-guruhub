@@ -22,5 +22,7 @@ enum ExceptionMessage {
   ALREADY_MENTOR_FOR_COURSE = 'You are already a mentor for this course.',
   ALREADY_HAVE_MENTOR_FOR_COURSE = 'You already have a mentor for this course.',
   INVALID_FILE_TYPE = 'The uploaded file has an invalid type.',
+  TASK_DOES_NOT_EXIST = 'Task does not exist.',
+  TASK_COMPLETED = 'Task is already completed and cannot be updated.',
 }
 export { ExceptionMessage };
