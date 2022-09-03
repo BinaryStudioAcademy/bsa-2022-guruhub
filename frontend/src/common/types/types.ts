@@ -63,7 +63,9 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
 export {
   type NavigationMenuItem,

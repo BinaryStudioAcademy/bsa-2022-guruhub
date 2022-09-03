@@ -23,6 +23,7 @@ import {
   ChooseMentorModal,
   EditCategoryModal,
   ModulesCardsContainer,
+  MyMentor,
   MyStudentsContainer,
 } from './components/components';
 import styles from './styles.module.scss';
@@ -36,6 +37,7 @@ const Course: FC = () => {
     passedInterviewsCategoryIds,
     user,
     mentors,
+    mentor,
     mentees,
     isMentorChoosingEnabled,
     isMentor,
@@ -48,6 +50,7 @@ const Course: FC = () => {
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
     mentors: course.mentors,
+    mentor: course.mentor,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
@@ -109,6 +112,12 @@ const Course: FC = () => {
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(
+        courseActions.getMentor({
+          courseId: Number(id),
+          menteeId: user.id,
+        }),
+      );
     }
   }, [user]);
 
@@ -189,12 +198,11 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-      <div className={styles.rightBlock}>
+      <div className={styles.additional}>
+        {mentor && <MyMentor mentor={mentor} />}
         {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
           <MyStudentsContainer mentees={mentees} />
         )}
-      </div>
-      <div className={styles.rightBlock}>
         {isMentorChoosingEnabled && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}

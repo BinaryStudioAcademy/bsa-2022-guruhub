@@ -1,4 +1,7 @@
-import { MenteesToMentorsRequestDto } from '~/common/types/types';
+import {
+  MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
+} from '~/common/types/types';
 import { MenteesToMentors as MenteesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -14,7 +17,7 @@ class MenteesToMentors {
 
   public create(
     menteesToMentors: MenteesToMentorsRequestDto,
-  ): Promise<MenteesToMentorsM> {
+  ): Promise<MenteesToMentorsResponseDto> {
     const { courseId, mentorId, menteeId } = menteesToMentors;
 
     return this.#MenteesToMentorsModel
@@ -24,9 +27,27 @@ class MenteesToMentors {
         mentorId,
         menteeId,
       })
+      .withGraphFetched('mentor(withoutPassword).[userDetails]')
+      .castTo<MenteesToMentorsResponseDto>()
       .execute();
   }
+  
+  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<MenteesToMentorsResponseDto | null> {
+    const { courseId, menteeId } = getMenteesToMentors;
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .where({ courseId })
+      .andWhere({ menteeId })
+      .withGraphJoined('mentor(withoutPassword).[userDetails]')
+      .castTo<MenteesToMentorsResponseDto>()
+      .first();
 
+    return menteeToMentor ?? null;
+  }
+  
   public async checkIsMentee(getMenteesToMentors: {
     courseId: number;
     menteeId: number;

@@ -13,6 +13,7 @@ import {
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
   MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -116,7 +117,7 @@ class CoursesApi {
     courseId,
     menteeId,
     mentorId,
-  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
