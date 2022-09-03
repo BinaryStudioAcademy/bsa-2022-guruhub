@@ -58,7 +58,7 @@ const Interviews: FC = () => {
           item.interviewer?.userDetails.fullName ?? 'Not assigned yet',
         date: item.interviewDate
           ? getFormattedDate(item.interviewDate, 'kk:mm, dd/MM/yyyy')
-          : '',
+          : 'Not assigned yet',
       };
     },
   );
