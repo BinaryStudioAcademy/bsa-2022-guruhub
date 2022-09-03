@@ -89,7 +89,7 @@ const Course: FC = () => {
       dispatch(coursesActions.setBecomeMentorInvisible());
     };
   }, [mentors]);
-  
+
   useFocusEffect(
     useCallback(() => {
       return () => setIsDescriptionExpanded(false);
