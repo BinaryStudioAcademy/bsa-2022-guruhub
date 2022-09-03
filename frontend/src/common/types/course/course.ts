@@ -2,6 +2,7 @@ export { type CourseUpdateCategoryRequestArguments } from './course-update-categ
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,

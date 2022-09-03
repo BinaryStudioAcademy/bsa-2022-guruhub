@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
-  BackButton,
   Content,
   Icon,
   Image,
@@ -23,7 +22,7 @@ import {
 } from '~/hooks/hooks';
 import { courseModulesActions } from '~/store/actions';
 
-import { Category } from './components/components';
+import { CourseCategory } from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
@@ -54,21 +53,6 @@ const Course: FC = () => {
   });
 
   useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackButton onPress={navigation.goBack} />,
-      headerRight: () =>
-        hasEditCategoryPermission && (
-          <Pressable
-            style={styles.editIconContainer}
-            onPress={handleEditModeToggle}
-          >
-            <Icon width={25} height={25} name="edit" color="white" />
-          </Pressable>
-        ),
-    });
-  }, []);
-
-  useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
     }
@@ -87,11 +71,19 @@ const Course: FC = () => {
       <View style={styles.container}>
         <Text style={styles.h1}>{course?.title}</Text>
         <View style={styles.currentCategory}>
-          <Category
+          <CourseCategory
             keyName={currentCategory?.key ?? 'unknown'}
             name={currentCategory?.name ?? 'Unknown'}
             isActive={false}
           />
+          {hasEditCategoryPermission && (
+            <Pressable
+              style={styles.editIconContainer}
+              onPress={handleEditModeToggle}
+            >
+              <Icon width={25} height={25} name="edit" color="white" />
+            </Pressable>
+          )}
         </View>
 
         <Image
