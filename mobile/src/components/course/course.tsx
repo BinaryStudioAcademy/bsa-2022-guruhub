@@ -20,7 +20,7 @@ import {
   useEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
-import { courseModulesActions } from '~/store/actions';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 
 import { CourseCategory } from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
@@ -30,14 +30,21 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
-  const { user, course, dataStatus, courseModules, modulesDataStatus } =
-    useAppSelector(({ auth, courses, courseModules }) => ({
-      user: auth.user,
-      course: courses.course,
-      dataStatus: courses.dataStatus,
-      courseModules: courseModules.courseModules,
-      modulesDataStatus: courseModules.dataStatus,
-    }));
+  const {
+    user,
+    course,
+    dataStatus,
+    courseModules,
+    modulesDataStatus,
+    mentors,
+  } = useAppSelector(({ auth, courses, courseModules }) => ({
+    user: auth.user,
+    course: courses.course,
+    mentors: courses.mentors,
+    dataStatus: courses.dataStatus,
+    courseModules: courseModules.courseModules,
+    modulesDataStatus: courseModules.dataStatus,
+  }));
 
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
@@ -55,8 +62,24 @@ const Course: FC = () => {
   useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+      dispatch(
+        coursesActions.getMentorsByCourseId({
+          courseId: course.id,
+          filteringOpts: {
+            mentorName: '',
+          },
+        }),
+      );
     }
   }, [course]);
+
+  useEffect(() => {
+    dispatch(coursesActions.updateVisibilityBecomeMentor());
+
+    return () => {
+      dispatch(coursesActions.setBecomeMentorInvisible());
+    };
+  }, [mentors]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;

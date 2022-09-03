@@ -8,27 +8,34 @@ import {
 
 import {
   addCourse,
+  becomeMentor,
   chooseMentor,
   getCourse,
   getCourses,
   getMentorsByCourseId,
+  setBecomeMentorInvisible,
   updateCategory,
   updateisMentorChoosingEnabled,
+  updateVisibilityBecomeMentor,
 } from './actions';
 
 type State = {
   dataStatus: DataStatus;
+  dataBecomeMentorStatus: DataStatus;
   courses: CourseGetResponseDto[];
-  course: CourseGetResponseDto | null;
   mentors: UserDetailsResponseDto[];
+  course: CourseGetResponseDto | null;
+  isMentorBecomingVisible: boolean;
   isMentorChoosingEnabled: boolean;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
+  dataBecomeMentorStatus: DataStatus.IDLE,
   courses: [],
-  course: null,
   mentors: [],
+  course: null,
+  isMentorBecomingVisible: false,
   isMentorChoosingEnabled: true,
 };
 
@@ -64,6 +71,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
+
   builder.addCase(updateCategory.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
@@ -73,6 +81,27 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(
+    updateVisibilityBecomeMentor.fulfilled,
+    (state, { payload }) => {
+      state.isMentorBecomingVisible = payload;
+    },
+  );
+
+  builder.addCase(setBecomeMentorInvisible.fulfilled, (state, { payload }) => {
+    state.isMentorBecomingVisible = payload;
+  });
+
+  builder.addCase(becomeMentor.pending, (state) => {
+    state.dataBecomeMentorStatus = DataStatus.PENDING;
+  });
+  builder.addCase(becomeMentor.fulfilled, (state) => {
+    state.dataBecomeMentorStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(becomeMentor.rejected, (state) => {
+    state.dataBecomeMentorStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(getMentorsByCourseId.pending, (state) => {

@@ -7,8 +7,10 @@ import {
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
+  InterviewsResponseDto,
   InterviewUpdateRequestArgumentsDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
@@ -78,6 +80,30 @@ class InterviewsApi {
         method: HttpMethod.PUT,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public createInterview(
+    payload: InterviewsCreateRequestBodyDto,
+  ): Promise<InterviewsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public getPassedInterviewCategoryIds(payload: number): Promise<number[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.INTERVIEWEE
+      }/${payload}${InterviewsApiPath.CATEGORIES}`,
+      {
+        method: HttpMethod.GET,
       },
     );
   }
