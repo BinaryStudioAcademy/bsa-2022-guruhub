@@ -23,11 +23,16 @@ const CurrentChat: FC<Props> = ({
   return (
     <div className={styles.currentChatWrapper}>
       <div className={styles.currentChatHeader}>
-        <h4>ABCS</h4>
         {chatOpponent && <h4>{chatOpponent.userDetails.fullName}</h4>}
       </div>
       <div className={styles.currentChatContent}>
-        <MessagesList currentUserId={currentUserId} messages={messages} />
+        {messages.length ? (
+          <MessagesList currentUserId={currentUserId} messages={messages} />
+        ) : (
+          <h1 className={styles.emptyChatMessage}>
+            There is no active chat selected
+          </h1>
+        )}
       </div>
       <div className={styles.currentChatFooter}>
         {chatOpponent && (

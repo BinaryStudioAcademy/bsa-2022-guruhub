@@ -19,8 +19,8 @@ const Chat: FC<Props> = ({
   return (
     <div className={styles.chat}>
       <Image
-        width="20px"
-        height="20px"
+        width="40px"
+        height="40px"
         src={chatOpponentAvatarUrl}
         alt="chat user avatar"
         isCircular

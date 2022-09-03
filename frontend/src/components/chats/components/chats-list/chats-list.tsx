@@ -31,7 +31,7 @@ const ChatsList: FC<Props> = ({ currentUserId, chatsList }) => {
                 : chat.sender.userDetails;
 
             return (
-              <li>
+              <li key={chat.id}>
                 <Chat
                   lastMessage={chat.message}
                   chatOpponentAvatarSrc={
@@ -40,7 +40,7 @@ const ChatsList: FC<Props> = ({ currentUserId, chatsList }) => {
                   chatOpponentFullName={chatOpponent.fullName}
                   dateTheLastMessageWasSent={getFormattedDate(
                     chat.createdAt,
-                    'dd-MM-yyyy',
+                    'distance',
                   )}
                 />
               </li>

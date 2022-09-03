@@ -22,3 +22,10 @@
   height: 70px;
   background: var(--background-gray-300);
 }
+
+.emptyChatMessage {
+  align-self: center;
+  width: 100%;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+}

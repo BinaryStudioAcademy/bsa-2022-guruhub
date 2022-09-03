@@ -5,7 +5,13 @@ import {
   UserWithPermissions,
 } from 'common/types/types';
 import { Spinner } from 'components/common/common';
-import { useAppSelector, useState } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useState,
+} from 'hooks/hooks';
+import { chatsActions } from 'store/actions';
 
 import { ChatsList, CurrentChat } from './components/components';
 import styles from './styles.module.scss';
@@ -27,9 +33,15 @@ const Chats: FC = () => {
     currentChatMessages: chats.currentChatMessages,
   }));
 
+  const dispatch = useAppDispatch();
+
   const [chatOpponent, setChatOpponent] = useState<
     ChatMessageUserResponseDto | undefined
   >(undefined);
+
+  useEffect(() => {
+    dispatch(chatsActions.getLastMessages());
+  }, []);
 
   if (
     chatDataStatus === DataStatus.PENDING ||

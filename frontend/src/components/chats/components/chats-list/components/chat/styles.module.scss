@@ -8,6 +8,14 @@
 .chatContentWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.avatar {
+  margin-right: 10px;
 }
 
 .chatOpponentAndDateLastMessageWasSentWrapper {
@@ -21,13 +29,16 @@
 }
 
 .chatOpponentFullName {
+  margin-bottom: 0;
   color: var(--typography-text-100-inverse);
 }
 
 .dateTheLastMessageWasSent {
+  margin-bottom: 0;
   color: var(--typography-text-gray-200);
 }
 
 .lastMessage {
+  margin-top: 0;
   color: var(--typography-text-gray-200);
 }
