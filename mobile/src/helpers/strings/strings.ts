@@ -1,1 +1,1 @@
-export { wordCapitalize } from './word-capitalize/word-capitalize';
+export { capitalize } from './capitalize/capitalize';
