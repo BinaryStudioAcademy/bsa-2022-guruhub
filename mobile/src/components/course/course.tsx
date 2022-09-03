@@ -81,12 +81,6 @@ const Course: FC = () => {
     };
   }, [mentors]);
 
-  useEffect(() => {
-    if (course) {
-      dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
-    }
-  }, [course]);
-
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
   }
