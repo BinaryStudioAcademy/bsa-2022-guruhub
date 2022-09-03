@@ -13,21 +13,18 @@ enum ColumnName {
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
+    table.dropColumn(ColumnName.AVATAR_URL);
     table
-      .integer(ColumnName.AVATAR_URL)
+      .integer(ColumnName.AVATAR_FILE_ID)
       .references(ColumnName.ID)
-      .inTable(TableName.FILES)
-      .alter();
-    table.renameColumn(ColumnName.AVATAR_URL, ColumnName.AVATAR_FILE_ID);
+      .inTable(TableName.FILES);
   });
 }
 
 async function down(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
-    // doesn't work
-    table.dropForeign(ColumnName.AVATAR_FILE_ID);
-    table.string(ColumnName.AVATAR_FILE_ID).alter();
-    table.renameColumn(ColumnName.AVATAR_FILE_ID, ColumnName.AVATAR_URL);
+    table.dropColumn(ColumnName.AVATAR_FILE_ID);
+    table.string(ColumnName.AVATAR_URL);
   });
 }
 

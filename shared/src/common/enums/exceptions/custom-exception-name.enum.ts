@@ -14,6 +14,7 @@ enum CustomExceptionName {
   MENTEES_TO_MENTORS_ERROR = 'MenteesToMentorsError',
   INVALID_FILE = 'InvalidFileError',
   TASKS_ERROR = 'TasksError',
+  USER_DETAILS_ERROR = 'UserDetailsError',
 }
 
 export { CustomExceptionName };

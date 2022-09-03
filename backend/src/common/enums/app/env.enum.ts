@@ -21,6 +21,7 @@ const {
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
   AWS_REGION,
+  AWS_AVATARS_BUCKET_NAME,
 } = process.env;
 
 const ENV = {
@@ -56,6 +57,7 @@ const ENV = {
     ACCESS_KEY_ID: AWS_ACCESS_KEY_ID as string,
     SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY as string,
     REGION: AWS_REGION as string,
+    AVATARS_BUCKET_NAME: AWS_AVATARS_BUCKET_NAME as string,
   },
 };
 

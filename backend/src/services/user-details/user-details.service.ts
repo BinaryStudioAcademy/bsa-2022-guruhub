@@ -4,11 +4,13 @@ import {
   UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
+import { UserDetailsError } from '~/exceptions/exceptions';
 import { file as fileServ } from '~/services/services';
 
 type Constructor = {
   userDetailsRepository: typeof userDetailsRep;
   fileService: typeof fileServ;
+  avatarBucketName: string;
 };
 
 class UserDetails {
@@ -16,9 +18,16 @@ class UserDetails {
 
   #fileService: typeof fileServ;
 
-  public constructor({ userDetailsRepository, fileService }: Constructor) {
+  #avatarBucketName: string;
+
+  public constructor({
+    userDetailsRepository,
+    fileService,
+    avatarBucketName,
+  }: Constructor) {
     this.#userDetailsRepository = userDetailsRepository;
     this.#fileService = fileService;
+    this.#avatarBucketName = avatarBucketName;
   }
 
   public async update(
@@ -60,14 +69,14 @@ class UserDetails {
     const user = await this.#userDetailsRepository.getByUserId(userId);
 
     if (!user) {
-      throw new Error();
+      throw new UserDetailsError();
     }
 
     const newFile = await this.#fileService.uploadFile({
-      bucket: `${user.fullName.toLowerCase()}-avatar`,
+      bucket: this.#avatarBucketName,
       contentType: ContentType.IMAGE,
       file,
-      fileName: Date.now().toString(),
+      fileName: `${user.id}/${Date.now().toString()}`,
     });
 
     return this.#userDetailsRepository.updateAvatarFileId(user.id, newFile.id);

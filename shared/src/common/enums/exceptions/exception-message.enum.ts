@@ -24,5 +24,6 @@ enum ExceptionMessage {
   INVALID_FILE_TYPE = 'The uploaded file has an invalid type.',
   TASK_DOES_NOT_EXIST = 'Task does not exist.',
   TASK_COMPLETED = 'Task is already completed and cannot be updated.',
+  USER_DETAILS_NOT_FOUND = 'User was not found.',
 }
 export { ExceptionMessage };
