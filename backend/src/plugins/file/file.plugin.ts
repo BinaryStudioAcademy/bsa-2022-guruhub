@@ -1,5 +1,5 @@
-import fastifyMultipart from '@fastify/multipart';
-import { FastifyPluginAsync } from 'fastify';
+import fastifyMultipart, { MultipartFile } from '@fastify/multipart';
+import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 
 import { ControllerHook, HttpCode } from '~/common/enums/enums';
@@ -14,31 +14,37 @@ type Options = {
 
 const upload: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const { limits, allowedExtensions } = opts;
-  fastify.register(fastifyMultipart, { limits });
+  fastify.register(fastifyMultipart, { limits, attachFieldsToBody: true });
   fastify.decorateRequest('fileBuffer', null);
 
-  fastify.addHook(ControllerHook.ON_REQUEST, async (request, reply) => {
-    try {
-      if (!request.isMultipart()) {
-        return;
+  fastify.addHook(
+    ControllerHook.PRE_VALIDATION,
+    async (
+      request: FastifyRequest<{ Body: { file: MultipartFile } }>,
+      reply,
+    ) => {
+      try {
+        if (!request.isMultipart()) {
+          return;
+        }
+
+        const { file } = request.body;
+        const isAllowedExtension = allowedExtensions.some(
+          (extension) => extension === file.mimetype,
+        );
+
+        if (!isAllowedExtension) {
+          throw new InvalidFilesError();
+        }
+
+        const fileBuffer = await file.toBuffer();
+
+        request.fileBuffer = fileBuffer;
+      } catch (err) {
+        reply.status(HttpCode.BAD_REQUEST).send(err);
       }
-
-      const data = await request.file();
-      const isAllowedExtension = allowedExtensions.some(
-        (extension) => extension === data.mimetype,
-      );
-
-      if (!isAllowedExtension) {
-        throw new InvalidFilesError();
-      }
-
-      const fileBuffer = await data.toBuffer();
-
-      request.fileBuffer = fileBuffer;
-    } catch (err) {
-      reply.status(HttpCode.BAD_REQUEST).send(err);
-    }
-  });
+    },
+  );
 };
 
 const file = fp(upload);
