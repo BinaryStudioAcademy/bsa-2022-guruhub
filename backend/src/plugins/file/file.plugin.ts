@@ -7,7 +7,7 @@ import { InvalidFilesError } from '~/exceptions/exceptions';
 
 type Options = {
   limits: {
-    fieldSize: number;
+    fileSize: number;
   };
   allowedExtensions: string[];
 };

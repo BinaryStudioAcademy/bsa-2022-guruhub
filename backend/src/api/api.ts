@@ -54,7 +54,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
 
   fastify.register(filePlugin, {
     limits: {
-      fieldSize: FileSizeBytesValue.ONE_MB,
+      fileSize: FileSizeBytesValue.ONE_MB,
     },
     allowedExtensions: ALLOWED_IMAGE_EXTENSIONS,
   });
