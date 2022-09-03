@@ -45,14 +45,11 @@ import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
-import { Uuid } from './uuid/uuid.service';
 import { Vendor } from './vendor/vendor.service';
 
 const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
-
-const uuid = new Uuid();
 
 const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
@@ -152,7 +149,6 @@ const mentor = new Mentor({
 });
 
 const chatMessage = new ChatMessage({
-  uuidService: uuid,
   chatMessageRepository,
   menteesToMentorsRepository,
 });
@@ -186,6 +182,5 @@ export {
   user,
   userDetails,
   usersToGroups,
-  uuid,
   vendor,
 };

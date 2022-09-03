@@ -217,6 +217,7 @@ erDiagram
     int sender_id FK
     int receiver_id FK
     text message
+    text chat_id
   }
 
   task_notes }|--|| tasks : task_id
