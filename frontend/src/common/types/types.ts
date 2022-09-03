@@ -87,6 +87,17 @@ export {
   type URLSearchParamsInit,
 } from './react/react';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+} from './task/task';
+export {
+  type TaskNoteFormRequestDto,
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+  type TaskNoteManipulateRequestDto,
+} from './task-note/task-note';
 export { type IconName, type SelectorOption } from './ui/ui';
 export {
   type UsersDeleteRequestParamsDto,

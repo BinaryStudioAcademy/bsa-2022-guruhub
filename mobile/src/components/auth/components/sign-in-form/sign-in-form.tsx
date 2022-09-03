@@ -41,11 +41,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
           />
         </View>
         <View style={styles.buttonWrapper}>
-          <Button
-            label="Sign in"
-            onPress={handleSubmit(onSubmit)}
-            size="large"
-          />
+          <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </>

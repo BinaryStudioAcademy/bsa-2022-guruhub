@@ -78,6 +78,16 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+} from './task/task';
+export {
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+} from './task-note/task-note';
+export {
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
