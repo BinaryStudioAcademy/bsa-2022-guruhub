@@ -1,8 +1,8 @@
 enum TaskStatus {
-  UNCOMPLETED = 'Uncompleted',
-  PENDING = 'Pending',
-  REJECTED = 'Rejected',
-  COMPLETED = 'Completed',
+  UNCOMPLETED = 'uncompleted',
+  PENDING = 'pending',
+  REJECTED = 'rejected',
+  COMPLETED = 'completed',
 }
 
 export { TaskStatus };

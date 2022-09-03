@@ -19,11 +19,15 @@ import { TaskManipulate, TaskNotes } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(2);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const { courseId, moduleId } = useParams();
   const { dataStatus, courseModule, notes, task, isMentor, user } =
     useAppSelector((state) => ({
-      ...state.courseModule,
+      dataStatus: state.courseModule.dataStatus,
+      courseModule: state.courseModule.courseModule,
+      notes: state.courseModule.notes,
+      task: state.courseModule.task,
+      isMentor: state.courseModule.isMentor,
       user: state.auth.user,
     }));
   const dispatch = useAppDispatch();

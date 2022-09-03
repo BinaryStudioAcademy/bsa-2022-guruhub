@@ -1,1 +1,1 @@
-export { TaskNoteValidationRule } from 'guruhub-shared/common/enums/enums';
+export { TaskNoteValidationMessage } from 'guruhub-shared/common/enums/enums';

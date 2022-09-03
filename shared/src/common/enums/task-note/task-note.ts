@@ -1,1 +1,1 @@
-export { TaskNoteValidationRule } from './task-note-validation-rule.enum';
+export { TaskNoteValidationMessage } from './task-note-validation-message.enum';
