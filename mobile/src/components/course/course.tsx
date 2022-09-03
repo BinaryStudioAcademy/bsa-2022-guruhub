@@ -1,14 +1,8 @@
 import React, { FC } from 'react';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
+import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
-  AppScreenName,
-  CourseDescriptionFirstWordsCount,
-  DataStatus,
-  PermissionKey,
-} from '~/common/enums/enums';
-import {
-  Content,
   Icon,
   Image,
   Pressable,
@@ -17,25 +11,20 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import {
-  checkHasPermission,
-  getImageUri,
-  getTextWithoutHTMLTags,
-} from '~/helpers/helpers';
+import { checkHasPermission, getImageUri } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   useState,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions } from '~/store/actions';
 
-import {
-  CourseCategory,
-  CourseShortDescription,
-} from './components/components';
+import { CourseCategory, CourseDescription } from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
@@ -52,7 +41,7 @@ const Course: FC = () => {
       modulesDataStatus: courseModules.dataStatus,
     }));
 
-  const [isSeeMoreShown, setIsSeeMoreShown] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
@@ -68,28 +57,21 @@ const Course: FC = () => {
     userPermissions: user?.permissions ?? [],
   });
 
-  const toggleSeeMore = (): void => {
-    setIsSeeMoreShown(!isSeeMoreShown);
+  const handleExpandedToggle = (): void => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
   };
-
-  useEffect(() => {
-    if (course && course.description) {
-      const descriptionText = getTextWithoutHTMLTags(course.description);
-
-      if (
-        descriptionText.split(' ').length >
-        CourseDescriptionFirstWordsCount.DEFAULT_COUNT
-      ) {
-        setIsSeeMoreShown(true);
-      }
-    }
-  }, [course]);
 
   useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
     }
   }, [course]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setIsDescriptionExpanded(false);
+    }, []),
+  );
 
   if (courseIsLoading) {
     return <Spinner isOverflow />;
@@ -126,16 +108,14 @@ const Course: FC = () => {
           }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {Boolean(course.description) &&
-          (isSeeMoreShown ? (
-            <CourseShortDescription
-              description={course.description}
-              handleSeeMore={toggleSeeMore}
-              width={width}
-            />
-          ) : (
-            <Content html={course.description} width={width} />
-          ))}
+        {Boolean(course.description) && (
+          <CourseDescription
+            description={course.description}
+            isExpanded={isDescriptionExpanded}
+            handleExpandedToggle={handleExpandedToggle}
+            width={width}
+          />
+        )}
         <CourseModules
           courseModules={courseModules}
           isLoading={moduleIsLoading}
