@@ -1,25 +1,55 @@
 .messageCardWrapper {
-  background: var(--background-gray-300);
+  display: flex;
+  flex-direction: column;
+  background: var(--background-gray-400);
 }
 
-.currentUserMessage {
-  display: flex;
-}
-
-.chatOpponentMessage {
-  display: flex;
-  flex-direction: column-reverse;
+.messageWrapper {
+  max-width: 300px;
+  margin: 0 10px 0 0;
+  padding: 8px;
+  color: var(--typography-text-100-inverse);
+  word-break: break-all;
+  background: var(--background-gray-200);
 }
 
 .messageTimePost {
-  display: flex;
-  color: var(--background-gray-300);
+  margin: 0;
+  color: var(--background-gray-200);
 }
 
 .userAvatarWrapper {
   align-items: flex-start;
 }
 
-.messageWrapper {
-  word-break: break-all;
+.userAuthor .innerWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.userAuthor .messageWrapper {
+  background: var(--background-gray-300);
+  border-radius: 15px 0 15px 15px;
+}
+
+.userAuthor .postDateWrapper {
+  margin-right: 35px;
+}
+
+.userAuthor .messageTimePost {
+  color: var(--background-gray-200);
+  text-align: end;
+}
+
+.opponentAuthor .innerWrapper {
+  display: flex;
+}
+
+.opponentAuthor .messageWrapper {
+  margin-left: 10px;
+  border-radius: 0 15px 15px;
+}
+
+.opponentAuthor .postDateWrapper {
+  margin-left: 35px;
 }

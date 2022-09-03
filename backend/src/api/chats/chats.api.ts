@@ -42,9 +42,9 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       req: FastifyRequest<{ Params: ChatMessageGetAllRequestParamsDto }>,
       rep,
     ) {
-      const { chatId } = req.params;
+      const { id } = req.params;
       const chatMessagesDto = await chatMessageService.getAll({
-        chatId,
+        chatId: id,
       });
 
       return rep.status(HttpCode.OK).send(chatMessagesDto);

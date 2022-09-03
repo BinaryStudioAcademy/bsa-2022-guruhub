@@ -1,5 +1,6 @@
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
 
 import styles from './style.module.scss';
 
@@ -17,19 +18,26 @@ const Message: FC<Props> = ({
   messageAvatarUrl,
 }) => {
   return (
-    <div className={styles.messageCardWrapper}>
-      <div className={styles[`${messageAuthor}Author`]}>
+    <div
+      className={getValidClasses(
+        styles.messageCardWrapper,
+        styles[`${messageAuthor}Author`],
+      )}
+    >
+      <div className={styles.innerWrapper}>
         <div className={styles.userAvatarWrapper}>
           <Image
-            width="10px"
-            height="10px"
+            width="25px"
+            height="25px"
             src={messageAvatarUrl}
             alt="chat avatar"
           />
         </div>
         <p className={styles.messageWrapper}>{content}</p>
       </div>
-      <p className={styles.messageTimePost}>{postTime}</p>
+      <div className={styles.postDateWrapper}>
+        <p className={styles.messageTimePost}>{postTime}</p>
+      </div>
     </div>
   );
 };

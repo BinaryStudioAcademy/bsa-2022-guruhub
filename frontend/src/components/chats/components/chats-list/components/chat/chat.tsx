@@ -4,20 +4,28 @@ import { Image } from 'components/common/common';
 import styles from './styles.module.scss';
 
 type Props = {
+  chatId: string;
   chatOpponentFullName: string;
   chatOpponentAvatarSrc: string;
   lastMessage: string;
   dateTheLastMessageWasSent: string;
+  onClick: (chatId: string) => void;
 };
 
 const Chat: FC<Props> = ({
+  chatId,
   chatOpponentFullName,
   chatOpponentAvatarSrc: chatOpponentAvatarUrl,
   lastMessage,
   dateTheLastMessageWasSent,
+  onClick,
 }) => {
+  const handleChatMessagesLoad = (): void => {
+    onClick(chatId);
+  };
+
   return (
-    <div className={styles.chat}>
+    <div className={styles.chat} onClick={handleChatMessagesLoad}>
       <Image
         width="40px"
         height="40px"
