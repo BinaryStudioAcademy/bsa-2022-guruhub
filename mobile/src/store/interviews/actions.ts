@@ -30,9 +30,9 @@ const createInterview = createAsyncThunk<
   InterviewsCreateRequestBodyDto,
   AsyncThunkConfig
 >(ActionType.CREATE_INTERVIEW, async (payload, { extra, dispatch }) => {
-  const { interviewersApi } = extra;
+  const { interviewsApi } = extra;
 
-  await interviewersApi.createInterview(payload);
+  await interviewsApi.createInterview(payload);
   dispatch(
     app.notify({
       type: NotificationType.SUCCESS,
@@ -46,9 +46,9 @@ const getPassedInterviewCategoryIds = createAsyncThunk<
   number,
   AsyncThunkConfig
 >(ActionType.GET_PASSED_INTERVIEW_CATEGORY_IDS, async (payload, { extra }) => {
-  const { interviewersApi } = extra;
+  const { interviewsApi } = extra;
 
-  return interviewersApi.getPassedInterviewCategoryIds(payload);
+  return interviewsApi.getPassedInterviewCategoryIds(payload);
 });
 
 export { createInterview, getInterviews, getPassedInterviewCategoryIds };

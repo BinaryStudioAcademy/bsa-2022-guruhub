@@ -17,9 +17,7 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
-  useCallback,
   useEffect,
-  useFocusEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
@@ -61,33 +59,28 @@ const Course: FC = () => {
     userPermissions: user?.permissions ?? [],
   });
 
-  useFocusEffect(
-    useCallback(() => {
-      if (course) {
-        dispatch(
-          courseModulesActions.getCourseModules({ courseId: course.id }),
-        );
-        dispatch(
-          coursesActions.getMentorsByCourseId({
-            courseId: course.id,
-            filteringOpts: {
-              mentorName: '',
-            },
-          }),
-        );
-      }
-    }, [course]),
-  );
+  useEffect(() => {
+    if (course) {
+      dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+      dispatch(
+        coursesActions.getMentorsByCourseId({
+          courseId: course.id,
+          filteringOpts: {
+            mentorName: '',
+          },
+        }),
+      );
+    }
+  }, [course]);
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(coursesActions.updateVisibilityBecomeMentor());
+  useEffect(() => {
+    dispatch(coursesActions.updateVisibilityBecomeMentor());
 
-      return () => {
-        dispatch(coursesActions.setBecomeMentorInvisible());
-      };
-    }, [mentors]),
-  );
+    return () => {
+      dispatch(coursesActions.setBecomeMentorInvisible());
+    };
+  }, [mentors]);
+
   useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));

@@ -71,6 +71,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
+
   builder.addCase(updateCategory.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
@@ -81,21 +82,18 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
+
   builder.addCase(
     updateVisibilityBecomeMentor.fulfilled,
     (state, { payload }) => {
       state.isMentorBecomingVisible = payload;
     },
   );
+
   builder.addCase(setBecomeMentorInvisible.fulfilled, (state, { payload }) => {
     state.isMentorBecomingVisible = payload;
   });
-  builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
-    state.mentors = payload;
-  });
-  builder.addCase(getMentorsByCourseId.rejected, (state) => {
-    state.mentors = [];
-  });
+
   builder.addCase(becomeMentor.pending, (state) => {
     state.dataBecomeMentorStatus = DataStatus.PENDING;
   });
