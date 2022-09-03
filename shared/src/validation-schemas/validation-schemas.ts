@@ -11,6 +11,7 @@ export { courseCategoryGetByIdParams } from './course-categories/course-categori
 export { courseMentorCreate } from './course-mentor/course-mentor';
 export {
   courseModuleGetParams,
+  courseModulesGetAllByCourseIdAndMenteeIdParams,
   courseModulesGetAllParams,
 } from './course-module/course-module';
 export {

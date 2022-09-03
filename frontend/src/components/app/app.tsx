@@ -19,6 +19,7 @@ import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
 import { NotFound } from 'components/not-found/not-found';
+import { StudentsCourses } from 'components/students-courses/students-courses';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
 import { UserDetails } from 'components/user-details/user-details';
@@ -124,6 +125,18 @@ const App: FC = () => {
                 PermissionKey.MANAGE_INTERVIEW,
               ]}
               component={<Interview />}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEW,
+                PermissionKey.MANAGE_INTERVIEWS,
+              ]}
+              component={<StudentsCourses />}
             />
           }
         />

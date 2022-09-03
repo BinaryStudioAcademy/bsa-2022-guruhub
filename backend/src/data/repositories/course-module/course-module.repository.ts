@@ -64,6 +64,19 @@ class CourseModule {
 
     return modules ?? [];
   }
+
+  public getAllByCourseIdAndMenteeId(
+    courseId: number,
+    menteeId: number,
+  ): Promise<CourseModulesGetAllItemResponseDto[]> {
+    return this.#ModuleModel
+      .query()
+      .where({ courseId })
+      .andWhere('course.mentee.id', menteeId)
+      .withGraphFetched('course')
+      .castTo<CourseModulesGetAllItemResponseDto[]>()
+      .execute();
+  }
 }
 
 export { CourseModule };

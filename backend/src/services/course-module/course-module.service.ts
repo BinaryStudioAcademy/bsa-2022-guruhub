@@ -78,6 +78,16 @@ class CourseModule {
   }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto | null> {
     return this.#moduleRepository.getById({ courseId, moduleId });
   }
+
+  public getAllByCourseIdAndMenteeId(
+    courseId: number,
+    menteeId: number,
+  ): Promise<CourseModulesGetAllItemResponseDto[]> {
+    return this.#moduleRepository.getAllByCourseIdAndMenteeId(
+      courseId,
+      menteeId,
+    );
+  }
 }
 
 export { CourseModule };
