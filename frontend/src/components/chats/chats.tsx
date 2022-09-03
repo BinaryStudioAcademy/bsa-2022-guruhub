@@ -1,20 +1,35 @@
 import { DataStatus } from 'common/enums/enums';
-import { FC, UserWithPermissions } from 'common/types/types';
+import {
+  ChatMessageUserResponseDto,
+  FC,
+  UserWithPermissions,
+} from 'common/types/types';
 import { Spinner } from 'components/common/common';
-import { useAppSelector } from 'hooks/hooks';
+import { useAppSelector, useState } from 'hooks/hooks';
 
-import { ChatsList } from './components/components';
+import { ChatsList, CurrentChat } from './components/components';
 import styles from './styles.module.scss';
 
 const Chats: FC = () => {
-  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
-    ({ auth, chats }) => ({
-      authDataStatus: auth.dataStatus,
-      user: auth.user,
-      chatDataStatus: chats.dataStatus,
-      lastMessages: chats.lastMessages,
-    }),
-  );
+  const {
+    authDataStatus,
+    chatDataStatus,
+    lastMessages,
+    user,
+    chatId,
+    currentChatMessages,
+  } = useAppSelector(({ auth, chats }) => ({
+    authDataStatus: auth.dataStatus,
+    user: auth.user,
+    chatDataStatus: chats.dataStatus,
+    lastMessages: chats.lastMessages,
+    chatId: chats.currentChatId,
+    currentChatMessages: chats.currentChatMessages,
+  }));
+
+  const [chatOpponent, setChatOpponent] = useState<
+    ChatMessageUserResponseDto | undefined
+  >(undefined);
 
   if (
     chatDataStatus === DataStatus.PENDING ||
@@ -23,13 +38,28 @@ const Chats: FC = () => {
     return <Spinner />;
   }
 
+  const [currentChatMessage] = currentChatMessages;
+
+  if (currentChatMessage) {
+    setChatOpponent(
+      currentChatMessage.sender.id === (user as UserWithPermissions).id
+        ? currentChatMessage.receiver
+        : currentChatMessage.sender,
+    );
+  }
+
   return (
-    <div className={styles.chats}>
-      <ChatsList
-        chatsList={lastMessages}
-        currentUserId={(user as UserWithPermissions).id}
-      />
-    </div>
+    user && (
+      <div className={styles.chats}>
+        <ChatsList chatsList={lastMessages} currentUserId={user.id} />
+        <CurrentChat
+          chatId={chatId}
+          messages={currentChatMessages}
+          currentUserId={user.id}
+          chatOpponent={chatOpponent}
+        />
+      </div>
+    )
   );
 };
 

@@ -9,8 +9,7 @@ const chatMessageCreateArguments = Joi.object({
   [getNameOf<ChatMessageCreateRequestBodyDto>('receiverId')]: Joi.number()
     .integer()
     .required(),
-  [getNameOf<ChatMessageCreateRequestBodyDto>('chatId')]:
-    Joi.string().required(),
+  [getNameOf<ChatMessageCreateRequestBodyDto>('chatId')]: Joi.string(),
 });
 
 export { chatMessageCreateArguments };

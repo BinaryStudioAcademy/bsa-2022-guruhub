@@ -7,20 +7,25 @@ type Props = {
   messageAuthor: 'user' | 'opponent';
   content: string;
   postTime: string;
-  avatarUrl: string;
+  messageAvatarUrl: string;
 };
 
 const Message: FC<Props> = ({
   messageAuthor,
   content,
   postTime,
-  avatarUrl,
+  messageAvatarUrl,
 }) => {
   return (
     <div className={styles.messageCardWrapper}>
       <div className={styles[`${messageAuthor}Author`]}>
         <div className={styles.userAvatarWrapper}>
-          <Image width="10px" height="10px" src={avatarUrl} alt="chat avatar" />
+          <Image
+            width="10px"
+            height="10px"
+            src={messageAvatarUrl}
+            alt="chat avatar"
+          />
         </div>
         <p className={styles.messageWrapper}>{content}</p>
       </div>
