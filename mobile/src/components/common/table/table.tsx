@@ -14,12 +14,14 @@ type Props<Data extends Record<string, unknown>> = {
   columns: TableColumn<Data>[];
   data: Data[];
   columnWidthArr?: number[];
+  showScrollbar?: boolean;
 };
 
 const Table = <Data extends Record<string, unknown>>({
   columns,
   data,
   columnWidthArr,
+  showScrollbar = true,
 }: Props<Data>): ReactElement => {
   const headers = columns.map(({ header }) => header);
   const tableData = data.map((entry) =>
@@ -27,7 +29,11 @@ const Table = <Data extends Record<string, unknown>>({
   );
 
   return (
-    <ScrollView horizontal={true} contentContainerStyle={styles.scrollView}>
+    <ScrollView
+      horizontal={true}
+      contentContainerStyle={styles.scrollView}
+      persistentScrollbar={showScrollbar}
+    >
       <View style={styles.container}>
         <UITable style={styles.header}>
           {headers.map((cellData, cellIndex) => (

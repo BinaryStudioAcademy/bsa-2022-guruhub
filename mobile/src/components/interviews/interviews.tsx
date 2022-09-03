@@ -56,7 +56,9 @@ const Interviews: FC = () => {
         status: <Chip text={item.status} color={statusToColor[item.status]} />,
         interviewer:
           item.interviewer?.userDetails.fullName ?? 'Not assigned yet',
-        date: getFormattedDate(item.interviewDate, 'kk:mm, dd/MM/yyyy'),
+        date: item.interviewDate
+          ? getFormattedDate(item.interviewDate, 'kk:mm, dd/MM/yyyy')
+          : '',
       };
     },
   );
