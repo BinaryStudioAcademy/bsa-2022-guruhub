@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
-  Content,
   Icon,
   Image,
   Pressable,
@@ -17,12 +16,15 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
+  useState,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { CourseCategory } from './components/components';
+import { CourseCategory, CourseDescription } from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
@@ -46,6 +48,9 @@ const Course: FC = () => {
     modulesDataStatus: courseModules.dataStatus,
   }));
 
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const currentCategory = course?.category;
@@ -58,6 +63,10 @@ const Course: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
+
+  const handleExpandedToggle = (): void => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
 
   useEffect(() => {
     if (course) {
@@ -80,8 +89,14 @@ const Course: FC = () => {
       dispatch(coursesActions.setBecomeMentorInvisible());
     };
   }, [mentors]);
+  
+  useFocusEffect(
+    useCallback(() => {
+      return () => setIsDescriptionExpanded(false);
+    }, []),
+  );
 
-  if (dataStatus === DataStatus.PENDING) {
+  if (courseIsLoading) {
     return <Spinner isOverflow />;
   }
 
@@ -117,7 +132,12 @@ const Course: FC = () => {
         />
         <Text style={styles.h2}>About this course</Text>
         {Boolean(course.description) && (
-          <Content html={course.description} width={width} />
+          <CourseDescription
+            description={course.description}
+            isExpanded={isDescriptionExpanded}
+            handleExpandedToggle={handleExpandedToggle}
+            width={width}
+          />
         )}
         <CourseModules
           courseModules={courseModules}
