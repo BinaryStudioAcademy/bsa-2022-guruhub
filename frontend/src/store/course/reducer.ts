@@ -5,20 +5,24 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
   UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
+  checkIsMentor,
   chooseMentor,
   createMentor,
   disableMentorBecoming,
   getCategories,
   getCourse,
+  getMenteesByCourseId,
+  getMentor,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
   updateCategory,
   updateIsMentorBecomingEnabled,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
 } from './actions';
 
 type State = {
@@ -29,7 +33,11 @@ type State = {
   isMentorBecomingEnabled: boolean;
   isMentorChoosingEnabled: boolean;
   mentors: UserDetailsResponseDto[];
+  mentor: UsersGetResponseDto | null;
   categories: CategoryGetAllItemResponseDto[];
+  menteesByCourseId: UserDetailsResponseDto[];
+  menteesByCourseDataStatus: DataStatus;
+  isMentor: boolean;
 };
 
 const initialState: State = {
@@ -40,7 +48,11 @@ const initialState: State = {
   isMentorBecomingEnabled: false,
   isMentorChoosingEnabled: false,
   mentors: [],
+  mentor: null,
   categories: [],
+  menteesByCourseId: [],
+  menteesByCourseDataStatus: DataStatus.IDLE,
+  isMentor: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -117,15 +129,51 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorBecomingEnabled = payload;
   });
 
-  builder.addCase(chooseMentor.fulfilled, (state) => {
-    state.isMentorChoosingEnabled = false;
+  builder.addCase(chooseMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
   });
+  builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentorChoosingEnabled = false;
+    state.mentor = payload.mentor;
+  });
+
+  builder.addCase(getMentor.fulfilled, (state, { payload }) => {
+    const hasMentor = Boolean(payload);
+    const canChooseMentor = !hasMentor && state.isMentorChoosingEnabled;
+    state.isMentorChoosingEnabled = canChooseMentor;
+    state.mentor = payload ? payload.mentor : null;
+  });
+
   builder.addCase(
-    updateisMentorChoosingEnabled.fulfilled,
+    updateIsMentorChoosingEnabled.fulfilled,
     (state, { payload }) => {
       state.isMentorChoosingEnabled = payload;
     },
   );
+  builder.addCase(getMenteesByCourseId.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+    state.menteesByCourseDataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getMenteesByCourseId.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.menteesByCourseId = payload;
+    state.menteesByCourseDataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(getMenteesByCourseId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.menteesByCourseDataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(checkIsMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentor = payload;
+  });
+  builder.addCase(checkIsMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
 });
 
 export { reducer };

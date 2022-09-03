@@ -7,6 +7,7 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  CourseCheckIsMentorRequestParamsDto,
   CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetRequestParamsDto,
@@ -21,6 +22,7 @@ import {
   mentor as mentorService,
 } from '~/services/services';
 import {
+  courseCheckIsMentorParams as courseCheckIsMentorParamsValidationSchema,
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
@@ -110,6 +112,77 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       rep.status(HttpCode.OK).send(mentors);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_MENTEES,
+    schema: {
+      params: courseGetParamsValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseGetRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { id } = req.params;
+
+      const mentees = await courseService.getMenteesByCourseIdAndMentorId({
+        mentorId: req.user.id,
+        courseId: id,
+      });
+
+      rep.status(HttpCode.OK).send(mentees);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_IS_MENTOR_CHECK,
+    schema: {
+      params: courseCheckIsMentorParamsValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseCheckIsMentorRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const { user } = req;
+
+      const isMentor = await mentorService.checkIsMentor({
+        courseId: id,
+        userId: user.id,
+      });
+
+      rep.status(HttpCode.OK).send(isMentor);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_HAS_MENTOR_CHECK,
+    schema: {
+      params: courseCheckIsMentorParamsValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseCheckIsMentorRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { id } = req.params;
+      const { user } = req;
+
+      const hasMentor = await mentorService.checkHasMentor({
+        courseId: id,
+        userId: user.id,
+      });
+
+      rep.status(HttpCode.OK).send(hasMentor);
     },
   });
 

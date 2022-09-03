@@ -1,35 +1,34 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, SearchValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
 import {
-  useAppDispatch,
   useAppSelector,
+  useCourseSearch,
   useLocation,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
 
 import { Popup, SearchBar } from './components/components';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
   const isRoot = location.pathname === AppRoute.ROOT;
   const hasUser = Boolean(user);
 
-  const handlePopupOpen = (evt: React.MouseEvent | void): void => {
-    evt?.stopPropagation();
+  const handlePopupOpen = (): void => {
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
+  const { performSearch } = useCourseSearch();
+
   const handleSearch = (search: string): void => {
-    dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
+    performSearch(SearchValue.TITLE, search);
   };
 
   return (

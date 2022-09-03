@@ -1,10 +1,12 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -77,6 +79,7 @@ export {
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';
 export {
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
@@ -86,6 +89,18 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+} from './task/task';
+export {
+  type TaskNoteCreateArgumentsDto,
+  type TaskNoteGetAllArgumentsDto,
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+} from './task-note/task-note';
 export { type TokenPayload } from './token/token';
 export {
   type UdemyCourseGetResponseDto,

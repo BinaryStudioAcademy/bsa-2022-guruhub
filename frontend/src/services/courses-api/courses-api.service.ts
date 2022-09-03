@@ -13,6 +13,7 @@ import {
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
   MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -99,11 +100,24 @@ class CoursesApi {
     );
   }
 
+  public getMenteesByCourseId(
+    courseId: number,
+  ): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTEES
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public chooseMentor({
     courseId,
     menteeId,
     mentorId,
-  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
@@ -115,6 +129,32 @@ class CoursesApi {
           menteeId,
           mentorId,
         }),
+      },
+    );
+  }
+
+  public checkIsMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.IS_MENTOR_CHECK
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public checkHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.HAS_MENTOR_CHECK
+      }`,
+      {
+        method: HttpMethod.GET,
       },
     );
   }

@@ -1,14 +1,10 @@
 import React, { FC } from 'react';
 
 import { categoryKeyToImage } from '~/common/maps/maps';
-import {
-  CategoryImage,
-  Pressable,
-  Text,
-  View,
-} from '~/components/common/common';
+import { Pressable, Text, View } from '~/components/common/common';
 import { useEffect, useState } from '~/hooks/hooks';
 
+import { CategoryImage } from './components/components';
 import { getRandomColor } from './helpers/get-random-color.helper';
 import { styles } from './style';
 
@@ -19,7 +15,7 @@ type Props = {
   isActive: boolean;
 };
 
-const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
+const CourseCategory: FC<Props> = ({ isActive, keyName, name, onPress }) => {
   const [color, setColor] = useState('');
   const imageKeys = Object.keys(categoryKeyToImage);
   const hasImage = imageKeys.includes(keyName);
@@ -36,7 +32,7 @@ const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
     <Pressable onPress={handlePress}>
       <View
         style={{
-          ...styles.container,
+          ...styles.categoryListContainer,
           ...(isActive && styles.activeItem),
           borderColor: color,
         }}
@@ -62,4 +58,4 @@ const Category: FC<Props> = ({ isActive, keyName, name, onPress }) => {
   );
 };
 
-export { Category };
+export { CourseCategory };

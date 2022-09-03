@@ -79,6 +79,7 @@ class User {
     const userDetails = await this.#userDetailsService.create(user.id, {
       fullName,
       gender: null,
+      dateOfBirth: null,
     });
 
     return {

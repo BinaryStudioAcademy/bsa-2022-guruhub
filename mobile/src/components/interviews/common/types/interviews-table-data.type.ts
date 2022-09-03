@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 type InterviewsTableData = {
-  id: number;
+  id: ReactElement;
   name: string;
   category: ReactElement;
   status: ReactElement;

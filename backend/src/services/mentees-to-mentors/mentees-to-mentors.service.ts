@@ -20,14 +20,23 @@ class MenteesToMentors {
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {
     const { courseId, menteeId } = menteesToMentors;
-    const mentee = await this.getByCourseIdAndMenteeId({ courseId, menteeId });
-    const isMentee = Boolean(mentee);
+    const isMentee = await this.checkIsMentee({
+      courseId,
+      menteeId,
+    });
 
     if (isMentee) {
       throw new MenteesToMentorsError();
     }
 
     return this.#menteesToMentorsRepository.create(menteesToMentors);
+  }
+
+  public checkIsMentee(menteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<boolean> {
+    return this.#menteesToMentorsRepository.checkIsMentee(menteesToMentors);
   }
 
   public getByCourseIdAndMenteeId(menteesToMentors: {

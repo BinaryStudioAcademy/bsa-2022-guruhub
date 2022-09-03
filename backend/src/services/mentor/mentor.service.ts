@@ -44,6 +44,35 @@ class Mentor {
       userId,
     });
   }
+
+  public getMentor(menteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<MenteesToMentorsResponseDto | null> {
+    return this.#menteesToMentorsService.getByCourseIdAndMenteeId(
+      menteesToMentors,
+    );
+  }
+
+  public checkIsMentor({
+    courseId,
+    userId,
+  }: CoursesToMentorsRequestDto): Promise<boolean> {
+    return this.#coursesToMentorsService.checkIsMentor({
+      courseId,
+      userId,
+    });
+  }
+
+  public checkHasMentor({
+    courseId,
+    userId,
+  }: CoursesToMentorsRequestDto): Promise<boolean> {
+    return this.#menteesToMentorsService.checkIsMentee({
+      courseId,
+      menteeId: userId,
+    });
+  }
 }
 
 export { Mentor };

@@ -1,5 +1,6 @@
 export { BackButton } from './back-button/back-button';
 export { Button } from './button/button';
+export { Category } from './category/category';
 export { CategoryImage } from './category-image/category-image';
 export { Checkbox } from './checkbox/checkbox';
 export { Chip } from './chip/chip';
