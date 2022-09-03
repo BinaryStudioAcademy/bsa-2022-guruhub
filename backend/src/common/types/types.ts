@@ -89,6 +89,18 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+} from './task/task';
+export {
+  type TaskNoteCreateArgumentsDto,
+  type TaskNoteGetAllArgumentsDto,
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+} from './task-note/task-note';
 export { type TokenPayload } from './token/token';
 export {
   type UdemyCourseGetResponseDto,

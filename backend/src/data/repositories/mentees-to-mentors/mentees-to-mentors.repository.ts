@@ -31,7 +31,7 @@ class MenteesToMentors {
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
   }
-  
+
   public async getByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
@@ -47,7 +47,7 @@ class MenteesToMentors {
 
     return menteeToMentor ?? null;
   }
-  
+
   public async checkIsMentee(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
