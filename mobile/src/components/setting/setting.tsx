@@ -119,7 +119,7 @@ const Settings: FC = () => {
         </View>
       </View>
       <View style={styles.singOutWrapper}>
-        <Button label="Sign Out" onPress={handleLogout} size="large" />
+        <Button label="Sign Out" onPress={handleLogout} />
       </View>
     </View>
   );

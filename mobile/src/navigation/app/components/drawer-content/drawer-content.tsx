@@ -51,11 +51,7 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
             style={styles.footerImage}
             source={{ uri: getImageUri(saly) }}
           />
-          <Button
-            label="Become A Mentor"
-            onPress={handleBecomeMentor}
-            size="large"
-          />
+          <Button label="Become A Mentor" onPress={handleBecomeMentor} />
         </View>
       </ScrollView>
     </SafeAreaView>

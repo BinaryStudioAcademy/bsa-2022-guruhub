@@ -198,7 +198,6 @@ const UAMConfigureGroup: FC = () => {
           <Button
             label={`${isGroupEdit ? 'Edit' : 'Create'} group`}
             onPress={handleSubmit(handleCreateOrEditGroup)}
-            size="large"
           />
         </View>
       </View>

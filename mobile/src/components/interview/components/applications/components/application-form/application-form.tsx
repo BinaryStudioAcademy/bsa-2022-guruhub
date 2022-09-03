@@ -133,7 +133,7 @@ const ApplicationForm: FC<Props> = ({
           <View style={styles.rowContent}>
             {!isEditMode ? (
               <Text style={styles.content}>
-                {interview.interviewer?.userDetails.fullName ||
+                {interview.interviewer?.userDetails.fullName ??
                   'Not assigned yet'}
               </Text>
             ) : (
