@@ -29,13 +29,6 @@ const styles = StyleSheet.create({
     height: 136,
     marginRight: 20,
   },
-  label: {
-    color: AppColor.TEXT.GRAY_100,
-    fontFamily: AppFontFamily.INTER_500,
-    fontSize: 14,
-    lineHeight: 16,
-    paddingBottom: 9,
-  },
   buttons: {
     alignSelf: 'flex-end',
     marginVertical: 20,
