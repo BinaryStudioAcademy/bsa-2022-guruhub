@@ -1,7 +1,7 @@
 import defaultAvatar from 'assets/img/avatar-default.svg';
 import { TaskStatus } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
-import { Content, Image } from 'components/common/common';
+import { Image } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
@@ -20,10 +20,8 @@ const TaskNoteCard: FC<Props> = ({ note, author, createdAt, status }) => {
         <p>Status: {status}</p>
       </div>
       <div className={styles.cardContentWrapper}>
-        <Content html={note} />
-        <div className={styles.postDateSection}>
-          <div>{getFormattedDate(createdAt, 'HH:mm, dd.MM')}</div>
-        </div>
+        <p>{note}</p>
+        <p>{getFormattedDate(createdAt, 'HH:mm, dd.MM')}</p>
       </div>
       <div className={styles.cardAuthorSection}>
         <Image

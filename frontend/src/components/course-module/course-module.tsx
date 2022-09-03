@@ -42,13 +42,16 @@ const CourseModule: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (user && !isMentor && dataStatus === DataStatus.FULFILLED) {
+    if (user && !isMentor) {
       setSelectedUserId(user.id);
 
       return;
     }
-    setSelectedUserId(null);
-  }, [user]);
+
+    return () => {
+      setSelectedUserId(null);
+    };
+  }, [user, isMentor]);
 
   useEffect(() => {
     dispatch(courseModuleActions.checkIsMentor(Number(courseId)));
