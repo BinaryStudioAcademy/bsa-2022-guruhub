@@ -53,7 +53,7 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
   });
 
   fastify.route({
-    method: HttpMethod.PATCH,
+    method: HttpMethod.PUT,
     url: UserDetailsApiPath.USER_$ID_AVATAR,
     schema: { params: userDetailsUpdateParamsValidationSchema },
     async handler(

@@ -3,6 +3,7 @@ import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   UserDetailsResponseDto,
+  UserDetailsUpdateAvatarRequestDto,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 
@@ -36,4 +37,19 @@ const updateUserDetails = createAsyncThunk<
   },
 );
 
-export { getUserDetails, updateUserDetails };
+const updateUserAvatar = createAsyncThunk<
+  UserDetailsResponseDto,
+  UserDetailsUpdateAvatarRequestDto,
+  AsyncThunkConfig
+>(ActionType.UPDATE_AVATAR, async ({ file, userId }, { extra }) => {
+  const { userDetailsApi } = extra;
+
+  const updatedUserDetails = await userDetailsApi.updateUserAvatar({
+    file,
+    userId,
+  });
+
+  return updatedUserDetails;
+});
+
+export { getUserDetails, updateUserAvatar, updateUserDetails };

@@ -70,7 +70,7 @@ class UserDetails {
       fileName: Date.now().toString(),
     });
 
-    return this.#userDetailsRepository.updateAvatarFileId(userId, newFile.id);
+    return this.#userDetailsRepository.updateAvatarFileId(user.id, newFile.id);
   }
 }
 

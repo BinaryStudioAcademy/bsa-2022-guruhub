@@ -61,14 +61,13 @@ class UserDetails {
   }
 
   public updateAvatarFileId(
-    userId: number,
+    userDetailsId: number,
     fileId: number,
   ): Promise<UserDetailsResponseDto> {
     return this.#UserDetailsModel
       .query()
-      .findOne({ userId })
-      .patch({ avatarFileId: fileId })
-      .withGraphJoined('avatar')
+      .patchAndFetchById(userDetailsId, { avatarFileId: fileId })
+      .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
       .execute();
   }
