@@ -12,17 +12,25 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { checkHasPermission, getImageUri } from '~/helpers/helpers';
+import {
+  checkHasPermission,
+  getImageUri,
+  getTextWithoutHTMLTags,
+} from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
   useEffect,
+  useState,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions } from '~/store/actions';
 
-import { CourseCategory } from './components/components';
+import {
+  CourseCategory,
+  CourseShortDescription,
+} from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
@@ -39,6 +47,9 @@ const Course: FC = () => {
       modulesDataStatus: courseModules.dataStatus,
     }));
 
+  const [isSeeMoreShown, setIsSeeMoreShown] = useState(false);
+
+  const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const currentCategory = course?.category;
@@ -52,13 +63,27 @@ const Course: FC = () => {
     userPermissions: user?.permissions ?? [],
   });
 
+  const toggleSeeMore = (): void => {
+    setIsSeeMoreShown(!isSeeMoreShown);
+  };
+
+  useEffect(() => {
+    if (course && course.description) {
+      const descriptionText = getTextWithoutHTMLTags(course.description);
+
+      if (descriptionText.length > 40) {
+        setIsSeeMoreShown(true);
+      }
+    }
+  }, [course]);
+
   useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
     }
   }, [course]);
 
-  if (dataStatus === DataStatus.PENDING) {
+  if (courseIsLoading) {
     return <Spinner isOverflow />;
   }
 
@@ -93,9 +118,16 @@ const Course: FC = () => {
           }}
         />
         <Text style={styles.h2}>About this course</Text>
-        {Boolean(course.description) && (
-          <Content html={course.description} width={width} />
-        )}
+        {Boolean(course.description) &&
+          (isSeeMoreShown ? (
+            <CourseShortDescription
+              description={course.description}
+              handleSeeMore={toggleSeeMore}
+              width={width}
+            />
+          ) : (
+            <Content html={course.description} width={width} />
+          ))}
         <CourseModules
           courseModules={courseModules}
           isLoading={moduleIsLoading}
