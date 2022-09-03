@@ -64,11 +64,10 @@ const Header: FC = () => {
             <div className={styles.chatLogoWrapper}>
               <Link to={AppRoute.CHATS}>
                 <div className={styles.chatImage}>
-                  {hasUnreadMessages ? (
-                    <Icon name="chatUnread" className={styles.chatIcon}></Icon>
-                  ) : (
-                    <Icon name="chat" className={styles.chatIcon}></Icon>
-                  )}
+                  <Icon
+                    name={hasUnreadMessages ? 'chatUnread' : 'chat'}
+                    className={styles.chatIcon}
+                  ></Icon>
                 </div>
               </Link>
             </div>
