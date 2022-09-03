@@ -13,7 +13,10 @@ import { userDetailsActions } from 'store/actions';
 import styles from './styles.module.scss';
 
 const AvatarWrapper: FC = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, userDetails } = useAppSelector((state) => ({
+    user: state.auth.user,
+    userDetails: state.userDetails.userDetails,
+  }));
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -54,7 +57,7 @@ const AvatarWrapper: FC = () => {
           <Image
             width="136"
             height="136"
-            src={defaultUserAvatar}
+            src={userDetails?.avatar?.url ?? defaultUserAvatar}
             alt="user avatar"
             isCircular
           />

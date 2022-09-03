@@ -19,7 +19,7 @@ const MyMentor: FC<Props> = ({ mentor }) => {
             height="75"
             alt="mentor"
             isCircular
-            src={mentor.userDetails.avatarUrl ?? defaultUserAvatar}
+            src={mentor.userDetails.avatar?.url ?? defaultUserAvatar}
           />
           <div className={styles.mentorData}>
             <p className={styles.mentorName}>{mentor.userDetails.fullName}</p>

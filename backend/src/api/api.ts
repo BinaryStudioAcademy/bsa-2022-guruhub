@@ -4,7 +4,7 @@ import {
   ALLOWED_IMAGE_EXTENSIONS,
   WHITE_ROUTES,
 } from '~/common/constants/constants';
-import { ApiPath, FileSizeBytesValue } from '~/common/enums/enums';
+import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
 import {
   authorization as authorizationPlugin,
@@ -19,7 +19,6 @@ import {
   interview,
   mentor,
   permission,
-  task,
   token,
   user,
   userDetails,
@@ -33,7 +32,6 @@ import { initGroupsApi } from './groups/groups.api';
 import { initInterviewsApi } from './interviews/interviews.api';
 import { initMentorsApi } from './mentors/mentors.api';
 import { initPermissionsApi } from './permissions/permissions.api';
-import { initTasksApi } from './tasks/tasks.api';
 import { initUserDetailsApi } from './user-details/user-details.api';
 import { initUsersApi } from './users/users.api';
 
@@ -53,9 +51,6 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   });
 
   fastify.register(filePlugin, {
-    limits: {
-      fileSize: FileSizeBytesValue.ONE_MB,
-    },
     allowedExtensions: ALLOWED_IMAGE_EXTENSIONS,
   });
 
@@ -128,13 +123,6 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       mentor,
     },
     prefix: ApiPath.MENTORS,
-  });
-
-  fastify.register(initTasksApi, {
-    services: {
-      task,
-    },
-    prefix: ApiPath.TASKS,
   });
 };
 

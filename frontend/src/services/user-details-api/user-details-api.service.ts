@@ -53,9 +53,9 @@ class UserDetailsApi {
     userId,
   }: UserDetailsUpdateAvatarRequestDto): Promise<UserDetailsResponseDto> {
     return this.#http.load<UserDetailsResponseDto>(
-      `${this.#apiPrefix}${ApiPath.USER_DETAILS}${
-        UserDetailsApiPath.USER
-      }/${userId}${UserDetailsApiPath.AVATAR}`,
+      `${this.#apiPrefix}${ApiPath.USER_DETAILS}/${userId}${
+        UserDetailsApiPath.AVATAR
+      }`,
       {
         method: HttpMethod.PUT,
         payload: file,

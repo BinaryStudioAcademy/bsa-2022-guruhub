@@ -1,4 +1,4 @@
-import fastifyMultipart, { MultipartFile } from '@fastify/multipart';
+import { MultipartFile } from '@fastify/multipart';
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 
@@ -6,15 +6,12 @@ import { ControllerHook, HttpCode } from '~/common/enums/enums';
 import { InvalidFilesError } from '~/exceptions/exceptions';
 
 type Options = {
-  limits: {
-    fileSize: number;
-  };
   allowedExtensions: string[];
 };
 
 const upload: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { limits, allowedExtensions } = opts;
-  fastify.register(fastifyMultipart, { limits, attachFieldsToBody: true });
+  const { allowedExtensions } = opts;
+
   fastify.decorateRequest('fileBuffer', null);
 
   fastify.addHook(
