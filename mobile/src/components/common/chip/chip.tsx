@@ -9,7 +9,7 @@ type Props = {
   color: string;
 };
 
-const StatusCell: FC<Props> = ({ text, color }) => {
+const Chip: FC<Props> = ({ text, color }) => {
   return (
     <View style={{ ...styles.cell, backgroundColor: color }}>
       <Text style={styles.text}>{text}</Text>
@@ -17,4 +17,4 @@ const StatusCell: FC<Props> = ({ text, color }) => {
   );
 };
 
-export { StatusCell };
+export { Chip };
