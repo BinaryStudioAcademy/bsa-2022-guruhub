@@ -9,7 +9,6 @@ import {
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { EditCourseCategory } from '~/components/course/components/components';
-import { Course } from '~/components/course/course';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
 import { Interviews } from '~/components/interviews/interviews';
@@ -18,6 +17,7 @@ import { MyEducation } from '~/components/my-education/my-education';
 import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
+import { Course } from '~/navigation/course/course.navigation';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
