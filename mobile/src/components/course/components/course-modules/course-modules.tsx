@@ -17,7 +17,7 @@ const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>Course Content</Text>
       {isLoading ? (
         <Spinner />

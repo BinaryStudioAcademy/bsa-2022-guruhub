@@ -9,8 +9,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingHorizontal: 30,
+  },
+  buttonSmall: {
+    paddingVertical: 8,
+  },
+  buttonLarge: {
     paddingVertical: 16,
-    paddingHorizontal: 20,
+  },
+  loaderWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  loader: {
+    position: 'absolute',
+    left: 5,
   },
   label: {
     fontFamily: AppFontFamily.INTER_600,

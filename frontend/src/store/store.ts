@@ -11,6 +11,7 @@ import {
   notification,
   permissionsApi,
   storage,
+  tasksApi,
   userDetailsApi,
   usersApi,
 } from 'services/services';
@@ -32,6 +33,7 @@ const extraArgument = {
   categoriesApi,
   courseModulesApi,
   mentorsApi,
+  tasksApi,
 };
 
 const store = configureStore({

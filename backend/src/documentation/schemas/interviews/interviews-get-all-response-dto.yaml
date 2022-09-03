@@ -57,3 +57,6 @@ properties:
             name:
               type: string
               example: 'Node.js'
+  total:
+    type: integer
+    example: 1
