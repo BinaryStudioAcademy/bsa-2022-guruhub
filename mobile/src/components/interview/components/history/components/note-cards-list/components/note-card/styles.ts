@@ -12,16 +12,12 @@ const styles = StyleSheet.create({
   note: {
     color: 'white',
     fontSize: 16,
-    // width: '70%',
   },
   date: {
     color: AppColor.TEXT.GRAY_200,
-    //width: '30%',
   },
   textContainer: {
     marginTop: 10,
-    //flexDirection: 'row',
-    // alignItems: 'center',
     justifyContent: 'space-between',
   },
   user: {
