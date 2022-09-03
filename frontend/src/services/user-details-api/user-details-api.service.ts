@@ -58,7 +58,6 @@ class UserDetailsApi {
       }/${userId}${UserDetailsApiPath.AVATAR}`,
       {
         method: HttpMethod.PUT,
-        // contentType: ContentType.MULTIPART_FORM_DATA,
         payload: file,
       },
     );
