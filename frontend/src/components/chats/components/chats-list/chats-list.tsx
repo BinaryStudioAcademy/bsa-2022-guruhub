@@ -1,8 +1,7 @@
-import defaultAvatar from 'assets/img/avatar-default.svg';
 import {
   ChatMessageGetAllItemResponseDto,
+  ChatMessageUserResponseDto,
   FC,
-  UserDetailsResponseDto,
 } from 'common/types/types';
 import { getFormattedDate } from 'helpers/helpers';
 
@@ -30,20 +29,17 @@ const ChatsList: FC<Props> = ({
       ) : (
         <ol className={styles.chatsList}>
           {chatsList.map((chat) => {
-            const chatOpponent: UserDetailsResponseDto =
-              chat.sender.id === currentUserId
-                ? chat.receiver.userDetails
-                : chat.sender.userDetails;
+            const chatOpponent: ChatMessageUserResponseDto =
+              chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
             return (
               <li key={chat.id}>
                 <Chat
                   chatId={chat.chatId}
                   lastMessage={chat.message}
-                  chatOpponentAvatarSrc={
-                    chatOpponent.avatarUrl ?? defaultAvatar
-                  }
-                  chatOpponentFullName={chatOpponent.fullName}
+                  messageSenderId={chat.sender.id}
+                  currentUserId={currentUserId}
+                  chatOpponent={chatOpponent}
                   dateTheLastMessageWasSent={getFormattedDate(
                     chat.createdAt,
                     'distance',

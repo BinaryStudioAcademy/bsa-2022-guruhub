@@ -1,7 +1,8 @@
 import { ChatMessageCreateRequestBodyDto, FC } from 'common/types/types';
 import { Input } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
-import { useAppForm } from 'hooks/hooks';
+import { useAppDispatch, useAppForm } from 'hooks/hooks';
+import { chatsActions } from 'store/actions';
 import { chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { getDefaultMessagePayload } from './common';
@@ -12,19 +13,30 @@ type Props = {
 };
 
 const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
-  const { control, errors } = useAppForm<ChatMessageCreateRequestBodyDto>({
-    defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
-    validationSchema: chatMessageCreateArgumentsValidationSchema,
-  });
+  const dispatch = useAppDispatch();
+
+  const { control, errors, handleSubmit } =
+    useAppForm<ChatMessageCreateRequestBodyDto>({
+      defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
+      validationSchema: chatMessageCreateArgumentsValidationSchema,
+    });
+
+  const handleMessageSubmit = (
+    payload: ChatMessageCreateRequestBodyDto,
+  ): void => {
+    dispatch(chatsActions.createMessage(payload));
+  };
 
   return (
-    <Input
-      placeholder="Your message here"
-      control={control}
-      errors={errors}
-      name={getNameOf<ChatMessageCreateRequestBodyDto>('message')}
-      label=""
-    />
+    <form onSubmit={handleSubmit(handleMessageSubmit)}>
+      <Input
+        placeholder="Your message here"
+        control={control}
+        errors={errors}
+        name={getNameOf<ChatMessageCreateRequestBodyDto>('message')}
+        label=""
+      />
+    </form>
   );
 };
 
