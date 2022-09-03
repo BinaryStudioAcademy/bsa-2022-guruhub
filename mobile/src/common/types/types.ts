@@ -42,6 +42,7 @@ export {
 export { type HttpOptions } from './http/http';
 export {
   type InterviewNoteCreateDto,
+  type InterviewNoteCreateRequestDto,
   type InterviewNoteGetAllItemResponseDto,
   type InterviewNoteGetAllResponseDto,
   type InterviewNoteGetRequestArgumentsDto,
