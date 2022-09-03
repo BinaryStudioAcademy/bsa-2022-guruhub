@@ -5,5 +5,8 @@ export {
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
+  type MenteesToMentorsRequestDto,
+  type UserDetailsResponseDto,
 } from 'guruhub-shared/common/types/types';

@@ -64,7 +64,7 @@ const courseModulesApi = new CourseModulesApi({
   apiPrefix: ENV.APP.API_PATH,
 });
 
-const interviewersApi = new InterviewsApi({
+const interviewsApi = new InterviewsApi({
   apiPrefix: ENV.APP.API_PATH,
   http,
 });
@@ -80,7 +80,7 @@ export {
   courseModulesApi,
   coursesApi,
   groupsApi,
-  interviewersApi,
+  interviewsApi,
   mentorsApi,
   notification,
   permissionsApi,

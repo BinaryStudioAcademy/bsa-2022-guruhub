@@ -38,6 +38,15 @@ class MenteesToMentors {
   }): Promise<boolean> {
     return this.#menteesToMentorsRepository.checkIsMentee(menteesToMentors);
   }
+
+  public getByCourseIdAndMenteeId(menteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<MenteesToMentorsResponseDto | null> {
+    return this.#menteesToMentorsRepository.getByCourseIdAndMenteeId(
+      menteesToMentors,
+    );
+  }
 }
 
 export { MenteesToMentors };

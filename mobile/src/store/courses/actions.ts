@@ -11,11 +11,13 @@ import {
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseSelectMentorRequestParamsDto,
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   CourseUpdateCategoryRequestArguments,
   InterviewsCreateRequestBodyDto,
   UserDetailsResponseDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { app, interviewsActions } from '~/store/actions';
 
@@ -111,14 +113,14 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
       auth: { user },
     } = getState();
 
-    const { interviewersApi } = extra;
+    const { interviewsApi } = extra;
 
     if (!user || !course) {
       return;
     }
 
     const passedCategoryInterviews =
-      await interviewersApi.getPassedInterviewCategoryIds(user.id);
+      await interviewsApi.getPassedInterviewCategoryIds(user.id);
     const isCategoryPassed = passedCategoryInterviews.includes(
       course.courseCategoryId,
     );
@@ -165,14 +167,53 @@ const updateCategory = createAsyncThunk<
   return updatedCourse;
 });
 
+const chooseMentor = createAsyncThunk<
+  void,
+  CourseSelectMentorRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHOOSE_A_MENTOR, async ({ id }, { extra, getState }) => {
+  const {
+    courses: { course },
+    auth: { user },
+  } = getState();
+  const { coursesApi } = extra;
+
+  await coursesApi.chooseMentor({
+    courseId: (course as CourseGetResponseDto).id,
+    menteeId: (user as UserWithPermissions).id,
+    mentorId: id,
+  });
+
+  return;
+});
+
+const updateisMentorChoosingEnabled = createAsyncThunk<
+  boolean,
+  void,
+  AsyncThunkConfig
+>(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
+  const {
+    auth: { user },
+    courses: { mentors },
+  } = getState();
+
+  const isMentorCheck = mentors.some(
+    (mentor) => mentor.id === (user as UserWithPermissions).id,
+  );
+
+  return !isMentorCheck;
+});
+
 export {
   addCourse,
   becomeMentor,
+  chooseMentor,
   createMentor,
   getCourse,
   getCourses,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateCategory,
+  updateisMentorChoosingEnabled,
   updateVisibilityBecomeMentor,
 };

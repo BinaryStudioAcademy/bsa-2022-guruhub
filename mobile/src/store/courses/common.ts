@@ -8,6 +8,9 @@ enum ActionType {
   SET_BECOME_MENTOR_INVISIBLE = 'courses/set-become-mentor-invisible',
   UPDATE_VISIBILITY_BECOME_MENTOR = 'courses/update-visibility-become-mentor',
   UPDATE_CATEGORY = 'courses/update-category',
+  GET_MENTORS = 'courses/get-mentors',
+  CHOOSE_A_MENTOR = 'courses/choose-a-mentor',
+  SET_IS_MENTOR_CHOOSING_ENABLED = 'courses/set-is-mentor-choosing-enabled',
 }
 
 export { ActionType };

@@ -10,6 +10,7 @@ import {
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseUpdateCategoryRequestArguments,
+  MenteesToMentorsRequestDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 
@@ -67,23 +68,6 @@ class Courses {
     );
   }
 
-  public getMentorsByCourseId({
-    courseId,
-    filteringOpts,
-  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
-    return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
-        CoursesApiPath.MENTORS
-      }`,
-      {
-        method: HttpMethod.GET,
-        queryParams: {
-          mentorName: filteringOpts.mentorName,
-        },
-      },
-    );
-  }
-
   public updateCategory({
     courseId,
     newCategoryId,
@@ -96,6 +80,43 @@ class Courses {
         method: HttpMethod.PATCH,
         contentType: ContentType.JSON,
         payload: JSON.stringify({ newCategoryId }),
+      },
+    );
+  }
+
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.GET,
+        queryParams: {
+          mentorName: filteringOpts.mentorName,
+        },
+      },
+    );
+  }
+
+  public chooseMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
       },
     );
   }

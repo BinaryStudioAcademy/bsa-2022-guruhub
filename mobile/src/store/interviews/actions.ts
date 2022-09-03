@@ -20,9 +20,9 @@ const getInterviews = createAsyncThunk<
   EntityPaginationRequestQueryDto,
   AsyncThunkConfig
 >(ActionType.GET_INTERVIEWS, async ({ page, count }, { extra }) => {
-  const { interviewersApi } = extra;
+  const { interviewsApi } = extra;
 
-  return interviewersApi.getPage({ page, count });
+  return interviewsApi.getPage({ page, count });
 });
 
 const createInterview = createAsyncThunk<
