@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 12,
     lineHeight: 16,
+    textAlign: 'center',
   },
 });
 
