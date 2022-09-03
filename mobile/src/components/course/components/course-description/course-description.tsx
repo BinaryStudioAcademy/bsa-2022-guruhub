@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Content, Pressable, Text, View } from '~/components/common/common';
-import { CourseDescriptionFirstCharsCount } from '~/components/course/common/constants/constants';
+import { COURSE_SHORT_DESCRIPTION_LENGTH } from '~/components/course/common/constants/constants';
 import { getTextWithoutHTMLTags } from '~/helpers/helpers';
 
 import { styles } from './styles';
@@ -19,13 +19,12 @@ const CourseDescription: FC<Props> = ({
   isExpanded,
   width,
 }) => {
-  const isTogglerShown =
-    description.length > CourseDescriptionFirstCharsCount.DEFAULT_COUNT;
+  const isTogglerShown = description.length > COURSE_SHORT_DESCRIPTION_LENGTH;
 
   const textShortDescription = `${getTextWithoutHTMLTags(description).slice(
     0,
-    CourseDescriptionFirstCharsCount.DEFAULT_COUNT,
-  )}...`;
+    COURSE_SHORT_DESCRIPTION_LENGTH,
+  )}${isTogglerShown ? '...' : ''}`;
 
   const pressableText = `See ${isExpanded ? 'less' : 'more'}`;
 

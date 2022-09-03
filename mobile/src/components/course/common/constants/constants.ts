@@ -1,5 +1,3 @@
-enum CourseDescriptionFirstCharsCount {
-  DEFAULT_COUNT = 200,
-}
+const COURSE_SHORT_DESCRIPTION_LENGTH = 200;
 
-export { CourseDescriptionFirstCharsCount };
+export { COURSE_SHORT_DESCRIPTION_LENGTH };
