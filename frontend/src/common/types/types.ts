@@ -2,6 +2,7 @@ export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -62,7 +63,9 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
 export {
   type NavigationMenuItem,

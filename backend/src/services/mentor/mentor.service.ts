@@ -45,6 +45,15 @@ class Mentor {
     });
   }
 
+  public getMentor(menteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<MenteesToMentorsResponseDto | null> {
+    return this.#menteesToMentorsService.getByCourseIdAndMenteeId(
+      menteesToMentors,
+    );
+  }
+
   public checkIsMentor({
     courseId,
     userId,

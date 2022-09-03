@@ -110,7 +110,7 @@ class Udemy {
   private getCourseRequestUrl(courseIdOrSlug: string): string {
     return `${
       this.#baseUrl
-    }courses/${courseIdOrSlug}?fields[course]=title,description,url`;
+    }courses/${courseIdOrSlug}?fields[course]=title,description,url,image_480x270`;
   }
 
   private getModuleRequestUrl(courseId: number, page: number): string {

@@ -60,6 +60,8 @@ paths:
   # Mentors
   /mentors:
     $ref: './endpoints/mentors/mentors.yaml'
+  /mentors/courses/{courseId}/mentees/{menteeId}:
+    $ref: './endpoints/mentors/mentor-get.yaml'
   # User Details
   /user-details:
     $ref: './endpoints/user-details/user-details-manipulate.yaml'
