@@ -44,8 +44,15 @@ class Course {
   public async create(
     course: CourseCreateRequestArgumentsDto,
   ): Promise<CourseM> {
-    const { title, description, url, vendorId, courseCategoryId, originalId } =
-      course;
+    const {
+      title,
+      description,
+      url,
+      vendorId,
+      courseCategoryId,
+      originalId,
+      imageUrl,
+    } = course;
 
     return this.#CourseModel.query().insert({
       title,
@@ -54,6 +61,7 @@ class Course {
       vendorId,
       courseCategoryId,
       originalId,
+      imageUrl,
     });
   }
 
