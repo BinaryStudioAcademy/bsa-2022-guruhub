@@ -77,7 +77,8 @@ const Course: FC = () => {
       const descriptionText = getTextWithoutHTMLTags(course.description);
 
       if (
-        descriptionText.length > CourseDescriptionFirstWordsCount.DEFAULT_COUNT
+        descriptionText.split(' ').length >
+        CourseDescriptionFirstWordsCount.DEFAULT_COUNT
       ) {
         setIsSeeMoreShown(true);
       }
