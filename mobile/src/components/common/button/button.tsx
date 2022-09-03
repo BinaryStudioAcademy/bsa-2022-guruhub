@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { wordCapitalize } from '~/helpers/helpers';
+import { capitalize } from '~/helpers/helpers';
 
 import { styles } from './styles';
 
@@ -36,7 +36,7 @@ const Button: FC<Props> = ({
       ? AppColor.TEXT.GRAY_100
       : AppColor.BRAND.BLUE_100;
 
-  const sizeStyle = `button${wordCapitalize(size)}`;
+  const sizeStyle = `button${capitalize(size)}`;
 
   return (
     <Pressable
