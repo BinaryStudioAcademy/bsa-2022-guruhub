@@ -17,6 +17,7 @@ export {
   AppScreenName,
   AuthScreenName,
   CourseScreenName,
+  InterviewScreenName,
   RootScreenName,
 } from './navigation/navigation';
 export { NotificationType } from './notification/notification';

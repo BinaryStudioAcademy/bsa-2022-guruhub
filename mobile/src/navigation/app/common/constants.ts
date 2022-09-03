@@ -11,6 +11,7 @@ import { Billing } from '~/components/billing/billing';
 import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
+import { Interview } from '~/components/interview/interview';
 import { Interviews } from '~/components/interviews/interviews';
 import { Mentors } from '~/components/mentors/mentors';
 import { MyEducation } from '~/components/my-education/my-education';
@@ -131,6 +132,20 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.EDIT_COURSE_CATEGORY,
         component: EditCourseCategory,
         permissions: [PermissionKey.MANAGE_CATEGORIES],
+      },
+    ],
+  },
+  {
+    name: 'Interviews',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.INTERVIEW,
+        component: Interview,
+        permissions: [
+          PermissionKey.MANAGE_INTERVIEW,
+          PermissionKey.MANAGE_INTERVIEWS,
+        ],
       },
     ],
   },

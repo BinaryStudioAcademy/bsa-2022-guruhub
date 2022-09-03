@@ -34,6 +34,7 @@ const UAM: FC = () => {
               label="Create group"
               variant={ButtonVariant.PRIMARY}
               onPress={handleGroupCreate}
+              size="large"
             />
           </View>
         </View>
