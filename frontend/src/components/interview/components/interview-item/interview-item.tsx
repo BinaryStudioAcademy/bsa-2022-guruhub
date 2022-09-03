@@ -77,7 +77,9 @@ const InterviewItem: FC<Props> = ({
         <div className={styles.interviewForm}>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Name</p>
-            <p className={styles.interviewValue}>{interview?.interviewee.id}</p>
+            <p className={styles.interviewValue}>
+              {interview?.interviewee.userDetails.fullName}
+            </p>
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Email</p>
@@ -103,7 +105,8 @@ const InterviewItem: FC<Props> = ({
             <p className={styles.header}>Interviewer</p>
             {!isEditMode && (
               <p className={styles.interviewValue}>
-                {interview?.interviewer?.email}
+                {interview?.interviewer?.userDetails.fullName ??
+                  'Not assigned yet'}
               </p>
             )}
             {isEditMode && (
@@ -112,6 +115,7 @@ const InterviewItem: FC<Props> = ({
                 name={getNameOf<InterviewsUpdateRequestDto>(
                   'interviewerUserId',
                 )}
+                className={styles.marginTop}
                 control={control}
                 errors={errors}
                 label="Interviewers"

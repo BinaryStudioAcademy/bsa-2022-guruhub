@@ -99,6 +99,19 @@ class CoursesApi {
     );
   }
 
+  public getMenteesByCourseId(
+    courseId: number,
+  ): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTEES
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public chooseMentor({
     courseId,
     menteeId,

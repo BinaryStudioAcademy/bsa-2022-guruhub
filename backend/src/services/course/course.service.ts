@@ -3,6 +3,7 @@ import {
   CourseCreateArgumentsDto,
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   UserDetailsResponseDto,
@@ -198,6 +199,16 @@ class Course {
     return this.#courseRepository.getMentorsByCourseId({
       courseId,
       filteringOpts,
+    });
+  }
+
+  public getMenteesByCourseIdAndMentorId({
+    mentorId,
+    courseId,
+  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#courseRepository.getMenteesByCourseIdAndMentorId({
+      courseId,
+      mentorId,
     });
   }
 

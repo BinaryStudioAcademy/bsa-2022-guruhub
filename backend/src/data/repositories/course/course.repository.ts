@@ -1,6 +1,7 @@
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   UserDetailsResponseDto,
@@ -117,6 +118,21 @@ class Course {
       })
       .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
       .joinRelated('mentors.[userDetails]')
+      .castTo<UserDetailsResponseDto[]>()
+      .execute();
+  }
+
+  public getMenteesByCourseIdAndMentorId({
+    courseId,
+    mentorId,
+  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select('mentees.id', 'fullName', 'avatarUrl')
+      .joinRelated('[mentees.[userDetails], mentorsWithMentees]')
+      .where('mentorsWithMentees.id', mentorId)
+      .where('courses.id', courseId)
+      .distinct('mentees.id')
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }

@@ -23,6 +23,7 @@ import {
   ChooseMentorModal,
   EditCategoryModal,
   ModulesCardsContainer,
+  MyStudentsContainer,
 } from './components/components';
 import styles from './styles.module.scss';
 
@@ -35,7 +36,10 @@ const Course: FC = () => {
     passedInterviewsCategoryIds,
     user,
     mentors,
+    mentees,
     isMentorChoosingEnabled,
+    isMentor,
+    menteesByCourseDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -45,6 +49,9 @@ const Course: FC = () => {
     user: auth.user,
     mentors: course.mentors,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
+    mentees: course.menteesByCourseId,
+    isMentor: course.isMentor,
+    menteesByCourseDataStatus: course.menteesByCourseDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -94,6 +101,8 @@ const Course: FC = () => {
         filteringOpts: { mentorName: '' },
       }),
     );
+    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
 
@@ -113,6 +122,12 @@ const Course: FC = () => {
       dispatch(courseActions.disableMentorBecoming());
     };
   }, [user, course, passedInterviewsCategoryIds]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+    }
+  }, [user]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -174,8 +189,12 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-
-      <div className={styles.additional}>
+      <div className={styles.rightBlock}>
+        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
+          <MyStudentsContainer mentees={mentees} />
+        )}
+      </div>
+      <div className={styles.rightBlock}>
         {isMentorChoosingEnabled && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { NotificationMessage } from 'common/enums/enums';
+import { NotificationMessage, PermissionKey } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
@@ -15,6 +15,7 @@ import {
   UserDetailsResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
+import { checkHasPermission } from 'helpers/helpers';
 import { notification } from 'services/services';
 
 import { ActionType } from './common';
@@ -120,6 +121,37 @@ const getMentorsByCourseId = createAsyncThunk<
   return mentors;
 });
 
+const getMenteesByCourseId = createAsyncThunk<
+  UserDetailsResponseDto[],
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(
+  ActionType.GET_MENTOR_MENTEES,
+  async (payload, { extra, dispatch, getState }) => {
+    const { coursesApi } = extra;
+    const {
+      course: { isMentor },
+      auth: { user },
+    } = getState();
+    const hasMentoringPermission = checkHasPermission({
+      userPermissions: (user as UserWithPermissions).permissions,
+      permissionKeys: [PermissionKey.MANAGE_MENTORING],
+    });
+
+    if (hasMentoringPermission) {
+      await dispatch(checkIsMentor({ id: payload.id }));
+
+      if (!isMentor) {
+        return [];
+      }
+
+      return coursesApi.getMenteesByCourseId(payload.id);
+    }
+
+    return [];
+  },
+);
+
 const becomeAMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.BECOME_A_MENTOR,
   (_, { dispatch, getState }) => {
@@ -195,6 +227,18 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
   return !isMentorChoosingEnabled;
 });
 
+const checkIsMentor = createAsyncThunk<
+  boolean,
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHECK_IS_MENTOR, ({ id }, { extra }) => {
+  const { coursesApi } = extra;
+
+  return coursesApi.checkIsMentor({
+    courseId: id,
+  });
+});
+
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
   void,
@@ -220,12 +264,14 @@ const updateCategory = createAsyncThunk<
 
 export {
   becomeAMentor,
+  checkIsMentor,
   chooseMentor,
   createInterview,
   createMentor,
   disableMentorBecoming,
   getCategories,
   getCourse,
+  getMenteesByCourseId,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
