@@ -4,7 +4,7 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   tableContainer: {
-    paddingVertical: 20,
+    paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 6,

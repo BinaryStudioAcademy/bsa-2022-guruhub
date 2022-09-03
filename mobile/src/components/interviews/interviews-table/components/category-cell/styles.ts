@@ -6,6 +6,8 @@ const styles = StyleSheet.create({
   categoryCell: {
     alignItems: 'center',
     flexDirection: 'row',
+    width: 190,
+    paddingLeft: 10,
   },
   categoryName: {
     color: AppColor.TEXT.GRAY_100,
