@@ -19,6 +19,7 @@ const CourseDescription: FC<Props> = ({
   isExpanded,
   width,
 }) => {
+  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
   const isTogglerShown = description.length > COURSE_SHORT_DESCRIPTION_LENGTH;
 
   const textShortDescription = `${getTextWithoutHTMLTags(description).slice(
@@ -35,7 +36,11 @@ const CourseDescription: FC<Props> = ({
         width={width}
       />
       {isTogglerShown && (
-        <Pressable onPress={handleExpandedToggle} style={styles.pressable}>
+        <Pressable
+          onPress={handleExpandedToggle}
+          style={styles.pressable}
+          hitSlop={hitSlop}
+        >
           <Text style={styles.seeMore}>{pressableText}</Text>
         </Pressable>
       )}

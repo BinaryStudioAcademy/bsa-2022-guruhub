@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     lineHeight: 19.5,
   },
   pressable: {
-    paddingTop: 5,
     paddingRight: 10,
     alignSelf: 'flex-end',
   },
