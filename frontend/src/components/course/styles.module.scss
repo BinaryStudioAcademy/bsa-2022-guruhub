@@ -1,7 +1,8 @@
 .container {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 30px;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  grid-gap: 40px;
+  padding: 40px 30px;
   color: #ffffff;
 }
 
@@ -16,7 +17,6 @@
 }
 
 .info {
-  width: 65%;
   margin-bottom: 20px;
 }
 
@@ -25,9 +25,9 @@
 }
 
 .image {
-  width: 80%;
+  width: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .about {

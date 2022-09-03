@@ -9,6 +9,7 @@ import {
   UsersGetResponseDto,
 } from 'common/types/types';
 
+import { NotificationMessage } from '../../common/enums/notification/notification-messages/notification-message.enum';
 import { authActions } from '../actions';
 import { ActionType } from './common';
 
@@ -39,9 +40,10 @@ const deleteUser = createAsyncThunk<
   UsersDeleteRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.DELETE_USER, async (payload, { extra }) => {
-  const { usersApi } = extra;
+  const { usersApi, notification } = extra;
 
   await usersApi.delete(payload);
+  notification.success(NotificationMessage.USER_DELETE);
 
   const { id } = payload;
 

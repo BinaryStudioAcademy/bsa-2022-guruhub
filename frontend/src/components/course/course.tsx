@@ -24,6 +24,7 @@ import {
   EditCategoryModal,
   ModulesCardsContainer,
   MyMentor,
+  MyStudentsContainer,
 } from './components/components';
 import styles from './styles.module.scss';
 
@@ -37,7 +38,10 @@ const Course: FC = () => {
     user,
     mentors,
     mentor,
+    mentees,
     isMentorChoosingEnabled,
+    isMentor,
+    menteesByCourseDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -48,6 +52,9 @@ const Course: FC = () => {
     mentors: course.mentors,
     mentor: course.mentor,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
+    mentees: course.menteesByCourseId,
+    isMentor: course.isMentor,
+    menteesByCourseDataStatus: course.menteesByCourseDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -97,6 +104,8 @@ const Course: FC = () => {
         filteringOpts: { mentorName: '' },
       }),
     );
+    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
 
@@ -122,6 +131,12 @@ const Course: FC = () => {
       dispatch(courseActions.disableMentorBecoming());
     };
   }, [user, course, passedInterviewsCategoryIds]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+    }
+  }, [user]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -183,9 +198,11 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-
       <div className={styles.additional}>
         {mentor && <MyMentor mentor={mentor} />}
+        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
+          <MyStudentsContainer mentees={mentees} />
+        )}
         {isMentorChoosingEnabled && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}

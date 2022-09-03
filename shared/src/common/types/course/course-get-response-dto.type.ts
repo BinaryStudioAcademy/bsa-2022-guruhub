@@ -8,7 +8,7 @@ type CourseGetResponseDto = {
   title: string;
   description: string;
   url: string;
-  imageUrl: string;
+  imageUrl: string | null;
   category: CategoryGetAllItemResponseDto | null;
   vendor: VendorGetResponseDto;
   courseCategoryId: number;
