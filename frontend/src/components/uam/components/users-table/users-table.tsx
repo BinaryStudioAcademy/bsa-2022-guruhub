@@ -1,6 +1,6 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
-import { Pagination, Table } from 'components/common/common';
+import { Table } from 'components/common/common';
 import { UsersTableRow } from 'components/uam/common/types/types';
 import {
   useAppDispatch,
@@ -49,8 +49,9 @@ const UsersTable: FC = () => {
   return (
     <div className={styles.usersTable}>
       <h1 className={styles.usersTableHeading}>Users</h1>
-      <Table data={usersData} columns={columns} />
-      <Pagination
+      <Table
+        data={usersData}
+        columns={columns}
         currentPage={page}
         onPageChange={handlePageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

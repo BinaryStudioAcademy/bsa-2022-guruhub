@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   UserDetailsResponseDto,
@@ -25,10 +26,11 @@ const updateUserDetails = createAsyncThunk<
 >(
   ActionType.UPDATE_USER_DETAILS,
   async (updateUserDetailsPayload, { extra }) => {
-    const { userDetailsApi } = extra;
+    const { userDetailsApi, notification } = extra;
     const userDetails = await userDetailsApi.updateUserDetails(
       updateUserDetailsPayload,
     );
+    notification.success(NotificationMessage.PROFILE_DETAILS_UPDATE);
 
     return userDetails;
   },

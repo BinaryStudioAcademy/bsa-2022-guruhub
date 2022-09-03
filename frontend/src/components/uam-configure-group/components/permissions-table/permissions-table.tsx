@@ -1,6 +1,6 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, PermissionsGetAllItemResponseDto } from 'common/types/types';
-import { Pagination, Table } from 'components/common/common';
+import { Table } from 'components/common/common';
 import { GroupConfigureFieldsName } from 'components/uam-configure-group/common/enums/enums';
 import { PermissionsTableRow } from 'components/uam-configure-group/common/types/types';
 import { getPermissionsColumns } from 'components/uam-configure-group/helpers/helpers';
@@ -37,8 +37,9 @@ const PermissionsTable: FC<Props> = ({
   return (
     <div className={styles.groupPermissions}>
       <p className={styles.groupSubHeading}>Attach permissions policies</p>
-      <Table data={permissions} columns={columns} />
-      <Pagination
+      <Table
+        data={permissions}
+        columns={columns}
         currentPage={page}
         onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

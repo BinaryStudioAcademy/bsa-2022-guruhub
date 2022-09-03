@@ -1,0 +1,34 @@
+type: object
+properties:
+  id:
+    type: number
+    example: 1
+  menteesToMentors:
+    type: object
+    properties:
+      id:
+        type: number
+        example: 1
+      courseId:
+        type: number
+        example: 1
+      menteeId:
+        type: number
+        example: 1
+      mentorId:
+        type: number
+        example: 1
+      createdAt:
+        type: string
+        example: '2022-08-18T21:00:00.000Z'
+  moduleId:
+    type: number
+    example: 1
+  status:
+    type: string
+    enum:
+      - Uncompleted
+      - Pending
+      - Rejected
+      - Completed
+    example: Pending

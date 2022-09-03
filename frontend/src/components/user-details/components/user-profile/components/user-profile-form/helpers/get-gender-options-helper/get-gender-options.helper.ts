@@ -3,7 +3,7 @@ import { SelectorOption } from 'common/types/types';
 
 const getGenderOptions = (): SelectorOption[] => {
   return Object.values(UserGender).map<SelectorOption>((it) => ({
-    name: it,
+    label: it,
     value: it,
   }));
 };

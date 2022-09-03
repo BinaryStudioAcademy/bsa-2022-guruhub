@@ -23,6 +23,8 @@ import {
   ChooseMentorModal,
   EditCategoryModal,
   ModulesCardsContainer,
+  MyMentor,
+  MyStudentsContainer,
 } from './components/components';
 import styles from './styles.module.scss';
 
@@ -35,7 +37,11 @@ const Course: FC = () => {
     passedInterviewsCategoryIds,
     user,
     mentors,
+    mentor,
+    mentees,
     isMentorChoosingEnabled,
+    isMentor,
+    menteesByCourseDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -44,7 +50,11 @@ const Course: FC = () => {
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
     mentors: course.mentors,
+    mentor: course.mentor,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
+    mentees: course.menteesByCourseId,
+    isMentor: course.isMentor,
+    menteesByCourseDataStatus: course.menteesByCourseDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -94,23 +104,39 @@ const Course: FC = () => {
         filteringOpts: { mentorName: '' },
       }),
     );
+    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+
     dispatch(courseActions.getCategories());
   }, [dispatch, id]);
 
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(
+        courseActions.getMentor({
+          courseId: Number(id),
+          menteeId: user.id,
+        }),
+      );
     }
   }, [user]);
 
   useEffect(() => {
-    dispatch(courseActions.updateIsMentorBecomingEnabled());
-    dispatch(courseActions.updateIsMentorChoosingEnabled({ id: Number(id) }));
+    if (course) {
+      dispatch(courseActions.updateIsMentorBecomingEnabled());
+      dispatch(courseActions.updateIsMentorChoosingEnabled());
+    }
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
     };
   }, [user, course, passedInterviewsCategoryIds]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+    }
+  }, [user]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -172,8 +198,11 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-
       <div className={styles.additional}>
+        {mentor && <MyMentor mentor={mentor} />}
+        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
+          <MyStudentsContainer mentees={mentees} />
+        )}
         {isMentorChoosingEnabled && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}

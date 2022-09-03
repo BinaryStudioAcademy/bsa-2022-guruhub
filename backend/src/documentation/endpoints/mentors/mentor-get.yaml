@@ -1,0 +1,21 @@
+get:
+  summary: Get user's mentor
+  tags:
+    - mentors
+  parameters:
+    - in: path
+      name: courseId
+      schema:
+        type: integer
+      required: true
+    - in: path
+      name: menteeId
+      schema:
+        type: integer
+      required: true
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/mentors/mentor-get-response-dto.yaml'
