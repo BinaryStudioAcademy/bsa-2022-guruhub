@@ -36,11 +36,9 @@ const UsersTable: FC = () => {
     ...user,
     fullName: user.userDetails.fullName,
     createdAt: getFormattedDate(user.createdAt, 'kk:mm, dd/MM/yyyy'),
-    ...(currentUserID !== user.id
-      ? {
-          action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
-        }
-      : {}),
+    ...(currentUserID !== user.id && {
+      action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
+    }),
   }));
 
   useEffect(() => {
