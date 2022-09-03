@@ -42,12 +42,14 @@ const updateUserAvatar = createAsyncThunk<
   UserDetailsUpdateAvatarRequestDto,
   AsyncThunkConfig
 >(ActionType.UPDATE_AVATAR, async ({ file, userId }, { extra }) => {
-  const { userDetailsApi } = extra;
+  const { userDetailsApi, notification } = extra;
 
   const updatedUserDetails = await userDetailsApi.updateUserAvatar({
     file,
     userId,
   });
+
+  notification.success(NotificationMessage.PROFILE_AVATAR_UPDATE);
 
   return updatedUserDetails;
 });
