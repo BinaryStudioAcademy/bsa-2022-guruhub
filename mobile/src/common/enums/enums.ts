@@ -8,6 +8,7 @@ export {
   UsersApiPath,
 } from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
+export { CourseDescriptionFirstWordsCount } from './course/course';
 export { CoursesApiPath } from './courses/courses';
 export { CustomExceptionName, ExceptionMessage } from './exeptions/exeptions';
 export { ContentType } from './file/file';

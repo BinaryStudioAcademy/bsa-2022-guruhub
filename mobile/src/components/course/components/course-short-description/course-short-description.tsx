@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { CourseDescriptionFirstWordsCount } from '~/common/enums/enums';
 import { Content, Pressable, Text, View } from '~/components/common/common';
 import {
   getTextWithoutHTMLTags,
@@ -20,7 +21,7 @@ const CourseShortDescription: FC<Props> = ({
   width,
 }) => {
   const textDescription = getWordsCountFromString(
-    40,
+    CourseDescriptionFirstWordsCount.DEFAULT_COUNT,
     getTextWithoutHTMLTags(description),
   );
 

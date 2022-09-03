@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
 
 import defaultCourseImage from '~/assets/images/default-course-image.png';
-import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  CourseDescriptionFirstWordsCount,
+  DataStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
 import {
   Content,
   Icon,
@@ -71,7 +76,9 @@ const Course: FC = () => {
     if (course && course.description) {
       const descriptionText = getTextWithoutHTMLTags(course.description);
 
-      if (descriptionText.length > 40) {
+      if (
+        descriptionText.length > CourseDescriptionFirstWordsCount.DEFAULT_COUNT
+      ) {
         setIsSeeMoreShown(true);
       }
     }
