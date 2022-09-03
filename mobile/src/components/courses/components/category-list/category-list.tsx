@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 
 import { CategoryGetAllItemResponseDto } from '~/common/types/types';
 import { FlatList } from '~/components/common/common';
-import { Category } from '~/components/course/components/components';
+import { CourseCategory } from '~/components/course/components/components';
 import { useMemo, useRef } from '~/hooks/hooks';
 
 import { styles } from './style';
@@ -38,7 +38,7 @@ const CategoryList: FC<Props> = ({
       data={sortedCategories}
       keyExtractor={({ id }): string => id.toString()}
       renderItem={({ item: category, index }): ReactElement => (
-        <Category
+        <CourseCategory
           name={category.name}
           keyName={category.key}
           onPress={(): void => handlePress(category.id, index)}
