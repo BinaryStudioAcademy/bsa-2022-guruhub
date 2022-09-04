@@ -4,6 +4,7 @@ export {
   CategoriesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
+  MentorsApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
@@ -17,6 +18,7 @@ export {
   AppScreenName,
   AuthScreenName,
   CourseScreenName,
+  InterviewScreenName,
   RootScreenName,
 } from './navigation/navigation';
 export { NotificationType } from './notification/notification';

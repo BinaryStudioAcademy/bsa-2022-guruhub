@@ -26,25 +26,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
-  footer: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    height: 140,
-    marginTop: 130,
-    marginBottom: 30,
-    marginHorizontal: 24,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
-    borderRadius: 14,
-  },
-  footerImage: {
-    marginLeft: 20,
-    marginBottom: 10,
-    resizeMode: 'contain',
-    width: 219,
-    height: 182,
-  },
 });
 
 export { styles };

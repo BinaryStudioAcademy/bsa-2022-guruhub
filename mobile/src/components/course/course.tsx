@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
-  Content,
   Icon,
   Image,
   Pressable,
@@ -17,12 +16,15 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
+  useState,
   useWindowDimensions,
 } from '~/hooks/hooks';
-import { courseModulesActions } from '~/store/actions';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { Category } from './components/components';
+import { CourseCategory, CourseDescription } from './components/components';
 import { CourseModules } from './components/course-modules/course-modules';
 import { styles } from './styles';
 
@@ -30,15 +32,25 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
-  const { user, course, dataStatus, courseModules, modulesDataStatus } =
-    useAppSelector(({ auth, courses, courseModules }) => ({
-      user: auth.user,
-      course: courses.course,
-      dataStatus: courses.dataStatus,
-      courseModules: courseModules.courseModules,
-      modulesDataStatus: courseModules.dataStatus,
-    }));
+  const {
+    user,
+    course,
+    dataStatus,
+    courseModules,
+    modulesDataStatus,
+    mentors,
+  } = useAppSelector(({ auth, courses, courseModules }) => ({
+    user: auth.user,
+    course: courses.course,
+    mentors: courses.mentors,
+    dataStatus: courses.dataStatus,
+    courseModules: courseModules.courseModules,
+    modulesDataStatus: courseModules.dataStatus,
+  }));
 
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const currentCategory = course?.category;
@@ -52,13 +64,39 @@ const Course: FC = () => {
     userPermissions: user?.permissions ?? [],
   });
 
+  const handleExpandedToggle = (): void => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
+
   useEffect(() => {
     if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+      dispatch(
+        coursesActions.getMentorsByCourseId({
+          courseId: course.id,
+          filteringOpts: {
+            mentorName: '',
+          },
+        }),
+      );
     }
   }, [course]);
 
-  if (dataStatus === DataStatus.PENDING) {
+  useEffect(() => {
+    dispatch(coursesActions.updateVisibilityBecomeMentor());
+
+    return () => {
+      dispatch(coursesActions.setBecomeMentorInvisible());
+    };
+  }, [mentors]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setIsDescriptionExpanded(false);
+    }, []),
+  );
+
+  if (courseIsLoading) {
     return <Spinner isOverflow />;
   }
 
@@ -71,7 +109,7 @@ const Course: FC = () => {
       <View style={styles.container}>
         <Text style={styles.h1}>{course?.title}</Text>
         <View style={styles.currentCategory}>
-          <Category
+          <CourseCategory
             keyName={currentCategory?.key ?? 'unknown'}
             name={currentCategory?.name ?? 'Unknown'}
             isActive={false}
@@ -94,7 +132,12 @@ const Course: FC = () => {
         />
         <Text style={styles.h2}>About this course</Text>
         {Boolean(course.description) && (
-          <Content html={course.description} width={width} />
+          <CourseDescription
+            description={course.description}
+            isExpanded={isDescriptionExpanded}
+            handleExpandedToggle={handleExpandedToggle}
+            width={width}
+          />
         )}
         <CourseModules
           courseModules={courseModules}

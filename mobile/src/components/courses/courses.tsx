@@ -98,6 +98,7 @@ const Courses: FC = (): ReactElement => {
       dispatch(categoryActions.clearCategory());
       dispatch(categoryActions.getCategories());
       handleCoursesLoad();
+      setActiveCategoryId(null);
     }, []),
   );
 
