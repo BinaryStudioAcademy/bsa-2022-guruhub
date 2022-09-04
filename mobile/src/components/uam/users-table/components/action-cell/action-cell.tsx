@@ -29,7 +29,6 @@ const ActionCell: FC<Props> = ({ id, onDelete }) => {
         color={AppColor.TEXT.GRAY_100}
         width={20}
         height={20}
-        style={styles.icon}
       />
     </Pressable>
   );

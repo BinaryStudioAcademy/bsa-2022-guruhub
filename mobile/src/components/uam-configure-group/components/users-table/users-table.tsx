@@ -61,11 +61,13 @@ const UsersTable: FC<Props> = ({
 
   return (
     <View style={styles.tableContainer}>
-      <Table
-        columns={userColumns}
-        data={userRows}
-        columnWidthArr={[50, 50, 200, 250, 155]}
-      />
+      <View style={styles.tableWrapper}>
+        <Table
+          columns={userColumns}
+          data={userRows}
+          columnWidthArr={[50, 50, 200, 250, 155]}
+        />
+      </View>
       <Pagination
         totalCount={users.total}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

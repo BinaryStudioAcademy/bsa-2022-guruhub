@@ -2,9 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
+  EntityPagination,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
   InterviewsGetInterviewersByCategoryRequestDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsUpdateRequestParamsDto,
   InterviewUpdateRequestArgumentsDto,
 } from '~/common/types/types';
@@ -46,4 +49,27 @@ const updateInterview = createAsyncThunk<
   return interview;
 });
 
-export { getInterview, getInterviewersByCategory, updateInterview };
+const getOtherByInterviewId = createAsyncThunk<
+  EntityPagination<InterviewsGetOtherItemResponseDto>,
+  InterviewsGetOtherRequestDto,
+  AsyncThunkConfig
+>(
+  ActionType.GET_OTHER_INTERVIEWS,
+  async ({ interviewId, count, page }, { extra }) => {
+    const { interviewsApi } = extra;
+    const otherInterviews = await interviewsApi.getOtherByInterviewId({
+      interviewId,
+      count,
+      page,
+    });
+
+    return otherInterviews;
+  },
+);
+
+export {
+  getInterview,
+  getInterviewersByCategory,
+  getOtherByInterviewId,
+  updateInterview,
+};
