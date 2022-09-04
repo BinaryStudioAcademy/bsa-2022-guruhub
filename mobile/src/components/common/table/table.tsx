@@ -1,5 +1,9 @@
 import React, { ReactElement } from 'react';
-import { Cell, Rows, Table as UITable } from 'react-native-table-component';
+import {
+  Cell,
+  Table as UITable,
+  TableWrapper,
+} from 'react-native-table-component';
 
 import { TableColumn } from '~/common/types/ui/ui';
 import { ScrollView, View } from '~/components/common/common';
@@ -46,11 +50,19 @@ const Table = <Data extends Record<string, unknown>>({
           ))}
         </UITable>
         <UITable>
-          <Rows
-            data={tableData}
-            widthArr={columnWidthArr}
-            textStyle={styles.dataText}
-          />
+          {tableData.map((rowData, index) => (
+            <TableWrapper key={index} style={styles.dataRow}>
+              {rowData.map((cellData, cellIndex) => (
+                <Cell
+                  key={cellIndex}
+                  data={cellData}
+                  width={columnWidthArr && columnWidthArr[cellIndex]}
+                  style={styles.dataCell}
+                  textStyle={styles.dataText}
+                />
+              ))}
+            </TableWrapper>
+          ))}
         </UITable>
       </View>
     </ScrollView>

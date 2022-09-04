@@ -16,7 +16,7 @@ const InterviewsTable: FC<Props> = ({ tableData }) => {
   return (
     <View style={styles.tableContainer}>
       <Table
-        columnWidthArr={[50, 180, 150, 150, 200, 250]}
+        columnWidthArr={[50, 180, 180, 150, 180, 155]}
         columns={interviewsColumns}
         data={tableData}
       />

@@ -6,6 +6,7 @@ import {
   InterviewsUpdateRequestParamsDto,
 } from '~/common/types/types';
 import {
+  Chip,
   Pagination,
   ScrollView,
   Spinner,
@@ -16,7 +17,6 @@ import { statusToColor } from '~/components/interviews/common/maps/maps';
 import {
   CategoryCell,
   IdCell,
-  StatusCell,
 } from '~/components/interviews/interviews-table/components/components';
 import { getFormattedDate } from '~/helpers/helpers';
 import {
@@ -53,13 +53,12 @@ const Interviews: FC = () => {
         id: <IdCell id={item.id} onPress={handleInterviewSelect} />,
         name: item.interviewee.userDetails.fullName,
         category: <CategoryCell category={item.courseCategory} />,
-        status: (
-          <StatusCell text={item.status} color={statusToColor[item.status]} />
-        ),
-        interviewer: item.interviewer?.userDetails.fullName ?? '',
+        status: <Chip text={item.status} color={statusToColor[item.status]} />,
+        interviewer:
+          item.interviewer?.userDetails.fullName ?? 'Not assigned yet',
         date: item.interviewDate
           ? getFormattedDate(item.interviewDate, 'kk:mm, dd/MM/yyyy')
-          : '',
+          : 'Not assigned yet',
       };
     },
   );

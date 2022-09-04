@@ -10,6 +10,8 @@ import {
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewUpdateRequestArgumentsDto,
 } from '~/common/types/types';
@@ -104,6 +106,27 @@ class InterviewsApi {
       }/${payload}${InterviewsApiPath.CATEGORIES}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    return this.#http.load<EntityPagination<InterviewsGetOtherItemResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.ROOT
+      }${interviewId}${InterviewsApiPath.OTHER}`,
+      {
+        method: HttpMethod.GET,
+        queryParams: {
+          count,
+          page,
+        },
       },
     );
   }
