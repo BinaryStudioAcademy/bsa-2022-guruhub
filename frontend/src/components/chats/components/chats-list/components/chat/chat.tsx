@@ -32,7 +32,7 @@ const Chat: FC<Props> = ({
       <Image
         width="40px"
         height="40px"
-        src={chatOpponent.userDetails.avatarUrl ?? defaultAvatar}
+        src={chatOpponent.userDetails.avatar?.url ?? defaultAvatar}
         alt="chat user avatar"
         isCircular
       />
