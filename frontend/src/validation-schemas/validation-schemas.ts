@@ -1,3 +1,4 @@
+export { chatMessageCreateArguments } from './chat-message/chat-message';
 export { courseCreate, courseUpdateCategory } from './course/course';
 export {
   groupConfigureClient,

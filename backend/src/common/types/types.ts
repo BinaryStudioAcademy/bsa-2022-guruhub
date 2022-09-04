@@ -1,5 +1,16 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type ChatGetAllMessagesRequestDto,
+  type ChatGetLastMessagesRequestDto,
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageCreateRequestDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+} from './chat-message/chat-message';
+export { IdContainer } from './common/common';
+export {
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
@@ -83,6 +94,7 @@ export {
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
+export { type DeepNonNullable } from './null/null';
 export { EntityPagination } from './pagination/pagination';
 export {
   type CheckPermisssionType,
