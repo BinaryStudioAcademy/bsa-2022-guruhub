@@ -45,6 +45,12 @@ const styles = StyleSheet.create({
   [`button${ButtonVariant.SECONDARY}Label`]: {
     color: AppColor.BRAND.BLUE_100,
   },
+  [`button${ButtonVariant.CANCEL}`]: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_200,
+  },
+  [`button${ButtonVariant.CANCEL}Label`]: {
+    color: AppColor.TEXT.GRAY_100,
+  },
 });
 
 export { styles };

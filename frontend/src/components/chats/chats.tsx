@@ -9,19 +9,33 @@ import {
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
 
-import { ChatsList, SearchUser } from './components/components';
+import { ChatsList, CurrentChat, SearchUser } from './components/components';
 import styles from './styles.module.scss';
 
 const Chats: FC = () => {
+  const {
+    authDataStatus,
+    chatDataStatus,
+    lastMessages,
+    user,
+    chatId,
+    currentChatMessages,
+    chatOpponent,
+  } = useAppSelector(({ auth, chats }) => ({
+    authDataStatus: auth.dataStatus,
+    user: auth.user,
+    chatDataStatus: chats.dataStatus,
+    lastMessages: chats.lastMessages,
+    chatId: chats.currentChatId,
+    currentChatMessages: chats.currentChatMessages,
+    chatOpponent: chats.chatOpponent,
+  }));
+
   const dispatch = useAppDispatch();
-  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
-    ({ auth, chats }) => ({
-      authDataStatus: auth.dataStatus,
-      user: auth.user,
-      chatDataStatus: chats.dataStatus,
-      lastMessages: chats.lastMessages,
-    }),
-  );
+
+  const handleChatMessagesLoad = (chatId: string): void => {
+    dispatch(chatsActions.getMessages({ id: chatId }));
+  };
 
   useEffect(() => {
     dispatch(chatsActions.getLastMessages({ fullName: '' }));
@@ -45,10 +59,17 @@ const Chats: FC = () => {
       <div className={styles.lastMessagesColumn}>
         <SearchUser searchParams={searchParams} onSearch={handleSearch} />
         <ChatsList
-          chatsList={lastMessages}
+          chatsItems={lastMessages}
           currentUserId={(user as UserWithPermissions).id}
+          onChatMessagesLoad={handleChatMessagesLoad}
         />
       </div>
+      <CurrentChat
+        chatId={chatId}
+        messages={currentChatMessages}
+        currentUserId={(user as UserWithPermissions).id}
+        chatOpponent={chatOpponent}
+      />
     </div>
   );
 };

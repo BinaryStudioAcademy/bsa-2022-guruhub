@@ -73,12 +73,12 @@ class MenteesToMentors {
       .where((builder) =>
         builder
           .where('mentorId', userId)
-          .where('mentee:userDetails.fullName', 'ilike', '%' + fullName + '%'),
+          .where('mentee:userDetails.fullName', 'ilike', `%${fullName}%`),
       )
       .orWhere((builder) =>
         builder
           .where('menteeId', userId)
-          .where('mentor:userDetails.fullName', 'ilike', '%' + fullName + '%'),
+          .where('mentor:userDetails.fullName', 'ilike', `%${fullName}%`),
       )
       .withGraphJoined(
         '[mentee(withoutPassword).[userDetails], mentor(withoutPassword).[userDetails]]',

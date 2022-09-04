@@ -16,6 +16,7 @@ type Props<T> = {
   items: ItemType<string | number>[];
   control: FormControl<T>;
   name: FormControlPath<T>;
+  label?: string;
   onSelectItem?: () => void;
   errors: FormControlErrors<T>;
   placeholder: string;
@@ -24,6 +25,7 @@ type Props<T> = {
 const Dropdown = <T extends FormControlValues>({
   items,
   name,
+  label,
   control,
   onSelectItem,
   errors,
@@ -36,6 +38,7 @@ const Dropdown = <T extends FormControlValues>({
 
   return (
     <>
+      {label && <Text style={styles.title}>{label}</Text>}
       <DropDownPicker
         open={open}
         value={value}

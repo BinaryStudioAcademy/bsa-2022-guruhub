@@ -129,18 +129,18 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.ANY}
-          element={
-            <AuthorizedWrapper>
-              <NotFound />
-            </AuthorizedWrapper>
-          }
-        />
-        <Route
           path={AppRoute.CHATS}
           element={
             <AuthorizedWrapper>
               <Chats />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.ANY}
+          element={
+            <AuthorizedWrapper>
+              <NotFound />
             </AuthorizedWrapper>
           }
         />

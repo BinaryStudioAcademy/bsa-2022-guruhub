@@ -29,10 +29,11 @@ const getMessages = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_MESSAGES, async (payload, { extra }) => {
   const { chatsApi } = extra;
-  const { chatId } = payload;
-  const messages = await chatsApi.getAllChatMessages(chatId);
+  const { id } = payload;
 
-  return messages;
+  const messagesDto = await chatsApi.getAllChatMessages(id);
+
+  return messagesDto;
 });
 
 const createMessage = createAsyncThunk<

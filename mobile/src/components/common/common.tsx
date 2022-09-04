@@ -3,6 +3,7 @@ export { Button } from './button/button';
 export { Category } from './category/category';
 export { CategoryImage } from './category-image/category-image';
 export { Checkbox } from './checkbox/checkbox';
+export { Chip } from './chip/chip';
 export { Content } from './content/content';
 export { Dropdown } from './dropdown/dropdown';
 export { FAB } from './fab/fab';

@@ -15,6 +15,7 @@ export {
   type CourseModulesGetAllResponseDto,
 } from './course-modules/course-modules';
 export {
+  type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
@@ -41,13 +42,23 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsByIdRequestParamsDto,
+  type InterviewsByIdResponseDto,
+  type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetInterviewerResponseDto,
   type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
+  type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
   type InterviewUpdateRequestArgumentsDto,
 } from './interviews/interviews';
+export {
+  type CoursesToMentorsRequestDto,
+  type CoursesToMentorsResponseDto,
+} from './mentor/mentor';
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
