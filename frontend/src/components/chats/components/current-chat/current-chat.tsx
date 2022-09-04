@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   chatId: string | null;
-  chatOpponent: ChatMessageUserResponseDto | undefined;
+  chatOpponent: ChatMessageUserResponseDto | null;
   currentUserId: number;
   messages: ChatMessageGetAllItemResponseDto[];
 };

@@ -15,7 +15,7 @@ const Chats: FC = () => {
     user,
     chatId,
     currentChatMessages,
-    chatParticiapants,
+    chatOpponent,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
     user: auth.user,
@@ -23,7 +23,7 @@ const Chats: FC = () => {
     lastMessages: chats.lastMessages,
     chatId: chats.currentChatId,
     currentChatMessages: chats.currentChatMessages,
-    chatParticiapants: chats.chatParticipants,
+    chatOpponent: chats.chatOpponent,
   }));
 
   const dispatch = useAppDispatch();
@@ -55,11 +55,7 @@ const Chats: FC = () => {
           chatId={chatId}
           messages={currentChatMessages}
           currentUserId={user.id}
-          chatOpponent={
-            chatParticiapants?.first.id === user.id
-              ? chatParticiapants.second
-              : chatParticiapants?.first
-          }
+          chatOpponent={chatOpponent}
         />
       </div>
     )

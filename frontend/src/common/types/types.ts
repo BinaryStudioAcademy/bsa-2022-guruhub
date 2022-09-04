@@ -4,9 +4,7 @@ export {
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessagesGetAllWithParticipantsDto,
   type ChatMessageUserResponseDto,
-  type ChatParticipantsDto,
 } from './chat-message/chat-message';
 export {
   type CourseCreateRequestDto,

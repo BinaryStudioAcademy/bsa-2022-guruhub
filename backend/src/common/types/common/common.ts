@@ -1,1 +1,1 @@
-export { IdContainer } from './id-container/id-containter.type';
+export { IdContainer } from './id-container/id-container.type';

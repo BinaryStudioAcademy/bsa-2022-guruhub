@@ -5,7 +5,6 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllRequestParamsDto,
   ChatMessageGetAllResponseDto,
-  ChatMessagesGetAllWithParticipantsDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
@@ -22,29 +21,16 @@ const getLastMessages = createAsyncThunk<
 });
 
 const getMessages = createAsyncThunk<
-  ChatMessagesGetAllWithParticipantsDto,
+  ChatMessageGetAllResponseDto,
   ChatMessageGetAllRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MESSAGES, async (payload, { extra }) => {
   const { chatsApi } = extra;
   const { id } = payload;
 
-  const messages = await chatsApi.getAllChatMessages(id);
-  let participants = null;
+  const messagesDto = await chatsApi.getAllChatMessages(id);
 
-  const [currentChatMessage] = messages.items;
-
-  if (currentChatMessage) {
-    participants = {
-      first: currentChatMessage.sender,
-      second: currentChatMessage.receiver,
-    };
-  }
-
-  return {
-    ...messages,
-    participants,
-  };
+  return messagesDto;
 });
 
 const createMessage = createAsyncThunk<

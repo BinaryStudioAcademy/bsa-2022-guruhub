@@ -3,7 +3,6 @@ import {
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllLastResponseDto,
-  ChatMessageGetAllResponseDto,
   IdContainer,
 } from '~/common/types/types';
 import {
@@ -32,12 +31,12 @@ class ChatMessage {
 
   public async getAll({
     chatId,
-  }: ChatGetAllMessagesRequestDto): Promise<ChatMessageGetAllResponseDto> {
+  }: ChatGetAllMessagesRequestDto): Promise<ChatMessageGetAllLastResponseDto> {
     const chatMessages = await this.#chatMessageRepository.getAll({
       chatId,
     });
 
-    return { items: chatMessages, chatId };
+    return { items: chatMessages };
   }
 
   public async getAllLastMessages(
