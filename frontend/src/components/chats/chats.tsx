@@ -1,5 +1,5 @@
 import { DataStatus } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
@@ -44,21 +44,19 @@ const Chats: FC = () => {
   }
 
   return (
-    user && (
-      <div className={styles.chats}>
-        <ChatsList
-          chatsList={lastMessages}
-          currentUserId={user.id}
-          onChatMessagesLoad={handleChatMessagesLoad}
-        />
-        <CurrentChat
-          chatId={chatId}
-          messages={currentChatMessages}
-          currentUserId={user.id}
-          chatOpponent={chatOpponent}
-        />
-      </div>
-    )
+    <div className={styles.chats}>
+      <ChatsList
+        chatsItems={lastMessages}
+        currentUserId={(user as UserWithPermissions).id}
+        onChatMessagesLoad={handleChatMessagesLoad}
+      />
+      <CurrentChat
+        chatId={chatId}
+        messages={currentChatMessages}
+        currentUserId={(user as UserWithPermissions).id}
+        chatOpponent={chatOpponent}
+      />
+    </div>
   );
 };
 
