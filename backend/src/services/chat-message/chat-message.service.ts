@@ -43,7 +43,7 @@ class ChatMessage {
   public async getAllLastMessages(
     userId: number,
     filteringOpts: ChatMessageFilteringDto,
-  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+  ): Promise<ChatMessageGetAllLastResponseDto> {
     const { fullName } = filteringOpts;
 
     const userMenteesOrMentors =
@@ -70,9 +70,14 @@ class ChatMessage {
       (chatMessage: ChatMessageM) => chatMessage.id,
     );
 
-    return this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
-      lastMessagesInChatsIds,
-    );
+    const lastMessagesWithMentorsAndMentees =
+      await this.#chatMessageRepository.getLastMessagesWithMentorsAndMentees(
+        lastMessagesInChatsIds,
+      );
+
+    return {
+      items: lastMessagesWithMentorsAndMentees,
+    };
   }
 
   public create(

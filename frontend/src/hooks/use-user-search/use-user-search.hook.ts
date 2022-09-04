@@ -4,7 +4,7 @@ import { chatsActions } from 'store/actions';
 
 type UseCourseSearchResult = {
   searchParams: URLSearchParams;
-  performSearch: (name: string, value: string) => void;
+  handleSearchPerform: (name: string, value: string) => void;
 };
 
 const useUserSearch = (): UseCourseSearchResult => {
@@ -12,7 +12,7 @@ const useUserSearch = (): UseCourseSearchResult => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const performSearch = (name: string, value: string): void => {
+  const handleSearchPerform = (name: string, value: string): void => {
     if (searchParams.has(name) && !value) {
       searchParams.delete(name);
       setSearchParams(searchParams);
@@ -28,7 +28,7 @@ const useUserSearch = (): UseCourseSearchResult => {
     dispatch(chatsActions.getLastMessages({ fullName }));
   };
 
-  return { searchParams, performSearch };
+  return { searchParams, handleSearchPerform };
 };
 
 export { useUserSearch };

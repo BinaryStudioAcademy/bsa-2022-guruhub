@@ -29,7 +29,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getLastMessages.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.lastMessages = action.payload;
+    state.lastMessages = action.payload.items;
   });
   builder.addCase(getLastMessages.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;

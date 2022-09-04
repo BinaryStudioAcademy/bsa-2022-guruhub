@@ -41,10 +41,10 @@ const Chats: FC = () => {
     dispatch(chatsActions.getLastMessages({ fullName: '' }));
   }, [dispatch]);
 
-  const { performSearch, searchParams } = useUserSearch();
+  const { handleSearchPerform, searchParams } = useUserSearch();
 
   const handleSearch = (search: string): void => {
-    performSearch(SearchValue.FULLNAME, search);
+    handleSearchPerform(SearchValue.FULLNAME, search);
   };
 
   if (

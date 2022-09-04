@@ -10,17 +10,17 @@ type Props = {
 };
 
 const CategoriesList: FC<Props> = ({ items }) => {
-  const { searchParams, performSearch } = useCourseSearch();
+  const { searchParams, handleSearchPerform } = useCourseSearch();
 
   const activeCategory = searchParams.get(SearchValue.CATEGORY) ?? '';
 
   const handleClick = (keyName: string): void => {
     if (keyName === searchParams.get(SearchValue.CATEGORY)) {
-      performSearch(SearchValue.CATEGORY, '');
+      handleSearchPerform(SearchValue.CATEGORY, '');
 
       return;
     }
-    performSearch(SearchValue.CATEGORY, keyName);
+    handleSearchPerform(SearchValue.CATEGORY, keyName);
   };
 
   return (

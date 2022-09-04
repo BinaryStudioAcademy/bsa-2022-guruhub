@@ -14,16 +14,16 @@ type Props = {
 const SearchUser: FC<Props> = ({ onSearch, searchParams }) => {
   const { errors, control, watch, setFocus } = useAppForm<SearchUserPayload>({
     defaultValues: {
-      searchUser: searchParams.get(SearchValue.FULLNAME) ?? '',
+      fullName: searchParams.get(SearchValue.FULLNAME) ?? '',
     },
   });
 
   const handlePassOuterFormInputValue = (): void => {
-    onSearch(watch('searchUser'));
+    onSearch(watch(SearchValue.FULLNAME));
   };
 
   useEffect(() => {
-    setFocus('searchUser');
+    setFocus(SearchValue.FULLNAME);
   }, []);
 
   return (
@@ -36,8 +36,8 @@ const SearchUser: FC<Props> = ({ onSearch, searchParams }) => {
         <Input
           control={control}
           errors={errors}
-          name="searchUser"
-          label="searchUser"
+          name="fullName"
+          label="fullName"
           placeholder="Search your mentor or mentee"
           inputClassName={styles.searchField}
           hasVisuallyHiddenLabel

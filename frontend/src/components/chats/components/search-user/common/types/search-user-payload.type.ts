@@ -1,5 +1,5 @@
 type SearchUserPayload = {
-  searchUser: string;
+  fullName: string;
 };
 
 export { SearchUserPayload };
