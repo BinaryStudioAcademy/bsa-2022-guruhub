@@ -1,5 +1,5 @@
 type ChatMessageGetAllRequestParamsDto = {
-  chatId: string;
+  id: string;
 };
 
 export { type ChatMessageGetAllRequestParamsDto };

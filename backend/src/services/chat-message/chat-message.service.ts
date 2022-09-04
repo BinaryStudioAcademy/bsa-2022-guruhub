@@ -10,28 +10,22 @@ import {
   chatMessage as chatMessageRep,
   menteesToMentors as menteesToMentorsRep,
 } from '~/data/repositories/repositories';
-import { sanitizeHTML } from '~/helpers/helpers';
-import { uuid as uuidServ } from '~/services/services';
+import { createUuid, sanitizeHTML } from '~/helpers/helpers';
 
 type Constructor = {
-  uuidService: typeof uuidServ;
   chatMessageRepository: typeof chatMessageRep;
   menteesToMentorsRepository: typeof menteesToMentorsRep;
 };
 
 class ChatMessage {
-  #uuidService: typeof uuidServ;
-
   #chatMessageRepository: typeof chatMessageRep;
 
   #menteesToMentorsRepository: typeof menteesToMentorsRep;
 
   public constructor({
-    uuidService,
     chatMessageRepository,
     menteesToMentorsRepository,
   }: Constructor) {
-    this.#uuidService = uuidService;
     this.#chatMessageRepository = chatMessageRepository;
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
@@ -78,7 +72,7 @@ class ChatMessage {
       receiverId,
       senderId,
       message: sanitizeHTML(message),
-      chatId: chatId ?? this.#uuidService.createUuid(),
+      chatId: chatId ?? createUuid(),
       status,
     });
   }

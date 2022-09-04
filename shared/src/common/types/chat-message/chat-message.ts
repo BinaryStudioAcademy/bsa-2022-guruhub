@@ -6,3 +6,4 @@ export { type ChatMessageGetAllItemResponseDto } from './chat-message-get-all-it
 export { type ChatMessageGetAllLastResponseDto } from './chat-message-get-all-last-response-dto.type';
 export { type ChatMessageGetAllRequestParamsDto } from './chat-message-get-all-request-params-dto.type';
 export { type ChatMessageGetAllResponseDto } from './chat-message-get-all-response-dto.type';
+export { type ChatMessageUserResponseDto } from './chat-message-user-response-dto-type';

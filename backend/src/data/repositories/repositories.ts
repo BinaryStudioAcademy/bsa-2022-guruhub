@@ -11,6 +11,8 @@ import {
   InterviewNote as InterviewNoteModel,
   MenteesToMentors as MenteesToMentorsModel,
   Permission as PermissionModel,
+  Task as TaskModel,
+  TaskNote as TaskNoteModel,
   User as UserModel,
   UserDetails as UserDetailsModel,
   UsersToGroups as UsersToGroupsModel,
@@ -29,6 +31,8 @@ import { Interview } from './interview/interview.repository';
 import { InterviewNote } from './interview-note/interview-note.repository';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.repository';
 import { Permission } from './permission/permission.repository';
+import { Task } from './task/task.repository';
+import { TaskNote } from './task-note/task-note.repository';
 import { User } from './user/user.repository';
 import { UserDetails } from './user-details/user-details.repository';
 import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
@@ -84,6 +88,10 @@ const chatMessage = new ChatMessage({
   ChatMessageModel,
 });
 
+const task = new Task({ TaskModel });
+
+const taskNote = new TaskNote({ TaskNoteModel });
+
 export {
   chatMessage,
   course,
@@ -97,6 +105,8 @@ export {
   interviewNote,
   menteesToMentors,
   permission,
+  task,
+  taskNote,
   user,
   userDetails,
   usersToGroups,

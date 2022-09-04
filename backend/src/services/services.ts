@@ -13,6 +13,8 @@ import {
   interviewNote as interviewNoteRepository,
   menteesToMentors as menteesToMentorsRepository,
   permission as permissionRepository,
+  task as taskRepository,
+  taskNote as taskNoteRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -36,19 +38,18 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
+import { Task } from './task/task.service';
+import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
 import { UsersToGroups } from './users-to-groups/users-to-groups.service';
-import { Uuid } from './uuid/uuid.service';
 import { Vendor } from './vendor/vendor.service';
 
 const encrypt = new Encrypt({
   salt: USER_PASSWORD_SALT_ROUNDS,
 });
-
-const uuid = new Uuid();
 
 const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
@@ -148,10 +149,13 @@ const mentor = new Mentor({
 });
 
 const chatMessage = new ChatMessage({
-  uuidService: uuid,
   chatMessageRepository,
   menteesToMentorsRepository,
 });
+
+const taskNote = new TaskNote({ taskNoteRepository });
+
+const task = new Task({ taskRepository, taskNoteService: taskNote });
 
 export {
   auth,
@@ -171,11 +175,12 @@ export {
   menteesToMentors,
   mentor,
   permission,
+  task,
+  taskNote,
   token,
   udemy,
   user,
   userDetails,
   usersToGroups,
-  uuid,
   vendor,
 };
