@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import {
@@ -20,7 +20,6 @@ type Props<T extends FormControlValues> = {
   errors: FormControlErrors<T>;
   placeholder?: string;
   rows?: number;
-  style?: TextInputProps;
 };
 
 const Input = <T extends FormControlValues>({

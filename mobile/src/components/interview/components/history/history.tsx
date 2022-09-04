@@ -53,15 +53,14 @@ const History: FC = () => {
     reset();
   };
 
-  const hasPermissionManageInterwiews = checkHasPermission({
+  const hasManageInterwiewsPermission = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
     userPermissions: user?.permissions ?? [],
   });
 
-  const checkToShowButton =
-    !isFormOpen && hasPermissionManageInterwiews
-      ? true
-      : interviewerId === user?.id;
+  const canUserAddNote =
+    hasManageInterwiewsPermission || interviewerId === user?.id;
+  const isAddButtonShown = !isFormOpen && canUserAddNote;
 
   const handleAdd = async (
     payload: InterviewNoteCreateRequestDto,
@@ -94,7 +93,7 @@ const History: FC = () => {
     <ScrollView style={styles.wrapper}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>History</Text>
-        {checkToShowButton && (
+        {isAddButtonShown && (
           <Button
             label="Add"
             variant={ButtonVariant.SECONDARY}
