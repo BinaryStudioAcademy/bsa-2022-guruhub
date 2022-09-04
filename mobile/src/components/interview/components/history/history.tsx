@@ -6,7 +6,6 @@ import {
   Button,
   Input,
   ScrollView,
-  Spinner,
   Stack,
   Text,
   View,
@@ -29,7 +28,7 @@ import { NoteCardsList } from './components/components';
 import { styles } from './styles';
 
 const History: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const dispatch = useAppDispatch();
 
   const { user, interviewId, interviewDataStatus, notes } = useAppSelector(
@@ -50,7 +49,7 @@ const History: FC = () => {
   const isLoading = interviewDataStatus === DataStatus.PENDING;
 
   const toggleInput = (): void => {
-    setIsOpen((prev) => !prev);
+    setIsFormOpen((prev) => !prev);
     reset();
   };
 
@@ -63,10 +62,14 @@ const History: FC = () => {
     checkMode: 'every',
   });
 
-  const handleAdd = (payload: InterviewNoteCreateRequestDto): void => {
+  const handleAdd = async (
+    payload: InterviewNoteCreateRequestDto,
+  ): Promise<void> => {
     if (interviewId) {
       const { note } = payload;
-      dispatch(interviewActions.createNote({ note, interviewId: interviewId }));
+      await dispatch(
+        interviewActions.createNote({ note, interviewId: interviewId }),
+      );
       toggleInput();
     }
   };
@@ -80,21 +83,21 @@ const History: FC = () => {
   useFocusEffect(
     useCallback(() => {
       return () => {
-        setIsOpen(false);
+        setIsFormOpen(false);
         reset();
       };
     }, []),
   );
 
-  if (isLoading) {
-    return <Spinner isOverflow />;
-  }
+  // if (isLoading) {
+  //   return <Spinner isOverflow />;
+  // }
 
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>History</Text>
-        {!isOpen && hasPermission && (
+        {!isFormOpen && hasPermission && (
           <Button
             label="Add"
             variant={ButtonVariant.SECONDARY}
@@ -104,7 +107,7 @@ const History: FC = () => {
           />
         )}
       </View>
-      {isOpen && (
+      {isFormOpen && (
         <View style={styles.inputContainer}>
           <Input
             label="Write your note"
@@ -112,12 +115,11 @@ const History: FC = () => {
             errors={errors}
             control={control}
             name="note"
-            numberOfLines={3}
-            multiline
+            rows={5}
             style={styles.input}
           />
           <View style={styles.buttonContainer}>
-            <Stack isHorizontal space={40}>
+            <Stack isHorizontal space={20}>
               <View style={styles.button}>
                 <Button
                   label="Cancel"
@@ -132,6 +134,7 @@ const History: FC = () => {
                   variant={ButtonVariant.PRIMARY}
                   onPress={handleSubmit(handleAdd)}
                   size="small"
+                  isLoading={isLoading}
                 />
               </View>
             </Stack>

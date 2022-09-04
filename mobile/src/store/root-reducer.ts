@@ -18,8 +18,8 @@ const rootReducer = {
   categories,
   courseModules,
   userDetails,
-  interviews,
   interview,
+  interviews,
 };
 
 export { rootReducer };

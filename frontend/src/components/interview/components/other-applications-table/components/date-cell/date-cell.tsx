@@ -5,7 +5,7 @@ import { CellProps } from 'react-table';
 
 const DateCell: FC<CellProps<OtherApplicationsTableRow>> = ({ value }) => {
   const formattedDate = value
-    ? getFormattedDate(value, 'kk:mm, dd/MM/yyyy')
+    ? getFormattedDate(value, 'HH:mm dd.MM.yyyy')
     : 'Not Set';
 
   return <span>{formattedDate}</span>;

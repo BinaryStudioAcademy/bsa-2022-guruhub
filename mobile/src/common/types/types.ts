@@ -49,10 +49,14 @@ export {
   type InterviewNoteGetRequestArgumentsDto,
 } from './interview-note/interview-note';
 export {
+  type InterviewsByIdRequestParamsDto,
+  type InterviewsByIdResponseDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetInterviewerResponseDto,
   type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,

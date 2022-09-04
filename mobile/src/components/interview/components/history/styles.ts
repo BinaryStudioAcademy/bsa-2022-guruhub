@@ -28,11 +28,12 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
     borderRadius: 10,
+    textAlignVertical: 'top',
   },
   buttonContainer: {
     marginTop: 20,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   button: {
     width: 120,

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   date: {
+    marginTop: 10,
     color: AppColor.TEXT.GRAY_200,
   },
   textContainer: {

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { TextInput, TextStyle } from 'react-native';
+import { TextInput, TextInputProps } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import {
@@ -19,9 +19,8 @@ type Props<T extends FormControlValues> = {
   control: FormControl<T>;
   errors: FormControlErrors<T>;
   placeholder?: string;
-  numberOfLines?: number;
-  multiline?: boolean;
-  style?: TextStyle;
+  rows?: number;
+  style?: TextInputProps;
 };
 
 const Input = <T extends FormControlValues>({
@@ -30,8 +29,7 @@ const Input = <T extends FormControlValues>({
   control,
   errors,
   placeholder,
-  numberOfLines,
-  multiline,
+  rows,
   style,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
@@ -50,8 +48,8 @@ const Input = <T extends FormControlValues>({
         onBlur={onBlur}
         style={{ ...styles.input, ...style }}
         secureTextEntry={name === 'password'}
-        numberOfLines={numberOfLines}
-        multiline={multiline}
+        numberOfLines={rows}
+        multiline={Boolean(rows)}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
     </View>
