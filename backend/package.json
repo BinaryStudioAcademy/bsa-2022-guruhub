@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "@types/bcrypt": "5.0.0",
-    "@types/uuid": "8.3.4",
     "nodemon": "2.0.19",
     "pino-pretty": "8.1.0",
     "ts-node": "10.8.2",
@@ -46,7 +45,6 @@
     "jose": "4.8.3",
     "knex": "2.1.0",
     "objection": "3.0.1",
-    "pg": "8.7.3",
-    "uuid": "8.3.2"
+    "pg": "8.7.3"
   }
 }

@@ -1,1 +1,1 @@
-export { createUuid } from './create-uuid.helper';
+export { createUuid } from 'guruhub-shared/helpers/helpers';

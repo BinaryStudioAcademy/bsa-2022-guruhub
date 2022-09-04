@@ -44,7 +44,6 @@ export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
 } from './courses-to-mentors/courses-to-mentors';
-export { type DeepNonNullable } from './deep-non-nullable/deep-non-nullable.type';
 export { type EdxCourseGetResponseDto } from './edx/edx';
 export { type EncryptionData } from './encryption/encryption';
 export {
@@ -95,6 +94,7 @@ export {
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
+export { type DeepNonNullable } from './null/null';
 export { EntityPagination } from './pagination/pagination';
 export {
   type CheckPermisssionType,
