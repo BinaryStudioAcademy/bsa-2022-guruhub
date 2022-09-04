@@ -41,7 +41,7 @@ async function up(knex: Knex): Promise<void> {
       .notNullable()
       .onDelete(DELETE_STRATEGY);
     table.text(ColumnName.MESSAGE).notNullable();
-    table.string(ColumnName.CHAT_ID).notNullable();
+    table.uuid(ColumnName.CHAT_ID).notNullable();
   });
 }
 

@@ -7,9 +7,15 @@ import {
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  InterviewNoteCreateDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArgumentsDto,
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
+  InterviewsGetOtherItemResponseDto,
+  InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewUpdateRequestArgumentsDto,
 } from '~/common/types/types';
@@ -84,6 +90,33 @@ class InterviewsApi {
     );
   }
 
+  public getAllNotes({
+    interviewId,
+  }: InterviewNoteGetRequestArgumentsDto): Promise<InterviewNoteGetAllResponseDto> {
+    return this.#http.load<InterviewNoteGetAllResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      { method: HttpMethod.GET },
+    );
+  }
+
+  public createNote({
+    interviewId,
+    note,
+  }: InterviewNoteCreateDto): Promise<InterviewNoteGetAllItemResponseDto> {
+    return this.#http.load<InterviewNoteGetAllItemResponseDto>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
+        InterviewsApiPath.NOTES
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ note }),
+      },
+    );
+  }
+
   public createInterview(
     payload: InterviewsCreateRequestBodyDto,
   ): Promise<InterviewsResponseDto> {
@@ -104,6 +137,27 @@ class InterviewsApi {
       }/${payload}${InterviewsApiPath.CATEGORIES}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getOtherByInterviewId({
+    interviewId,
+    count,
+    page,
+  }: InterviewsGetOtherRequestDto): Promise<
+    EntityPagination<InterviewsGetOtherItemResponseDto>
+  > {
+    return this.#http.load<EntityPagination<InterviewsGetOtherItemResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.ROOT
+      }${interviewId}${InterviewsApiPath.OTHER}`,
+      {
+        method: HttpMethod.GET,
+        queryParams: {
+          count,
+          page,
+        },
       },
     );
   }

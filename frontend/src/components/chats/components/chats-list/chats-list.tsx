@@ -10,25 +10,27 @@ import styles from './styles.module.scss';
 
 type Props = {
   currentUserId: number;
-  chatsList: ChatMessageGetAllItemResponseDto[];
+  chatsItems: ChatMessageGetAllItemResponseDto[];
   onChatMessagesLoad: (chatId: string) => void;
 };
 
 const ChatsList: FC<Props> = ({
   currentUserId,
-  chatsList,
+  chatsItems,
   onChatMessagesLoad,
 }) => {
+  const hasChatItems = Boolean(chatsItems.length);
+
   return (
     <div className={styles.listWrapper}>
       <h3 className={styles.messagesTitle}>Messages</h3>
-      {!chatsList.length ? (
+      {!hasChatItems ? (
         <h4 className={styles.noChatsTitle}>
           There are no active chats with you for now
         </h4>
       ) : (
-        <ol className={styles.chatsList}>
-          {chatsList.map((chat) => {
+        <ul className={styles.chatsList}>
+          {chatsItems.map((chat) => {
             const chatOpponent: ChatMessageUserResponseDto =
               chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
@@ -49,7 +51,7 @@ const ChatsList: FC<Props> = ({
               </li>
             );
           })}
-        </ol>
+        </ul>
       )}
     </div>
   );

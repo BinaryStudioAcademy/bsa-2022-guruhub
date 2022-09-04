@@ -1,5 +1,4 @@
 import {
-  IdContainer,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
@@ -64,21 +63,26 @@ class MenteesToMentors {
     return Boolean(menteeToMentor);
   }
 
-  public getMentors(userId: number): Promise<IdContainer[]> {
+  public getMenteesOrMentorsByFullName(
+    userId: number,
+    fullName: string,
+  ): Promise<MenteesToMentorsM[]> {
     return this.#MenteesToMentorsModel
       .query()
-      .select('mentorId as id')
-      .where({ menteeId: userId })
-      .castTo<IdContainer[]>()
-      .execute();
-  }
-
-  public getMentees(userId: number): Promise<IdContainer[]> {
-    return this.#MenteesToMentorsModel
-      .query()
-      .select('menteeId as id')
-      .where({ mentorId: userId })
-      .castTo<IdContainer[]>()
+      .select('menteeId', 'mentorId')
+      .where((builder) =>
+        builder
+          .where('mentorId', userId)
+          .where('mentee:userDetails.fullName', 'ilike', `%${fullName}%`),
+      )
+      .orWhere((builder) =>
+        builder
+          .where('menteeId', userId)
+          .where('mentor:userDetails.fullName', 'ilike', `%${fullName}%`),
+      )
+      .withGraphJoined(
+        '[mentee(withoutPassword).[userDetails], mentor(withoutPassword).[userDetails]]',
+      )
       .execute();
   }
 }

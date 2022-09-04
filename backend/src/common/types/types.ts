@@ -5,6 +5,7 @@ export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
   type ChatMessageCreateRequestWithStatusDto,
+  type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
@@ -95,6 +96,7 @@ export {
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
+export { type DeepNonNullable } from './null/null';
 export { EntityPagination } from './pagination/pagination';
 export {
   type CheckPermisssionType,
@@ -133,6 +135,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';

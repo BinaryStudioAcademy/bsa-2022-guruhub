@@ -5,7 +5,7 @@ import { useAppDispatch, useAppForm } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
 import { chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { getDefaultMessagePayload } from './common';
+import { getDefaultMessagePayload } from './helpers/helpers';
 
 type Props = {
   chatId: string | null;

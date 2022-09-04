@@ -23,7 +23,7 @@ const MentorCard: FC<Props> = ({ mentor, onChoose }) => {
         <Image
           style={styles.avatar}
           source={{
-            uri: mentor?.avatarUrl ?? getImageUri(defaultCourseImage),
+            uri: mentor?.avatar?.url ?? getImageUri(defaultCourseImage),
           }}
         />
       </View>

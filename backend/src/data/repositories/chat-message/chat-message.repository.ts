@@ -4,6 +4,7 @@ import {
   ChatGetLastMessagesRequestDto,
   ChatMessageCreateRequestWithStatusDto,
   ChatMessageGetAllItemResponseDto,
+  DeepNonNullable,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 
@@ -40,7 +41,7 @@ class ChatMessage {
     message,
     chatId,
     status,
-  }: ChatMessageCreateRequestWithStatusDto): Promise<ChatMessageGetAllItemResponseDto> {
+  }: DeepNonNullable<ChatMessageCreateRequestWithStatusDto>): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
       .insert({
@@ -84,6 +85,41 @@ class ChatMessage {
       .first();
 
     return Boolean(hasUnreadMessages);
+  }
+
+  public getLastMessagesInChats(
+    userId: number,
+    menteesAndMentors: number[],
+  ): Promise<ChatMessageM[]> {
+    return this.#ChatMessageModel
+      .query()
+      .max('id as id')
+      .where((builder) =>
+        builder
+          .where('receiverId', userId)
+          .whereIn('senderId', menteesAndMentors),
+      )
+      .orWhere((builder) =>
+        builder
+          .where('senderId', userId)
+          .whereIn('receiverId', menteesAndMentors),
+      )
+      .groupBy('chatId')
+      .execute();
+  }
+
+  public getLastMessagesWithMentorsAndMentees(
+    lastMessagesInChatsIds: number[],
+  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+    return this.#ChatMessageModel
+      .query()
+      .select('chatMessages.id', 'message', 'createdAt', 'chatId')
+      .whereIn('chatMessages.id', lastMessagesInChatsIds)
+      .withGraphFetched(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
+      .castTo<ChatMessageGetAllItemResponseDto[]>()
+      .execute();
   }
 }
 

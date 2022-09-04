@@ -4,6 +4,7 @@ export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
   type ChatMessageCreateRequestWithStatusDto,
+  type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,

@@ -1,9 +1,15 @@
 import { FastifyPluginAsync } from 'fastify';
 
-import { WHITE_ROUTES } from '~/common/constants/constants';
+import {
+  ALLOWED_IMAGE_EXTENSIONS,
+  WHITE_ROUTES,
+} from '~/common/constants/constants';
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
-import { authorization as authorizationPlugin } from '~/plugins/plugins';
+import {
+  authorization as authorizationPlugin,
+  file as filePlugin,
+} from '~/plugins/plugins';
 import {
   auth,
   chatMessage,
@@ -46,6 +52,10 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       token,
     },
     routesWhiteList: WHITE_ROUTES,
+  });
+
+  fastify.register(filePlugin, {
+    allowedExtensions: ALLOWED_IMAGE_EXTENSIONS,
   });
 
   fastify.register(initAuthApi, {

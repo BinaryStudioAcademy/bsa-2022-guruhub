@@ -1,12 +1,12 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
   type ChatMessageCreateRequestBodyDto,
+  type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessagesGetAllWithParticipantsDto,
   type ChatMessageUserResponseDto,
-  type ChatParticipantsDto,
 } from './chat-message/chat-message';
 export {
   type CourseCreateRequestDto,
@@ -119,6 +119,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

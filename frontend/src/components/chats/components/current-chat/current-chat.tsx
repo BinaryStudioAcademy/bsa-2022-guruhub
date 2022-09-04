@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   chatId: string | null;
-  chatOpponent: ChatMessageUserResponseDto | undefined;
+  chatOpponent: ChatMessageUserResponseDto | null;
   currentUserId: number;
   messages: ChatMessageGetAllItemResponseDto[];
 };
@@ -20,13 +20,15 @@ const CurrentChat: FC<Props> = ({
   currentUserId,
   messages,
 }) => {
+  const hasMessages = Boolean(messages.length);
+
   return (
     <div className={styles.currentChatWrapper}>
       <div className={styles.currentChatHeader}>
         {chatOpponent && <h4>{chatOpponent.userDetails.fullName}</h4>}
       </div>
       <div className={styles.currentChatContent}>
-        {messages.length ? (
+        {hasMessages ? (
           <MessagesList currentUserId={currentUserId} messages={messages} />
         ) : (
           <h1 className={styles.emptyChatMessage}>

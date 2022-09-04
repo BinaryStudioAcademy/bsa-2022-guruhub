@@ -3,6 +3,7 @@ export { type ChatGetLastMessagesRequestDto } from './chat-get-last-messages-req
 export { type ChatMessageCreateRequestBodyDto } from './chat-message-create-request-body-dto.type';
 export { type ChatMessageCreateRequestDto } from './chat-message-create-request-dto.type';
 export { type ChatMessageCreateRequestWithStatusDto } from './chat-message-create-request-with-status-dto.type';
+export { type ChatMessageFilteringDto } from './chat-message-filtering-dto.type';
 export { type ChatMessageGetAllItemResponseDto } from './chat-message-get-all-item-response-dto.type';
 export { type ChatMessageGetAllLastResponseDto } from './chat-message-get-all-last-response-dto.type';
 export { type ChatMessageGetAllRequestParamsDto } from './chat-message-get-all-request-params-dto.type';

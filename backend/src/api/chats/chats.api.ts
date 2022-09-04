@@ -3,11 +3,13 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { ChatsApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import {
   ChatMessageCreateRequestBodyDto,
+  ChatMessageFilteringDto,
   ChatMessageGetAllRequestParamsDto,
 } from '~/common/types/types';
 import { chatMessage as chatMessageService } from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
+  chatMessageFiltering as сhatMessageFilteringValidationSchema,
   chatMessageGetAllParams as chatMessageGetAllParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -23,12 +25,22 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: ChatsApiPath.ROOT,
-    async handler(req, rep) {
+    schema: {
+      querystring: сhatMessageFilteringValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Querystring: ChatMessageFilteringDto;
+      }>,
+      rep,
+    ) {
       const { id } = req.user;
-      const allChatsLastMessagesDto =
-        await chatMessageService.getAllLastMessages(id);
+      const { fullName } = req.query;
 
-      return rep.status(HttpCode.OK).send(allChatsLastMessagesDto);
+      const allChatsLastMessagesMessagesDto =
+        await chatMessageService.getAllLastMessages(id, { fullName });
+
+      return rep.status(HttpCode.OK).send(allChatsLastMessagesMessagesDto);
     },
   });
 
@@ -42,12 +54,23 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       req: FastifyRequest<{ Params: ChatMessageGetAllRequestParamsDto }>,
       rep,
     ) {
+      const { id: userId } = req.user;
       const { id } = req.params;
-      const chatMessagesDto = await chatMessageService.getAll({
+      const { items } = await chatMessageService.getAll({
         chatId: id,
       });
 
-      return rep.status(HttpCode.OK).send(chatMessagesDto);
+      let chatOpponent = null;
+      const [currentChatMessage] = items;
+
+      if (currentChatMessage) {
+        chatOpponent =
+          currentChatMessage.sender.id === userId
+            ? currentChatMessage.receiver
+            : currentChatMessage.sender;
+      }
+
+      return rep.status(HttpCode.OK).send({ items, chatId: id, chatOpponent });
     },
   });
 

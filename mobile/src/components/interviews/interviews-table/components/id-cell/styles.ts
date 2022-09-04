@@ -8,8 +8,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 24,
     color: AppColor.TEXT.GRAY_200,
-    marginTop: 10,
-    marginHorizontal: 10,
   },
 });
 

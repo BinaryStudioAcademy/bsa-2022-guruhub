@@ -16,6 +16,7 @@
     "@types/change-case": "2.3.1",
     "@types/debounce": "1.2.1",
     "@types/sanitize-html": "2.6.2",
+    "@types/uuid": "8.3.4",
     "tsc-alias": "1.6.11"
   },
   "dependencies": {
@@ -23,7 +24,8 @@
     "date-fns": "2.29.2",
     "debounce": "1.2.1",
     "joi": "17.6.0",
-    "sanitize-html": "2.7.1"
+    "sanitize-html": "2.7.1",
+    "uuid": "8.3.2"
   },
   "version": "0.0.2"
 }

@@ -1,10 +1,15 @@
-import { DataStatus } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { DataStatus, SearchValue } from 'common/enums/enums';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useUserSearch,
+} from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
 
-import { ChatsList, CurrentChat } from './components/components';
+import { ChatsList, CurrentChat, SearchUser } from './components/components';
 import styles from './styles.module.scss';
 
 const Chats: FC = () => {
@@ -15,7 +20,7 @@ const Chats: FC = () => {
     user,
     chatId,
     currentChatMessages,
-    chatParticiapants,
+    chatOpponent,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
     user: auth.user,
@@ -23,17 +28,23 @@ const Chats: FC = () => {
     lastMessages: chats.lastMessages,
     chatId: chats.currentChatId,
     currentChatMessages: chats.currentChatMessages,
-    chatParticiapants: chats.chatParticipants,
+    chatOpponent: chats.chatOpponent,
   }));
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(chatsActions.getLastMessages());
-  }, []);
-
   const handleChatMessagesLoad = (chatId: string): void => {
     dispatch(chatsActions.getMessages({ id: chatId }));
+  };
+
+  useEffect(() => {
+    dispatch(chatsActions.getLastMessages({ fullName: '' }));
+  }, [dispatch]);
+
+  const { handleSearchPerform, searchParams } = useUserSearch();
+
+  const handleSearch = (search: string): void => {
+    handleSearchPerform(SearchValue.FULLNAME, search);
   };
 
   if (
@@ -44,25 +55,22 @@ const Chats: FC = () => {
   }
 
   return (
-    user && (
-      <div className={styles.chats}>
+    <div className={styles.chats}>
+      <div className={styles.lastMessagesColumn}>
+        <SearchUser searchParams={searchParams} onSearch={handleSearch} />
         <ChatsList
-          chatsList={lastMessages}
-          currentUserId={user.id}
+          chatsItems={lastMessages}
+          currentUserId={(user as UserWithPermissions).id}
           onChatMessagesLoad={handleChatMessagesLoad}
         />
-        <CurrentChat
-          chatId={chatId}
-          messages={currentChatMessages}
-          currentUserId={user.id}
-          chatOpponent={
-            chatParticiapants?.first.id === user.id
-              ? chatParticiapants.second
-              : chatParticiapants?.first
-          }
-        />
       </div>
-    )
+      <CurrentChat
+        chatId={chatId}
+        messages={currentChatMessages}
+        currentUserId={(user as UserWithPermissions).id}
+        chatOpponent={chatOpponent}
+      />
+    </div>
   );
 };
 
