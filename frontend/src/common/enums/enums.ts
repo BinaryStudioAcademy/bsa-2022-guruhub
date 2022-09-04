@@ -19,7 +19,10 @@ export {
   NotificationMessage,
   NotificationType,
 } from './notification/notification';
-export { PaginationDefaultValue } from './pagination/pagination';
+export {
+  InterviewsPaginationDefaultValue,
+  PaginationDefaultValue,
+} from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SearchValue } from './search/search';
 export { StringCase } from './string/string';
