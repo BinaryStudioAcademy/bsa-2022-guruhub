@@ -21,7 +21,7 @@ const AvatarWrapper: FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files?.[0] ?? null;
+    const [file = null] = e.target.files ?? [];
     setSelectedFile(file);
   };
 

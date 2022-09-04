@@ -73,7 +73,9 @@ const Button: FC<Props> = ({
     );
   }
 
-  if (btnType === 'upload') {
+  const isUploadButton = btnType === 'upload';
+
+  if (isUploadButton) {
     return (
       <label
         className={getValidClasses(
@@ -85,7 +87,7 @@ const Button: FC<Props> = ({
         <input
           type="file"
           onChange={onFileSelect}
-          className={styles.fileInput}
+          className="visually-hidden"
         />
         {label}
       </label>
