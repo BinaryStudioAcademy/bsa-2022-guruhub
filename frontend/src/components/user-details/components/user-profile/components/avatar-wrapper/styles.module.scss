@@ -40,3 +40,9 @@
   min-height: 136px;
   margin-top: 30px;
 }
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

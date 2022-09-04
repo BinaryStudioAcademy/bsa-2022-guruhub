@@ -5,9 +5,9 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useRef,
   useState,
 } from 'hooks/hooks';
+import React from 'react';
 import { userDetailsActions } from 'store/actions';
 
 import styles from './styles.module.scss';
@@ -18,15 +18,10 @@ const AvatarWrapper: FC = () => {
     userDetails: state.userDetails.userDetails,
   }));
   const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleOpenFileBrowser = (): void => {
-    inputRef.current?.click();
-  };
-
-  const handleFileSelect = (): void => {
-    const file = inputRef.current?.files?.[0] ?? null;
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target.files?.[0] ?? null;
     setSelectedFile(file);
   };
 
@@ -45,32 +40,23 @@ const AvatarWrapper: FC = () => {
 
   return (
     <div className={styles.flex}>
-      <input
-        type="file"
-        accept="image/png, image/jpeg, image/svg+xml"
-        className="visually-hidden"
-        ref={inputRef}
-        onChange={handleFileSelect}
-      />
       <div className={styles.imageWrapper}>
-        <button className={styles.imageButton} onClick={handleOpenFileBrowser}>
-          <Image
-            width="136"
-            height="136"
-            src={userDetails?.avatar?.url ?? defaultUserAvatar}
-            alt="user avatar"
-            isCircular
-          />
-        </button>
+        <Image
+          width="136"
+          height="136"
+          src={userDetails?.avatar?.url ?? defaultUserAvatar}
+          alt="user avatar"
+          isCircular
+        />
       </div>
-      <div>
+      <div className={styles.buttonWrapper}>
         <Button
           type="button"
           btnColor="blue"
           label="Update File"
           btnType="upload"
           className={styles.marginBottom}
-          onClick={handleOpenFileBrowser}
+          onFileSelect={handleFileSelect}
         />
         <Button btnColor="blue" label="Save" className={styles.btn} />
       </div>

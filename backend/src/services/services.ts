@@ -63,7 +63,7 @@ const file = new File({
 const userDetails = new UserDetails({
   userDetailsRepository,
   fileService: file,
-  avatarBucketName: ENV.AWS.AVATARS_BUCKET_NAME,
+  avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
 const user = new User({

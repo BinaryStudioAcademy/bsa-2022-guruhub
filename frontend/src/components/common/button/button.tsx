@@ -1,7 +1,7 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC, IconName } from 'common/types/types';
 import { getValidClasses } from 'helpers/helpers';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 import { Icon, Link } from '../common';
 import styles from './styles.module.scss';
@@ -17,6 +17,7 @@ type Props = {
   onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
   iconColor?: 'blue' | 'gray';
+  onFileSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Button: FC<Props> = ({
@@ -30,6 +31,7 @@ const Button: FC<Props> = ({
   className,
   iconName,
   iconColor = 'gray',
+  onFileSelect,
 }) => {
   const isLink = Boolean(to);
 
@@ -68,6 +70,25 @@ const Button: FC<Props> = ({
       >
         {getContent()}
       </Link>
+    );
+  }
+
+  if (btnType === 'upload') {
+    return (
+      <label
+        className={getValidClasses(
+          styles.button,
+          styles[`button-${btnColor}`],
+          styles[`button-${btnType}`],
+        )}
+      >
+        <input
+          type="file"
+          onChange={onFileSelect}
+          className={styles.fileInput}
+        />
+        {label}
+      </label>
     );
   }
 
