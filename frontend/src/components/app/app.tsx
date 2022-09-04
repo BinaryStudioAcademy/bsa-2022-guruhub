@@ -19,7 +19,7 @@ import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
 import { NotFound } from 'components/not-found/not-found';
-import { StudentsCourses } from 'components/students-courses/students-courses';
+import { StudentCourse } from 'components/student-course/student-course';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
 import { UserDetails } from 'components/user-details/user-details';
@@ -136,7 +136,7 @@ const App: FC = () => {
                 PermissionKey.MANAGE_INTERVIEW,
                 PermissionKey.MANAGE_INTERVIEWS,
               ]}
-              component={<StudentsCourses />}
+              component={<StudentCourse />}
             />
           }
         />

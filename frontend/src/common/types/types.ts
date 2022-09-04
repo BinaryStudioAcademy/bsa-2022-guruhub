@@ -21,6 +21,7 @@ export {
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
+  type CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from './course-module/course-module';
 export {
   type FormControl,

@@ -4,5 +4,5 @@ export {
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
-  type CourseModulesGetByCourseIdAndMenteeIdRequestParamsDto,
+  type CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from 'guruhub-shared/common/types/types';

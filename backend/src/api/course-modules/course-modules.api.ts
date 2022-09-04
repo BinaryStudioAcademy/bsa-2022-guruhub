@@ -8,7 +8,7 @@ import {
 import {
   CourseModuleGetRequestParamsDto,
   CourseModulesGetAllRequestParamsDto,
-  CourseModulesGetByCourseIdAndMenteeIdRequestParamsDto,
+  CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from '~/common/types/types';
 import { courseModule as courseModuleService } from '~/services/services';
 import {
@@ -67,15 +67,15 @@ const initCourseModulesApi: FastifyPluginAsync<Options> = async (
     },
     async handler(
       req: FastifyRequest<{
-        Params: CourseModulesGetByCourseIdAndMenteeIdRequestParamsDto;
+        Params: CourseModulesGetByCourseIdAndMenteeIdRequestDto;
       }>,
       rep,
     ) {
       const { courseId, menteeId } = req.params;
-      const modules = await courseModuleService.getAllByCourseIdAndMenteeId(
+      const modules = await courseModuleService.getAllByCourseIdAndMenteeId({
         courseId,
         menteeId,
-      );
+      });
 
       rep.status(HttpCode.OK).send(modules);
     },

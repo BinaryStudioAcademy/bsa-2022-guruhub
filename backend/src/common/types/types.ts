@@ -28,7 +28,7 @@ export {
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
-  type CourseModulesGetByCourseIdAndMenteeIdRequestParamsDto,
+  type CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from './course-module/course-module';
 export {
   type CoursesToMentorsRequestDto,
