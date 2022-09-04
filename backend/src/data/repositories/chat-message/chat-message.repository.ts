@@ -4,6 +4,7 @@ import {
   ChatGetLastMessagesRequestDto,
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
+  DeepNonNullable,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 
@@ -39,7 +40,7 @@ class ChatMessage {
     receiverId,
     message,
     chatId,
-  }: ChatMessageCreateRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
+  }: DeepNonNullable<ChatMessageCreateRequestDto>): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
       .insert({ senderId, receiverId, message, chatId: chatId as string })
