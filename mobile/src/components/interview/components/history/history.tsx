@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ButtonVariant, DataStatus } from '~/common/enums/enums';
+import { ButtonVariant, DataStatus, PermissionKey } from '~/common/enums/enums';
 import { InterviewNoteCreateRequestDto } from '~/common/types/types';
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
+import { checkHasPermission } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -30,14 +31,14 @@ const History: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const dispatch = useAppDispatch();
 
-  const { interviewId, interviewDataStatus, notes } = useAppSelector(
-    ({ auth, interview }) => ({
+  const { user, interviewId, interviewDataStatus, notes, interviewerId } =
+    useAppSelector(({ auth, interview }) => ({
       user: auth.user,
       notes: interview.notes,
       interviewId: interview.interview?.id,
+      interviewerId: interview.interview?.interviewer?.id,
       interviewDataStatus: interview.interviewDataStatus,
-    }),
-  );
+    }));
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<InterviewNoteCreateRequestDto>({
@@ -51,6 +52,16 @@ const History: FC = () => {
     setIsFormOpen((prev) => !prev);
     reset();
   };
+
+  const hasPermissionManageInterwiews = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
+    userPermissions: user?.permissions ?? [],
+  });
+
+  const checkToShowButton =
+    !isFormOpen && hasPermissionManageInterwiews
+      ? true
+      : interviewerId === user?.id;
 
   const handleAdd = async (
     payload: InterviewNoteCreateRequestDto,
@@ -83,7 +94,7 @@ const History: FC = () => {
     <ScrollView style={styles.wrapper}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>History</Text>
-        {!isFormOpen && (
+        {checkToShowButton && (
           <Button
             label="Add"
             variant={ButtonVariant.SECONDARY}
