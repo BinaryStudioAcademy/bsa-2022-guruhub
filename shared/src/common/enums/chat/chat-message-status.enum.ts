@@ -1,6 +1,6 @@
 enum ChatMessageStatus {
-  READ = 'Read',
-  UNREAD = 'Unread',
+  READ = 'read',
+  UNREAD = 'unread',
 }
 
 export { ChatMessageStatus };

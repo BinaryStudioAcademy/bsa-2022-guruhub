@@ -2,7 +2,7 @@ import { ChatMessageStatus, SortOrder } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
   ChatGetLastMessagesRequestDto,
-  ChatMessageCreateRequestDto,
+  ChatMessageCreateRequestWithStatusDto,
   ChatMessageGetAllItemResponseDto,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
@@ -40,7 +40,7 @@ class ChatMessage {
     message,
     chatId,
     status,
-  }: ChatMessageCreateRequestDto): Promise<ChatMessageGetAllItemResponseDto> {
+  }: ChatMessageCreateRequestWithStatusDto): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
       .insert({
@@ -75,7 +75,7 @@ class ChatMessage {
       .execute();
   }
 
-  public async hasUnreadMessages(userId: number): Promise<boolean> {
+  public async checkHasUnreadMessages(userId: number): Promise<boolean> {
     const hasUnreadMessages = await this.#ChatMessageModel
       .query()
       .select(1)

@@ -67,7 +67,7 @@ const Header: FC = () => {
                   <Icon
                     name={hasUnreadMessages ? 'chatUnread' : 'chat'}
                     className={styles.chatIcon}
-                  ></Icon>
+                  />
                 </div>
               </Link>
             </div>

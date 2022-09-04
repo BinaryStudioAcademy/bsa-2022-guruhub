@@ -3,6 +3,7 @@ export {
   type ChatGetLastMessagesRequestDto,
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
+  type ChatMessageCreateRequestWithStatusDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
