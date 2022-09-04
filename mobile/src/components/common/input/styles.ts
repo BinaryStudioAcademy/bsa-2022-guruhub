@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     color: AppColor.SUPPORT.ERROR_RED_100,
     marginTop: 9,
   },
+  rows: {
+    textAlignVertical: 'top',
+  },
 });
 
 export { styles };
