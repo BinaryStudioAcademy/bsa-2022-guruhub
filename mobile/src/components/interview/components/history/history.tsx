@@ -89,10 +89,6 @@ const History: FC = () => {
     }, []),
   );
 
-  // if (isLoading) {
-  //   return <Spinner isOverflow />;
-  // }
-
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.titleContainer}>
