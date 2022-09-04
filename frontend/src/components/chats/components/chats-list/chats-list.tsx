@@ -19,14 +19,12 @@ const ChatsList: FC<Props> = ({
   chatsItems,
   onChatMessagesLoad,
 }) => {
-  const hasChatItems = (length: number): boolean => {
-    return Boolean(length);
-  };
+  const hasChatItems = Boolean(chatsItems.length);
 
   return (
     <div className={styles.listWrapper}>
       <h3 className={styles.messagesTitle}>Messages</h3>
-      {!hasChatItems(chatsItems.length) ? (
+      {!hasChatItems ? (
         <h4 className={styles.noChatsTitle}>
           There are no active chats with you for now
         </h4>
