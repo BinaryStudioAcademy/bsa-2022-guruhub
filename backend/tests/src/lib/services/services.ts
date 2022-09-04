@@ -5,6 +5,7 @@ import { AuthService } from './auth/auth.service';
 import { CategoriesService } from './categories/categories.service';
 import { HttpService } from './http/http.service';
 import { PermissionsService } from './permissions/permissions.service';
+import { UsersService } from './users/users.service';
 
 const sessionStorage = new SessionStorage<ApiSession>();
 
@@ -16,10 +17,13 @@ const categoriesService = new CategoriesService({ httpService });
 
 const permissionsService = new PermissionsService({ httpService });
 
+const usersService = new UsersService({ httpService });
+
 export {
   sessionStorage as apiSessionStorage,
   authService,
   categoriesService,
   httpService,
   permissionsService,
+  usersService,
 };
