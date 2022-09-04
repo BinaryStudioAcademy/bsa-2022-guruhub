@@ -53,7 +53,7 @@ const AvatarWrapper: FC = () => {
         onChange={handleFileSelect}
       />
       <div className={styles.imageWrapper}>
-        <button onClick={handleOpenFileBrowser}>
+        <button className={styles.imageButton} onClick={handleOpenFileBrowser}>
           <Image
             width="136"
             height="136"
