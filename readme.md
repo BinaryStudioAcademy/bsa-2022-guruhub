@@ -35,7 +35,7 @@ This is the repository responsible for GuruHub's apps.
 
 ### 🏗 Application Schema
 
-**TODO**
+![App schema](./docs/app-architecture/app-arch.png)
 
 ### 💽 DB Schema
 
