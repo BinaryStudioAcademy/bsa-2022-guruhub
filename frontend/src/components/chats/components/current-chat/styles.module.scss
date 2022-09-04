@@ -1,0 +1,31 @@
+.currentChatWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.currentChatHeader {
+  align-items: center;
+  height: 60px;
+  padding-left: 51.35px;
+  color: var(--typography-text-100-inverse);
+  background: var(--background-gray-300);
+}
+
+.currentChatContent {
+  display: flex;
+  flex-grow: 1;
+  background: var(--background-gray-400);
+}
+
+.currentChatFooter {
+  height: 75px;
+  background: var(--background-gray-300);
+}
+
+.emptyChatMessage {
+  align-self: center;
+  width: 100%;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+}

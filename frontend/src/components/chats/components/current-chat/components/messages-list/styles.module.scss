@@ -1,0 +1,11 @@
+.messagesListWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 74.5vh;
+  overflow-y: scroll;
+}
+
+.messageWrapper {
+  padding: 10px;
+}
