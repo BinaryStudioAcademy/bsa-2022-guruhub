@@ -53,7 +53,7 @@ class User {
     return this.#UserModel
       .query()
       .findById(id)
-      .withGraphJoined('userDetails')
+      .withGraphJoined('userDetails.[avatar]')
       .castTo<UsersGetResponseDto>()
       .execute();
   }
