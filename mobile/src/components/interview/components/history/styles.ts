@@ -21,19 +21,12 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 10,
-    padding: 15,
-    backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 10,
-  },
-  input: {
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
-    borderRadius: 10,
-    textAlignVertical: 'top',
   },
   buttonContainer: {
     marginTop: 20,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   button: {
     width: 120,

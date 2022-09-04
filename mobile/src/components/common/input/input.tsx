@@ -30,12 +30,12 @@ const Input = <T extends FormControlValues>({
   errors,
   placeholder,
   rows,
-  style,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
   const { value, onChange, onBlur } = field;
   const error = errors[name]?.message as string;
+  const hasRows = Boolean(rows);
 
   return (
     <View>
@@ -46,10 +46,10 @@ const Input = <T extends FormControlValues>({
         placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
         onBlur={onBlur}
-        style={{ ...styles.input, ...style }}
+        style={[styles.input, hasRows && styles.rows]}
         secureTextEntry={name === 'password'}
         numberOfLines={rows}
-        multiline={Boolean(rows)}
+        multiline={hasRows}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
     </View>

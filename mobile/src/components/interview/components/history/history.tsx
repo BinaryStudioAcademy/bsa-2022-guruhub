@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ButtonVariant, DataStatus, PermissionKey } from '~/common/enums/enums';
+import { ButtonVariant, DataStatus } from '~/common/enums/enums';
 import { InterviewNoteCreateRequestDto } from '~/common/types/types';
 import {
   Button,
@@ -10,7 +10,6 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { checkHasPermission } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -31,7 +30,7 @@ const History: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const dispatch = useAppDispatch();
 
-  const { user, interviewId, interviewDataStatus, notes } = useAppSelector(
+  const { interviewId, interviewDataStatus, notes } = useAppSelector(
     ({ auth, interview }) => ({
       user: auth.user,
       notes: interview.notes,
@@ -52,15 +51,6 @@ const History: FC = () => {
     setIsFormOpen((prev) => !prev);
     reset();
   };
-
-  const hasPermission = checkHasPermission({
-    permissionKeys: [
-      PermissionKey.MANAGE_INTERVIEWS,
-      PermissionKey.MANAGE_INTERVIEW,
-    ],
-    userPermissions: user?.permissions ?? [],
-    checkMode: 'every',
-  });
 
   const handleAdd = async (
     payload: InterviewNoteCreateRequestDto,
@@ -93,7 +83,7 @@ const History: FC = () => {
     <ScrollView style={styles.wrapper}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>History</Text>
-        {!isFormOpen && hasPermission && (
+        {!isFormOpen && (
           <Button
             label="Add"
             variant={ButtonVariant.SECONDARY}
@@ -107,12 +97,11 @@ const History: FC = () => {
         <View style={styles.inputContainer}>
           <Input
             label="Write your note"
-            placeholder="..."
+            placeholder="Your note here"
             errors={errors}
             control={control}
             name="note"
             rows={5}
-            style={styles.input}
           />
           <View style={styles.buttonContainer}>
             <Stack isHorizontal space={20}>
@@ -126,7 +115,7 @@ const History: FC = () => {
               </View>
               <View style={styles.button}>
                 <Button
-                  label="Save"
+                  label="Submit"
                   variant={ButtonVariant.PRIMARY}
                   onPress={handleSubmit(handleAdd)}
                   size="small"
