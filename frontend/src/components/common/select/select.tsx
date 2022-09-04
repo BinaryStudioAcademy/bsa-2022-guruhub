@@ -7,7 +7,12 @@ import {
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
-import ReactSelect, { SingleValue } from 'react-select';
+import ReactSelect, {
+  CSSObjectWithLabel,
+  GroupBase,
+  OptionProps,
+  SingleValue,
+} from 'react-select';
 
 import styles from './styles.module.scss';
 
@@ -33,6 +38,22 @@ const Select: FC<Props> = ({
   className,
 }) => {
   const { field } = useFormControl({ name, control });
+
+  const selectStylesOptions = {
+    option: (
+      styles: CSSObjectWithLabel,
+      state: OptionProps<
+        SelectorOption<string | number>,
+        false,
+        GroupBase<SelectorOption<string | number>>
+      >,
+    ): CSSObjectWithLabel => {
+      return {
+        ...styles,
+        backgroundColor: state.isFocused ? '#2563EB' : '#343646',
+      };
+    },
+  };
 
   const handleOptionValue = (
     value: string,
@@ -69,6 +90,7 @@ const Select: FC<Props> = ({
         name={name}
         isSearchable={false}
         className={styles.select}
+        styles={selectStylesOptions}
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
