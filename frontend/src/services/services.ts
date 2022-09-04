@@ -2,6 +2,7 @@ import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
 import { CategoriesApi } from './categories-api/categories-api.service';
+import { CourseCategoriesApi } from './course-categories/course-categories-api.service';
 import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
 import { CoursesApi } from './courses-api/courses-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
@@ -59,6 +60,11 @@ const courseModulesApi = new CourseModulesApi({
   http,
 });
 
+const courseCategoriesApi = new CourseCategoriesApi({
+  apiPrefix: ENV.API_PATH,
+  http,
+});
+
 const categoriesApi = new CategoriesApi({
   apiPrefix: ENV.API_PATH,
   http,
@@ -77,6 +83,7 @@ const tasksApi = new TasksApi({ apiPrefix: ENV.API_PATH, http });
 export {
   authApi,
   categoriesApi,
+  courseCategoriesApi,
   courseModulesApi,
   coursesApi,
   groupsApi,

@@ -4,6 +4,7 @@ import {
   CoursesApiPath,
   HttpCode,
   HttpMethod,
+  PaginationDefaultValue,
   PermissionKey,
 } from '~/common/enums/enums';
 import {
@@ -15,6 +16,7 @@ import {
   CourseSelectMentorRequestDto,
   CourseSelectMentorRequestParamsDto,
   CourseUpdateCategoryRequestDto,
+  EntityPaginationRequestQueryDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import {
@@ -30,6 +32,7 @@ import {
   courseMentorsFiltering as courseMentorsFilteringValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
+  pagination as paginationValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -206,6 +209,28 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.updateCategory(id, newCategoryId);
 
       return rep.status(HttpCode.OK).send(course);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.CATEGORIES,
+    schema: { querystring: paginationValidationSchema },
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_CATEGORIES),
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const {
+        count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+      const interviews = await courseService.getAllPaginated({
+        count,
+        page,
+      });
+
+      return res.status(HttpCode.OK).send(interviews);
     },
   });
 

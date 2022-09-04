@@ -6,6 +6,8 @@ import {
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
@@ -66,6 +68,19 @@ class Course {
     return this.#courseRepository.getAll({
       categoryId,
       title,
+    });
+  }
+
+  public getAllPaginated(
+    args: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { page, count } = args;
+
+    const zeroIndexPage = page - 1;
+
+    return this.#courseRepository.getAllPaginated({
+      page: zeroIndexPage,
+      count,
     });
   }
 

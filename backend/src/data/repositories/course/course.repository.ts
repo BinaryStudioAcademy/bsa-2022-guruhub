@@ -4,6 +4,8 @@ import {
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
@@ -40,6 +42,28 @@ class Course {
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
+  }
+
+  public async getAllPaginated({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    const elementsToSkip = page * count;
+    const items = await this.#CourseModel
+      .query()
+      .withGraphJoined('category')
+      .offset(elementsToSkip)
+      .limit(count)
+      .castTo<CourseGetResponseDto[]>();
+
+    const total = await this.#CourseModel.query();
+
+    return {
+      items,
+      total: total.length,
+    };
   }
 
   public async create(

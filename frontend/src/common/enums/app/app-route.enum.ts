@@ -16,6 +16,7 @@ enum AppRoute {
   UAM_CONFIGURE_GROUP_$ID = '/uam/configure-group/:id',
   COURSES_$ID = '/courses/:id',
   COURSES = '/courses',
+  COURSE_CATEGORIES = '/course-categories',
   COURSES_$ID_MODULES_$ID = '/courses/:courseId/modules/:moduleId',
   ANY = '*',
 }
