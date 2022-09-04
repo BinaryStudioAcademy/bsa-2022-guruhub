@@ -1,8 +1,10 @@
 import { SearchValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Icon, Input } from 'components/common/common';
+import { debounce } from 'helpers/helpers';
 import { useAppForm, useEffect } from 'hooks/hooks';
 
+import { SEARCH_DELAY_MS } from './common/constants';
 import { SearchUserPayload } from './common/types/types';
 import styles from './styles.module.scss';
 
@@ -18,8 +20,13 @@ const SearchUser: FC<Props> = ({ onSearch, searchParams }) => {
     },
   });
 
-  const handlePassOuterFormInputValue = (): void => {
-    onSearch(watch(SearchValue.FULLNAME));
+  const handleSearch = (): void => onSearch(watch(SearchValue.FULLNAME));
+  const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
+
+  const handlePassOuterFormInputValue = (): (() => void) => {
+    debounceHandleSearch();
+
+    return () => debounceHandleSearch.clear();
   };
 
   useEffect(() => {
