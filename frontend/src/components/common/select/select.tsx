@@ -3,17 +3,14 @@ import {
   FormControl,
   FormControlErrors,
   SelectorOption,
+  SelectStyles,
 } from 'common/types/types';
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
-import ReactSelect, {
-  CSSObjectWithLabel,
-  GroupBase,
-  OptionProps,
-  SingleValue,
-} from 'react-select';
+import ReactSelect, { SingleValue } from 'react-select';
 
+import { DEFAULT_SELECT_STYLES } from './common';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -26,6 +23,7 @@ type Props = {
   label: string;
   hasVisuallyHiddenLabel?: boolean;
   className?: string;
+  stylingProps?: SelectStyles;
 };
 
 const Select: FC<Props> = ({
@@ -36,24 +34,9 @@ const Select: FC<Props> = ({
   hasVisuallyHiddenLabel = false,
   options,
   className,
+  stylingProps = DEFAULT_SELECT_STYLES,
 }) => {
   const { field } = useFormControl({ name, control });
-
-  const selectStylesOptions = {
-    option: (
-      styles: CSSObjectWithLabel,
-      state: OptionProps<
-        SelectorOption<string | number>,
-        false,
-        GroupBase<SelectorOption<string | number>>
-      >,
-    ): CSSObjectWithLabel => {
-      return {
-        ...styles,
-        backgroundColor: state.isFocused ? '#2563EB' : '#343646',
-      };
-    },
-  };
 
   const handleOptionValue = (
     value: string,
@@ -90,7 +73,7 @@ const Select: FC<Props> = ({
         name={name}
         isSearchable={false}
         className={styles.select}
-        styles={selectStylesOptions}
+        styles={stylingProps}
       />
       <span className={styles.errorMessage}>
         <ErrorMessage errors={errors} name={name} />
