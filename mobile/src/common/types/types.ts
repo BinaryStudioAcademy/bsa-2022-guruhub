@@ -42,10 +42,14 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsByIdRequestParamsDto,
+  type InterviewsByIdResponseDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetInterviewerResponseDto,
   type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
