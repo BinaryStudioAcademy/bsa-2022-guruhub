@@ -1,13 +1,13 @@
 import { SearchValue } from 'common/enums/enums';
 import { useAppDispatch, useSearchParams } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
+import { chatsActions } from 'store/actions';
 
 type UseCourseSearchResult = {
   searchParams: URLSearchParams;
   handleSearchPerform: (name: string, value: string) => void;
 };
 
-const useCourseSearch = (): UseCourseSearchResult => {
+const useUserSearch = (): UseCourseSearchResult => {
   const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,13 +23,12 @@ const useCourseSearch = (): UseCourseSearchResult => {
       setSearchParams(searchParams);
     }
 
-    const category = searchParams.get(SearchValue.CATEGORY) ?? '';
-    const title = searchParams.get(SearchValue.TITLE) ?? '';
+    const fullName = searchParams.get(SearchValue.FULLNAME) ?? '';
 
-    dispatch(dashboardActions.getCourses({ title, categoryKey: category }));
+    dispatch(chatsActions.getLastMessages({ fullName }));
   };
 
   return { searchParams, handleSearchPerform };
 };
 
-export { useCourseSearch };
+export { useUserSearch };

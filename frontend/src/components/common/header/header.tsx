@@ -25,10 +25,10 @@ const Header: FC = () => {
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
-  const { performSearch } = useCourseSearch();
+  const { handleSearchPerform } = useCourseSearch();
 
   const handleSearch = (search: string): void => {
-    performSearch(SearchValue.TITLE, search);
+    handleSearchPerform(SearchValue.TITLE, search);
   };
 
   return (

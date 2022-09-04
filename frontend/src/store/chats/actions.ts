@@ -2,7 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   ChatMessageCreateRequestBodyDto,
+  ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
+  ChatMessageGetAllLastResponseDto,
   ChatMessageGetAllRequestParamsDto,
   ChatMessageGetAllResponseDto,
 } from 'common/types/types';
@@ -10,12 +12,14 @@ import {
 import { ActionType } from './common';
 
 const getLastMessages = createAsyncThunk<
-  ChatMessageGetAllResponseDto,
-  void,
+  ChatMessageGetAllLastResponseDto,
+  ChatMessageFilteringDto,
   AsyncThunkConfig
->(ActionType.GET_LAST_MESSAGES, async (_, { extra }) => {
+>(ActionType.GET_LAST_MESSAGES, async ({ fullName }, { extra }) => {
   const { chatsApi } = extra;
-  const lastMessages = await chatsApi.getAllChatsLastMessages();
+  const lastMessages = await chatsApi.getAllChatsLastMessages({
+    filtering: { fullName },
+  });
 
   return lastMessages;
 });
