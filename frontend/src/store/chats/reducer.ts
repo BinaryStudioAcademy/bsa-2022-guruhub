@@ -2,22 +2,17 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
+  ChatParticipantsDto,
 } from 'common/types/types';
 
 import { createMessage, getLastMessages, getMessages } from './actions';
-
-type ChatParticipants = {
-  first: ChatMessageUserResponseDto;
-  second: ChatMessageUserResponseDto;
-};
 
 type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
-  chatParticipants: ChatParticipants | null;
+  chatParticipants: ChatParticipantsDto | null;
 };
 
 const initialState: State = {
@@ -47,15 +42,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.currentChatMessages = action.payload.items;
     state.currentChatId = action.payload.chatId;
-
-    const [currentChatMessage] = state.currentChatMessages;
-
-    if (currentChatMessage) {
-      state.chatParticipants = {
-        first: currentChatMessage.sender,
-        second: currentChatMessage.receiver,
-      };
-    }
+    state.chatParticipants = action.payload.participants;
   });
   builder.addCase(getMessages.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
