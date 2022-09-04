@@ -129,27 +129,18 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.ANY}
-          element={
-            <AuthorizedWrapper>
-              <NotFound />
-            </AuthorizedWrapper>
-          }
-        />
-        <Route
-          path={AppRoute.INTERVIEWS_$ID}
-          element={
-            <AuthorizedProtectedRoute
-              permissions={[PermissionKey.MANAGE_INTERVIEWS]}
-              component={<Interview />}
-            />
-          }
-        />
-        <Route
           path={AppRoute.CHATS}
           element={
             <AuthorizedWrapper>
               <Chats />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.ANY}
+          element={
+            <AuthorizedWrapper>
+              <NotFound />
             </AuthorizedWrapper>
           }
         />
