@@ -3,6 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   EntityPagination,
+  InterviewNoteCreateDto,
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArgumentsDto,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
   InterviewsGetInterviewersByCategoryRequestDto,
@@ -49,6 +53,32 @@ const updateInterview = createAsyncThunk<
   return interview;
 });
 
+const getNotes = createAsyncThunk<
+  InterviewNoteGetAllResponseDto,
+  InterviewNoteGetRequestArgumentsDto,
+  AsyncThunkConfig
+>(ActionType.GET_NOTES, async (payload, { extra }) => {
+  const { interviewsApi } = extra;
+  const { interviewId } = payload;
+
+  const notesPayload = await interviewsApi.getAllNotes({ interviewId });
+
+  return notesPayload;
+});
+
+const createNote = createAsyncThunk<
+  InterviewNoteGetAllItemResponseDto,
+  InterviewNoteCreateDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_NOTE, async (payload, { extra }) => {
+  const { interviewsApi } = extra;
+  const { interviewId, note } = payload;
+
+  const newNote = await interviewsApi.createNote({ interviewId, note });
+
+  return newNote;
+});
+
 const getOtherByInterviewId = createAsyncThunk<
   EntityPagination<InterviewsGetOtherItemResponseDto>,
   InterviewsGetOtherRequestDto,
@@ -68,8 +98,10 @@ const getOtherByInterviewId = createAsyncThunk<
 );
 
 export {
+  createNote,
   getInterview,
   getInterviewersByCategory,
+  getNotes,
   getOtherByInterviewId,
   updateInterview,
 };
