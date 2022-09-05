@@ -15,6 +15,7 @@ export {
   UsersApiPath,
 } from './api/api';
 export { AppEnvironment, ENV, LogLevel } from './app/app';
+export { ChatMessageStatus } from './chat/chat';
 export { CourseHost } from './course/course';
 export { DbTableName } from './db/db';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
@@ -28,4 +29,3 @@ export { StringCase } from './string/string';
 export { TaskStatus } from './task/task';
 export { UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';
-export { ChatMessageStatus } from './сhat/chat';
