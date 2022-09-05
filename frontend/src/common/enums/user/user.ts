@@ -1,4 +1,1 @@
-export {
-  UserGender,
-  UserValidationRule,
-} from 'guruhub-shared/common/enums/enums';
+export { UserGender } from 'guruhub-shared/common/enums/enums';
