@@ -59,6 +59,8 @@ const Course: FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
+  const { user: authUser } = useAppSelector((state) => state.auth);
+
   const isCategoryEditAllowed = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
@@ -148,6 +150,8 @@ const Course: FC = () => {
     );
   }
 
+  const isUserAuthorized = Boolean(authUser);
+
   return (
     <div className={styles.container}>
       <EditCategoryModal
@@ -203,7 +207,7 @@ const Course: FC = () => {
         {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
           <MyStudentsContainer mentees={mentees} />
         )}
-        {isMentorChoosingEnabled && (
+        {isMentorChoosingEnabled && isUserAuthorized && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}
       </div>
