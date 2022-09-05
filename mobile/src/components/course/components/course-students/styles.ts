@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+import { AppColor } from '~/common/enums/enums';
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 16,
-    paddingBottom: 0,
   },
   noStudents: {
     marginLeft: 15,
     fontSize: 16,
-    color: 'white',
+    color: AppColor.TEXT.GRAY_100,
   },
 });
 

@@ -140,15 +140,12 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getMenteesByCourseId.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
-    state.dataStatus = DataStatus.PENDING;
   });
   builder.addCase(getMenteesByCourseId.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.menteesByCourseId = payload;
-    state.dataStatus = DataStatus.FULFILLED;
   });
   builder.addCase(getMenteesByCourseId.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
     state.dataStatus = DataStatus.REJECTED;
   });
 

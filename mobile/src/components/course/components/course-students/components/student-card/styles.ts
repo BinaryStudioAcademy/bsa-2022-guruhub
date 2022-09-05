@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 33,
   },
   fullName: {
-    color: 'white',
+    color: AppColor.TEXT.GRAY_100,
     fontSize: 16,
   },
   fullNameContainer: {
