@@ -1,32 +1,60 @@
 .container {
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  grid-gap: 40px;
+  padding: 40px 30px;
+  color: #ffffff;
+}
+
+.modulesContentHeader {
+  margin: 40px 0 0 5px;
+}
+
+.modulesContainer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  padding: 5px;
+}
+
+.info {
+  margin-bottom: 20px;
+}
+
+.additional {
+  width: 35%;
+}
+
+.image {
   width: 100%;
-  margin: 0;
-  padding: 30px;
-  color: var(--typography-text-100-inverse);
-  counter-reset: --start-container-counter;
+  overflow: hidden;
+  border-radius: 14px;
 }
 
-.moduleCardContainer {
+.about {
+  margin: 30px 0;
+}
+
+.placeholder {
+  width: 100%;
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+}
+
+.headingWrapper {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 82.5%;
+}
+
+.categoryContainer {
+  display: flex;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.editButton {
   margin-top: 15px;
-  padding: 10px;
-  font-size: 15px;
-  background: var(--background-gray-300);
-  border-radius: 10px;
-}
-
-.moduleCardContainer::before {
-  padding-top: 15px;
-  padding-left: 10px;
-  font-weight: bold;
-  counter-increment: --start-container-counter;
-  content: counter(--start-container-counter) '. ';
-}
-
-.linkToModule {
-  color: var(--typography-text-100-inverse);
-  text-decoration: none;
 }

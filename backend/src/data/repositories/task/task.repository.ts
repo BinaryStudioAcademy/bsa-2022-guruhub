@@ -1,5 +1,8 @@
 import { TaskStatus } from '~/common/enums/enums';
-import { TaskGetByMenteeIdAndModuleId } from '~/common/types/types';
+import {
+  TaskGetByMenteeIdAndModuleId,
+  TaskGetByMenteeIdCourseIdModuleIdRequestDto,
+} from '~/common/types/types';
 import { Task as TaskM } from '~/data/models/models';
 
 type Constructor = {
@@ -34,6 +37,22 @@ class Task {
       .query()
       .where('tasks.moduleId', moduleId)
       .andWhere('menteesToMentors.menteeId', menteeId)
+      .withGraphJoined('menteesToMentors')
+      .first();
+
+    return task ?? null;
+  }
+
+  public async getByMenteeIdCourseIdModuleId({
+    courseId,
+    menteeId,
+    moduleId,
+  }: TaskGetByMenteeIdCourseIdModuleIdRequestDto): Promise<TaskM | null> {
+    const task = await this.#TaskModel
+      .query()
+      .where('tasks.moduleId', moduleId)
+      .andWhere('menteesToMentors.menteeId', menteeId)
+      .andWhere('menteesToMentors.courseId', courseId)
       .withGraphJoined('menteesToMentors')
       .first();
 

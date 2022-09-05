@@ -44,6 +44,7 @@ export { getMentor, mentorCreateBody } from './mentor/mentor';
 export { pagination } from './pagination/pagination';
 export {
   taskByMenteeIdAndModuleId,
+  taskByMenteeIdCourseIdModuleIdParams,
   tasksByIdParams,
   tasksManipulateRequestBody,
 } from './task/task';

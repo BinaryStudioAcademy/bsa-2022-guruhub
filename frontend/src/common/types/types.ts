@@ -98,6 +98,7 @@ export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
 } from './task/task';
 export {

@@ -2,6 +2,7 @@ import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
 import {
   EntityPagination,
   TaskGetByMenteeIdAndModuleId,
+  TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskGetItemReponseDto,
   TaskManipulateRequestArgumentsDto,
   TaskNoteCreateArgumentsDto,
@@ -85,6 +86,24 @@ class Task {
     const task = await this.#taskRepository.getByMenteeIdAndModuleId({
       moduleId,
       menteeId,
+    });
+
+    if (!task) {
+      throw new TasksError();
+    }
+
+    return task;
+  }
+
+  public async getByMenteeIdCourseIdModuleId({
+    courseId,
+    menteeId,
+    moduleId,
+  }: TaskGetByMenteeIdCourseIdModuleIdRequestDto): Promise<TaskGetItemReponseDto> {
+    const task = await this.#taskRepository.getByMenteeIdCourseIdModuleId({
+      courseId,
+      menteeId,
+      moduleId,
     });
 
     if (!task) {

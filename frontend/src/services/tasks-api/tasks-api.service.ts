@@ -8,6 +8,7 @@ import {
   EntityPagination,
   TaskByIdRequestParamsDto,
   TaskGetByMenteeIdAndModuleId,
+  TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
@@ -67,6 +68,18 @@ class TasksApi {
       {
         method: HttpMethod.GET,
       },
+    );
+  }
+
+  public getByMenteeIdCourseIdModuleId({
+    courseId,
+    menteeId,
+    moduleId,
+  }: TaskGetByMenteeIdCourseIdModuleIdRequestDto): Promise<TaskGetItemReponseDto> {
+    return this.#http.load<TaskGetItemReponseDto>(
+      `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.COURSES}/${courseId}${
+        TasksApiPath.MODULES
+      }/${moduleId}${TasksApiPath.MENTEES}/${menteeId}`,
     );
   }
 }

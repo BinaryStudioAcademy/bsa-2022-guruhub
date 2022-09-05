@@ -93,6 +93,7 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
   type TaskManipulateRequestArgumentsDto,
 } from './task/task';
