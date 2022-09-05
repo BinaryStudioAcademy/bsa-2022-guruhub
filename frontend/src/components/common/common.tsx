@@ -15,6 +15,7 @@ export { Input } from './input/input';
 export { Link } from './link/link';
 export { Modal } from './modal/modal';
 export { Pagination } from './pagination/pagination';
+export { PasswordInput } from './password-input/password-input';
 export { ProtectedRoute } from './protected-route/protected-route';
 export { Select } from './select/select';
 export { Spinner } from './spinner/spinner';
