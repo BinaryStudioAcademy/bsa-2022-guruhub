@@ -9,7 +9,8 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { useAppNavigate } from '~/hooks/hooks';
+import { useAppDispatch, useAppNavigate } from '~/hooks/hooks';
+import { courseModulesActions } from '~/store/actions';
 
 import { Module } from './components/module/module';
 import { styles } from './styles';
@@ -21,12 +22,14 @@ type Props = {
 
 const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
   const navigation = useAppNavigate();
+  const dispatch = useAppDispatch();
 
   if (!courseModules.length) {
     return <></>;
   }
 
-  const handleModulePress = (): void => {
+  const handleModulePress = (courseId: number, moduleId: number): void => {
+    dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
     navigation.navigate(AppScreenName.COURSE_MODULE);
   };
 
@@ -38,7 +41,11 @@ const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
       ) : (
         <Stack space={15}>
           {courseModules.map((module, index) => (
-            <Pressable onPress={(): void => handleModulePress()}>
+            <Pressable
+              onPress={(): void =>
+                handleModulePress(module.courseId, module.id)
+              }
+            >
               <Module
                 key={module.id}
                 index={index}

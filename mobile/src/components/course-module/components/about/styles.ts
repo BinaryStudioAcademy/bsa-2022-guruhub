@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  title: {
+  courseTitle: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_100,
-    fontSize: 20,
-    lineHeight: 32,
+    fontSize: 24,
+    lineHeight: 34,
   },
 });
 

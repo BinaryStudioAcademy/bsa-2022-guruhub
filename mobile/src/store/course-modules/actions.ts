@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
+  CourseModuleGetByIdResponseDto,
+  CourseModuleGetRequestParamsDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
 } from '~/common/types/types';
@@ -19,4 +21,15 @@ const getCourseModules = createAsyncThunk<
   return courseModules;
 });
 
-export { getCourseModules };
+const getModuleById = createAsyncThunk<
+  CourseModuleGetByIdResponseDto,
+  CourseModuleGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.GET_MODULE_BY_ID, async ({ courseId, moduleId }, { extra }) => {
+  const { courseModulesApi } = extra;
+  const courseModule = await courseModulesApi.getById({ courseId, moduleId });
+
+  return courseModule;
+});
+
+export { getCourseModules, getModuleById };
