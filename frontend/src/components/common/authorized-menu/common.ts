@@ -27,9 +27,9 @@ const routes: NavigationMenuItem[] = [
         ],
       },
       {
-        name: 'Course settings',
+        name: 'Courses Management',
         iconName: 'course',
-        href: AppRoute.COURSE_CATEGORIES,
+        href: AppRoute.COURSES_MANAGEMENT,
         permissions: [PermissionKey.MANAGE_CATEGORIES],
       },
     ],

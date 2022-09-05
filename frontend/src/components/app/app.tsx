@@ -15,8 +15,8 @@ import {
   Spinner,
 } from 'components/common/common';
 import { Course } from 'components/course/course';
-import { CourseCategories } from 'components/course-categories/course-categories';
 import { CourseModule } from 'components/course-module/course-module';
+import { CoursesManagement } from 'components/courses-management/courses-management';
 import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
@@ -147,11 +147,11 @@ const App: FC = () => {
         />
 
         <Route
-          path={AppRoute.COURSE_CATEGORIES}
+          path={AppRoute.COURSES_MANAGEMENT}
           element={
             <AuthorizedProtectedRoute
               permissions={[PermissionKey.MANAGE_CATEGORIES]}
-              component={<CourseCategories />}
+              component={<CoursesManagement />}
             />
           }
         />

@@ -8,7 +8,7 @@ import {
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppDispatch, useAppForm, useLocation, useMemo } from 'hooks/hooks';
-import { courseActions, courseCategoriesActions } from 'store/actions';
+import { courseActions, coursesManagementActions } from 'store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { getDefaultUpdateCourseCategoryPayload } from './common';
@@ -35,7 +35,7 @@ const EditCategoryModal: FC<Props> = ({
   const location = useLocation();
 
   const isCourseCategoriesPage =
-    location.pathname === AppRoute.COURSE_CATEGORIES;
+    location.pathname === AppRoute.COURSES_MANAGEMENT;
 
   const { control, errors, handleSubmit } =
     useAppForm<CourseUpdateCategoryRequestDto>({
@@ -56,8 +56,8 @@ const EditCategoryModal: FC<Props> = ({
       .then(() => {
         if (isCourseCategoriesPage) {
           dispatch(
-            courseCategoriesActions.getCourses({
-              page: 1,
+            coursesManagementActions.getCourses({
+              page: PaginationDefaultValue.DEFAULT_PAGE,
               count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
             }),
           );

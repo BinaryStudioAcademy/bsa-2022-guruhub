@@ -31,11 +31,7 @@ class CourseCategory {
     const categories = await this.#courseCategoryRepository.getWithCourses();
 
     return {
-      items: categories.map((category) => ({
-        id: category.id,
-        key: category.key,
-        name: category.name,
-      })),
+      items: categories,
     };
   }
 

@@ -14,14 +14,14 @@ const getCourses = createAsyncThunk<
   EntityPaginationRequestQueryDto,
   AsyncThunkConfig
 >(ActionType.GET_COURSES, async ({ count, page }, { extra }) => {
-  const { courseCategoriesApi } = extra;
+  const { coursesManagementApi } = extra;
 
-  const courseCategories = await courseCategoriesApi.getAllCourses({
+  const courses = await coursesManagementApi.getAllCourses({
     count,
     page,
   });
 
-  return courseCategories;
+  return courses;
 });
 
 const getCategories = createAsyncThunk<
@@ -29,8 +29,8 @@ const getCategories = createAsyncThunk<
   void,
   AsyncThunkConfig
 >(ActionType.GET_CATEGORIES, async (_, { extra }) => {
-  const { courseCategoriesApi } = extra;
-  const categoriesDto = await courseCategoriesApi.getAllCategories();
+  const { coursesManagementApi } = extra;
+  const categoriesDto = await coursesManagementApi.getAllCategories();
 
   return categoriesDto;
 });

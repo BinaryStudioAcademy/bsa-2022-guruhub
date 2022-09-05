@@ -3,9 +3,9 @@ import {
   authApi,
   categoriesApi,
   chatsApi,
-  courseCategoriesApi,
   courseModulesApi,
   coursesApi,
+  coursesManagementApi,
   groupsApi,
   interviewsApi,
   mentorsApi,
@@ -37,7 +37,7 @@ const extraArgument = {
   courseModulesApi,
   mentorsApi,
   tasksApi,
-  courseCategoriesApi,
+  coursesManagementApi,
 };
 
 const store = configureStore({

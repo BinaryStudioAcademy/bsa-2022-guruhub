@@ -2,11 +2,11 @@ import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Table } from 'components/common/common';
 import { EditCategoryModal } from 'components/course/components/components';
-import { CourseCategoriesTableRow } from 'components/course-categories/common/types/types';
+import { CoursesManagementTableRow } from 'components/courses-management/common/types/types';
 import {
-  getCourseCategoriesColumns,
-  getCourseCategoriesRows,
-} from 'components/course-categories/helpers/helpers';
+  getCoursesManagementColumns,
+  getCoursesManagementRows,
+} from 'components/courses-management/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -16,27 +16,27 @@ import {
   useState,
 } from 'hooks/hooks';
 import { Column } from 'react-table';
-import { courseCategoriesActions } from 'store/actions';
+import { coursesManagementActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
-const CourseCategoriesTable: FC = () => {
+const CoursesManagementTable: FC = () => {
   const { page, handlePageChange } = usePagination({
     queryName: 'courseCategoriesPage',
   });
   const dispatch = useAppDispatch();
   const { categories, courses, totalCoursesNumber } = useAppSelector(
-    ({ courseCategories }) => ({
-      categories: courseCategories.categories,
-      courses: courseCategories.courses,
-      totalCoursesNumber: courseCategories.totalCoursesNumber,
+    ({ coursesManagement }) => ({
+      categories: coursesManagement.categories,
+      courses: coursesManagement.courses,
+      totalCoursesNumber: coursesManagement.totalCoursesNumber,
     }),
   );
 
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
   const [activeCourse, setActiveCourse] =
-    useState<CourseCategoriesTableRow | null>(null);
+    useState<CoursesManagementTableRow | null>(null);
 
   const handleUpdateCategoryModalToggle = (): void => {
     if (isUpdateCategoryModalOpen) {
@@ -47,32 +47,32 @@ const CourseCategoriesTable: FC = () => {
 
   useEffect(() => {
     dispatch(
-      courseCategoriesActions.getCourses({
+      coursesManagementActions.getCourses({
         page,
         count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
       }),
     );
-    dispatch(courseCategoriesActions.getCategories());
+    dispatch(coursesManagementActions.getCategories());
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(
-      courseCategoriesActions.getCourses({
+      coursesManagementActions.getCourses({
         page,
         count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
       }),
     );
   }, [page]);
 
-  const handleEdit = (course: CourseCategoriesTableRow): void => {
+  const handleEdit = (course: CoursesManagementTableRow): void => {
     setActiveCourse(course);
     handleUpdateCategoryModalToggle();
   };
-  const columns = useMemo<Column<CourseCategoriesTableRow>[]>(() => {
-    return getCourseCategoriesColumns(handleEdit);
+  const columns = useMemo<Column<CoursesManagementTableRow>[]>(() => {
+    return getCoursesManagementColumns(handleEdit);
   }, []);
 
-  const data: CourseCategoriesTableRow[] = getCourseCategoriesRows(courses);
+  const data: CoursesManagementTableRow[] = getCoursesManagementRows(courses);
 
   return (
     <div className={styles.table}>
@@ -97,4 +97,4 @@ const CourseCategoriesTable: FC = () => {
   );
 };
 
-export { CourseCategoriesTable };
+export { CoursesManagementTable };
