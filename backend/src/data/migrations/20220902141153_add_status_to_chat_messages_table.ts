@@ -1,5 +1,7 @@
 import { Knex } from 'knex';
 
+import { ChatMessageStatus } from '~/common/enums/enums';
+
 enum TableName {
   CHAT_MESSAGES = 'chat_messages',
 }
@@ -10,7 +12,13 @@ const ColumnName = {
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.table(TableName.CHAT_MESSAGES, (table) => {
-    table.string(ColumnName.STATUS).notNullable();
+    table
+      .enum(ColumnName.STATUS, [
+        ChatMessageStatus.READ,
+        ChatMessageStatus.UNREAD,
+      ])
+      .defaultTo(ChatMessageStatus.UNREAD)
+      .notNullable();
   });
 }
 
