@@ -1,6 +1,12 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Table } from 'components/common/common';
+import { EditCategoryModal } from 'components/course/components/components';
+import { CourseCategoriesTableRow } from 'components/course-categories/common/types/types';
+import {
+  getCourseCategoriesColumns,
+  getCourseCategoriesRows,
+} from 'components/course-categories/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -12,22 +18,16 @@ import {
 import { Column } from 'react-table';
 import { courseCategoriesActions } from 'store/actions';
 
-import { EditCategoryModal } from '../../../course/components/edit-category-modal/edit-category-modal';
-import { CourseCategoriesTableRow } from '../../common/types/course-categories-table-row.type';
-import {
-  getCourseCategoriesColumns,
-  getCourseCategoriesRows,
-} from '../../helpers/helpers';
 import styles from './styles.module.scss';
 
 const CourseCategoriesTable: FC = () => {
   const { page, handlePageChange } = usePagination({
-    queryName: 'interviewsPage',
+    queryName: 'courseCategoriesPage',
   });
   const dispatch = useAppDispatch();
   const { categories, courses, totalCoursesNumber } = useAppSelector(
-    ({ courseCategories, course }) => ({
-      categories: course.categories,
+    ({ courseCategories }) => ({
+      categories: courseCategories.categories,
       courses: courseCategories.courses,
       totalCoursesNumber: courseCategories.totalCoursesNumber,
     }),
@@ -35,15 +35,29 @@ const CourseCategoriesTable: FC = () => {
 
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
-  const [activeCourse, setActiveCourse] = useState<CourseCategoriesTableRow>();
+  const [activeCourse, setActiveCourse] =
+    useState<CourseCategoriesTableRow | null>(null);
 
   const handleUpdateCategoryModalToggle = (): void => {
+    if (isUpdateCategoryModalOpen) {
+      setActiveCourse(null);
+    }
     setUpdateCategoryModalOpen((prev) => !prev);
   };
 
   useEffect(() => {
     dispatch(
-      courseCategoriesActions.getCourseCategories({
+      courseCategoriesActions.getCourses({
+        page,
+        count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+      }),
+    );
+    dispatch(courseCategoriesActions.getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      courseCategoriesActions.getCourses({
         page,
         count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
       }),

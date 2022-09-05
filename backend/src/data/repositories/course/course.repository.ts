@@ -1,3 +1,6 @@
+import { Page } from 'objection';
+
+import { SortOrder } from '~/common/enums/enums';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
@@ -29,6 +32,7 @@ class Course {
 
     return this.#CourseModel
       .query()
+      .select('*')
       .where((builder) => {
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
@@ -39,6 +43,11 @@ class Course {
           builder.where('title', 'ilike', `%${title}%`);
         }
       })
+      .innerJoin(
+        'courseCategories',
+        'courses.courseCategoryId',
+        'courseCategories.id',
+      )
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
@@ -50,19 +59,16 @@ class Course {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<CourseGetResponseDto>
   > {
-    const elementsToSkip = page * count;
-    const items = await this.#CourseModel
+    const { results, total } = await this.#CourseModel
       .query()
       .withGraphJoined('category')
-      .offset(elementsToSkip)
-      .limit(count)
-      .castTo<CourseGetResponseDto[]>();
-
-    const total = await this.#CourseModel.query();
+      .orderBy('courseCategoryId', SortOrder.DESC)
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
 
     return {
-      items,
-      total: total.length,
+      items: results,
+      total,
     };
   }
 

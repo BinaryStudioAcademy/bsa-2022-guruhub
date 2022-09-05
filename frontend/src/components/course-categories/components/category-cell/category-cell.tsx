@@ -1,13 +1,17 @@
 import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
+import { CourseCategoriesTableRow } from 'components/course-categories/common/types/types';
 import { changeStringCase } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 
-import { CourseCategoriesTableRow } from '../../common/types/course-categories-table-row.type';
 import styles from './styles.module.scss';
 
 const CategoryCell: FC<CellProps<CourseCategoriesTableRow>> = ({ value }) => {
+  if (!value) {
+    return <p className={styles.placeholder}>No category selected</p>;
+  }
+
   const keyNameKebabCase = changeStringCase({
     stringToChange: value.key,
     caseType: StringCase.KEBAB_CASE,

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
+  CategoryGetAllResponseDto,
   CourseGetResponseDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -8,16 +9,30 @@ import {
 
 import { ActionType } from './common';
 
-const getCourseCategories = createAsyncThunk<
+const getCourses = createAsyncThunk<
   EntityPagination<CourseGetResponseDto>,
   EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_COURSE_CATEGORIES, async ({ count, page }, { extra }) => {
+>(ActionType.GET_COURSES, async ({ count, page }, { extra }) => {
   const { courseCategoriesApi } = extra;
 
-  const courseCategories = await courseCategoriesApi.getAll({ count, page });
+  const courseCategories = await courseCategoriesApi.getAllCourses({
+    count,
+    page,
+  });
 
   return courseCategories;
 });
 
-export { getCourseCategories };
+const getCategories = createAsyncThunk<
+  CategoryGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_CATEGORIES, async (_, { extra }) => {
+  const { courseCategoriesApi } = extra;
+  const categoriesDto = await courseCategoriesApi.getAllCategories();
+
+  return categoriesDto;
+});
+
+export { getCategories, getCourses };

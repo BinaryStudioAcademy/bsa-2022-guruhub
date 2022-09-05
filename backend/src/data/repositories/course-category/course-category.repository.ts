@@ -11,8 +11,17 @@ class CourseCategory {
     this.#CourseCategoryModel = CourseCategoryModel;
   }
 
-  public async getAll(): Promise<CourseCategoryM[]> {
-    return this.#CourseCategoryModel.query();
+  public getAll(): Promise<CourseCategoryM[]> {
+    return this.#CourseCategoryModel.query().execute();
+  }
+
+  public getWithCourses(): Promise<CourseCategoryM[]> {
+    return this.#CourseCategoryModel
+      .query()
+      .select('courseCategories.id', 'key', 'name')
+      .distinct('courseCategories.id')
+      .innerJoin('courses', 'courseCategories.id', 'courses.courseCategoryId')
+      .execute();
   }
 
   public async getByKey(key: string): Promise<CourseCategoryM | null> {

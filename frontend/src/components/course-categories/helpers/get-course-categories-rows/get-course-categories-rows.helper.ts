@@ -1,7 +1,6 @@
 import { CourseGetResponseDto } from 'common/types/types';
-
-import { CourseCategoriesTableAccessor } from '../../common/enums/enums';
-import { CourseCategoriesTableRow } from '../../common/types/course-categories-table-row.type';
+import { CourseCategoriesTableAccessor } from 'components/course-categories/common/enums/enums';
+import { CourseCategoriesTableRow } from 'components/course-categories/common/types/types';
 
 const getCourseCategoriesRows = (
   courses: CourseGetResponseDto[],

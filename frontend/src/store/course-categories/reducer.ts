@@ -1,31 +1,46 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import { CourseGetResponseDto } from 'common/types/types';
+import {
+  CategoryGetAllItemResponseDto,
+  CourseGetResponseDto,
+} from 'common/types/types';
 
-import { getCourseCategories } from './actions';
+import { getCategories, getCourses } from './actions';
 
 type State = {
   dataStatus: DataStatus;
   courses: CourseGetResponseDto[];
+  categories: CategoryGetAllItemResponseDto[];
   totalCoursesNumber: number;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   courses: [],
+  categories: [],
   totalCoursesNumber: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(getCourseCategories.pending, (state) => {
+  builder.addCase(getCourses.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(getCourseCategories.fulfilled, (state, { payload }) => {
+  builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.courses = payload.items;
     state.totalCoursesNumber = payload.total;
   });
-  builder.addCase(getCourseCategories.rejected, (state) => {
+  builder.addCase(getCourses.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(getCategories.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getCategories.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.categories = payload.items;
+  });
+  builder.addCase(getCategories.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

@@ -1,9 +1,10 @@
 import { ApiPath, HttpMethod } from 'common/enums/enums';
 import {
+  CategoryGetAllResponseDto,
+  CourseGetResponseDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
 } from 'common/types/types';
-import { CourseGetResponseDto } from 'guruhub-shared';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -21,7 +22,7 @@ class CourseCategoriesApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll({
+  public getAllCourses({
     count,
     page,
   }: EntityPaginationRequestQueryDto): Promise<
@@ -37,6 +38,12 @@ class CourseCategoriesApi {
         },
       },
     );
+  }
+
+  public getAllCategories(): Promise<CategoryGetAllResponseDto> {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.CATEGORIES}`, {
+      method: HttpMethod.GET,
+    });
   }
 }
 

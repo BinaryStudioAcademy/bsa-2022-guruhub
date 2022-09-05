@@ -18,9 +18,12 @@ class CategoriesApi {
   }
 
   public getAll(): Promise<CategoryGetAllResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.CATEGORIES}`, {
-      method: HttpMethod.GET,
-    });
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.CATEGORIES}${ApiPath.DASHBOARD}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
   }
 }
 

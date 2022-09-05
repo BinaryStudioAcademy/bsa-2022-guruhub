@@ -7,9 +7,14 @@ import {
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppDispatch, useAppForm, useMemo } from 'hooks/hooks';
-import { courseActions } from 'store/actions';
+import { courseActions, courseCategoriesActions } from 'store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'validation-schemas/validation-schemas';
 
+import {
+  AppRoute,
+  PaginationDefaultValue,
+} from '../../../../common/enums/enums';
+import { useLocation } from '../../../../hooks/hooks';
 import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { getCategoriesOptions } from './helpers/helpers';
 
@@ -31,6 +36,10 @@ const EditCategoryModal: FC<Props> = ({
   onModalToggle,
 }) => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  const isCourseCategoriesPage =
+    location.pathname === AppRoute.COURSE_CATEGORIES;
 
   const { control, errors, handleSubmit } =
     useAppForm<CourseUpdateCategoryRequestDto>({
@@ -49,6 +58,14 @@ const EditCategoryModal: FC<Props> = ({
     dispatch(courseActions.updateCategory({ courseId, newCategoryId }))
       .unwrap()
       .then(() => {
+        if (isCourseCategoriesPage) {
+          dispatch(
+            courseCategoriesActions.getCourses({
+              page: 1,
+              count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+            }),
+          );
+        }
         onModalToggle();
       });
   };

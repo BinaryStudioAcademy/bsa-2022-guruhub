@@ -62,6 +62,29 @@ class MenteesToMentors {
 
     return Boolean(menteeToMentor);
   }
+
+  public getMenteesOrMentorsByFullName(
+    userId: number,
+    fullName: string,
+  ): Promise<MenteesToMentorsM[]> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .select('menteeId', 'mentorId')
+      .where((builder) =>
+        builder
+          .where('mentorId', userId)
+          .where('mentee:userDetails.fullName', 'ilike', `%${fullName}%`),
+      )
+      .orWhere((builder) =>
+        builder
+          .where('menteeId', userId)
+          .where('mentor:userDetails.fullName', 'ilike', `%${fullName}%`),
+      )
+      .withGraphJoined(
+        '[mentee(withoutPassword).[userDetails], mentor(withoutPassword).[userDetails]]',
+      )
+      .execute();
+  }
 }
 
 export { MenteesToMentors };

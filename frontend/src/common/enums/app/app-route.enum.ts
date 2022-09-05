@@ -14,6 +14,7 @@ enum AppRoute {
   SETTINGS_MESSAGES = '/settings/messages',
   UAM_CONFIGURE_GROUP = '/uam/configure-group',
   UAM_CONFIGURE_GROUP_$ID = '/uam/configure-group/:id',
+  CHATS = '/chats',
   COURSES_$ID = '/courses/:id',
   COURSES = '/courses',
   COURSE_CATEGORIES = '/course-categories',

@@ -1,11 +1,13 @@
-import { Column } from 'react-table';
-
-import { CourseCategoriesTableAccessor } from '../../common/enums/enums';
+import { CourseCategoriesTableAccessor } from 'components/course-categories/common/enums/enums';
 import {
   CourseCategoriesTableActionsProps,
   CourseCategoriesTableRow,
-} from '../../common/types/types';
-import { ActionsCell, CategoryCell } from '../../components/components';
+} from 'components/course-categories/common/types/types';
+import {
+  ActionsCell,
+  CategoryCell,
+} from 'components/course-categories/components/components';
+import { Column } from 'react-table';
 
 const getCourseCategoriesColumns = (
   onCourseEdit: (course: CourseCategoriesTableRow) => void,
@@ -14,13 +16,13 @@ const getCourseCategoriesColumns = (
     {
       Header: 'Title',
       accessor: CourseCategoriesTableAccessor.TITLE,
-      width: '19%',
+      width: '45%',
     },
     {
       Header: 'Category',
       accessor: CourseCategoriesTableAccessor.CATEGORY,
       Cell: CategoryCell,
-      width: '19%',
+      width: '40%',
     },
     {
       Header: 'Actions',
@@ -31,7 +33,7 @@ const getCourseCategoriesColumns = (
         course,
       }),
       Cell: ActionsCell,
-      width: '5%',
+      width: '15%',
     },
   ];
 };

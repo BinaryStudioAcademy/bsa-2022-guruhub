@@ -27,6 +27,18 @@ class CourseCategory {
     };
   }
 
+  public async getWithCourses(): Promise<CategoryGetAllResponseDto> {
+    const categories = await this.#courseCategoryRepository.getWithCourses();
+
+    return {
+      items: categories.map((category) => ({
+        id: category.id,
+        key: category.key,
+        name: category.name,
+      })),
+    };
+  }
+
   public getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
     return this.#courseCategoryRepository.getByKey(key);
   }

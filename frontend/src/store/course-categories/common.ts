@@ -1,5 +1,6 @@
 enum ActionType {
-  GET_COURSE_CATEGORIES = 'course-categories/get-course-categories',
+  GET_COURSES = 'course-categories/get-courses',
+  GET_CATEGORIES = 'course-categories/get-categories',
 }
 
 export { ActionType };

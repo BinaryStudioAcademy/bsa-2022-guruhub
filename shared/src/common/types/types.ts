@@ -1,4 +1,16 @@
 export {
+  type ChatGetAllMessagesRequestDto,
+  type ChatGetLastMessagesRequestDto,
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageCreateRequestDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
@@ -68,6 +80,7 @@ export {
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
+export { type DeepNonNullable } from './null/null';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,

@@ -1,3 +1,4 @@
+export { ChatMessage } from './chat-message/chat-message.model';
 export { Course } from './course/course.model';
 export { CourseCategory } from './course-category/course-category.model';
 export { CourseModule } from './course-module/course-module.model';

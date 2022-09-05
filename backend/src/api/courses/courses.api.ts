@@ -225,12 +225,12 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
         page = PaginationDefaultValue.DEFAULT_PAGE,
       } = req.query;
-      const interviews = await courseService.getAllPaginated({
+      const courseWithCategories = await courseService.getAllPaginated({
         count,
         page,
       });
 
-      return res.status(HttpCode.OK).send(interviews);
+      return res.status(HttpCode.OK).send(courseWithCategories);
     },
   });
 
