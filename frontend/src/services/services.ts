@@ -5,7 +5,6 @@ import { CategoriesApi } from './categories-api/categories-api.service';
 import { ChatsApi } from './chats-api/chats-api.service';
 import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
 import { CoursesApi } from './courses-api/courses-api.service';
-import { CoursesManagementApi } from './courses-management-api/courses-management-api.service';
 import { GroupsApi } from './groups-api/groups-api.service';
 import { Http } from './http/http.service';
 import { InterviewsApi } from './interviews-api/interviews-api.service';
@@ -66,11 +65,6 @@ const courseModulesApi = new CourseModulesApi({
   http,
 });
 
-const coursesManagementApi = new CoursesManagementApi({
-  apiPrefix: ENV.API_PATH,
-  http,
-});
-
 const categoriesApi = new CategoriesApi({
   apiPrefix: ENV.API_PATH,
   http,
@@ -92,7 +86,6 @@ export {
   chatsApi,
   courseModulesApi,
   coursesApi,
-  coursesManagementApi,
   groupsApi,
   interviewsApi,
   mentorsApi,

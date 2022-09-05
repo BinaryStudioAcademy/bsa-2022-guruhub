@@ -27,7 +27,7 @@ class CourseCategory {
     };
   }
 
-  public async getWithCourses(): Promise<CategoryGetAllResponseDto> {
+  public async getAllWithCourses(): Promise<CategoryGetAllResponseDto> {
     const categories = await this.#courseCategoryRepository.getWithCourses();
 
     return {

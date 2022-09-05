@@ -59,7 +59,7 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  public async getAll(
+  public async getAllWithCategories(
     filteringOpts: CourseFilteringDto,
   ): Promise<CourseGetResponseDto[]> {
     const { categoryKey, title } = filteringOpts;
@@ -71,7 +71,7 @@ class Course {
     });
   }
 
-  public getAllPaginated(
+  public getAll(
     args: EntityPaginationRequestQueryDto,
   ): Promise<EntityPagination<CourseGetResponseDto>> {
     const { page, count } = args;

@@ -32,7 +32,7 @@ const initCategoriesApi: FastifyPluginAsync<Options> = async (
     url: CategoriesApiPath.DASHBOARD,
     async handler(_req, rep) {
       const categoriesWithCourses =
-        await courseCategoryService.getWithCourses();
+        await courseCategoryService.getAllWithCourses();
 
       return rep.status(HttpCode.OK).send(categoriesWithCourses);
     },

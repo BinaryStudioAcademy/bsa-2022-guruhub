@@ -47,7 +47,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.GET,
-    url: CoursesApiPath.ROOT,
+    url: CoursesApiPath.DASHBOARD,
     schema: {
       querystring: courseFilteringValidationSchema,
     },
@@ -58,9 +58,34 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const { categoryKey, title } = req.query;
-      const courses = await courseService.getAll({ categoryKey, title });
+      const courses = await courseService.getAllWithCategories({
+        categoryKey,
+        title,
+      });
 
       return rep.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.ROOT,
+    schema: { querystring: paginationValidationSchema },
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_CATEGORIES),
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const {
+        count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+      const courseWithCategories = await courseService.getAll({
+        count,
+        page,
+      });
+
+      return res.status(HttpCode.OK).send(courseWithCategories);
     },
   });
 
@@ -209,28 +234,6 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const course = await courseService.updateCategory(id, newCategoryId);
 
       return rep.status(HttpCode.OK).send(course);
-    },
-  });
-
-  fastify.route({
-    method: HttpMethod.GET,
-    url: CoursesApiPath.CATEGORIES,
-    schema: { querystring: paginationValidationSchema },
-    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_CATEGORIES),
-    async handler(
-      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
-      res,
-    ) {
-      const {
-        count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
-        page = PaginationDefaultValue.DEFAULT_PAGE,
-      } = req.query;
-      const courseWithCategories = await courseService.getAllPaginated({
-        count,
-        page,
-      });
-
-      return res.status(HttpCode.OK).send(courseWithCategories);
     },
   });
 

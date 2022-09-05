@@ -1,4 +1,3 @@
-import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
 import {
   CategoryGetAllItemResponseDto,
   CourseUpdateCategoryRequestDto,
@@ -7,8 +6,8 @@ import {
 } from 'common/types/types';
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
-import { useAppDispatch, useAppForm, useLocation, useMemo } from 'hooks/hooks';
-import { courseActions, coursesManagementActions } from 'store/actions';
+import { useAppDispatch, useAppForm, useMemo } from 'hooks/hooks';
+import { courseActions } from 'store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { getDefaultUpdateCourseCategoryPayload } from './common';
@@ -32,10 +31,6 @@ const EditCategoryModal: FC<Props> = ({
   onModalToggle,
 }) => {
   const dispatch = useAppDispatch();
-  const location = useLocation();
-
-  const isCourseCategoriesPage =
-    location.pathname === AppRoute.COURSES_MANAGEMENT;
 
   const { control, errors, handleSubmit } =
     useAppForm<CourseUpdateCategoryRequestDto>({
@@ -54,14 +49,6 @@ const EditCategoryModal: FC<Props> = ({
     dispatch(courseActions.updateCategory({ courseId, newCategoryId }))
       .unwrap()
       .then(() => {
-        if (isCourseCategoriesPage) {
-          dispatch(
-            coursesManagementActions.getCourses({
-              page: PaginationDefaultValue.DEFAULT_PAGE,
-              count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
-            }),
-          );
-        }
         onModalToggle();
       });
   };

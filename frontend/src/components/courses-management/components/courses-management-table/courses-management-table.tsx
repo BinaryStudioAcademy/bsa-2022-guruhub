@@ -1,7 +1,6 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Table } from 'components/common/common';
-import { EditCategoryModal } from 'components/course/components/components';
+import { EditCategoryModal, Table } from 'components/common/common';
 import { CoursesManagementTableRow } from 'components/courses-management/common/types/types';
 import {
   getCoursesManagementColumns,
@@ -33,16 +32,15 @@ const CoursesManagementTable: FC = () => {
     }),
   );
 
-  const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
-    useState<boolean>(false);
   const [activeCourse, setActiveCourse] =
     useState<CoursesManagementTableRow | null>(null);
+
+  const isUpdateCategoryModalOpen = Boolean(activeCourse);
 
   const handleUpdateCategoryModalToggle = (): void => {
     if (isUpdateCategoryModalOpen) {
       setActiveCourse(null);
     }
-    setUpdateCategoryModalOpen((prev) => !prev);
   };
 
   useEffect(() => {

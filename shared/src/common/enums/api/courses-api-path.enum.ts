@@ -14,6 +14,7 @@ enum CoursesApiPath {
   MENTORS = '/mentors',
   MENTEES = '/mentees',
   $ID_CATEGORY = '/:id/category',
+  DASHBOARD = '/dashboard',
 }
 
 export { CoursesApiPath };

@@ -138,21 +138,20 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.ANY}
-          element={
-            <AuthorizedWrapper>
-              <NotFound />
-            </AuthorizedWrapper>
-          }
-        />
-
-        <Route
           path={AppRoute.COURSES_MANAGEMENT}
           element={
             <AuthorizedProtectedRoute
               permissions={[PermissionKey.MANAGE_CATEGORIES]}
               component={<CoursesManagement />}
             />
+          }
+        />
+        <Route
+          path={AppRoute.ANY}
+          element={
+            <AuthorizedWrapper>
+              <NotFound />
+            </AuthorizedWrapper>
           }
         />
       </Routes>

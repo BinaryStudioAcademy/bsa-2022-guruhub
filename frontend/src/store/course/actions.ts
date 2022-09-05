@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { NotificationMessage, PermissionKey } from 'common/enums/enums';
+import {
+  NotificationMessage,
+  PaginationDefaultValue,
+  PermissionKey,
+} from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
@@ -19,6 +23,7 @@ import {
 } from 'common/types/types';
 import { checkHasPermission } from 'helpers/helpers';
 import { notification } from 'services/services';
+import { coursesManagementActions } from 'store/actions';
 
 import { ActionType } from './common';
 
@@ -264,10 +269,16 @@ const updateCategory = createAsyncThunk<
   CourseGetResponseDto,
   CourseUpdateCategoryRequestArguments,
   AsyncThunkConfig
->(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
+>(ActionType.UPDATE_CATEGORY, async (payload, { extra, dispatch }) => {
   const { coursesApi } = extra;
   const updatedCourse = await coursesApi.updateCategory(payload);
   notification.success(NotificationMessage.COURSE_CATEGORY_UPDATED);
+  dispatch(
+    coursesManagementActions.getCourses({
+      page: PaginationDefaultValue.DEFAULT_PAGE,
+      count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+    }),
+  );
 
   return updatedCourse;
 });

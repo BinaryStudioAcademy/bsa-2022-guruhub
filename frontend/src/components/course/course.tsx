@@ -4,6 +4,7 @@ import { FC } from 'common/types/types';
 import {
   Category,
   Content,
+  EditCategoryModal,
   IconButton,
   Image,
   Spinner,
@@ -21,7 +22,6 @@ import { courseActions } from 'store/actions';
 import {
   ChooseMentorButton,
   ChooseMentorModal,
-  EditCategoryModal,
   ModulesCardsContainer,
   MyMentor,
   MyStudentsContainer,
