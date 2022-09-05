@@ -3,12 +3,14 @@ import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
 import { ReactComponent as CrossIcon } from 'assets/icons/cross.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit.svg';
 import { ReactComponent as EducationIcon } from 'assets/icons/education.svg';
+import { ReactComponent as HidePassIcon } from 'assets/icons/hidden-password.svg';
 import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
 import { ReactComponent as Interview } from 'assets/icons/interview.svg';
 import { ReactComponent as LeftArrow } from 'assets/icons/left-arrow.svg';
 import { ReactComponent as MentorsIcon } from 'assets/icons/mentors.svg';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/settings.svg';
+import { ReactComponent as ShowPassIcon } from 'assets/icons/shown-password.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/trash-can-solid.svg';
 import { ReactComponent as UamIcon } from 'assets/icons/uam.svg';
 import { FC, IconName, SVGProps } from 'common/types/types';
@@ -30,6 +32,8 @@ const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   leftArrow: LeftArrow,
   interview: Interview,
   uam: UamIcon,
+  showPass: ShowPassIcon,
+  hidePass: HidePassIcon,
 };
 
 type Props = {

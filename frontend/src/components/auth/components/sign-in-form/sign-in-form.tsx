@@ -1,6 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC, UserSignInRequestDto } from 'common/types/types';
-import { Button, Input, Link } from 'components/common/common';
+import { Button, Input, Link, PasswordInput } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { userSignIn as userSignInValidationSchema } from 'validation-schemas/validation-schemas';
@@ -39,8 +39,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
             errors={errors}
             placeholder="Enter your email"
           />
-          <Input
-            type="password"
+          <PasswordInput
             label="Password"
             name={getNameOf<UserSignInRequestDto>('password')}
             control={control}
