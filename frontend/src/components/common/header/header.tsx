@@ -1,22 +1,20 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
-import { AppRoute } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { AppRoute, SearchValue } from 'common/enums/enums';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
 import {
-  useAppDispatch,
   useAppSelector,
+  useCourseSearch,
   useLocation,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
 
 import { Popup, SearchBar } from './components/components';
 import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
 
@@ -27,8 +25,10 @@ const Header: FC = () => {
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
+  const { handleSearchPerform } = useCourseSearch();
+
   const handleSearch = (search: string): void => {
-    dispatch(dashboardActions.getCourses({ title: search, categoryKey: '' }));
+    handleSearchPerform(SearchValue.TITLE, search);
   };
 
   return (
@@ -47,7 +47,10 @@ const Header: FC = () => {
                 <Image
                   width="50"
                   height="50"
-                  src={defaultUserAvatar}
+                  src={
+                    (user as UserWithPermissions).userDetails.avatar?.url ??
+                    defaultUserAvatar
+                  }
                   alt="user avatar"
                   isCircular
                   classes={styles.img}

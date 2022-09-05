@@ -19,7 +19,7 @@ const MentorCard: FC<Props> = ({ onClick, mentor }) => {
       <div className={styles.avatarWrapper}>
         <Image
           alt="mentor image"
-          src={mentor.avatarUrl ?? defaultUserAvatar}
+          src={mentor.avatar?.url ?? defaultUserAvatar}
           width="200"
           height="100"
           classes={styles.avatar}

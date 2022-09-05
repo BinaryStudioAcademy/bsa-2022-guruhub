@@ -4,7 +4,7 @@ import { getFormattedDate } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 
 const DateCell: FC<CellProps<GroupsTableRow>> = ({ value }) => {
-  return <span>{getFormattedDate(value, 'distance')} ago</span>;
+  return <span>{getFormattedDate(value, 'HH:mm dd.MM.yyyy')}</span>;
 };
 
 export { DateCell };

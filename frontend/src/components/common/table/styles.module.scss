@@ -18,11 +18,16 @@
 }
 
 .tableBodyRowData {
+  max-width: 120px;
+  overflow-x: hidden;
   color: var(--typography-text-gray-200);
   font-weight: 600;
   font-size: 14px;
   font-style: normal;
   line-height: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: keep-all;
 }
 
 .tableHeadRowHeader,

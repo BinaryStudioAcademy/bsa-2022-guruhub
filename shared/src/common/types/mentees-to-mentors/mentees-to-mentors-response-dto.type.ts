@@ -1,7 +1,9 @@
+import { UsersGetResponseDto } from '../types';
+
 type MenteesToMentorsResponseDto = {
   id: number;
   courseId: number;
-  mentorId: number;
+  mentor: UsersGetResponseDto;
   menteeId: number;
 };
 

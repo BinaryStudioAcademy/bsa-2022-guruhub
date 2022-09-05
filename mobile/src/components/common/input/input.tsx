@@ -21,6 +21,7 @@ type Props<T extends FormControlValues> = {
   placeholder?: string;
   isSecure?: boolean;
   isSecurePadding?: boolean;
+  rows?: number;
 };
 
 const Input = <T extends FormControlValues>({
@@ -31,11 +32,13 @@ const Input = <T extends FormControlValues>({
   placeholder,
   isSecure,
   isSecurePadding,
+  rows,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
   const { value, onChange, onBlur } = field;
   const error = errors[name]?.message as string;
+  const hasRows = Boolean(rows);
 
   return (
     <View>
@@ -46,8 +49,14 @@ const Input = <T extends FormControlValues>({
         placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
         onBlur={onBlur}
-        style={[styles.input, isSecurePadding && styles.isSecure]}
+        style={[
+          styles.input,
+          hasRows && styles.rows,
+          isSecurePadding && styles.isSecure,
+        ]}
         secureTextEntry={isSecure}
+        numberOfLines={rows}
+        multiline={hasRows}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
     </View>

@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
   isSecure: {
     paddingRight: 60,
   },
+  rows: {
+    textAlignVertical: 'top',
+  },
 });
 
 export { styles };

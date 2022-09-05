@@ -2,12 +2,14 @@ export {
   ApiPath,
   AuthApiPath,
   CategoriesApiPath,
+  ChatsApiPath,
   CourseModulesApiPath,
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
   MentorsApiPath,
   PermissionApiPath,
+  TasksApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
@@ -29,6 +31,8 @@ export {
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SortOrder } from './sort/sort';
+export { TaskStatus } from './task/task';
+export { TaskNoteValidationMessage } from './task-note/task-note';
 export {
   UserGender,
   UserValidationMessage,

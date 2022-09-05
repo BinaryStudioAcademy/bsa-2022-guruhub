@@ -5,6 +5,11 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    height: '100%',
+  },
+  profileWrapper: {
+    flex: 1,
+    alignItems: 'flex-start',
   },
   title: {
     color: AppColor.TEXT.GRAY_100,
@@ -14,7 +19,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   avatarSection: {
-    flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     minHeight: 136,
@@ -25,16 +29,12 @@ const styles = StyleSheet.create({
     height: 136,
     marginRight: 20,
   },
-  inputLabel: {
-    color: AppColor.TEXT.GRAY_100,
-    fontFamily: AppFontFamily.INTER_500,
-    fontSize: 14,
-    lineHeight: 16,
-    marginBottom: 10,
-  },
   buttons: {
     alignSelf: 'flex-end',
     marginVertical: 20,
+  },
+  button: {
+    width: 120,
   },
   singOutWrapper: {
     width: 215,
