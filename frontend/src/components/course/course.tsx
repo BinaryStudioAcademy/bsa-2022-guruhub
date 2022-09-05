@@ -205,15 +205,18 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-      <div className={styles.additional}>
-        {mentor && <MyMentor mentor={mentor} />}
-        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
-          <MyStudentsContainer mentees={mentees} />
-        )}
-        {isMentorChoosingEnabled && isUserAuthorized && (
-          <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
-        )}
-      </div>
+
+      {isUserAuthorized && (
+        <div className={styles.additional}>
+          {mentor && <MyMentor mentor={mentor} />}
+          {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
+            <MyStudentsContainer mentees={mentees} />
+          )}
+          {isMentorChoosingEnabled && (
+            <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+          )}
+        </div>
+      )}
     </div>
   );
 };
