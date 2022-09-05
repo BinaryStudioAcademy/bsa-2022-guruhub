@@ -1,3 +1,4 @@
+import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
 import {
   CategoryGetAllItemResponseDto,
   CourseUpdateCategoryRequestDto,
@@ -6,15 +7,10 @@ import {
 } from 'common/types/types';
 import { Button, Modal, Select } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
-import { useAppDispatch, useAppForm, useMemo } from 'hooks/hooks';
+import { useAppDispatch, useAppForm, useLocation, useMemo } from 'hooks/hooks';
 import { courseActions, courseCategoriesActions } from 'store/actions';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'validation-schemas/validation-schemas';
 
-import {
-  AppRoute,
-  PaginationDefaultValue,
-} from '../../../../common/enums/enums';
-import { useLocation } from '../../../../hooks/hooks';
 import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { getCategoriesOptions } from './helpers/helpers';
 
