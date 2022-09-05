@@ -1,4 +1,3 @@
-import { UserValidationRule } from 'common/enums/enums';
 import {
   FC,
   FormControl,
@@ -44,7 +43,6 @@ const PasswordInput: FC<Props> = ({
         {...field}
         type={isPasswordHidden ? 'password' : 'text'}
         className={getValidClasses(defaultInputStyles.input)}
-        maxLength={UserValidationRule.PASSWORD_MAX_LENGTH}
         placeholder={placeholder}
       />
       <IconButton
