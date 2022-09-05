@@ -10,7 +10,7 @@ import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 import ReactSelect, { SingleValue } from 'react-select';
 
-import { DEFAULT_SELECT_STYLES } from './common';
+import { DEFAULT_SELECT_STYLES } from './styles';
 import styles from './styles.module.scss';
 
 type Props = {
