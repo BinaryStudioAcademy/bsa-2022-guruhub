@@ -9,6 +9,7 @@ enum NotificationMessage {
   MENTOR_CHOOSE = 'You have successfully chose a mentor for this course!',
   COURSE_ADD = 'Course has been successfully added! It will be available as soon as admin will review it.',
   NOTE_ADD = 'Note has been successfully added!',
+  TASK_DOES_NOT_EXIST = 'Task does not exist.',
   USER_DELETE = 'User has been successfully deleted!',
   PROFILE_DETAILS_UPDATE = 'Successful update!',
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
