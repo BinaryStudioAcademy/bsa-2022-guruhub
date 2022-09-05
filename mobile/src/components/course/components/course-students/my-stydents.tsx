@@ -32,7 +32,6 @@ const CourseStudents: FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.spinnerContainer}></View>
       <FlatList
         data={mentees}
         keyExtractor={({ id }): string => id.toString()}
