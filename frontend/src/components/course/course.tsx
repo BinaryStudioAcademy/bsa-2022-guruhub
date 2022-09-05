@@ -1,9 +1,10 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { DataStatus, PermissionKey } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { CourseUpdateCategoryRequestDto, FC } from 'common/types/types';
 import {
   Category,
   Content,
+  EditCategoryModal,
   IconButton,
   Image,
   Spinner,
@@ -21,7 +22,6 @@ import { courseActions } from 'store/actions';
 import {
   ChooseMentorButton,
   ChooseMentorModal,
-  EditCategoryModal,
   ModulesCardsContainer,
   MyMentor,
   MyStudentsContainer,
@@ -105,6 +105,19 @@ const Course: FC = () => {
     );
   };
 
+  const handleEditCategorySubmit = (
+    payload: CourseUpdateCategoryRequestDto,
+  ): void => {
+    const { newCategoryId } = payload;
+    dispatch(
+      courseActions.updateCategory({ courseId: Number(id), newCategoryId }),
+    )
+      .unwrap()
+      .then(() => {
+        handleUpdateCategoryModalToggle();
+      });
+  };
+
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
@@ -173,6 +186,7 @@ const Course: FC = () => {
         isOpen={isUpdateCategoryModalOpen}
         categories={categories}
         onModalToggle={handleUpdateCategoryModalToggle}
+        onEditCategorySubmit={handleEditCategorySubmit}
       />
       <ChooseMentorModal
         isOpen={isChooseMentorModalOpen}

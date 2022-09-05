@@ -12,6 +12,8 @@ import {
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
@@ -33,16 +35,34 @@ class CoursesApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(opts: {
+  public getAllWithCategories(opts: {
     filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
         method: HttpMethod.GET,
         queryString: {
           title: opts.filtering.title,
           categoryKey: opts.filtering.categoryKey,
+        },
+      },
+    );
+  }
+
+  public getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
         },
       },
     );

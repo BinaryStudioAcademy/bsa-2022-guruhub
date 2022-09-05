@@ -3,7 +3,7 @@ import { Model, RelationMappings } from 'objection';
 import { DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
-import { Interview } from '../models';
+import { Course, Interview } from '../models';
 
 class CourseCategory extends Abstract {
   public 'name': string;
@@ -18,6 +18,14 @@ class CourseCategory extends Abstract {
         join: {
           from: `${DbTableName.COURSE_CATEGORIES}.id`,
           to: `${DbTableName.INTERVIEWS}.categoryId`,
+        },
+      },
+      courses: {
+        relation: Model.HasManyRelation,
+        modelClass: Course,
+        join: {
+          from: `${DbTableName.COURSE_CATEGORIES}.id`,
+          to: `${DbTableName.COURSES}.courseCategoryId`,
         },
       },
     };
