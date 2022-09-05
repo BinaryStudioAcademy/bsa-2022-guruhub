@@ -39,7 +39,6 @@ const MyMentorCard: FC<Props> = ({ mentor, onChangeMentor }): ReactElement => {
           label="Change a mentor"
           variant={ButtonVariant.CANCEL}
           onPress={onChangeMentor}
-          size="small"
         />
       </View>
     </View>
