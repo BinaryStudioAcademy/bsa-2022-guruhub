@@ -15,6 +15,8 @@ type Constructor = {
 class ChatMessage {
   #ChatMessageModel: typeof ChatMessageM;
 
+  private static RECORD_EXISTS_CHECK = 1;
+
   public constructor({ ChatMessageModel }: Constructor) {
     this.#ChatMessageModel = ChatMessageModel;
   }
@@ -79,7 +81,7 @@ class ChatMessage {
   public async checkHasUnreadMessages(userId: number): Promise<boolean> {
     const hasUnreadMessages = await this.#ChatMessageModel
       .query()
-      .select(1)
+      .select(ChatMessage.RECORD_EXISTS_CHECK)
       .where({ receiverId: userId })
       .andWhere({ status: ChatMessageStatus.UNREAD })
       .first();
