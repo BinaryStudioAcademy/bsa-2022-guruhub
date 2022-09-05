@@ -1,7 +1,9 @@
 import { UserGender } from '~/common/enums/enums';
 
+import { FileGetResponseDto } from '../types';
+
 type UserDetailsItemResponseDto = {
-  avatarUrl: string | null;
+  avatar: FileGetResponseDto | null;
   createdAt: string;
   dateOfBirth: string | null;
   fullName: string;

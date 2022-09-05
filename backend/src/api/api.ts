@@ -1,11 +1,18 @@
 import { FastifyPluginAsync } from 'fastify';
 
-import { WHITE_ROUTES } from '~/common/constants/constants';
+import {
+  ALLOWED_IMAGE_EXTENSIONS,
+  WHITE_ROUTES,
+} from '~/common/constants/constants';
 import { ApiPath } from '~/common/enums/enums';
 import { ValidationSchema } from '~/common/types/types';
-import { authorization as authorizationPlugin } from '~/plugins/plugins';
+import {
+  authorization as authorizationPlugin,
+  file as filePlugin,
+} from '~/plugins/plugins';
 import {
   auth,
+  chatMessage,
   course,
   courseCategory,
   courseModule,
@@ -13,6 +20,7 @@ import {
   interview,
   mentor,
   permission,
+  task,
   token,
   user,
   userDetails,
@@ -20,12 +28,14 @@ import {
 
 import { initAuthApi } from './auth/auth.api';
 import { initCategoriesApi } from './categories/categories.api';
+import { initChatsApi } from './chats/chats.api';
 import { initCourseModulesApi } from './course-modules/course-modules.api';
 import { initCoursesApi } from './courses/courses.api';
 import { initGroupsApi } from './groups/groups.api';
 import { initInterviewsApi } from './interviews/interviews.api';
 import { initMentorsApi } from './mentors/mentors.api';
 import { initPermissionsApi } from './permissions/permissions.api';
+import { initTasksApi } from './tasks/tasks.api';
 import { initUserDetailsApi } from './user-details/user-details.api';
 import { initUsersApi } from './users/users.api';
 
@@ -42,6 +52,10 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       token,
     },
     routesWhiteList: WHITE_ROUTES,
+  });
+
+  fastify.register(filePlugin, {
+    allowedExtensions: ALLOWED_IMAGE_EXTENSIONS,
   });
 
   fastify.register(initAuthApi, {
@@ -113,6 +127,20 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       mentor,
     },
     prefix: ApiPath.MENTORS,
+  });
+
+  fastify.register(initChatsApi, {
+    services: {
+      chatMessage,
+    },
+    prefix: ApiPath.CHATS,
+  });
+
+  fastify.register(initTasksApi, {
+    services: {
+      task,
+    },
+    prefix: ApiPath.TASKS,
   });
 };
 

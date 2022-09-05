@@ -1,9 +1,15 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { HttpCode, HttpMethod, UserDetailsApiPath } from '~/common/enums/enums';
-import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
+import {
+  UserDetailsUpdateAvatarRequestParamsDto,
+  UserDetailsUpdateInfoRequestDto,
+} from '~/common/types/types';
 import { userDetails as userDetailsService } from '~/services/services';
-import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema,
+  userDetailsUpdateParams as userDetailsUpdateParamsValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -43,6 +49,26 @@ const initUserDetailsApi: FastifyPluginAsync<Options> = async (
       );
 
       return rep.send(userDetails);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PUT,
+    url: UserDetailsApiPath.USER_$ID_AVATAR,
+    schema: { params: userDetailsUpdateParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: UserDetailsUpdateAvatarRequestParamsDto }>,
+      rep,
+    ) {
+      const { fileBuffer } = req;
+      const { userId } = req.params;
+
+      const updatedUserDetails = await userDetailsService.uploadAvatar(
+        userId,
+        fileBuffer,
+      );
+
+      rep.status(HttpCode.OK).send(updatedUserDetails);
     },
   });
 };

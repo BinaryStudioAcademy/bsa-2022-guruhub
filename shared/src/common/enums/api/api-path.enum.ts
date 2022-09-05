@@ -1,5 +1,6 @@
 enum ApiPath {
   AUTH = '/auth',
+  CHATS = '/chats',
   INTERVIEWS = '/interviews',
   PERMISSIONS = '/permissions',
   GROUPS = '/groups',
@@ -9,6 +10,7 @@ enum ApiPath {
   COURSES = '/courses',
   COURSE_MODULES = '/courses',
   MENTORS = '/mentors',
+  TASKS = '/tasks',
 }
 
 export { ApiPath };

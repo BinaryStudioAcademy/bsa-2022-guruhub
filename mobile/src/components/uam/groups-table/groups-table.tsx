@@ -61,11 +61,13 @@ const GroupsTable: FC = () => {
   return (
     <View style={styles.tableContainer}>
       <Text style={styles.tableTitle}>Groups</Text>
-      <Table
-        columnWidthArr={[50, 180, 180, 155, 100]}
-        columns={groupsColumns}
-        data={groupsRows}
-      />
+      <View style={styles.tableWrapper}>
+        <Table
+          columnWidthArr={[50, 180, 180, 155, 100]}
+          columns={groupsColumns}
+          data={groupsRows}
+        />
+      </View>
       {Boolean(groupsTotalCount) && (
         <Pagination
           totalCount={groupsTotalCount}

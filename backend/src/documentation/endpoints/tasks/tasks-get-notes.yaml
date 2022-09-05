@@ -1,0 +1,18 @@
+get:
+  summary: Get all notes for a given task
+  parameters:
+    - in: path
+      name: taskId
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of the task to get notes for
+  tags:
+    - tasks
+  responses:
+    '200':
+      description: Task notes were received successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/tasks/tasks-get-notes-response.yaml'

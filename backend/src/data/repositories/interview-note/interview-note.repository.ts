@@ -22,7 +22,7 @@ class InterviewNote {
       .query()
       .select()
       .where({ interviewId })
-      .withGraphJoined('author(withoutPassword).[userDetails]')
+      .withGraphJoined('author(withoutPassword).[userDetails.[avatar]]')
       .orderBy('createdAt', SortOrder.DESC)
       .castTo<InterviewNoteGetAllItemResponseDto[]>()
       .execute();

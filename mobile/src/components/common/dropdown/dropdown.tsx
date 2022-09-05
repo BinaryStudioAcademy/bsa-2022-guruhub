@@ -16,16 +16,20 @@ type Props<T> = {
   items: ItemType<string | number>[];
   control: FormControl<T>;
   name: FormControlPath<T>;
+  label?: string;
   onSelectItem?: () => void;
   errors: FormControlErrors<T>;
+  placeholder: string;
 };
 
 const Dropdown = <T extends FormControlValues>({
   items,
   name,
+  label,
   control,
   onSelectItem,
   errors,
+  placeholder,
 }: Props<T>): ReactElement => {
   const [open, setOpen] = useState(false);
   const { field } = useFormControl({ name, control });
@@ -34,6 +38,7 @@ const Dropdown = <T extends FormControlValues>({
 
   return (
     <>
+      {label && <Text style={styles.title}>{label}</Text>}
       <DropDownPicker
         open={open}
         value={value}
@@ -44,7 +49,7 @@ const Dropdown = <T extends FormControlValues>({
         onSelectItem={onSelectItem}
         theme="DARK"
         closeOnBackPressed={true}
-        placeholder="Select category"
+        placeholder={placeholder}
         placeholderStyle={styles.placeholderStyle}
         searchPlaceholder="Search..."
         autoScroll={true}
@@ -57,7 +62,7 @@ const Dropdown = <T extends FormControlValues>({
         searchTextInputStyle={styles.searchTextInputStyle}
         searchPlaceholderTextColor="white"
       />
-      {Boolean(error) && <Text style={styles.error}>Select new category.</Text>}
+      {Boolean(error) && <Text style={styles.error}>{placeholder}</Text>}
     </>
   );
 };

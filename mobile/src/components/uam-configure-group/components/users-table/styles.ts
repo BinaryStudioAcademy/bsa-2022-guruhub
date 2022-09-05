@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingTop: 20,
   },
+  tableWrapper: {
+    marginBottom: 10,
+  },
 });
 
 export { styles };

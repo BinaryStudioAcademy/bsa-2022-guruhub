@@ -10,9 +10,14 @@
   outline: none;
 }
 
+.datePickerInput:focus {
+  border: 1px solid var(--brand-blue-100);
+}
+
 .datePicker {
   font-family: Inter, sans-serif;
   background-color: var(--background-gray-300);
+  border: 1px solid var(--background-gray-400);
 }
 
 .datePickerDay {
@@ -20,7 +25,7 @@
 }
 
 .datePickerDay:hover {
-  background-color: var(--hover-blue-100);
+  background-color: var(--background-gray-400);
 }
 
 .bdLabel {
