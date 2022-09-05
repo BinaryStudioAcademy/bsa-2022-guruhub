@@ -1,33 +1,22 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.scss';
 
-import {
-  FC,
-  FormControl,
-  FormControlErrors,
-  FormControlPath,
-} from 'common/types/types';
-import { ErrorMessage } from 'components/common/common';
+import { FC, FormControl, FormControlPath } from 'common/types/types';
+import { subYears } from 'date-fns';
 import { useFormControl } from 'hooks/hooks';
 import DatePicker from 'react-datepicker';
 
+import { MIN_USER_AGE } from './common/constants';
 import styles from './styles.module.scss';
 
 type Props = {
   control: FormControl;
-  errors: FormControlErrors;
   name: FormControlPath;
   label: string;
   placeholder?: string;
 };
 
-const Datepicker: FC<Props> = ({
-  control,
-  name,
-  label,
-  errors,
-  placeholder,
-}) => {
+const Datepicker: FC<Props> = ({ control, name, label, placeholder }) => {
   const { field } = useFormControl({ name, control });
 
   const handleChange = (date: Date | null): void => {
@@ -49,11 +38,9 @@ const Datepicker: FC<Props> = ({
         showMonthDropdown
         dropdownMode="select"
         dateFormat="dd.MM.yyyy"
+        maxDate={subYears(new Date(), MIN_USER_AGE)}
         placeholderText={placeholder}
       />
-      <span className={styles.errorMessage}>
-        <ErrorMessage errors={errors} name={name} />
-      </span>
     </div>
   );
 };

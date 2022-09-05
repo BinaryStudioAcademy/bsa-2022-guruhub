@@ -82,7 +82,6 @@ const UserProfileForm: FC = () => {
               />
               <Datepicker
                 control={control}
-                errors={errors}
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
                 label="Birth date"
                 placeholder="Enter date of birth"
