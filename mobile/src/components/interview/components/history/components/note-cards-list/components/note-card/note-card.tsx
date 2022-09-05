@@ -19,7 +19,8 @@ const NoteCard: FC<Props> = ({ note }) => {
           style={styles.avatar}
           source={{
             uri:
-              note.author.userDetails.avatar?.url ?? getImageUri(defaultAvatar),
+              note.author.userDetails?.avatar?.url ??
+              getImageUri(defaultAvatar),
           }}
         />
         <Text style={styles.name}>{note.author.userDetails.fullName}</Text>
