@@ -196,13 +196,39 @@ const updateisMentorChoosingEnabled = createAsyncThunk<
   return !isMentorCheck;
 });
 
+const getMenteesByCourseId = createAsyncThunk<
+  UserDetailsResponseDto[],
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.GET_MENTEES, async (payload, { extra }) => {
+  const { coursesApi } = extra;
+  const mentees = coursesApi.getMenteesByCourseId(payload.id);
+
+  return mentees;
+});
+
+const checkIsMentor = createAsyncThunk<
+  boolean,
+  CourseGetRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHECK_IS_MENTOR, ({ id }, { extra }) => {
+  const { coursesApi } = extra;
+  const isMentor = coursesApi.checkIsMentor({
+    courseId: id,
+  });
+
+  return isMentor;
+});
+
 export {
   addCourse,
   becomeMentor,
+  checkIsMentor,
   chooseMentor,
   createMentor,
   getCourse,
   getCourses,
+  getMenteesByCourseId,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateCategory,
