@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 2,
     borderColor: AppColor.BACKGROUND.GRAY_300,
-    paddingStart: 15,
+    paddingHorizontal: 15,
     paddingTop: 7,
     paddingBottom: 7,
   },
@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     color: AppColor.SUPPORT.ERROR_RED_100,
     marginTop: 9,
+  },
+  isSecure: {
+    paddingRight: 60,
   },
   rows: {
     textAlignVertical: 'top',

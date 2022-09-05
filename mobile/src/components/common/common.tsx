@@ -9,6 +9,7 @@ export { Dropdown } from './dropdown/dropdown';
 export { FAB } from './fab/fab';
 export { Icon } from './icon/icon';
 export { Input } from './input/input';
+export { InputSecure } from './input-secure/input-secure';
 export { Link } from './link/link';
 export { Pagination } from './pagination/pagination';
 export { ScrollView } from './scrollview/scrollview';
