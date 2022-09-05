@@ -69,6 +69,7 @@ export {
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
+  type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type DrawerNavigationItem,
   type DrawerNavigationList,
