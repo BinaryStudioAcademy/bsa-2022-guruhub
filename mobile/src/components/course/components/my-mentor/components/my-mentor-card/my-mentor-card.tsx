@@ -29,11 +29,9 @@ const MyMentorCard: FC<Props> = ({ mentor, onChangeMentor }): ReactElement => {
         </View>
         <View>
           <Text style={styles.fullName}>
-            {mentor ? mentor.userDetails.fullName : 'Mentor name'}
+            {mentor ? mentor.userDetails.fullName : ''}
           </Text>
-          <Text style={styles.email}>
-            {mentor ? mentor.email : 'Mentor email address'}
-          </Text>
+          <Text style={styles.email}>{mentor ? mentor.email : ''}</Text>
         </View>
       </View>
       <View style={styles.buttonWrapper}>
