@@ -37,7 +37,7 @@ const GroupsTable: FC = () => {
   const groupsColumns = getGroupsColumns();
   const groupsRows = groups.map((group) => ({
     ...group,
-    createdAt: getFormattedDate(group.createdAt, 'kk:mm, dd/MM/yyyy'),
+    createdAt: getFormattedDate(group.createdAt, 'HH:mm dd.MM.yyyy'),
     action: (
       <ActionCell
         id={group.id}

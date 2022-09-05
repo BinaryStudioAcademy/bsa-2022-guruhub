@@ -1,6 +1,6 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { ChatMessageStatus, DbTableName } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 import { User } from '../models';
@@ -13,6 +13,8 @@ class ChatMessage extends Abstract {
   public 'senderId': number;
 
   public 'receiverId': number;
+
+  public 'status': ChatMessageStatus;
 
   public static override get relationMappings(): RelationMappings {
     return {
