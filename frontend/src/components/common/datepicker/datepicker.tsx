@@ -6,17 +6,23 @@ import { subtractYears } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 import DatePicker from 'react-datepicker';
 
-import { MIN_USER_AGE } from './common/constants';
 import styles from './styles.module.scss';
 
 type Props = {
   control: FormControl;
   name: FormControlPath;
   label: string;
+  minUserAge: number;
   placeholder?: string;
 };
 
-const Datepicker: FC<Props> = ({ control, name, label, placeholder }) => {
+const Datepicker: FC<Props> = ({
+  control,
+  name,
+  label,
+  placeholder,
+  minUserAge,
+}) => {
   const { field } = useFormControl({ name, control });
 
   const handleChange = (date: Date | null): void => {
@@ -38,7 +44,7 @@ const Datepicker: FC<Props> = ({ control, name, label, placeholder }) => {
         showMonthDropdown
         dropdownMode="select"
         dateFormat="dd.MM.yyyy"
-        maxDate={subtractYears(MIN_USER_AGE)}
+        maxDate={subtractYears(new Date(), minUserAge)}
         placeholderText={placeholder}
       />
     </div>

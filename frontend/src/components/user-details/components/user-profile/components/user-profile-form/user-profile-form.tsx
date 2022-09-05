@@ -16,7 +16,7 @@ import {
 import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
+import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD, MIN_USER_AGE } from './common';
 import { getGenderOptions } from './helpers/helpers';
 import styles from './styles.module.scss';
 
@@ -85,6 +85,7 @@ const UserProfileForm: FC = () => {
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
                 label="Birth date"
                 placeholder="Enter date of birth"
+                minUserAge={MIN_USER_AGE}
               />
             </div>
             <div className={styles.grid}>
