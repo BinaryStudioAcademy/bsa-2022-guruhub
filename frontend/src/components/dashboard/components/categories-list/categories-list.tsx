@@ -1,6 +1,7 @@
 import { SearchValue } from 'common/enums/enums';
 import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
 import { Category } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
 import { useCourseSearch } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
@@ -26,7 +27,13 @@ const CategoriesList: FC<Props> = ({ items }) => {
   return (
     <ul className={styles.categoriesList}>
       {items.map((category) => (
-        <li key={category.id} className={styles.category}>
+        <li
+          key={category.id}
+          className={getValidClasses(
+            styles.category,
+            activeCategory === category.key && styles.selected,
+          )}
+        >
           <Category
             keyName={category.key}
             name={category.name}
