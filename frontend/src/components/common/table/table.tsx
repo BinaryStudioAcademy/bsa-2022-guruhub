@@ -1,6 +1,6 @@
 import { Pagination } from 'components/common/common';
-import { ReactElement } from 'react';
-import { Column, useTable } from 'react-table';
+import { ReactElement, useMemo } from 'react';
+import { Column, useResizeColumns, useTable } from 'react-table';
 
 import styles from './styles.module.scss';
 
@@ -23,10 +23,23 @@ const Table = <Data extends Record<string, unknown>>({
   onPageChange,
   placeholder = 'No data to display',
 }: Props<Data>): ReactElement => {
-  const tableInstance = useTable({
-    columns,
-    data,
-  });
+  const defaultColumn = useMemo(
+    () => ({
+      minWidth: 20,
+      width: 200,
+      maxWidth: 400,
+    }),
+    [],
+  );
+
+  const tableInstance = useTable(
+    {
+      columns,
+      data,
+      defaultColumn,
+    },
+    useResizeColumns,
+  );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
@@ -50,6 +63,10 @@ const Table = <Data extends Record<string, unknown>>({
                   className={styles.tableHeadRowHeader}
                 >
                   {column.render('Header')}
+                  <div
+                    {...column.getResizerProps()}
+                    className={styles.resizer}
+                  />
                 </th>
               ))}
             </tr>
