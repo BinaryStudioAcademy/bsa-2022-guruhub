@@ -94,6 +94,20 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       return rep.status(HttpCode.CREATED).send(newChatMessage);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: ChatsApiPath.HAS_UNREAD_MESSAGES,
+    async handler(req, rep) {
+      const { id } = req.user;
+
+      const hasUnreadMessages = await chatMessageService.checkHasUnreadMessages(
+        id,
+      );
+
+      return rep.status(HttpCode.OK).send(hasUnreadMessages);
+    },
+  });
 };
 
 export { initChatsApi };

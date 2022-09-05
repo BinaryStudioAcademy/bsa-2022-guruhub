@@ -35,7 +35,7 @@ const UsersTable: FC = () => {
   const tableData = users.map((user) => ({
     ...user,
     fullName: user.userDetails.fullName,
-    createdAt: getFormattedDate(user.createdAt, 'kk:mm, dd/MM/yyyy'),
+    createdAt: getFormattedDate(user.createdAt, 'HH:mm dd.MM.yyyy'),
     ...(currentUserID !== user.id && {
       action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
     }),
