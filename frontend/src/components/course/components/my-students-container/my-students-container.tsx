@@ -10,7 +10,12 @@ type Props = {
 
 const MyStudentsContainer: FC<Props> = ({ mentees }) => {
   if (!mentees.length) {
-    return <p className={styles.placeholder}>There are no students yet...</p>;
+    return (
+      <>
+        <h2 className={styles.studentsTitle}>My Students</h2>
+        <p className={styles.placeholder}>There are no students yet...</p>
+      </>
+    );
   }
 
   return (
