@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
+import { CourseCreateRequestDto } from '~/common/types/types';
 import {
   BackButton,
   Button,
@@ -19,10 +20,7 @@ import {
 import { coursesActions } from '~/store/actions';
 import { courseCreate as courseCreateValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import {
-  CourseCreateRequestDto,
-  DEFAULT_CREATE_COURSE_PAYLOAD,
-} from './common/constants/constants';
+import { DEFAULT_CREATE_COURSE_PAYLOAD } from './common/constants/constants';
 import { styles } from './style';
 
 const AddCourse: FC = () => {

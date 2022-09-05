@@ -1,6 +1,7 @@
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants/user.constants';
 import { ENV } from '~/common/enums/enums';
 import {
+  chatMessage as chatMessageRepository,
   course as courseRepository,
   courseCategory as courseCategoryRepository,
   courseModule as courseModuleRepository,
@@ -12,6 +13,8 @@ import {
   interviewNote as interviewNoteRepository,
   menteesToMentors as menteesToMentorsRepository,
   permission as permissionRepository,
+  task as taskRepository,
+  taskNote as taskNoteRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -20,6 +23,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { File } from './aws/file/file.service';
+import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
 import { CourseModule } from './course-module/course-module.service';
@@ -34,6 +38,8 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
+import { Task } from './task/task.service';
+import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
@@ -47,8 +53,17 @@ const encrypt = new Encrypt({
 
 const token = new Token({ alg: ENV.JWT.ALG, expiresIn: ENV.JWT.EXPIRES_IN });
 
+const file = new File({
+  region: ENV.AWS.REGION,
+  accessKeyId: ENV.AWS.ACCESS_KEY_ID,
+  secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
+  fileRepository,
+});
+
 const userDetails = new UserDetails({
   userDetailsRepository,
+  fileService: file,
+  avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
 const user = new User({
@@ -126,13 +141,6 @@ const interview = new Interview({
   interviewNoteService: interviewNote,
 });
 
-const file = new File({
-  region: ENV.AWS.REGION,
-  accessKeyId: ENV.AWS.ACCESS_KEY_ID,
-  secretAccessKey: ENV.AWS.SECRET_ACCESS_KEY,
-  fileRepository,
-});
-
 const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
 
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
@@ -142,8 +150,18 @@ const mentor = new Mentor({
   coursesToMentorsService: coursesToMentors,
 });
 
+const chatMessage = new ChatMessage({
+  chatMessageRepository,
+  menteesToMentorsRepository,
+});
+
+const taskNote = new TaskNote({ taskNoteRepository });
+
+const task = new Task({ taskRepository, taskNoteService: taskNote });
+
 export {
   auth,
+  chatMessage,
   course,
   courseCategory,
   courseModule,
@@ -159,6 +177,8 @@ export {
   menteesToMentors,
   mentor,
   permission,
+  task,
+  taskNote,
   token,
   udemy,
   user,

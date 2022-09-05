@@ -1,7 +1,20 @@
 export {
+  type ChatGetAllMessagesRequestDto,
+  type ChatGetLastMessagesRequestDto,
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageCreateRequestDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -63,9 +76,11 @@ export {
   type InterviewNoteGetAllResponseDto,
 } from './interview-note/interview-note';
 export {
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
+export { type DeepNonNullable } from './null/null';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
@@ -75,6 +90,16 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+} from './task/task';
+export {
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+} from './task-note/task-note';
 export {
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
@@ -88,6 +113,7 @@ export {
 export {
   type UserDetailsItemResponseDto,
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';

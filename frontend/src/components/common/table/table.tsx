@@ -65,6 +65,7 @@ const Table = <Data extends Record<string, unknown>>({
                   return (
                     <td
                       {...cell.getCellProps()}
+                      width={cell.column.width}
                       className={styles.tableBodyRowData}
                     >
                       {cell.render('Cell')}

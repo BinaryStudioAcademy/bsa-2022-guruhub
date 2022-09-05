@@ -6,6 +6,7 @@ import {
 } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
+import { Chats } from 'components/chats/chats';
 import {
   AuthorizedProtectedRoute,
   AuthorizedWrapper,
@@ -128,20 +129,19 @@ const App: FC = () => {
           }
         />
         <Route
+          path={AppRoute.CHATS}
+          element={
+            <AuthorizedWrapper>
+              <Chats />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
           path={AppRoute.ANY}
           element={
             <AuthorizedWrapper>
               <NotFound />
             </AuthorizedWrapper>
-          }
-        />
-        <Route
-          path={AppRoute.INTERVIEWS_$ID}
-          element={
-            <AuthorizedProtectedRoute
-              permissions={[PermissionKey.MANAGE_INTERVIEWS]}
-              component={<Interview />}
-            />
           }
         />
       </Routes>

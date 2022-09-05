@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
 
-import { DataStatus } from '~/common/enums/enums';
-import { InterviewsGetAllItemResponseDto } from '~/common/types/types';
+import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import {
+  InterviewsGetAllItemResponseDto,
+  InterviewsUpdateRequestParamsDto,
+} from '~/common/types/types';
+import {
+  Chip,
   Pagination,
   ScrollView,
   Spinner,
@@ -12,39 +16,49 @@ import { DEFAULT_PAGE_SIZE } from '~/components/interviews/common/constants/cons
 import { statusToColor } from '~/components/interviews/common/maps/maps';
 import {
   CategoryCell,
-  StatusCell,
+  IdCell,
 } from '~/components/interviews/interviews-table/components/components';
 import { getFormattedDate } from '~/helpers/helpers';
 import {
   useAppDispatch,
+  useAppNavigate,
   useAppSelector,
   useCallback,
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
-import { interviewsActions } from '~/store/actions';
+import { interviewActions, interviewsActions } from '~/store/actions';
 
 import { InterviewsTable } from './interviews-table/interviews-table';
 import { styles } from './styles';
 
 const Interviews: FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
   const { interviews, interviewsTotalCount, interviewsDataStatus } =
     useAppSelector((state) => state.interviews);
 
   const { page, handlePageChange } = usePagination();
 
+  const handleInterviewSelect = (
+    id: InterviewsUpdateRequestParamsDto,
+  ): void => {
+    dispatch(interviewActions.getInterview(id));
+    navigation.navigate(AppScreenName.INTERVIEW);
+  };
+
   const interviewsRows = interviews.map(
     (item: InterviewsGetAllItemResponseDto) => {
       return {
-        id: item.id,
+        id: <IdCell id={item.id} onPress={handleInterviewSelect} />,
         name: item.interviewee.userDetails.fullName,
         category: <CategoryCell category={item.courseCategory} />,
-        status: (
-          <StatusCell text={item.status} color={statusToColor[item.status]} />
-        ),
-        interviewer: item.interviewer?.userDetails.fullName ?? '',
-        date: getFormattedDate(item.interviewDate, 'kk:mm, dd/MM/yyyy'),
+        status: <Chip text={item.status} color={statusToColor[item.status]} />,
+        interviewer:
+          item.interviewer?.userDetails.fullName ?? 'Not assigned yet',
+        date: item.interviewDate
+          ? getFormattedDate(item.interviewDate, 'HH:mm dd.MM.yyyy')
+          : 'Not assigned yet',
       };
     },
   );

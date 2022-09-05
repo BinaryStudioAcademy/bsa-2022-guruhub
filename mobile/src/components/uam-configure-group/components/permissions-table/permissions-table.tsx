@@ -62,6 +62,7 @@ const PermissionsTable: FC<Props> = ({
         columns={permissionColumns}
         data={permissionRows}
         columnWidthArr={[50, 200, 100]}
+        showScrollbar={false}
       />
       <Pagination
         totalCount={permissions.length}

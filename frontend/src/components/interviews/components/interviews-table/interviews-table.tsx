@@ -1,4 +1,4 @@
-import { PaginationDefaultValue } from 'common/enums/enums';
+import { InterviewsPaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Table } from 'components/common/common';
 import { InterviewsTableRow } from 'components/interviews/common/types/types';
@@ -31,7 +31,7 @@ const InterviewTable: FC = () => {
     dispatch(
       interviewsActions.getInterviews({
         page,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
+        count: InterviewsPaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
   }, [page]);
@@ -49,7 +49,7 @@ const InterviewTable: FC = () => {
         columns={columns}
         currentPage={page}
         onPageChange={handlePageChange}
-        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        pageSize={InterviewsPaginationDefaultValue.DEFAULT_COUNT}
         totalCount={totalInterviewsNumber}
       />
     </div>

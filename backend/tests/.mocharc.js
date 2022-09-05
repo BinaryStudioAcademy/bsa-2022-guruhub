@@ -17,6 +17,7 @@ module.exports = {
   slow: 7 * SECOND,
   bail: false,
   parallel: false,
+  jobs: 1,
   spec: ['./src/tests/specs/**/*.spec.ts'],
   reporter: 'mocha-multi-reporters',
   'reporter-options': `configFile=${REPORTERRC}`,

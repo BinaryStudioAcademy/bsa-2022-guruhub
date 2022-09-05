@@ -1,4 +1,5 @@
 import { reducer as auth } from './auth/reducer';
+import { reducer as chats } from './chats/reducer';
 import { reducer as course } from './course/reducer';
 import { reducer as courseModule } from './course-module/reducer';
 import { reducer as dashboard } from './dashboard/reducer';
@@ -10,6 +11,7 @@ import { reducer as userDetails } from './user-details/reducer';
 
 const rootReducer = {
   auth,
+  chats,
   uam,
   userDetails,
   dashboard,

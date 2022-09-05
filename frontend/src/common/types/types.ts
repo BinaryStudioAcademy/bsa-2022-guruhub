@@ -1,7 +1,17 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -62,7 +72,9 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
   type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
 export {
   type NavigationMenuItem,
@@ -84,7 +96,25 @@ export {
   type URLSearchParamsInit,
 } from './react/react';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
-export { type IconName, type SelectorOption } from './ui/ui';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+} from './task/task';
+export {
+  type TaskNoteFormRequestDto,
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+  type TaskNoteManipulateRequestDto,
+} from './task-note/task-note';
+export {
+  type CSSObjectWithLabel,
+  type GroupBase,
+  type IconName,
+  type OptionProps,
+  type SelectorOption,
+  type SelectStyles,
+} from './ui/ui';
 export {
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
@@ -96,6 +126,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

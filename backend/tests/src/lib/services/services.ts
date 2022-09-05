@@ -6,6 +6,7 @@ import { CategoriesService } from './categories/categories.service';
 import { HttpService } from './http/http.service';
 import { InterviewService } from './interview/interview.service';
 import { PermissionsService } from './permissions/permissions.service';
+import { UsersService } from './users/users.service';
 
 const sessionStorage = new SessionStorage<ApiSession>();
 
@@ -18,6 +19,7 @@ const categoriesService = new CategoriesService({ httpService });
 const permissionsService = new PermissionsService({ httpService });
 
 const interviewService = new InterviewService({ httpService });
+const usersService = new UsersService({ httpService });
 
 export {
   sessionStorage as apiSessionStorage,
@@ -26,4 +28,5 @@ export {
   httpService,
   interviewService,
   permissionsService,
+  usersService,
 };
