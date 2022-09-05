@@ -2,7 +2,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './styles.scss';
 
 import { FC, FormControl, FormControlPath } from 'common/types/types';
-import { subYears } from 'date-fns';
+import { subtractYears } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 import DatePicker from 'react-datepicker';
 
@@ -38,7 +38,7 @@ const Datepicker: FC<Props> = ({ control, name, label, placeholder }) => {
         showMonthDropdown
         dropdownMode="select"
         dateFormat="dd.MM.yyyy"
-        maxDate={subYears(new Date(), MIN_USER_AGE)}
+        maxDate={subtractYears(MIN_USER_AGE)}
         placeholderText={placeholder}
       />
     </div>
