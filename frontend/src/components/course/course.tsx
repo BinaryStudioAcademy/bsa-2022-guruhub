@@ -59,8 +59,6 @@ const Course: FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const { user: authUser } = useAppSelector((state) => state.auth);
-
   const isCategoryEditAllowed = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
@@ -150,7 +148,7 @@ const Course: FC = () => {
     );
   }
 
-  const isUserAuthorized = Boolean(authUser);
+  const isUserAuthorized = Boolean(user);
 
   return (
     <div className={styles.container}>
