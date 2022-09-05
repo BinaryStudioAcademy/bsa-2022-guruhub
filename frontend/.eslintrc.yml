@@ -7,3 +7,10 @@ env:
 settings:
   react:
     version: '18'
+
+overrides:
+  - files:
+    - src/common/types/react-table/react-table-config.d.ts
+    rules:
+      '@typescript-eslint/no-explicit-any':
+        - off
