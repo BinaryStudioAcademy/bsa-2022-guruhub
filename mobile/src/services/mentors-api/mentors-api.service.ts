@@ -48,9 +48,6 @@ class MentorsApi {
       `${this.#apiPrefix}${ApiPath.MENTORS}${
         MentorsApiPath.COURSES
       }/${courseId}${MentorsApiPath.MENTEES}/${menteeId}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 }
