@@ -1,5 +1,5 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { CourseUpdateCategoryRequestDto, FC } from 'common/types/types';
 import { EditCategoryModal, Table } from 'components/common/common';
 import { CoursesManagementTableRow } from 'components/courses-management/common/types/types';
 import {
@@ -38,9 +38,7 @@ const CoursesManagementTable: FC = () => {
   const isUpdateCategoryModalOpen = Boolean(activeCourse);
 
   const handleUpdateCategoryModalToggle = (): void => {
-    if (isUpdateCategoryModalOpen) {
-      setActiveCourse(null);
-    }
+    setActiveCourse(null);
   };
 
   useEffect(() => {
@@ -64,8 +62,24 @@ const CoursesManagementTable: FC = () => {
 
   const handleEdit = (course: CoursesManagementTableRow): void => {
     setActiveCourse(course);
-    handleUpdateCategoryModalToggle();
   };
+
+  const handleEditCategorySubmit = (
+    payload: CourseUpdateCategoryRequestDto,
+  ): void => {
+    const { newCategoryId } = payload;
+    dispatch(
+      coursesManagementActions.updateCategory({
+        courseId: (activeCourse as CoursesManagementTableRow).id,
+        newCategoryId,
+      }),
+    )
+      .unwrap()
+      .then(() => {
+        handleUpdateCategoryModalToggle();
+      });
+  };
+
   const columns = useMemo<Column<CoursesManagementTableRow>[]>(() => {
     return getCoursesManagementColumns(handleEdit);
   }, []);
@@ -89,6 +103,7 @@ const CoursesManagementTable: FC = () => {
           isOpen={isUpdateCategoryModalOpen}
           categories={categories}
           onModalToggle={handleUpdateCategoryModalToggle}
+          onEditCategorySubmit={handleEditCategorySubmit}
         />
       )}
     </div>

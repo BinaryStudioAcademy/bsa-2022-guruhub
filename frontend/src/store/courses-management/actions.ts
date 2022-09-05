@@ -1,11 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  NotificationMessage,
+  PaginationDefaultValue,
+} from 'common/enums/enums';
+import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
   CourseGetResponseDto,
+  CourseUpdateCategoryRequestArguments,
   EntityPagination,
   EntityPaginationRequestQueryDto,
 } from 'common/types/types';
+import { notification } from 'services/services';
 
 import { ActionType } from './common';
 
@@ -24,6 +30,22 @@ const getCourses = createAsyncThunk<
   return courses;
 });
 
+const updateCategory = createAsyncThunk<
+  void,
+  CourseUpdateCategoryRequestArguments,
+  AsyncThunkConfig
+>(ActionType.UPDATE_CATEGORY, async (payload, { extra, dispatch }) => {
+  const { coursesApi } = extra;
+  await coursesApi.updateCategory(payload);
+  notification.success(NotificationMessage.COURSE_CATEGORY_UPDATED);
+  dispatch(
+    getCourses({
+      page: PaginationDefaultValue.DEFAULT_PAGE,
+      count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+    }),
+  );
+});
+
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
   void,
@@ -35,4 +57,4 @@ const getCategories = createAsyncThunk<
   return categoriesDto;
 });
 
-export { getCategories, getCourses };
+export { getCategories, getCourses, updateCategory };

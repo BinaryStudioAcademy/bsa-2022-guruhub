@@ -71,7 +71,6 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
     schema: { querystring: paginationValidationSchema },
-    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_CATEGORIES),
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       res,

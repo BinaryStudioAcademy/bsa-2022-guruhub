@@ -24,7 +24,7 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAll(filteringOpts: {
+  public getAllWithCategories(filteringOpts: {
     categoryId: number | null;
     title: string;
   }): Promise<CourseGetResponseDto[]> {
@@ -53,7 +53,7 @@ class Course {
       .execute();
   }
 
-  public async getAllPaginated({
+  public async getAll({
     count,
     page,
   }: EntityPaginationRequestQueryDto): Promise<

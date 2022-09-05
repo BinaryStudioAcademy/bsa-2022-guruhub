@@ -65,7 +65,7 @@ class Course {
     const { categoryKey, title } = filteringOpts;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
 
-    return this.#courseRepository.getAll({
+    return this.#courseRepository.getAllWithCategories({
       categoryId,
       title,
     });
@@ -78,7 +78,7 @@ class Course {
 
     const zeroIndexPage = page - 1;
 
-    return this.#courseRepository.getAllPaginated({
+    return this.#courseRepository.getAll({
       page: zeroIndexPage,
       count,
     });

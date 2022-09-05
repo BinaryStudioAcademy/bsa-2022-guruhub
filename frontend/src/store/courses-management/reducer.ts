@@ -5,7 +5,7 @@ import {
   CourseGetResponseDto,
 } from 'common/types/types';
 
-import { getCategories, getCourses } from './actions';
+import { getCategories, getCourses, updateCategory } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -41,6 +41,15 @@ const reducer = createReducer(initialState, (builder) => {
     state.categories = payload.items;
   });
   builder.addCase(getCategories.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(updateCategory.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(updateCategory.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });

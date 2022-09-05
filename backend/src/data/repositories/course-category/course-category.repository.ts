@@ -15,7 +15,7 @@ class CourseCategory {
     return this.#CourseCategoryModel.query().execute();
   }
 
-  public getWithCourses(): Promise<CourseCategoryM[]> {
+  public getAllWithCourses(): Promise<CourseCategoryM[]> {
     return this.#CourseCategoryModel
       .query()
       .select('courseCategories.id', 'key', 'name')
