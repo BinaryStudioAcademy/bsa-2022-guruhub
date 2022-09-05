@@ -29,7 +29,7 @@ const getUserRows = ({ users, onToggle, control }: Props): UsersTableRow[] => {
       [UserTableAccessor.EMAIL]: user.email,
       [UserTableAccessor.CREATED_AT]: getFormattedDate(
         user.createdAt,
-        'kk:mm, dd/MM/yyyy',
+        'HH:mm dd.MM.yyyy',
       ),
     };
   });
