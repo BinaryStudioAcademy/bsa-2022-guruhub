@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 12,
   },
-  avatarContainer: {},
   avatar: {
     width: 65,
     height: 65,

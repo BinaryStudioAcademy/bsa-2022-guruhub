@@ -14,7 +14,7 @@ type Props = {
 const StudentCard: FC<Props> = ({ mentee }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.avatarContainer}>
+      <View>
         <Image
           style={styles.avatar}
           source={{
