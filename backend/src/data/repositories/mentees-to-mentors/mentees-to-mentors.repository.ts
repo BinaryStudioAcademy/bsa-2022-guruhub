@@ -32,6 +32,32 @@ class MenteesToMentors {
       .execute();
   }
 
+  public changeMentor(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<MenteesToMentorsResponseDto> {
+    const { courseId, mentorId, menteeId } = menteesToMentors;
+
+    this.#MenteesToMentorsModel
+      .query()
+      .delete()
+      .where({
+        menteeId,
+        courseId,
+      })
+      .execute();
+
+    return this.#MenteesToMentorsModel
+      .query()
+      .insert({
+        courseId,
+        mentorId,
+        menteeId,
+      })
+      .withGraphFetched('mentor(withoutPassword).[userDetails]')
+      .castTo<MenteesToMentorsResponseDto>()
+      .execute();
+  }
+
   public async getByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;

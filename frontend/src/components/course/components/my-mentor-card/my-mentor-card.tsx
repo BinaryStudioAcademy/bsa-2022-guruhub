@@ -6,9 +6,10 @@ import styles from './styles.module.scss';
 
 type Props = {
   mentor: UsersGetResponseDto;
+  changeMentor: () => void;
 };
 
-const MyMentor: FC<Props> = ({ mentor }) => {
+const MyMentor: FC<Props> = ({ mentor, changeMentor }) => {
   return (
     <div>
       <h2>My Mentor</h2>
@@ -27,7 +28,11 @@ const MyMentor: FC<Props> = ({ mentor }) => {
           </div>
         </div>
         <div className={styles.changeMentor}>
-          <Button label="Change Mentor" btnColor="gray" />
+          <Button
+            label="Change Mentor"
+            btnColor="gray"
+            onClick={changeMentor}
+          />
         </div>
       </div>
     </div>
