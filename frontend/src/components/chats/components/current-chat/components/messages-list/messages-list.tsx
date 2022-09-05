@@ -23,7 +23,7 @@ const MessagesList: FC<Props> = ({ messages, currentUserId }) => {
               content={message.message}
               postTime={getFormattedDate(message.createdAt, 'HH:mm')}
               messageAvatarUrl={
-                message.sender.userDetails.avatarUrl ?? defaultAvatar
+                message.sender.userDetails.avatar?.url ?? defaultAvatar
               }
             />
           </div>

@@ -1,7 +1,7 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import logo from 'assets/img/logo.svg';
 import { AppRoute, SearchValue } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UserWithPermissions } from 'common/types/types';
 import { Button, Image, Link } from 'components/common/common';
 import {
   useAppSelector,
@@ -25,10 +25,10 @@ const Header: FC = () => {
     setIsMenuPopupVisible(!isMenuPopupVisible);
   };
 
-  const { performSearch } = useCourseSearch();
+  const { handleSearchPerform } = useCourseSearch();
 
   const handleSearch = (search: string): void => {
-    performSearch(SearchValue.TITLE, search);
+    handleSearchPerform(SearchValue.TITLE, search);
   };
 
   return (
@@ -47,7 +47,10 @@ const Header: FC = () => {
                 <Image
                   width="50"
                   height="50"
-                  src={defaultUserAvatar}
+                  src={
+                    (user as UserWithPermissions).userDetails.avatar?.url ??
+                    defaultUserAvatar
+                  }
                   alt="user avatar"
                   isCircular
                   classes={styles.img}

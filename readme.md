@@ -35,7 +35,7 @@ This is the repository responsible for GuruHub's apps.
 
 ### 🏗 Application Schema
 
-**TODO**
+![App schema](./docs/app-architecture/app-arch.png)
 
 ### 💽 DB Schema
 
@@ -89,6 +89,7 @@ erDiagram
   }
 
   user_details ||--|| users : user_id
+  user_details ||--|| files : avatar_file_id
   user_details {
       int id PK
       dateTime created_at
@@ -97,7 +98,7 @@ erDiagram
       varchar first_name
       varchar last_name
       varchar gender
-      varchar avatar_url
+      int avatar_file_id FK
       date date_of_birth
   }
 

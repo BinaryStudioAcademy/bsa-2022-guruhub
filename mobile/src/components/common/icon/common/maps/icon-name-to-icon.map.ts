@@ -15,6 +15,8 @@ import Search from '~/assets/icons/search.svg';
 import Settings from '~/assets/icons/settings.svg';
 import Trash from '~/assets/icons/trash.svg';
 import UAM from '~/assets/icons/uam.svg';
+import Visibility from '~/assets/icons/visibility.svg';
+import VisibilityOff from '~/assets/icons/visibility-off.svg';
 import Voice from '~/assets/icons/voice.svg';
 import { IconName } from '~/common/types/ui/icon-name.type';
 
@@ -34,5 +36,7 @@ const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   edit: Edit,
   save: Save,
   interview: Interview,
+  visibility: Visibility,
+  visibilityOff: VisibilityOff,
 };
 export { iconNameToIcon };

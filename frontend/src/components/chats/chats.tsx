@@ -1,10 +1,15 @@
-import { DataStatus } from 'common/enums/enums';
+import { DataStatus, SearchValue } from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  useUserSearch,
+} from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
 
-import { ChatsList, CurrentChat } from './components/components';
+import { ChatsList, CurrentChat, SearchUser } from './components/components';
 import styles from './styles.module.scss';
 
 const Chats: FC = () => {
@@ -28,12 +33,18 @@ const Chats: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(chatsActions.getLastMessages());
-  }, []);
-
   const handleChatMessagesLoad = (chatId: string): void => {
     dispatch(chatsActions.getMessages({ id: chatId }));
+  };
+
+  useEffect(() => {
+    dispatch(chatsActions.getLastMessages({ fullName: '' }));
+  }, [dispatch]);
+
+  const { handleSearchPerform, searchParams } = useUserSearch();
+
+  const handleSearch = (search: string): void => {
+    handleSearchPerform(SearchValue.FULLNAME, search);
   };
 
   if (
@@ -45,11 +56,14 @@ const Chats: FC = () => {
 
   return (
     <div className={styles.chats}>
-      <ChatsList
-        chatsItems={lastMessages}
-        currentUserId={(user as UserWithPermissions).id}
-        onChatMessagesLoad={handleChatMessagesLoad}
-      />
+      <div className={styles.lastMessagesColumn}>
+        <SearchUser searchParams={searchParams} onSearch={handleSearch} />
+        <ChatsList
+          chatsItems={lastMessages}
+          currentUserId={(user as UserWithPermissions).id}
+          onChatMessagesLoad={handleChatMessagesLoad}
+        />
+      </div>
       <CurrentChat
         chatId={chatId}
         messages={currentChatMessages}

@@ -18,7 +18,7 @@ export { AppEnvironment, ENV, LogLevel } from './app/app';
 export { CourseHost } from './course/course';
 export { DbTableName } from './db/db';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
-export { ContentType } from './file/file';
+export { ContentType, FileSizeBytesValue } from './file/file';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { InterviewStatus } from './interview/interview';
 export { PaginationDefaultValue } from './pagination/pagination';

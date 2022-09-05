@@ -3,6 +3,7 @@ export {
   type ChatGetLastMessagesRequestDto,
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
+  type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
@@ -114,6 +115,7 @@ export {
 export {
   type UserDetailsItemResponseDto,
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';

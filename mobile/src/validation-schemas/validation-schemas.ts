@@ -6,5 +6,6 @@ export {
   groupUpdateParams,
 } from './group/group';
 export { interviewUpdate } from './interview/interview';
+export { interviewNotesCreateArguments } from './interview-note/interview-note';
 export { userSignIn, userSignUp } from './user/user';
 export { userDetailsUpdateInfo } from './user-details/user-details';

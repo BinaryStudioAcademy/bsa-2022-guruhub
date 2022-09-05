@@ -42,6 +42,13 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewNoteCreateDto,
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllResponseDto,
+  type InterviewNoteGetRequestArgumentsDto,
+} from './interview-note/interview-note';
+export {
   type InterviewsByIdRequestParamsDto,
   type InterviewsByIdResponseDto,
   type InterviewsCreateRequestBodyDto,

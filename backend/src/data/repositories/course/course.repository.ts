@@ -116,8 +116,14 @@ class Course {
           builder.where('fullName', 'ilike', `%${mentorName}%`);
         }
       })
-      .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
-      .joinRelated('mentors.[userDetails]')
+      .select(
+        'mentors.id',
+        'fullName',
+        'gender',
+        'dateOfBirth',
+        'mentors:userDetails:avatar as avatar',
+      )
+      .withGraphJoined('mentors(withoutPassword).[userDetails.[avatar]]')
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }
@@ -128,8 +134,8 @@ class Course {
   }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
     return this.#CourseModel
       .query()
-      .select('mentees.id', 'fullName', 'avatarUrl')
-      .joinRelated('[mentees.[userDetails], mentorsWithMentees]')
+      .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
+      .withGraphJoined('[mentees.[userDetails.[avatar]], mentorsWithMentees]')
       .where('mentorsWithMentees.id', mentorId)
       .where('courses.id', courseId)
       .distinct('mentees.id')

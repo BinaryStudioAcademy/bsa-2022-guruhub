@@ -4,7 +4,7 @@ import { dashboardActions } from 'store/actions';
 
 type UseCourseSearchResult = {
   searchParams: URLSearchParams;
-  performSearch: (name: string, value: string) => void;
+  handleSearchPerform: (name: string, value: string) => void;
 };
 
 const useCourseSearch = (): UseCourseSearchResult => {
@@ -12,7 +12,7 @@ const useCourseSearch = (): UseCourseSearchResult => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const performSearch = (name: string, value: string): void => {
+  const handleSearchPerform = (name: string, value: string): void => {
     if (searchParams.has(name) && !value) {
       searchParams.delete(name);
       setSearchParams(searchParams);
@@ -29,7 +29,7 @@ const useCourseSearch = (): UseCourseSearchResult => {
     dispatch(dashboardActions.getCourses({ title, categoryKey: category }));
   };
 
-  return { searchParams, performSearch };
+  return { searchParams, handleSearchPerform };
 };
 
 export { useCourseSearch };

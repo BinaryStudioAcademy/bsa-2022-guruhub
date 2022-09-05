@@ -16,13 +16,13 @@ const MyStudentsContainer: FC<Props> = ({ mentees }) => {
   return (
     <div className={styles.studentsWrapper}>
       <h2 className={styles.studentsTitle}>My Students</h2>
-      {mentees.map(({ id, fullName, avatarUrl }) => (
+      {mentees.map(({ id, fullName, avatar }) => (
         <div key={id} className={styles.student}>
           <div className={styles.imageWrapper}>
             <Image
               width="74"
               height="74"
-              src={avatarUrl ?? defaultUserAvatar}
+              src={avatar?.url ?? defaultUserAvatar}
               alt="user avatar"
               isCircular
             />

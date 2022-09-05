@@ -30,6 +30,7 @@ type UseAppFormResult<T extends FormControlValues = FormControlValues> = {
   watch: UseFormWatch<FieldValues>;
   handleSubmit: UseFormHandleSubmit<T>;
   reset: UseFormReset<T>;
+  setFocus: (name: string) => void;
 };
 
 const useAppForm = <T extends FormControlValues = FormControlValues>({
@@ -44,6 +45,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     getValues,
     reset,
     watch,
+    setFocus,
     formState: { errors },
   } = useForm<FormControlValues>({
     mode,
@@ -61,6 +63,7 @@ const useAppForm = <T extends FormControlValues = FormControlValues>({
     watch,
     control,
     errors,
+    setFocus,
   };
 };
 
