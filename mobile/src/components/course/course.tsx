@@ -97,7 +97,7 @@ const Course: FC = () => {
           courseId: course.id,
           menteeId: user.id,
         }),
-      ).unwrap();
+      );
     }
   }, [user, course]);
 

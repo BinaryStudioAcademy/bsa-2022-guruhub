@@ -10,13 +10,10 @@ import { styles } from './styles';
 
 type Props = {
   mentor: UsersGetResponseDto | null;
-  handleMentorCardShown: () => void;
+  onChangeMentor: () => void;
 };
 
-const MyMentorCard: FC<Props> = ({
-  mentor,
-  handleMentorCardShown,
-}): ReactElement => {
+const MyMentorCard: FC<Props> = ({ mentor, onChangeMentor }): ReactElement => {
   return (
     <View style={styles.container}>
       <View style={styles.dataWrapper}>
@@ -32,16 +29,19 @@ const MyMentorCard: FC<Props> = ({
         </View>
         <View>
           <Text style={styles.fullName}>
-            {mentor ? mentor.userDetails.fullName : ''}
+            {mentor ? mentor.userDetails.fullName : 'Mentor name'}
           </Text>
-          <Text style={styles.email}>{mentor ? mentor.email : ''}</Text>
+          <Text style={styles.email}>
+            {mentor ? mentor.email : 'Mentor email address'}
+          </Text>
         </View>
       </View>
       <View style={styles.buttonWrapper}>
         <Button
           label="Change a mentor"
           variant={ButtonVariant.CANCEL}
-          onPress={handleMentorCardShown}
+          onPress={onChangeMentor}
+          size="small"
         />
       </View>
     </View>

@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { AppColor } from '~/common/enums/enums';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -7,7 +9,7 @@ const styles = StyleSheet.create({
   },
   isMentorChoosingEnabled: {
     marginTop: 20,
-    color: 'white',
+    color: AppColor.TEXT.GRAY_100,
     fontSize: 20,
     textAlign: 'center',
   },

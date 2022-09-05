@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 
 import { DataStatus } from '~/common/enums/enums';
-import { Text, View } from '~/components/common/common';
+import { View } from '~/components/common/common';
 import {
   useAppSelector,
   useCallback,
-  useEffect,
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
@@ -22,40 +21,30 @@ const MyMentor: FC = () => {
       dataStatus: courses.dataStatus,
       isMentorChoosingEnabled: courses.isMentorChoosingEnabled,
     }));
-  const [isMentorCardShown, setIsMentorCardShown] = useState<boolean>();
+  const [isMentorCardShown, setIsMentorCardShown] = useState(
+    !isMentorChoosingEnabled,
+  );
 
   const areMentorsLoading = dataStatus === DataStatus.PENDING;
 
-  const handleMentorCardShown = (): void => {
+  const handleMentorCardShownToggle = (): void => {
     setIsMentorCardShown(!isMentorCardShown);
   };
-
-  useEffect(() => {
-    setIsMentorCardShown(Boolean(mentor));
-  }, [mentor]);
 
   useFocusEffect(
     useCallback(() => {
       return () => {
-        setIsMentorCardShown(false);
+        setIsMentorCardShown(!isMentorChoosingEnabled);
       };
     }, []),
   );
-
-  if (!isMentorChoosingEnabled) {
-    return (
-      <Text style={styles.isMentorChoosingEnabled}>
-        You already mentor on this course!
-      </Text>
-    );
-  }
 
   return (
     <View style={styles.container}>
       {isMentorCardShown ? (
         <MyMentorCard
           mentor={mentor}
-          handleMentorCardShown={handleMentorCardShown}
+          onChangeMentor={handleMentorCardShownToggle}
         />
       ) : (
         <ChooseMentor
