@@ -35,7 +35,7 @@ const Header: FC = () => {
     }
 
     return () => {
-      dispatch(chatsActions.cleanHasUnreadMessages());
+      dispatch(chatsActions.setHasUnreadMessages(false));
     };
   }, [user]);
 

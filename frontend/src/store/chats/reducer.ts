@@ -7,10 +7,10 @@ import {
 
 import {
   checkHasUnreadMessages,
-  cleanHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
+  setHasUnreadMessages,
 } from './actions';
 
 type State = {
@@ -71,15 +71,14 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(checkHasUnreadMessages.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(checkHasUnreadMessages.fulfilled, (state, action) => {
+  builder.addCase(checkHasUnreadMessages.fulfilled, (state) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.hasUnreadMessages = action.payload;
   });
   builder.addCase(checkHasUnreadMessages.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(cleanHasUnreadMessages.fulfilled, (state, { payload }) => {
+  builder.addCase(setHasUnreadMessages, (state, { payload }) => {
     state.hasUnreadMessages = payload;
   });
 });
