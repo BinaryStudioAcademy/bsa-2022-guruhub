@@ -5,33 +5,50 @@ import { CourseScreenName } from '~/common/enums/enums';
 import { CourseNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
 import {
+  useAppDispatch,
   useAppNavigate,
   useAppSelector,
   useEffect,
   useMemo,
 } from '~/hooks/hooks';
+import { coursesActions } from '~/store/actions';
 
-import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
-import { getAllowedScreens } from './helpers/helpers';
+import { SCREEN_OPTIONS } from './common/constants';
+import { filterScreen, getAllowedScreens } from './helpers/helpers';
 
 const Tab = createMaterialTopTabNavigator<CourseNavigationParamList>();
 
 const Course: FC = () => {
   const navigation = useAppNavigate();
+  const dispatch = useAppDispatch();
 
-  const userPermissions = useAppSelector(
-    (state) => state.auth.user?.permissions ?? [],
+  const { userPermissions, course, isMentor } = useAppSelector(
+    ({ auth, courses }) => ({
+      userPermissions: auth.user?.permissions ?? [],
+      course: courses.course,
+      isMentor: courses.isMentor,
+    }),
   );
 
   const allowedScreens = useMemo(() => {
-    return getAllowedScreens(COURSE_TAB_ITEMS, userPermissions);
-  }, [userPermissions]);
+    const screens = isMentor
+      ? filterScreen(CourseScreenName.MY_MENTOR)
+      : filterScreen(CourseScreenName.MY_STUDENTS);
+
+    return getAllowedScreens(screens, userPermissions);
+  }, [userPermissions, isMentor]);
 
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={navigation.goBack} />,
     });
   }, []);
+
+  useEffect(() => {
+    if (course) {
+      dispatch(coursesActions.checkIsMentor({ id: course.id }));
+    }
+  }, [course]);
 
   return (
     <Tab.Navigator

@@ -9,6 +9,7 @@ import {
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseModulesGetAllRequestParamsDto,
   CourseUpdateCategoryRequestArguments,
   MenteesToMentorsRequestDto,
   UserDetailsResponseDto,
@@ -118,6 +119,26 @@ class Courses {
           mentorId,
         }),
       },
+    );
+  }
+
+  public getMenteesByCourseId(
+    courseId: number,
+  ): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTEES
+      }`,
+    );
+  }
+
+  public checkIsMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.IS_MENTOR_CHECK
+      }`,
     );
   }
 }
