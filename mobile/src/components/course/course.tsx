@@ -90,6 +90,17 @@ const Course: FC = () => {
     };
   }, [mentors]);
 
+  useEffect(() => {
+    if (user && course) {
+      dispatch(
+        coursesActions.getMenteesMentor({
+          courseId: course.id,
+          menteeId: user.id,
+        }),
+      ).unwrap();
+    }
+  }, [user, course]);
+
   useFocusEffect(
     useCallback(() => {
       return () => setIsDescriptionExpanded(false);

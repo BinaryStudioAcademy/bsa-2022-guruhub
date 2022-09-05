@@ -1,6 +1,10 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppColor, DataStatus } from '~/common/enums/enums';
+import { AppColor } from '~/common/enums/enums';
+import {
+  CourseGetResponseDto,
+  UserDetailsResponseDto,
+} from '~/common/types/types';
 import {
   FlatList,
   RefreshControl,
@@ -9,30 +13,23 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useState,
-} from '~/hooks/hooks';
+import { useAppDispatch, useEffect, useState } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
 import { MentorCard } from './components/components';
 import { styles } from './styles';
 
-const ChooseMentor: FC = () => {
+type Props = {
+  mentors: UserDetailsResponseDto[];
+  course: CourseGetResponseDto | null;
+  isLoading: boolean;
+};
+
+const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useAppDispatch();
-  const { mentors, dataStatus, course, isMentorChoosingEnabled } =
-    useAppSelector(({ courses }) => ({
-      mentors: courses.mentors,
-      dataStatus: courses.dataStatus,
-      course: courses.course,
-      isMentorChoosingEnabled: courses.isMentorChoosingEnabled,
-    }));
 
   const courseId = course?.id;
-  const isMentorsLoading = dataStatus === DataStatus.PENDING;
 
   const handleChooseButton = (mentorId: number): void => {
     dispatch(coursesActions.chooseMentor({ id: mentorId }));
@@ -58,21 +55,13 @@ const ChooseMentor: FC = () => {
     handleMentorsLoad();
   }, [courseId, searchValue]);
 
-  if (!isMentorChoosingEnabled) {
-    return (
-      <Text style={styles.isMentorChoosingEnabled}>
-        You already mentor on this course!
-      </Text>
-    );
-  }
-
   return (
     <>
       <View style={styles.searchFieldContainer}>
         <Search onSearch={handleSearch} />
       </View>
       <View style={styles.container}>
-        {isMentorsLoading ? (
+        {isLoading ? (
           <View style={styles.spinnerContainer}>
             <Spinner isOverflow />
           </View>
