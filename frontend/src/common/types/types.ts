@@ -107,7 +107,14 @@ export {
   type TaskNoteManipulateRequestBodyDto,
   type TaskNoteManipulateRequestDto,
 } from './task-note/task-note';
-export { type IconName, type SelectorOption } from './ui/ui';
+export {
+  type CSSObjectWithLabel,
+  type GroupBase,
+  type IconName,
+  type OptionProps,
+  type SelectorOption,
+  type SelectStyles,
+} from './ui/ui';
 export {
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
@@ -119,6 +126,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

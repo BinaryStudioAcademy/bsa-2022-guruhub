@@ -11,6 +11,7 @@ enum NotificationMessage {
   NOTE_ADD = 'Note has been successfully added!',
   USER_DELETE = 'User has been successfully deleted!',
   PROFILE_DETAILS_UPDATE = 'Successful update!',
+  PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
 }
 
 export { NotificationMessage };

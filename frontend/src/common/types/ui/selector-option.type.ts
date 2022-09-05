@@ -3,4 +3,4 @@ type SelectorOption<T = string> = {
   value: T;
 };
 
-export { SelectorOption };
+export { type SelectorOption };

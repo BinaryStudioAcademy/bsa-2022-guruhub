@@ -28,31 +28,47 @@ class UserDetails {
         gender,
         userId,
       })
+      .withGraphFetched('avatar')
       .returning('*')
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 
   public update(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
-  ): Promise<UserDetailsM | null> {
+  ): Promise<UserDetailsResponseDto | null> {
     return this.#UserDetailsModel
       .query()
       .findOne({ userId })
       .patch(userDetails)
       .returning('*')
       .first()
-      .castTo<UserDetailsM>()
+      .withGraphFetched('avatar')
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 
-  public getByUserId(userId: number): Promise<UserDetailsM | null> {
+  public getByUserId(userId: number): Promise<UserDetailsResponseDto | null> {
     return this.#UserDetailsModel
       .query()
       .select()
       .where({ userId })
       .first()
-      .castTo<UserDetailsM>()
+      .withGraphFetched('avatar')
+      .castTo<UserDetailsResponseDto>()
+      .execute();
+  }
+
+  public updateAvatarFileId(
+    userDetailsId: number,
+    fileId: number,
+  ): Promise<UserDetailsResponseDto> {
+    return this.#UserDetailsModel
+      .query()
+      .patchAndFetchById(userDetailsId, { avatarFileId: fileId })
+      .withGraphFetched('avatar')
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 }

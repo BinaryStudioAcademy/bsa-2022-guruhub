@@ -98,16 +98,18 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(
-      courseActions.getMentorsByCourseId({
-        courseId: Number(id),
-        filteringOpts: { mentorName: '' },
-      }),
-    );
-    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
-
     dispatch(courseActions.getCategories());
-  }, [dispatch, id]);
+
+    if (user) {
+      dispatch(
+        courseActions.getMentorsByCourseId({
+          courseId: Number(id),
+          filteringOpts: { mentorName: '' },
+        }),
+      );
+      dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+    }
+  }, [dispatch, id, user]);
 
   useEffect(() => {
     if (user) {
@@ -122,8 +124,11 @@ const Course: FC = () => {
   }, [user]);
 
   useEffect(() => {
-    if (course) {
+    if (course && user) {
       dispatch(courseActions.updateIsMentorBecomingEnabled());
+    }
+
+    if (course) {
       dispatch(courseActions.updateIsMentorChoosingEnabled());
     }
 
@@ -147,6 +152,8 @@ const Course: FC = () => {
       <p className={styles.placeholder}>There is no course with provided id</p>
     );
   }
+
+  const isUserAuthorized = Boolean(user);
 
   return (
     <div className={styles.container}>
@@ -203,7 +210,7 @@ const Course: FC = () => {
         {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
           <MyStudentsContainer mentees={mentees} />
         )}
-        {isMentorChoosingEnabled && (
+        {isMentorChoosingEnabled && isUserAuthorized && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}
       </div>

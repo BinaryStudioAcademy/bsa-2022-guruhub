@@ -46,4 +46,7 @@ export {
   tasksManipulateRequestBody,
 } from './task/task';
 export { userDelete, userSignIn, userSignUp } from './user/user';
-export { userDetailsUpdateInfo } from './user-details/user-details';
+export {
+  userDetailsUpdateInfo,
+  userDetailsUpdateParams,
+} from './user-details/user-details';

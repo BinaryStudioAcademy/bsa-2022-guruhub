@@ -13,4 +13,4 @@ type IconName =
   | 'interview'
   | 'uam';
 
-export { IconName };
+export { type IconName };
