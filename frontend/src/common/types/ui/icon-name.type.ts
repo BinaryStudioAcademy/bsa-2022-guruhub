@@ -13,6 +13,8 @@ type IconName =
   | 'interview'
   | 'uam'
   | 'chat'
-  | 'chatUnread';
+  | 'chatUnread'
+  | 'hidePass'
+  | 'showPass';
 
 export { type IconName };
