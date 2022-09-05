@@ -1,0 +1,41 @@
+.mentorCard {
+  padding: 25px;
+  background-color: var(--background-gray-300);
+  border-radius: 10px;
+}
+
+.mentorInfo {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.mentorData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+.mentorContacts {
+  margin: 0;
+  color: var(--text-gray-200);
+  font-size: 15px;
+}
+
+.mentorName {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.changeMentor {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 15px;
+  border-top: 2px solid var(--background-gray-200);
+}
+
+.changeMentor button {
+  padding: 10px 20px;
+  font-size: 14px;
+}

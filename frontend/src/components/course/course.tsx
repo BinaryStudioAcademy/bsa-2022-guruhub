@@ -23,6 +23,8 @@ import {
   ChooseMentorModal,
   EditCategoryModal,
   ModulesCardsContainer,
+  MyMentor,
+  MyStudentsContainer,
 } from './components/components';
 import styles from './styles.module.scss';
 
@@ -35,7 +37,11 @@ const Course: FC = () => {
     passedInterviewsCategoryIds,
     user,
     mentors,
+    mentor,
+    mentees,
     isMentorChoosingEnabled,
+    isMentor,
+    menteesByCourseDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -44,7 +50,11 @@ const Course: FC = () => {
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
     mentors: course.mentors,
+    mentor: course.mentor,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
+    mentees: course.menteesByCourseId,
+    isMentor: course.isMentor,
+    menteesByCourseDataStatus: course.menteesByCourseDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -88,24 +98,37 @@ const Course: FC = () => {
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(
-      courseActions.getMentorsByCourseId({
-        courseId: Number(id),
-        filteringOpts: { mentorName: '' },
-      }),
-    );
     dispatch(courseActions.getCategories());
-  }, [dispatch, id]);
+
+    if (user) {
+      dispatch(
+        courseActions.getMentorsByCourseId({
+          courseId: Number(id),
+          filteringOpts: { mentorName: '' },
+        }),
+      );
+      dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+    }
+  }, [dispatch, id, user]);
 
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(
+        courseActions.getMentor({
+          courseId: Number(id),
+          menteeId: user.id,
+        }),
+      );
     }
   }, [user]);
 
   useEffect(() => {
-    if (course) {
+    if (course && user) {
       dispatch(courseActions.updateIsMentorBecomingEnabled());
+    }
+
+    if (course) {
       dispatch(courseActions.updateIsMentorChoosingEnabled());
     }
 
@@ -113,6 +136,12 @@ const Course: FC = () => {
       dispatch(courseActions.disableMentorBecoming());
     };
   }, [user, course, passedInterviewsCategoryIds]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+    }
+  }, [user]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -123,6 +152,8 @@ const Course: FC = () => {
       <p className={styles.placeholder}>There is no course with provided id</p>
     );
   }
+
+  const isUserAuthorized = Boolean(user);
 
   return (
     <div className={styles.container}>
@@ -174,9 +205,12 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-
       <div className={styles.additional}>
-        {isMentorChoosingEnabled && (
+        {mentor && <MyMentor mentor={mentor} />}
+        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
+          <MyStudentsContainer mentees={mentees} />
+        )}
+        {isMentorChoosingEnabled && isUserAuthorized && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}
       </div>

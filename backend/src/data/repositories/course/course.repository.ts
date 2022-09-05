@@ -1,6 +1,7 @@
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   UserDetailsResponseDto,
@@ -44,8 +45,15 @@ class Course {
   public async create(
     course: CourseCreateRequestArgumentsDto,
   ): Promise<CourseM> {
-    const { title, description, url, vendorId, courseCategoryId, originalId } =
-      course;
+    const {
+      title,
+      description,
+      url,
+      vendorId,
+      courseCategoryId,
+      originalId,
+      imageUrl,
+    } = course;
 
     return this.#CourseModel.query().insert({
       title,
@@ -54,6 +62,7 @@ class Course {
       vendorId,
       courseCategoryId,
       originalId,
+      imageUrl,
     });
   }
 
@@ -107,8 +116,29 @@ class Course {
           builder.where('fullName', 'ilike', `%${mentorName}%`);
         }
       })
-      .select('mentors.id', 'gender', 'fullName', 'avatarUrl')
-      .joinRelated('mentors.[userDetails]')
+      .select(
+        'mentors.id',
+        'fullName',
+        'gender',
+        'dateOfBirth',
+        'mentors:userDetails:avatar as avatar',
+      )
+      .withGraphJoined('mentors(withoutPassword).[userDetails.[avatar]]')
+      .castTo<UserDetailsResponseDto[]>()
+      .execute();
+  }
+
+  public getMenteesByCourseIdAndMentorId({
+    courseId,
+    mentorId,
+  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
+      .withGraphJoined('[mentees.[userDetails.[avatar]], mentorsWithMentees]')
+      .where('mentorsWithMentees.id', mentorId)
+      .where('courses.id', courseId)
+      .distinct('mentees.id')
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }

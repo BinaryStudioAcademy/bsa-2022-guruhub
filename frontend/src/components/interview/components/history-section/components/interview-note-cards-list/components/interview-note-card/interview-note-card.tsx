@@ -1,6 +1,6 @@
 import defaultAvatar from 'assets/img/avatar-default.svg';
 import { FC } from 'common/types/types';
-import { Content, Image } from 'components/common/common';
+import { Image } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
@@ -15,7 +15,7 @@ const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardContentWrapper}>
-        <Content html={note} />
+        <p className={styles.noteContent}>{note}</p>
         <div className={styles.postDateSection}>
           <div>{getFormattedDate(postDate, 'HH:mm, dd.MM')}</div>
         </div>

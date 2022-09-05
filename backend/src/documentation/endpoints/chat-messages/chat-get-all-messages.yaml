@@ -1,0 +1,16 @@
+get:
+  summary: Get All Chat Messages
+  tags:
+    - chatMessages
+  parameters:
+    - name: chatId
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/chat-messages/chat-get-all-messages-response-dto.yaml'
