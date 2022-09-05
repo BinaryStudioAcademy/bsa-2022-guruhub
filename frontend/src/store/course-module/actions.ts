@@ -11,7 +11,6 @@ import {
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
 } from 'common/types/types';
-import { notification } from 'services/services';
 
 import { ActionType } from './common';
 
@@ -49,7 +48,7 @@ const getTask = createAsyncThunk<
   TaskGetByMenteeIdAndModuleId,
   AsyncThunkConfig
 >(ActionType.GET_TASK, async ({ menteeId, moduleId }, { extra }) => {
-  const { tasksApi } = extra;
+  const { tasksApi, notification } = extra;
   const task = await tasksApi.getByMenteeIdAndModuleId({ menteeId, moduleId });
 
   if (!task) {
