@@ -68,3 +68,11 @@
   flex-direction: row;
   align-items: center;
 }
+
+.chatLogoWrapper {
+  margin-top: 5px;
+}
+
+.chatIcon:hover path {
+  fill: white;
+}
