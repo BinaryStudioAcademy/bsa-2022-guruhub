@@ -4,10 +4,9 @@ import {
   FormControlErrors,
   FormControlPath,
 } from 'common/types/types';
-import { ErrorMessage, IconButton } from 'components/common/common';
-import defaultInputStyles from 'components/common/input/styles.module.scss';
+import { IconButton, Input } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
-import { useFormControl, useState } from 'hooks/hooks';
+import { useState } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -26,23 +25,18 @@ const PasswordInput: FC<Props> = ({
   errors,
   placeholder,
 }) => {
-  const { field } = useFormControl({ name, control });
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
 
   const handleClick = (): void => setIsPasswordHidden(!isPasswordHidden);
 
   return (
-    <label
-      className={getValidClasses(
-        defaultInputStyles.label,
-        styles.passwordField,
-      )}
-    >
-      <span className={getValidClasses(defaultInputStyles.title)}>{label}</span>
-      <input
-        {...field}
+    <div className={getValidClasses(styles.passwordField)}>
+      <Input
         type={isPasswordHidden ? 'password' : 'text'}
-        className={getValidClasses(defaultInputStyles.input)}
+        label={label}
+        name={name}
+        control={control}
+        errors={errors}
         placeholder={placeholder}
       />
       <IconButton
@@ -51,10 +45,7 @@ const PasswordInput: FC<Props> = ({
         className={styles.passwordIcon}
         onClick={handleClick}
       />
-      <span className={defaultInputStyles.errorMessage}>
-        <ErrorMessage errors={errors} name={name} />
-      </span>
-    </label>
+    </div>
   );
 };
 
