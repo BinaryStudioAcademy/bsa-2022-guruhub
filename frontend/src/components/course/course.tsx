@@ -153,6 +153,8 @@ const Course: FC = () => {
     );
   }
 
+  const isUserAuthorized = Boolean(user);
+
   return (
     <div className={styles.container}>
       <EditCategoryModal
@@ -208,7 +210,7 @@ const Course: FC = () => {
         {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
           <MyStudentsContainer mentees={mentees} />
         )}
-        {isMentorChoosingEnabled && (
+        {isMentorChoosingEnabled && isUserAuthorized && (
           <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
         )}
       </div>
