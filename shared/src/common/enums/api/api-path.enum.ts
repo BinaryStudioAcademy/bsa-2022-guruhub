@@ -11,6 +11,7 @@ enum ApiPath {
   COURSE_MODULES = '/courses',
   MENTORS = '/mentors',
   TASKS = '/tasks',
+  DASHBOARD = '/dashboard',
 }
 
 export { ApiPath };

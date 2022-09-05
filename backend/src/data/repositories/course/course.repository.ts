@@ -1,9 +1,14 @@
+import { Page } from 'objection';
+
+import { SortOrder } from '~/common/enums/enums';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
@@ -19,7 +24,7 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAll(filteringOpts: {
+  public getAllWithCategories(filteringOpts: {
     categoryId: number | null;
     title: string;
   }): Promise<CourseGetResponseDto[]> {
@@ -27,6 +32,7 @@ class Course {
 
     return this.#CourseModel
       .query()
+      .select('*')
       .where((builder) => {
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
@@ -37,9 +43,33 @@ class Course {
           builder.where('title', 'ilike', `%${title}%`);
         }
       })
+      .innerJoin(
+        'courseCategories',
+        'courses.courseCategoryId',
+        'courseCategories.id',
+      )
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
+  }
+
+  public async getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    const { results, total } = await this.#CourseModel
+      .query()
+      .withGraphJoined('category')
+      .orderBy('courseCategoryId', SortOrder.DESC)
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public async create(

@@ -6,6 +6,8 @@ import {
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
@@ -57,15 +59,28 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  public async getAll(
+  public async getAllWithCategories(
     filteringOpts: CourseFilteringDto,
   ): Promise<CourseGetResponseDto[]> {
     const { categoryKey, title } = filteringOpts;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
 
-    return this.#courseRepository.getAll({
+    return this.#courseRepository.getAllWithCategories({
       categoryId,
       title,
+    });
+  }
+
+  public getAll(
+    args: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { page, count } = args;
+
+    const zeroIndexPage = page - 1;
+
+    return this.#courseRepository.getAll({
+      page: zeroIndexPage,
+      count,
     });
   }
 
