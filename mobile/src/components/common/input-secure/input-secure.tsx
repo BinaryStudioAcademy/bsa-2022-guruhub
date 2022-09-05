@@ -27,10 +27,10 @@ const InputSecure = <T extends FormControlValues>({
   errors,
   placeholder,
 }: Props<T>): ReactElement => {
-  const [visibility, setVisibility] = useState(true);
+  const [isContentVisible, setIsContentVisible] = useState(true);
 
-  const handleOnPress = (): void => {
-    setVisibility(!visibility);
+  const handleContentVisabilityToggle = (): void => {
+    setIsContentVisible(!isContentVisible);
   };
 
   return (
@@ -41,11 +41,12 @@ const InputSecure = <T extends FormControlValues>({
         control={control}
         errors={errors}
         placeholder={placeholder}
-        isSecure={visibility}
+        isSecure={isContentVisible}
+        isSecurePadding
       />
-      <Pressable style={styles.button} onPress={handleOnPress}>
+      <Pressable style={styles.button} onPress={handleContentVisabilityToggle}>
         <Icon
-          name={!visibility ? 'visibility' : 'visibilityOff'}
+          name={isContentVisible ? 'visibilityOff' : 'visibility'}
           color={AppColor.TEXT.GRAY_200}
           width={24}
           height={24}

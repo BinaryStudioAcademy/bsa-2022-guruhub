@@ -20,6 +20,7 @@ type Props<T extends FormControlValues> = {
   errors: FormControlErrors<T>;
   placeholder?: string;
   isSecure?: boolean;
+  isSecurePadding?: boolean;
 };
 
 const Input = <T extends FormControlValues>({
@@ -29,6 +30,7 @@ const Input = <T extends FormControlValues>({
   errors,
   placeholder,
   isSecure,
+  isSecurePadding,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
@@ -44,7 +46,7 @@ const Input = <T extends FormControlValues>({
         placeholderTextColor={AppColor.TEXT.GRAY_200}
         onChangeText={onChange}
         onBlur={onBlur}
-        style={styles.input}
+        style={[styles.input, isSecurePadding && styles.isSecure]}
         secureTextEntry={isSecure}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
