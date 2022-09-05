@@ -65,11 +65,9 @@ const checkHasUnreadMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
 
 const setHasUnreadMessages = createAction(
   ActionType.SET_HAS_UNREAD_MESSAGES,
-  function prepare(hasUnreadMessages: boolean) {
-    return {
-      payload: hasUnreadMessages,
-    };
-  },
+  (hasUnreadMessages: boolean) => ({
+    payload: hasUnreadMessages,
+  }),
 );
 
 export {
