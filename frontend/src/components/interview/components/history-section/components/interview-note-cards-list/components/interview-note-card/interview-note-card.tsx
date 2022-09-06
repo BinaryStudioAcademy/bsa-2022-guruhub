@@ -15,7 +15,7 @@ const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
   return (
     <div className={styles.card}>
       <p className={styles.noteContent}>{note}</p>
-      <div className={styles.cardContentWrapper}>
+      <div className={styles.cardInfoWrapper}>
         <div className={styles.cardAuthorSection}>
           <Image
             width="30px"
