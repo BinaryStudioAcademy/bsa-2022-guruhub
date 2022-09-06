@@ -8,6 +8,7 @@ import {
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
+import { Chat } from '~/components/chat/chat';
 import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
@@ -76,6 +77,12 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     name: 'Account',
     isVisible: true,
     subroutes: [
+      {
+        name: AppScreenName.CHAT,
+        icon: 'message',
+        component: Chat,
+        permissions: [],
+      },
       {
         name: AppScreenName.BILLING,
         icon: 'billing',
