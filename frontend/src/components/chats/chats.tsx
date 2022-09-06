@@ -5,6 +5,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useNavigate,
   useUserSearch,
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
@@ -30,6 +31,12 @@ const Chats: FC = () => {
     currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
   }));
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate('/');
+  }
 
   const dispatch = useAppDispatch();
 
