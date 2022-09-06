@@ -5,7 +5,7 @@ import {
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Datepicker, Input, Select } from 'components/common/common';
-import { getNameOf } from 'helpers/helpers';
+import { getNameOf, subtractYears } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -63,6 +63,10 @@ const UserProfileForm: FC = () => {
     return getGenderOptions();
   }, []);
 
+  const maxDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), MIN_USER_AGE);
+  }, []);
+
   return (
     <div>
       {dataStatus !== DataStatus.PENDING && (
@@ -85,7 +89,7 @@ const UserProfileForm: FC = () => {
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
                 label="Birth date"
                 placeholder="Enter date of birth"
-                minUserAge={MIN_USER_AGE}
+                maxDate={maxDate}
               />
             </div>
             <div className={styles.grid}>
