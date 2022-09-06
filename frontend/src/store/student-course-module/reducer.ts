@@ -6,7 +6,7 @@ import {
   TaskNoteGetItemResponseDto,
 } from 'common/types/types';
 
-import { createNote, getNotes, getTask } from './actions';
+import { createNote, getModuleById, getNotes, getTask } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -40,6 +40,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.PENDING;
   });
   builder.addCase(getNotes.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
     const { items, total } = payload;
     state.notes = items;
     state.notesTotalCount = total;
@@ -52,6 +53,18 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(createNote.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.notes = [payload, ...state.notes];
+    (state.task as TaskGetItemReponseDto).status = payload.status;
+  });
+  builder.addCase(getModuleById.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getModuleById.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.module = payload;
+  });
+  builder.addCase(getModuleById.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.module = null;
   });
 });
 

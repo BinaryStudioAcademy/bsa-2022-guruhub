@@ -4,6 +4,7 @@ import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { taskNoteCreate as taskNoteCreateValidationSchema } from 'validation-schemas/validation-schemas';
 
+import { CREATE_NOTE_DEFAULT_VALUES } from './common';
 import styles from './styles.module.scss';
 
 const INPUT_NUMBER_OF_ROWS = 5;
@@ -11,17 +12,12 @@ const INPUT_NUMBER_OF_ROWS = 5;
 type Props = {
   onApprove: (payload: TaskNoteFormRequestDto) => void;
   onReject: (payload: TaskNoteFormRequestDto) => void;
-  defaultValues: TaskNoteFormRequestDto;
 };
 
-const TaskManipulateMentor: FC<Props> = ({
-  onApprove,
-  onReject,
-  defaultValues,
-}) => {
+const TaskManipulate: FC<Props> = ({ onApprove, onReject }) => {
   const { control, errors, handleSubmit, reset } =
     useAppForm<TaskNoteFormRequestDto>({
-      defaultValues,
+      defaultValues: CREATE_NOTE_DEFAULT_VALUES,
       validationSchema: taskNoteCreateValidationSchema,
     });
 
@@ -64,4 +60,4 @@ const TaskManipulateMentor: FC<Props> = ({
   );
 };
 
-export { TaskManipulateMentor };
+export { TaskManipulate };

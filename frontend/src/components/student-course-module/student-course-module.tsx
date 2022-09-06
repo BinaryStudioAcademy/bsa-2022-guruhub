@@ -19,27 +19,36 @@ import styles from './styles.module.scss';
 
 const StudentCourseModule: FC = () => {
   const { courseId, moduleId, studentId } = useParams();
-  const { dataStatus, courseModule, notes, task, user } = useAppSelector(
-    (state) => ({
-      dataStatus: state.studentCourseModule.dataStatus,
-      courseModule: state.studentCourseModule.courseModule,
-      notes: state.studentCourseModule.notes,
-      task: state.studentCourseModule.task,
-      isMentor: state.courseModule.isMentor,
-      user: state.auth.user,
-    }),
-  );
+  const { dataStatus, module, notes, task, user } = useAppSelector((state) => ({
+    dataStatus: state.studentCourseModule.dataStatus,
+    module: state.studentCourseModule.module,
+    notes: state.studentCourseModule.notes,
+    task: state.studentCourseModule.task,
+    isMentor: state.courseModule.isMentor,
+    user: state.auth.user,
+  }));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (module) {
+      dispatch(
+        studentCourseModuleActions.getTask({
+          courseId: Number(courseId),
+          moduleId: Number(moduleId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [courseId, moduleId, studentId, module]);
+
+  useEffect(() => {
     dispatch(
-      studentCourseModuleActions.getTask({
+      studentCourseModuleActions.getModuleById({
         courseId: Number(courseId),
         moduleId: Number(moduleId),
-        menteeId: Number(studentId),
       }),
     );
-  }, [courseId, moduleId, studentId]);
+  }, [courseId, moduleId]);
 
   useEffect(() => {
     if (task) {
@@ -88,19 +97,19 @@ const StudentCourseModule: FC = () => {
             to={`${AppRoute.COURSES}/${courseId}` as AppRoute}
             iconColor="blue"
           />
-          <p>{courseModule?.courseTitle}</p>
+          <p>{module?.courseTitle}</p>
         </div>
-        <h1 className={styles.courseName}>{courseModule?.courseTitle}</h1>
+        <h1 className={styles.courseName}>{module?.courseTitle}</h1>
         <div className={styles.moduleNameContainer}>
           <div className={styles.moduleNameContent}>
-            <h4>{courseModule?.title}</h4>
+            <h4>{module?.title}</h4>
             <Content
-              html={courseModule?.description ?? ''}
+              html={module?.description ?? ''}
               className={styles.moduleDescription}
             />
           </div>
         </div>
-        <Content html={courseModule?.description ?? ''} />
+        <Content html={module?.description ?? ''} />
       </div>
       <div>
         {user && task.status !== TaskStatus.COMPLETED && (
