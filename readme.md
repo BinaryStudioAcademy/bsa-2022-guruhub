@@ -100,6 +100,7 @@ erDiagram
       varchar gender
       int avatar_file_id FK
       date date_of_birth
+      float money_balance
   }
 
   courses ||--|| vendors : vendor_id
