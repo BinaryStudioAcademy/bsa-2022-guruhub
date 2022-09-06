@@ -8,9 +8,14 @@ enum ColumnName {
   MONEY_BALANCE = 'money_balance',
 }
 
+const DEFAULT_USER_MONEY_BALANCE = 0;
+
 async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
-    table.float(ColumnName.MONEY_BALANCE);
+    table
+      .float(ColumnName.MONEY_BALANCE)
+      .notNullable()
+      .defaultTo(DEFAULT_USER_MONEY_BALANCE);
   });
 }
 
