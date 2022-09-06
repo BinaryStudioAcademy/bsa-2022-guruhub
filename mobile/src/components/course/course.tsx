@@ -158,7 +158,7 @@ const Course: FC = () => {
         <CourseModules
           courseModules={courseModules}
           isLoading={moduleIsLoading}
-          handleModulePress={handleModulePress}
+          onModulePress={handleModulePress}
         />
       </View>
     </ScrollView>

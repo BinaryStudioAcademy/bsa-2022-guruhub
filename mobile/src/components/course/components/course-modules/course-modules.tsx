@@ -15,13 +15,13 @@ import { styles } from './styles';
 type Props = {
   courseModules: CourseModulesGetAllItemResponseDto[];
   isLoading: boolean;
-  handleModulePress: (courseId: number, moduleId: number) => void;
+  onModulePress: (courseId: number, moduleId: number) => void;
 };
 
 const CourseModules: FC<Props> = ({
   courseModules,
   isLoading,
-  handleModulePress,
+  onModulePress,
 }) => {
   if (!courseModules.length) {
     return <></>;
@@ -36,9 +36,7 @@ const CourseModules: FC<Props> = ({
         <Stack space={15}>
           {courseModules.map((module, index) => (
             <Pressable
-              onPress={(): void =>
-                handleModulePress(module.courseId, module.id)
-              }
+              onPress={(): void => onModulePress(module.courseId, module.id)}
             >
               <Module
                 key={module.id}
