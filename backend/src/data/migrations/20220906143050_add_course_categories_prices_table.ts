@@ -59,7 +59,7 @@ async function up(knex: Knex): Promise<void> {
   await Promise.all(
     categoriesIds.map((categoryIdConteiner) => {
       return knex(TableName.COURSE_CATEGORIES_PRICES).insert({
-        categoryId: Number(categoryIdConteiner.id),
+        categoryId: categoryIdConteiner.id,
         price: getRandomPrice(),
       });
     }),
