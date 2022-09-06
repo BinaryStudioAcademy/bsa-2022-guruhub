@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   NotificationMessage,
@@ -233,11 +233,14 @@ const checkIsMentor = createAsyncThunk<
   return isMentor;
 });
 
+const clearMentor = createAction(ActionType.CLEAR_MENTOR);
+
 export {
   addCourse,
   becomeMentor,
   checkIsMentor,
   chooseMentor,
+  clearMentor,
   createMentor,
   getCourse,
   getCourses,
