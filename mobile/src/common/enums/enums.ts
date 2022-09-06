@@ -17,6 +17,7 @@ export { InterviewStatus } from './interviews/interview-status.enum';
 export {
   AppScreenName,
   AuthScreenName,
+  CourseModuleScreenName,
   CourseScreenName,
   InterviewScreenName,
   RootScreenName,

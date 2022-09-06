@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 
+import { AppScreenName } from '~/common/enums/enums';
 import { CourseModulesGetAllItemResponseDto } from '~/common/types/types';
 import { Spinner, Stack, Text, View } from '~/components/common/common';
+import { useAppDispatch, useAppNavigate } from '~/hooks/hooks';
+import { courseModulesActions } from '~/store/actions';
 
 import { Module } from './components/module/module';
 import { styles } from './styles';
@@ -12,9 +15,17 @@ type Props = {
 };
 
 const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
+  const navigation = useAppNavigate();
+  const dispatch = useAppDispatch();
+
   if (!courseModules.length) {
     return <></>;
   }
+
+  const handleModulePress = (courseId: number, moduleId: number): void => {
+    dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
+    navigation.navigate(AppScreenName.COURSE_MODULE);
+  };
 
   return (
     <View style={styles.container}>
@@ -29,6 +40,9 @@ const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
               index={index}
               title={module.title}
               description={module.description}
+              onPress={(): void =>
+                handleModulePress(module.courseId, module.id)
+              }
             />
           ))}
         </Stack>
