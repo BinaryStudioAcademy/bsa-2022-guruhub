@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { Text, View } from '~/components/common/common';
 
-const ChatsList: FC = () => {
+const ConversationsList: FC = () => {
   return (
     <View>
       <Text>Chats List</Text>
@@ -10,4 +10,4 @@ const ChatsList: FC = () => {
   );
 };
 
-export { ChatsList };
+export { ConversationsList };
