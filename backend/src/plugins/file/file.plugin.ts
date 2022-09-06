@@ -2,8 +2,12 @@ import { MultipartFile } from '@fastify/multipart';
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 
-import { ControllerHook, HttpCode } from '~/common/enums/enums';
-import { InvalidFilesError } from '~/exceptions/exceptions';
+import {
+  ControllerHook,
+  ExceptionMessage,
+  HttpCode,
+} from '~/common/enums/enums';
+import { FilesError, InvalidFilesError } from '~/exceptions/exceptions';
 
 type Options = {
   allowedExtensions: string[];
@@ -32,6 +36,12 @@ const upload: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
         if (!isAllowedExtension) {
           throw new InvalidFilesError();
+        }
+
+        if (file.file.truncated) {
+          throw new FilesError({
+            message: ExceptionMessage.FILE_TOO_BIG,
+          });
         }
 
         const fileBuffer = await file.toBuffer();
