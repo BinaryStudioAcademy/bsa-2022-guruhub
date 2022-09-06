@@ -102,6 +102,12 @@ export {
   type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
 export {
+  type UdemyCourseGetResponseDto,
+  type UdemyCoursesGetResponseDto,
+  type UdemyModuleGetResponseDto,
+  type UdemyModulesGetResponseDto,
+} from './udemy/udemy';
+export {
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,

@@ -123,11 +123,11 @@ jobs:
 
           UDEMY_CLIENT_ID: ${{ secrets.UDEMY_CLIENT_ID }}
           UDEMY_CLIENT_SECRET: ${{ secrets.UDEMY_CLIENT_SECRET }}
-          UDEMY_BASE_URL: https://www.udemy.com/api-2.0/
+          UDEMY_BASE_URL: https://www.udemy.com/api-2.0
 
           EDX_CLIENT_ID: ${{ secrets.EDX_CLIENT_ID }}
           EDX_CLIENT_SECRET: ${{ secrets.EDX_CLIENT_SECRET }}
-          EDX_BASE_URL: https://www.courses.edx.org/api/courses/v1/
+          EDX_BASE_URL: https://www.courses.edx.org/api/courses/v1
         run: |
           npm run test:development
 
