@@ -3,21 +3,21 @@ import {
   AsyncThunkConfig,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
-  CourseModulesGetAllItemResponseDto,
-  CourseModulesGetByCourseIdAndMenteeIdRequestDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
-const getModulesByCourseIdAndMentorId = createAsyncThunk<
-  CourseModulesGetAllItemResponseDto[],
-  CourseModulesGetByCourseIdAndMenteeIdRequestDto,
+const getTasksByCourseIdAndMenteeId = createAsyncThunk<
+  TaskWithModuleResponseDto[],
+  TasksGetByCourseIdAndMenteeIdRequestDto,
   AsyncThunkConfig
 >(
   ActionType.GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID,
   async ({ courseId, menteeId }, { extra }) => {
-    const { courseModulesApi } = extra;
-    const modules = await courseModulesApi.getByCourseIdAndMenteeId({
+    const { tasksApi } = extra;
+    const modules = await tasksApi.getAllByCourseIdAndMenteeId({
       courseId,
       menteeId,
     });
@@ -38,4 +38,4 @@ const getCourseById = createAsyncThunk<
   return course;
 });
 
-export { getCourseById, getModulesByCourseIdAndMentorId };
+export { getCourseById, getTasksByCourseIdAndMenteeId };

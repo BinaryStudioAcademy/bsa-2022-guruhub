@@ -1,31 +1,31 @@
 import { AppRoute } from 'common/enums/enums';
-import { CourseModulesGetAllItemResponseDto, FC } from 'common/types/types';
+import { FC, TaskWithModuleResponseDto } from 'common/types/types';
 import { Link } from 'components/common/common';
 
 import { ModuleCard } from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {
-  modules: CourseModulesGetAllItemResponseDto[];
+  tasks: TaskWithModuleResponseDto[];
   studentId: number;
   courseId: number;
 };
 
-const ModulesCardsContainer: FC<Props> = ({ modules, studentId, courseId }) => {
+const ModulesCardsContainer: FC<Props> = ({ tasks, studentId, courseId }) => {
   return (
     <ul className={styles.container}>
-      {modules.map((courseModule) => {
+      {tasks.map(({ module, id }) => {
         return (
-          <li key={courseModule.id} className={styles.moduleCardContainer}>
+          <li key={id} className={styles.moduleCardContainer}>
             <Link
               to={
-                `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${courseId}${AppRoute.MODULES}/${courseModule.id}` as AppRoute
+                `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${courseId}${AppRoute.MODULES}/${module.id}` as AppRoute
               }
               className={styles.linkToModule}
             >
               <ModuleCard
-                title={courseModule.title}
-                description={courseModule.description}
+                title={module.title}
+                description={module.description}
               />
             </Link>
           </li>

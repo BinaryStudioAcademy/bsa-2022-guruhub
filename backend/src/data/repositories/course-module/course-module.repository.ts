@@ -4,7 +4,6 @@ import {
   CourseModuleGetRequestParamsDto,
   CourseModulesGetAllItemResponseDto,
   CourseModulesGetAllRequestParamsDto,
-  CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from '~/common/types/types';
 import { CourseModule as ModuleM } from '~/data/models/models';
 
@@ -64,21 +63,6 @@ class CourseModule {
       .castTo<CourseModulesGetAllItemResponseDto[]>();
 
     return modules ?? [];
-  }
-
-  public getAllByCourseIdAndMenteeId({
-    courseId,
-    menteeId,
-  }: CourseModulesGetByCourseIdAndMenteeIdRequestDto): Promise<
-    CourseModulesGetAllItemResponseDto[]
-  > {
-    return this.#ModuleModel
-      .query()
-      .withGraphJoined('course.[mentees(withoutPassword)]')
-      .where('course.id', courseId)
-      .andWhere('course:mentees.id', menteeId)
-      .castTo<CourseModulesGetAllItemResponseDto[]>()
-      .execute();
   }
 }
 

@@ -30,7 +30,6 @@ export {
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
-  type CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from './course-module/course-module';
 export {
   type FormControl,
@@ -102,6 +101,8 @@ export {
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteFormRequestDto,

@@ -8,6 +8,8 @@ import {
   TaskNoteCreateArgumentsDto,
   TaskNoteGetAllArgumentsDto,
   TaskNoteGetItemResponseDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
 } from '~/common/types/types';
 import { task as taskRep } from '~/data/repositories/repositories';
 import { TasksError } from '~/exceptions/exceptions';
@@ -117,6 +119,18 @@ class Task {
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
     return this.#taskNoteService.getAll({ count, page, taskId });
+  }
+
+  public getAllByCourseIdAndMenteeId({
+    courseId,
+    menteeId,
+  }: TasksGetByCourseIdAndMenteeIdRequestDto): Promise<
+    TaskWithModuleResponseDto[]
+  > {
+    return this.#taskRepository.getAllByCourseIdAndMenteeId({
+      courseId,
+      menteeId,
+    });
   }
 }
 

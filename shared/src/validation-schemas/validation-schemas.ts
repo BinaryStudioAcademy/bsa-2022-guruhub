@@ -16,7 +16,6 @@ export { courseCategoryGetByIdParams } from './course-categories/course-categori
 export { courseMentorCreate } from './course-mentor/course-mentor';
 export {
   courseModuleGetParams,
-  courseModulesGetAllByCourseIdAndMenteeIdParams,
   courseModulesGetAllParams,
 } from './course-module/course-module';
 export {
@@ -46,6 +45,7 @@ export { pagination } from './pagination/pagination';
 export {
   taskByMenteeIdAndModuleId,
   taskByMenteeIdCourseIdModuleIdParams,
+  tasksByCourseIdAndMenteeId,
   tasksByIdParams,
   tasksManipulateRequestBody,
 } from './task/task';

@@ -4,7 +4,6 @@ import {
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
   CourseModulesGetAllItemResponseDto,
-  CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from '~/common/types/types';
 import { courseModule as moduleRep } from '~/data/repositories/repositories';
 import { CoursesModulesError } from '~/exceptions/exceptions';
@@ -78,18 +77,6 @@ class CourseModule {
     moduleId,
   }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto | null> {
     return this.#moduleRepository.getById({ courseId, moduleId });
-  }
-
-  public getAllByCourseIdAndMenteeId({
-    courseId,
-    menteeId,
-  }: CourseModulesGetByCourseIdAndMenteeIdRequestDto): Promise<
-    CourseModulesGetAllItemResponseDto[]
-  > {
-    return this.#moduleRepository.getAllByCourseIdAndMenteeId({
-      courseId,
-      menteeId,
-    });
   }
 }
 

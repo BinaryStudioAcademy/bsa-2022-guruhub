@@ -41,7 +41,6 @@ export {
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
-  type CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from './course-module/course-module';
 export {
   type CoursesToMentorsRequestDto,
@@ -110,6 +109,8 @@ export {
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
   type TaskManipulateRequestArgumentsDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteCreateArgumentsDto,

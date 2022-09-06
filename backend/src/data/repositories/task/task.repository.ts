@@ -2,6 +2,8 @@ import { TaskStatus } from '~/common/enums/enums';
 import {
   TaskGetByMenteeIdAndModuleId,
   TaskGetByMenteeIdCourseIdModuleIdRequestDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
 } from '~/common/types/types';
 import { Task as TaskM } from '~/data/models/models';
 
@@ -57,6 +59,21 @@ class Task {
       .first();
 
     return task ?? null;
+  }
+
+  public getAllByCourseIdAndMenteeId({
+    courseId,
+    menteeId,
+  }: TasksGetByCourseIdAndMenteeIdRequestDto): Promise<
+    TaskWithModuleResponseDto[]
+  > {
+    return this.#TaskModel
+      .query()
+      .withGraphJoined('[menteesToMentors, module]')
+      .where('menteesToMentors.courseId', courseId)
+      .andWhere('menteesToMentors.menteeId', menteeId)
+      .castTo<TaskWithModuleResponseDto[]>()
+      .execute();
   }
 }
 

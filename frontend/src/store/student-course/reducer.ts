@@ -2,35 +2,35 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
   CourseGetResponseDto,
-  CourseModulesGetAllItemResponseDto,
+  TaskWithModuleResponseDto,
 } from 'common/types/types';
 
-import { getCourseById, getModulesByCourseIdAndMentorId } from './actions';
+import { getCourseById, getTasksByCourseIdAndMenteeId } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  modules: CourseModulesGetAllItemResponseDto[];
+  tasks: TaskWithModuleResponseDto[];
   course: CourseGetResponseDto | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  modules: [],
+  tasks: [],
   course: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(getModulesByCourseIdAndMentorId.pending, (state) => {
+  builder.addCase(getTasksByCourseIdAndMenteeId.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
   builder.addCase(
-    getModulesByCourseIdAndMentorId.fulfilled,
+    getTasksByCourseIdAndMenteeId.fulfilled,
     (state, { payload }) => {
       state.dataStatus = DataStatus.FULFILLED;
-      state.modules = payload;
+      state.tasks = payload;
     },
   );
-  builder.addCase(getModulesByCourseIdAndMentorId.rejected, (state) => {
+  builder.addCase(getTasksByCourseIdAndMenteeId.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
   builder.addCase(getCourseById.pending, (state) => {

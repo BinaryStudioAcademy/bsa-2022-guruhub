@@ -16,13 +16,13 @@ import styles from './styles.module.scss';
 const StudentCourse: FC = () => {
   const { studentId, courseId } = useParams();
   const dispatch = useAppDispatch();
-  const { dataStatus, modules, course } = useAppSelector(
+  const { dataStatus, tasks, course } = useAppSelector(
     (state) => state.studentCourse,
   );
 
   useEffect(() => {
     dispatch(
-      studentCourseActions.getModulesByCourseIdAndMentorId({
+      studentCourseActions.getTasksByCourseIdAndMenteeId({
         courseId: Number(courseId),
         menteeId: Number(studentId),
       }),
@@ -43,13 +43,11 @@ const StudentCourse: FC = () => {
     );
   }
 
-  const hasModules = Boolean(modules.length);
+  const hasTasks = Boolean(tasks.length);
 
-  if (!hasModules) {
+  if (!hasTasks) {
     return (
-      <p className={styles.placeholder}>
-        The user is not a student for this course.
-      </p>
+      <p className={styles.placeholder}>There are no tasks for this course</p>
     );
   }
 
@@ -75,7 +73,7 @@ const StudentCourse: FC = () => {
         <h3 className={styles.modulesContentHeader}>Course Content</h3>
         <div className={styles.modulesContainer}>
           <ModulesCardsContainer
-            modules={modules}
+            tasks={tasks}
             studentId={Number(studentId)}
             courseId={Number(courseId)}
           />

@@ -12,6 +12,8 @@ import {
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -80,6 +82,19 @@ class TasksApi {
       `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.COURSES}/${courseId}${
         TasksApiPath.MODULES
       }/${moduleId}${TasksApiPath.MENTEES}/${menteeId}`,
+    );
+  }
+
+  public getAllByCourseIdAndMenteeId({
+    courseId,
+    menteeId,
+  }: TasksGetByCourseIdAndMenteeIdRequestDto): Promise<
+    TaskWithModuleResponseDto[]
+  > {
+    return this.#http.load<TaskWithModuleResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.COURSES}/${courseId}${
+        TasksApiPath.MENTEES
+      }/${menteeId}`,
     );
   }
 }

@@ -1,14 +1,7 @@
-import {
-  ApiPath,
-  CourseModulesApiPath,
-  CoursesApiPath,
-  HttpMethod,
-} from 'common/enums/enums';
+import { ApiPath, CoursesApiPath, HttpMethod } from 'common/enums/enums';
 import {
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
-  CourseModulesGetAllItemResponseDto,
-  CourseModulesGetByCourseIdAndMenteeIdRequestDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -35,22 +28,6 @@ class CourseModulesApi {
       `${this.#apiPrefix}/${ApiPath.COURSES}/${courseId}${
         CoursesApiPath.MODULES
       }/${moduleId}`,
-      {
-        method: HttpMethod.GET,
-      },
-    );
-  }
-
-  public getByCourseIdAndMenteeId({
-    courseId,
-    menteeId,
-  }: CourseModulesGetByCourseIdAndMenteeIdRequestDto): Promise<
-    CourseModulesGetAllItemResponseDto[]
-  > {
-    return this.#http.load<CourseModulesGetAllItemResponseDto[]>(
-      `${this.#apiPrefix}${ApiPath.COURSE_MODULES}/${courseId}${
-        CourseModulesApiPath.MENTEES
-      }/${menteeId}`,
       {
         method: HttpMethod.GET,
       },
