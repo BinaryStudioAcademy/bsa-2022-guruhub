@@ -7,6 +7,8 @@ import {
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
+  GetMentorRequestParamsDto,
+  MenteesToMentorsResponseDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
 
@@ -35,6 +37,17 @@ class MentorsApi {
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
       },
+    );
+  }
+
+  public getMenteesMentor({
+    courseId,
+    menteeId,
+  }: GetMentorRequestParamsDto): Promise<MenteesToMentorsResponseDto> {
+    return this.#http.load<MenteesToMentorsResponseDto>(
+      `${this.#apiPrefix}${ApiPath.MENTORS}${
+        MentorsApiPath.COURSES
+      }/${courseId}${MentorsApiPath.MENTEES}/${menteeId}`,
     );
   }
 }

@@ -15,7 +15,9 @@ import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   CourseUpdateCategoryRequestArguments,
+  GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
+  MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
   UserWithPermissions,
 } from '~/common/types/types';
@@ -196,6 +198,17 @@ const updateisMentorChoosingEnabled = createAsyncThunk<
   return !isMentorCheck;
 });
 
+const getMenteesMentor = createAsyncThunk<
+  MenteesToMentorsResponseDto | null,
+  GetMentorRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.GET_MENTEES_MENTOR, async (payload, { extra }) => {
+  const { mentorsApi } = extra;
+  const mentor = await mentorsApi.getMenteesMentor(payload);
+
+  return mentor;
+});
+
 const getMenteesByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
   CourseGetRequestParamsDto,
@@ -229,6 +242,7 @@ export {
   getCourse,
   getCourses,
   getMenteesByCourseId,
+  getMenteesMentor,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateCategory,

@@ -7,8 +7,8 @@ import {
 } from '~/common/enums/enums';
 import { TabNavigationItem } from '~/common/types/types';
 import {
-  ChooseMentor,
   CourseStudents,
+  MyMentor,
 } from '~/components/course/components/components';
 import { Course } from '~/components/course/course';
 
@@ -39,7 +39,7 @@ const COURSE_TAB_ITEMS: TabNavigationItem[] = [
   },
   {
     name: CourseScreenName.MY_MENTOR,
-    component: ChooseMentor,
+    component: MyMentor,
     permissions: [],
   },
   {
