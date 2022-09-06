@@ -231,6 +231,15 @@ erDiagram
     int author_id FK
     enum status
   }
+
+  course_categories_prices ||--|| course_categories : category_id
+  course_categories_prices {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int category_id
+    float price
+  }
 ```
 
 ## 🧑‍💻 CI
