@@ -237,7 +237,7 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
-    int category_id
+    int category_id FK
     float price
   }
 ```
