@@ -82,15 +82,11 @@ class Task {
   public async getByMenteeIdAndModuleId({
     moduleId,
     menteeId,
-  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto> {
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
     const task = await this.#taskRepository.getByMenteeIdAndModuleId({
       moduleId,
       menteeId,
     });
-
-    if (!task) {
-      throw new TasksError();
-    }
 
     return task;
   }

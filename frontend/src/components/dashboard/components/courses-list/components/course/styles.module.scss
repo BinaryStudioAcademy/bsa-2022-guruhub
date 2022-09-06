@@ -19,7 +19,10 @@
 }
 
 .title {
+  overflow: hidden;
   color: white;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .vendor {

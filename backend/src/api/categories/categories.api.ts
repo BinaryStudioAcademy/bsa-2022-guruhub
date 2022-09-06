@@ -29,6 +29,17 @@ const initCategoriesApi: FastifyPluginAsync<Options> = async (
 
   fastify.route({
     method: HttpMethod.GET,
+    url: CategoriesApiPath.DASHBOARD,
+    async handler(_req, rep) {
+      const categoriesWithCourses =
+        await courseCategoryService.getAllWithCourses();
+
+      return rep.status(HttpCode.OK).send(categoriesWithCourses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
     url: CategoriesApiPath.$ID,
     schema: { params: courseCategoryGetByIdParamsValidationSchema },
     async handler(

@@ -1,0 +1,11 @@
+get:
+  summary: Check if user has unread messages
+  tags:
+    - chatMessages
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: boolean
+            example: false

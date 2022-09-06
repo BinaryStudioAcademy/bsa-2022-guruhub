@@ -3,6 +3,7 @@ export * as authActions from './auth/actions';
 export * as chatsActions from './chats/actions';
 export * as courseActions from './course/actions';
 export * as courseModuleActions from './course-module/actions';
+export * as coursesManagementActions from './courses-management/actions';
 export * as dashboardActions from './dashboard/actions';
 export * as interviewActions from './interview/actions';
 export * as interviewsActions from './interviews/actions';

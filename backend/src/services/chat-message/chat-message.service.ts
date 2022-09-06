@@ -1,3 +1,4 @@
+import { ChatMessageStatus } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
   ChatMessageCreateRequestDto,
@@ -90,7 +91,12 @@ class ChatMessage {
       senderId,
       message: sanitizeHTML(message),
       chatId: chatId ?? createUuid(),
+      status: ChatMessageStatus.UNREAD,
     });
+  }
+
+  public checkHasUnreadMessages(userId: number): Promise<boolean> {
+    return this.#chatMessageRepository.checkHasUnreadMessages(userId);
   }
 }
 

@@ -4,7 +4,7 @@ import {
 } from '~/common/types/types';
 import { checkHasPermission } from '~/helpers/helpers';
 
-const getAllowedScreens = (
+const getPermittedScreens = (
   screens: TabNavigationItem[],
   userPermissions: PermissionsGetAllItemResponseDto[],
 ): TabNavigationItem[] => {
@@ -16,4 +16,4 @@ const getAllowedScreens = (
   });
 };
 
-export { getAllowedScreens };
+export { getPermittedScreens };

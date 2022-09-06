@@ -5,13 +5,20 @@ import {
   ChatMessageUserResponseDto,
 } from 'common/types/types';
 
-import { createMessage, getLastMessages, getMessages } from './actions';
+import {
+  checkHasUnreadMessages,
+  createMessage,
+  getLastMessages,
+  getMessages,
+  setHasUnreadMessages,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
+  hasUnreadMessages: boolean;
   chatOpponent: ChatMessageUserResponseDto | null;
 };
 
@@ -20,6 +27,7 @@ const initialState: State = {
   lastMessages: [],
   currentChatMessages: [],
   currentChatId: null,
+  hasUnreadMessages: false,
   chatOpponent: null,
 };
 
@@ -58,6 +66,20 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(createMessage.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(checkHasUnreadMessages.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkHasUnreadMessages.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(checkHasUnreadMessages.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(setHasUnreadMessages, (state, { payload }) => {
+    state.hasUnreadMessages = payload;
   });
 });
 

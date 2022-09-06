@@ -49,7 +49,7 @@ const CourseModule: FC = () => {
   }, [task]);
 
   useEffect(() => {
-    if (user && !isMentor && dataStatus === DataStatus.FULFILLED) {
+    if (user && !isMentor) {
       dispatch(
         courseModuleActions.getTask({
           menteeId: user.id,
@@ -57,7 +57,7 @@ const CourseModule: FC = () => {
         }),
       );
     }
-  }, [user, isMentor, dataStatus, moduleId]);
+  }, [user, isMentor, moduleId]);
 
   const handleSendOnReview = (payload: TaskNoteFormRequestDto): void => {
     const { note } = payload;

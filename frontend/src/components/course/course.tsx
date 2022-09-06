@@ -1,9 +1,10 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { DataStatus, PermissionKey } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { CourseUpdateCategoryRequestDto, FC } from 'common/types/types';
 import {
   Category,
   Content,
+  EditCategoryModal,
   IconButton,
   Image,
   Spinner,
@@ -21,7 +22,6 @@ import { courseActions } from 'store/actions';
 import {
   ChooseMentorButton,
   ChooseMentorModal,
-  EditCategoryModal,
   ModulesCardsContainer,
   MyMentor,
   MyStudentsContainer,
@@ -95,19 +95,34 @@ const Course: FC = () => {
     );
   };
 
+  const handleEditCategorySubmit = (
+    payload: CourseUpdateCategoryRequestDto,
+  ): void => {
+    const { newCategoryId } = payload;
+    dispatch(
+      courseActions.updateCategory({ courseId: Number(id), newCategoryId }),
+    )
+      .unwrap()
+      .then(() => {
+        handleUpdateCategoryModalToggle();
+      });
+  };
+
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(id) }));
     dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(
-      courseActions.getMentorsByCourseId({
-        courseId: Number(id),
-        filteringOpts: { mentorName: '' },
-      }),
-    );
-    dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
-
     dispatch(courseActions.getCategories());
-  }, [dispatch, id]);
+
+    if (user) {
+      dispatch(
+        courseActions.getMentorsByCourseId({
+          courseId: Number(id),
+          filteringOpts: { mentorName: '' },
+        }),
+      );
+      dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+    }
+  }, [dispatch, id, user]);
 
   useEffect(() => {
     if (user) {
@@ -122,8 +137,11 @@ const Course: FC = () => {
   }, [user]);
 
   useEffect(() => {
-    if (course) {
+    if (course && user) {
       dispatch(courseActions.updateIsMentorBecomingEnabled());
+    }
+
+    if (course) {
       dispatch(courseActions.updateIsMentorChoosingEnabled());
     }
 
@@ -148,6 +166,8 @@ const Course: FC = () => {
     );
   }
 
+  const isUserAuthorized = Boolean(user);
+
   return (
     <div className={styles.container}>
       <EditCategoryModal
@@ -156,6 +176,7 @@ const Course: FC = () => {
         isOpen={isUpdateCategoryModalOpen}
         categories={categories}
         onModalToggle={handleUpdateCategoryModalToggle}
+        onEditCategorySubmit={handleEditCategorySubmit}
       />
       <ChooseMentorModal
         isOpen={isChooseMentorModalOpen}
@@ -198,15 +219,18 @@ const Course: FC = () => {
           <ModulesCardsContainer modules={modules} />
         </div>
       </div>
-      <div className={styles.additional}>
-        {mentor && <MyMentor mentor={mentor} />}
-        {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
-          <MyStudentsContainer mentees={mentees} />
-        )}
-        {isMentorChoosingEnabled && (
-          <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
-        )}
-      </div>
+
+      {isUserAuthorized && (
+        <div className={styles.additional}>
+          {mentor && <MyMentor mentor={mentor} />}
+          {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
+            <MyStudentsContainer mentees={mentees} />
+          )}
+          {isMentorChoosingEnabled && (
+            <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

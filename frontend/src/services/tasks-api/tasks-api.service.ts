@@ -47,7 +47,7 @@ class TasksApi {
   public getByMenteeIdAndModuleId({
     menteeId,
     moduleId,
-  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto> {
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
     return this.#http.load<TaskGetItemReponseDto>(
       `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.MODULES}/${moduleId}${
         TasksApiPath.MENTEES
