@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 const UserDetails: FC = () => {
   return (
-    <div className={styles.grid}>
+    <div className={styles.container}>
       <UserProfile />
     </div>
   );
