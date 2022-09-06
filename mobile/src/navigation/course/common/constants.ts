@@ -6,7 +6,10 @@ import {
   CourseScreenName,
 } from '~/common/enums/enums';
 import { TabNavigationItem } from '~/common/types/types';
-import { ChooseMentor } from '~/components/course/components/components';
+import {
+  ChooseMentor,
+  CourseStudents,
+} from '~/components/course/components/components';
 import { Course } from '~/components/course/course';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
@@ -37,6 +40,11 @@ const COURSE_TAB_ITEMS: TabNavigationItem[] = [
   {
     name: CourseScreenName.MY_MENTOR,
     component: ChooseMentor,
+    permissions: [],
+  },
+  {
+    name: CourseScreenName.MY_STUDENTS,
+    component: CourseStudents,
     permissions: [],
   },
 ];

@@ -1,1 +1,1 @@
-export { getAllowedScreens } from './get-allowed-screens.helper';
+export { getPermittedScreens } from './get-permitted-screens.helper';
