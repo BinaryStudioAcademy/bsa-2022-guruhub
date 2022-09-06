@@ -43,9 +43,6 @@ class CourseModulesApi {
       `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
         CoursesApiPath.MODULES
       }/${moduleId}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 }
