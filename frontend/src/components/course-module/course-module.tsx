@@ -18,13 +18,13 @@ import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
   const { courseId, moduleId } = useParams();
-  const { dataStatus, courseModule, notes, isMentor, task, user } =
+  const { dataStatus, courseModule, notes, task, isMentor, user } =
     useAppSelector((state) => ({
       dataStatus: state.courseModule.dataStatus,
       courseModule: state.courseModule.courseModule,
       notes: state.courseModule.notes,
-      isMentor: state.courseModule.isMentor,
       task: state.courseModule.task,
+      isMentor: state.courseModule.isMentor,
       user: state.auth.user,
     }));
   const dispatch = useAppDispatch();

@@ -134,25 +134,17 @@ const App: FC = () => {
         <Route
           path={AppRoute.STUDENTS_$ID_COURSES_$ID}
           element={
-            <AuthorizedProtectedRoute
-              permissions={[
-                PermissionKey.MANAGE_INTERVIEW,
-                PermissionKey.MANAGE_INTERVIEWS,
-              ]}
-              component={<StudentCourse />}
-            />
+            <AuthorizedWrapper>
+              <StudentCourse />
+            </AuthorizedWrapper>
           }
         />
         <Route
           path={AppRoute.STUDENTS_$ID_COURSES_$ID_MODULES_$ID}
           element={
-            <AuthorizedProtectedRoute
-              permissions={[
-                PermissionKey.MANAGE_INTERVIEW,
-                PermissionKey.MANAGE_INTERVIEWS,
-              ]}
-              component={<StudentCourseModule />}
-            />
+            <AuthorizedWrapper>
+              <StudentCourseModule />
+            </AuthorizedWrapper>
           }
         />
         <Route
