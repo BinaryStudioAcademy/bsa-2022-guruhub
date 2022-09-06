@@ -33,9 +33,8 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(addCourse.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(addCourse.fulfilled, (state, { payload }) => {
+  builder.addCase(addCourse.fulfilled, (state) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses.push(payload);
   });
   builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;

@@ -16,23 +16,23 @@ const getUsersColumns = (
     {
       Header: 'ID',
       accessor: UserTableAccessor.ID,
-      width: '5%',
+      width: 50,
     },
     {
       Header: 'Full name',
       accessor: UserTableAccessor.FULL_NAME,
-      width: '30%',
+      width: 300,
     },
     {
       Header: 'Email',
       accessor: UserTableAccessor.EMAIL,
-      width: '30%',
+      width: 300,
     },
     {
       Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
       Cell: DateCell,
-      width: '30%',
+      width: 300,
     },
     {
       Header: 'Actions',
@@ -42,7 +42,7 @@ const getUsersColumns = (
         isCurrentSignedUser: user.id === id,
       }),
       Cell: ActionsCell,
-      width: '5%',
+      width: 50,
     },
   ];
 };

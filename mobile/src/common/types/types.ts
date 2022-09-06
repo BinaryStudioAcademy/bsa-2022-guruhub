@@ -65,6 +65,8 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
+  type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
 export {
   type AppNavigationParamList,
