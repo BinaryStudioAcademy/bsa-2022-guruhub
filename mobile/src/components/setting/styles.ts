@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     alignSelf: 'flex-end',
-    marginVertical: 20,
+    marginTop: 20,
   },
   button: {
     width: 120,
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   singOutWrapper: {
     alignSelf: 'center',
     width: 215,
+    marginTop: 50,
   },
 });
 
