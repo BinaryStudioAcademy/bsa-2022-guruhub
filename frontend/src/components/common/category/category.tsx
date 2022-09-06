@@ -2,7 +2,7 @@ import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
-import { useMemo } from 'hooks/hooks';
+import { useEffect, useMemo, useRef } from 'hooks/hooks';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
@@ -20,6 +20,17 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
     caseType: StringCase.KEBAB_CASE,
   });
 
+  const buttonEl = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isActive) {
+      buttonEl?.current?.scrollIntoView({
+        inline: 'start',
+        behavior: 'smooth',
+      });
+    }
+  }, [isActive]);
+
   const color = useMemo(() => {
     return getRandomColor();
   }, []);
@@ -30,6 +41,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
 
   return (
     <button
+      ref={buttonEl}
       className={getValidClasses(styles.category, isActive && styles.selected)}
       style={{ borderColor: color }}
       onClick={handleClick}

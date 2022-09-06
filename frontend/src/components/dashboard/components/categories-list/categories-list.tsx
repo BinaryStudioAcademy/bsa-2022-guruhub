@@ -2,7 +2,7 @@ import { SearchValue } from 'common/enums/enums';
 import { CategoryGetAllItemResponseDto, FC } from 'common/types/types';
 import { Category } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
-import { useCourseSearch, useRef } from 'hooks/hooks';
+import { useCourseSearch } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -12,13 +12,10 @@ type Props = {
 
 const CategoriesList: FC<Props> = ({ items }) => {
   const { searchParams, handleSearchPerform } = useCourseSearch();
-  const listEl = useRef<HTMLUListElement>(null);
 
   const activeCategory = searchParams.get(SearchValue.CATEGORY) ?? '';
 
   const handleClick = (keyName: string): void => {
-    listEl.current?.scroll({ left: 0, behavior: 'smooth' });
-
     if (keyName === searchParams.get(SearchValue.CATEGORY)) {
       handleSearchPerform(SearchValue.CATEGORY, '');
 
@@ -28,7 +25,7 @@ const CategoriesList: FC<Props> = ({ items }) => {
   };
 
   return (
-    <ul ref={listEl} className={styles.categoriesList}>
+    <ul className={styles.categoriesList}>
       {items.map((category) => (
         <li
           key={category.id}
