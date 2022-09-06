@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 10,
+    marginBottom: 10,
   },
   scrollView: {
     minWidth: '100%',
