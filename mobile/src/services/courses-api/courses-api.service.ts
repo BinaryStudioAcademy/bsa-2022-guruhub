@@ -36,7 +36,7 @@ class Courses {
     filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
         method: HttpMethod.GET,
         queryParams: {
