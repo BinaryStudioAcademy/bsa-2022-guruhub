@@ -20,8 +20,8 @@ type Props<T> = {
   name: FormControlPath<T>;
   control: FormControl<T>;
   errors: FormControlErrors<T>;
-  maximumDate?: number;
-  minimumDate?: number;
+  maximumDate?: Date;
+  minimumDate?: Date;
   placeholder?: string;
 };
 
@@ -42,21 +42,6 @@ const DatePicker = <T extends FormControlValues>({
 
   const datePlaceholder = placeholder ?? '';
   const date = value ? getFormattedDate(value, 'dd.MM.yyyy') : datePlaceholder;
-  const today = new Date();
-  const maxDate = maximumDate
-    ? new Date(
-        today.getFullYear() - maximumDate,
-        today.getMonth(),
-        today.getDay(),
-      )
-    : undefined;
-  const minDate = minimumDate
-    ? new Date(
-        today.getFullYear() - minimumDate,
-        today.getMonth(),
-        today.getDay(),
-      )
-    : undefined;
 
   const handleOnChange = (
     _event: DateTimePickerEvent,
@@ -81,8 +66,8 @@ const DatePicker = <T extends FormControlValues>({
           value={value ? new Date(value) : new Date()}
           mode="date"
           onChange={handleOnChange}
-          maximumDate={maxDate}
-          minimumDate={minDate}
+          maximumDate={maximumDate}
+          minimumDate={minimumDate}
         />
       )}
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}

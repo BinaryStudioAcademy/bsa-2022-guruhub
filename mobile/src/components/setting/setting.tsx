@@ -38,6 +38,18 @@ const Settings: FC = () => {
     (state) => state.userDetails,
   );
 
+  const today = new Date();
+  const maximumDate = new Date(
+    today.getFullYear() - USER_MIN_AGE,
+    today.getMonth(),
+    today.getDay(),
+  );
+  const minimumDate = new Date(
+    today.getFullYear() - USER_MAX_AGE,
+    today.getMonth(),
+    today.getDay(),
+  );
+
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
       defaultValues: DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
@@ -108,8 +120,8 @@ const Settings: FC = () => {
               name="dateOfBirth"
               control={control}
               errors={errors}
-              maximumDate={USER_MIN_AGE}
-              minimumDate={USER_MAX_AGE}
+              maximumDate={maximumDate}
+              minimumDate={minimumDate}
               placeholder="Select date"
             />
           </Stack>
