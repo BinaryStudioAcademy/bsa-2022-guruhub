@@ -14,7 +14,7 @@ import {
 import { coursesActions } from '~/store/actions';
 
 import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
-import { getAllowedScreens } from './helpers/helpers';
+import { getPermittedScreens } from './helpers/helpers';
 
 const Tab = createMaterialTopTabNavigator<CourseNavigationParamList>();
 
@@ -30,13 +30,16 @@ const Course: FC = () => {
     }),
   );
 
-  const screens = useMemo(() => {
-    const allowedScreens = getAllowedScreens(COURSE_TAB_ITEMS, userPermissions);
+  const allowedScreens = useMemo(() => {
+    const permittedScreens = getPermittedScreens(
+      COURSE_TAB_ITEMS,
+      userPermissions,
+    );
     const screenNameToFilter = isMentor
       ? CourseScreenName.MY_MENTOR
       : CourseScreenName.MY_STUDENTS;
 
-    return allowedScreens.filter(({ name }) => name !== screenNameToFilter);
+    return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
   }, [userPermissions, isMentor]);
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const Course: FC = () => {
       screenOptions={SCREEN_OPTIONS}
       initialRouteName={CourseScreenName.ABOUT}
     >
-      {screens.map((screen) => {
+      {allowedScreens.map((screen) => {
         return (
           <Tab.Screen
             key={screen.name}
