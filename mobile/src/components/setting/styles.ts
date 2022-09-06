@@ -4,8 +4,10 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
     height: '100%',
+    paddingTop: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 25,
   },
   profileWrapper: {
     flex: 1,
@@ -37,8 +39,8 @@ const styles = StyleSheet.create({
     width: 120,
   },
   singOutWrapper: {
+    alignSelf: 'flex-end',
     width: 215,
-    alignSelf: 'center',
   },
 });
 

@@ -1,0 +1,37 @@
+import { StyleSheet } from 'react-native';
+
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
+
+const styles = StyleSheet.create({
+  label: {
+    fontFamily: AppFontFamily.INTER_500,
+    fontSize: 14,
+    lineHeight: 16,
+    paddingBottom: 9,
+    color: AppColor.TEXT.GRAY_100,
+  },
+  date: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: AppColor.BACKGROUND.GRAY_300,
+    paddingHorizontal: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
+  },
+  dateLabel: {
+    fontFamily: AppFontFamily.INTER_400,
+    fontSize: 15,
+    lineHeight: 24,
+    color: AppColor.TEXT.GRAY_100,
+  },
+  error: {
+    fontFamily: AppFontFamily.INTER_600,
+    fontSize: 12,
+    lineHeight: 16,
+    color: AppColor.SUPPORT.ERROR_RED_100,
+    marginTop: 9,
+  },
+});
+
+export { styles };
