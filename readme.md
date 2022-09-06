@@ -310,6 +310,12 @@ erDiagram
 - `design-12: * filter markup`
 - `blog-16: - require prop for nickname field`
 
+## AWS
+
+### Simple Storage Service (S3):
+
+- Bucket for files should have public access policy
+
 ## 📦 CD
 
 [Handled](.github/workflows/cd.yml) by [GitHub Actions](https://docs.github.com/en/actions).
