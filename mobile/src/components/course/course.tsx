@@ -96,6 +96,11 @@ const Course: FC = () => {
     }, []),
   );
 
+  const handleModulePress = (courseId: number, moduleId: number): void => {
+    dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
+    navigation.navigate(AppScreenName.COURSE_MODULE);
+  };
+
   if (courseIsLoading) {
     return <Spinner isOverflow />;
   }
@@ -142,6 +147,7 @@ const Course: FC = () => {
         <CourseModules
           courseModules={courseModules}
           isLoading={moduleIsLoading}
+          handleModulePress={handleModulePress}
         />
       </View>
     </ScrollView>
