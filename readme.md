@@ -312,7 +312,7 @@ erDiagram
 
 ## AWS
 
-### Simple Storage Service (S3):
+### 📁 Simple Storage Service (S3):
 
 - Bucket for files should have public access policy
 
