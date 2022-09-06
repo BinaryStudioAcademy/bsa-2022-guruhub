@@ -1,6 +1,8 @@
 import { Knex } from 'knex';
 
-import { IdContainer } from '~/common/types/types';
+type IdContainer = {
+  id: number;
+};
 
 enum TableName {
   COURSE_CATEGORIES_PRICES = 'course_categories_prices',
