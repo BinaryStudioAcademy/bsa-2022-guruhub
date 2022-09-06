@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
+import { USER_MAX_AGE, USER_MIN_AGE } from '~/common/constants/user.constants';
 import { ButtonVariant, DataStatus, UserGender } from '~/common/enums/enums';
 import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import {
@@ -107,6 +108,9 @@ const Settings: FC = () => {
               name="dateOfBirth"
               control={control}
               errors={errors}
+              maximumDate={USER_MIN_AGE}
+              minimumDate={USER_MAX_AGE}
+              placeholder="Select date"
             />
           </Stack>
           <View style={styles.buttons}>
@@ -130,12 +134,7 @@ const Settings: FC = () => {
           </View>
         </View>
         <View style={styles.singOutWrapper}>
-          <Button
-            label="Sign Out"
-            variant={ButtonVariant.SIGN_OUT}
-            onPress={handleLogout}
-            size="small"
-          />
+          <Button label="Sign Out" onPress={handleLogout} />
         </View>
       </View>
     </ScrollView>

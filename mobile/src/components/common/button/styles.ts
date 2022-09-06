@@ -51,12 +51,6 @@ const styles = StyleSheet.create({
   [`button${ButtonVariant.CANCEL}Label`]: {
     color: AppColor.TEXT.GRAY_100,
   },
-  [`button${ButtonVariant.SIGN_OUT}`]: {
-    backgroundColor: AppColor.SUPPORT.ERROR_RED_100,
-  },
-  [`button${ButtonVariant.SIGN_OUT}Label`]: {
-    color: AppColor.TEXT.GRAY_100,
-  },
 });
 
 export { styles };

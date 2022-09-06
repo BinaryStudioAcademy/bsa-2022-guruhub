@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: 120,
   },
   singOutWrapper: {
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     width: 215,
   },
 });

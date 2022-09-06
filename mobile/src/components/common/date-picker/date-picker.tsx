@@ -13,7 +13,6 @@ import { Pressable, Text, View } from '~/components/common/common';
 import { getFormattedDate } from '~/helpers/helpers';
 import { useFormControl, useState } from '~/hooks/hooks';
 
-import { DATE_SETTING } from './common/constants';
 import { styles } from './styles';
 
 type Props<T> = {
@@ -21,6 +20,9 @@ type Props<T> = {
   name: FormControlPath<T>;
   control: FormControl<T>;
   errors: FormControlErrors<T>;
+  maximumDate?: number;
+  minimumDate?: number;
+  placeholder?: string;
 };
 
 const DatePicker = <T extends FormControlValues>({
@@ -28,53 +30,59 @@ const DatePicker = <T extends FormControlValues>({
   name,
   control,
   errors,
+  maximumDate,
+  minimumDate,
+  placeholder,
 }: Props<T>): ReactElement => {
-  const [show, setShow] = useState(false);
+  const [isDatePickerShown, setIsDatePickerShown] = useState(false);
   const { field } = useFormControl({ name, control });
 
   const { value, onChange } = field;
   const error = errors[name]?.message as string;
 
-  const date = value
-    ? getFormattedDate(value, 'dd.MM.yyyy')
-    : 'Not assigned yet';
+  const datePlaceholder = placeholder ?? '';
+  const date = value ? getFormattedDate(value, 'dd.MM.yyyy') : datePlaceholder;
   const today = new Date();
-  const maximumDate = new Date(
-    today.getFullYear() - DATE_SETTING.minFullYear,
-    today.getMonth(),
-    today.getDay(),
-  );
-  const minimumDate = new Date(
-    today.getFullYear() - DATE_SETTING.maxFullYear,
-    today.getMonth(),
-    today.getDay(),
-  );
+  const maxDate = maximumDate
+    ? new Date(
+        today.getFullYear() - maximumDate,
+        today.getMonth(),
+        today.getDay(),
+      )
+    : undefined;
+  const minDate = minimumDate
+    ? new Date(
+        today.getFullYear() - minimumDate,
+        today.getMonth(),
+        today.getDay(),
+      )
+    : undefined;
 
   const handleOnChange = (
     _event: DateTimePickerEvent,
     selectedDate: Date | undefined,
   ): void => {
-    setShow(false);
+    setIsDatePickerShown(false);
     onChange(selectedDate);
   };
 
-  const showDatepicker = (): void => {
-    setShow(true);
+  const handleDatePickerOpen = (): void => {
+    setIsDatePickerShown(true);
   };
 
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <Pressable style={styles.date} onPress={showDatepicker}>
+      <Pressable style={styles.date} onPress={handleDatePickerOpen}>
         <Text style={styles.dateLabel}>{date}</Text>
       </Pressable>
-      {show && (
+      {isDatePickerShown && (
         <DateTimePicker
           value={value ? new Date(value) : new Date()}
           mode="date"
           onChange={handleOnChange}
-          maximumDate={maximumDate}
-          minimumDate={minimumDate}
+          maximumDate={maxDate}
+          minimumDate={minDate}
         />
       )}
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
