@@ -9,6 +9,7 @@ import {
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { Chat } from '~/components/chat/chat';
+import { CurrentConversation } from '~/components/chat/components/current-conversation/current-conversation';
 import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
@@ -153,6 +154,17 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
           PermissionKey.MANAGE_INTERVIEW,
           PermissionKey.MANAGE_INTERVIEWS,
         ],
+      },
+    ],
+  },
+  {
+    name: 'Chat',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.CONVERSATION,
+        component: CurrentConversation,
+        permissions: [],
       },
     ],
   },
