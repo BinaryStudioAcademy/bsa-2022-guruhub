@@ -79,6 +79,16 @@ const Course: FC = () => {
   };
 
   const handleMentorSelectClick = (mentorId: number): void => {
+    if (mentor) {
+      dispatch(courseActions.changeMentor({ id: mentorId }))
+        .unwrap()
+        .then(() => {
+          handleChooseMentorModalToggle();
+        });
+
+      return;
+    }
+
     dispatch(courseActions.chooseMentor({ id: mentorId }))
       .unwrap()
       .then(() => {
@@ -223,7 +233,12 @@ const Course: FC = () => {
 
       {isUserAuthorized && (
         <div className={styles.additional}>
-          {mentor && <MyMentor mentor={mentor} />}
+          {mentor && (
+            <MyMentor
+              mentor={mentor}
+              onMentorChange={handleChooseMentorModalToggle}
+            />
+          )}
           {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
             <MyStudentsContainer mentees={mentees} />
           )}

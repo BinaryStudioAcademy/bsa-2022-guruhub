@@ -37,7 +37,7 @@ paths:
   /courses/:id/category:
     $ref: './endpoints/courses/course-update-category-by-id.yaml'
   /courses/:id/mentors:
-    $ref: './endpoints/courses/courses-add-mentor.yaml'
+    $ref: './endpoints/courses/courses-mentor.yaml'
   /courses/:id/is-mentor-check:
     $ref: './endpoints/courses/course-check-is-mentor.yaml'
   /courses/:id/has-mentor-check:
