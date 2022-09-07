@@ -133,6 +133,7 @@ const Course: FC = () => {
           menteeId: user.id,
         }),
       );
+      dispatch(courseActions.checkIsMentor({ id: user.id }));
     }
   }, [user]);
 
