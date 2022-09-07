@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: 120,
-    height: 40,
+    minWidth: 120,
+    minHeight: 40,
   },
 });
 
