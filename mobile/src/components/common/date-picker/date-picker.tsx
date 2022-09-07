@@ -38,7 +38,7 @@ const DatePicker = <T extends FormControlValues>({
   const { field } = useFormControl({ name, control });
 
   const { value, onChange } = field;
-  const error = errors[name]?.message as string;
+  const error = errors[name]?.message;
 
   const datePlaceholder = placeholder ?? '';
   const date = value ? getFormattedDate(value, 'dd.MM.yyyy') : datePlaceholder;
@@ -70,7 +70,7 @@ const DatePicker = <T extends FormControlValues>({
           minimumDate={minimumDate}
         />
       )}
-      {Boolean(error) && <Text style={styles.error}>{error}</Text>}
+      {Boolean(error) && <Text style={styles.error}>{error as string}</Text>}
     </View>
   );
 };
