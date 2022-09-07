@@ -6,7 +6,6 @@ import { OPPONENT_MESSAGE_SHORT_LENGTH } from '~/components/chat/common/constant
 import { Image, Pressable, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
 
-import { isTodayMessage } from './helpers/is-today-message.helper';
 import { styles } from './styles';
 
 type Props = {
@@ -35,9 +34,7 @@ const Conversation: FC<Props> = ({
   )}...`;
   const chatLastMessage = `${messageStart}${messageShortView}`;
 
-  const messageDate = isTodayMessage(lastMessageDate)
-    ? getFormattedDate(lastMessageDate, 'HH:mm')
-    : `${getFormattedDate(lastMessageDate, 'distance')} ago`;
+  const messageDate = getFormattedDate(lastMessageDate, 'HH:mm');
 
   const handleChatSelect = (): void => {
     onPress(chatId);

@@ -13,10 +13,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   button: {
-    padding: 10,
-    backgroundColor: AppColor.BRAND.BLUE_100,
-    borderRadius: 10,
-    flexDirection: 'row',
+    paddingRight: 10,
     alignSelf: 'center',
   },
 });

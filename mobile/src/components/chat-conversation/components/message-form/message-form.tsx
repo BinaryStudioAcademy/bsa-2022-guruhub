@@ -47,7 +47,12 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
         hitSlop={hitSlop}
         style={styles.button}
       >
-        <Icon color={AppColor.TEXT.GRAY_100} name="send" />
+        <Icon
+          color={AppColor.BRAND.BLUE_100}
+          width={25}
+          height={25}
+          name="send"
+        />
       </Pressable>
     </View>
   );

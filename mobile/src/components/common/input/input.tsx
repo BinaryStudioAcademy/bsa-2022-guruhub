@@ -39,10 +39,11 @@ const Input = <T extends FormControlValues>({
   const { value, onChange, onBlur } = field;
   const error = errors[name]?.message as string;
   const hasRows = Boolean(rows);
+  const hasLabel = Boolean(label);
 
   return (
     <View>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {hasLabel && <Text style={styles.label}>{label as string}</Text>}
       <TextInput
         value={value}
         placeholder={placeholder}
