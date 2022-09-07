@@ -133,8 +133,8 @@ const Course: FC = () => {
           menteeId: user.id,
         }),
       );
-      dispatch(courseActions.checkIsMentor({ id: user.id }));
     }
+    dispatch(courseActions.checkIsMentor({ id: Number(id) }));
   }, [user]);
 
   useEffect(() => {
