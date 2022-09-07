@@ -8,6 +8,18 @@ type Constructor = {
   UserDetailsModel: typeof UserDetailsM;
 };
 
+const DEFAULT_DETAILS_COLUMNS_TO_RETURN = [
+  'id',
+  'gender',
+  'createdAt',
+  'updatedAt',
+  'dateOfBirth',
+  'userId',
+  'fullName',
+  'avatarFileId',
+  'telegramUsername',
+];
+
 class UserDetails {
   #UserDetailsModel: typeof UserDetailsM;
 
@@ -29,9 +41,7 @@ class UserDetails {
         userId,
       })
       .withGraphFetched('avatar')
-      .returning(
-        'id, gender, createdAt, updatedAt, dateOfBirth, userId, fullName, avatarFileId, telegramUsername',
-      )
+      .returning(DEFAULT_DETAILS_COLUMNS_TO_RETURN.join(', '))
       .castTo<UserDetailsResponseDto>()
       .execute();
   }
@@ -44,9 +54,7 @@ class UserDetails {
       .query()
       .findOne({ userId })
       .patch(userDetails)
-      .returning(
-        'id, gender, createdAt, updatedAt, dateOfBirth, userId, fullName, avatarFileId, telegramUsername',
-      )
+      .returning(DEFAULT_DETAILS_COLUMNS_TO_RETURN.join(', '))
       .first()
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
@@ -56,17 +64,7 @@ class UserDetails {
   public getByUserId(userId: number): Promise<UserDetailsResponseDto | null> {
     return this.#UserDetailsModel
       .query()
-      .select(
-        'id',
-        'gender',
-        'createdAt',
-        'updatedAt',
-        'dateOfBirth',
-        'userId',
-        'fullName',
-        'avatarFileId',
-        'telegramUsername',
-      )
+      .select(...DEFAULT_DETAILS_COLUMNS_TO_RETURN)
       .where({ userId })
       .first()
       .withGraphFetched('avatar')
@@ -81,9 +79,7 @@ class UserDetails {
     return this.#UserDetailsModel
       .query()
       .patchAndFetchById(userDetailsId, { avatarFileId: fileId })
-      .returning(
-        'id, gender, createdAt, updatedAt, dateOfBirth, userId, fullName, avatarFileId, telegramUsername',
-      )
+      .returning(DEFAULT_DETAILS_COLUMNS_TO_RETURN.join(', '))
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
       .execute();
