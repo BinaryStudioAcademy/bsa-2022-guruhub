@@ -134,6 +134,7 @@ const Course: FC = () => {
         }),
       );
     }
+    dispatch(courseActions.checkIsMentor({ id: Number(id) }));
   }, [user]);
 
   useEffect(() => {
