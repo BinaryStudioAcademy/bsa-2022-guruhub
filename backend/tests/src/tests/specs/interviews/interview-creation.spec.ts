@@ -146,9 +146,11 @@ describe('Interview creating flow', () => {
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signInResponseSchema);
+
     response.body.user.email.should.be.equal(
       testsConfig.users.interviewsManager.email,
     );
+
     httpService.setToken(response.body.token);
   });
 
