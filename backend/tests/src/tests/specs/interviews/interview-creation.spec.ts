@@ -158,6 +158,7 @@ describe('Interview creating flow', () => {
     const response = (await interviewService.getInterviewById(
       interviewId,
     )) as Response<InterviewsByIdResponseDto>;
+
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(interviewGetAllSchema);
