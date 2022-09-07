@@ -9,6 +9,8 @@ import {
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
+import { Chat } from '~/components/chat/chat';
+import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
 import { EditCourseCategory } from '~/components/course/components/components';
 import { Task } from '~/components/course-module/components/components';
 import { AddCourse } from '~/components/courses/components/components';
@@ -79,6 +81,12 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     name: 'Account',
     isVisible: true,
     subroutes: [
+      {
+        name: AppScreenName.CHAT,
+        icon: 'message',
+        component: Chat,
+        permissions: [],
+      },
       {
         name: AppScreenName.BILLING,
         icon: 'billing',
@@ -159,6 +167,17 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
           PermissionKey.MANAGE_INTERVIEW,
           PermissionKey.MANAGE_INTERVIEWS,
         ],
+      },
+    ],
+  },
+  {
+    name: 'Chat',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.CONVERSATION,
+        component: ChatConversation,
+        permissions: [],
       },
     ],
   },

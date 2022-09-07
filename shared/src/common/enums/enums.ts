@@ -35,6 +35,7 @@ export { SortOrder } from './sort/sort';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
 export {
+  UserAge,
   UserGender,
   UserValidationMessage,
   UserValidationRule,

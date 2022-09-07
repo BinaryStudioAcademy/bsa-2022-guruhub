@@ -2,6 +2,7 @@ export {
   ApiPath,
   AuthApiPath,
   CategoriesApiPath,
+  ChatsApiPath,
   GroupsApiPath,
   InterviewsApiPath,
   MentorsApiPath,

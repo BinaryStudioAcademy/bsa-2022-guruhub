@@ -241,6 +241,18 @@ erDiagram
     int category_id FK
     float price
   }
+
+  transactions }|--|| users : sender_id
+  transactions }|--|| users : receiver_id
+  transactions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int sender_id FK
+    int receiver_id FK
+    float amount
+    enum status
+}
 ```
 
 ## 🧑‍💻 CI
