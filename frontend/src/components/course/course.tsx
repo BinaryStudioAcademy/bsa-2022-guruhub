@@ -42,6 +42,7 @@ const Course: FC = () => {
     isMentorChoosingEnabled,
     isMentor,
     menteesByCourseDataStatus,
+    isMentorDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -55,6 +56,7 @@ const Course: FC = () => {
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
     menteesByCourseDataStatus: course.menteesByCourseDataStatus,
+    isMentorDataStatus: course.isMentorDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -121,28 +123,25 @@ const Course: FC = () => {
         }),
       );
       dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
-    }
-  }, [dispatch, id, user]);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
       dispatch(
         courseActions.getMentor({
           courseId: Number(id),
           menteeId: user.id,
         }),
       );
+      dispatch(courseActions.updateIsMentorChoosingEnabled(Number(id)));
     }
-  }, [user]);
+
+    return () => {
+      dispatch(courseActions.disableMentorChoosing());
+      dispatch(courseActions.cleanMentor());
+      dispatch(courseActions.cleanMentors());
+    };
+  }, [dispatch, id, user]);
 
   useEffect(() => {
     if (course && user) {
       dispatch(courseActions.updateIsMentorBecomingEnabled());
-    }
-
-    if (course) {
-      dispatch(courseActions.updateIsMentorChoosingEnabled());
     }
 
     return () => {
@@ -220,14 +219,16 @@ const Course: FC = () => {
         </div>
       </div>
 
-      {isUserAuthorized && (
+      {isUserAuthorized && isMentorDataStatus === DataStatus.FULFILLED && (
         <div className={styles.additional}>
-          {mentor && <MyMentor mentor={mentor} />}
-          {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (
-            <MyStudentsContainer mentees={mentees} />
-          )}
-          {isMentorChoosingEnabled && (
+          {isMentor ? (
+            menteesByCourseDataStatus === DataStatus.FULFILLED && (
+              <MyStudentsContainer mentees={mentees} />
+            )
+          ) : isMentorChoosingEnabled ? (
             <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+          ) : (
+            mentor && <MyMentor mentor={mentor} />
           )}
         </div>
       )}
