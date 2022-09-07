@@ -106,6 +106,7 @@ describe('Interview creating flow', () => {
   it('Successfully getting list of all interviews', async () => {
     const response =
       (await interviewService.getAllInterviews()) as Response<InterviewsGetAllItemResponseDto>;
+
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(interviewGetAllSchema);
