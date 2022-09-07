@@ -7,6 +7,7 @@ const interviewUpdate = Joi.object({
   [getNameOf<InterviewsUpdateRequestDto>('interviewerUserId')]: Joi.number()
     .integer()
     .required(),
+  [getNameOf<InterviewsUpdateRequestDto>('status')]: Joi.string().required(),
 });
 
 export { interviewUpdate };
