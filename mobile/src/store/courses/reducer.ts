@@ -12,6 +12,7 @@ import {
   becomeMentor,
   checkIsMentor,
   chooseMentor,
+  clearMentor,
   getCourse,
   getCourses,
   getMenteesByCourseId,
@@ -149,6 +150,11 @@ const reducer = createReducer(initialState, (builder) => {
     const canChooseMentor = !hasMentor && state.isMentorChoosingEnabled;
     state.isMentorChoosingEnabled = canChooseMentor;
     state.mentor = payload ? payload.mentor : null;
+  });
+
+  builder.addCase(clearMentor, (state) => {
+    state.mentor = null;
+    state.isMentorChoosingEnabled = true;
   });
 
   builder.addCase(getMenteesByCourseId.pending, (state) => {
