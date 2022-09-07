@@ -14,7 +14,7 @@ type Props = {
 const ModulesCardsContainer: FC<Props> = ({ tasks, studentId, courseId }) => {
   return (
     <ul className={styles.container}>
-      {tasks.map(({ module, id }) => {
+      {tasks.map(({ module, id, status }) => {
         return (
           <li key={id} className={styles.moduleCardContainer}>
             <Link
@@ -23,10 +23,7 @@ const ModulesCardsContainer: FC<Props> = ({ tasks, studentId, courseId }) => {
               }
               className={styles.linkToModule}
             >
-              <ModuleCard
-                title={module.title}
-                description={module.description}
-              />
+              <ModuleCard title={module.title} status={status} />
             </Link>
           </li>
         );
