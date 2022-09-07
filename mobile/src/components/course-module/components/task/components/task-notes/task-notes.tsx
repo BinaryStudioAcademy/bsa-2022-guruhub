@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Text, View } from 'react-native';
 
 import { TaskNoteGetItemResponseDto } from '~/common/types/types';
+import { Text, View } from '~/components/common/common';
 
 import { TaskNoteCard } from './components/components';
 import { styles } from './styles';
