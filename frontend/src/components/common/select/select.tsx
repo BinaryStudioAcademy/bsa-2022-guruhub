@@ -71,7 +71,7 @@ const Select: FC<Props> = ({
         value={handleOptionValue(field.value)}
         onChange={handleChange}
         name={name}
-        isSearchable={false}
+        isSearchable={true}
         className={styles.select}
         styles={stylingProps}
       />
