@@ -11,6 +11,7 @@ import {
   notification,
   permissionsApi,
   storage,
+  tasksApi,
   userDetailsApi,
   usersApi,
 } from '~/services/services';
@@ -28,6 +29,7 @@ const extraArgument = {
   notification,
   permissionsApi,
   storage,
+  tasksApi,
   userDetailsApi,
   usersApi,
   interviewsApi,
