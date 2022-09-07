@@ -41,12 +41,3 @@
   flex-direction: column;
   gap: 7px;
 }
-
-.errorMessage {
-  height: 16px;
-  overflow: hidden;
-  color: var(--support-error-red-100);
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
-}

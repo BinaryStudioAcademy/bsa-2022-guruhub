@@ -1,11 +1,11 @@
-import { DataStatus, UserGender } from 'common/enums/enums';
+import { DataStatus, UserAge, UserGender } from 'common/enums/enums';
 import {
   FC,
   SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Datepicker, Input, Select } from 'components/common/common';
-import { getNameOf } from 'helpers/helpers';
+import { getNameOf, subtractYears } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -64,6 +64,14 @@ const UserProfileForm: FC = () => {
     return getGenderOptions();
   }, []);
 
+  const maxDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MIN);
+  }, []);
+
+  const minDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MAX);
+  }, []);
+
   return (
     <div>
       {dataStatus !== DataStatus.PENDING && (
@@ -84,9 +92,11 @@ const UserProfileForm: FC = () => {
               />
               <Datepicker
                 control={control}
-                errors={errors}
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
                 label="Birth date"
+                placeholder="Enter date of birth"
+                maxDate={maxDate}
+                minDate={minDate}
               />
             </div>
             <div className={styles.grid}>
