@@ -14,6 +14,7 @@ const interviewCreationSchema = {
       type: 'integer',
     },
   },
+  required: ['id', 'status', 'categoryId', 'intervieweeUserId'],
 };
 
 export { interviewCreationSchema };
