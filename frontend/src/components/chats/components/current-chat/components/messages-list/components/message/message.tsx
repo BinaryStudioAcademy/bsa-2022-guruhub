@@ -8,6 +8,7 @@ type Props = {
   messageAuthor: 'user' | 'opponent';
   content: string;
   postTime: string;
+  originalPostTime?: string;
   messageAvatarUrl: string;
 };
 
