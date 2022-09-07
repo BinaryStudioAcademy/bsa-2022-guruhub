@@ -17,6 +17,7 @@ import {
   useParams,
   useState,
 } from 'hooks/hooks';
+import { ReactNode } from 'react';
 import { courseActions } from 'store/actions';
 
 import {
@@ -178,6 +179,29 @@ const Course: FC = () => {
 
   const isUserAuthorized = Boolean(user);
 
+  const mentorOrStudentComponentOutput = (): ReactNode => {
+    if (isMentor) {
+      return (
+        menteesByCourseDataStatus === DataStatus.FULFILLED && (
+          <MyStudentsContainer mentees={mentees} />
+        )
+      );
+    }
+
+    if (isMentorChoosingEnabled) {
+      return <ChooseMentorButton onClick={handleChooseMentorModalToggle} />;
+    }
+
+    return (
+      mentor && (
+        <MyMentor
+          mentor={mentor}
+          onMentorChange={handleChooseMentorModalToggle}
+        />
+      )
+    );
+  };
+
   return (
     <div className={styles.container}>
       <EditCategoryModal
@@ -232,20 +256,7 @@ const Course: FC = () => {
 
       {isUserAuthorized && isMentorDataStatus === DataStatus.FULFILLED && (
         <div className={styles.additional}>
-          {isMentor ? (
-            menteesByCourseDataStatus === DataStatus.FULFILLED && (
-              <MyStudentsContainer mentees={mentees} />
-            )
-          ) : isMentorChoosingEnabled ? (
-            <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
-          ) : (
-            mentor && (
-              <MyMentor
-                mentor={mentor}
-                onMentorChange={handleChooseMentorModalToggle}
-              />
-            )
-          )}
+          {mentorOrStudentComponentOutput()}
         </div>
       )}
     </div>
