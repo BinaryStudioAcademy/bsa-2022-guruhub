@@ -4,6 +4,7 @@ type UserDetailsUpdateInfoRequestDto = {
   fullName: string;
   gender: UserGender | null;
   dateOfBirth: string | null;
+  telegramUsername: string | null;
 };
 
 export { type UserDetailsUpdateInfoRequestDto };
