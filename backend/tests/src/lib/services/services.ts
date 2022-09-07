@@ -19,6 +19,7 @@ const categoriesService = new CategoriesService({ httpService });
 const permissionsService = new PermissionsService({ httpService });
 
 const interviewService = new InterviewService({ httpService });
+
 const usersService = new UsersService({ httpService });
 
 export {
