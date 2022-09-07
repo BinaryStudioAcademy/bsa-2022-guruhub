@@ -18,6 +18,7 @@ import {
 import { coursesManagementActions } from '~/store/actions';
 
 import { DEFAULT_PAGE_SIZE } from './common/constants/constants';
+import { ActionCell } from './components/action-cell/action-cell';
 import { CoursesManagementTable } from './courses-management-table/courses-management-table';
 import { styles } from './styles';
 
@@ -27,11 +28,21 @@ const CoursesManagement: FC = () => {
   const { dataStatus, coursesWithCategory, totalCoursesNumber } =
     useAppSelector((state) => state.coursesManagement);
 
+  const handleEditCourse = (courseId: number): void => {
+    // eslint-disable-next-line no-console
+    console.log(courseId);
+  };
+
   const coursesRows = coursesWithCategory.map((item: CourseGetResponseDto) => {
     return {
       title: item.title,
       category: item.category?.name ?? 'Unknown',
-      action: 'action',
+      action: (
+        <ActionCell
+          categoryId={item.courseCategoryId}
+          onEdit={handleEditCourse}
+        />
+      ),
     };
   });
 
