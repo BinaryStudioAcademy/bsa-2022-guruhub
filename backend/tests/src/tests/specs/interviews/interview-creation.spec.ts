@@ -1,11 +1,17 @@
 import {
   HttpCode,
+  HttpStatusMessage,
   InterviewsByIdResponseDto,
   InterviewsGetAllItemResponseDto,
   InterviewsResponseDto,
+  UserDetailsResponseDto,
   UserSignInResponseDto,
+  UserSignUpRequestDto,
+  UserSignUpResponseDto,
+  UserWithPermissions,
 } from 'guruhub-shared';
 
+import { JWT_TOKEN_REGEX } from '~/lib/common/constants/regex.constants';
 import { Response } from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {
@@ -19,25 +25,44 @@ import {
   interviewCreationSchema,
   interviewGetAllSchema,
   signInResponseSchema,
+  signUpResponseSchema,
 } from '~/tests/json-schemas/json-schemas';
+import { signUpRequestMock } from '~/tests/mocks/mocks';
 
 describe('Interview creating flow', () => {
+  let signUpData: UserSignUpRequestDto;
   let intervieweeUserId: number;
   let categoryId: number;
   let interviewId: number;
 
+  let expectedUserDetails: Pick<UserDetailsResponseDto, 'fullName'>;
+  let expectedSignUpResponse: Pick<UserWithPermissions, 'email'>;
+
   before(() => apiSessionStorage.addAndEnterSession('default'));
+
   after(() => apiSessionStorage.removeSession('default'));
 
-  it('Signing in as a student', async () => {
-    const response = (await authService.signIn(
-      testsConfig.users.student,
-    )) as Response<UserSignInResponseDto>;
+  it('Signing up as a new user without permissions', async () => {
+    signUpData = signUpRequestMock();
 
-    response.should.have.status(HttpCode.OK);
+    expectedSignUpResponse = {
+      email: signUpData.email,
+    };
+
+    expectedUserDetails = {
+      fullName: signUpData.fullName,
+    };
+
+    const response = (await authService.signUp(
+      signUpData,
+    )) as Response<UserSignUpResponseDto>;
+
+    response.should.have.status(HttpCode.CREATED);
     response.should.have.normalExecutionTime;
-    response.body.should.have.jsonSchema(signInResponseSchema);
-    response.body.user.email.should.be.equal(testsConfig.users.student.email);
+    response.body.should.have.jsonSchema(signUpResponseSchema);
+    response.body.user.should.deep.include(expectedSignUpResponse);
+    response.body.user.userDetails.should.deep.include(expectedUserDetails);
+    JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
 
     intervieweeUserId = response.body.user.id;
     categoryId = 1;
@@ -67,13 +92,17 @@ describe('Interview creating flow', () => {
       testsConfig.users.categoriesManager,
     ],
     (loginData) => {
-      it(`Get 403 FORBIDDEN error while trying to get all interviews as ${loginData.email}`, async () => {
+      it(`Get ${HttpCode.FORBIDDEN} ${HttpStatusMessage.FORBIDDEN} error while trying to get all interviews as ${loginData.email}`, async () => {
         apiSessionStorage.addAndEnterSession(loginData.email);
+
         const loginResponse = (await authService.signIn(
           loginData,
         )) as Response<UserSignInResponseDto>;
+
         httpService.setToken(loginResponse.body.token);
+
         const response = await interviewService.getAllInterviews();
+
         apiSessionStorage.enterSessionAndRemovePrevious('default');
 
         loginResponse.should.have.status(HttpCode.OK);
@@ -121,13 +150,17 @@ describe('Interview creating flow', () => {
       testsConfig.users.categoriesManager,
     ],
     (loginData) => {
-      it(`Get 403 FORBIDDEN error while trying to get one interview as ${loginData.email}`, async () => {
+      it(`Get ${HttpCode.FORBIDDEN} ${HttpStatusMessage.FORBIDDEN} error while trying to get one interview as ${loginData.email}`, async () => {
         apiSessionStorage.addAndEnterSession(loginData.email);
+
         const loginResponse = (await authService.signIn(
           loginData,
         )) as Response<UserSignInResponseDto>;
+
         httpService.setToken(loginResponse.body.token);
+
         const response = await interviewService.getInterviewById(interviewId);
+
         apiSessionStorage.enterSessionAndRemovePrevious('default');
 
         loginResponse.should.have.status(HttpCode.OK);

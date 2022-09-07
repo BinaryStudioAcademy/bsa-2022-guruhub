@@ -44,12 +44,12 @@ class InterviewService {
   }
 
   public getInterviewById(
-    data: number,
+    id: number,
   ): Promise<Response<InterviewsByIdRequestParamsDto | HttpErrorDto>> {
     return this.#httpService
       .request()
       .get()
-      .path(`${ApiPath.INTERVIEWS}/${data}`)
+      .path(`${ApiPath.INTERVIEWS}/${id}`)
       .send();
   }
 }

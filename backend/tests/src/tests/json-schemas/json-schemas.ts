@@ -3,10 +3,16 @@ export { allCategoriesSchema, categorySchema } from './categories/categories';
 export {
   interviewCreationSchema,
   interviewGetAllSchema,
+  interviewGetOneSchema,
 } from './interview/interview';
 export {
   allPermissionsSchema,
   permissionSchema,
 } from './permissions/permissions';
 export { errorResponseSchema } from './shared/shared';
-export { userDetailsSchema, userWithPermissionsSchema } from './user/user';
+export {
+  intervieweeSchema,
+  interviewerSchema,
+  userDetailsSchema,
+  userWithPermissionsSchema,
+} from './user/user';
