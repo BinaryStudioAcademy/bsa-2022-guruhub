@@ -1,5 +1,6 @@
 import { reducer as auth } from './auth/reducer';
 import { reducer as categories } from './categories/reducer';
+import { reducer as chat } from './chat/reducer';
 import { reducer as courseModules } from './course-modules/reducer';
 import { reducer as courses } from './courses/reducer';
 import { reducer as interview } from './interview/reducer';
@@ -20,6 +21,7 @@ const rootReducer = {
   userDetails,
   interview,
   interviews,
+  chat,
 };
 
 export { rootReducer };
