@@ -26,6 +26,12 @@ const routes: NavigationMenuItem[] = [
           PermissionKey.MANAGE_INTERVIEW,
         ],
       },
+      {
+        name: 'Courses Management',
+        iconName: 'course',
+        href: AppRoute.COURSES_MANAGEMENT,
+        permissions: [PermissionKey.MANAGE_CATEGORIES],
+      },
     ],
   },
   {
