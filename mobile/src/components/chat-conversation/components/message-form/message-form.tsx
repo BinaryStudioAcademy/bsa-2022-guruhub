@@ -27,7 +27,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
   useFocusEffect(
     useCallback(() => {
       return () => {
-        reset(getDefaultMessagePayload(chatOpponentId, chatId));
+        reset({ message: '' });
       };
     }, []),
   );
