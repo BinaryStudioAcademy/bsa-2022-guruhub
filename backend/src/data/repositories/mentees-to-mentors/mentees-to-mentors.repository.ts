@@ -37,22 +37,17 @@ class MenteesToMentors {
   ): Promise<MenteesToMentorsResponseDto> {
     const { courseId, mentorId, menteeId } = menteesToMentors;
 
-    this.#MenteesToMentorsModel
+    return this.#MenteesToMentorsModel
       .query()
-      .delete()
+      .patch({
+        mentorId,
+      })
       .where({
         menteeId,
         courseId,
       })
-      .execute();
-
-    return this.#MenteesToMentorsModel
-      .query()
-      .insert({
-        courseId,
-        mentorId,
-        menteeId,
-      })
+      .returning('*')
+      .first()
       .withGraphFetched('mentor(withoutPassword).[userDetails]')
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
