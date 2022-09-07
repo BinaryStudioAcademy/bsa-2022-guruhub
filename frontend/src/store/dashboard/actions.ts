@@ -16,7 +16,7 @@ const getCourses = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
   const { coursesApi } = extra;
-  const courses = await coursesApi.getAll({
+  const courses = await coursesApi.getAllWithCategories({
     filtering: { title, categoryKey },
   });
 
@@ -29,7 +29,7 @@ const getCategories = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_CATEGORIES, async (_, { extra }) => {
   const { categoriesApi } = extra;
-  const categoriesDto = await categoriesApi.getAll();
+  const categoriesDto = await categoriesApi.getAllWithCourses();
 
   return categoriesDto;
 });

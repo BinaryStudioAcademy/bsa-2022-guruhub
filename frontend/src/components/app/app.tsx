@@ -16,6 +16,7 @@ import {
 } from 'components/common/common';
 import { Course } from 'components/course/course';
 import { CourseModule } from 'components/course-module/course-module';
+import { CoursesManagement } from 'components/courses-management/courses-management';
 import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
@@ -93,7 +94,7 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.SETTINGS_PROFILE}
+          path={AppRoute.PROFILE}
           element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
@@ -134,6 +135,15 @@ const App: FC = () => {
             <AuthorizedWrapper>
               <Chats />
             </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.COURSES_MANAGEMENT}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_CATEGORIES]}
+              component={<CoursesManagement />}
+            />
           }
         />
         <Route

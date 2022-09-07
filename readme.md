@@ -100,6 +100,7 @@ erDiagram
       varchar gender
       int avatar_file_id FK
       date date_of_birth
+      float money_balance
   }
 
   courses ||--|| vendors : vendor_id
@@ -209,8 +210,8 @@ erDiagram
     int course_id FK
   }
 
-  chat_messages }|--|| user : sender_id
-  chat_messages }|--|| user : receiver_id
+  chat_messages }|--|| users : sender_id
+  chat_messages }|--|| users : receiver_id
   chat_messages {
     int id PK
     dateTime created_at
@@ -231,6 +232,27 @@ erDiagram
     int author_id FK
     enum status
   }
+
+  course_categories_prices ||--|| course_categories : category_id
+  course_categories_prices {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int category_id FK
+    float price
+  }
+
+  transactions }|--|| users : sender_id
+  transactions }|--|| users : receiver_id
+  transactions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int sender_id FK
+    int receiver_id FK
+    float amount
+    enum status
+}
 ```
 
 ## 🧑‍💻 CI
@@ -309,6 +331,12 @@ erDiagram
 - `blog-5: + form component`
 - `design-12: * filter markup`
 - `blog-16: - require prop for nickname field`
+
+## AWS
+
+### 📁 Simple Storage Service (S3):
+
+- Bucket for files should have public access policy
 
 ## 📦 CD
 

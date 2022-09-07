@@ -45,7 +45,7 @@ const ApplicationForm: FC<Props> = ({
     });
 
   const interviewDate = interview.interviewDate
-    ? getFormattedDate(interview.interviewDate, 'kk:mm, dd/MM/yyyy')
+    ? getFormattedDate(interview.interviewDate, 'HH:mm dd.MM.yyyy')
     : 'Not assigned yet';
 
   const interviewersData = interviewers.map((interviewer) => ({
@@ -79,7 +79,7 @@ const ApplicationForm: FC<Props> = ({
           <View style={isEditMode && styles.buttonHide}>
             <Button
               label="Edit"
-              variant={ButtonVariant.SECONDARY}
+              variant={ButtonVariant.PRIMARY}
               onPress={toggleEditMode}
               size="small"
             />

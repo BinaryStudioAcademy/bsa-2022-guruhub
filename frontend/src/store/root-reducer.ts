@@ -2,6 +2,7 @@ import { reducer as auth } from './auth/reducer';
 import { reducer as chats } from './chats/reducer';
 import { reducer as course } from './course/reducer';
 import { reducer as courseModule } from './course-module/reducer';
+import { reducer as coursesManagement } from './courses-management/reducer';
 import { reducer as dashboard } from './dashboard/reducer';
 import { reducer as interview } from './interview/reducer';
 import { reducer as interviews } from './interviews/reducer';
@@ -20,6 +21,7 @@ const rootReducer = {
   course,
   courseModule,
   interviews,
+  coursesManagement,
 };
 
 export { rootReducer };

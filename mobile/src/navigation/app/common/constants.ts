@@ -8,6 +8,8 @@ import {
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
+import { Chat } from '~/components/chat/chat';
+import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
 import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
@@ -19,6 +21,7 @@ import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
 import { Course } from '~/navigation/course/course.navigation';
+import { CourseModule } from '~/navigation/course-module/course-module.navigation';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
@@ -77,6 +80,12 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     isVisible: true,
     subroutes: [
       {
+        name: AppScreenName.CHAT,
+        icon: 'message',
+        component: Chat,
+        permissions: [],
+      },
+      {
         name: AppScreenName.BILLING,
         icon: 'billing',
         component: Billing,
@@ -133,6 +142,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         component: EditCourseCategory,
         permissions: [PermissionKey.MANAGE_CATEGORIES],
       },
+      {
+        name: AppScreenName.COURSE_MODULE,
+        component: CourseModule,
+        permissions: [],
+      },
     ],
   },
   {
@@ -146,6 +160,17 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
           PermissionKey.MANAGE_INTERVIEW,
           PermissionKey.MANAGE_INTERVIEWS,
         ],
+      },
+    ],
+  },
+  {
+    name: 'Chat',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.CONVERSATION,
+        component: ChatConversation,
+        permissions: [],
       },
     ],
   },

@@ -56,7 +56,6 @@
 .back:disabled::before,
 .next:disabled::before {
   border-color: var(--typography-text-gray-200);
-  cursor: auto;
 }
 
 .next {
@@ -65,4 +64,9 @@
 
 .back {
   transform: rotate(-45deg);
+}
+
+.back:disabled,
+.next:disabled {
+  cursor: auto;
 }

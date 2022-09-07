@@ -62,7 +62,7 @@ const OtherApplications: FC<Props> = ({
       interviewer:
         interview.interviewer?.userDetails?.fullName ?? 'Not assigned yet',
       date: interview.interviewDate
-        ? getFormattedDate(interview.interviewDate, 'kk:mm, dd/MM/yyyy')
+        ? getFormattedDate(interview.interviewDate, 'HH:mm dd.MM.yyyy')
         : 'Not assigned yet',
     };
   });

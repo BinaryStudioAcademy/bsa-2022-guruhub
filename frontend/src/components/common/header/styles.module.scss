@@ -62,3 +62,17 @@
   align-items: center;
   gap: 14px;
 }
+
+.rightWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.chatLogoWrapper {
+  margin-top: 7px;
+}
+
+.chatIcon:hover path {
+  fill: white;
+}

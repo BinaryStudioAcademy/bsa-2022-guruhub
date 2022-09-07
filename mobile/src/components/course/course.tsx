@@ -90,11 +90,27 @@ const Course: FC = () => {
     };
   }, [mentors]);
 
+  useEffect(() => {
+    if (user && course) {
+      dispatch(
+        coursesActions.getMenteesMentor({
+          courseId: course.id,
+          menteeId: user.id,
+        }),
+      );
+    }
+  }, [user, course]);
+
   useFocusEffect(
     useCallback(() => {
       return () => setIsDescriptionExpanded(false);
     }, []),
   );
+
+  const handleModulePress = (courseId: number, moduleId: number): void => {
+    dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
+    navigation.navigate(AppScreenName.COURSE_MODULE);
+  };
 
   if (courseIsLoading) {
     return <Spinner isOverflow />;
@@ -142,6 +158,7 @@ const Course: FC = () => {
         <CourseModules
           courseModules={courseModules}
           isLoading={moduleIsLoading}
+          onModulePress={handleModulePress}
         />
       </View>
     </ScrollView>

@@ -44,12 +44,16 @@ const createNote = createAsyncThunk<
 });
 
 const getTask = createAsyncThunk<
-  TaskGetItemReponseDto,
+  TaskGetItemReponseDto | null,
   TaskGetByMenteeIdAndModuleId,
   AsyncThunkConfig
 >(ActionType.GET_TASK, async ({ menteeId, moduleId }, { extra }) => {
   const { tasksApi } = extra;
   const task = await tasksApi.getByMenteeIdAndModuleId({ menteeId, moduleId });
+
+  if (!task) {
+    return null;
+  }
 
   return task;
 });

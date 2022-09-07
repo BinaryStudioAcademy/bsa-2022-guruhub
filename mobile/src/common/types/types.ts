@@ -10,6 +10,17 @@ export {
   type CourseCategoryGetResponseDto,
 } from './category/category';
 export {
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat/chat';
+export {
+  type CourseModuleGetByIdResponseDto,
+  type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
@@ -65,10 +76,13 @@ export {
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
+  type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
+  type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type DrawerNavigationItem,
   type DrawerNavigationList,

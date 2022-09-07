@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
   ChatMessageCreateRequestBodyDto,
@@ -53,4 +53,27 @@ const createMessage = createAsyncThunk<
   return newMessage;
 });
 
-export { createMessage, getLastMessages, getMessages };
+const checkHasUnreadMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.CHECK_HAS_UNREAD_MESSAGES,
+  async (_, { extra, dispatch }) => {
+    const { chatsApi } = extra;
+    const hasUnreadMessages = await chatsApi.hasUnreadMessages();
+
+    dispatch(setHasUnreadMessages(hasUnreadMessages));
+  },
+);
+
+const setHasUnreadMessages = createAction(
+  ActionType.SET_HAS_UNREAD_MESSAGES,
+  (hasUnreadMessages: boolean) => ({
+    payload: hasUnreadMessages,
+  }),
+);
+
+export {
+  checkHasUnreadMessages,
+  createMessage,
+  getLastMessages,
+  getMessages,
+  setHasUnreadMessages,
+};
