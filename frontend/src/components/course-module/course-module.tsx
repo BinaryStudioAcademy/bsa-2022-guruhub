@@ -92,6 +92,10 @@ const CourseModule: FC = () => {
     return <Spinner />;
   }
 
+  const backRoute = isMentorView
+    ? `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${courseId}`
+    : `${AppRoute.COURSES}/${courseId}`;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -99,7 +103,7 @@ const CourseModule: FC = () => {
           <IconButton
             label="back"
             iconName="leftArrow"
-            to={`${AppRoute.COURSES}/${courseId}` as AppRoute}
+            to={backRoute as AppRoute}
             iconColor="blue"
           />
           <p>{courseModule?.courseTitle}</p>
