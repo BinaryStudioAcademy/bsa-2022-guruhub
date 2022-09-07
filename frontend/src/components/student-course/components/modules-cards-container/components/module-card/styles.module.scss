@@ -1,6 +1,8 @@
 .card {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
   padding-left: 15px;
   background: var(--background-gray-300);
   border-radius: 10px;
@@ -18,8 +20,34 @@
   word-wrap: break-word;
 }
 
-.description {
-  margin-top: 0;
-  color: var(--typography-text-gray-200);
-  word-wrap: break-word;
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+  border-radius: 15px;
+}
+
+.new {
+  background-color: var(--brand-yellow-300);
+}
+
+.rejected {
+  background-color: var(--brand-purple-100);
+}
+
+.canceled {
+  background-color: var(--brand-red-100);
+}
+
+.completed {
+  background-color: var(--brand-green-100);
+}
+
+.pending {
+  background-color: var(--brand-blue-200);
+}
+
+.inProgress {
+  background-color: var(--brand-pink-200);
 }
