@@ -30,4 +30,4 @@ export {
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permission/permission';
 export { AppColor, AppFontFamily, ButtonVariant } from './ui/ui';
-export { UserGender } from './user/user.enum';
+export { UserAge, UserGender } from './user/user.enum';
