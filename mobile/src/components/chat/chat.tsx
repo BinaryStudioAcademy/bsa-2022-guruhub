@@ -1,38 +1,40 @@
 import React, { FC } from 'react';
 
-import { DataStatus } from '~/common/enums/enums';
+import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { UserWithPermissions } from '~/common/types/types';
 import { Spinner, View } from '~/components/common/common';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import {
+  useAppDispatch,
+  useAppNavigate,
+  useAppSelector,
+  useEffect,
+} from '~/hooks/hooks';
 import { chatActions } from '~/store/actions';
 
 import { ConversationsList } from './components/components';
 import { styles } from './styles';
 
 const Chat: FC = () => {
-  const {
-    authDataStatus,
-    chatDataStatus,
-    lastMessages,
-    user,
-    // chatId,
-    // currentChatMessages,
-    // chatOpponent,
-  } = useAppSelector(({ auth, chat }) => ({
-    authDataStatus: auth.dataStatus,
-    user: auth.user,
-    chatDataStatus: chat.dataStatus,
-    lastMessages: chat.lastMessages,
-    chatId: chat.currentChatId,
-    currentChatMessages: chat.currentChatMessages,
-    chatOpponent: chat.chatOpponent,
-  }));
+  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
+    ({ auth, chat }) => ({
+      authDataStatus: auth.dataStatus,
+      user: auth.user,
+      chatDataStatus: chat.dataStatus,
+      lastMessages: chat.lastMessages,
+    }),
+  );
 
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
 
   const handleChatMessagesLoad = (chatId: string): void => {
     dispatch(chatActions.getMessages({ id: chatId }));
+    navigation.navigate(AppScreenName.CONVERSATION);
   };
+
+  useEffect(() => {
+    dispatch(chatActions.getLastMessages({ fullName: '' }));
+  }, [dispatch]);
 
   if (
     chatDataStatus === DataStatus.PENDING ||

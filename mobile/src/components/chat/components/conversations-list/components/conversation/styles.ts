@@ -6,10 +6,11 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: AppColor.BACKGROUND.GRAY_300,
+    borderWidth: 2,
+    borderColor: AppColor.BACKGROUND.GRAY_200,
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 10,
   },
   avatar: {
     width: 40,

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import defaultCourseImage from '~/assets/images/avatar-default.png';
+import defaultAvatar from '~/assets/images/avatar-default.png';
 import { ChatMessageUserResponseDto } from '~/common/types/types';
 import { OPPONENT_MESSAGE_SHORT_LENGTH } from '~/components/chat/common/constants/constants';
 import { Image, Pressable, Text, View } from '~/components/common/common';
@@ -51,11 +51,11 @@ const Conversation: FC<Props> = ({
           source={{
             uri:
               chatOpponent.userDetails.avatar?.url ??
-              getImageUri(defaultCourseImage),
+              getImageUri(defaultAvatar),
           }}
         />
       </View>
-      <View>
+      <View style={{ flex: 1 }}>
         <Text style={styles.opponentName}>
           {chatOpponent.userDetails.fullName}
         </Text>
