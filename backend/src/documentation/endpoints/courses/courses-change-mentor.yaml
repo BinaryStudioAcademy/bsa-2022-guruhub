@@ -16,7 +16,7 @@ requestBody:
       schema:
         $ref: '../../schemas/courses/courses-add-mentor-request-dto.yaml'
 responses:
-  '201':
+  '200':
     description: Mentor was successfully changed
     content:
       application/json:

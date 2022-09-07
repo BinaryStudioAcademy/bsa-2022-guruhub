@@ -284,7 +284,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         menteeId,
       });
 
-      return rep.status(HttpCode.CREATED).send(changeMentor);
+      return rep.status(HttpCode.OK).send(changeMentor);
     },
   });
 };
