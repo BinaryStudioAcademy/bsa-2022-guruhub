@@ -4,7 +4,6 @@ import {
   AppColor,
   AppFontFamily,
   AppScreenName,
-  CourseModuleScreenName,
   PermissionKey,
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
@@ -150,7 +149,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         permissions: [],
       },
       {
-        name: CourseModuleScreenName.TASK,
+        name: AppScreenName.TASK,
         component: Task,
         permissions: [],
       },
