@@ -9,7 +9,7 @@ import {
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { Chat } from '~/components/chat/chat';
-import { CurrentConversation } from '~/components/chat/components/current-conversation/current-conversation';
+import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
 import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
@@ -169,7 +169,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
     subroutes: [
       {
         name: AppScreenName.CONVERSATION,
-        component: CurrentConversation,
+        component: ChatConversation,
         permissions: [],
       },
     ],

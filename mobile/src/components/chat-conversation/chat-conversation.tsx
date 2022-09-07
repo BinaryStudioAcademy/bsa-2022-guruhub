@@ -16,7 +16,7 @@ import { chatActions } from '~/store/actions';
 import { MessageForm, MessagesList } from './components/components';
 import { styles } from './styles';
 
-const CurrentConversation: FC = () => {
+const ChatConversation: FC = () => {
   const { chatId, currentChatMessages, chatOpponent, currentUserId } =
     useAppSelector(({ auth, chat }) => ({
       chatId: chat.currentChatId,
@@ -80,4 +80,4 @@ const CurrentConversation: FC = () => {
   );
 };
 
-export { CurrentConversation };
+export { ChatConversation };
