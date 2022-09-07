@@ -1,1 +1,4 @@
-export { getFormattedDate } from 'guruhub-shared/helpers/helpers';
+export {
+  getFormattedDate,
+  subtractYears,
+} from 'guruhub-shared/helpers/helpers';

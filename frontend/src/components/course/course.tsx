@@ -81,6 +81,16 @@ const Course: FC = () => {
   };
 
   const handleMentorSelectClick = (mentorId: number): void => {
+    if (mentor) {
+      dispatch(courseActions.changeMentor({ id: mentorId }))
+        .unwrap()
+        .then(() => {
+          handleChooseMentorModalToggle();
+        });
+
+      return;
+    }
+
     dispatch(courseActions.chooseMentor({ id: mentorId }))
       .unwrap()
       .then(() => {
@@ -153,6 +163,7 @@ const Course: FC = () => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
     }
+    dispatch(courseActions.checkIsMentor({ id: Number(id) }));
   }, [user]);
 
   if (dataStatus === DataStatus.PENDING) {
@@ -228,7 +239,12 @@ const Course: FC = () => {
           ) : isMentorChoosingEnabled ? (
             <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
           ) : (
-            mentor && <MyMentor mentor={mentor} />
+            mentor && (
+              <MyMentor
+                mentor={mentor}
+                onMentorChange={handleChooseMentorModalToggle}
+              />
+            )
           )}
         </div>
       )}

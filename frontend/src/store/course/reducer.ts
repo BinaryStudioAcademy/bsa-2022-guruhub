@@ -9,6 +9,7 @@ import {
 } from 'common/types/types';
 
 import {
+  changeMentor,
   checkIsMentor,
   chooseMentor,
   cleanMentor,
@@ -142,6 +143,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.PENDING;
   });
   builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentorChoosingEnabled = false;
+    state.mentor = payload.mentor;
+  });
+
+  builder.addCase(changeMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+
+  builder.addCase(changeMentor.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
     state.mentor = payload.mentor;

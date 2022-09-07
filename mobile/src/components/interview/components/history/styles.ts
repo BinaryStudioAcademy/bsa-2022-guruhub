@@ -28,9 +28,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  button: {
-    width: 120,
-  },
 });
 
 export { styles };
