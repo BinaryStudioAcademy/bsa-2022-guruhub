@@ -80,6 +80,7 @@ const UserProfileForm: FC = () => {
                 control={control}
                 errors={errors}
                 placeholder="Enter your full name"
+                inputClassName={styles.formInput}
               />
               <Datepicker
                 control={control}
@@ -95,6 +96,7 @@ const UserProfileForm: FC = () => {
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
                 control={control}
                 errors={errors}
+                className={styles.formSelect}
               />
             </div>
             <div className={styles.grid}>

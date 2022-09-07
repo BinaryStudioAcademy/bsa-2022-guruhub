@@ -94,7 +94,7 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.SETTINGS_PROFILE}
+          path={AppRoute.PROFILE}
           element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
