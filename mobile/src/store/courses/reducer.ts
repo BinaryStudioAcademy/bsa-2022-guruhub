@@ -15,7 +15,6 @@ import {
   clearMentor,
   getCourse,
   getCourses,
-  getCoursesWithCategory,
   getMenteesByCourseId,
   getMenteesMentor,
   getMentorsByCourseId,
@@ -64,18 +63,6 @@ const reducer = createReducer(initialState, (builder) => {
     state.courses = payload;
   });
   builder.addCase(getCourses.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-
-  builder.addCase(getCoursesWithCategory.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(getCoursesWithCategory.fulfilled, (state, { payload }) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.courses = payload.items;
-    state.totalCoursesNumber = payload.total;
-  });
-  builder.addCase(getCoursesWithCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 

@@ -5,7 +5,6 @@ enum ActionType {
   CLEAR_MENTOR = 'course/clear-mentor',
   CREATE_MENTOR = 'courses/create-mentor',
   GET_COURSES = 'courses/get-courses',
-  GET_COURSES_WITH_CATEGORY = 'courses/get-courses-with-category',
   GET_COURSE = 'courses/get-course',
   GET_MENTORS = 'courses/get-mentors',
   GET_MENTEES_MENTOR = 'courses/get-mentees-mentor',
