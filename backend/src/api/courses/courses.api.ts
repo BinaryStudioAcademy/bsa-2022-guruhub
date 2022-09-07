@@ -69,6 +69,33 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.GET,
+    url: CoursesApiPath.STUDYING,
+    async handler(req, res) {
+      const courses = await courseService.getAllCoursesStudying(req.user.id);
+
+      return res.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.MENTORING,
+    schema: { querystring: paginationValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const courses = await courseService.getAllCoursesMentoring(
+        req.user.id,
+        req.query,
+      );
+
+      return res.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
     url: CoursesApiPath.ROOT,
     schema: { querystring: paginationValidationSchema },
     async handler(

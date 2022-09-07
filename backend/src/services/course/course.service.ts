@@ -84,6 +84,19 @@ class Course {
     });
   }
 
+  public getAllCoursesStudying(
+    userId: number,
+  ): Promise<CourseGetResponseDto[]> {
+    return this.#courseRepository.getAllCoursesStudying(userId);
+  }
+
+  public getAllCoursesMentoring(
+    userId: number,
+    pagination: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    return this.#courseRepository.getAllCoursesMentoring(userId, pagination);
+  }
+
   public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {

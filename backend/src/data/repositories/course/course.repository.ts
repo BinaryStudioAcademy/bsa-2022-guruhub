@@ -72,6 +72,45 @@ class Course {
     };
   }
 
+  public async getAllCoursesStudying(
+    userId: number,
+  ): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select(
+        'courses.id',
+        'title',
+        'description',
+        'url',
+        'imageUrl',
+        'courseCategoryId',
+      )
+      .distinct('courseId')
+      .withGraphJoined('[mentees, category, vendor]')
+      .where('menteeId', userId)
+      .whereNotNull('mentorId')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
+  }
+
+  public async getAllCoursesMentoring(
+    userId: number,
+    { count, page }: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { results, total } = await this.#CourseModel
+      .query()
+      .select('courses.id', 'title', 'maxStudentsCount')
+      .withGraphJoined('mentors')
+      .where('userId', userId)
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
+
+    return {
+      items: results,
+      total,
+    };
+  }
+
   public async create(
     course: CourseCreateRequestArgumentsDto,
   ): Promise<CourseM> {
