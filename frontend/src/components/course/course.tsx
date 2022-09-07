@@ -235,7 +235,7 @@ const Course: FC = () => {
           {mentor && (
             <MyMentor
               mentor={mentor}
-              changeMentor={handleChooseMentorModalToggle}
+              onMentorChange={handleChooseMentorModalToggle}
             />
           )}
           {isMentor && menteesByCourseDataStatus === DataStatus.FULFILLED && (

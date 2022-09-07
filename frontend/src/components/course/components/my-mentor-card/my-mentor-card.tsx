@@ -6,10 +6,10 @@ import styles from './styles.module.scss';
 
 type Props = {
   mentor: UsersGetResponseDto;
-  changeMentor: () => void;
+  onMentorChange: () => void;
 };
 
-const MyMentor: FC<Props> = ({ mentor, changeMentor }) => {
+const MyMentor: FC<Props> = ({ mentor, onMentorChange }) => {
   return (
     <div>
       <h2>My Mentor</h2>
@@ -31,7 +31,7 @@ const MyMentor: FC<Props> = ({ mentor, changeMentor }) => {
           <Button
             label="Change Mentor"
             btnColor="gray"
-            onClick={changeMentor}
+            onClick={onMentorChange}
           />
         </div>
       </div>
