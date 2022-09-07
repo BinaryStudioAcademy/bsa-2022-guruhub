@@ -15,6 +15,8 @@ import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   CourseUpdateCategoryRequestArguments,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
@@ -34,6 +36,17 @@ const getCourses = createAsyncThunk<
   const courses = await coursesApi.getAll({
     filtering: { title, categoryKey },
   });
+
+  return courses;
+});
+
+const getCoursesWithCategory = createAsyncThunk<
+  EntityPagination<CourseGetResponseDto>,
+  EntityPaginationRequestQueryDto,
+  AsyncThunkConfig
+>(ActionType.GET_COURSES_WITH_CATEGORY, async ({ count, page }, { extra }) => {
+  const { coursesApi } = extra;
+  const courses = coursesApi.getAllWithCategory({ page, count });
 
   return courses;
 });
@@ -250,6 +263,7 @@ export {
   createMentor,
   getCourse,
   getCourses,
+  getCoursesWithCategory,
   getMenteesByCourseId,
   getMenteesMentor,
   getMentorsByCourseId,
