@@ -10,6 +10,7 @@ type UserDetailsItemResponseDto = {
   gender: UserGender | null;
   id: number;
   userId: number;
+  telegramUsername: string | null;
 };
 
 export { type UserDetailsItemResponseDto };

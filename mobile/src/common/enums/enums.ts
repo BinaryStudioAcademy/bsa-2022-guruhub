@@ -23,7 +23,10 @@ export {
   InterviewScreenName,
   RootScreenName,
 } from './navigation/navigation';
-export { NotificationType } from './notification/notification';
+export {
+  NotificationMessage,
+  NotificationType,
+} from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permission/permission';
 export { TaskStatus } from './task/task';

@@ -46,7 +46,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-  knex.schema.dropTableIfExists(TableName.CHAT_MESSAGES);
+  return knex.schema.dropTableIfExists(TableName.CHAT_MESSAGES);
 }
 
 export { down, up };
