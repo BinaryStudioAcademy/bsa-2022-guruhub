@@ -1,4 +1,4 @@
-import { DataStatus, UserGender } from 'common/enums/enums';
+import { DataStatus, UserAge, UserGender } from 'common/enums/enums';
 import {
   FC,
   SelectorOption,
@@ -16,7 +16,7 @@ import {
 import { userDetailsActions } from 'store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD, MIN_USER_AGE } from './common';
+import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
 import { getGenderOptions } from './helpers/helpers';
 import styles from './styles.module.scss';
 
@@ -64,7 +64,11 @@ const UserProfileForm: FC = () => {
   }, []);
 
   const maxDate = useMemo<Date>(() => {
-    return subtractYears(new Date(), MIN_USER_AGE);
+    return subtractYears(new Date(), UserAge.MIN);
+  }, []);
+
+  const minDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MAX);
   }, []);
 
   return (
@@ -90,6 +94,7 @@ const UserProfileForm: FC = () => {
                 label="Birth date"
                 placeholder="Enter date of birth"
                 maxDate={maxDate}
+                minDate={minDate}
               />
             </div>
             <div className={styles.grid}>

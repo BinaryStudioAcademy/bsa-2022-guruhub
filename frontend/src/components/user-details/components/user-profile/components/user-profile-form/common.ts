@@ -7,6 +7,4 @@ const DEFAULT_UPDATE_USER_DETAILS_PAYLOAD: UserDetailsUpdateInfoRequestDto = {
   dateOfBirth: null,
 };
 
-const MIN_USER_AGE = 13;
-
-export { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD, MIN_USER_AGE };
+export { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD };

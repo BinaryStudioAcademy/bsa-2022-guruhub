@@ -12,6 +12,7 @@ type Props = {
   name: FormControlPath;
   label: string;
   maxDate: Date;
+  minDate: Date;
   placeholder?: string;
 };
 
@@ -21,6 +22,7 @@ const Datepicker: FC<Props> = ({
   label,
   placeholder,
   maxDate,
+  minDate,
 }) => {
   const { field } = useFormControl({ name, control });
 
@@ -44,6 +46,7 @@ const Datepicker: FC<Props> = ({
         dropdownMode="select"
         dateFormat="dd.MM.yyyy"
         maxDate={maxDate}
+        minDate={minDate}
         placeholderText={placeholder}
       />
     </div>
