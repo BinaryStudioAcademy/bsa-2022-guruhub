@@ -4,6 +4,7 @@ import { SessionStorage } from '~/lib/helpers/helpers';
 import { ENV } from '../common/enums/enums';
 import { AuthService } from './auth/auth.service';
 import { CategoriesService } from './categories/categories.service';
+import { CoursesService } from './courses/courses.service';
 import { HttpService } from './http/http.service';
 import { PermissionsService } from './permissions/permissions.service';
 import { UdemyService } from './udemy/udemy.service';
@@ -22,6 +23,8 @@ const authService = new AuthService({ httpService });
 
 const categoriesService = new CategoriesService({ httpService });
 
+const coursesService = new CoursesService({ httpService });
+
 const permissionsService = new PermissionsService({ httpService });
 
 const udemyService = new UdemyService({ httpService: udemyHttpService });
@@ -32,6 +35,7 @@ export {
   sessionStorage as apiSessionStorage,
   authService,
   categoriesService,
+  coursesService,
   httpService,
   permissionsService,
   udemyHttpService,

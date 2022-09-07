@@ -1,4 +1,4 @@
-export const randint = (min: number, max: number): number => {
+const randint = (min: number, max: number): number => {
   const exclusiveMax = max + 1;
   const maxFromZero = exclusiveMax - min;
   const random = Math.random();
@@ -7,3 +7,5 @@ export const randint = (min: number, max: number): number => {
 
   return randomFromMin;
 };
+
+export { randint };

@@ -1,10 +1,11 @@
 import {
+  UdemyCourseGetResponseDto,
   UdemyCoursesGetResponseDto,
   UdemyModulesGetResponseDto,
 } from 'guruhub-shared';
 
 import { ENV } from '~/lib/common/enums/enums';
-import { Response } from '~/lib/common/types/types';
+import { Response, UdemyCourseInfo } from '~/lib/common/types/types';
 import { choose, randint } from '~/lib/helpers/helpers';
 
 import { HttpService } from '../http/http.service';
@@ -14,7 +15,7 @@ type Constructor = {
   httpService: HttpService;
 };
 
-export class UdemyService {
+class UdemyService {
   #MIN_PAGE_NUMBER = 1;
 
   #MAX_PAGE_SIZE = 100;
@@ -47,8 +48,13 @@ export class UdemyService {
 
     return this.#udemyRequest()
       .get()
-      .path('/courses')
-      .query({ page, page_size: this.#MAX_PAGE_SIZE, search })
+      .path('/courses/')
+      .query({
+        page,
+        page_size: this.#MAX_PAGE_SIZE,
+        search,
+        'fields[course]': 'title,description,url,image_480x270',
+      })
       .send();
   }
 
@@ -86,15 +92,32 @@ export class UdemyService {
   ): Promise<Response<UdemyModulesGetResponseDto>> {
     return this.#udemyRequest()
       .get()
-      .path(`/courses/${courseId}/public-curriculum-items`)
+      .path(`/courses/${courseId}/public-curriculum-items/`)
       .query({ page, page_size: this.#MAX_PAGE_SIZE })
       .send();
   }
 
+  public async getRandomCourse(): Promise<UdemyCourseGetResponseDto> {
+    const courseArray = await this.getRandomCourseArray();
+    const course = choose(courseArray.body.results);
+
+    return course;
+  }
+
+  public async getRandomCourseInfo(): Promise<UdemyCourseInfo> {
+    const course = await this.getRandomCourse();
+    const modules = await this.getAllCourseModules(course.id);
+
+    return { id: course.id, course, modules };
+  }
+
   #udemyRequest(): RequestBuilder {
-    return this.#httpService.request().noAutoAuth().headers({
-      Authorization: this.#encodeBasicAuth(),
-    });
+    return this.#httpService
+      .request()
+      .noAutoAuth()
+      .headers({
+        Authorization: `Basic ${this.#encodeBasicAuth()}`,
+      });
   }
 
   #encodeBasicAuth(): string {
@@ -104,3 +127,5 @@ export class UdemyService {
     return Buffer.from(`${user}:${pass}`, 'utf-8').toString('base64');
   }
 }
+
+export { UdemyService };
