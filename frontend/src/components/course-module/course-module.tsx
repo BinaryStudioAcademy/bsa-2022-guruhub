@@ -20,15 +20,15 @@ import styles from './styles.module.scss';
 const CourseModule: FC = () => {
   const { courseId, moduleId, studentId } = useParams();
   const isMentorView = Boolean(studentId);
-  const { dataStatus, courseModule, notes, task, user } = useAppSelector(
-    (state) => ({
+  const { dataStatus, courseModule, notes, task, isMentor, user } =
+    useAppSelector((state) => ({
       dataStatus: state.courseModule.dataStatus,
       courseModule: state.courseModule.courseModule,
       notes: state.courseModule.notes,
       task: state.courseModule.task,
+      isMentor: state.courseModule.isMentor,
       user: state.auth.user,
-    }),
-  );
+    }));
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -130,9 +130,9 @@ const CourseModule: FC = () => {
           />
         )}
         {user && task && <TaskNotes notes={notes} />}
-        <p className={styles.taskAbsenceTitle}>
-          {!task && 'Task does not exist.'}
-        </p>
+        {!task && !isMentorView && !isMentor && (
+          <p className={styles.taskAbsenceTitle}>Task does not exist.</p>
+        )}
       </div>
     </div>
   );
