@@ -24,7 +24,7 @@ class Course {
     title: string;
   }): Promise<CourseGetResponseDto[]> {
     const { categoryId, title } = filteringOpts ?? {};
-    const normalizedTitle = title.split('\\').join('\\\\');
+    const normalizedTitle = title.replaceAll('\\', '\\\\');
 
     return this.#CourseModel
       .query()
