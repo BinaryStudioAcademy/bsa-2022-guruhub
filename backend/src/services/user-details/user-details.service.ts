@@ -39,14 +39,14 @@ class UserDetails {
     );
     const { telegramUsername } = userDetailsUpdateInfoRequestDto;
 
-    userDetailsUpdateInfoRequestDto = {
+    const userDetailsUpdateWithTelegram = {
       ...userDetailsUpdateInfoRequestDto,
       telegramUsername: hasTelegram ? telegramUsername : null,
     };
 
     const userDetails = await this.#userDetailsRepository.update(
       userId,
-      userDetailsUpdateInfoRequestDto,
+      userDetailsUpdateWithTelegram,
     );
 
     return userDetails ?? null;
