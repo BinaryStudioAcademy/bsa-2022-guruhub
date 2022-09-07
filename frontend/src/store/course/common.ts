@@ -5,6 +5,7 @@ enum ActionType {
   CREATE_INTERVIEW = 'course/create-interview',
   CREATE_MENTOR = 'course/create-mentor',
   GET_PASSED_INTERVIEW_CATEGORY_IDS = 'course/get-passed-interview-category-ids',
+  GET_ACTIVE_INTERVIEW_CATEGORY_IDS = 'course/get-active-interview-category-ids',
   SET_IS_MENTOR_BECOMING_ENABLED = 'course/set-is-mentor-becoming-enabled',
   GET_MENTORS = 'course/get-mentors',
   GET_MENTOR = 'course/get-mentor',

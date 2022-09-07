@@ -35,6 +35,7 @@ const Course: FC = () => {
     modules,
     dataStatus,
     passedInterviewsCategoryIds,
+    activeInterviewsCategoriesIds,
     user,
     mentors,
     mentor,
@@ -48,6 +49,7 @@ const Course: FC = () => {
     modules: course.modules,
     dataStatus: course.dataStatus,
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
+    activeInterviewsCategoriesIds: course.activeInterviewsCategoryIds,
     user: auth.user,
     mentors: course.mentors,
     mentor: course.mentor,
@@ -133,6 +135,7 @@ const Course: FC = () => {
           menteeId: user.id,
         }),
       );
+      dispatch(courseActions.getActiveInterviewsCategoryIdsByUserId(user.id));
     }
   }, [user]);
 
@@ -148,7 +151,12 @@ const Course: FC = () => {
     return () => {
       dispatch(courseActions.disableMentorBecoming());
     };
-  }, [user, course, passedInterviewsCategoryIds]);
+  }, [
+    user,
+    course,
+    passedInterviewsCategoryIds,
+    activeInterviewsCategoriesIds,
+  ]);
 
   useEffect(() => {
     if (user) {

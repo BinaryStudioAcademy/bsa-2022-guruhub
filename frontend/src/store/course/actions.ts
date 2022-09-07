@@ -51,10 +51,11 @@ const createInterview = createAsyncThunk<
   void,
   InterviewsCreateRequestBodyDto,
   AsyncThunkConfig
->(ActionType.CREATE_INTERVIEW, async (payload, { extra }) => {
+>(ActionType.CREATE_INTERVIEW, async (payload, { extra, dispatch }) => {
   const { interviewsApi, notification } = extra;
 
   await interviewsApi.create(payload);
+  dispatch(getActiveInterviewsCategoryIdsByUserId(payload.intervieweeUserId));
 
   notification.success(NotificationMessage.INTERVIEW_CREATE);
 });
@@ -94,6 +95,19 @@ const getPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
     await interviewsApi.getPassedInterviewsCategoryIdsByUserId(payload);
 
   return passedInterviewsCategoryIds;
+});
+
+const getActiveInterviewsCategoryIdsByUserId = createAsyncThunk<
+  number[],
+  number,
+  AsyncThunkConfig
+>(ActionType.GET_ACTIVE_INTERVIEW_CATEGORY_IDS, async (payload, { extra }) => {
+  const { interviewsApi } = extra;
+
+  const activeInterviewsCategoryIds =
+    await interviewsApi.getActiveInterviewsCategoryIdsByUserId(payload);
+
+  return activeInterviewsCategoryIds;
 });
 
 const updateIsMentorBecomingEnabled = createAsyncThunk<
@@ -226,13 +240,17 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
 >(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
   const {
     auth: { user },
-    course: { mentors, mentor },
+    course: { mentors, mentor, course, activeInterviewsCategoryIds },
   } = getState();
   const isMentor = mentors.some(
     (mentor) => mentor.id === (user as UserWithPermissions).id,
   );
+  const isInterviewProcessActive = activeInterviewsCategoryIds.some(
+    (categoryId) => categoryId === course?.courseCategoryId,
+  );
+
   const hasMentor = Boolean(mentor);
-  const canChooseMentor = !(isMentor || hasMentor);
+  const canChooseMentor = !(isMentor || hasMentor || isInterviewProcessActive);
 
   return canChooseMentor;
 });
@@ -279,6 +297,7 @@ export {
   createInterview,
   createMentor,
   disableMentorBecoming,
+  getActiveInterviewsCategoryIdsByUserId,
   getCategories,
   getCourse,
   getMenteesByCourseId,

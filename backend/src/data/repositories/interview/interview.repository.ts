@@ -99,6 +99,18 @@ class Interview {
       .execute();
   }
 
+  public getActiveInterviewsByUserId(
+    intervieweeUserId: number,
+  ): Promise<InterviewM[]> {
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .andWhere('status', InterviewStatus.IN_PROGRESS)
+      .orWhere('status', InterviewStatus.NEW)
+      .orWhere('status', InterviewStatus.PENDING)
+      .execute();
+  }
+
   public async getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,
