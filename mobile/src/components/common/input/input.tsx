@@ -14,7 +14,7 @@ import { useFormControl } from '~/hooks/hooks';
 import { styles } from './styles';
 
 type Props<T extends FormControlValues> = {
-  label: string;
+  label?: string;
   name: FormControlPath<T>;
   control: FormControl<T>;
   errors: FormControlErrors<T>;
@@ -42,7 +42,7 @@ const Input = <T extends FormControlValues>({
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      {label && <Text style={styles.label}>{label}</Text>}
       <TextInput
         value={value}
         placeholder={placeholder}
