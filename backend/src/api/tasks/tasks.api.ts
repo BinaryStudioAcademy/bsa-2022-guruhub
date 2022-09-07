@@ -106,7 +106,7 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.GET,
-    url: TasksApiPath.COURSES_$ID_MODULES_$ID_MENTEED_$ID,
+    url: TasksApiPath.COURSES_$ID_MODULES_$ID_MENTEES_$ID,
     schema: { params: taskByMenteeIdCourseIdModuleIdParamsValidationSchema },
     async handler(
       req: FastifyRequest<{
