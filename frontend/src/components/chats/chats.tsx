@@ -1,4 +1,4 @@
-import { DataStatus, SearchValue } from 'common/enums/enums';
+import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import {
@@ -35,7 +35,7 @@ const Chats: FC = () => {
   const navigate = useNavigate();
 
   if (!user) {
-    navigate('/');
+    navigate(AppRoute.ROOT);
   }
 
   const dispatch = useAppDispatch();
