@@ -13,6 +13,7 @@ import { ChatConversation } from '~/components/chat-conversation/chat-conversati
 import { EditCourseCategory } from '~/components/course/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
+import { CoursesManagement } from '~/components/courses-management/courses-management';
 import { Interview } from '~/components/interview/interview';
 import { Interviews } from '~/components/interviews/interviews';
 import { Mentors } from '~/components/mentors/mentors';
@@ -72,6 +73,12 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
           PermissionKey.MANAGE_INTERVIEW,
           PermissionKey.MANAGE_INTERVIEWS,
         ],
+      },
+      {
+        name: AppScreenName.COURSE_MANAGEMENT,
+        icon: 'book',
+        component: CoursesManagement,
+        permissions: [],
       },
     ],
   },
