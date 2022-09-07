@@ -29,11 +29,7 @@ const Popup: FC<Props> = ({ onClose }) => {
         <ul className={styles.ul}>
           <li className={styles.li}>
             <div>
-              <Button
-                label="Profile"
-                btnColor="gray"
-                to={AppRoute.SETTINGS_PROFILE}
-              />
+              <Button label="Profile" to={AppRoute.SETTINGS_PROFILE} />
             </div>
           </li>
           <li className={styles.li}>
