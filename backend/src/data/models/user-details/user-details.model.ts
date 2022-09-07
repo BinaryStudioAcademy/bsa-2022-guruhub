@@ -16,6 +16,8 @@ class UserDetails extends Abstract {
 
   public 'userId': number;
 
+  public 'moneyBalance': number;
+
   public 'telegramUsername': string | null;
 
   public static override get relationMappings(): RelationMappings {

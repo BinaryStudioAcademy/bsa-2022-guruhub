@@ -29,7 +29,9 @@ class UserDetails {
         userId,
       })
       .withGraphFetched('avatar')
-      .returning('*')
+      .returning(
+        'id, gender, createdAt, updatedAt, dateOfBirth, userId, fullName, avatarFileId, telegramUsername',
+      )
       .castTo<UserDetailsResponseDto>()
       .execute();
   }
@@ -42,7 +44,9 @@ class UserDetails {
       .query()
       .findOne({ userId })
       .patch(userDetails)
-      .returning('*')
+      .returning(
+        'id, gender, createdAt, updatedAt, dateOfBirth, userId, fullName, avatarFileId, telegramUsername',
+      )
       .first()
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
@@ -52,7 +56,17 @@ class UserDetails {
   public getByUserId(userId: number): Promise<UserDetailsResponseDto | null> {
     return this.#UserDetailsModel
       .query()
-      .select()
+      .select(
+        'id',
+        'gender',
+        'createdAt',
+        'updatedAt',
+        'dateOfBirth',
+        'userId',
+        'fullName',
+        'avatarFileId',
+        'telegramUsername',
+      )
       .where({ userId })
       .first()
       .withGraphFetched('avatar')
@@ -67,6 +81,9 @@ class UserDetails {
     return this.#UserDetailsModel
       .query()
       .patchAndFetchById(userDetailsId, { avatarFileId: fileId })
+      .returning(
+        'id, gender, createdAt, updatedAt, dateOfBirth, userId, fullName, avatarFileId, telegramUsername',
+      )
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
       .execute();
