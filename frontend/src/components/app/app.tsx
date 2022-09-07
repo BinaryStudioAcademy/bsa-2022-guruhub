@@ -21,7 +21,6 @@ import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
 import { NotFound } from 'components/not-found/not-found';
-import { StudentCourseModule } from 'components/student-course-module/student-course-module';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
 import { UserDetails } from 'components/user-details/user-details';
@@ -142,7 +141,7 @@ const App: FC = () => {
           path={AppRoute.STUDENTS_$ID_COURSES_$ID_MODULES_$ID}
           element={
             <AuthorizedWrapper>
-              <StudentCourseModule />
+              <CourseModule />
             </AuthorizedWrapper>
           }
         />

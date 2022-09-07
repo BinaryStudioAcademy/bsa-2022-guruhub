@@ -3,6 +3,7 @@ import {
   FC,
   TaskGetItemReponseDto,
   TaskNoteFormRequestDto,
+  TaskNoteManipulateRequestBodyDto,
 } from 'common/types/types';
 import { Content, IconButton, Spinner } from 'components/common/common';
 import {
@@ -17,16 +18,17 @@ import { TaskManipulate, TaskNotes } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
-  const { courseId, moduleId } = useParams();
-  const { dataStatus, courseModule, notes, task, isMentor, user } =
-    useAppSelector((state) => ({
+  const { courseId, moduleId, studentId } = useParams();
+  const isMentorView = Boolean(studentId);
+  const { dataStatus, courseModule, notes, task, user } = useAppSelector(
+    (state) => ({
       dataStatus: state.courseModule.dataStatus,
       courseModule: state.courseModule.courseModule,
       notes: state.courseModule.notes,
       task: state.courseModule.task,
-      isMentor: state.courseModule.isMentor,
       user: state.auth.user,
-    }));
+    }),
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -49,25 +51,41 @@ const CourseModule: FC = () => {
   }, [task]);
 
   useEffect(() => {
-    if (user && !isMentor) {
+    if (user) {
+      const menteeId = isMentorView ? Number(studentId) : user.id;
       dispatch(
         courseModuleActions.getTask({
-          menteeId: user.id,
+          menteeId,
           moduleId: Number(moduleId),
         }),
       );
     }
-  }, [user, isMentor, moduleId]);
+  }, [user, moduleId]);
 
-  const handleSendOnReview = (payload: TaskNoteFormRequestDto): void => {
-    const { note } = payload;
-    const body = { note, status: TaskStatus.PENDING };
+  const handleManipulateNote = (
+    payload: TaskNoteManipulateRequestBodyDto,
+  ): void => {
     dispatch(
       courseModuleActions.createNote({
-        body,
+        body: payload,
         taskId: (task as TaskGetItemReponseDto).id,
       }),
     );
+  };
+
+  const handleSendOnReview = (payload: TaskNoteFormRequestDto): void => {
+    const { note } = payload;
+    handleManipulateNote({ note, status: TaskStatus.PENDING });
+  };
+
+  const handleApprove = (payload: TaskNoteFormRequestDto): void => {
+    const { note } = payload;
+    handleManipulateNote({ note, status: TaskStatus.COMPLETED });
+  };
+
+  const handleReject = (payload: TaskNoteFormRequestDto): void => {
+    const { note } = payload;
+    handleManipulateNote({ note, status: TaskStatus.REJECTED });
   };
 
   if (dataStatus === DataStatus.PENDING) {
@@ -100,7 +118,12 @@ const CourseModule: FC = () => {
       </div>
       <div>
         {user && task && task.status !== TaskStatus.COMPLETED && (
-          <TaskManipulate onSendOnReview={handleSendOnReview} />
+          <TaskManipulate
+            onSendOnReview={handleSendOnReview}
+            onApprove={handleApprove}
+            onReject={handleReject}
+            isMentorView={isMentorView}
+          />
         )}
         {user && task && <TaskNotes notes={notes} />}
       </div>

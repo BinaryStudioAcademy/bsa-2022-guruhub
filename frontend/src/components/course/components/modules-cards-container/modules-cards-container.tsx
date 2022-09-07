@@ -3,7 +3,7 @@ import { CourseGetResponseDto, FC } from 'common/types/types';
 import { Link } from 'components/common/common';
 import { useAppSelector } from 'hooks/hooks';
 
-import { ModuleCard } from './components/module-card/module-card';
+import { ModuleCard } from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {

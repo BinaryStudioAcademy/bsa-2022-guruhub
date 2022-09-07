@@ -4,35 +4,29 @@ import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { taskNoteCreate as taskNoteCreateValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { CREATE_NOTE_DEFAULT_VALUES } from './common';
 import styles from './styles.module.scss';
 
 const INPUT_NUMBER_OF_ROWS = 5;
 
 type Props = {
-  onApprove: (payload: TaskNoteFormRequestDto) => void;
-  onReject: (payload: TaskNoteFormRequestDto) => void;
+  onSubmit: (payload: TaskNoteFormRequestDto) => void;
+  defaultValues: TaskNoteFormRequestDto;
 };
 
-const TaskManipulate: FC<Props> = ({ onApprove, onReject }) => {
+const TaskManipulateStudent: FC<Props> = ({ onSubmit, defaultValues }) => {
   const { control, errors, handleSubmit, reset } =
     useAppForm<TaskNoteFormRequestDto>({
-      defaultValues: CREATE_NOTE_DEFAULT_VALUES,
+      defaultValues,
       validationSchema: taskNoteCreateValidationSchema,
     });
 
-  const handleNoteApprove = (payload: TaskNoteFormRequestDto): void => {
-    onApprove(payload);
-    reset();
-  };
-
-  const handleNoteReject = (payload: TaskNoteFormRequestDto): void => {
-    onReject(payload);
+  const handleNoteSubmit = (payload: TaskNoteFormRequestDto): void => {
+    onSubmit(payload);
     reset();
   };
 
   return (
-    <form className={styles.form}>
+    <form onSubmit={handleSubmit(handleNoteSubmit)} className={styles.form}>
       <Input
         control={control}
         errors={errors}
@@ -42,22 +36,14 @@ const TaskManipulate: FC<Props> = ({ onApprove, onReject }) => {
       />
       <div className={styles.buttonWrapper}>
         <Button
-          label="Accept the task"
+          label="Send on review"
           type="submit"
           btnType="filled"
           btnColor="blue"
-          onClick={handleSubmit(handleNoteApprove)}
-        />
-        <Button
-          label="Reject the task"
-          type="submit"
-          btnType="outlined"
-          btnColor="blue"
-          onClick={handleSubmit(handleNoteReject)}
         />
       </div>
     </form>
   );
 };
 
-export { TaskManipulate };
+export { TaskManipulateStudent };
