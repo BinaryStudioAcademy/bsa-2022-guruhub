@@ -22,7 +22,9 @@ import {
 } from '~/tests/json-schemas/json-schemas';
 
 describe('Interview creating flow', () => {
-  let intervieweeUserId: number, categoryId: number, interviewId: number;
+  let intervieweeUserId: number;
+  let categoryId: number;
+  let interviewId: number;
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
   after(() => apiSessionStorage.removeSession('default'));
