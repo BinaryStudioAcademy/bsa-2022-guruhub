@@ -27,6 +27,7 @@ describe('Interview creating flow', () => {
   let interviewId: number;
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
+
   after(() => apiSessionStorage.removeSession('default'));
 
   it('Signing in as a student', async () => {
