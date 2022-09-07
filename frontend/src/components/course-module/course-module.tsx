@@ -138,6 +138,9 @@ const CourseModule: FC = () => {
           />
         )}
         {user && task && <TaskNotes notes={notes} />}
+        <p className={styles.taskAbsenceTitle}>
+          {!task && 'Task does not exist.'}
+        </p>
       </div>
     </div>
   );
