@@ -34,14 +34,15 @@ class UserDetails {
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto | null> {
+    const hasTelegram = Boolean(
+      userDetailsUpdateInfoRequestDto.telegramUsername,
+    );
     const { telegramUsername } = userDetailsUpdateInfoRequestDto;
 
-    if (telegramUsername === '') {
-      userDetailsUpdateInfoRequestDto = {
-        ...userDetailsUpdateInfoRequestDto,
-        telegramUsername: null,
-      };
-    }
+    userDetailsUpdateInfoRequestDto = {
+      ...userDetailsUpdateInfoRequestDto,
+      telegramUsername: hasTelegram ? telegramUsername : null,
+    };
 
     const userDetails = await this.#userDetailsRepository.update(
       userId,
