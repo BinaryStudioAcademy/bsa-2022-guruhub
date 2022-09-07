@@ -26,10 +26,9 @@ class UdemyService {
     'js',
     'c#',
     'python',
-    'ruby',
     'java',
     'php',
-    'qa',
+    'docker',
     'react',
     'angular',
     'vue',
@@ -98,8 +97,8 @@ class UdemyService {
   }
 
   public async getRandomCourse(): Promise<UdemyCourseGetResponseDto> {
-    const courseArray = await this.getRandomCourseArray();
-    const course = choose(courseArray.body.results);
+    const courseArrayResponse = await this.getRandomCourseArray();
+    const course = choose(courseArrayResponse.body.results);
 
     return course;
   }

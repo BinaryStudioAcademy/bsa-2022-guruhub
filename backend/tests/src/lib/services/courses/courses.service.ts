@@ -4,6 +4,7 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
   CoursesApiPath,
+  HttpErrorDto,
 } from 'guruhub-shared';
 
 import { Response } from '~/lib/common/types/types';
@@ -41,7 +42,7 @@ class CoursesService {
 
   public create(
     data: CourseCreateRequestDto,
-  ): Promise<Response<CourseGetResponseDto>> {
+  ): Promise<Response<CourseGetResponseDto | HttpErrorDto>> {
     return this.#httpService
       .request()
       .post()

@@ -1,12 +1,16 @@
 import {
   CourseGetResponseDto,
+  ExceptionMessage,
   HttpCode,
+  HttpErrorDto,
+  HttpStatusMessage,
   sanitizeHTML,
   UserSignInResponseDto,
   VendorGetResponseDto,
 } from 'guruhub-shared';
 
 import { Response, UdemyCourseInfo } from '~/lib/common/types/types';
+import { withTestData } from '~/lib/helpers/helpers';
 import {
   apiSessionStorage,
   authService,
@@ -17,10 +21,18 @@ import {
 import {
   courseCreateResponseSchema,
   courseSchema,
+  errorResponseSchema,
   signInResponseSchema,
 } from '~/tests/json-schemas/json-schemas';
 
-describe('Course creation tests', () => {
+describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
+  const getIdUdemyUrl = (course: UdemyCourseInfo): string => {
+    return course.course.url
+      .split('/')
+      .map((part, index) => (index === 2 ? course.id : part))
+      .join('/');
+  };
+
   const udemyVendorExpected: Pick<VendorGetResponseDto, 'key' | 'name'> = {
     key: 'udemy',
     name: 'Udemy',
@@ -66,7 +78,7 @@ describe('Course creation tests', () => {
   });
 
   before('should get first course info from Udemy', async function () {
-    this.timeout(100000);
+    this.timeout(60000);
 
     course1 = await udemyService.getRandomCourseInfo();
 
@@ -78,7 +90,7 @@ describe('Course creation tests', () => {
   });
 
   before('should get second course info from Udemy', async function () {
-    this.timeout(100000);
+    this.timeout(60000);
 
     do {
       course2 = await udemyService.getRandomCourseInfo();
@@ -91,17 +103,56 @@ describe('Course creation tests', () => {
     };
   });
 
+  withTestData(
+    [
+      { url: 'https://' },
+      { url: 'https://www.' },
+      { url: 'www.' },
+      { url: 'https://www.udemy' },
+      { url: 'https://www.com' },
+      { url: 'https://www. .com' },
+      { url: 'https://udemy.com/' },
+      { url: 'udemy.com' },
+      { url: 'www.udemy.com' },
+      { url: 'https:/www.udemy.com' },
+      { url: 'https//www.udemy.com' },
+      { url: 'https:www.udemy.com' },
+      { url: 'htp://udemy.com/' },
+      { url: 'https://www.udemy.com.' },
+      { url: 'https://www.udemy.com/.' },
+      { url: 'https://www.udemy.com/..' },
+      { url: 'https://udemy.com\\courses\\acourse\\' },
+      { url: 'http:\\\\udemy.com/courses/acourse/' },
+      { url: 'https://www.udemy.com//courses//course//' },
+      { url: 'https://www.udemy.com/' },
+      { url: 'https://www.udemy.com/unexistingurl/' },
+      { url: 'https://www.udemy.com/courses//' },
+    ],
+    ({ url }) => {
+      it(`should reject to create course with invalid url: ${url}`, async () => {
+        const response = (await coursesService.create({
+          url,
+        })) as Response<HttpErrorDto>;
+
+        response.should.have.status(HttpCode.BAD_REQUEST);
+        response.body.should.have.jsonSchema(errorResponseSchema);
+
+        response.body.should.deep.include({
+          statusCode: HttpCode.BAD_REQUEST,
+          error: HttpStatusMessage.BAD_REQUEST,
+        });
+      });
+    },
+  );
+
   it('should create the first course without www prefix in url using id', async function () {
-    this.timeout(100000);
+    this.timeout(60000);
 
-    const urlWithId = course1.course.url
-      .split('/')
-      .map((part, index) => (index === 2 ? course1.id : part))
-      .join('/');
+    const url = `https://udemy.com${getIdUdemyUrl(course1)}`;
 
-    const url = `https://udemy.com${urlWithId}`;
-
-    const response = await coursesService.create({ url });
+    const response = (await coursesService.create({
+      url,
+    })) as Response<CourseGetResponseDto>;
 
     response.should.have.status(HttpCode.CREATED);
     response.body.should.have.jsonSchema(courseCreateResponseSchema);
@@ -112,6 +163,24 @@ describe('Course creation tests', () => {
       ...course1CreateExpected,
       id: response.body.id,
     };
+  });
+
+  it('should reject to create the first course second time using slug', async () => {
+    const url = `https://www.udemy.com${course1.course.url}`;
+
+    const response = (await coursesService.create({
+      url,
+    })) as Response<HttpErrorDto>;
+
+    response.should.have.normalExecutionTime;
+    response.should.have.status(HttpCode.BAD_REQUEST);
+    response.body.should.have.jsonSchema(errorResponseSchema);
+
+    response.body.should.be.deep.equal({
+      statusCode: HttpCode.BAD_REQUEST,
+      error: HttpStatusMessage.BAD_REQUEST,
+      message: ExceptionMessage.COURSE_EXIST,
+    });
   });
 
   it('should return correct info for the first course', async () => {
@@ -125,11 +194,13 @@ describe('Course creation tests', () => {
   });
 
   it('should create the second course with www prefix in url using slug', async function () {
-    this.timeout(100000);
+    this.timeout(60000);
 
     const url = `https://www.udemy.com${course2.course.url}`;
 
-    const response = await coursesService.create({ url });
+    const response = (await coursesService.create({
+      url,
+    })) as Response<CourseGetResponseDto>;
 
     response.should.have.status(HttpCode.CREATED);
     response.body.should.have.jsonSchema(courseCreateResponseSchema);
@@ -140,6 +211,24 @@ describe('Course creation tests', () => {
       ...course2CreateExpected,
       id: response.body.id,
     };
+  });
+
+  it('should reject to create the second course second time using id', async () => {
+    const url = `https://www.udemy.com${getIdUdemyUrl(course2)}`;
+
+    const response = (await coursesService.create({
+      url,
+    })) as Response<HttpErrorDto>;
+
+    response.should.have.normalExecutionTime;
+    response.should.have.status(HttpCode.BAD_REQUEST);
+    response.body.should.have.jsonSchema(errorResponseSchema);
+
+    response.body.should.be.deep.equal({
+      statusCode: HttpCode.BAD_REQUEST,
+      error: HttpStatusMessage.BAD_REQUEST,
+      message: ExceptionMessage.COURSE_EXIST,
+    });
   });
 
   it('should return correct info for the second course', async () => {
