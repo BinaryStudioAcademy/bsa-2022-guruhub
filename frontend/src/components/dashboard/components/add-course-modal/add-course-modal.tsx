@@ -14,17 +14,18 @@ type Props = {
 };
 
 const AddCourseModal: FC<Props> = ({ isModalOpen, onModalToggle }) => {
-  const { control, errors, handleSubmit } = useAppForm<CourseCreateRequestDto>({
-    defaultValues: DEFAULT_CREATE_COURSE_PAYLOAD,
-    validationSchema: courseCreateValidationSchema,
-  });
+  const { control, errors, handleSubmit, reset } =
+    useAppForm<CourseCreateRequestDto>({
+      defaultValues: DEFAULT_CREATE_COURSE_PAYLOAD,
+      validationSchema: courseCreateValidationSchema,
+    });
 
   const dispatch = useAppDispatch();
 
   const onSubmit = (payload: CourseCreateRequestDto): void => {
-    dispatch(dashboardActions.addCourse(payload))
-      .unwrap()
-      .then(() => onModalToggle());
+    onModalToggle();
+    dispatch(dashboardActions.addCourse(payload));
+    reset();
   };
 
   return (
