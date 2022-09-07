@@ -76,10 +76,12 @@ const ApplicationForm: FC<Props> = ({
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Parameters</Text>
         {canEditInterviewPermission && (
-          <View style={isEditMode && styles.buttonHide}>
+          <View
+            style={{ ...styles.button, ...(isEditMode && styles.buttonHide) }}
+          >
             <Button
               label="Edit"
-              variant={ButtonVariant.SECONDARY}
+              variant={ButtonVariant.PRIMARY}
               onPress={toggleEditMode}
               size="small"
             />

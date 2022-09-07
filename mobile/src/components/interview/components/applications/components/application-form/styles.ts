@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     lineHeight: 19,
   },
   button: {
-    paddingVertical: 7,
-    width: 100,
+    width: 120,
+    height: 40,
   },
   buttonsWrapper: {
     alignSelf: 'center',

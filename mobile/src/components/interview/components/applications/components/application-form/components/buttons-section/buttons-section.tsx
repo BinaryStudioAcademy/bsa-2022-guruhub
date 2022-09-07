@@ -21,7 +21,7 @@ const ButtonsSection: FC<Props> = ({
       <View style={styles.button}>
         <Button
           label="Cancel"
-          variant={ButtonVariant.SECONDARY}
+          variant={ButtonVariant.CANCEL}
           size="small"
           onPress={toggleEditMode}
         />

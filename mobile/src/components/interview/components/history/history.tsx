@@ -96,7 +96,7 @@ const History: FC = () => {
         {isAddButtonShown && (
           <Button
             label="Add"
-            variant={ButtonVariant.SECONDARY}
+            variant={ButtonVariant.PRIMARY}
             onPress={toggleInput}
             size="small"
             icon="plus"
