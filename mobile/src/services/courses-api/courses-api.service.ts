@@ -11,6 +11,8 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseUpdateCategoryRequestArguments,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
@@ -30,6 +32,20 @@ class Courses {
   public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
+  }
+
+  public getAllWithCategory({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}`, {
+      queryParams: {
+        count,
+        page,
+      },
+    });
   }
 
   public getAll(options: {
