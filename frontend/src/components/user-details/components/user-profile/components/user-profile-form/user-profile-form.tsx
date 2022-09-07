@@ -45,6 +45,7 @@ const UserProfileForm: FC = () => {
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
         dateOfBirth: userDetails.dateOfBirth ?? null,
+        telegramUsername: userDetails.telegramUsername ?? '',
       });
     }
   }, [userDetails]);
@@ -94,6 +95,18 @@ const UserProfileForm: FC = () => {
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
                 control={control}
                 errors={errors}
+              />
+            </div>
+            <div className={styles.grid}>
+              <Input
+                type="text"
+                label="Telegram Username"
+                name={getNameOf<UserDetailsUpdateInfoRequestDto>(
+                  'telegramUsername',
+                )}
+                control={control}
+                errors={errors}
+                placeholder="Enter your telegram username"
               />
             </div>
           </div>

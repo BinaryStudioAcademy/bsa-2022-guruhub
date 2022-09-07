@@ -26,6 +26,7 @@ app.register(fastifyMultipart, {
     fileSize: FileSizeBytesValue.ONE_MB,
   },
   attachFieldsToBody: true,
+  throwFileSizeLimit: false,
 });
 
 app.register(initApi, {

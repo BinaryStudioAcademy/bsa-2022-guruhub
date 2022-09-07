@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 
 import { CourseModulesGetAllItemResponseDto } from '~/common/types/types';
-import { Spinner, Stack, Text, View } from '~/components/common/common';
+import {
+  Pressable,
+  Spinner,
+  Stack,
+  Text,
+  View,
+} from '~/components/common/common';
 
 import { Module } from './components/module/module';
 import { styles } from './styles';
@@ -9,9 +15,14 @@ import { styles } from './styles';
 type Props = {
   courseModules: CourseModulesGetAllItemResponseDto[];
   isLoading: boolean;
+  onModulePress: (courseId: number, moduleId: number) => void;
 };
 
-const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
+const CourseModules: FC<Props> = ({
+  courseModules,
+  isLoading,
+  onModulePress,
+}) => {
   if (!courseModules.length) {
     return <></>;
   }
@@ -24,12 +35,16 @@ const CourseModules: FC<Props> = ({ courseModules, isLoading }) => {
       ) : (
         <Stack space={15}>
           {courseModules.map((module, index) => (
-            <Module
-              key={module.id}
-              index={index}
-              title={module.title}
-              description={module.description}
-            />
+            <Pressable
+              onPress={(): void => onModulePress(module.courseId, module.id)}
+            >
+              <Module
+                key={module.id}
+                index={index}
+                title={module.title}
+                description={module.description}
+              />
+            </Pressable>
           ))}
         </Stack>
       )}

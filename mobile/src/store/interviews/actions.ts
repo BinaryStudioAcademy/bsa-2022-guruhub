@@ -36,7 +36,7 @@ const createInterview = createAsyncThunk<
   dispatch(
     app.notify({
       type: NotificationType.SUCCESS,
-      message: NotificationMessage.INTERVIEW_CREATE,
+      message: NotificationMessage.INTERVIEW_CREATE_SUCCESS,
     }),
   );
 });

@@ -25,3 +25,6 @@ properties:
   userId:
     type: number
     example: 1
+  telegramUsername:
+    type: string
+    example: john_doe
