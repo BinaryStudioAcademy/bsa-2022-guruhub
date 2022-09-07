@@ -6,7 +6,6 @@ import { reducer as coursesManagement } from './courses-management/reducer';
 import { reducer as dashboard } from './dashboard/reducer';
 import { reducer as interview } from './interview/reducer';
 import { reducer as interviews } from './interviews/reducer';
-import { reducer as studentCourse } from './student-course/reducer';
 import { reducer as studentCourseModule } from './student-course-module/reducer';
 import { reducer as uam } from './uam/reducer';
 import { reducer as uamConfigureGroup } from './uam-configure-group/reducer';
@@ -23,7 +22,6 @@ const rootReducer = {
   course,
   courseModule,
   interviews,
-  studentCourse,
   studentCourseModule,
   coursesManagement,
 };
