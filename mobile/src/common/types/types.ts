@@ -10,6 +10,8 @@ export {
   type CourseCategoryGetResponseDto,
 } from './category/category';
 export {
+  type CourseModuleGetByIdResponseDto,
+  type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
   type CourseModulesGetAllRequestParamsDto,
   type CourseModulesGetAllResponseDto,
@@ -71,6 +73,7 @@ export {
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
+  type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type DrawerNavigationItem,
   type DrawerNavigationList,

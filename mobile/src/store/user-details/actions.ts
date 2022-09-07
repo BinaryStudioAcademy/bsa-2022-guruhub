@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { NotificationMessage, NotificationType } from '~/common/enums/enums';
 import {
   AsyncThunkConfig,
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
+import { app } from '~/store/actions';
 
 import { ActionType } from './common';
 
@@ -25,10 +27,16 @@ const updateUserDetails = createAsyncThunk<
   AsyncThunkConfig
 >(
   ActionType.UPDATE_USER_DETAILS,
-  async (updateUserDetailsPayload, { extra }) => {
+  async (updateUserDetailsPayload, { dispatch, extra }) => {
     const { userDetailsApi } = extra;
     const userDetails = await userDetailsApi.updateUserDetails(
       updateUserDetailsPayload,
+    );
+    dispatch(
+      app.notify({
+        type: NotificationType.SUCCESS,
+        message: NotificationMessage.UPDATE_SUCCESS,
+      }),
     );
 
     return userDetails;
