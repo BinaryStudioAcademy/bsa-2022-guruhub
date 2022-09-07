@@ -59,7 +59,7 @@ paths:
   /interviews:
     $ref: './endpoints/interviews/interviews.yaml'
   /interviews/{id}:
-    $ref: './endpoints/interviews/interviews-get-by-id.yaml'
+    $ref: './endpoints/interviews/interview-manipulate.yaml'
   /interviews/:id/notes:
     $ref: './endpoints/interviews/interview-notes-operations.yaml'
   /interviews/interviewee/{intervieweeUserId}/categories:
@@ -138,7 +138,7 @@ components:
     InterviewsGetAllResponseDto:
       $ref: './schemas/interviews/interview-get-all-response-dto.yaml'
     InterviewsGetByIdResponseDto:
-      $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
+      $ref: './schemas/interviews/interview-response-dto.yaml'
     InterviewsGetAllNotesRequestDto:
       $ref: './schemas/interviews/interviews-get-all-notes-request-dto.yaml'
     InterviewsGetAllNotesResponseDto:
