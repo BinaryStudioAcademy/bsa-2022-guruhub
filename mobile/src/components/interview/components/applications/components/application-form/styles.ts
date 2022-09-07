@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19,
   },
-  button: {
-    minWidth: 120,
-    minHeight: 40,
-  },
   buttonsWrapper: {
     alignSelf: 'center',
     marginTop: 20,

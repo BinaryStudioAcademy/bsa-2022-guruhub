@@ -3,8 +3,6 @@ import React, { FC } from 'react';
 import { ButtonVariant } from '~/common/enums/enums';
 import { Button, Stack, View } from '~/components/common/common';
 
-import { styles } from './styles';
-
 type Props = {
   toggleEditMode: () => void;
   handleEditInterviewer: () => void;
@@ -18,7 +16,7 @@ const ButtonsSection: FC<Props> = ({
 }) => {
   return (
     <Stack isHorizontal space={40}>
-      <View style={styles.button}>
+      <View>
         <Button
           label="Cancel"
           variant={ButtonVariant.CANCEL}
@@ -26,7 +24,7 @@ const ButtonsSection: FC<Props> = ({
           onPress={toggleEditMode}
         />
       </View>
-      <View style={styles.button}>
+      <View>
         <Button
           label="Save"
           variant={ButtonVariant.PRIMARY}

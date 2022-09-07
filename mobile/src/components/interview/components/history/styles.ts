@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  button: {
-    minWidth: 120,
-    minHeight: 40,
-  },
 });
 
 export { styles };
