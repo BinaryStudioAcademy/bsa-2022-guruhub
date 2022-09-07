@@ -30,6 +30,7 @@ class ChatMessage {
       .query()
       .select()
       .where({ chatId })
+      .orderBy('created_at', SortOrder.ASC)
       .withGraphJoined(
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )

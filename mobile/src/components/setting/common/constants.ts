@@ -5,6 +5,7 @@ const DEFAULT_UPDATE_USER_DETAILS_PAYLOAD: UserDetailsUpdateInfoRequestDto = {
   fullName: '',
   gender: UserGender.MALE,
   dateOfBirth: null,
+  telegramUsername: '',
 };
 
 const GENDER_OPTIONS = Object.values(UserGender).map((gender) => ({

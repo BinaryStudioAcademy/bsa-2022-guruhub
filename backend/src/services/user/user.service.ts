@@ -80,6 +80,7 @@ class User {
       fullName,
       gender: null,
       dateOfBirth: null,
+      telegramUsername: null,
     });
 
     return {

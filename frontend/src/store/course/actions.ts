@@ -144,7 +144,6 @@ const getMenteesByCourseId = createAsyncThunk<
   async (payload, { extra, dispatch, getState }) => {
     const { coursesApi } = extra;
     const {
-      course: { isMentor },
       auth: { user },
     } = getState();
     const hasMentoringPermission = checkHasPermission({
@@ -154,6 +153,10 @@ const getMenteesByCourseId = createAsyncThunk<
 
     if (hasMentoringPermission) {
       await dispatch(checkIsMentor({ id: payload.id }));
+
+      const {
+        course: { isMentor },
+      } = getState();
 
       if (!isMentor) {
         return [];

@@ -14,6 +14,7 @@ enum AppScreenName {
   INTERVIEW = 'Interview',
   CHAT = 'Chat',
   CONVERSATION = 'Conversation',
+  COURSE_MODULE = 'Module',
 }
 
 export { AppScreenName };

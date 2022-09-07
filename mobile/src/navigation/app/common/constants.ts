@@ -21,6 +21,7 @@ import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
 import { Course } from '~/navigation/course/course.navigation';
+import { CourseModule } from '~/navigation/course-module/course-module.navigation';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
@@ -140,6 +141,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.EDIT_COURSE_CATEGORY,
         component: EditCourseCategory,
         permissions: [PermissionKey.MANAGE_CATEGORIES],
+      },
+      {
+        name: AppScreenName.COURSE_MODULE,
+        component: CourseModule,
+        permissions: [],
       },
     ],
   },
