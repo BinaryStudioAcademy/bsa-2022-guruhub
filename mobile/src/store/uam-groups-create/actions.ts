@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { NotificationMessage, NotificationType } from '~/common/enums/enums';
 import {
   AsyncThunkConfig,
   EntityPagination,
@@ -9,6 +10,7 @@ import {
   PermissionsGetAllResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
+import { app } from '~/store/actions';
 
 import { ActionType } from './common';
 
@@ -38,9 +40,15 @@ const createGroup = createAsyncThunk<
   GroupsItemResponseDto,
   GroupsCreateRequestDto,
   AsyncThunkConfig
->(ActionType.CREATE_GROUP, async (payload, { extra }) => {
+>(ActionType.CREATE_GROUP, async (payload, { dispatch, extra }) => {
   const { groupsApi } = extra;
   const response = await groupsApi.create(payload);
+  dispatch(
+    app.notify({
+      type: NotificationType.SUCCESS,
+      message: NotificationMessage.GROUP_ADD_SUCCESS,
+    }),
+  );
 
   return response;
 });
