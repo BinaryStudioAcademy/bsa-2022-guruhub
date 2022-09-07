@@ -7,8 +7,6 @@
 .mainContent {
   display: flex;
   flex-grow: 1;
-  max-height: calc(100vh - 96px);
-  overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--background-gray-400);
 }

@@ -5,11 +5,9 @@ import styles from './styles.module.scss';
 
 const CoursesManagement: FC = () => {
   return (
-    <div className={styles.coursesManagementContainer}>
-      <div className={styles.coursesManagement}>
-        <h1 className={styles.pageTitle}>Courses Management</h1>
-        <CoursesManagementTable />
-      </div>
+    <div className={styles.coursesManagement}>
+      <h1 className={styles.pageTitle}>Courses Management</h1>
+      <CoursesManagementTable />
     </div>
   );
 };
