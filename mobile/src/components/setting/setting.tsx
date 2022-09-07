@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
-import { USER_MAX_AGE, USER_MIN_AGE } from '~/common/constants/user.constants';
-import { ButtonVariant, DataStatus, UserGender } from '~/common/enums/enums';
+import {
+  ButtonVariant,
+  DataStatus,
+  UserAge,
+  UserGender,
+} from '~/common/enums/enums';
 import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import {
   Button,
@@ -16,7 +20,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, subtractYears } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -38,17 +42,8 @@ const Settings: FC = () => {
     (state) => state.userDetails,
   );
 
-  const today = new Date();
-  const maximumDate = new Date(
-    today.getFullYear() - USER_MIN_AGE,
-    today.getMonth(),
-    today.getDay(),
-  );
-  const minimumDate = new Date(
-    today.getFullYear() - USER_MAX_AGE,
-    today.getMonth(),
-    today.getDay(),
-  );
+  const maxDate = subtractYears(new Date(), UserAge.MIN);
+  const minDate = subtractYears(new Date(), UserAge.MAX);
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
@@ -120,8 +115,8 @@ const Settings: FC = () => {
               name="dateOfBirth"
               control={control}
               errors={errors}
-              maximumDate={maximumDate}
-              minimumDate={minimumDate}
+              maximumDate={maxDate}
+              minimumDate={minDate}
               placeholder="Select date"
             />
           </Stack>
