@@ -1,25 +1,43 @@
 import React, { FC } from 'react';
 
-import { DataStatus, TaskStatus } from '~/common/enums/enums';
+import { CourseScreenName, DataStatus, TaskStatus } from '~/common/enums/enums';
 import {
   TaskGetItemReponseDto,
   TaskNoteFormRequestDto,
   TaskNoteManipulateRequestBodyDto,
 } from '~/common/types/types';
-import { ScrollView, Spinner, Text, View } from '~/components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
+import {
+  BackButton,
+  ScrollView,
+  Spinner,
+  Text,
+  View,
+} from '~/components/common/common';
+import {
+  useAppDispatch,
+  useAppNavigate,
+  useAppRoute,
+  useAppSelector,
+  useEffect,
+} from '~/hooks/hooks';
 import { courseModulesActions } from '~/store/actions';
 
 import { TaskNotes } from './components/components';
 import { TaskMessageArea } from './components/task-manipulate/components/components';
 import { styles } from './styles';
 
+type Params = {
+  moduleId: number;
+  menteeId: number;
+};
+
 const Task: FC = () => {
   const dispatch = useAppDispatch();
+  const { params } = useAppRoute();
+  const navigation = useAppNavigate();
   const { dataStatus, notes, task, isMentor, user, moduleId } = useAppSelector(
     ({ courseModules, auth, courses }) => ({
       dataStatus: courseModules.dataStatus,
-      courseModule: courseModules.courseModules,
       notes: courseModules.notes,
       task: courseModules.task,
       isMentor: courses.isMentor,
@@ -28,7 +46,6 @@ const Task: FC = () => {
       moduleId: courseModules.module?.id,
     }),
   );
-
   const isLoading = dataStatus === DataStatus.PENDING;
 
   const handleManipulateNote = (
@@ -56,6 +73,26 @@ const Task: FC = () => {
     const { note } = payload;
     handleManipulateNote({ note, status: TaskStatus.REJECTED });
   };
+
+  useEffect(() => {
+    if (params) {
+      navigation.setOptions({
+        headerLeft: () => (
+          <BackButton
+            onPress={(): void =>
+              navigation.navigate(CourseScreenName.MY_STUDENTS)
+            }
+          />
+        ),
+      });
+      dispatch(
+        courseModulesActions.getTask({
+          menteeId: (params as Params).menteeId,
+          moduleId: (params as Params).moduleId,
+        }),
+      );
+    }
+  }, [params]);
 
   useEffect(() => {
     if (task) {
@@ -90,7 +127,7 @@ const Task: FC = () => {
             <TaskMessageArea
               onSubmit={handleApprove}
               onReject={handleReject}
-              isMentor={true}
+              isMentor={isMentor}
             />
           ) : (
             <TaskMessageArea onSubmit={handleSendOnReview} />

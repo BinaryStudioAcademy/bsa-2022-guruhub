@@ -4,11 +4,13 @@ import {
   AppColor,
   AppFontFamily,
   AppScreenName,
+  CourseModuleScreenName,
   PermissionKey,
 } from '~/common/enums/enums';
 import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { EditCourseCategory } from '~/components/course/components/components';
+import { Task } from '~/components/course-module/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
 import { Interview } from '~/components/interview/interview';
@@ -137,6 +139,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
       {
         name: AppScreenName.COURSE_MODULE,
         component: CourseModule,
+        permissions: [],
+      },
+      {
+        name: CourseModuleScreenName.TASK,
+        component: Task,
         permissions: [],
       },
     ],
