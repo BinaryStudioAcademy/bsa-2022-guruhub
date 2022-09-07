@@ -46,7 +46,7 @@ const routes: NavigationMenuItem[] = [
       {
         name: 'Profile Settings',
         iconName: 'settings',
-        href: AppRoute.SETTINGS_PROFILE,
+        href: AppRoute.PROFILE,
         permissions: [],
       },
       {

@@ -6,7 +6,7 @@ enum AppRoute {
   EDUCATION = '/education',
   INTERVIEW = '/interviews',
   INTERVIEWS_$ID = '/interviews/:id',
-  SETTINGS_PROFILE = '/settings/profile',
+  PROFILE = '/profile',
   UAM = '/uam',
   BILLING = '/billing',
   UAM_CONFIGURE_GROUP = '/uam/configure-group',
