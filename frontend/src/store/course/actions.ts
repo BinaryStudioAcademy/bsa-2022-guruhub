@@ -257,7 +257,7 @@ const checkIsMentor = createAsyncThunk<
   boolean,
   CourseGetRequestParamsDto,
   AsyncThunkConfig
->(ActionType.CHECK_IS_MENTOR, async ({ id }, { extra }) => {
+>(ActionType.CHECK_IS_MENTOR, ({ id }, { extra }) => {
   const { coursesApi } = extra;
 
   return coursesApi.checkIsMentor({
