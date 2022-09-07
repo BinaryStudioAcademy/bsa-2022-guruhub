@@ -10,6 +10,10 @@ class Stripe {
   public constructor({ secretKey }: Constructor) {
     this.#stripe = new StripeApi(secretKey, { apiVersion: '2022-08-01' });
   }
+
+  // public async initTransactionOperation(): Promise<void> {
+
+  // }
 }
 
 export { Stripe };

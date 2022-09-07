@@ -5,6 +5,7 @@ enum DbTableName {
   MIGRATIONS = 'migrations',
   CHAT_MESSAGES = 'chat_messages',
   COURSE_CATEGORIES = 'course_categories',
+  COURSE_CATEGORIES_PRICES = 'course_categories_prices',
   COURSES = 'courses',
   COURSE_MODULES = 'course_modules',
   GROUPS_TO_PERMISSIONS = 'groups_to_permissions',
