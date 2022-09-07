@@ -32,16 +32,12 @@
   border-radius: 15px;
 }
 
-.new {
+.uncompleted {
   background-color: var(--brand-yellow-300);
 }
 
 .rejected {
   background-color: var(--brand-purple-100);
-}
-
-.canceled {
-  background-color: var(--brand-red-100);
 }
 
 .completed {
@@ -50,10 +46,6 @@
 
 .pending {
   background-color: var(--brand-blue-200);
-}
-
-.inProgress {
-  background-color: var(--brand-pink-200);
 }
 
 .container {
