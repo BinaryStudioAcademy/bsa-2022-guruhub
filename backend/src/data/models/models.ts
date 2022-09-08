@@ -1,5 +1,6 @@
 export { ChatMessage } from './chat-message/chat-message.model';
 export { Course } from './course/course.model';
+export { CourseCategoryPrice } from './course-categories-price/course-categories-price.model';
 export { CourseCategory } from './course-category/course-category.model';
 export { CourseModule } from './course-module/course-module.model';
 export { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.model';

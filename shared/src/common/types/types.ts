@@ -32,6 +32,10 @@ export {
   type CourseCategoryGetResponseDto,
 } from './course-category/course-category';
 export {
+  type CourseCategoryPriceGetAllItemResponseDto,
+  type CourseCategoryPriceGetAllResponseDto,
+} from './course-category-price/course-category-price';
+export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
