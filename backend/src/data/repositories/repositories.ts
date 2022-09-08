@@ -2,6 +2,7 @@ import {
   ChatMessage as ChatMessageModel,
   Course as CourseModel,
   CourseCategory as CourseCategoryModel,
+  CourseCategoryPrice as CourseCategoryPriceModel,
   CourseModule as CourseModuleModel,
   CoursesToMentors as CoursesToMentorsModel,
   File as FileModel,
@@ -22,6 +23,7 @@ import {
 import { ChatMessage } from './chat-message/chat-message.repository';
 import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
+import { CourseCategoryPrice } from './course-category-price/course-category-price.repository';
 import { CourseModule } from './course-module/course-module.repository';
 import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.repository';
 import { File } from './file/file.repository';
@@ -72,6 +74,10 @@ const vendor = new Vendor({ VendorModel });
 
 const courseCategory = new CourseCategory({ CourseCategoryModel });
 
+const courseCategoryPrice = new CourseCategoryPrice({
+  CourseCategoryPriceModel,
+});
+
 const interview = new Interview({ InterviewModel });
 
 const interviewNote = new InterviewNote({
@@ -96,6 +102,7 @@ export {
   chatMessage,
   course,
   courseCategory,
+  courseCategoryPrice,
   courseModule,
   coursesToMentors,
   file,

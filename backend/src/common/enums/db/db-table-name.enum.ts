@@ -19,6 +19,7 @@ enum DbTableName {
   MENTEES_TO_MENTORS = 'mentees_to_mentors',
   TASKS = 'tasks',
   TASK_NOTES = 'task_notes',
+  TRANSACTIONS = 'transactions',
 }
 
 export { DbTableName };

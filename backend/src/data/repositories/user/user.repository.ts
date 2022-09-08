@@ -77,6 +77,17 @@ class User {
     return this.#UserModel.query().findByIds(ids).execute();
   }
 
+  public getByIdWithMoneyBalance(
+    id: number,
+  ): Promise<UsersGetResponseDto | null> {
+    return this.#UserModel
+      .query()
+      .findById(id)
+      .withGraphJoined('userDetails')
+      .castTo<UsersGetResponseDto>()
+      .execute();
+  }
+
   public create(user: {
     email: string;
     passwordSalt: string;

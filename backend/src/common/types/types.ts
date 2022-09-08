@@ -121,6 +121,11 @@ export {
 } from './task-note/task-note';
 export { type TokenPayload } from './token/token';
 export {
+  type TransactionCreateArgumentsDto,
+  type TransactionGetAllItemResponseDto,
+  type TransactionUpdateStatusDto,
+} from './transaction/transaction';
+export {
   type UdemyCourseGetResponseDto,
   type UdemyModuleGetResponseDto,
   type UdemyModulesGetResponseDto,
