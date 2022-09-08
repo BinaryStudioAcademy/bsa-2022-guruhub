@@ -6,7 +6,7 @@ import {
   SelectorOption,
 } from 'common/types/types';
 import { Button, Select } from 'components/common/common';
-import { getFormattedDate, getNameOf } from 'helpers/helpers';
+import { getFormattedDate, getNameOf, getValidClasses } from 'helpers/helpers';
 import { useAppForm, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
 
@@ -58,26 +58,26 @@ const InterviewItem: FC<Props> = ({
           {!isEditMode && (
             <Button
               type="button"
-              btnType="outlined"
               btnColor="blue"
               label="Edit"
               onClick={handleToggleEditMode}
+              className={styles.button}
             />
           )}
           {isEditMode && (
             <div className={styles.buttonsWrapper}>
               <Button
                 type="button"
-                btnType="outlined"
-                btnColor="blue"
+                btnColor="gray"
                 label="Cancel"
                 onClick={handleToggleEditMode}
-                className={styles.marginRight}
+                className={getValidClasses(styles.marginRight, styles.button)}
               />
               <Button
                 label="Save"
                 btnColor="blue"
                 onClick={handleSubmit(handleUpdateInterview)}
+                className={styles.button}
               />
             </div>
           )}

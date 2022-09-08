@@ -63,6 +63,7 @@ const Button: FC<Props> = ({
       <Link
         to={to as AppRoute}
         className={getValidClasses(
+          className,
           styles.button,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],

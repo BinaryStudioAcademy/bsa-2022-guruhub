@@ -52,8 +52,8 @@ const HistorySection: FC<Props> = ({
           <Button
             label="+ Add"
             btnColor="blue"
-            btnType="outlined"
             onClick={onToggle}
+            className={styles.button}
           />
         )}
       </div>
@@ -72,11 +72,16 @@ const HistorySection: FC<Props> = ({
             <div className={styles.actionButtonsSection}>
               <Button
                 label="Cancel"
-                btnColor="red"
-                btnType="outlined"
+                btnColor="gray"
                 onClick={handleToggleNoteContentClear}
+                className={styles.button}
               />
-              <Button label="Submit" btnColor="blue" type="submit" />
+              <Button
+                label="Submit"
+                btnColor="blue"
+                type="submit"
+                className={styles.button}
+              />
             </div>
           </form>
         )}

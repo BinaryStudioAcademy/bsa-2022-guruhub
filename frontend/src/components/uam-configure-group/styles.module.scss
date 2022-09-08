@@ -22,7 +22,7 @@
 .btnsWrapper {
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  width: 15%;
 }
 
 .errorMessage {
@@ -31,4 +31,9 @@
 
 .nameField {
   background: var(--background-gray-200);
+}
+
+.button {
+  width: 93px;
+  padding: 18px 20px;
 }
