@@ -2,16 +2,13 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import logo from '~/assets/images/logo.png';
+import { AppScreenName, RootScreenName } from '~/common/enums/enums';
 import {
-  AppScreenName,
-  ButtonVariant,
-  RootScreenName,
-} from '~/common/enums/enums';
-import {
-  Button,
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
+  Text,
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
@@ -77,16 +74,12 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
             onPress={handleBecomeMentor}
           />
         )}
-        {!user && (
-          <View style={styles.signInButton}>
-            <Button
-              label="Sign in"
-              onPress={handleSignIn}
-              variant={ButtonVariant.SECONDARY}
-            />
-          </View>
-        )}
       </ScrollView>
+      {!user && (
+        <Pressable onPress={handleSignIn}>
+          <Text style={styles.signInText}>Sign in</Text>
+        </Pressable>
+      )}
     </SafeAreaView>
   );
 };

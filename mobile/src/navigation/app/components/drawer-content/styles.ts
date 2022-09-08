@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,9 +26,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
-  signInButton: {
-    paddingHorizontal: 30,
-    maxWidth: 285,
+  signInWrapper: {},
+  signInText: {
+    padding: 30,
+    fontFamily: AppFontFamily.INTER_600,
+    color: AppColor.BRAND.BLUE_100,
+    fontSize: 18,
+    lineHeight: 24,
+    textAlign: 'center',
   },
 });
 
