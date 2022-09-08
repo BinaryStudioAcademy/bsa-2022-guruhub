@@ -4,6 +4,7 @@ import {
   chatMessage as chatMessageRepository,
   course as courseRepository,
   courseCategory as courseCategoryRepository,
+  courseCategoryPrice as courseCategoryPriceRepository,
   courseModule as courseModuleRepository,
   coursesToMentors as coursesToMentorsRepository,
   file as fileRepository,
@@ -26,6 +27,7 @@ import { File } from './aws/file/file.service';
 import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
+import { CourseCategoryPrice } from './course-category-price/course-category-price.service';
 import { CourseModule } from './course-module/course-module.service';
 import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.service';
 import { Edx } from './edx/edx.service';
@@ -118,6 +120,10 @@ const edx = new Edx({
 
 const courseCategory = new CourseCategory({ courseCategoryRepository });
 
+const courseCategoryPrice = new CourseCategoryPrice({
+  courseCategoryPriceRepository,
+});
+
 const courseModule = new CourseModule({
   moduleRepository: courseModuleRepository,
   udemyService: udemy,
@@ -164,6 +170,7 @@ export {
   chatMessage,
   course,
   courseCategory,
+  courseCategoryPrice,
   courseModule,
   coursesToMentors,
   edx,
