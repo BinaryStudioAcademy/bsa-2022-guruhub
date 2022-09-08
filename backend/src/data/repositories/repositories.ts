@@ -14,6 +14,7 @@ import {
   Permission as PermissionModel,
   Task as TaskModel,
   TaskNote as TaskNoteModel,
+  Transaction as TransactionModel,
   User as UserModel,
   UserDetails as UserDetailsModel,
   UsersToGroups as UsersToGroupsModel,
@@ -35,6 +36,7 @@ import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.reposi
 import { Permission } from './permission/permission.repository';
 import { Task } from './task/task.repository';
 import { TaskNote } from './task-note/task-note.repository';
+import { Transaction } from './transaction/transaction.repository';
 import { User } from './user/user.repository';
 import { UserDetails } from './user-details/user-details.repository';
 import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
@@ -98,6 +100,8 @@ const task = new Task({ TaskModel });
 
 const taskNote = new TaskNote({ TaskNoteModel });
 
+const transaction = new Transaction({ TransactionModel });
+
 export {
   chatMessage,
   course,
@@ -114,6 +118,7 @@ export {
   permission,
   task,
   taskNote,
+  transaction,
   user,
   userDetails,
   usersToGroups,

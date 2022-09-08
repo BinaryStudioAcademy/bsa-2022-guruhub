@@ -16,6 +16,7 @@ import {
   permission as permissionRepository,
   task as taskRepository,
   taskNote as taskNoteRepository,
+  transaction as transactionRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -43,6 +44,7 @@ import { Permission } from './permission/permission.service';
 import { Task } from './task/task.service';
 import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
+import { Transaction } from './transaction/transaction.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
@@ -165,6 +167,8 @@ const taskNote = new TaskNote({ taskNoteRepository });
 
 const task = new Task({ taskRepository, taskNoteService: taskNote });
 
+const transaction = new Transaction({ transactionRepository });
+
 export {
   auth,
   chatMessage,
@@ -187,6 +191,7 @@ export {
   task,
   taskNote,
   token,
+  transaction,
   udemy,
   user,
   userDetails,
