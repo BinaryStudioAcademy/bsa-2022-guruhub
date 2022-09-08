@@ -11,8 +11,12 @@
   transform: translateY(70px);
 }
 
-.button {
+.buttonWrapper {
   padding: 79px 40px 30px;
   background-color: var(--background-gray-300);
   border-radius: 20px;
+}
+
+.button {
+  height: 52px;
 }

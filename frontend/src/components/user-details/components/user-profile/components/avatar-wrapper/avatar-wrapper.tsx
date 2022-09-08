@@ -1,6 +1,7 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
+import { getValidClasses } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -50,15 +51,18 @@ const AvatarWrapper: FC = () => {
         />
       </div>
       <div className={styles.buttonWrapper}>
-        <Button
-          type="button"
-          btnColor="blue"
-          label="Update File"
-          btnType="upload"
-          className={styles.marginBottom}
-          onFileSelect={handleFileSelect}
-        />
-        <Button btnColor="blue" label="Save" className={styles.btn} />
+        <div className={getValidClasses(styles.marginBottom, styles.btn)}>
+          <Button
+            type="button"
+            btnColor="blue"
+            label="Update File"
+            btnType="upload"
+            onFileSelect={handleFileSelect}
+          />
+        </div>
+        <div className={styles.btn}>
+          <Button btnColor="blue" label="Save" />
+        </div>
       </div>
     </div>
   );

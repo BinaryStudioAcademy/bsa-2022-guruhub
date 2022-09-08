@@ -141,21 +141,23 @@ const UAMConfigureGroup: FC = () => {
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>
-          <Button
-            type="button"
-            btnColor="gray"
-            btnType="filled"
-            label="Cancel"
-            to={AppRoute.UAM}
-            className={styles.button}
-          />
-          <Button
-            onClick={handleSubmit(handleCreateOrEdit)}
-            type="submit"
-            label={isEdit ? 'Edit' : 'Create'}
-            btnColor="blue"
-            className={styles.button}
-          />
+          <div className={styles.button}>
+            <Button
+              type="button"
+              btnColor="gray"
+              btnType="filled"
+              label="Cancel"
+              to={AppRoute.UAM}
+            />
+          </div>
+          <div className={styles.button}>
+            <Button
+              onClick={handleSubmit(handleCreateOrEdit)}
+              type="submit"
+              label={isEdit ? 'Edit' : 'Create'}
+              btnColor="blue"
+            />
+          </div>
         </div>
       </div>
     </div>

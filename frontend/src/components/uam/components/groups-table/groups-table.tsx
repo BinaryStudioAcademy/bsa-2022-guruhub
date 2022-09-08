@@ -42,12 +42,14 @@ const GroupsTable: FC = () => {
     <div className={styles.groupsTable}>
       <div className={styles.groupTableHeadingPanel}>
         <h1 className={styles.groupsTableHeading}>Groups</h1>
-        <Button
-          label="Create Group"
-          btnColor="blue"
-          type="button"
-          to={AppRoute.UAM_CONFIGURE_GROUP}
-        />
+        <div className={styles.button}>
+          <Button
+            label="Create Group"
+            btnColor="blue"
+            type="button"
+            to={AppRoute.UAM_CONFIGURE_GROUP}
+          />
+        </div>
       </div>
       <Table
         data={data}

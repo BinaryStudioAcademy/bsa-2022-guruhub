@@ -43,7 +43,9 @@ const AddCourseModal: FC<Props> = ({ isModalOpen, onModalToggle }) => {
           />
         </div>
         <div className={styles.buttonWrapper}>
-          <Button type="submit" label="Submit course" btnColor="blue" />
+          <div className={styles.button}>
+            <Button type="submit" label="Submit course" btnColor="blue" />
+          </div>
         </div>
       </form>
     </Modal>
