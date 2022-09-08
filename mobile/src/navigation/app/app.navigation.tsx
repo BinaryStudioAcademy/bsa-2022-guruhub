@@ -18,8 +18,9 @@ const App: FC = () => {
   }));
 
   const allowedScreens = useMemo(() => {
-    const screens = NAVIGATION_ITEMS.flatMap((item) => item.subroutes);
-    const screensByAuth = getScreensByAuth(screens, Boolean(user));
+    const screensByAuth = NAVIGATION_ITEMS.flatMap((item) =>
+      getScreensByAuth(item.subroutes, Boolean(user)),
+    );
     const permittedScreens = getPermittedScreens(
       screensByAuth,
       userPermissions,
