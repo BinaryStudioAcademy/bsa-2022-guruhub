@@ -10,12 +10,10 @@ type Props = {
 };
 
 const ModuleCard: FC<Props> = ({ title, status }) => {
-  const camelCaseStatus =
-    status &&
-    changeStringCase({
-      caseType: StringCase.CAMEL_CASE,
-      stringToChange: status,
-    });
+  const camelCaseStatus = changeStringCase({
+    caseType: StringCase.CAMEL_CASE,
+    stringToChange: status ?? '',
+  });
 
   return (
     <div className={styles.container}>

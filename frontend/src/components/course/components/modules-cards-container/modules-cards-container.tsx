@@ -35,11 +35,11 @@ const ModulesCardsContainer: FC<Props> = ({
             }${AppRoute.MODULES}/${courseModule.id}`
           : `${AppRoute.COURSES}/${course?.id}/modules/${courseModule.id}`;
 
-        const task =
-          isMentorView &&
-          getTaskForModule({ moduleId: courseModule.id, tasks });
+        const task = isMentorView
+          ? getTaskForModule({ moduleId: courseModule.id, tasks })
+          : null;
 
-        const status = task ? task.status : null;
+        const status = task?.status ?? null;
 
         return (
           <li key={courseModule.id} className={styles.moduleCardContainer}>
