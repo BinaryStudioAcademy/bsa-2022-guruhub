@@ -35,6 +35,12 @@ class Mentor {
     );
   }
 
+  public changeMentor(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<MenteesToMentorsResponseDto> {
+    return this.#menteesToMentorsService.changeMentor(menteesToMentors);
+  }
+
   public addMentorToCourse({
     courseId,
     userId,

@@ -16,7 +16,7 @@
 }
 
 .chatsList {
-  height: 83vh;
+  height: calc(100vh - 250px);
   margin: 0;
   padding: 25px;
   overflow-y: scroll;

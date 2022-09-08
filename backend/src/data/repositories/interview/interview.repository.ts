@@ -145,13 +145,14 @@ class Interview {
   public update(interview: {
     id: number;
     interviewerUserId: number;
+    status: InterviewStatus;
   }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewerUserId } = interview;
+    const { id, interviewerUserId, status } = interview;
 
     return this.#InterviewModel
       .query()
       .select()
-      .patchAndFetchById(id, { interviewerUserId })
+      .patchAndFetchById(id, { interviewerUserId, status })
       .withGraphFetched(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
