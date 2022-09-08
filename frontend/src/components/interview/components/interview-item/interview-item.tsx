@@ -5,7 +5,7 @@ import {
   InterviewsUpdateRequestDto,
   SelectorOption,
 } from 'common/types/types';
-import { Button, Select } from 'components/common/common';
+import { Button, Datepicker, Select } from 'components/common/common';
 import { getFormattedDate, getNameOf, getValidClasses } from 'helpers/helpers';
 import { useAppForm, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
@@ -46,6 +46,7 @@ const InterviewItem: FC<Props> = ({
       defaultValues: {
         interviewerUserId: interview.interviewer?.id ?? '',
         status: interview.status,
+        interviewDate: interview?.interviewDate ?? null,
       },
       validationSchema: interviewUpdateValidationSchema,
     });
@@ -108,11 +109,26 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Date of interview</p>
-            <p className={styles.interviewValue}>
-              {interview?.interviewDate
-                ? getFormattedDate(interview?.interviewDate, 'yyyy-MM-dd')
-                : ''}
-            </p>
+            {!isEditMode && (
+              <p className={styles.interviewValue}>
+                {interview?.interviewDate
+                  ? getFormattedDate(
+                      interview?.interviewDate,
+                      'HH:mm dd.MM.yyyy',
+                    )
+                  : 'Not set'}
+              </p>
+            )}
+            {isEditMode && (
+              <Datepicker
+                control={control}
+                name={getNameOf<InterviewsUpdateRequestDto>('interviewDate')}
+                placeholder="Set interview date"
+                minDate={new Date()}
+                selectedDate={interview?.interviewDate}
+                withTime={true}
+              />
+            )}
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Interviewer</p>
