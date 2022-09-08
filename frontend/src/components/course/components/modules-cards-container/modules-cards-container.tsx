@@ -8,6 +8,7 @@ import {
 import { Link } from 'components/common/common';
 
 import { ModuleCard } from './components/components';
+import { getTaskForModule } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -25,33 +26,6 @@ const ModulesCardsContainer: FC<Props> = ({
   tasks,
   course,
 }) => {
-  if (isMentorView) {
-    return (
-      <ul className={styles.container}>
-        {tasks.map(({ id, status, module }) => {
-          return (
-            <li key={id} className={styles.moduleCardContainer}>
-              <Link
-                to={
-                  `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${
-                    (course as CourseGetResponseDto).id
-                  }${AppRoute.MODULES}/${module.id}` as AppRoute
-                }
-                className={styles.linkToModule}
-              >
-                <ModuleCard
-                  title={module.title}
-                  description={module.description}
-                  status={status}
-                />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-
   return (
     <ul className={styles.container}>
       {modules.map((courseModule) => {
@@ -61,13 +35,16 @@ const ModulesCardsContainer: FC<Props> = ({
             }${AppRoute.MODULES}/${courseModule.id}`
           : `${AppRoute.COURSES}/${course?.id}/modules/${courseModule.id}`;
 
+        const task =
+          isMentorView &&
+          getTaskForModule({ moduleId: courseModule.id, tasks });
+
+        const status = task ? task.status : null;
+
         return (
           <li key={courseModule.id} className={styles.moduleCardContainer}>
             <Link to={linkTo as AppRoute} className={styles.linkToModule}>
-              <ModuleCard
-                title={courseModule.title}
-                description={courseModule.description}
-              />
+              <ModuleCard title={courseModule.title} status={status} />
             </Link>
           </li>
         );

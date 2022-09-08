@@ -1,17 +1,15 @@
 import { StringCase, TaskStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Content } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
 type Props = {
   title: string;
-  description: string | null;
-  status?: TaskStatus;
+  status: TaskStatus | null;
 };
 
-const ModuleCard: FC<Props> = ({ title, description, status }) => {
+const ModuleCard: FC<Props> = ({ title, status }) => {
   const camelCaseStatus =
     status &&
     changeStringCase({
@@ -25,11 +23,6 @@ const ModuleCard: FC<Props> = ({ title, description, status }) => {
         <div className={styles.title}>
           <p className={styles.header}>{title}</p>
         </div>
-        {!status && (
-          <div className={styles.description}>
-            {description && <Content html={description} />}
-          </div>
-        )}
       </div>
       {status && (
         <div>
