@@ -6,7 +6,6 @@ export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
-  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
