@@ -5,14 +5,13 @@ import logo from '~/assets/images/logo.png';
 import { AppScreenName, RootScreenName } from '~/common/enums/enums';
 import {
   Image,
-  Pressable,
+  Link,
   SafeAreaView,
   ScrollView,
-  Text,
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppDispatch, useAppNavigate, useAppSelector } from '~/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
 import {
   NAVIGATION_ITEMS,
   NO_AUTH_NAVIGATION_ITEMS,
@@ -27,7 +26,6 @@ import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const dispatch = useAppDispatch();
-  const navigation = useAppNavigate();
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
 
@@ -44,10 +42,6 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
 
   const handleBecomeMentor = (): void => {
     dispatch(coursesActions.becomeMentor());
-  };
-
-  const handleSignIn = (): void => {
-    navigation.navigate(RootScreenName.AUTH);
   };
 
   return (
@@ -76,9 +70,9 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
         )}
       </ScrollView>
       {!user && (
-        <Pressable onPress={handleSignIn}>
-          <Text style={styles.signInText}>Sign in</Text>
-        </Pressable>
+        <View style={styles.signInWrapper}>
+          <Link label="Sign in" to={`/${RootScreenName.AUTH}`} />
+        </View>
       )}
     </SafeAreaView>
   );

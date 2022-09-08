@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
-  signInWrapper: {},
+  signInWrapper: {
+    padding: 30,
+  },
   signInText: {
     padding: 30,
     fontFamily: AppFontFamily.INTER_600,

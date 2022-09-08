@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 
+import { RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
 import {
   Button,
   Input,
   InputSecure,
-  Pressable,
+  Link,
   Text,
   View,
 } from '~/components/common/common';
@@ -17,16 +18,13 @@ import { styles } from './styles';
 
 type Props = {
   onSubmit: (payload: UserSignUpRequestDto) => void;
-  onSkipSignUp: () => void;
 };
 
-const SignUpForm: FC<Props> = ({ onSubmit, onSkipSignUp }) => {
+const SignUpForm: FC<Props> = ({ onSubmit }) => {
   const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
     defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
     validationSchema: userSignUpValidationSchema,
   });
-
-  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
 
   return (
     <>
@@ -62,13 +60,9 @@ const SignUpForm: FC<Props> = ({ onSubmit, onSkipSignUp }) => {
         <View style={styles.buttonWrapper}>
           <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
         </View>
-        <Pressable
-          style={styles.skipWrapper}
-          hitSlop={hitSlop}
-          onPress={onSkipSignUp}
-        >
-          <Text style={styles.skipText}>Skip for now</Text>
-        </Pressable>
+        <View style={styles.buttonWrapper}>
+          <Link label="Skip for now" to={`/${RootScreenName.APP}`} />
+        </View>
       </View>
     </>
   );

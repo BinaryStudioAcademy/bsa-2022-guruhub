@@ -1,11 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import {
-  AppScreenName,
-  AuthScreenName,
-  RootScreenName,
-} from '~/common/enums/enums';
+import { AuthScreenName, RootScreenName } from '~/common/enums/enums';
 import {
   UserSignInRequestDto,
   UserSignUpRequestDto,
@@ -30,20 +26,12 @@ const Auth: FC = () => {
   const navigation = useAppNavigate();
   const { user } = useAppSelector((state) => state.auth);
 
-  const handleSignInSubmit = async (
-    payload: UserSignInRequestDto,
-  ): Promise<void> => {
-    await dispatch(authActions.signIn(payload));
+  const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
+    dispatch(authActions.signIn(payload));
   };
 
-  const handleSignUpSubmit = async (
-    payload: UserSignUpRequestDto,
-  ): Promise<void> => {
-    await dispatch(authActions.signUp(payload));
-  };
-
-  const handleSkipAuthorization = (): void => {
-    navigation.navigate(RootScreenName.APP, { screen: AppScreenName.COURSES });
+  const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {
+    dispatch(authActions.signUp(payload));
   };
 
   useEffect(() => {
@@ -55,20 +43,10 @@ const Auth: FC = () => {
   const getScreen = (screen: string): ReactElement | null => {
     switch (screen) {
       case AuthScreenName.SIGN_IN: {
-        return (
-          <SignInForm
-            onSubmit={handleSignInSubmit}
-            onSkipSignIn={handleSkipAuthorization}
-          />
-        );
+        return <SignInForm onSubmit={handleSignInSubmit} />;
       }
       case AuthScreenName.SIGN_UP: {
-        return (
-          <SignUpForm
-            onSubmit={handleSignUpSubmit}
-            onSkipSignUp={handleSkipAuthorization}
-          />
-        );
+        return <SignUpForm onSubmit={handleSignUpSubmit} />;
       }
     }
 
