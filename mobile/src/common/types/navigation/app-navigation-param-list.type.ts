@@ -17,6 +17,7 @@ type AppNavigationParamList = {
   [AppScreenName.COURSE_MODULE]: undefined;
   [AppScreenName.CHAT]: undefined;
   [AppScreenName.CONVERSATION]: undefined;
+  [AppScreenName.TASK]: undefined;
 };
 
 export { type AppNavigationParamList };
