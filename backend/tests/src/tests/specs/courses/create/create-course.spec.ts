@@ -33,7 +33,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
       .join('/');
   };
 
-  const udemyVendorExpected: Pick<VendorGetResponseDto, 'key' | 'name'> = {
+  const udemyVendorExpected = {
     key: 'udemy',
     name: 'Udemy',
   };
@@ -44,22 +44,30 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
   let course1CreateExpected: Pick<
     CourseGetResponseDto,
     'category' | 'description' | 'title'
-  >;
+  > & {
+    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
+  };
 
   let course2CreateExpected: Pick<
     CourseGetResponseDto,
     'category' | 'description' | 'title'
-  >;
+  > & {
+    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
+  };
 
   let course1Expected: Pick<
     CourseGetResponseDto,
     'id' | 'category' | 'description' | 'title'
-  >;
+  > & {
+    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
+  };
 
   let course2Expected: Pick<
     CourseGetResponseDto,
     'id' | 'category' | 'description' | 'title'
-  >;
+  > & {
+    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
+  };
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
@@ -86,6 +94,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
       category: null,
       description: sanitizeHTML(course1.course.description),
       title: course1.course.title,
+      vendor: udemyVendorExpected,
     };
   });
 
@@ -100,6 +109,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
       category: null,
       description: sanitizeHTML(course2.course.description),
       title: course2.course.title,
+      vendor: udemyVendorExpected,
     };
   });
 
@@ -137,7 +147,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
         response.should.have.status(HttpCode.BAD_REQUEST);
         response.body.should.have.jsonSchema(errorResponseSchema);
 
-        response.body.should.deep.include({
+        response.body.should.include.keys({
           statusCode: HttpCode.BAD_REQUEST,
           error: HttpStatusMessage.BAD_REQUEST,
         });
@@ -156,8 +166,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
 
     response.should.have.status(HttpCode.CREATED);
     response.body.should.have.jsonSchema(courseCreateResponseSchema);
-    response.body.should.deep.include(course1CreateExpected);
-    response.body.vendor.should.deep.include(udemyVendorExpected);
+    response.body.should.include.deep.keys(course1CreateExpected);
 
     course1Expected = {
       ...course1CreateExpected,
@@ -176,7 +185,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
     response.should.have.status(HttpCode.BAD_REQUEST);
     response.body.should.have.jsonSchema(errorResponseSchema);
 
-    response.body.should.be.deep.equal({
+    response.body.should.be.eql({
       statusCode: HttpCode.BAD_REQUEST,
       error: HttpStatusMessage.BAD_REQUEST,
       message: ExceptionMessage.COURSE_EXIST,
@@ -189,8 +198,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
     response.should.have.normalExecutionTime;
     response.should.have.status(HttpCode.OK);
     response.body.should.have.jsonSchema(courseSchema);
-    response.body.should.deep.include(course1Expected);
-    response.body.vendor.should.deep.include(udemyVendorExpected);
+    response.body.should.include.deep.keys(course1Expected);
   });
 
   it('should create the second course with www prefix in url using slug', async function () {
@@ -204,8 +212,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
 
     response.should.have.status(HttpCode.CREATED);
     response.body.should.have.jsonSchema(courseCreateResponseSchema);
-    response.body.should.deep.include(course2CreateExpected);
-    response.body.vendor.should.deep.include(udemyVendorExpected);
+    response.body.should.include.deep.keys(course2CreateExpected);
 
     course2Expected = {
       ...course2CreateExpected,
@@ -224,7 +231,7 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
     response.should.have.status(HttpCode.BAD_REQUEST);
     response.body.should.have.jsonSchema(errorResponseSchema);
 
-    response.body.should.be.deep.equal({
+    response.body.should.be.eql({
       statusCode: HttpCode.BAD_REQUEST,
       error: HttpStatusMessage.BAD_REQUEST,
       message: ExceptionMessage.COURSE_EXIST,
@@ -237,7 +244,6 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
     response.should.have.normalExecutionTime;
     response.should.have.status(HttpCode.OK);
     response.body.should.have.jsonSchema(courseSchema);
-    response.body.should.deep.include(course2Expected);
-    response.body.vendor.should.deep.include(udemyVendorExpected);
+    response.body.should.include.deep.keys(course2Expected);
   });
 });
