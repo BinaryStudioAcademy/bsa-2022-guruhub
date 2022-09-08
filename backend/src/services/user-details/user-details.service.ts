@@ -34,10 +34,8 @@ class UserDetails {
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto | null> {
-    const hasTelegram = Boolean(
-      userDetailsUpdateInfoRequestDto.telegramUsername,
-    );
     const { telegramUsername } = userDetailsUpdateInfoRequestDto;
+    const hasTelegram = Boolean(telegramUsername);
 
     const userDetailsUpdateWithTelegram = {
       ...userDetailsUpdateInfoRequestDto,
