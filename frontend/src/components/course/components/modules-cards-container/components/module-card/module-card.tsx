@@ -36,7 +36,7 @@ const ModuleCard: FC<Props> = ({ title, description, status }) => {
           <p
             className={getValidClasses(
               styles.status,
-              styles[camelCaseStatus as string],
+              camelCaseStatus && styles[camelCaseStatus],
             )}
           >
             {status}
