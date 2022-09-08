@@ -167,6 +167,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.TASK,
         component: Task,
         permissions: [],
+        requireAuth: true,
       },
     ],
   },
