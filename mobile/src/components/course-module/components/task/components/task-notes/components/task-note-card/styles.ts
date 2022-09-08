@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   name: {
-    color: '#C4C4C4',
+    color: AppColor.TEXT.GRAY_100,
   },
   footerContainer: {
     marginTop: 10,
