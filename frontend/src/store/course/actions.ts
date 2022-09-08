@@ -231,9 +231,7 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
     auth: { user },
     course: { mentors, mentor },
   } = getState();
-  const isMentor = mentors.some(
-    (mentor) => mentor?.id === (user as UserWithPermissions)?.id,
-  );
+  const isMentor = mentors.some((mentor) => mentor?.id === user?.id);
   const hasMentor = Boolean(mentor);
   const canChooseMentor = !(isMentor || hasMentor);
 
