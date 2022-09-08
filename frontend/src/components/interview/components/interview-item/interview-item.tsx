@@ -45,6 +45,7 @@ const InterviewItem: FC<Props> = ({
     useAppForm<InterviewsUpdateRequestDto>({
       defaultValues: {
         interviewerUserId: interview.interviewer?.id ?? '',
+        status: interview.status,
       },
       validationSchema: interviewUpdateValidationSchema,
     });
@@ -122,7 +123,7 @@ const InterviewItem: FC<Props> = ({
                 name={getNameOf<InterviewsUpdateRequestDto>(
                   'interviewerUserId',
                 )}
-                className={styles.marginTop}
+                className={styles.select}
                 control={control}
                 errors={errors}
                 label="Interviewers"
@@ -140,7 +141,7 @@ const InterviewItem: FC<Props> = ({
               <Select
                 options={statusOptions}
                 name={getNameOf<InterviewsUpdateRequestDto>('status')}
-                className={styles.marginTop}
+                className={styles.select}
                 control={control}
                 errors={errors}
                 label="Status"
