@@ -27,7 +27,7 @@ import {
   signInResponseSchema,
 } from '~/tests/json-schemas/json-schemas';
 
-describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
+describe('Course creation tests', () => {
   const getIdUdemyUrl = (course: UdemyCourseInfo): string => {
     return course.course.url
       .split('/')
