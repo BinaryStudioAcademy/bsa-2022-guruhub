@@ -153,6 +153,8 @@ components:
       $ref: './schemas/user-details/user-details-response-dto.yaml'
     UserDetailsUpdateInfoRequestDto:
       $ref: './schemas/user-details/user-details-update-request-dto.yaml'
+    MenteesToMentorsResponseDto:
+      $ref: './schemas/mentors/mentor-get-response-dto.yaml'
   securitySchemes:
     bearerAuth:
       type: http
