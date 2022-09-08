@@ -1,5 +1,5 @@
 import { categoryWithDatesSchema } from '../../categories/categories';
-import { vendorSchema } from '../../vendor/vendor';
+import { vendorSchema } from '../../vendors/vendors';
 
 const courseCreateResponseSchema = {
   type: 'object',

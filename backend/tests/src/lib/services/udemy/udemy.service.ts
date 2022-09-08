@@ -69,7 +69,7 @@ class UdemyService {
     const restOfModules = await Promise.all(
       new Array(maxPageNumber - 1)
         .fill(0)
-        .map((_, index) => index + 2)
+        .map((_, index) => index + this.#MIN_PAGE_NUMBER + 1)
         .map(async (pageNumber) => {
           const {
             body: { results },

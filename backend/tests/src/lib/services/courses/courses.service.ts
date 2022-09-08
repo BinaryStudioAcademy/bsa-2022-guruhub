@@ -2,7 +2,7 @@ import {
   ApiPath,
   CourseCreateRequestDto,
   CourseGetResponseDto,
-  CourseModulesGetAllItemResponseDto,
+  CourseModulesGetAllResponseDto,
   CoursesApiPath,
   HttpErrorDto,
 } from 'guruhub-shared';
@@ -32,7 +32,7 @@ class CoursesService {
 
   public getModules(
     id: number,
-  ): Promise<Response<CourseModulesGetAllItemResponseDto[]>> {
+  ): Promise<Response<CourseModulesGetAllResponseDto>> {
     return this.#httpService
       .request()
       .get()

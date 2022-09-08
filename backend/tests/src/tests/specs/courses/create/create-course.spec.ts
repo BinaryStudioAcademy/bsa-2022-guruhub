@@ -1,5 +1,6 @@
 import {
   CourseGetResponseDto,
+  CourseModulesGetAllItemResponseDto,
   ExceptionMessage,
   HttpCode,
   HttpErrorDto,
@@ -19,6 +20,7 @@ import {
   udemyService,
 } from '~/lib/services/services';
 import {
+  allModulesSchema,
   courseCreateResponseSchema,
   courseSchema,
   errorResponseSchema,
@@ -68,6 +70,20 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
   > & {
     vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
   };
+
+  let course1ModulesExpected: Array<
+    Pick<
+      CourseModulesGetAllItemResponseDto,
+      'courseId' | 'title' | 'description'
+    >
+  >;
+
+  let course2ModulesExpected: Array<
+    Pick<
+      CourseModulesGetAllItemResponseDto,
+      'courseId' | 'title' | 'description'
+    >
+  >;
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
@@ -172,6 +188,14 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
       ...course1CreateExpected,
       id: response.body.id,
     };
+
+    course1ModulesExpected = course1.modules.results.map(
+      ({ title, description }) => ({
+        courseId: response.body.id,
+        title,
+        description: description ? sanitizeHTML(description) : null,
+      }),
+    );
   });
 
   it('should reject to create the first course second time using slug', async () => {
@@ -201,6 +225,22 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
     response.body.should.include.deep.keys(course1Expected);
   });
 
+  it('should return correct modules for the first course', async () => {
+    const response = await coursesService.getModules(course1Expected.id);
+
+    response.should.have.normalExecutionTime;
+    response.should.have.status(HttpCode.OK);
+    response.body.should.have.jsonSchema(allModulesSchema);
+
+    response.body.items
+      .map(({ courseId, title, description }) => ({
+        courseId,
+        title,
+        description,
+      }))
+      .should.have.deep.members(course1ModulesExpected);
+  });
+
   it('should create the second course with www prefix in url using slug', async function () {
     this.timeout(60000);
 
@@ -218,6 +258,14 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
       ...course2CreateExpected,
       id: response.body.id,
     };
+
+    course2ModulesExpected = course2.modules.results.map(
+      ({ title, description }) => ({
+        courseId: response.body.id,
+        title,
+        description: description ? sanitizeHTML(description) : null,
+      }),
+    );
   });
 
   it('should reject to create the second course second time using id', async () => {
@@ -245,5 +293,21 @@ describe('[LITTLE BIT UNSTABLE IN DEVELOPMENT] Course creation tests', () => {
     response.should.have.status(HttpCode.OK);
     response.body.should.have.jsonSchema(courseSchema);
     response.body.should.include.deep.keys(course2Expected);
+  });
+
+  it('should return correct modules for the second course', async () => {
+    const response = await coursesService.getModules(course2Expected.id);
+
+    response.should.have.normalExecutionTime;
+    response.should.have.status(HttpCode.OK);
+    response.body.should.have.jsonSchema(allModulesSchema);
+
+    response.body.items
+      .map(({ courseId, title, description }) => ({
+        courseId,
+        title,
+        description,
+      }))
+      .should.have.deep.members(course2ModulesExpected);
   });
 });
