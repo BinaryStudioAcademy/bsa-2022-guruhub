@@ -10,7 +10,10 @@ import { getFormattedDate, getNameOf } from 'helpers/helpers';
 import { useAppForm, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { getInterviewersOptions } from './helpers/helpers';
+import {
+  getInterviewersOptions,
+  getInterviewStatusOptions,
+} from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -33,6 +36,10 @@ const InterviewItem: FC<Props> = ({
   const interviewersOptions = useMemo<SelectorOption<number>[]>(() => {
     return getInterviewersOptions(interviewers);
   }, [interviewers]);
+
+  const statusOptions = useMemo<SelectorOption[]>(() => {
+    return getInterviewStatusOptions();
+  }, []);
 
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
@@ -119,6 +126,24 @@ const InterviewItem: FC<Props> = ({
                 control={control}
                 errors={errors}
                 label="Interviewers"
+                hasVisuallyHiddenLabel
+              />
+            )}
+          </div>
+
+          <div className={styles.interviewRow}>
+            <p className={styles.header}>Status</p>
+            {!isEditMode && (
+              <p className={styles.interviewValue}>{interview?.status}</p>
+            )}
+            {isEditMode && (
+              <Select
+                options={statusOptions}
+                name={getNameOf<InterviewsUpdateRequestDto>('status')}
+                className={styles.marginTop}
+                control={control}
+                errors={errors}
+                label="Status"
                 hasVisuallyHiddenLabel
               />
             )}

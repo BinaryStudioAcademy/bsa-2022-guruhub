@@ -1,4 +1,4 @@
-summary: Select a mentor
+summary: Change a mentor
 tags:
   - courses
 parameters:
@@ -16,11 +16,9 @@ requestBody:
       schema:
         $ref: '../../schemas/courses/courses-add-mentor-request-dto.yaml'
 responses:
-  '201':
-    description: Mentor was successfully selected
+  '200':
+    description: Mentor was successfully changed
     content:
       application/json:
         schema:
           $ref: '../../schemas/courses/courses-add-mentor-response-dto.yaml'
-  '400':
-    description: You already have a mentor for this course
