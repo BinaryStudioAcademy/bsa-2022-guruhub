@@ -12,12 +12,14 @@ export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
   type CourseMentorsFilteringDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
+  type CourseUpdateMentoringDto,
 } from './course/course';
 export {
   type CategoryGetAllItemResponseDto,

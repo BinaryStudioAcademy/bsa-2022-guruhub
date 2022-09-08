@@ -16,6 +16,7 @@ export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -23,6 +24,7 @@ export {
   type CourseSelectMentorRequestDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
 export {

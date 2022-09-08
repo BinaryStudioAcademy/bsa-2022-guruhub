@@ -17,6 +17,7 @@ enum AppRoute {
   CHATS = '/chats',
   COURSES_$ID = '/courses/:id',
   COURSES = '/courses',
+  MY_COURSES = '/my-courses',
   COURSES_MANAGEMENT = '/courses-management',
   COURSES_$ID_MODULES_$ID = '/courses/:courseId/modules/:moduleId',
   ANY = '*',

@@ -20,6 +20,7 @@ import { CoursesManagement } from 'components/courses-management/courses-managem
 import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
+import { MyCourses } from 'components/my-courses/my-courses';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
@@ -96,6 +97,10 @@ const App: FC = () => {
         <Route
           path={AppRoute.SETTINGS_PROFILE}
           element={<AuthorizedProtectedRoute component={<UserDetails />} />}
+        />
+        <Route
+          path={AppRoute.MY_COURSES}
+          element={<AuthorizedProtectedRoute component={<MyCourses />} />}
         />
         <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}

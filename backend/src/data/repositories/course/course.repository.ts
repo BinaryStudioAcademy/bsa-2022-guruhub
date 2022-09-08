@@ -5,6 +5,7 @@ import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
+  CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   EntityPagination,
@@ -96,14 +97,14 @@ class Course {
   public async getAllCoursesMentoring(
     userId: number,
     { count, page }: EntityPaginationRequestQueryDto,
-  ): Promise<EntityPagination<CourseGetResponseDto>> {
+  ): Promise<EntityPagination<CourseGetMentoringDto>> {
     const { results, total } = await this.#CourseModel
       .query()
       .select('courses.id', 'title', 'maxStudentsCount')
       .withGraphJoined('mentors')
       .where('userId', userId)
       .page(page, count)
-      .castTo<Page<CourseM & CourseGetResponseDto>>();
+      .castTo<Page<CourseM & CourseGetMentoringDto>>();
 
     return {
       items: results,

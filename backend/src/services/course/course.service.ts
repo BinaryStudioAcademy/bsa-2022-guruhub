@@ -4,6 +4,7 @@ import {
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
+  CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   EntityPagination,
@@ -93,8 +94,14 @@ class Course {
   public getAllCoursesMentoring(
     userId: number,
     pagination: EntityPaginationRequestQueryDto,
-  ): Promise<EntityPagination<CourseGetResponseDto>> {
-    return this.#courseRepository.getAllCoursesMentoring(userId, pagination);
+  ): Promise<EntityPagination<CourseGetMentoringDto>> {
+    const { page, count } = pagination;
+    const zeroIndexPage = page - 1;
+
+    return this.#courseRepository.getAllCoursesMentoring(userId, {
+      count,
+      page: zeroIndexPage,
+    });
   }
 
   public async create(
