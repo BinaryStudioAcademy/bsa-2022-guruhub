@@ -1,10 +1,9 @@
-import { HttpCode, HttpMethod } from '~/common/enums/enums';
+import { HttpMethod } from '~/common/enums/enums';
 import {
   UdemyCourseGetResponseDto,
   UdemyModuleGetResponseDto,
   UdemyModulesGetResponseDto,
 } from '~/common/types/types';
-import { HttpError } from '~/exceptions/exceptions';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
@@ -43,22 +42,18 @@ class Udemy {
   }
 
   public async getCourseByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
-    try {
-      const courseIdOrSlug = url.pathname
-        .split('/')
-        .filter(Boolean)
-        .pop() as string;
+    const courseIdOrSlug = url.pathname
+      .split('/')
+      .filter(Boolean)
+      .pop() as string;
 
-      const headers = this.getHeaders();
-      const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
-        this.getCourseRequestUrl(courseIdOrSlug),
-        { headers, method: HttpMethod.GET },
-      );
+    const headers = this.getHeaders();
+    const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
+      this.getCourseRequestUrl(courseIdOrSlug),
+      { headers, method: HttpMethod.GET },
+    );
 
-      return res;
-    } catch (err) {
-      throw new HttpError({ message: `${err}`, status: HttpCode.NOT_FOUND });
-    }
+    return res;
   }
 
   public async getModulesByCourseId(
