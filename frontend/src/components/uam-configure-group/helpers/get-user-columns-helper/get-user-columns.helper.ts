@@ -30,28 +30,28 @@ const getUserColumns = ({
         isChecked: selectedUserIds.includes(id),
       }),
       Cell: UserActionCell,
-      width: '6%',
+      width: 50,
     },
     {
       Header: 'Name',
       accessor: UserTableAccessor.FULL_NAME,
-      width: '28%',
+      width: 200,
     },
     {
       Header: 'Email',
       accessor: UserTableAccessor.EMAIL,
-      width: '28%',
+      width: 200,
     },
     {
       Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
       Cell: DateCell,
-      width: '28%',
+      width: 200,
     },
     {
       Header: 'User ID',
       accessor: UserTableAccessor.ID,
-      width: '10%',
+      width: 110,
     },
   ];
 };

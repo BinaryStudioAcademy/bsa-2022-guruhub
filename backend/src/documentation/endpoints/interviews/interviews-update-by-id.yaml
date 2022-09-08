@@ -1,4 +1,4 @@
-summary: Get Interview by ID
+summary: Update interview's interviewer
 tags:
   - interviews
 parameters:

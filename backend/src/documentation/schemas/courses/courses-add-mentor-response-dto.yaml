@@ -18,3 +18,21 @@ properties:
   updatedAt:
     type: date
     example: '2022-08-25T13:17:29.715Z'
+  mentor:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      email:
+        type: string
+        example: 'john.doe@gmail.com'
+      createdAt:
+        type: string
+        example: '2022-08-25T13:17:29.715Z'
+      updatedAt:
+        type: string
+        example: '2022-08-25T13:17:29.715Z'
+      userDetails:
+        $ref: '../user-details/user-details-response-dto.yaml'
+

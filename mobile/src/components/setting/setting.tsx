@@ -1,19 +1,26 @@
 import React, { FC } from 'react';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
-import { ButtonVariant, DataStatus, UserGender } from '~/common/enums/enums';
+import {
+  ButtonVariant,
+  DataStatus,
+  UserAge,
+  UserGender,
+} from '~/common/enums/enums';
 import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import {
   Button,
+  DatePicker,
   Dropdown,
   Image,
   Input,
+  ScrollView,
   Spinner,
   Stack,
   Text,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, subtractYears } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -34,6 +41,9 @@ const Settings: FC = () => {
   const { userDetails, dataStatus } = useAppSelector(
     (state) => state.userDetails,
   );
+
+  const maxDate = subtractYears(new Date(), UserAge.MIN);
+  const minDate = subtractYears(new Date(), UserAge.MAX);
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
@@ -62,6 +72,7 @@ const Settings: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
+        dateOfBirth: userDetails.dateOfBirth ?? null,
       });
     }
   }, [userDetails]);
@@ -71,58 +82,69 @@ const Settings: FC = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.profileWrapper}>
-        <Text style={styles.title}>Profile</Text>
-        <View style={styles.avatarSection}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: userDetails?.avatar?.url ?? getImageUri(defaultUserAvatar),
-            }}
-          />
-        </View>
-        <Stack space={20}>
-          <Input
-            label="Name"
-            name="fullName"
-            control={control}
-            errors={errors}
-            placeholder="Enter your full name"
-          />
-          <Dropdown
-            name="gender"
-            label="Gender"
-            items={GENDER_OPTIONS}
-            control={control}
-            errors={errors}
-            placeholder="Select gender"
-          />
-        </Stack>
-        <View style={styles.buttons}>
-          <Stack space={20} isHorizontal>
-            <View style={styles.button}>
-              <Button
-                label="Cancel"
-                variant={ButtonVariant.CANCEL}
-                onPress={handleCancel}
-                size="small"
-              />
-            </View>
-            <View style={styles.button}>
-              <Button
-                label="Save"
-                onPress={handleSubmit(handleUpdateProfile)}
-                size="small"
-              />
-            </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.profileWrapper}>
+          <Text style={styles.title}>Profile</Text>
+          <View style={styles.avatarSection}>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: userDetails?.avatar?.url ?? getImageUri(defaultUserAvatar),
+              }}
+            />
+          </View>
+          <Stack space={20}>
+            <Input
+              label="Name"
+              name="fullName"
+              control={control}
+              errors={errors}
+              placeholder="Enter your full name"
+            />
+            <Dropdown
+              name="gender"
+              label="Gender"
+              items={GENDER_OPTIONS}
+              control={control}
+              errors={errors}
+              placeholder="Select gender"
+            />
+            <DatePicker
+              label="Date of birth"
+              name="dateOfBirth"
+              control={control}
+              errors={errors}
+              maximumDate={maxDate}
+              minimumDate={minDate}
+              placeholder="Select date"
+            />
           </Stack>
+          <View style={styles.buttons}>
+            <Stack space={20} isHorizontal>
+              <View style={styles.button}>
+                <Button
+                  label="Cancel"
+                  variant={ButtonVariant.CANCEL}
+                  onPress={handleCancel}
+                  size="small"
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  label="Save"
+                  onPress={handleSubmit(handleUpdateProfile)}
+                  size="small"
+                />
+              </View>
+            </Stack>
+          </View>
+        </View>
+        <View style={styles.singOutWrapper}>
+          <Button label="Sign Out" onPress={handleLogout} />
         </View>
       </View>
-      <View style={styles.singOutWrapper}>
-        <Button label="Sign Out" onPress={handleLogout} />
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 

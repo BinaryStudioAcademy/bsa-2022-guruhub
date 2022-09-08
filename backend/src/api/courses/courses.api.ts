@@ -261,6 +261,32 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       return rep.status(HttpCode.CREATED).send(chooseMentor);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.PUT,
+    url: CoursesApiPath.$ID_MENTORS,
+    schema: {
+      params: courseGetParamsValidationSchema,
+      body: courseMentorCreateBodyValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseSelectMentorRequestParamsDto;
+        Body: CourseSelectMentorRequestDto;
+      }>,
+      rep,
+    ) {
+      const { mentorId, menteeId } = req.body;
+      const { id } = req.params;
+      const changeMentor = await mentorService.changeMentor({
+        courseId: id,
+        mentorId,
+        menteeId,
+      });
+
+      return rep.status(HttpCode.OK).send(changeMentor);
+    },
+  });
 };
 
 export { initCoursesApi };
