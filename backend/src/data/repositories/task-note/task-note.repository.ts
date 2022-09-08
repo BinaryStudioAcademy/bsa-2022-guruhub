@@ -30,7 +30,9 @@ class TaskNote {
     const { results, total } = await this.#TaskNoteModel
       .query()
       .where({ taskId })
-      .withGraphFetched('author(withoutPassword).[userDetails]')
+      .withGraphFetched(
+        'author(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
       .orderBy('createdAt', SortOrder.DESC)
       .page(page, count)
       .castTo<Page<TaskNoteM & TaskNoteGetItemResponseDto>>();

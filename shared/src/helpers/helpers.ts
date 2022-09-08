@@ -1,4 +1,4 @@
-export { getFormattedDate, isTodayCheck } from './date/date';
+export { getFormattedDate, isTodayCheck, subtractYears } from './date/date';
 export { debounce } from './debounce/debounce';
 export { checkHasPermission } from './permissions/permissions';
 export { sanitizeHTML } from './sanitize/sanitize';

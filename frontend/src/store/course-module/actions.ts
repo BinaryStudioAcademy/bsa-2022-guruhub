@@ -48,12 +48,10 @@ const getTask = createAsyncThunk<
   TaskGetByMenteeIdAndModuleId,
   AsyncThunkConfig
 >(ActionType.GET_TASK, async ({ menteeId, moduleId }, { extra }) => {
-  const { tasksApi, notification } = extra;
+  const { tasksApi } = extra;
   const task = await tasksApi.getByMenteeIdAndModuleId({ menteeId, moduleId });
 
   if (!task) {
-    notification.info(NotificationMessage.TASK_DOES_NOT_EXIST);
-
     return null;
   }
 

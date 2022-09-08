@@ -146,11 +146,12 @@ class Interview {
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, interviewUpdateInfoRequestDto } = data;
-    const { interviewerUserId } = interviewUpdateInfoRequestDto;
+    const { interviewerUserId, status } = interviewUpdateInfoRequestDto;
 
     const interview = await this.#interviewRepository.update({
       id,
       interviewerUserId,
+      status,
     });
 
     return interview;

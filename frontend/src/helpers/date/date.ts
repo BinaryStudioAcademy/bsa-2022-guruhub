@@ -1,1 +1,5 @@
-export { getFormattedDate, isTodayCheck } from 'guruhub-shared/helpers/helpers';
+export {
+  getFormattedDate,
+  isTodayCheck,
+  subtractYears,
+} from 'guruhub-shared/helpers/helpers';
