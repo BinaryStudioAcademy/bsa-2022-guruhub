@@ -18,7 +18,7 @@ type Props = {
 };
 
 const TaskMessageArea: FC<Props> = ({
-  isMentor = false,
+  isMentor,
   isLoading,
   onSendOnReview,
   onApprove,
