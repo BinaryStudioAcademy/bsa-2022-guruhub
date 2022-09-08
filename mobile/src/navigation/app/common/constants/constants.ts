@@ -10,6 +10,7 @@ import { Billing } from '~/components/billing/billing';
 import { Chat } from '~/components/chat/chat';
 import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
 import { EditCourseCategory } from '~/components/course/components/components';
+import { Task } from '~/components/course-module/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
 import { Interview } from '~/components/interview/interview';
@@ -161,6 +162,11 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         component: CourseModule,
         permissions: [],
         requireAuth: true,
+      },
+      {
+        name: AppScreenName.TASK,
+        component: Task,
+        permissions: [],
       },
     ],
   },

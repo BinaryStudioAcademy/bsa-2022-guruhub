@@ -3,7 +3,7 @@ import { Model, RelationMappings } from 'objection';
 import { DbTableName, TaskStatus } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
-import { MenteesToMentors } from '../models';
+import { CourseModule, MenteesToMentors } from '../models';
 
 class Task extends Abstract {
   public 'status': TaskStatus;
@@ -20,6 +20,14 @@ class Task extends Abstract {
         join: {
           from: `${DbTableName.TASKS}.menteesToMentorsId`,
           to: `${DbTableName.MENTEES_TO_MENTORS}.id`,
+        },
+      },
+      module: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: CourseModule,
+        join: {
+          from: `${DbTableName.TASKS}.moduleId`,
+          to: `${DbTableName.COURSE_MODULES}.id`,
         },
       },
     };
