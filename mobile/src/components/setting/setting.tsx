@@ -70,6 +70,8 @@ const Settings: FC = () => {
       return;
     }
 
+    // TODO: Можно как-то отобризить выбранную картинку запроса на сервер ?
+
     setSelectedImage(image);
   };
 
@@ -86,6 +88,8 @@ const Settings: FC = () => {
           userId: (user as UserWithPermissions).id,
         }),
       );
+
+      setSelectedImage(null);
     }
   };
 

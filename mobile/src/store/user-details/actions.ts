@@ -48,17 +48,25 @@ const updateUserAvatar = createAsyncThunk<
   UserDetailsResponseDto,
   UserDetailsUpdateAvatarRequestDto,
   AsyncThunkConfig
->(ActionType.UPDATE_USER_AVATAR, async ({ file, userId }, { extra }) => {
-  const { userDetailsApi, notification } = extra;
+>(
+  ActionType.UPDATE_USER_AVATAR,
+  async ({ file, userId }, { dispatch, extra }) => {
+    const { userDetailsApi } = extra;
 
-  const updatedUserDetails = await userDetailsApi.updateUserAvatar({
-    file,
-    userId,
-  });
+    const updatedUserDetails = await userDetailsApi.updateUserAvatar({
+      file,
+      userId,
+    });
 
-  notification.success(NotificationMessage.PROFILE_AVATAR_UPDATE);
+    dispatch(
+      app.notify({
+        type: NotificationType.SUCCESS,
+        message: NotificationMessage.UPDATE_SUCCESS,
+      }),
+    );
 
-  return updatedUserDetails;
-});
+    return updatedUserDetails;
+  },
+);
 
 export { getUserDetails, updateUserAvatar, updateUserDetails };
