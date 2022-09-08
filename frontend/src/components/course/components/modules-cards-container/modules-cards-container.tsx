@@ -1,7 +1,11 @@
 import { AppRoute } from 'common/enums/enums';
-import { CourseGetResponseDto, FC } from 'common/types/types';
+import {
+  CourseGetResponseDto,
+  CourseModulesGetAllItemResponseDto,
+  FC,
+  TaskWithModuleResponseDto,
+} from 'common/types/types';
 import { Link } from 'components/common/common';
-import { useAppSelector } from 'hooks/hooks';
 
 import { ModuleCard } from './components/components';
 import styles from './styles.module.scss';
@@ -9,11 +13,18 @@ import styles from './styles.module.scss';
 type Props = {
   isMentorView: boolean;
   studentId: number;
+  modules: CourseModulesGetAllItemResponseDto[];
+  tasks: TaskWithModuleResponseDto[];
+  course: CourseGetResponseDto;
 };
 
-const ModulesCardsContainer: FC<Props> = ({ isMentorView, studentId }) => {
-  const { course, modules, tasks } = useAppSelector((state) => state.course);
-
+const ModulesCardsContainer: FC<Props> = ({
+  isMentorView,
+  studentId,
+  modules,
+  tasks,
+  course,
+}) => {
   if (isMentorView) {
     return (
       <ul className={styles.container}>

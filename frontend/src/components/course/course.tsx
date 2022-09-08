@@ -38,6 +38,8 @@ const Course: FC = () => {
     mentors,
     mentor,
     mentees,
+    modules,
+    tasks,
     isMentorChoosingEnabled,
     isMentor,
     menteesByCourseDataStatus,
@@ -49,6 +51,8 @@ const Course: FC = () => {
     user: auth.user,
     mentors: course.mentors,
     mentor: course.mentor,
+    modules: course.modules,
+    tasks: course.tasks,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
@@ -188,6 +192,11 @@ const Course: FC = () => {
   }
 
   const isUserAuthorized = Boolean(user);
+  const canSeeStudents =
+    isMentor &&
+    !isMentorView &&
+    menteesByCourseDataStatus === DataStatus.FULFILLED;
+  const canChooseMentor = isMentorChoosingEnabled && !isMentorView;
 
   return (
     <div className={styles.container}>
@@ -240,6 +249,9 @@ const Course: FC = () => {
           <ModulesCardsContainer
             isMentorView={isMentorView}
             studentId={Number(studentId)}
+            modules={modules}
+            tasks={tasks}
+            course={course}
           />
         </div>
       </div>
@@ -252,15 +264,13 @@ const Course: FC = () => {
               onMentorChange={handleChooseMentorModalToggle}
             />
           )}
-          {isMentor &&
-            !isMentorView &&
-            menteesByCourseDataStatus === DataStatus.FULFILLED && (
-              <MyStudentsContainer
-                mentees={mentees}
-                courseId={Number(courseId)}
-              />
-            )}
-          {isMentorChoosingEnabled && !isMentorView && (
+          {canSeeStudents && (
+            <MyStudentsContainer
+              mentees={mentees}
+              courseId={Number(courseId)}
+            />
+          )}
+          {canChooseMentor && (
             <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
           )}
         </div>

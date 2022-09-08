@@ -96,6 +96,11 @@ const CourseModule: FC = () => {
     ? `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${courseId}`
     : `${AppRoute.COURSES}/${courseId}`;
 
+  const canSeeTaskAbsencePlaceholder = !task && !isMentorView && !isMentor;
+
+  const canManipulateTask =
+    user && task && task.status !== TaskStatus.COMPLETED;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -121,7 +126,7 @@ const CourseModule: FC = () => {
         <Content html={courseModule?.description ?? ''} />
       </div>
       <div>
-        {user && task && task.status !== TaskStatus.COMPLETED && (
+        {canManipulateTask && (
           <TaskManipulate
             onSendOnReview={handleSendOnReview}
             onApprove={handleApprove}
@@ -130,7 +135,7 @@ const CourseModule: FC = () => {
           />
         )}
         {user && task && <TaskNotes notes={notes} />}
-        {!task && !isMentorView && !isMentor && (
+        {canSeeTaskAbsencePlaceholder && (
           <p className={styles.taskAbsenceTitle}>Task does not exist.</p>
         )}
       </div>
