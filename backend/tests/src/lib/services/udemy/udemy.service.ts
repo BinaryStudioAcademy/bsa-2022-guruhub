@@ -6,7 +6,7 @@ import {
 
 import { ENV } from '~/lib/common/enums/enums';
 import { Response, UdemyCourseInfo } from '~/lib/common/types/types';
-import { choose, randint } from '~/lib/helpers/helpers';
+import { getRandomArrayElement, getRandomInteger } from '~/lib/helpers/helpers';
 
 import { HttpService } from '../http/http.service';
 import { RequestBuilder } from '../http/request-builder';
@@ -41,9 +41,12 @@ class UdemyService {
   }
 
   public getRandomCourseArray(): Promise<Response<UdemyCoursesGetResponseDto>> {
-    const page = randint(this.#MIN_PAGE_NUMBER, this.#COURSE_MAX_PAGE_NUMBER);
+    const page = getRandomInteger(
+      this.#MIN_PAGE_NUMBER,
+      this.#COURSE_MAX_PAGE_NUMBER,
+    );
 
-    const search = choose(this.#COURSE_SEARCH_TERMS);
+    const search = getRandomArrayElement(this.#COURSE_SEARCH_TERMS);
 
     return this.#udemyRequest()
       .get()
@@ -98,7 +101,7 @@ class UdemyService {
 
   public async getRandomCourse(): Promise<UdemyCourseGetResponseDto> {
     const courseArrayResponse = await this.getRandomCourseArray();
-    const course = choose(courseArrayResponse.body.results);
+    const course = getRandomArrayElement(courseArrayResponse.body.results);
 
     return course;
   }
