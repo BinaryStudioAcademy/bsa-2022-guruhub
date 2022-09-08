@@ -41,7 +41,7 @@ const Course: FC = () => {
       : CourseScreenName.MY_STUDENTS;
 
     return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
-  }, [userPermissions, isMentor]);
+  }, [userPermissions, isMentor, user]);
 
   useEffect(() => {
     navigation.setOptions({

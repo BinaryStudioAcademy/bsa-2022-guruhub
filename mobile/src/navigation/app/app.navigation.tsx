@@ -30,7 +30,7 @@ const App: FC = () => {
       : NO_AUTH_NAVIGATION_ITEMS.flatMap((item) => item.subroutes);
 
     return getAllowedScreens(screens, userPermissions);
-  }, [userPermissions]);
+  }, [userPermissions, user]);
 
   return (
     <Drawer.Navigator
