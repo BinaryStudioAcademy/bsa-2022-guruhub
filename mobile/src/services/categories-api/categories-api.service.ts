@@ -23,7 +23,7 @@ class CategoriesApi {
 
   public getAll(): Promise<CategoryGetAllResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`,
+      `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.DASHBOARD}`,
       {
         method: HttpMethod.GET,
       },
