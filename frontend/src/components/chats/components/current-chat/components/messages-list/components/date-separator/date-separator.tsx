@@ -1,4 +1,5 @@
 import { FC } from 'common/types/types';
+import { getFormattedDate, isTodayCheck } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -7,14 +8,11 @@ type Props = {
 };
 
 const DateSeparator: FC<Props> = ({ postTime }) => {
+  const isToday = isTodayCheck(new Date(postTime));
+
   return (
     <div className={styles.dateSeparator}>
-      {`${new Date(postTime).getDate()} ${new Date(postTime).toLocaleString(
-        'default',
-        {
-          month: 'short',
-        },
-      )}`}
+      {isToday ? 'Today' : getFormattedDate(postTime, 'dd MMM')}
     </div>
   );
 };
