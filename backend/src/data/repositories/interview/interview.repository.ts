@@ -105,9 +105,11 @@ class Interview {
     return this.#InterviewModel
       .query()
       .where({ intervieweeUserId })
-      .andWhere('status', InterviewStatus.IN_PROGRESS)
-      .orWhere('status', InterviewStatus.NEW)
-      .orWhere('status', InterviewStatus.PENDING)
+      .whereIn('status', [
+        InterviewStatus.IN_PROGRESS,
+        InterviewStatus.NEW,
+        InterviewStatus.PENDING,
+      ])
       .execute();
   }
 
