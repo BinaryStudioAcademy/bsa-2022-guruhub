@@ -10,6 +10,7 @@ export { InvalidFilesError } from './invalid-files-error/invalid-files-error.exc
 export { MenteesToMentorsError } from './mentees-to-mentors-error/mentees-to-mentors-error.exception';
 export { PermissionsError } from './permission-error/permission-error.exception';
 export { TasksError } from './tasks-error/tasks-error.exception';
+export { UdemyError } from './udemy-error/udemy-error.exception';
 export { UserDetailsError } from './user-details-error/user-details-error.exception';
 export { UsersError } from './users-error/users-error.exception';
 export {

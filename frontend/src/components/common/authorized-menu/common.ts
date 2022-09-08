@@ -26,6 +26,12 @@ const routes: NavigationMenuItem[] = [
           PermissionKey.MANAGE_INTERVIEW,
         ],
       },
+      {
+        name: 'Courses Management',
+        iconName: 'course',
+        href: AppRoute.COURSES_MANAGEMENT,
+        permissions: [PermissionKey.MANAGE_CATEGORIES],
+      },
     ],
   },
   {
@@ -34,13 +40,13 @@ const routes: NavigationMenuItem[] = [
       {
         name: 'Billing',
         iconName: 'billing',
-        href: AppRoute.SETTINGS_BILLING,
+        href: AppRoute.BILLING,
         permissions: [],
       },
       {
         name: 'Profile Settings',
         iconName: 'settings',
-        href: AppRoute.SETTINGS_PROFILE,
+        href: AppRoute.PROFILE,
         permissions: [],
       },
       {

@@ -9,7 +9,7 @@
   border-radius: 20px;
 }
 
-.cardContentWrapper {
+.cardInfoWrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,5 +28,7 @@
 }
 
 .noteContent {
+  margin: 6px;
+  white-space: pre-wrap;
   word-break: break-all;
 }

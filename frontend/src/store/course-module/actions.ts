@@ -11,6 +11,7 @@ import {
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
 } from 'common/types/types';
+import { generateDynamicPath } from 'helpers/helpers';
 
 import { ActionType } from './common';
 
@@ -24,7 +25,7 @@ const getById = createAsyncThunk<
 
   if (!module) {
     notification.error(NotificationMessage.MODULE_NOT_FOUND);
-    navigation.push(`${AppRoute.COURSES}/${courseId}` as AppRoute);
+    navigation.push(generateDynamicPath(AppRoute.COURSES_$ID, { courseId }));
   }
 
   return module;
@@ -44,12 +45,16 @@ const createNote = createAsyncThunk<
 });
 
 const getTask = createAsyncThunk<
-  TaskGetItemReponseDto,
+  TaskGetItemReponseDto | null,
   TaskGetByMenteeIdAndModuleId,
   AsyncThunkConfig
 >(ActionType.GET_TASK, async ({ menteeId, moduleId }, { extra }) => {
   const { tasksApi } = extra;
   const task = await tasksApi.getByMenteeIdAndModuleId({ menteeId, moduleId });
+
+  if (!task) {
+    return null;
+  }
 
   return task;
 });

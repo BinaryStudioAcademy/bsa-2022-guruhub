@@ -32,6 +32,12 @@ class MenteesToMentors {
     return this.#menteesToMentorsRepository.create(menteesToMentors);
   }
 
+  public async changeMentor(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<MenteesToMentorsResponseDto> {
+    return this.#menteesToMentorsRepository.changeMentor(menteesToMentors);
+  }
+
   public checkIsMentee(menteesToMentors: {
     courseId: number;
     menteeId: number;

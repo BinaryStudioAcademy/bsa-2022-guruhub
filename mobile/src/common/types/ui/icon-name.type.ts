@@ -15,6 +15,7 @@ type IconName =
   | 'trash'
   | 'interview'
   | 'visibility'
-  | 'visibilityOff';
+  | 'visibilityOff'
+  | 'send';
 
 export { type IconName };

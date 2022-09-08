@@ -45,6 +45,7 @@ const CategoryList: FC<Props> = ({
           isActive={category.id === activeCategoryId}
         />
       )}
+      showsHorizontalScrollIndicator={false}
       style={styles.container}
       horizontal={true}
     />

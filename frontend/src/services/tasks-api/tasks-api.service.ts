@@ -8,9 +8,12 @@ import {
   EntityPagination,
   TaskByIdRequestParamsDto,
   TaskGetByMenteeIdAndModuleId,
+  TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskGetItemReponseDto,
   TaskNoteGetItemResponseDto,
   TaskNoteManipulateRequestDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -46,7 +49,7 @@ class TasksApi {
   public getByMenteeIdAndModuleId({
     menteeId,
     moduleId,
-  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto> {
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
     return this.#http.load<TaskGetItemReponseDto>(
       `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.MODULES}/${moduleId}${
         TasksApiPath.MENTEES
@@ -67,6 +70,31 @@ class TasksApi {
       {
         method: HttpMethod.GET,
       },
+    );
+  }
+
+  public getByMenteeIdCourseIdModuleId({
+    courseId,
+    menteeId,
+    moduleId,
+  }: TaskGetByMenteeIdCourseIdModuleIdRequestDto): Promise<TaskGetItemReponseDto> {
+    return this.#http.load<TaskGetItemReponseDto>(
+      `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.COURSES}/${courseId}${
+        TasksApiPath.MODULES
+      }/${moduleId}${TasksApiPath.MENTEES}/${menteeId}`,
+    );
+  }
+
+  public getAllByCourseIdAndMenteeId({
+    courseId,
+    menteeId,
+  }: TasksGetByCourseIdAndMenteeIdRequestDto): Promise<
+    TaskWithModuleResponseDto[]
+  > {
+    return this.#http.load<TaskWithModuleResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.TASKS}${TasksApiPath.COURSES}/${courseId}${
+        TasksApiPath.MENTEES
+      }/${menteeId}`,
     );
   }
 }

@@ -1,10 +1,11 @@
-import { DataStatus, SearchValue } from 'common/enums/enums';
+import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useNavigate,
   useUserSearch,
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
@@ -32,6 +33,12 @@ const Chats: FC = () => {
     currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
   }));
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(AppRoute.ROOT);
+  }
 
   const dispatch = useAppDispatch();
 

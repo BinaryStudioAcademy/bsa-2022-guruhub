@@ -8,6 +8,7 @@ type UserDetailsResponseDto = {
   gender: UserGender | null;
   avatar: FileGetResponseDto | null;
   dateOfBirth: string | null;
+  telegramUsername: string | null;
 };
 
 export { type UserDetailsResponseDto };

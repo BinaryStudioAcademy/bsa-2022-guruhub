@@ -4,6 +4,7 @@ import {
   CoursesApiPath,
   HttpCode,
   HttpMethod,
+  PaginationDefaultValue,
   PermissionKey,
 } from '~/common/enums/enums';
 import {
@@ -15,6 +16,7 @@ import {
   CourseSelectMentorRequestDto,
   CourseSelectMentorRequestParamsDto,
   CourseUpdateCategoryRequestDto,
+  EntityPaginationRequestQueryDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import {
@@ -30,6 +32,7 @@ import {
   courseMentorsFiltering as courseMentorsFilteringValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
+  pagination as paginationValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -44,7 +47,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.GET,
-    url: CoursesApiPath.ROOT,
+    url: CoursesApiPath.DASHBOARD,
     schema: {
       querystring: courseFilteringValidationSchema,
     },
@@ -55,9 +58,33 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep,
     ) {
       const { categoryKey, title } = req.query;
-      const courses = await courseService.getAll({ categoryKey, title });
+      const courses = await courseService.getAllWithCategories({
+        categoryKey,
+        title,
+      });
 
       return rep.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.ROOT,
+    schema: { querystring: paginationValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const {
+        count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+      const courseWithCategories = await courseService.getAll({
+        count,
+        page,
+      });
+
+      return res.status(HttpCode.OK).send(courseWithCategories);
     },
   });
 
@@ -232,6 +259,32 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.CREATED).send(chooseMentor);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PUT,
+    url: CoursesApiPath.$ID_MENTORS,
+    schema: {
+      params: courseGetParamsValidationSchema,
+      body: courseMentorCreateBodyValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseSelectMentorRequestParamsDto;
+        Body: CourseSelectMentorRequestDto;
+      }>,
+      rep,
+    ) {
+      const { mentorId, menteeId } = req.body;
+      const { id } = req.params;
+      const changeMentor = await mentorService.changeMentor({
+        courseId: id,
+        mentorId,
+        menteeId,
+      });
+
+      return rep.status(HttpCode.OK).send(changeMentor);
     },
   });
 };

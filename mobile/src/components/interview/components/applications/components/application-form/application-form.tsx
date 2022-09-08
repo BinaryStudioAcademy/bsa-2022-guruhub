@@ -79,7 +79,7 @@ const ApplicationForm: FC<Props> = ({
           <View style={isEditMode && styles.buttonHide}>
             <Button
               label="Edit"
-              variant={ButtonVariant.SECONDARY}
+              variant={ButtonVariant.PRIMARY}
               onPress={toggleEditMode}
               size="small"
             />

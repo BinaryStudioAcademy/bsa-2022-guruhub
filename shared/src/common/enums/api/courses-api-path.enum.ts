@@ -2,6 +2,7 @@ enum CoursesApiPath {
   ROOT = '/',
   MODULES = '/modules',
   CATEGORY = '/category',
+  CATEGORIES = '/categories',
   $ID = '/:id',
   $ID_MODULES = '/:id/modules',
   $ID_MENTORS = '/:id/mentors',
@@ -13,6 +14,7 @@ enum CoursesApiPath {
   MENTORS = '/mentors',
   MENTEES = '/mentees',
   $ID_CATEGORY = '/:id/category',
+  DASHBOARD = '/dashboard',
 }
 
 export { CoursesApiPath };

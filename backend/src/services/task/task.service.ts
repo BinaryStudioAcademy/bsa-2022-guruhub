@@ -2,11 +2,14 @@ import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
 import {
   EntityPagination,
   TaskGetByMenteeIdAndModuleId,
+  TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskGetItemReponseDto,
   TaskManipulateRequestArgumentsDto,
   TaskNoteCreateArgumentsDto,
   TaskNoteGetAllArgumentsDto,
   TaskNoteGetItemResponseDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
 } from '~/common/types/types';
 import { task as taskRep } from '~/data/repositories/repositories';
 import { TasksError } from '~/exceptions/exceptions';
@@ -81,10 +84,24 @@ class Task {
   public async getByMenteeIdAndModuleId({
     moduleId,
     menteeId,
-  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto> {
+  }: TaskGetByMenteeIdAndModuleId): Promise<TaskGetItemReponseDto | null> {
     const task = await this.#taskRepository.getByMenteeIdAndModuleId({
       moduleId,
       menteeId,
+    });
+
+    return task;
+  }
+
+  public async getByMenteeIdCourseIdModuleId({
+    courseId,
+    menteeId,
+    moduleId,
+  }: TaskGetByMenteeIdCourseIdModuleIdRequestDto): Promise<TaskGetItemReponseDto> {
+    const task = await this.#taskRepository.getByMenteeIdCourseIdModuleId({
+      courseId,
+      menteeId,
+      moduleId,
     });
 
     if (!task) {
@@ -102,6 +119,18 @@ class Task {
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
     return this.#taskNoteService.getAll({ count, page, taskId });
+  }
+
+  public getAllByCourseIdAndMenteeId({
+    courseId,
+    menteeId,
+  }: TasksGetByCourseIdAndMenteeIdRequestDto): Promise<
+    TaskWithModuleResponseDto[]
+  > {
+    return this.#taskRepository.getAllByCourseIdAndMenteeId({
+      courseId,
+      menteeId,
+    });
   }
 }
 

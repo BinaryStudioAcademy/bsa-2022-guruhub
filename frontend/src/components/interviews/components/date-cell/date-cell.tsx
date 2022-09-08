@@ -4,7 +4,11 @@ import { getFormattedDate } from 'helpers/helpers';
 import { CellProps } from 'react-table';
 
 const DateCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
-  return <span>{getFormattedDate(value, 'HH:mm dd.MM.yyyy')}</span>;
+  const formattedDate = value
+    ? getFormattedDate(value, 'HH:mm dd.MM.yyyy')
+    : 'Not Set';
+
+  return <span>{formattedDate}</span>;
 };
 
 export { DateCell };
