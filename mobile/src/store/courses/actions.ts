@@ -241,14 +241,6 @@ const checkIsMentor = createAsyncThunk<
 
 const clearMentor = createAction(ActionType.CLEAR_MENTOR);
 
-const setCourse = createAsyncThunk<
-  CourseGetResponseDto,
-  CourseGetResponseDto,
-  AsyncThunkConfig
->(ActionType.SET_A_COURSE, async (payload) => {
-  return payload;
-});
-
 export {
   addCourse,
   becomeMentor,
@@ -262,7 +254,6 @@ export {
   getMenteesMentor,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
-  setCourse,
   updateCategory,
   updateisMentorChoosingEnabled,
   updateVisibilityBecomeMentor,

@@ -13,7 +13,6 @@ enum ActionType {
   UPDATE_VISIBILITY_BECOME_MENTOR = 'courses/update-visibility-become-mentor',
   UPDATE_CATEGORY = 'courses/update-category',
   CHOOSE_A_MENTOR = 'courses/choose-a-mentor',
-  SET_A_COURSE = 'courses/set-a-course',
   SET_IS_MENTOR_CHOOSING_ENABLED = 'courses/set-is-mentor-choosing-enabled',
 }
 
