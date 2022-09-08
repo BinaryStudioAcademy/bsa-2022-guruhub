@@ -33,4 +33,4 @@ export { PermissionKey } from './permission/permission';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
 export { AppColor, AppFontFamily, ButtonVariant } from './ui/ui';
-export { UserGender } from './user/user.enum';
+export { UserAge, UserGender } from './user/user.enum';
