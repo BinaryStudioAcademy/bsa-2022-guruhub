@@ -1,9 +1,7 @@
 import { ChatMessageGetAllItemResponseDto } from 'common/types/types';
 import { getFormattedDate } from 'helpers/helpers';
 
-type DateToMessagesMap = {
-  [key: string]: ChatMessageGetAllItemResponseDto[];
-};
+type DateToMessagesMap = Record<string, ChatMessageGetAllItemResponseDto[]>;
 
 const groupMessagesByDate = (
   messages: ChatMessageGetAllItemResponseDto[],
