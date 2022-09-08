@@ -1,13 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import { CourseModulesGetAllItemResponseDto } from '~/common/types/types';
 import {
+  FlatList,
   Pressable,
   Spinner,
-  Stack,
   Text,
   View,
 } from '~/components/common/common';
+import { useAppSelector } from '~/hooks/hooks';
 
 import { Module } from './components/module/module';
 import { styles } from './styles';
@@ -23,9 +24,7 @@ const CourseModules: FC<Props> = ({
   isLoading,
   onModulePress,
 }) => {
-  if (!courseModules.length) {
-    return <></>;
-  }
+  const user = useAppSelector((state) => state.auth.user);
 
   return (
     <View style={styles.container}>
@@ -33,20 +32,28 @@ const CourseModules: FC<Props> = ({
       {isLoading ? (
         <Spinner />
       ) : (
-        <Stack space={15}>
-          {courseModules.map((module, index) => (
+        <FlatList
+          data={courseModules}
+          keyExtractor={({ id }): string => id.toString()}
+          renderItem={({ item: module, index }): ReactElement => (
             <Pressable
               onPress={(): void => onModulePress(module.courseId, module.id)}
+              disabled={!user}
             >
               <Module
-                key={module.id}
                 index={index}
                 title={module.title}
                 description={module.description}
               />
             </Pressable>
-          ))}
-        </Stack>
+          )}
+          ListEmptyComponent={(): ReactElement => (
+            <Text style={styles.noModules}>No modules found</Text>
+          )}
+          ItemSeparatorComponent={(): ReactElement => (
+            <View style={styles.separator}></View>
+          )}
+        />
       )}
     </View>
   );

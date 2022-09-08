@@ -103,7 +103,10 @@ const Course: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => setIsDescriptionExpanded(false);
+      return () => {
+        setIsDescriptionExpanded(false);
+        dispatch(courseModulesActions.clearModules());
+      };
     }, []),
   );
 
@@ -121,7 +124,7 @@ const Course: FC = () => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView nestedScrollEnabled={true}>
       <View style={styles.container}>
         <Text style={styles.h1}>{course?.title}</Text>
         <View style={styles.currentCategory}>

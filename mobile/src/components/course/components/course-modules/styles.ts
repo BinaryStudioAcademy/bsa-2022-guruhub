@@ -13,6 +13,15 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 20,
   },
+  separator: {
+    height: 15,
+  },
+  noModules: {
+    fontFamily: AppFontFamily.INTER_400,
+    color: AppColor.TEXT.GRAY_100,
+    fontSize: 16,
+    lineHeight: 20,
+  },
 });
 
 export { styles };
