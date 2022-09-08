@@ -27,7 +27,9 @@ class MenteesToMentors {
         mentorId,
         menteeId,
       })
-      .withGraphFetched('mentor(withoutPassword).[userDetails]')
+      .withGraphFetched(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
   }
@@ -62,7 +64,9 @@ class MenteesToMentors {
       .query()
       .where({ courseId })
       .andWhere({ menteeId })
-      .withGraphJoined('mentor(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
       .castTo<MenteesToMentorsResponseDto>()
       .first();
 
@@ -102,7 +106,7 @@ class MenteesToMentors {
           .where('mentor:userDetails.fullName', 'ilike', `%${fullName}%`),
       )
       .withGraphJoined(
-        '[mentee(withoutPassword).[userDetails], mentor(withoutPassword).[userDetails]]',
+        '[mentee(withoutPassword).[userDetails(withoutMoneyBalance)], mentor(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .execute();
   }

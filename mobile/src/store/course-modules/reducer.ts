@@ -4,15 +4,26 @@ import { DataStatus } from '~/common/enums/enums';
 import {
   CourseModuleGetByIdResponseDto,
   CourseModulesGetAllItemResponseDto,
+  TaskGetItemReponseDto,
+  TaskNoteGetItemResponseDto,
 } from '~/common/types/types';
 
-import { getCourseModules, getModuleById } from './actions';
+import {
+  createNote,
+  getCourseModules,
+  getModuleById,
+  getNotes,
+  getTask,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
   dataModuleStatus: DataStatus;
   courseModules: CourseModulesGetAllItemResponseDto[];
   module: CourseModuleGetByIdResponseDto | null;
+  task: TaskGetItemReponseDto | null;
+  notes: TaskNoteGetItemResponseDto[];
+  totalNotesNumber: number;
 };
 
 const initialState: State = {
@@ -20,6 +31,9 @@ const initialState: State = {
   dataModuleStatus: DataStatus.IDLE,
   courseModules: [],
   module: null,
+  task: null,
+  notes: [],
+  totalNotesNumber: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -43,6 +57,36 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getModuleById.rejected, (state) => {
     state.dataModuleStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(getTask.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getTask.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.task = payload;
+  });
+  builder.addCase(getTask.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.task = null;
+  });
+  builder.addCase(getNotes.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getNotes.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.notes = payload.items;
+    state.totalNotesNumber = payload.total;
+  });
+  builder.addCase(getNotes.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.notes = [];
+    state.totalNotesNumber = 0;
+  });
+  builder.addCase(createNote.fulfilled, (state, { payload }) => {
+    state.notes = [payload, ...state.notes];
+    state.totalNotesNumber += 1;
+    (state.task as TaskGetItemReponseDto).status = payload.status;
   });
 });
 
