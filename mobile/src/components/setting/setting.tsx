@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
-import { ButtonVariant, DataStatus, UserGender } from '~/common/enums/enums';
+import {
+  AuthScreenName,
+  ButtonVariant,
+  DataStatus,
+  RootScreenName,
+  UserGender,
+} from '~/common/enums/enums';
 import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
 import {
   Button,
@@ -17,6 +23,7 @@ import { getImageUri } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
+  useAppNavigate,
   useAppSelector,
   useEffect,
 } from '~/hooks/hooks';
@@ -31,8 +38,13 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
-  const { userDetails, dataStatus } = useAppSelector(
-    (state) => state.userDetails,
+  const navigation = useAppNavigate();
+  const { user, userDetails, dataStatus } = useAppSelector(
+    ({ auth, userDetails }) => ({
+      user: auth.user,
+      userDetails: userDetails.userDetails,
+      dataStatus: userDetails.dataStatus,
+    }),
   );
 
   const { control, errors, handleSubmit, reset } =
@@ -40,6 +52,8 @@ const Settings: FC = () => {
       defaultValues: DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
+
+  const hasUser = Boolean(user);
 
   const handleCancel = (): void => reset();
 
@@ -49,8 +63,17 @@ const Settings: FC = () => {
     dispatch(userDetailsActions.updateUserDetails(payload));
   };
 
-  const handleLogout = (): void => {
-    dispatch(authActions.signOut());
+  const handleLogout = async (): Promise<void> => {
+    await dispatch(authActions.signOut());
+    navigation.navigate(RootScreenName.AUTH, {
+      screen: AuthScreenName.SIGN_IN,
+    });
+  };
+
+  const handleLogIn = (): void => {
+    navigation.navigate(RootScreenName.AUTH, {
+      screen: AuthScreenName.SIGN_IN,
+    });
   };
 
   useEffect(() => {
@@ -68,6 +91,14 @@ const Settings: FC = () => {
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
+  }
+
+  if (!hasUser) {
+    return (
+      <View style={styles.singInWrapper}>
+        <Button label="Sign In" onPress={handleLogIn} />
+      </View>
+    );
   }
 
   return (

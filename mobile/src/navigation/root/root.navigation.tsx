@@ -44,10 +44,16 @@ const Root: FC = () => {
           component={AppNavigation}
         />
       ) : (
-        <NativeStack.Screen
-          name={RootScreenName.AUTH}
-          component={AuthNavigation}
-        />
+        <>
+          <NativeStack.Screen
+            name={RootScreenName.AUTH}
+            component={AuthNavigation}
+          />
+          <NativeStack.Screen
+            name={RootScreenName.APP}
+            component={AppNavigation}
+          />
+        </>
       )}
     </NativeStack.Navigator>
   );

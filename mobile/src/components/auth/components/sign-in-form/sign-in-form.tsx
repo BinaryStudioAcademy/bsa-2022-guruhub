@@ -5,6 +5,7 @@ import {
   Button,
   Input,
   InputSecure,
+  Pressable,
   Text,
   View,
 } from '~/components/common/common';
@@ -16,13 +17,16 @@ import { styles } from './styles';
 
 type Props = {
   onSubmit: (payload: UserSignInRequestDto) => void;
+  onSkipSignIn: () => void;
 };
 
-const SignInForm: FC<Props> = ({ onSubmit }) => {
+const SignInForm: FC<Props> = ({ onSubmit, onSkipSignIn }) => {
   const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
     defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
     validationSchema: userSignInValidationSchema,
   });
+
+  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
 
   return (
     <>
@@ -49,6 +53,13 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
         <View style={styles.buttonWrapper}>
           <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
         </View>
+        <Pressable
+          style={styles.skipWrapper}
+          hitSlop={hitSlop}
+          onPress={onSkipSignIn}
+        >
+          <Text style={styles.skipText}>Skip for now</Text>
+        </Pressable>
       </View>
     </>
   );

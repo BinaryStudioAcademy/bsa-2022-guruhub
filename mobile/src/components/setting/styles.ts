@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
     width: 215,
     alignSelf: 'center',
   },
+  singInWrapper: {
+    position: 'absolute',
+    top: '50%',
+    width: 215,
+    alignSelf: 'center',
+  },
 });
 
 export { styles };

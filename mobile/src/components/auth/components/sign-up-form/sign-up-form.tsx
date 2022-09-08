@@ -5,6 +5,7 @@ import {
   Button,
   Input,
   InputSecure,
+  Pressable,
   Text,
   View,
 } from '~/components/common/common';
@@ -16,13 +17,16 @@ import { styles } from './styles';
 
 type Props = {
   onSubmit: (payload: UserSignUpRequestDto) => void;
+  onSkipSignUp: () => void;
 };
 
-const SignUpForm: FC<Props> = ({ onSubmit }) => {
+const SignUpForm: FC<Props> = ({ onSubmit, onSkipSignUp }) => {
   const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
     defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
     validationSchema: userSignUpValidationSchema,
   });
+
+  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
 
   return (
     <>
@@ -58,6 +62,13 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
         <View style={styles.buttonWrapper}>
           <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
         </View>
+        <Pressable
+          style={styles.skipWrapper}
+          hitSlop={hitSlop}
+          onPress={onSkipSignUp}
+        >
+          <Text style={styles.skipText}>Skip for now</Text>
+        </Pressable>
       </View>
     </>
   );

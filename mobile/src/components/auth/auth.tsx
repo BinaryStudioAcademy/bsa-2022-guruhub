@@ -1,14 +1,18 @@
 import React, { FC, ReactElement } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import { AuthScreenName } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  AuthScreenName,
+  RootScreenName,
+} from '~/common/enums/enums';
 import {
   UserSignInRequestDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
 import { Image, ScrollView, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
+import { useAppDispatch, useAppNavigate, useAppRoute } from '~/hooks/hooks';
 import { authActions } from '~/store/actions';
 
 import { SignInForm, SignUpForm } from './components/components';
@@ -17,6 +21,7 @@ import { styles } from './styles';
 const Auth: FC = () => {
   const { name } = useAppRoute();
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
 
   const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
     dispatch(authActions.signIn(payload));
@@ -26,13 +31,27 @@ const Auth: FC = () => {
     dispatch(authActions.signUp(payload));
   };
 
+  const handleSkipAuthorization = (): void => {
+    navigation.navigate(RootScreenName.APP, { screen: AppScreenName.COURSES });
+  };
+
   const getScreen = (screen: string): ReactElement | null => {
     switch (screen) {
       case AuthScreenName.SIGN_IN: {
-        return <SignInForm onSubmit={handleSignInSubmit} />;
+        return (
+          <SignInForm
+            onSubmit={handleSignInSubmit}
+            onSkipSignIn={handleSkipAuthorization}
+          />
+        );
       }
       case AuthScreenName.SIGN_UP: {
-        return <SignUpForm onSubmit={handleSignUpSubmit} />;
+        return (
+          <SignUpForm
+            onSubmit={handleSignUpSubmit}
+            onSkipSignUp={handleSkipAuthorization}
+          />
+        );
       }
     }
 
