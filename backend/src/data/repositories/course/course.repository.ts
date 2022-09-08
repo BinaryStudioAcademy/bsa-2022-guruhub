@@ -29,6 +29,7 @@ class Course {
     title: string;
   }): Promise<CourseGetResponseDto[]> {
     const { categoryId, title } = filteringOpts ?? {};
+    const normalizedTitle = title.replaceAll('\\', '\\\\');
 
     return this.#CourseModel
       .query()
@@ -40,7 +41,7 @@ class Course {
       })
       .andWhere((builder) => {
         if (title) {
-          builder.where('title', 'ilike', `%${title}%`);
+          builder.where('title', 'ilike', `%${normalizedTitle}%`);
         }
       })
       .innerJoin(
