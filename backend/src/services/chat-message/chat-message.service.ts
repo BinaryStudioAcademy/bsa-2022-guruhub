@@ -5,17 +5,21 @@ import {
   ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllLastResponseDto,
+  ChatMessageGetEmptyChatDto,
+  ChatMessageGetEmptyChatsRequestDto,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 import {
   chatMessage as chatMessageRep,
   menteesToMentors as menteesToMentorsRep,
+  user as userRep,
 } from '~/data/repositories/repositories';
 import { createUuid, sanitizeHTML } from '~/helpers/helpers';
 
 type Constructor = {
   chatMessageRepository: typeof chatMessageRep;
   menteesToMentorsRepository: typeof menteesToMentorsRep;
+  userRepository: typeof userRep;
 };
 
 class ChatMessage {
@@ -23,12 +27,16 @@ class ChatMessage {
 
   #menteesToMentorsRepository: typeof menteesToMentorsRep;
 
+  #userRepository: typeof userRep;
+
   public constructor({
     chatMessageRepository,
     menteesToMentorsRepository,
+    userRepository,
   }: Constructor) {
     this.#chatMessageRepository = chatMessageRepository;
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
+    this.#userRepository = userRepository;
   }
 
   public async getAll({
@@ -41,24 +49,64 @@ class ChatMessage {
     return { items: chatMessages };
   }
 
-  public async getAllLastMessages(
-    userId: number,
-    filteringOpts: ChatMessageFilteringDto,
-  ): Promise<ChatMessageGetAllLastResponseDto> {
-    const { fullName } = filteringOpts;
+  public async getAllEmptyChats({
+    userId,
+    fullName,
+    lastMessagesInChats,
+  }: ChatMessageGetEmptyChatsRequestDto): Promise<
+    ChatMessageGetEmptyChatDto[]
+  > {
+    const userMenteesOrMentorsIds = await this.getMentorsAndMenteesIds(
+      userId,
+      fullName,
+    );
 
+    const usersWithCreatedChats: number[] = [];
+    lastMessagesInChats.forEach((item) => {
+      usersWithCreatedChats.push(item.sender.id);
+      usersWithCreatedChats.push(item.receiver.id);
+    });
+
+    const usersWithoutChatsIds = userMenteesOrMentorsIds.filter(
+      (id) => !usersWithCreatedChats.includes(id),
+    );
+
+    const receivers = await this.#userRepository.getByIds(usersWithoutChatsIds);
+
+    return receivers.map((receiver) => {
+      return {
+        receiver: receiver,
+        chatId: createUuid(),
+      };
+    });
+  }
+
+  public async getMentorsAndMenteesIds(
+    userId: number,
+    fullName: string,
+  ): Promise<number[]> {
     const userMenteesOrMentors =
       await this.#menteesToMentorsRepository.getMenteesOrMentorsByFullName(
         userId,
         fullName ?? '',
       );
 
-    const userMenteesOrMentorsIds = userMenteesOrMentors.map(
-      (menteesOrMentors) => {
-        return menteesOrMentors.menteeId === userId
-          ? menteesOrMentors.mentorId
-          : menteesOrMentors.menteeId;
-      },
+    return userMenteesOrMentors.map((menteesOrMentors) => {
+      return menteesOrMentors.menteeId === userId
+        ? menteesOrMentors.mentorId
+        : menteesOrMentors.menteeId;
+    });
+  }
+
+  public async getAllLastMessages(
+    userId: number,
+    filteringOpts: ChatMessageFilteringDto,
+  ): Promise<ChatMessageGetAllItemResponseDto[]> {
+    const { fullName } = filteringOpts;
+
+    const userMenteesOrMentorsIds = await this.getMentorsAndMenteesIds(
+      userId,
+      fullName,
     );
 
     const lastMessagesInChats =
@@ -76,9 +124,7 @@ class ChatMessage {
         lastMessagesInChatsIds,
       );
 
-    return {
-      items: lastMessagesWithMentorsAndMentees,
-    };
+    return lastMessagesWithMentorsAndMentees;
   }
 
   public create(

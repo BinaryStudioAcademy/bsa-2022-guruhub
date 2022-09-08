@@ -8,8 +8,11 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetEmptyChatDto,
+  type ChatMessageGetEmptyChatsRequestDto,
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {
@@ -20,6 +23,7 @@ export {
   type CourseFilteringDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
