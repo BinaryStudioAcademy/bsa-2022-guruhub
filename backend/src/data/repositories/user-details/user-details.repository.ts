@@ -8,7 +8,7 @@ type Constructor = {
   UserDetailsModel: typeof UserDetailsM;
 };
 
-const DEFAULT_DETAILS_COLUMNS_TO_RETURN = [
+const DEFAULT_DETAILS_COLUMNS_TO_RETURN: string[] = [
   'id',
   'gender',
   'createdAt',
