@@ -43,7 +43,7 @@ const Course: FC = () => {
     isMentorChoosingEnabled,
     isMentor,
     menteesByCourseDataStatus,
-    isMentorDataStatus,
+    mentorCheckDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -57,7 +57,7 @@ const Course: FC = () => {
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
     menteesByCourseDataStatus: course.menteesByCourseDataStatus,
-    isMentorDataStatus: course.isMentorDataStatus,
+    mentorCheckDataStatus: course.mentorCheckDataStatus,
   }));
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -179,7 +179,7 @@ const Course: FC = () => {
 
   const isUserAuthorized = Boolean(user);
 
-  const mentorOrStudentComponentOutput = (): ReactNode => {
+  const handleMentorOrStudentComponentOutput = (): ReactNode => {
     if (isMentor) {
       return (
         menteesByCourseDataStatus === DataStatus.FULFILLED && (
@@ -254,9 +254,9 @@ const Course: FC = () => {
         </div>
       </div>
 
-      {isUserAuthorized && isMentorDataStatus === DataStatus.FULFILLED && (
+      {isUserAuthorized && mentorCheckDataStatus === DataStatus.FULFILLED && (
         <div className={styles.additional}>
-          {mentorOrStudentComponentOutput()}
+          {handleMentorOrStudentComponentOutput()}
         </div>
       )}
     </div>
