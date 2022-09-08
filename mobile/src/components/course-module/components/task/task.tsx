@@ -124,15 +124,12 @@ const Task: FC = () => {
     <ScrollView style={styles.wrapper}>
       {showForm && (
         <View>
-          {isMentor ? (
-            <TaskMessageArea
-              onSubmit={handleApprove}
-              onReject={handleReject}
-              isMentor={isMentor}
-            />
-          ) : (
-            <TaskMessageArea onSubmit={handleSendOnReview} />
-          )}
+          <TaskMessageArea
+            onSendOnReview={handleSendOnReview}
+            onApprove={handleApprove}
+            onReject={handleReject}
+            isMentor={isMentor}
+          />
         </View>
       )}
       <Text style={styles.title}>History</Text>

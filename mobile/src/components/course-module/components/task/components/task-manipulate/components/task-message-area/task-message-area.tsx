@@ -10,16 +10,18 @@ import { CREATE_NOTE_DEFAULT_VALUES } from './common';
 import { styles } from './styles';
 
 type Props = {
-  isMentor?: boolean;
+  isMentor: boolean;
   isLoading?: boolean;
-  onSubmit: (payload: TaskNoteFormRequestDto) => void;
-  onReject?: (payload: TaskNoteFormRequestDto) => void;
+  onSendOnReview: (payload: TaskNoteFormRequestDto) => void;
+  onApprove: (payload: TaskNoteFormRequestDto) => void;
+  onReject: (payload: TaskNoteFormRequestDto) => void;
 };
 
 const TaskMessageArea: FC<Props> = ({
   isMentor = false,
   isLoading,
-  onSubmit,
+  onSendOnReview,
+  onApprove,
   onReject,
 }) => {
   const { control, errors, handleSubmit, reset } =
@@ -28,16 +30,19 @@ const TaskMessageArea: FC<Props> = ({
       validationSchema: taskNoteCreateValidationSchema,
     });
 
-  const handleNoteSubmit = (payload: TaskNoteFormRequestDto): void => {
-    onSubmit(payload);
+  const handleSendOnReview = (payload: TaskNoteFormRequestDto): void => {
+    onSendOnReview(payload);
     reset();
   };
 
-  const handleNoteReject = (payload: TaskNoteFormRequestDto): void => {
-    if (onReject) {
-      onReject(payload);
-      reset();
-    }
+  const handleApprove = (payload: TaskNoteFormRequestDto): void => {
+    onApprove(payload);
+    reset();
+  };
+
+  const handleReject = (payload: TaskNoteFormRequestDto): void => {
+    onReject(payload);
+    reset();
   };
 
   return (
@@ -57,7 +62,7 @@ const TaskMessageArea: FC<Props> = ({
               <Button
                 label="Accept the task"
                 variant={ButtonVariant.PRIMARY}
-                onPress={handleSubmit(handleNoteSubmit)}
+                onPress={handleSubmit(handleApprove)}
                 size="small"
                 isLoading={isLoading}
               />
@@ -67,7 +72,7 @@ const TaskMessageArea: FC<Props> = ({
                 label="Reject the task"
                 variant={ButtonVariant.SECONDARY}
                 size="small"
-                onPress={handleSubmit(handleNoteReject)}
+                onPress={handleSubmit(handleReject)}
                 isLoading={isLoading}
               />
             </View>
@@ -77,7 +82,7 @@ const TaskMessageArea: FC<Props> = ({
             <Button
               label="Send on review"
               variant={ButtonVariant.PRIMARY}
-              onPress={handleSubmit(handleNoteSubmit)}
+              onPress={handleSubmit(handleSendOnReview)}
               isLoading={isLoading}
             />
           </View>
