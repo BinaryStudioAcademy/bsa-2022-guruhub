@@ -2,7 +2,7 @@ import { TransactionStatus } from '~/common/enums/enums';
 
 type TransactionUpdateStatusDto = {
   transactionId: number;
-  newSatus: TransactionStatus;
+  newStatus: TransactionStatus;
 };
 
 export { type TransactionUpdateStatusDto };

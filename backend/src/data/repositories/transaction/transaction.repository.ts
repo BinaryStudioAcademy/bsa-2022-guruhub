@@ -1,3 +1,8 @@
+import {
+  TransactionCreateArgumentsDto,
+  TransactionGetAllItemResponseDto,
+  TransactionUpdateStatusDto,
+} from '~/common/types/types';
 import { Transaction as TransactionM } from '~/data/models/models';
 
 type Constructor = {
@@ -9,6 +14,48 @@ class Transaction {
 
   public constructor({ TransactionModel }: Constructor) {
     this.#TransactionModel = TransactionModel;
+  }
+
+  public getById(id: number): Promise<TransactionGetAllItemResponseDto> {
+    return this.#TransactionModel
+      .query()
+      .findById(id)
+      .withGraphJoined(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
+      .castTo<TransactionGetAllItemResponseDto>()
+      .execute();
+  }
+
+  public create({
+    senderId,
+    receiverId,
+    amount,
+  }: TransactionCreateArgumentsDto): Promise<TransactionGetAllItemResponseDto> {
+    return this.#TransactionModel
+      .query()
+      .insert({ senderId, receiverId, amount, status: 'PENDING' })
+      .withGraphFetched(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
+      .castTo<TransactionGetAllItemResponseDto>()
+      .execute();
+  }
+
+  public updateStatus({
+    transactionId,
+    newStatus,
+  }: TransactionUpdateStatusDto): Promise<TransactionGetAllItemResponseDto> {
+    return this.#TransactionModel
+      .query()
+      .patchAndFetchById(transactionId, {
+        status: newStatus,
+      })
+      .withGraphFetched(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
+      .castTo<TransactionGetAllItemResponseDto>()
+      .execute();
   }
 }
 
