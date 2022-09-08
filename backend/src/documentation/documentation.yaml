@@ -79,6 +79,10 @@ paths:
     $ref: './endpoints/tasks/tasks-get-by-mentee-id-and-module-id.yaml'
   /tasks/:id/notes:
     $ref: './endpoints/tasks/tasks-get-notes.yaml'
+  /tasks/courses/:courseId/modules/:moduleId/mentees/:menteeId:
+    $ref: './endpoints/tasks/tasks-get-by-course-id-module-id-mentee-id.yaml'
+  /tasks/courses/:courseId/mentees/:menteeId:
+    $ref: './endpoints/tasks/tasks-get-by-course-id-mentee-id.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
