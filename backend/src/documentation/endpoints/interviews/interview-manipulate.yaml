@@ -1,0 +1,4 @@
+get:
+  $ref: './interviews-get-by-id.yaml'
+put:
+  $ref: './interviews-update-by-id.yaml'

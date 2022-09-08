@@ -130,9 +130,20 @@ const getMentorsByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async (payload, { extra }) => {
+>(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
+  const {
+    course: { mentor },
+  } = getState();
   const { coursesApi } = extra;
   const mentors = await coursesApi.getMentorsByCourseId(payload);
+
+  if (mentor) {
+    const availableMentors = mentors.filter((m: UserDetailsResponseDto) => {
+      return m.id !== mentor.id;
+    });
+
+    return availableMentors;
+  }
 
   return mentors;
 });
@@ -224,6 +235,28 @@ const chooseMentor = createAsyncThunk<
   return menteeToMentor;
 });
 
+const changeMentor = createAsyncThunk<
+  MenteesToMentorsResponseDto,
+  CourseSelectMentorRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHANGE_A_MENTOR, async ({ id }, { extra, getState }) => {
+  const {
+    course: { course },
+    auth: { user },
+  } = getState();
+  const { coursesApi } = extra;
+
+  const newMenteeToMentor = await coursesApi.changeMentor({
+    courseId: (course as CourseGetResponseDto).id,
+    menteeId: (user as UserWithPermissions).id,
+    mentorId: id,
+  });
+
+  notification.success(NotificationMessage.MENTOR_CHANGE);
+
+  return newMenteeToMentor;
+});
+
 const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
   void,
@@ -296,6 +329,7 @@ const getTasksByCourseIdAndMenteeId = createAsyncThunk<
 
 export {
   becomeAMentor,
+  changeMentor,
   checkIsMentor,
   chooseMentor,
   createInterview,

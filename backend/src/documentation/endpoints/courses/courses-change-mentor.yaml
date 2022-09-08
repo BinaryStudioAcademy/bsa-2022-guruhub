@@ -1,0 +1,24 @@
+summary: Change a mentor
+tags:
+  - courses
+parameters:
+  - name: id
+    in: path
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/courses/course-get-by-id-request-dto.yaml'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/courses/courses-add-mentor-request-dto.yaml'
+responses:
+  '200':
+    description: Mentor was successfully changed
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/courses/courses-add-mentor-response-dto.yaml'

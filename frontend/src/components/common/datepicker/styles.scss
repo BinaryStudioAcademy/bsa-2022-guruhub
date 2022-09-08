@@ -23,11 +23,13 @@
 
 .react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle::before,
 .react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle::after {
+  display: none;
   border-bottom-color: var(--background-gray-300);
 }
 
 .react-datepicker-popper[data-placement^='top'] .react-datepicker__triangle::before,
 .react-datepicker-popper[data-placement^='top'] .react-datepicker__triangle::after {
+  display: none;
   border-top-color: var(--background-gray-300);
 }
 
@@ -42,4 +44,8 @@
 
 .react-datepicker__header__dropdown {
   padding: 5px;
+}
+
+.react-datepicker__day--disabled {
+  opacity: 0.3;
 }
