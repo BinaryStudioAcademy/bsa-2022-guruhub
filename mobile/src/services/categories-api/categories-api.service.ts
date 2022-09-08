@@ -35,9 +35,6 @@ class CategoriesApi {
   }: CourseCategoryGetByIdRequestParamsDto): Promise<CourseCategoryGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}${id}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 }

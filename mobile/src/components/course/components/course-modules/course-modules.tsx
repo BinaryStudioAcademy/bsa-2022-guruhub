@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
+import { useAppSelector } from '~/hooks/hooks';
 
 import { Module } from './components/module/module';
 import { styles } from './styles';
@@ -23,6 +24,8 @@ const CourseModules: FC<Props> = ({
   isLoading,
   onModulePress,
 }) => {
+  const user = useAppSelector((state) => state.auth.user);
+
   if (!courseModules.length) {
     return <></>;
   }
@@ -37,6 +40,7 @@ const CourseModules: FC<Props> = ({
           {courseModules.map((module, index) => (
             <Pressable
               onPress={(): void => onModulePress(module.courseId, module.id)}
+              disabled={!user}
             >
               <Module
                 key={module.id}

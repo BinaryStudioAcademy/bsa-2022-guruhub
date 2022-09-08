@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
+  signInButton: {
+    paddingHorizontal: 30,
+    maxWidth: 285,
+  },
 });
 
 export { styles };

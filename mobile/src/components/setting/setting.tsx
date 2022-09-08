@@ -42,13 +42,10 @@ import { styles } from './styles';
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
-  const { user, userDetails, dataStatus } = useAppSelector(
-    ({ auth, userDetails }) => ({
-      user: auth.user,
-      userDetails: userDetails.userDetails,
-      dataStatus: userDetails.dataStatus,
-    }),
-  );
+  const { userDetails, dataStatus } = useAppSelector(({ userDetails }) => ({
+    userDetails: userDetails.userDetails,
+    dataStatus: userDetails.dataStatus,
+  }));
 
   const maxDate = subtractYears(new Date(), UserAge.MIN);
   const minDate = subtractYears(new Date(), UserAge.MAX);
@@ -58,8 +55,6 @@ const Settings: FC = () => {
       defaultValues: DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
-
-  const hasUser = Boolean(user);
 
   const handleCancel = (): void => reset();
 
@@ -71,12 +66,6 @@ const Settings: FC = () => {
 
   const handleLogout = async (): Promise<void> => {
     await dispatch(authActions.signOut());
-    navigation.navigate(RootScreenName.AUTH, {
-      screen: AuthScreenName.SIGN_IN,
-    });
-  };
-
-  const handleLogIn = (): void => {
     navigation.navigate(RootScreenName.AUTH, {
       screen: AuthScreenName.SIGN_IN,
     });
@@ -98,14 +87,6 @@ const Settings: FC = () => {
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
-  }
-
-  if (!hasUser) {
-    return (
-      <View style={styles.singInWrapper}>
-        <Button label="Sign In" onPress={handleLogIn} />
-      </View>
-    );
   }
 
   return (

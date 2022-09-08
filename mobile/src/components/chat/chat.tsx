@@ -1,13 +1,8 @@
 import React, { FC } from 'react';
 
-import {
-  AppScreenName,
-  AuthScreenName,
-  DataStatus,
-  RootScreenName,
-} from '~/common/enums/enums';
+import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { UserWithPermissions } from '~/common/types/types';
-import { Button, Spinner, Text, View } from '~/components/common/common';
+import { Spinner, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -37,12 +32,6 @@ const Chat: FC = () => {
     navigation.navigate(AppScreenName.CONVERSATION);
   };
 
-  const handleLogIn = (): void => {
-    navigation.navigate(RootScreenName.AUTH, {
-      screen: AuthScreenName.SIGN_IN,
-    });
-  };
-
   useEffect(() => {
     dispatch(chatActions.getLastMessages({ fullName: '' }));
   }, [dispatch]);
@@ -52,18 +41,6 @@ const Chat: FC = () => {
     authDataStatus === DataStatus.PENDING
   ) {
     return <Spinner isOverflow />;
-  }
-
-  if (!user) {
-    return (
-      <View style={styles.placeholder}>
-        <Text style={styles.noUser}>No conversations yet.</Text>
-        <Text style={styles.noUser}>Sign in first.</Text>
-        <View style={styles.buttonWrapper}>
-          <Button label="Sign in" onPress={handleLogIn} />
-        </View>
-      </View>
-    );
   }
 
   return (

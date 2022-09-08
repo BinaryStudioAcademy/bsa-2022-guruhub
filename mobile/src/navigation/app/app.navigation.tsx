@@ -9,20 +9,25 @@ import {
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 
-import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants';
+import {
+  NAVIGATION_ITEMS,
+  NO_AUTH_NAVIGATION_ITEMS,
+  SCREEN_OPTIONS,
+} from './common/constants';
 import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
 const App: FC = () => {
-  const userPermissions = useAppSelector(
-    (state) => state.auth.user?.permissions ?? [],
-  );
+  const { user, userPermissions } = useAppSelector(({ auth }) => ({
+    userPermissions: auth.user?.permissions ?? [],
+    user: auth.user,
+  }));
 
   const allowedScreens = useMemo(() => {
-    const screens: DrawerNavigationItem[] = NAVIGATION_ITEMS.flatMap(
-      (item) => item.subroutes,
-    );
+    const screens: DrawerNavigationItem[] = user
+      ? NAVIGATION_ITEMS.flatMap((item) => item.subroutes)
+      : NO_AUTH_NAVIGATION_ITEMS.flatMap((item) => item.subroutes);
 
     return getAllowedScreens(screens, userPermissions);
   }, [userPermissions]);

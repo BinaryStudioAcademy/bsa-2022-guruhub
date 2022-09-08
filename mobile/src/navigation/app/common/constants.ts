@@ -176,4 +176,30 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
   },
 ];
 
-export { NAVIGATION_ITEMS, SCREEN_OPTIONS };
+const NO_AUTH_NAVIGATION_ITEMS: DrawerNavigationList[] = [
+  {
+    name: 'Menu',
+    isVisible: true,
+    subroutes: [
+      {
+        name: AppScreenName.COURSES,
+        icon: 'book',
+        component: Courses,
+        permissions: [],
+      },
+    ],
+  },
+  {
+    name: 'Courses',
+    isVisible: false,
+    subroutes: [
+      {
+        name: AppScreenName.COURSE,
+        component: Course,
+        permissions: [],
+      },
+    ],
+  },
+];
+
+export { NAVIGATION_ITEMS, NO_AUTH_NAVIGATION_ITEMS, SCREEN_OPTIONS };

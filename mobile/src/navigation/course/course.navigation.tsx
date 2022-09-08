@@ -22,8 +22,9 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { userPermissions, course, isMentor } = useAppSelector(
+  const { user, userPermissions, course, isMentor } = useAppSelector(
     ({ auth, courses }) => ({
+      user: auth.user,
       userPermissions: auth.user?.permissions ?? [],
       course: courses.course,
       isMentor: courses.isMentor,
@@ -31,10 +32,10 @@ const Course: FC = () => {
   );
 
   const allowedScreens = useMemo(() => {
-    const permittedScreens = getPermittedScreens(
-      COURSE_TAB_ITEMS,
-      userPermissions,
-    );
+    const permittedScreens = user
+      ? getPermittedScreens(COURSE_TAB_ITEMS, userPermissions)
+      : COURSE_TAB_ITEMS.filter(({ name }) => name === CourseScreenName.ABOUT);
+
     const screenNameToFilter = isMentor
       ? CourseScreenName.MY_MENTOR
       : CourseScreenName.MY_STUDENTS;

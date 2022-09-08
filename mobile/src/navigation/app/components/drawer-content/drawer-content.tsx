@@ -2,16 +2,24 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import { AppScreenName } from '~/common/enums/enums';
 import {
+  AppScreenName,
+  ButtonVariant,
+  RootScreenName,
+} from '~/common/enums/enums';
+import {
+  Button,
   Image,
   SafeAreaView,
   ScrollView,
   View,
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
+import { useAppDispatch, useAppNavigate, useAppSelector } from '~/hooks/hooks';
+import {
+  NAVIGATION_ITEMS,
+  NO_AUTH_NAVIGATION_ITEMS,
+} from '~/navigation/app/common/constants';
 import {
   BecomeMentor,
   DrawerList,
@@ -22,18 +30,27 @@ import { styles } from './styles';
 
 const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
-  const visibleNavigationItems = NAVIGATION_ITEMS.filter(
-    (item) => item.isVisible,
-  );
 
-  const { isMentorBecomingVisible, dataBecomeMentorStatus } = useAppSelector(
-    (rootState) => rootState.courses,
-  );
+  const { user, isMentorBecomingVisible, dataBecomeMentorStatus } =
+    useAppSelector(({ auth, courses }) => ({
+      user: auth.user,
+      isMentorBecomingVisible: courses.isMentorBecomingVisible,
+      dataBecomeMentorStatus: courses.dataBecomeMentorStatus,
+    }));
+
+  const visibleNavigationItems = user
+    ? NAVIGATION_ITEMS.filter((item) => item.isVisible)
+    : NO_AUTH_NAVIGATION_ITEMS.filter((item) => item.isVisible);
 
   const handleBecomeMentor = (): void => {
     dispatch(coursesActions.becomeMentor());
+  };
+
+  const handleSignIn = (): void => {
+    navigation.navigate(RootScreenName.AUTH);
   };
 
   return (
@@ -54,11 +71,20 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
             />
           </View>
         ))}
-        {isMentorBecomingVisible && (
+        {isMentorBecomingVisible && user && (
           <BecomeMentor
             dataStatus={dataBecomeMentorStatus}
             onPress={handleBecomeMentor}
           />
+        )}
+        {!user && (
+          <View style={styles.signInButton}>
+            <Button
+              label="Sign in"
+              onPress={handleSignIn}
+              variant={ButtonVariant.SECONDARY}
+            />
+          </View>
         )}
       </ScrollView>
     </SafeAreaView>
