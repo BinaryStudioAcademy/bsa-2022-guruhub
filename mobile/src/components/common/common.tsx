@@ -6,6 +6,7 @@ export { CategoryImage } from './category-image/category-image';
 export { Checkbox } from './checkbox/checkbox';
 export { Chip } from './chip/chip';
 export { Content } from './content/content';
+export { DatePicker } from './date-picker/date-picker';
 export { Dropdown } from './dropdown/dropdown';
 export { FAB } from './fab/fab';
 export { Icon } from './icon/icon';
