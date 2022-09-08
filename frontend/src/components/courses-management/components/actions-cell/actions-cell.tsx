@@ -17,7 +17,9 @@ const ActionsCell: FC<
 
   return (
     <div className={styles.container}>
-      <IconButton iconName="settings" onClick={handleEdit} label="Edit" />
+      <div>
+        <IconButton iconName="settings" onClick={handleEdit} label="Edit" />
+      </div>
     </div>
   );
 };
