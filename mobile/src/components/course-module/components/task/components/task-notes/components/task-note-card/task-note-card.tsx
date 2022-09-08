@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 
 import defaultAvatar from '~/assets/images/avatar-default.png';
 import { TaskNoteGetItemResponseDto } from '~/common/types/types';
-import { Image, Text, View } from '~/components/common/common';
+import { Chip, Image, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
 
-import { TaskStates } from './components/components';
+import { statusToColor } from './common/maps/maps';
 import { styles } from './styles';
 
 type Props = {
@@ -31,7 +31,7 @@ const TaskNoteCard: FC<Props> = ({ note }) => {
           <Text style={styles.date}>
             {getFormattedDate(note.createdAt, 'HH:mm dd.MM.yyyy')}
           </Text>
-          <TaskStates status={note.status} />
+          <Chip text={note.status} color={statusToColor[note.status]} />
         </View>
       </View>
     </View>

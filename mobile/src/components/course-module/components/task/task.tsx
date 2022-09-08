@@ -47,6 +47,7 @@ const Task: FC = () => {
     }),
   );
   const isLoading = dataStatus === DataStatus.PENDING;
+  const showForm = user && task && task.status !== TaskStatus.COMPLETED;
 
   const handleManipulateNote = (
     payload: TaskNoteManipulateRequestBodyDto,
@@ -121,7 +122,7 @@ const Task: FC = () => {
 
   return (
     <ScrollView style={styles.wrapper}>
-      {user && task && task.status !== TaskStatus.COMPLETED && (
+      {showForm && (
         <View>
           {isMentor ? (
             <TaskMessageArea
