@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   NotificationMessage,
@@ -137,7 +137,7 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
       dispatch(
         app.notify({
           type: NotificationType.SUCCESS,
-          message: NotificationMessage.MENTOR_ADD,
+          message: NotificationMessage.MENTOR_ADD_SUCCESS,
         }),
       );
     } else {
@@ -154,9 +154,15 @@ const updateCategory = createAsyncThunk<
   CourseGetResponseDto,
   CourseUpdateCategoryRequestArguments,
   AsyncThunkConfig
->(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
+>(ActionType.UPDATE_CATEGORY, async (payload, { dispatch, extra }) => {
   const { coursesApi } = extra;
   const updatedCourse = await coursesApi.updateCategory(payload);
+  dispatch(
+    app.notify({
+      type: NotificationType.SUCCESS,
+      message: NotificationMessage.EDIT_CATEGORY_SUCCESS,
+    }),
+  );
 
   return updatedCourse;
 });
@@ -233,11 +239,14 @@ const checkIsMentor = createAsyncThunk<
   return isMentor;
 });
 
+const clearMentor = createAction(ActionType.CLEAR_MENTOR);
+
 export {
   addCourse,
   becomeMentor,
   checkIsMentor,
   chooseMentor,
+  clearMentor,
   createMentor,
   getCourse,
   getCourses,

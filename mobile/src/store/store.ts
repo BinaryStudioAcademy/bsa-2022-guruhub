@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import {
   authApi,
   categoriesApi,
+  chatApi,
   courseModulesApi,
   coursesApi,
   groupsApi,
@@ -11,6 +12,7 @@ import {
   notification,
   permissionsApi,
   storage,
+  tasksApi,
   userDetailsApi,
   usersApi,
 } from '~/services/services';
@@ -21,6 +23,7 @@ import { rootReducer } from './root-reducer';
 const extraArgument = {
   authApi,
   categoriesApi,
+  chatApi,
   courseModulesApi,
   coursesApi,
   groupsApi,
@@ -28,6 +31,7 @@ const extraArgument = {
   notification,
   permissionsApi,
   storage,
+  tasksApi,
   userDetailsApi,
   usersApi,
   interviewsApi,

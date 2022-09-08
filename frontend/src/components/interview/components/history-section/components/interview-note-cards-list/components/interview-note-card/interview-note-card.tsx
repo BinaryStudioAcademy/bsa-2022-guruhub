@@ -14,21 +14,21 @@ type Props = {
 const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
   return (
     <div className={styles.card}>
-      <div className={styles.cardContentWrapper}>
-        <p className={styles.noteContent}>{note}</p>
+      <p className={styles.noteContent}>{note}</p>
+      <div className={styles.cardInfoWrapper}>
+        <div className={styles.cardAuthorSection}>
+          <Image
+            width="30px"
+            height="30px"
+            src={defaultAvatar}
+            alt="Author avatar"
+            isCircular
+          />
+          <div className={styles.authorNameSection}>{authorName}</div>
+        </div>
         <div className={styles.postDateSection}>
           <div>{getFormattedDate(postDate, 'HH:mm, dd.MM')}</div>
         </div>
-      </div>
-      <div className={styles.cardAuthorSection}>
-        <Image
-          width="30px"
-          height="30px"
-          src={defaultAvatar}
-          alt="Author avatar"
-          isCircular
-        />
-        <div className={styles.authorNameSection}>{authorName}</div>
       </div>
     </div>
   );

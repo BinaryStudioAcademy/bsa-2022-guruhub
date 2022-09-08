@@ -10,6 +10,15 @@ export {
   type CourseCategoryGetResponseDto,
 } from './category/category';
 export {
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat/chat';
+export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
   type CourseModulesGetAllItemResponseDto,
@@ -92,6 +101,17 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permissions/permissions';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetItemReponseDto,
+} from './task/task';
+export {
+  type TaskNoteFormRequestDto,
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+  type TaskNoteManipulateRequestDto,
+} from './task-note/task-note';
 export { type AppTextStyle, type IconName, type TableColumn } from './ui/ui';
 export {
   type UsersDeleteRequestParamsDto,

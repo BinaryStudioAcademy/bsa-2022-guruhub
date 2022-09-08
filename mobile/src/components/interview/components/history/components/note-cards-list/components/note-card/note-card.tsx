@@ -27,7 +27,7 @@ const NoteCard: FC<Props> = ({ note }) => {
       <View style={styles.textContainer}>
         <Text style={styles.note}>{note.note}</Text>
         <Text style={styles.date}>
-          {getFormattedDate(note.createdAt, 'HH:mm, dd.MM')}
+          {getFormattedDate(note.createdAt, 'HH:mm dd.MM.yyyy')}
         </Text>
       </View>
     </View>

@@ -2,9 +2,11 @@ export {
   ApiPath,
   AuthApiPath,
   CategoriesApiPath,
+  ChatsApiPath,
   GroupsApiPath,
   InterviewsApiPath,
   MentorsApiPath,
+  TasksApiPath,
   UserDetailsApiPath,
   UsersApiPath,
 } from './api/api';
@@ -22,8 +24,13 @@ export {
   InterviewScreenName,
   RootScreenName,
 } from './navigation/navigation';
-export { NotificationType } from './notification/notification';
+export {
+  NotificationMessage,
+  NotificationType,
+} from './notification/notification';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permission/permission';
+export { TaskStatus } from './task/task';
+export { TaskNoteValidationMessage } from './task-note/task-note';
 export { AppColor, AppFontFamily, ButtonVariant } from './ui/ui';
-export { UserGender } from './user/user.enum';
+export { UserAge, UserGender } from './user/user.enum';

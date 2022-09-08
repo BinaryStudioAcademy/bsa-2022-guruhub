@@ -16,13 +16,13 @@ const getCoursesManagementColumns = (
     {
       Header: 'Title',
       accessor: CoursesManagementTableAccessor.TITLE,
-      width: '45%',
+      width: 500,
     },
     {
       Header: 'Category',
       accessor: CoursesManagementTableAccessor.CATEGORY,
       Cell: CategoryCell,
-      width: '40%',
+      width: 300,
     },
     {
       Header: 'Actions',
@@ -33,7 +33,7 @@ const getCoursesManagementColumns = (
         course,
       }),
       Cell: ActionsCell,
-      width: '15%',
+      width: 80,
     },
   ];
 };

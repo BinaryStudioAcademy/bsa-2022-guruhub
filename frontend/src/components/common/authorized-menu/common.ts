@@ -40,13 +40,13 @@ const routes: NavigationMenuItem[] = [
       {
         name: 'Billing',
         iconName: 'billing',
-        href: AppRoute.SETTINGS_BILLING,
+        href: AppRoute.BILLING,
         permissions: [],
       },
       {
         name: 'Profile Settings',
         iconName: 'settings',
-        href: AppRoute.SETTINGS_PROFILE,
+        href: AppRoute.PROFILE,
         permissions: [],
       },
       {

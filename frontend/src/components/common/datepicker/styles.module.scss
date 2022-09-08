@@ -4,7 +4,7 @@
   font-weight: 600;
   font-size: 15px;
   line-height: 24px;
-  background: var(--background-gray-300);
+  background: var(--background-gray-200);
   border: 1px solid transparent;
   border-radius: 6px;
   outline: none;
@@ -18,6 +18,7 @@
   font-family: Inter, sans-serif;
   background-color: var(--background-gray-300);
   border: 1px solid var(--background-gray-400);
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
 }
 
 .datePickerDay {
@@ -39,13 +40,4 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
-}
-
-.errorMessage {
-  height: 16px;
-  overflow: hidden;
-  color: var(--support-error-red-100);
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
 }

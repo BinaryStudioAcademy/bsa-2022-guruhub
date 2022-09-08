@@ -15,11 +15,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   buttonsContainer: {
-    margin: 16,
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'space-around',
-    marginVertical: 20,
   },
   inputContainer: {
     marginBottom: 16,

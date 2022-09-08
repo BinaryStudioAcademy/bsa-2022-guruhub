@@ -30,8 +30,9 @@ class ChatMessage {
       .query()
       .select()
       .where({ chatId })
+      .orderBy('created_at', SortOrder.ASC)
       .withGraphJoined(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();
@@ -54,7 +55,7 @@ class ChatMessage {
         status,
       })
       .withGraphFetched(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto>()
       .execute();
@@ -72,7 +73,7 @@ class ChatMessage {
       .orderBy('createdAt', SortOrder.DESC)
       .first()
       .withGraphJoined(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto>()
       .execute();
@@ -118,7 +119,7 @@ class ChatMessage {
       .select('chatMessages.id', 'message', 'createdAt', 'chatId')
       .whereIn('chatMessages.id', lastMessagesInChatsIds)
       .withGraphFetched(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();

@@ -12,6 +12,7 @@ import Message from '~/assets/icons/message.svg';
 import Plus from '~/assets/icons/plus.svg';
 import Save from '~/assets/icons/save.svg';
 import Search from '~/assets/icons/search.svg';
+import Send from '~/assets/icons/send.svg';
 import Settings from '~/assets/icons/settings.svg';
 import Trash from '~/assets/icons/trash.svg';
 import UAM from '~/assets/icons/uam.svg';
@@ -38,5 +39,6 @@ const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   interview: Interview,
   visibility: Visibility,
   visibilityOff: VisibilityOff,
+  send: Send,
 };
 export { iconNameToIcon };

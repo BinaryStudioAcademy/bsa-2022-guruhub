@@ -5,12 +5,15 @@ import {
   InterviewsUpdateRequestDto,
   SelectorOption,
 } from 'common/types/types';
-import { Button, Select } from 'components/common/common';
+import { Button, Datepicker, Select } from 'components/common/common';
 import { getFormattedDate, getNameOf } from 'helpers/helpers';
 import { useAppForm, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { getInterviewersOptions } from './helpers/helpers';
+import {
+  getInterviewersOptions,
+  getInterviewStatusOptions,
+} from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -34,10 +37,16 @@ const InterviewItem: FC<Props> = ({
     return getInterviewersOptions(interviewers);
   }, [interviewers]);
 
+  const statusOptions = useMemo<SelectorOption[]>(() => {
+    return getInterviewStatusOptions();
+  }, []);
+
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
       defaultValues: {
         interviewerUserId: interview.interviewer?.id ?? '',
+        status: interview.status,
+        interviewDate: interview?.interviewDate ?? null,
       },
       validationSchema: interviewUpdateValidationSchema,
     });
@@ -95,11 +104,26 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Date of interview</p>
-            <p className={styles.interviewValue}>
-              {interview?.interviewDate
-                ? getFormattedDate(interview?.interviewDate, 'yyyy-MM-dd')
-                : ''}
-            </p>
+            {!isEditMode && (
+              <p className={styles.interviewValue}>
+                {interview?.interviewDate
+                  ? getFormattedDate(
+                      interview?.interviewDate,
+                      'HH:mm dd.MM.yyyy',
+                    )
+                  : 'Not set'}
+              </p>
+            )}
+            {isEditMode && (
+              <Datepicker
+                control={control}
+                name={getNameOf<InterviewsUpdateRequestDto>('interviewDate')}
+                placeholder="Set interview date"
+                minDate={new Date()}
+                selectedDate={interview?.interviewDate}
+                withTime={true}
+              />
+            )}
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Interviewer</p>
@@ -115,10 +139,28 @@ const InterviewItem: FC<Props> = ({
                 name={getNameOf<InterviewsUpdateRequestDto>(
                   'interviewerUserId',
                 )}
-                className={styles.marginTop}
+                className={styles.select}
                 control={control}
                 errors={errors}
                 label="Interviewers"
+                hasVisuallyHiddenLabel
+              />
+            )}
+          </div>
+
+          <div className={styles.interviewRow}>
+            <p className={styles.header}>Status</p>
+            {!isEditMode && (
+              <p className={styles.interviewValue}>{interview?.status}</p>
+            )}
+            {isEditMode && (
+              <Select
+                options={statusOptions}
+                name={getNameOf<InterviewsUpdateRequestDto>('status')}
+                className={styles.select}
+                control={control}
+                errors={errors}
+                label="Status"
                 hasVisuallyHiddenLabel
               />
             )}
