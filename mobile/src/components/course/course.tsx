@@ -84,10 +84,6 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(coursesActions.updateVisibilityBecomeMentor());
-
-    return () => {
-      dispatch(coursesActions.setBecomeMentorInvisible());
-    };
   }, [mentors]);
 
   useEffect(() => {
@@ -104,6 +100,14 @@ const Course: FC = () => {
   useFocusEffect(
     useCallback(() => {
       return () => setIsDescriptionExpanded(false);
+    }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        dispatch(coursesActions.setBecomeMentorInvisible());
+      };
     }, []),
   );
 
