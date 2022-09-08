@@ -1,24 +1,30 @@
 import React, { FC } from 'react';
+import { Asset } from 'react-native-image-picker';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import { ButtonVariant, DataStatus, UserGender } from '~/common/enums/enums';
-import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
+import {
+  UserDetailsUpdateInfoRequestDto,
+  UserWithPermissions,
+} from '~/common/types/types';
 import {
   Button,
   Dropdown,
   Image,
   Input,
+  Pressable,
   Spinner,
   Stack,
   Text,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, pickImage } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
   useAppSelector,
   useEffect,
+  useState,
 } from '~/hooks/hooks';
 import { authActions, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
@@ -31,15 +37,47 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
-  const { userDetails, dataStatus } = useAppSelector(
-    (state) => state.userDetails,
-  );
+  const [selectedImage, setSelectedImage] = useState<Asset | null>(null);
+
+  const { user, userDataStatus, userDetails, userDetailsDataStatus } =
+    useAppSelector(({ auth, userDetails }) => ({
+      user: auth.user,
+      userDataStatus: auth.dataStatus,
+      userDetails: userDetails.userDetails,
+      userDetailsDataStatus: userDetails.dataStatus,
+    }));
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
       defaultValues: DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
+
+  const handleChooseAvatar = async (): Promise<void> => {
+    const image = await pickImage();
+
+    if (!image) {
+      return;
+    }
+
+    setSelectedImage(image);
+  };
+
+  const handleSaveAvatar = (): void => {
+    if (selectedImage) {
+      const { uri, type, fileName: name } = selectedImage;
+
+      const formData = new FormData();
+      formData.append('File', { uri, type, name });
+
+      dispatch(
+        userDetailsActions.updateUserAvatar({
+          file: formData,
+          userId: (user as UserWithPermissions).id,
+        }),
+      );
+    }
+  };
 
   const handleCancel = (): void => reset();
 
@@ -66,7 +104,10 @@ const Settings: FC = () => {
     }
   }, [userDetails]);
 
-  if (dataStatus === DataStatus.PENDING) {
+  if (
+    userDataStatus === DataStatus.PENDING ||
+    userDetailsDataStatus === DataStatus.PENDING
+  ) {
     return <Spinner isOverflow />;
   }
 
@@ -75,12 +116,23 @@ const Settings: FC = () => {
       <View style={styles.profileWrapper}>
         <Text style={styles.title}>Profile</Text>
         <View style={styles.avatarSection}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: userDetails?.avatar?.url ?? getImageUri(defaultUserAvatar),
-            }}
-          />
+          <Pressable onPress={handleChooseAvatar}>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri: userDetails?.avatar?.url ?? getImageUri(defaultUserAvatar),
+              }}
+            />
+          </Pressable>
+          <Stack space={20}>
+            <Button
+              label="Update file"
+              variant={ButtonVariant.SECONDARY}
+              onPress={handleChooseAvatar}
+              size="small"
+            />
+            <Button label="Save" onPress={handleSaveAvatar} size="small" />
+          </Stack>
         </View>
         <Stack space={20}>
           <Input
