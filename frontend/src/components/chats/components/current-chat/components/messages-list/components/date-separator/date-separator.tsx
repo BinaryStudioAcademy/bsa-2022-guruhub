@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { getFormattedDate, isTodayCheck } from 'helpers/helpers';
+import { checkIsToday, getFormattedDate } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const DateSeparator: FC<Props> = ({ postTime }) => {
-  const isToday = isTodayCheck(new Date(postTime));
+  const isToday = checkIsToday(new Date(postTime));
 
   return (
     <div className={styles.dateSeparator}>
