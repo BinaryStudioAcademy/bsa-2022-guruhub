@@ -1,6 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC, UserSignUpRequestDto } from 'common/types/types';
-import { Button, Input, Link } from 'components/common/common';
+import { Button, Input, Link, PasswordInput } from 'components/common/common';
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from 'validation-schemas/validation-schemas';
@@ -38,6 +38,7 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               name={getNameOf<UserSignUpRequestDto>('fullName')}
               control={control}
               errors={errors}
+              placeholder="Enter your full name"
             />
             <Input
               type="text"
@@ -45,13 +46,14 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
               name={getNameOf<UserSignUpRequestDto>('email')}
               control={control}
               errors={errors}
+              placeholder="Enter your email"
             />
-            <Input
-              type="password"
+            <PasswordInput
               label="Password"
               name={getNameOf<UserSignUpRequestDto>('password')}
               control={control}
               errors={errors}
+              placeholder="Enter your password"
             />
           </div>
           <div className={styles.buttonWrapper}>

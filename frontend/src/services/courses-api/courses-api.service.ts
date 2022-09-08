@@ -6,12 +6,17 @@ import {
 } from 'common/enums/enums';
 import {
   CourseFilteringDto,
+  CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
-  UsersGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
+  UserDetailsResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -30,16 +35,34 @@ class CoursesApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(opts: {
+  public getAllWithCategories(opts: {
     filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
         method: HttpMethod.GET,
         queryString: {
           title: opts.filtering.title,
           categoryKey: opts.filtering.categoryKey,
+        },
+      },
+    );
+  }
+
+  public getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
         },
       },
     );
@@ -81,11 +104,94 @@ class CoursesApi {
   }
 
   public getMentorsByCourseId({
-    id,
-  }: CourseGetRequestParamsDto): Promise<UsersGetResponseDto[]> {
-    return this.#http.load<UsersGetResponseDto[]>(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}${
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          mentorName: filteringOpts.mentorName,
+        },
+      },
+    );
+  }
+
+  public getMenteesByCourseId(
+    courseId: number,
+  ): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTEES
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public chooseMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.POST,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
+      },
+    );
+  }
+
+  public changeMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
+      },
+    );
+  }
+
+  public checkIsMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.IS_MENTOR_CHECK
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public checkHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.HAS_MENTOR_CHECK
       }`,
       {
         method: HttpMethod.GET,

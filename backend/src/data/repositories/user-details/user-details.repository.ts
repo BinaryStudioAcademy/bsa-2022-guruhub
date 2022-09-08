@@ -1,4 +1,7 @@
-import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
+import {
+  UserDetailsResponseDto,
+  UserDetailsUpdateInfoRequestDto,
+} from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
 type Constructor = {
@@ -8,6 +11,18 @@ type Constructor = {
 class UserDetails {
   #UserDetailsModel: typeof UserDetailsM;
 
+  private static DEFAULT_DETAILS_COLUMNS_TO_RETURN: string[] = [
+    'id',
+    'gender',
+    'createdAt',
+    'updatedAt',
+    'dateOfBirth',
+    'userId',
+    'fullName',
+    'avatarFileId',
+    'telegramUsername',
+  ];
+
   public constructor({ UserDetailsModel }: Constructor) {
     this.#UserDetailsModel = UserDetailsModel;
   }
@@ -15,7 +30,7 @@ class UserDetails {
   public create(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
-  ): Promise<UserDetailsM> {
+  ): Promise<UserDetailsResponseDto> {
     const { fullName, gender } = userDetails;
 
     return this.#UserDetailsModel
@@ -25,30 +40,48 @@ class UserDetails {
         gender,
         userId,
       })
+      .withGraphFetched('avatar')
+      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 
   public update(
     userId: number,
     userDetails: UserDetailsUpdateInfoRequestDto,
-  ): Promise<UserDetailsM | null> {
+  ): Promise<UserDetailsResponseDto | null> {
     return this.#UserDetailsModel
       .query()
       .findOne({ userId })
       .patch(userDetails)
-      .returning('*')
+      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
       .first()
-      .castTo<UserDetailsM>()
+      .withGraphFetched('avatar')
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 
-  public getByUserId(userId: number): Promise<UserDetailsM | null> {
+  public getByUserId(userId: number): Promise<UserDetailsResponseDto | null> {
     return this.#UserDetailsModel
       .query()
-      .select()
+      .select(...UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
       .where({ userId })
       .first()
-      .castTo<UserDetailsM>()
+      .withGraphFetched('avatar')
+      .castTo<UserDetailsResponseDto>()
+      .execute();
+  }
+
+  public updateAvatarFileId(
+    userDetailsId: number,
+    fileId: number,
+  ): Promise<UserDetailsResponseDto> {
+    return this.#UserDetailsModel
+      .query()
+      .patchAndFetchById(userDetailsId, { avatarFileId: fileId })
+      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
+      .withGraphFetched('avatar')
+      .castTo<UserDetailsResponseDto>()
       .execute();
   }
 }

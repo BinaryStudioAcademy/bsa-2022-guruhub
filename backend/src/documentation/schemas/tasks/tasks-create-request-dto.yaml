@@ -1,0 +1,13 @@
+type: object
+properties:
+  note:
+    type: string
+    required: true
+    example: Example task note message
+  status:
+    type: string
+    enum:
+      - Uncompleted
+      - Pending
+      - Rejected
+      - Completed

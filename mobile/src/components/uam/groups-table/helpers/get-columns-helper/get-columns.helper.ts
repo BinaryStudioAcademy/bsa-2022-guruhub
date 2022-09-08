@@ -17,6 +17,10 @@ const getGroupsColumns = (): TableColumn<GroupsTableData>[] => {
       accessor: GroupsTableAccessor.KEY,
     },
     {
+      header: 'Created',
+      accessor: GroupsTableAccessor.CREATED_AT,
+    },
+    {
       header: 'Actions',
       accessor: GroupsTableAccessor.ACTION,
     },

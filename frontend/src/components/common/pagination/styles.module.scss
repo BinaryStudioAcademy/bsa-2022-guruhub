@@ -1,11 +1,17 @@
 .paginationContainer {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.paginationContainer::after {
+  flex: 1;
+  content: '';
 }
 
 .results {
-  padding-left: 15px;
+  flex: 1;
   color: var(--typography-text-gray-200);
 }
 
@@ -21,6 +27,7 @@
 .next {
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 .back::before,
@@ -28,10 +35,9 @@
   content: '';
   position: relative;
   display: inline-block;
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   border-top: 1.5px solid var(--typography-text-100-inverse);
-  cursor: pointer;
 }
 
 .back::before {
@@ -50,7 +56,6 @@
 .back:disabled::before,
 .next:disabled::before {
   border-color: var(--typography-text-gray-200);
-  cursor: auto;
 }
 
 .next {
@@ -59,4 +64,9 @@
 
 .back {
   transform: rotate(-45deg);
+}
+
+.back:disabled,
+.next:disabled {
+  cursor: auto;
 }

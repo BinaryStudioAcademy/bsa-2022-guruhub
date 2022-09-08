@@ -1,9 +1,22 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat-message/chat-message';
+export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
 } from './course/course';
 export {
@@ -38,11 +51,30 @@ export {
 export { type HttpOptions } from './http/http';
 export {
   type InterviewsCreateRequestBodyDto,
+  type InterviewsGetAllItemResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
+  type InterviewUpdateRequestArgumentsDto,
 } from './interview/interview';
+export {
+  type InterviewNoteCreateDto,
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteCreateRequestParamsDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllResponseDto,
+  type InterviewNoteGetRequestArgumentsDto,
+} from './interview-note/interview-note';
 export {
   type CoursesToMentorsRequestDto,
   type CoursesToMentorsResponseDto,
+  type GetMentorRequestParamsDto,
+  type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
 } from './mentor/mentor';
 export {
   type NavigationMenuItem,
@@ -63,9 +95,29 @@ export {
   type SVGProps,
   type URLSearchParamsInit,
 } from './react/react';
-export { SelectorOptions } from './selector-options/selector-options';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
-export { type IconName } from './ui/ui';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
+  type TaskGetItemReponseDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
+} from './task/task';
+export {
+  type TaskNoteFormRequestDto,
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+  type TaskNoteManipulateRequestDto,
+} from './task-note/task-note';
+export {
+  type CSSObjectWithLabel,
+  type GroupBase,
+  type IconName,
+  type OptionProps,
+  type SelectorOption,
+  type SelectStyles,
+} from './ui/ui';
 export {
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
@@ -77,6 +129,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

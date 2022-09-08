@@ -1,9 +1,10 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { DataStatus, PermissionKey } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { CourseUpdateCategoryRequestDto, FC } from 'common/types/types';
 import {
   Category,
   Content,
+  EditCategoryModal,
   IconButton,
   Image,
   Spinner,
@@ -18,27 +19,47 @@ import {
 } from 'hooks/hooks';
 import { courseActions } from 'store/actions';
 
-import { EditCategoryModal } from './components/components';
-import { ModulesCardsContainer } from './components/modules-cards-container/modules-cards-container';
+import {
+  ChooseMentorButton,
+  ChooseMentorModal,
+  ModulesCardsContainer,
+  MyMentor,
+  MyStudentsContainer,
+} from './components/components';
 import styles from './styles.module.scss';
 
 const Course: FC = () => {
   const {
     categories,
     course,
-    modules,
     dataStatus,
     passedInterviewsCategoryIds,
     user,
+    mentors,
+    mentor,
+    mentees,
+    modules,
+    tasks,
+    isMentorChoosingEnabled,
+    isMentor,
+    menteesByCourseDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
-    modules: course.modules,
     dataStatus: course.dataStatus,
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
+    mentors: course.mentors,
+    mentor: course.mentor,
+    modules: course.modules,
+    tasks: course.tasks,
+    isMentorChoosingEnabled: course.isMentorChoosingEnabled,
+    mentees: course.menteesByCourseId,
+    isMentor: course.isMentor,
+    menteesByCourseDataStatus: course.menteesByCourseDataStatus,
   }));
-  const { id } = useParams();
+  const { courseId, studentId } = useParams();
+  const isMentorView = Boolean(studentId);
   const dispatch = useAppDispatch();
 
   const isCategoryEditAllowed = checkHasPermission({
@@ -49,31 +70,116 @@ const Course: FC = () => {
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
 
-  const handleUpdateCategoryModalToggle = (evt: React.MouseEvent): void => {
-    evt?.stopPropagation();
+  const handleUpdateCategoryModalToggle = (): void => {
     setUpdateCategoryModalOpen((prev) => !prev);
   };
 
+  const [isChooseMentorModalOpen, setChooseMentorModalOpen] =
+    useState<boolean>(false);
+
+  const handleChooseMentorModalToggle = (): void => {
+    setChooseMentorModalOpen((prev) => !prev);
+  };
+
+  const handleMentorSelectClick = (mentorId: number): void => {
+    if (mentor) {
+      dispatch(courseActions.changeMentor({ id: mentorId }))
+        .unwrap()
+        .then(() => {
+          handleChooseMentorModalToggle();
+        });
+
+      return;
+    }
+
+    dispatch(courseActions.chooseMentor({ id: mentorId }))
+      .unwrap()
+      .then(() => {
+        handleChooseMentorModalToggle();
+      });
+  };
+
+  const handleMentorsSearch = (mentorName: string): void => {
+    dispatch(
+      courseActions.getMentorsByCourseId({
+        courseId: Number(courseId),
+        filteringOpts: { mentorName },
+      }),
+    );
+  };
+
+  const handleEditCategorySubmit = (
+    payload: CourseUpdateCategoryRequestDto,
+  ): void => {
+    const { newCategoryId } = payload;
+    dispatch(
+      courseActions.updateCategory({
+        courseId: Number(courseId),
+        newCategoryId,
+      }),
+    )
+      .unwrap()
+      .then(() => {
+        handleUpdateCategoryModalToggle();
+      });
+  };
+
   useEffect(() => {
-    dispatch(courseActions.getCourse({ id: Number(id) }));
-    dispatch(courseActions.getModules({ courseId: Number(id) }));
-    dispatch(courseActions.getMentorsByCourseId({ id: Number(id) }));
-    dispatch(courseActions.getCategories());
-  }, [dispatch, id]);
+    dispatch(courseActions.getCourse({ id: Number(courseId) }));
+
+    if (!isMentorView) {
+      dispatch(courseActions.getModules({ courseId: Number(courseId) }));
+      dispatch(courseActions.getCategories());
+    }
+
+    if (user && !isMentorView) {
+      dispatch(
+        courseActions.getMentorsByCourseId({
+          courseId: Number(courseId),
+          filteringOpts: { mentorName: '' },
+        }),
+      );
+      dispatch(courseActions.getMenteesByCourseId({ id: Number(courseId) }));
+    }
+  }, [dispatch, courseId, user]);
 
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(
+        courseActions.getMentor({
+          courseId: Number(courseId),
+          menteeId: user.id,
+        }),
+      );
     }
+    dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
   }, [user]);
 
   useEffect(() => {
-    dispatch(courseActions.updateIsMentorBecomingEnabled());
+    if (course && user) {
+      dispatch(courseActions.updateIsMentorBecomingEnabled());
+    }
+
+    if (course) {
+      dispatch(courseActions.updateIsMentorChoosingEnabled());
+    }
 
     return () => {
       dispatch(courseActions.disableMentorBecoming());
     };
   }, [user, course, passedInterviewsCategoryIds]);
+
+  useEffect(() => {
+    if (isMentorView) {
+      dispatch(
+        courseActions.getTasksByCourseIdAndMenteeId({
+          courseId: Number(courseId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [studentId, courseId]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -85,6 +191,13 @@ const Course: FC = () => {
     );
   }
 
+  const isUserAuthorized = Boolean(user);
+  const canSeeStudents =
+    isMentor &&
+    !isMentorView &&
+    menteesByCourseDataStatus === DataStatus.FULFILLED;
+  const canChooseMentor = isMentorChoosingEnabled && !isMentorView;
+
   return (
     <div className={styles.container}>
       <EditCategoryModal
@@ -93,18 +206,26 @@ const Course: FC = () => {
         isOpen={isUpdateCategoryModalOpen}
         categories={categories}
         onModalToggle={handleUpdateCategoryModalToggle}
+        onEditCategorySubmit={handleEditCategorySubmit}
+      />
+      <ChooseMentorModal
+        isOpen={isChooseMentorModalOpen}
+        onModalToggle={handleChooseMentorModalToggle}
+        mentors={mentors}
+        onMentorSelectClick={handleMentorSelectClick}
+        onMentorSearch={handleMentorsSearch}
       />
       <div className={styles.info}>
-        <div className={styles.courseHeadingContainer}>
+        <div className={styles.headingWrapper}>
           <h1>{course?.title}</h1>
           {isCategoryEditAllowed && (
-            <>
+            <div className={styles.editButton}>
               <IconButton
                 label="edit category"
                 iconName="edit"
                 onClick={handleUpdateCategoryModalToggle}
               />
-            </>
+            </div>
           )}
         </div>
         <div className={styles.categoryContainer}>
@@ -125,11 +246,35 @@ const Course: FC = () => {
         <Content html={course?.description ?? ''} />
         <h3 className={styles.modulesContentHeader}>Course Content</h3>
         <div className={styles.modulesContainer}>
-          <ModulesCardsContainer modules={modules} />
+          <ModulesCardsContainer
+            isMentorView={isMentorView}
+            studentId={Number(studentId)}
+            modules={modules}
+            tasks={tasks}
+            course={course}
+          />
         </div>
       </div>
 
-      <div className={styles.additional}></div>
+      {isUserAuthorized && (
+        <div className={styles.additional}>
+          {mentor && (
+            <MyMentor
+              mentor={mentor}
+              onMentorChange={handleChooseMentorModalToggle}
+            />
+          )}
+          {canSeeStudents && (
+            <MyStudentsContainer
+              mentees={mentees}
+              courseId={Number(courseId)}
+            />
+          )}
+          {canChooseMentor && (
+            <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

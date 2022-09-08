@@ -1,0 +1,4 @@
+get:
+  $ref: './chat-get-all-last-messages.yaml'
+post:
+  $ref: './chat-create-message.yaml'

@@ -4,6 +4,12 @@ node_modules
 # production
 build
 
+# artifacts
+allure-results
+allure-report
+junit-results
+junit-report
+
 # misc
 .DS_Store
 .env

@@ -1,0 +1,30 @@
+type: object
+properties:
+  id:
+    type: integer
+    minimum: 1
+    example: 1
+  fullName:
+    type: string
+    example: John Doe
+  gender:
+    type: string
+    example: male
+  avatarField:
+    type: string
+    example: 'https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
+  createdAt:
+    type: string
+    example: '2022-08-25T14:44:55.216Z'
+  updatedAt:
+    type: string
+    example: '2022-08-25T14:44:55.216Z'
+  dateOfBirth:
+    type: string
+    example: '2022-08-25T14:44:55.216Z'
+  userId:
+    type: number
+    example: 1
+  telegramUsername:
+    type: string
+    example: john_doe

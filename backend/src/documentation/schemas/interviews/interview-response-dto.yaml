@@ -1,0 +1,85 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  createdAt:
+    type: string
+    example: '2022-08-11T11:52:28.411Z'
+  updatedAt:
+    type: string
+    example: '2022-08-11T11:52:28.411Z'
+  interviewDate:
+    type: string
+    example: '2022-08-18T21:00:00.000Z'
+  status:
+    type: string
+    enum:
+      - New
+      - Rejected
+      - Canceled
+      - Pending
+      - In Progress
+      - Completed
+    example: New
+  categoryId:
+    type: integer
+    example: 64
+  intervieweeUserId:
+    type: integer
+    example: 2
+  interviewerUserId:
+    type: integer
+    example: 10
+  interviewee:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      userDetails:
+        $ref: '../user-details/user-details-response-dto.yaml'
+      email:
+        type: string
+        example: john.smith@gmail.com
+      createdAt:
+        type: string
+        example: '2022-08-09T18:17:02.149Z'
+      updatedAt:
+        type: string
+        example: '2022-08-09T18:17:02.149Z'
+  interviewer:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 10
+      userDetails:
+        $ref: '../user-details/user-details-response-dto.yaml'
+      email:
+        type: string
+        example: john.adams@gmail.com
+      createdAt:
+        type: string
+        example: '2022-08-09T18:17:02.149Z'
+      updatedAt:
+        type: string
+        example: '2022-08-09T18:17:02.149Z'
+  courseCategory:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 64
+      key:
+        type: string
+        example: 'node_js'
+      name:
+        type: string
+        example: 'Node.js'
+      createdAt:
+        type: string
+        example: '2022-08-09T09:22:57.892Z'
+      updatedAt:
+        type: string
+        example: '2022-08-09T09:22:57.892Z'

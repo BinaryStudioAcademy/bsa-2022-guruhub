@@ -1,4 +1,9 @@
-import { PermissionsGetAllResponseDto } from '~/common/types/types';
+import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  PermissionsGetAllItemResponseDto,
+  PermissionsGetAllResponseDto,
+} from '~/common/types/types';
 import { permission as permissionRep } from '~/data/repositories/repositories';
 
 type Constructor = {
@@ -12,15 +17,25 @@ class Permission {
     this.#permissionRepository = permissionRepository;
   }
 
-  public async getAll(): Promise<PermissionsGetAllResponseDto> {
-    const permissions = await this.#permissionRepository.getAll();
+  public async getAll({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<PermissionsGetAllItemResponseDto>
+  > {
+    const ZERO_INDEXED_PAGE = page - 1;
+    const permissions = await this.#permissionRepository.getAll({
+      page: ZERO_INDEXED_PAGE,
+      count,
+    });
 
     return {
-      items: permissions.map((permission) => ({
+      items: permissions.items.map((permission) => ({
         id: permission.id,
         key: permission.key,
         name: permission.name,
       })),
+      total: permissions.total,
     };
   }
 

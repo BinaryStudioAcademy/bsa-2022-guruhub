@@ -1,3 +1,4 @@
+import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
 import Fastify from 'fastify';
@@ -6,7 +7,7 @@ import path from 'node:path';
 import { Model } from 'objection';
 
 import { initApi } from '~/api/api';
-import { ENV } from '~/common/enums/enums';
+import { ENV, FileSizeBytesValue } from '~/common/enums/enums';
 
 import knexConfig from '../knexfile';
 
@@ -19,6 +20,14 @@ const app = Fastify({
 });
 
 Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
+
+app.register(fastifyMultipart, {
+  limits: {
+    fileSize: FileSizeBytesValue.ONE_MB,
+  },
+  attachFieldsToBody: true,
+  throwFileSizeLimit: false,
+});
 
 app.register(initApi, {
   prefix: ENV.API.V1_PREFIX,

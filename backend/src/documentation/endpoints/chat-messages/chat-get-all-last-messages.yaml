@@ -1,0 +1,9 @@
+summary: Get All Chats Last Messages
+tags:
+  - chatMessages
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/chat-messages/chat-get-all-messages-response-dto.yaml'

@@ -2,11 +2,18 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import {
   authApi,
+  categoriesApi,
+  chatApi,
+  courseModulesApi,
   coursesApi,
   groupsApi,
+  interviewsApi,
+  mentorsApi,
   notification,
   permissionsApi,
   storage,
+  tasksApi,
+  userDetailsApi,
   usersApi,
 } from '~/services/services';
 
@@ -15,12 +22,19 @@ import { rootReducer } from './root-reducer';
 
 const extraArgument = {
   authApi,
-  groupsApi,
-  notification,
-  storage,
-  usersApi,
-  permissionsApi,
+  categoriesApi,
+  chatApi,
+  courseModulesApi,
   coursesApi,
+  groupsApi,
+  mentorsApi,
+  notification,
+  permissionsApi,
+  storage,
+  tasksApi,
+  userDetailsApi,
+  usersApi,
+  interviewsApi,
 };
 
 const store = configureStore({

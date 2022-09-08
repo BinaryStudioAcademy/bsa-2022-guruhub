@@ -1,0 +1,24 @@
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 346px;
+  background: var(--background-gray-300);
+}
+
+.messagesTitle {
+  margin-left: 20px;
+  color: var(--typography-text-100-inverse);
+}
+
+.noChatsTitle {
+  margin-left: 20px;
+  color: var(--typography-text-gray-200);
+}
+
+.chatsList {
+  height: calc(100vh - 250px);
+  margin: 0;
+  padding: 25px;
+  overflow-y: scroll;
+  list-style-type: none;
+}

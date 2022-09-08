@@ -33,8 +33,11 @@ const Pagination: FC<Props> = ({
     onPageChange(currentPage - 1);
   };
 
+  const resultsInner = `${totalCount} results`;
+
   return (
     <View style={styles.container}>
+      <Text style={styles.results}>{resultsInner}</Text>
       <Pressable
         style={[styles.back, isDisabledBack ? styles.disabled : styles.enabled]}
         hitSlop={hitSlop}

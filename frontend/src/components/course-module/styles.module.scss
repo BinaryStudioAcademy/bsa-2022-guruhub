@@ -1,9 +1,17 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+  grid-gap: 45px 25px;
+  width: 100%;
+  padding: 18px 40px 0 30px;
+  color: var(--typography-text-100-inverse);
+}
+
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 30px;
-  color: var(--typography-text-100-inverse);
 }
 
 .courseName {
@@ -34,4 +42,12 @@
   flex-shrink: 1;
   align-items: center;
   color: var(--typography-text-gray-200);
+}
+
+.taskAbsenceTitle {
+  width: 100%;
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
 }

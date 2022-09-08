@@ -1,6 +1,6 @@
 import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
 import { FC, GroupsItemResponseDto } from 'common/types/types';
-import { Button, Pagination, Table } from 'components/common/common';
+import { Button, Table } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -49,8 +49,9 @@ const GroupsTable: FC = () => {
           to={AppRoute.UAM_CONFIGURE_GROUP}
         />
       </div>
-      <Table data={data} columns={columns} />
-      <Pagination
+      <Table
+        data={data}
+        columns={columns}
         currentPage={page}
         onPageChange={handlePageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

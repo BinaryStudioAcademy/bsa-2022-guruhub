@@ -1,0 +1,42 @@
+.studentsWrapper {
+  width: 100%;
+}
+
+.studentsTitle {
+  margin-bottom: 12px;
+  color: var(--typography-text-100-inverse);
+  font-size: 24px;
+  line-height: 48px;
+}
+
+.student {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 20px 30px;
+  color: var(--typography-text-100-inverse);
+  background: var(--background-gray-300);
+  border-radius: 10px;
+}
+
+.placeholder {
+  width: 100%;
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 74px;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.text {
+  margin-left: 23px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 18px;
+}

@@ -1,3 +1,4 @@
+export { ChatMessage } from './chat-message/chat-message.model';
 export { Course } from './course/course.model';
 export { CourseCategory } from './course-category/course-category.model';
 export { CourseModule } from './course-module/course-module.model';
@@ -5,8 +6,12 @@ export { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.model'
 export { File } from './file/file.model';
 export { Group } from './group/group.model';
 export { GroupsToPermissions } from './groups-to-permissions/groups-to-permissions.model';
+export { InterviewNote } from './interveiw-note/interview-note.model';
 export { Interview } from './interview/interview.model';
+export { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.model';
 export { Permission } from './permission/permission.model';
+export { Task } from './task/task.model';
+export { TaskNote } from './task-note/task-note.model';
 export { User } from './user/user.model';
 export { UserDetails } from './user-details/user-details.model';
 export { UsersToGroups } from './users-to-groups/users-to-groups.model';

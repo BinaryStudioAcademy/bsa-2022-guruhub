@@ -2,17 +2,17 @@ import {
   DrawerNavigationItem,
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
+import { checkHasPermission } from '~/helpers/helpers';
 
 const getAllowedScreens = (
   screens: DrawerNavigationItem[],
   userPermissions: PermissionsGetAllItemResponseDto[],
 ): DrawerNavigationItem[] => {
-  const userPermissionKeys = userPermissions.map((item) => item.key);
-
   return screens.filter((screen) => {
-    return screen.permissions.every((permission) =>
-      userPermissionKeys.includes(permission),
-    );
+    return checkHasPermission({
+      permissionKeys: screen.permissions,
+      userPermissions: userPermissions,
+    });
   });
 };
 

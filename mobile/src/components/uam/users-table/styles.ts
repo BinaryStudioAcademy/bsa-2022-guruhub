@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   tableWrapper: {
-    flexDirection: 'row',
+    marginBottom: 10,
   },
 });
 

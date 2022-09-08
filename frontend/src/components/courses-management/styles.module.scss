@@ -1,0 +1,14 @@
+.coursesManagement {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.pageTitle {
+  width: 100%;
+  color: var(--typography-text-100-inverse);
+  text-align: start;
+}

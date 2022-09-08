@@ -1,20 +1,24 @@
-import { Model, RelationMappings } from 'objection';
+import { Model, Modifiers, QueryBuilder, RelationMappings } from 'objection';
 
 import { DbTableName, UserGender } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
-import { User } from '../models';
+import { File, User } from '../models';
 
 class UserDetails extends Abstract {
   public 'fullName': string;
 
   public 'gender': UserGender | null;
 
-  public 'avatarUrl': string | null;
+  public 'avatarFileId': number | null;
 
   public 'dateOfBirth': string | null;
 
   public 'userId': number;
+
+  public 'moneyBalance': number;
+
+  public 'telegramUsername': string | null;
 
   public static override get relationMappings(): RelationMappings {
     return {
@@ -26,11 +30,37 @@ class UserDetails extends Abstract {
           to: `${DbTableName.USERS}.id`,
         },
       },
+      avatar: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: File,
+        join: {
+          from: `${DbTableName.USER_DETAILS}.avatarFileId`,
+          to: `${DbTableName.FILES}.id`,
+        },
+      },
     };
   }
 
   public static override get tableName(): string {
     return DbTableName.USER_DETAILS;
+  }
+
+  public static override get modifiers(): Modifiers<QueryBuilder<UserDetails>> {
+    return {
+      withoutMoneyBalance(builder): QueryBuilder<UserDetails> {
+        return builder.select(
+          'id',
+          'gender',
+          'createdAt',
+          'updatedAt',
+          'dateOfBirth',
+          'userId',
+          'fullName',
+          'telegramUsername',
+          'avatarFileId',
+        );
+      },
+    };
   }
 }
 

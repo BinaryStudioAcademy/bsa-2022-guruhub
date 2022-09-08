@@ -1,0 +1,17 @@
+type: object
+properties:
+  fullName:
+    type: string
+    nullable: false
+    example: 'Ann Tompson'
+  gender:
+    type: string
+    nullable: false
+    enum:
+      - male
+      - female
+      - other
+    example: female
+  telegramUsername:
+    type: string
+    example: ann_tompson

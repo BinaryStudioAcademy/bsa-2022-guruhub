@@ -3,6 +3,7 @@ enum DbTableName {
   USER_DETAILS = 'user_details',
   PERMISSIONS = 'permissions',
   MIGRATIONS = 'migrations',
+  CHAT_MESSAGES = 'chat_messages',
   COURSE_CATEGORIES = 'course_categories',
   COURSES = 'courses',
   COURSE_MODULES = 'course_modules',
@@ -11,8 +12,12 @@ enum DbTableName {
   GROUPS = 'groups',
   VENDORS = 'vendors',
   INTERVIEWS = 'interviews',
+  INTERVIEW_NOTES = 'interview_notes',
   FILES = 'files',
   COURSES_TO_MENTORS = 'courses_to_mentors',
+  MENTEES_TO_MENTORS = 'mentees_to_mentors',
+  TASKS = 'tasks',
+  TASK_NOTES = 'task_notes',
 }
 
 export { DbTableName };

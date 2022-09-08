@@ -18,15 +18,20 @@
 }
 
 .tableBodyRowData {
+  overflow-x: hidden;
   color: var(--typography-text-gray-200);
   font-weight: 600;
   font-size: 14px;
   font-style: normal;
   line-height: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: keep-all;
 }
 
 .tableHeadRowHeader,
 .tableBodyRowData {
+  position: relative;
   padding: 20px;
 }
 
@@ -39,4 +44,13 @@
   font-weight: 600;
   font-size: 18px;
   text-align: center;
+}
+
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  width: 20px;
+  height: 100%;
 }

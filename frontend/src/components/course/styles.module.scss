@@ -1,6 +1,8 @@
 .container {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  grid-gap: 40px;
+  padding: 40px 30px;
   color: #ffffff;
 }
 
@@ -15,18 +17,13 @@
 }
 
 .info {
-  width: 65%;
   margin-bottom: 20px;
 }
 
-.additional {
-  width: 25%;
-}
-
 .image {
-  width: 80%;
+  width: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .about {
@@ -41,15 +38,18 @@
   text-align: center;
 }
 
-.courseHeadingContainer {
+.headingWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 82.5%;
+  align-items: flex-start;
 }
 
 .categoryContainer {
   display: flex;
   flex-shrink: 0;
   margin-bottom: 10px;
+}
+
+.editButton {
+  margin-top: 15px;
 }

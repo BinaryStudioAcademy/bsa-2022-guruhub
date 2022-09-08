@@ -1,11 +1,11 @@
-import { DataStatus, UserGender } from 'common/enums/enums';
+import { DataStatus, UserAge, UserGender } from 'common/enums/enums';
 import {
   FC,
-  SelectorOptions,
+  SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
-import { Button, Input, Select } from 'components/common/common';
-import { getNameOf } from 'helpers/helpers';
+import { Button, Datepicker, Input, Select } from 'components/common/common';
+import { getNameOf, subtractYears } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -44,6 +44,8 @@ const UserProfileForm: FC = () => {
       reset({
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
+        dateOfBirth: userDetails.dateOfBirth ?? null,
+        telegramUsername: userDetails.telegramUsername ?? '',
       });
     }
   }, [userDetails]);
@@ -58,8 +60,16 @@ const UserProfileForm: FC = () => {
     dispatch(userDetailsActions.getUserDetails());
   };
 
-  const genderOptions = useMemo<SelectorOptions[]>(() => {
+  const genderOptions = useMemo<SelectorOption[]>(() => {
     return getGenderOptions();
+  }, []);
+
+  const maxDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MIN);
+  }, []);
+
+  const minDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MAX);
   }, []);
 
   return (
@@ -78,6 +88,15 @@ const UserProfileForm: FC = () => {
                 control={control}
                 errors={errors}
                 placeholder="Enter your full name"
+                inputClassName={styles.formInput}
+              />
+              <Datepicker
+                control={control}
+                name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
+                label="Birth date"
+                placeholder="Enter date of birth"
+                maxDate={maxDate}
+                minDate={minDate}
               />
             </div>
             <div className={styles.grid}>
@@ -87,23 +106,37 @@ const UserProfileForm: FC = () => {
                 name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
                 control={control}
                 errors={errors}
+                className={styles.formSelect}
+              />
+            </div>
+            <div className={styles.grid}>
+              <Input
+                type="text"
+                label="Telegram Username"
+                name={getNameOf<UserDetailsUpdateInfoRequestDto>(
+                  'telegramUsername',
+                )}
+                control={control}
+                errors={errors}
+                placeholder="Enter your telegram username"
               />
             </div>
           </div>
           <div className={styles.buttonWrapper}>
             <Button
               type="button"
-              btnType="outlined"
-              btnColor="blue"
+              btnType="filled"
+              btnColor="gray"
               label="Cancel"
               onClick={handleGetUsers}
-              className={styles.marginRight}
+              className={styles.cancelBtn}
             />
             <Button
               onClick={handleSubmit(handleUpdateProfile)}
               type="submit"
               label="Save"
               btnColor="blue"
+              className={styles.saveBtn}
             />
           </div>
         </form>

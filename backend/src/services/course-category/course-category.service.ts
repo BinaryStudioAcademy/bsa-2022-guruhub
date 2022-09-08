@@ -27,6 +27,14 @@ class CourseCategory {
     };
   }
 
+  public async getAllWithCourses(): Promise<CategoryGetAllResponseDto> {
+    const categories = await this.#courseCategoryRepository.getAllWithCourses();
+
+    return {
+      items: categories,
+    };
+  }
+
   public getByKey(key: string): Promise<CourseCategoryGetResponseDto | null> {
     return this.#courseCategoryRepository.getByKey(key);
   }

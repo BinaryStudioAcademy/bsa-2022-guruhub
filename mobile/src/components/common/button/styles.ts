@@ -9,8 +9,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingHorizontal: 30,
+    minWidth: 120,
+    minHeight: 40,
+  },
+  buttonSmall: {
+    paddingVertical: 8,
+  },
+  buttonLarge: {
     paddingVertical: 16,
-    paddingHorizontal: 20,
+  },
+  loaderWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  loader: {
+    position: 'absolute',
+    left: 5,
   },
   label: {
     fontFamily: AppFontFamily.INTER_600,
@@ -31,6 +46,12 @@ const styles = StyleSheet.create({
   },
   [`button${ButtonVariant.SECONDARY}Label`]: {
     color: AppColor.BRAND.BLUE_100,
+  },
+  [`button${ButtonVariant.CANCEL}`]: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_200,
+  },
+  [`button${ButtonVariant.CANCEL}Label`]: {
+    color: AppColor.TEXT.GRAY_100,
   },
 });
 

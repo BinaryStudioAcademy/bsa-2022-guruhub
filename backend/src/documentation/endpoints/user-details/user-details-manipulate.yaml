@@ -1,0 +1,5 @@
+get:
+  $ref: './user-details-get-by-user-id.yaml'
+put:
+  $ref: './user-details-update.yaml'
+

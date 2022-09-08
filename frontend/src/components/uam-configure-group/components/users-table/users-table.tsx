@@ -1,9 +1,12 @@
 import { PaginationDefaultValue } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
-import { Pagination, Table } from 'components/common/common';
+import { Table } from 'components/common/common';
 import { GroupConfigureFieldsName } from 'components/uam-configure-group/common/enums/enums';
 import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/common/types/types';
-import { getUserColumns } from 'components/uam-configure-group/helpers/helpers';
+import {
+  getUserColumns,
+  getUserTableData,
+} from 'components/uam-configure-group/helpers/helpers';
 import { useAppSelector, useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
@@ -35,13 +38,18 @@ const UsersTable: FC<Props> = ({
     });
   }, [selectedUserIds]);
 
+  const usersData = useMemo<GroupConfigureUsersTableRow[]>(() => {
+    return getUserTableData(users);
+  }, [users]);
+
   return (
     <div className={styles.groupWorkers}>
       <p className={styles.groupSubHeading}>
         Add users to the Group - Optional
       </p>
-      <Table data={users} columns={columns} />
-      <Pagination
+      <Table
+        data={usersData}
+        columns={columns}
         currentPage={page}
         onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

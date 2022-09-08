@@ -7,6 +7,7 @@
   },
   "scripts": {
     "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
     "migrate:dev": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:latest",
     "migrate:dev:make": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:make -x ts",
     "migrate:dev:down": "node -r tsconfig-paths/register node_modules/knex/bin/cli.js migrate:down",
@@ -19,6 +20,7 @@
     "start:dev": "nodemon --ignore ./tests --exec ts-node --files -r tsconfig-paths/register ./src/server.ts",
     "prestart": "npm run migrate",
     "start": "node ./src/server.js",
+    "start:build": "node ./build/src/server.js",
     "build:ts": "tsc && tsc-alias -p tsconfig.json",
     "build:copy": "cp -r package.json package-lock.json build && cp -r src/documentation build/src",
     "build": "npm run build:ts && npm run build:copy",
@@ -33,6 +35,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.154.0",
+    "@fastify/multipart": "7.1.1",
     "@fastify/static": "6.5.0",
     "@fastify/swagger": "7.4.1",
     "axios": "0.27.2",

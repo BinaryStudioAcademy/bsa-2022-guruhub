@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
@@ -15,7 +16,7 @@ const getCourses = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
   const { coursesApi } = extra;
-  const courses = await coursesApi.getAll({
+  const courses = await coursesApi.getAllWithCategories({
     filtering: { title, categoryKey },
   });
 
@@ -28,7 +29,7 @@ const getCategories = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.GET_CATEGORIES, async (_, { extra }) => {
   const { categoriesApi } = extra;
-  const categoriesDto = await categoriesApi.getAll();
+  const categoriesDto = await categoriesApi.getAllWithCourses();
 
   return categoriesDto;
 });
@@ -38,9 +39,10 @@ const addCourse = createAsyncThunk<
   CourseCreateRequestDto,
   AsyncThunkConfig
 >(ActionType.ADD_COURSE, async (createCoursePayload, { extra }) => {
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
   const { url } = createCoursePayload;
   const course = await coursesApi.create(url);
+  notification.success(NotificationMessage.COURSE_ADD);
 
   return course;
 });

@@ -1,8 +1,27 @@
 export {
+  type ChatGetAllMessagesRequestDto,
+  type ChatGetLastMessagesRequestDto,
+  type ChatMessageCreateRequestBodyDto,
+  type ChatMessageCreateRequestDto,
+  type ChatMessageCreateRequestWithStatusDto,
+  type ChatMessageFilteringDto,
+  type ChatMessageGetAllItemResponseDto,
+  type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllRequestParamsDto,
+  type ChatMessageGetAllResponseDto,
+  type ChatMessageUserResponseDto,
+} from './chat-message/chat-message';
+export {
+  type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
+  type CourseMentorsFilteringDto,
+  type CourseSelectMentorRequestDto,
+  type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
@@ -37,21 +56,54 @@ export {
 export { type GroupsToPermissionsResponseDto } from './groups-to-permissions/groups-to-permissions';
 export { type HttpErrorDto, type HttpOptions } from './http/http';
 export {
+  type InterviewsByIdRequestParamsDto,
   type InterviewsByIdResponseDto,
   type InterviewsByIntervieweeIdRequestDto,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
-  type InterviewsGetAllResponseDto,
+  type InterviewsGetInterviewerResponseDto,
+  type InterviewsGetInterviewersByCategoryRequestDto,
+  type InterviewsGetOtherItemResponseDto,
+  type InterviewsGetOtherRequestDto,
   type InterviewsResponseDto,
+  type InterviewsUpdateRequestDto,
+  type InterviewsUpdateRequestParamsDto,
 } from './interview/interview';
+export {
+  type InterviewNoteCreateRequestDto,
+  type InterviewNoteCreateRequestParamsDto,
+  type InterviewNoteGetAllItemResponseDto,
+  type InterviewNoteGetAllRequestParamsDto,
+  type InterviewNoteGetAllResponseDto,
+} from './interview-note/interview-note';
+export {
+  type GetMentorRequestParamsDto,
+  type MenteesToMentorsRequestDto,
+  type MenteesToMentorsResponseDto,
+} from './mentees-to-mentors/mentees-to-mentors';
+export { type DeepNonNullable } from './null/null';
 export {
   type EntityPagination,
   type EntityPaginationRequestQueryDto,
 } from './pagination/pagination';
 export {
+  type CheckPermisssionType,
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export {
+  type TaskByIdRequestParamsDto,
+  type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
+  type TaskGetItemReponseDto,
+  type TaskManipulateRequestArgumentsDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
+} from './task/task';
+export {
+  type TaskNoteGetItemResponseDto,
+  type TaskNoteManipulateRequestBodyDto,
+} from './task-note/task-note';
 export {
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
@@ -63,7 +115,9 @@ export {
   type UserWithPermissions,
 } from './user/user';
 export {
+  type UserDetailsItemResponseDto,
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';

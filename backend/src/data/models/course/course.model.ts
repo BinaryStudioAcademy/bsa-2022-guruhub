@@ -12,7 +12,7 @@ class Course extends Abstract {
 
   public 'url': string;
 
-  public 'imageUrl': string;
+  public 'imageUrl': string | null;
 
   public 'vendorId': number;
 
@@ -38,6 +38,30 @@ class Course extends Abstract {
           through: {
             from: `${DbTableName.COURSES_TO_MENTORS}.courseId`,
             to: `${DbTableName.COURSES_TO_MENTORS}.userId`,
+          },
+          to: `${DbTableName.USERS}.id`,
+        },
+      },
+      mentees: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: `${DbTableName.COURSES}.id`,
+          through: {
+            from: `${DbTableName.MENTEES_TO_MENTORS}.courseId`,
+            to: `${DbTableName.MENTEES_TO_MENTORS}.menteeId`,
+          },
+          to: `${DbTableName.USERS}.id`,
+        },
+      },
+      mentorsWithMentees: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: `${DbTableName.COURSES}.id`,
+          through: {
+            from: `${DbTableName.MENTEES_TO_MENTORS}.courseId`,
+            to: `${DbTableName.MENTEES_TO_MENTORS}.mentorId`,
           },
           to: `${DbTableName.USERS}.id`,
         },

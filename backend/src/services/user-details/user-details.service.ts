@@ -1,27 +1,50 @@
+import { ContentType } from '~/common/enums/enums';
 import {
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
+import { UserDetailsError } from '~/exceptions/exceptions';
+import { file as fileServ } from '~/services/services';
 
 type Constructor = {
   userDetailsRepository: typeof userDetailsRep;
+  fileService: typeof fileServ;
+  avatarBucketName: string;
 };
 
 class UserDetails {
   #userDetailsRepository: typeof userDetailsRep;
 
-  public constructor({ userDetailsRepository }: Constructor) {
+  #fileService: typeof fileServ;
+
+  #avatarBucketName: string;
+
+  public constructor({
+    userDetailsRepository,
+    fileService,
+    avatarBucketName,
+  }: Constructor) {
     this.#userDetailsRepository = userDetailsRepository;
+    this.#fileService = fileService;
+    this.#avatarBucketName = avatarBucketName;
   }
 
   public async update(
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto | null> {
+    const { telegramUsername } = userDetailsUpdateInfoRequestDto;
+    const hasTelegram = Boolean(telegramUsername);
+
+    const userDetailsUpdateWithTelegram = {
+      ...userDetailsUpdateInfoRequestDto,
+      telegramUsername: hasTelegram ? telegramUsername : null,
+    };
+
     const userDetails = await this.#userDetailsRepository.update(
       userId,
-      userDetailsUpdateInfoRequestDto,
+      userDetailsUpdateWithTelegram,
     );
 
     return userDetails ?? null;
@@ -45,6 +68,26 @@ class UserDetails {
     const userDetails = await this.#userDetailsRepository.getByUserId(userId);
 
     return userDetails ?? null;
+  }
+
+  public async uploadAvatar(
+    userId: number,
+    file: Buffer,
+  ): Promise<UserDetailsResponseDto> {
+    const user = await this.#userDetailsRepository.getByUserId(userId);
+
+    if (!user) {
+      throw new UserDetailsError();
+    }
+
+    const newFile = await this.#fileService.uploadFile({
+      bucket: this.#avatarBucketName,
+      contentType: ContentType.IMAGE,
+      file,
+      fileName: `${user.id}/${Date.now().toString()}`,
+    });
+
+    return this.#userDetailsRepository.updateAvatarFileId(user.id, newFile.id);
   }
 }
 

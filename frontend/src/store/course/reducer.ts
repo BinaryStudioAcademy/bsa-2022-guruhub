@@ -4,19 +4,28 @@ import {
   CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
+  TaskWithModuleResponseDto,
+  UserDetailsResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
+  changeMentor,
+  checkIsMentor,
+  chooseMentor,
   createMentor,
   disableMentorBecoming,
   getCategories,
   getCourse,
+  getMenteesByCourseId,
+  getMentor,
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
+  getTasksByCourseIdAndMenteeId,
   updateCategory,
   updateIsMentorBecomingEnabled,
+  updateIsMentorChoosingEnabled,
 } from './actions';
 
 type State = {
@@ -25,8 +34,14 @@ type State = {
   modules: CourseModulesGetAllItemResponseDto[];
   passedInterviewsCategoryIds: number[];
   isMentorBecomingEnabled: boolean;
-  mentors: UsersGetResponseDto[];
+  isMentorChoosingEnabled: boolean;
+  mentors: UserDetailsResponseDto[];
+  mentor: UsersGetResponseDto | null;
   categories: CategoryGetAllItemResponseDto[];
+  menteesByCourseId: UserDetailsResponseDto[];
+  menteesByCourseDataStatus: DataStatus;
+  isMentor: boolean;
+  tasks: TaskWithModuleResponseDto[];
 };
 
 const initialState: State = {
@@ -35,8 +50,14 @@ const initialState: State = {
   modules: [],
   passedInterviewsCategoryIds: [],
   isMentorBecomingEnabled: false,
+  isMentorChoosingEnabled: false,
   mentors: [],
+  mentor: null,
   categories: [],
+  menteesByCourseId: [],
+  menteesByCourseDataStatus: DataStatus.IDLE,
+  isMentor: false,
+  tasks: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -111,6 +132,77 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(disableMentorBecoming.fulfilled, (state, { payload }) => {
     state.isMentorBecomingEnabled = payload;
+  });
+
+  builder.addCase(chooseMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentorChoosingEnabled = false;
+    state.mentor = payload.mentor;
+  });
+
+  builder.addCase(changeMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+
+  builder.addCase(changeMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentorChoosingEnabled = false;
+    state.mentor = payload.mentor;
+  });
+
+  builder.addCase(getMentor.fulfilled, (state, { payload }) => {
+    const hasMentor = Boolean(payload);
+    const canChooseMentor = !hasMentor && state.isMentorChoosingEnabled;
+    state.isMentorChoosingEnabled = canChooseMentor;
+    state.mentor = payload ? payload.mentor : null;
+  });
+
+  builder.addCase(
+    updateIsMentorChoosingEnabled.fulfilled,
+    (state, { payload }) => {
+      state.isMentorChoosingEnabled = payload;
+    },
+  );
+  builder.addCase(getMenteesByCourseId.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+    state.menteesByCourseDataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(getMenteesByCourseId.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.menteesByCourseId = payload;
+    state.menteesByCourseDataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(getMenteesByCourseId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.menteesByCourseDataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(checkIsMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentor = payload;
+  });
+  builder.addCase(checkIsMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(getTasksByCourseIdAndMenteeId.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(
+    getTasksByCourseIdAndMenteeId.fulfilled,
+    (state, { payload }) => {
+      state.dataStatus = DataStatus.FULFILLED;
+      state.tasks = payload;
+    },
+  );
+  builder.addCase(getTasksByCourseIdAndMenteeId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.tasks = [];
   });
 });
 

@@ -9,6 +9,17 @@
   border-radius: 20px;
 }
 
+.category:hover {
+  color: black;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
 .categoryName {
   margin-left: 5px;
+}
+
+.selected {
+  color: black;
+  background-color: #ffffff;
 }

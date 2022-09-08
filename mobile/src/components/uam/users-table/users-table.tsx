@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { PaginationDefaultValue } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import { getUsersColumns } from '~/components/uam/helpers/helpers';
+import { getFormattedDate } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -17,7 +18,13 @@ import { styles } from './styles';
 const UsersTable: FC = () => {
   const [page, setPage] = useState<number>(PaginationDefaultValue.DEFAULT_PAGE);
   const dispatch = useAppDispatch();
-  const { users, usersTotalCount } = useAppSelector((state) => state.uam);
+  const { users, usersTotalCount, currentUserID } = useAppSelector(
+    ({ uam, auth }) => ({
+      users: uam.users,
+      usersTotalCount: uam.usersTotalCount,
+      currentUserID: auth.user?.id,
+    }),
+  );
 
   const handleUserDelete = (userId: number): void => {
     dispatch(uamActions.deleteUser({ id: userId }));
@@ -27,7 +34,11 @@ const UsersTable: FC = () => {
 
   const tableData = users.map((user) => ({
     ...user,
-    action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
+    fullName: user.userDetails.fullName,
+    createdAt: getFormattedDate(user.createdAt, 'HH:mm dd.MM.yyyy'),
+    ...(currentUserID !== user.id && {
+      action: <ActionCell id={user.id} onDelete={handleUserDelete} />,
+    }),
   }));
 
   useEffect(() => {
@@ -46,7 +57,7 @@ const UsersTable: FC = () => {
         <Table
           columns={usersColumns}
           data={tableData}
-          columnWidthArr={[50, 190, 250, 150, 100]}
+          columnWidthArr={[50, 190, 250, 155, 100]}
         />
       </View>
       <Pagination

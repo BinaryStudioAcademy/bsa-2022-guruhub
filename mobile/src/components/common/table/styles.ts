@@ -6,17 +6,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 10,
+    marginBottom: 10,
   },
   scrollView: {
     minWidth: '100%',
+  },
+  dataRow: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  dataCell: {
+    alignItems: 'flex-start',
+    paddingHorizontal: 10,
   },
   dataText: {
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 14,
     lineHeight: 24,
     color: AppColor.TEXT.GRAY_200,
-    marginTop: 10,
-    marginHorizontal: 10,
   },
   header: {
     flexDirection: 'row',

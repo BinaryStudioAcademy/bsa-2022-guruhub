@@ -6,6 +6,7 @@ import {
 } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
+import { Chats } from 'components/chats/chats';
 import {
   AuthorizedProtectedRoute,
   AuthorizedWrapper,
@@ -15,7 +16,10 @@ import {
 } from 'components/common/common';
 import { Course } from 'components/course/course';
 import { CourseModule } from 'components/course-module/course-module';
+import { CoursesManagement } from 'components/courses-management/courses-management';
 import { Dashboard } from 'components/dashboard/dashboard';
+import { Interview } from 'components/interview/interview';
+import { Interviews } from 'components/interviews/interviews';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
@@ -99,6 +103,63 @@ const App: FC = () => {
             <AuthorizedWrapper>
               <CourseModule />
             </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.INTERVIEW}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEW,
+                PermissionKey.MANAGE_INTERVIEWS,
+              ]}
+              component={<Interviews />}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.INTERVIEWS_$ID}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[
+                PermissionKey.MANAGE_INTERVIEWS,
+                PermissionKey.MANAGE_INTERVIEW,
+              ]}
+              component={<Interview />}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <Course />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID_MODULES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <CourseModule />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.CHATS}
+          element={
+            <AuthorizedWrapper>
+              <Chats />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.COURSES_MANAGEMENT}
+          element={
+            <AuthorizedProtectedRoute
+              permissions={[PermissionKey.MANAGE_CATEGORIES]}
+              component={<CoursesManagement />}
+            />
           }
         />
         <Route

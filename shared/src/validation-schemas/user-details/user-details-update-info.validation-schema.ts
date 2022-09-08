@@ -26,6 +26,20 @@ const userDetailsUpdateInfo = Joi.object({
     .messages({
       'string.empty': UserDetailsValidationMessage.GENDER_REQUIRE,
     }),
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')]:
+    Joi.date().allow(null),
+  [getNameOf<UserDetailsUpdateInfoRequestDto>('telegramUsername')]: Joi.string()
+    .trim()
+    .min(UserDetailsValidationRule.TELEGRAM_USERNAME_MIN_LENGTH)
+    .max(UserDetailsValidationRule.TELEGRAM_USERNAME_MAX_LENGTH)
+    .pattern(UserDetailsValidationRule.TELEGRAM_USERNAME_PATTERN)
+    .messages({
+      'string.min': UserDetailsValidationMessage.TELEGRAM_USERNAME_MIN_LENGTH,
+      'string.max': UserDetailsValidationMessage.TELEGRAM_USERNAME_MAX_LENGTH,
+      'string.pattern.base':
+        UserDetailsValidationMessage.TELEGRAM_USERNAME_WRONG,
+    })
+    .allow(null, ''),
 });
 
 export { userDetailsUpdateInfo };

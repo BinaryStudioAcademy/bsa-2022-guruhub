@@ -17,6 +17,15 @@ class CategoriesApi {
     this.#apiPrefix = apiPrefix;
   }
 
+  public getAllWithCourses(): Promise<CategoryGetAllResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.CATEGORIES}${ApiPath.DASHBOARD}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public getAll(): Promise<CategoryGetAllResponseDto> {
     return this.#http.load(`${this.#apiPrefix}${ApiPath.CATEGORIES}`, {
       method: HttpMethod.GET,

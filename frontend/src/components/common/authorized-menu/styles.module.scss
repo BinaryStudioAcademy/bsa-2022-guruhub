@@ -3,9 +3,12 @@
   top: 96px;
   display: flex;
   flex-direction: column;
-  min-width: 270px;
-  height: 89.6vh;
-  padding: 40px;
+  width: 295px;
+  min-width: 295px;
+  height: calc(100vh - 96px);
+  padding: 35px;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-color: var(--background-gray-300);
 }
 

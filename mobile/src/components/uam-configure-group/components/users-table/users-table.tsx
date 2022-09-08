@@ -42,14 +42,12 @@ const UsersTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (checkedIds.length) {
-        const selectedUsers = getSelectedItemsValues({
-          checkedIds,
-          items: users.items.map((item) => item.id),
-          namePrefix: 'userIds',
-        });
-        reset(selectedUsers);
-      }
+      const selectedUsers = getSelectedItemsValues({
+        checkedIds,
+        items: users.items.map((item) => item.id),
+        namePrefix: 'userIds',
+      });
+      reset(selectedUsers);
     }, [users.items, checkedIds]),
   );
 
@@ -63,11 +61,13 @@ const UsersTable: FC<Props> = ({
 
   return (
     <View style={styles.tableContainer}>
-      <Table
-        columns={userColumns}
-        data={userRows}
-        columnWidthArr={[50, 50, 200, 250, 150]}
-      />
+      <View style={styles.tableWrapper}>
+        <Table
+          columns={userColumns}
+          data={userRows}
+          columnWidthArr={[50, 50, 200, 250, 155]}
+        />
+      </View>
       <Pagination
         totalCount={users.total}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}

@@ -1,9 +1,9 @@
 import { UserGender } from 'common/enums/enums';
-import { SelectorOptions } from 'common/types/types';
+import { SelectorOption } from 'common/types/types';
 
-const getGenderOptions = (): SelectorOptions[] => {
-  return Object.values(UserGender).map<SelectorOptions>((it) => ({
-    name: it,
+const getGenderOptions = (): SelectorOption[] => {
+  return Object.values(UserGender).map<SelectorOption>((it) => ({
+    label: it,
     value: it,
   }));
 };

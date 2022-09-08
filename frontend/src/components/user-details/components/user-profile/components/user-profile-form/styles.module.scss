@@ -14,14 +14,13 @@
 }
 
 .formWrapper {
-  margin-top: 60px;
+  margin: 20px 0;
   color: var(--typography-text-100-inverse);
 }
 
 .formContent {
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
   padding: 24px 0;
   column-gap: 20px;
 }
@@ -45,11 +44,25 @@
   line-height: 24px;
 }
 
-.marginRight {
+.cancelBtn {
+  min-width: 90px;
   margin-right: 10px;
+  padding: 15px 20px;
 }
 
-.cancelBtn {
-  margin-right: 15px;
-  background-color: var(--background-gray-200);
+.saveBtn {
+  min-width: 85px;
+  padding: 15px 20px;
+}
+
+.formInput {
+  background: var(--background-gray-200);
+}
+
+.formSelect div[class$='-control'] {
+  background: var(--background-gray-200);
+}
+
+.formSelect label {
+  font-weight: 500;
 }

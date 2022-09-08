@@ -11,6 +11,13 @@ type AppNavigationParamList = {
   [AppScreenName.UAM_GROUPS_EDIT]: undefined;
   [AppScreenName.ADD_COURSE]: undefined;
   [AppScreenName.COURSE]: undefined;
+  [AppScreenName.EDIT_COURSE_CATEGORY]: undefined;
+  [AppScreenName.INTERVIEWS]: undefined;
+  [AppScreenName.INTERVIEW]: undefined;
+  [AppScreenName.COURSE_MODULE]: undefined;
+  [AppScreenName.CHAT]: undefined;
+  [AppScreenName.CONVERSATION]: undefined;
+  [AppScreenName.TASK]: undefined;
 };
 
 export { type AppNavigationParamList };

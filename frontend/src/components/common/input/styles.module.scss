@@ -16,6 +16,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   outline: none;
+  resize: none;
 }
 
 .input.error {
@@ -38,7 +39,6 @@
 
 .errorMessage {
   height: 16px;
-  overflow: hidden;
   color: var(--support-error-red-100);
   font-weight: 600;
   font-size: 12px;
@@ -48,6 +48,10 @@
 .input[type='password'] {
   color: var(--text-gray-200);
   letter-spacing: 4px;
+}
+
+.input[type='password']::placeholder {
+  letter-spacing: normal;
 }
 
 .visuallyHidden {

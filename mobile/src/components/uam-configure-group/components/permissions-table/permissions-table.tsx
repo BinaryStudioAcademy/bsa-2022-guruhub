@@ -39,14 +39,12 @@ const PermissionsTable: FC<Props> = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (checkedIds.length) {
-        const selectedPermissions = getSelectedItemsValues({
-          checkedIds,
-          items: permissions.map((item) => item.id),
-          namePrefix: 'permissionIds',
-        });
-        reset(selectedPermissions);
-      }
+      const selectedPermissions = getSelectedItemsValues({
+        checkedIds,
+        items: permissions.map((item) => item.id),
+        namePrefix: 'permissionIds',
+      });
+      reset(selectedPermissions);
     }, [permissions, checkedIds]),
   );
 
@@ -64,6 +62,7 @@ const PermissionsTable: FC<Props> = ({
         columns={permissionColumns}
         data={permissionRows}
         columnWidthArr={[50, 200, 100]}
+        showScrollbar={false}
       />
       <Pagination
         totalCount={permissions.length}

@@ -4,6 +4,7 @@ import {
   UdemyModuleGetResponseDto,
   UdemyModulesGetResponseDto,
 } from '~/common/types/types';
+import { UdemyError } from '~/exceptions/exceptions';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
@@ -42,18 +43,22 @@ class Udemy {
   }
 
   public async getCourseByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
-    const courseIdOrSlug = url.pathname
-      .split('/')
-      .filter(Boolean)
-      .pop() as string;
+    try {
+      const courseIdOrSlug = url.pathname
+        .split('/')
+        .filter(Boolean)
+        .pop() as string;
 
-    const headers = this.getHeaders();
-    const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
-      this.getCourseRequestUrl(courseIdOrSlug),
-      { headers, method: HttpMethod.GET },
-    );
+      const headers = this.getHeaders();
+      const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
+        this.getCourseRequestUrl(courseIdOrSlug),
+        { headers, method: HttpMethod.GET },
+      );
 
-    return res;
+      return res;
+    } catch {
+      throw new UdemyError();
+    }
   }
 
   public async getModulesByCourseId(
@@ -110,7 +115,7 @@ class Udemy {
   private getCourseRequestUrl(courseIdOrSlug: string): string {
     return `${
       this.#baseUrl
-    }courses/${courseIdOrSlug}?fields[course]=title,description,url`;
+    }courses/${courseIdOrSlug}?fields[course]=title,description,url,image_480x270`;
   }
 
   private getModuleRequestUrl(courseId: number, page: number): string {

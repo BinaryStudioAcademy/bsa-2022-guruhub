@@ -1,8 +1,15 @@
+import { Page } from 'objection';
+
+import { SortOrder } from '~/common/enums/enums';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMenteesByMentorRequestDto,
+  CourseGetMentorsRequestDto,
   CourseGetResponseDto,
-  UsersGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -17,14 +24,16 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAll(filteringOpts: {
+  public getAllWithCategories(filteringOpts: {
     categoryId: number | null;
     title: string;
   }): Promise<CourseGetResponseDto[]> {
     const { categoryId, title } = filteringOpts ?? {};
+    const normalizedTitle = title.replaceAll('\\', '\\\\');
 
     return this.#CourseModel
       .query()
+      .select('*')
       .where((builder) => {
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
@@ -32,19 +41,50 @@ class Course {
       })
       .andWhere((builder) => {
         if (title) {
-          builder.where('title', 'ilike', `%${title}%`);
+          builder.where('title', 'ilike', `%${normalizedTitle}%`);
         }
       })
+      .innerJoin(
+        'courseCategories',
+        'courses.courseCategoryId',
+        'courseCategories.id',
+      )
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
   }
 
+  public async getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    const { results, total } = await this.#CourseModel
+      .query()
+      .withGraphJoined('category')
+      .orderBy('courseCategoryId', SortOrder.DESC)
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
+
+    return {
+      items: results,
+      total,
+    };
+  }
+
   public async create(
     course: CourseCreateRequestArgumentsDto,
   ): Promise<CourseM> {
-    const { title, description, url, vendorId, courseCategoryId, originalId } =
-      course;
+    const {
+      title,
+      description,
+      url,
+      vendorId,
+      courseCategoryId,
+      originalId,
+      imageUrl,
+    } = course;
 
     return this.#CourseModel.query().insert({
       title,
@@ -53,6 +93,7 @@ class Course {
       vendorId,
       courseCategoryId,
       originalId,
+      imageUrl,
     });
   }
 
@@ -92,15 +133,48 @@ class Course {
       .execute();
   }
 
-  public getMentorsByCourseId(
-    courseId: number,
-  ): Promise<UsersGetResponseDto[]> {
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    const { mentorName } = filteringOpts ?? {};
+
     return this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
-      .select('mentors.id')
-      .joinRelated('mentors')
-      .castTo<UsersGetResponseDto[]>()
+      .andWhere((builder) => {
+        if (mentorName) {
+          builder.where('fullName', 'ilike', `%${mentorName}%`);
+        }
+      })
+      .select(
+        'mentors.id',
+        'fullName',
+        'gender',
+        'dateOfBirth',
+        'mentors:userDetails:avatar as avatar',
+      )
+      .withGraphJoined(
+        'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
+      .castTo<UserDetailsResponseDto[]>()
+      .execute();
+  }
+
+  public getMenteesByCourseIdAndMentorId({
+    courseId,
+    mentorId,
+  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
+      .withGraphJoined(
+        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentorsWithMentees]',
+      )
+      .where('mentorsWithMentees.id', mentorId)
+      .where('courses.id', courseId)
+      .distinct('mentees.id')
+      .castTo<UserDetailsResponseDto[]>()
       .execute();
   }
 

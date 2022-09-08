@@ -3,8 +3,12 @@ import {
   CourseCreateArgumentsDto,
   CourseFilteringDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
+  CourseGetMenteesByMentorRequestDto,
+  CourseGetMentorsRequestDto,
   CourseGetResponseDto,
-  UsersGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  UserDetailsResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
@@ -55,22 +59,36 @@ class Course {
     this.#courseCategoryService = courseCategoryService;
   }
 
-  public async getAll(
+  public async getAllWithCategories(
     filteringOpts: CourseFilteringDto,
   ): Promise<CourseGetResponseDto[]> {
     const { categoryKey, title } = filteringOpts;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
 
-    return this.#courseRepository.getAll({
+    return this.#courseRepository.getAllWithCategories({
       categoryId,
       title,
+    });
+  }
+
+  public getAll(
+    args: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { page, count } = args;
+
+    const zeroIndexPage = page - 1;
+
+    return this.#courseRepository.getAll({
+      page: zeroIndexPage,
+      count,
     });
   }
 
   public async create(
     courseRequestDto: CourseCreateArgumentsDto,
   ): Promise<CourseGetResponseDto> {
-    const { description, title, url, vendorKey, originalId } = courseRequestDto;
+    const { description, title, url, vendorKey, originalId, imageUrl } =
+      courseRequestDto;
 
     const vendor = await this.#vendorService.getByKey(vendorKey);
 
@@ -97,6 +115,7 @@ class Course {
       url,
       vendorId: vendor.id,
       originalId,
+      imageUrl,
     });
 
     return {
@@ -115,7 +134,7 @@ class Course {
       case CourseHost.W_UDEMY: {
         const courseData = await this.#udemyService.getCourseByUrl(urlObject);
 
-        const { description, title, url, id } = courseData;
+        const { description, title, url, id, image_480x270 } = courseData;
 
         const course = await this.create({
           description,
@@ -123,6 +142,7 @@ class Course {
           url,
           vendorKey: VendorKey.UDEMY,
           originalId: id.toString(),
+          imageUrl: image_480x270,
         });
 
         await this.#courseModuleService.createModulesByCourseId(id, course.id);
@@ -140,6 +160,7 @@ class Course {
           url,
           vendorKey: VendorKey.EDX,
           originalId: course_id.toString(),
+          imageUrl: null,
         });
 
         return course;
@@ -186,10 +207,24 @@ class Course {
     return course ?? null;
   }
 
-  public getMentorsByCourseId(
-    courseId: number,
-  ): Promise<UsersGetResponseDto[]> {
-    return this.#courseRepository.getMentorsByCourseId(courseId);
+  public getMentorsByCourseId({
+    courseId,
+    filteringOpts,
+  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#courseRepository.getMentorsByCourseId({
+      courseId,
+      filteringOpts,
+    });
+  }
+
+  public getMenteesByCourseIdAndMentorId({
+    mentorId,
+    courseId,
+  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
+    return this.#courseRepository.getMenteesByCourseIdAndMentorId({
+      courseId,
+      mentorId,
+    });
   }
 
   public updateCategory(
