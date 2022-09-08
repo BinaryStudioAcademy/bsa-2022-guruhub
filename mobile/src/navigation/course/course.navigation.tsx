@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { CourseScreenName } from '~/common/enums/enums';
 import { CourseNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
+import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -13,8 +14,7 @@ import {
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
-import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
-import { getPermittedScreens } from './helpers/helpers';
+import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseNavigationParamList>();
 
@@ -32,9 +32,11 @@ const Course: FC = () => {
   );
 
   const allowedScreens = useMemo(() => {
-    const permittedScreens = user
-      ? getPermittedScreens(COURSE_TAB_ITEMS, userPermissions)
-      : COURSE_TAB_ITEMS.filter(({ name }) => name === CourseScreenName.ABOUT);
+    const screensByAuth = getScreensByAuth(COURSE_TAB_ITEMS, Boolean(user));
+    const permittedScreens = getPermittedScreens(
+      screensByAuth,
+      userPermissions,
+    );
 
     const screenNameToFilter = isMentor
       ? CourseScreenName.MY_MENTOR
@@ -64,7 +66,7 @@ const Course: FC = () => {
         return (
           <Tab.Screen
             key={screen.name}
-            name={screen.name}
+            name={screen.name as CourseScreenName}
             component={screen.component}
           />
         );

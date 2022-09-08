@@ -2,18 +2,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import {
-  AppNavigationParamList,
-  DrawerNavigationItem,
-} from '~/common/types/types';
+import { AppNavigationParamList } from '~/common/types/types';
+import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
-import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 
-import {
-  NAVIGATION_ITEMS,
-  NO_AUTH_NAVIGATION_ITEMS,
-  SCREEN_OPTIONS,
-} from './common/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
@@ -25,11 +18,14 @@ const App: FC = () => {
   }));
 
   const allowedScreens = useMemo(() => {
-    const screens: DrawerNavigationItem[] = user
-      ? NAVIGATION_ITEMS.flatMap((item) => item.subroutes)
-      : NO_AUTH_NAVIGATION_ITEMS.flatMap((item) => item.subroutes);
+    const screens = NAVIGATION_ITEMS.flatMap((item) => item.subroutes);
+    const screensByAuth = getScreensByAuth(screens, Boolean(user));
+    const permittedScreens = getPermittedScreens(
+      screensByAuth,
+      userPermissions,
+    );
 
-    return getAllowedScreens(screens, userPermissions);
+    return permittedScreens;
   }, [userPermissions, user]);
 
   return (
@@ -42,7 +38,7 @@ const App: FC = () => {
         return (
           <Drawer.Screen
             key={screen.name}
-            name={screen.name}
+            name={screen.name as AppScreenName}
             component={screen.component}
           />
         );

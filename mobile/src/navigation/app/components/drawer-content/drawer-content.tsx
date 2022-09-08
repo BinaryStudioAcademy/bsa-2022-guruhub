@@ -12,10 +12,7 @@ import {
 } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import {
-  NAVIGATION_ITEMS,
-  NO_AUTH_NAVIGATION_ITEMS,
-} from '~/navigation/app/common/constants';
+import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants/constants';
 import {
   BecomeMentor,
   DrawerList,
@@ -36,9 +33,9 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
       dataBecomeMentorStatus: courses.dataBecomeMentorStatus,
     }));
 
-  const visibleNavigationItems = user
-    ? NAVIGATION_ITEMS.filter((item) => item.isVisible)
-    : NO_AUTH_NAVIGATION_ITEMS.filter((item) => item.isVisible);
+  const visibleNavigationItems = NAVIGATION_ITEMS.filter(
+    (item) => item.isVisible,
+  );
 
   const handleBecomeMentor = (): void => {
     dispatch(coursesActions.becomeMentor());

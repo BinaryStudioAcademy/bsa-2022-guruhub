@@ -6,7 +6,6 @@ import {
   AppScreenName,
   PermissionKey,
 } from '~/common/enums/enums';
-import { DrawerNavigationList } from '~/common/types/types';
 import { Billing } from '~/components/billing/billing';
 import { Chat } from '~/components/chat/chat';
 import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
@@ -22,6 +21,8 @@ import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
 import { Course } from '~/navigation/course/course.navigation';
 import { CourseModule } from '~/navigation/course-module/course-module.navigation';
+
+import { DrawerNavigationList } from '../types/types';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
@@ -51,18 +52,21 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         icon: 'book',
         component: Courses,
         permissions: [],
+        requireAuth: false,
       },
       {
         name: AppScreenName.MENTORS,
         icon: 'mentors',
         component: Mentors,
         permissions: [],
+        requireAuth: true,
       },
       {
         name: AppScreenName.MY_EDUCATION,
         icon: 'education',
         component: MyEducation,
         permissions: [],
+        requireAuth: true,
       },
       {
         name: AppScreenName.INTERVIEWS,
@@ -72,6 +76,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
           PermissionKey.MANAGE_INTERVIEW,
           PermissionKey.MANAGE_INTERVIEWS,
         ],
+        requireAuth: true,
       },
     ],
   },
@@ -84,24 +89,28 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         icon: 'message',
         component: Chat,
         permissions: [],
+        requireAuth: true,
       },
       {
         name: AppScreenName.BILLING,
         icon: 'billing',
         component: Billing,
         permissions: [],
+        requireAuth: true,
       },
       {
         name: AppScreenName.SETTINGS,
         icon: 'settings',
         component: Settings,
         permissions: [],
+        requireAuth: true,
       },
       {
         name: AppScreenName.UAM,
         icon: 'uam',
         component: UAM,
         permissions: [PermissionKey.MANAGE_UAM],
+        requireAuth: true,
       },
     ],
   },
@@ -114,12 +123,14 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         icon: 'uam',
         component: UAMConfigureGroup,
         permissions: [PermissionKey.MANAGE_UAM],
+        requireAuth: true,
       },
       {
         name: AppScreenName.UAM_GROUPS_EDIT,
         icon: 'uam',
         component: UAMConfigureGroup,
         permissions: [PermissionKey.MANAGE_UAM],
+        requireAuth: true,
       },
     ],
   },
@@ -131,21 +142,25 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.ADD_COURSE,
         component: AddCourse,
         permissions: [],
+        requireAuth: true,
       },
       {
         name: AppScreenName.COURSE,
         component: Course,
         permissions: [],
+        requireAuth: false,
       },
       {
         name: AppScreenName.EDIT_COURSE_CATEGORY,
         component: EditCourseCategory,
         permissions: [PermissionKey.MANAGE_CATEGORIES],
+        requireAuth: true,
       },
       {
         name: AppScreenName.COURSE_MODULE,
         component: CourseModule,
         permissions: [],
+        requireAuth: true,
       },
     ],
   },
@@ -160,6 +175,7 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
           PermissionKey.MANAGE_INTERVIEW,
           PermissionKey.MANAGE_INTERVIEWS,
         ],
+        requireAuth: true,
       },
     ],
   },
@@ -171,35 +187,10 @@ const NAVIGATION_ITEMS: DrawerNavigationList[] = [
         name: AppScreenName.CONVERSATION,
         component: ChatConversation,
         permissions: [],
+        requireAuth: true,
       },
     ],
   },
 ];
 
-const NO_AUTH_NAVIGATION_ITEMS: DrawerNavigationList[] = [
-  {
-    name: 'Menu',
-    isVisible: true,
-    subroutes: [
-      {
-        name: AppScreenName.COURSES,
-        icon: 'book',
-        component: Courses,
-        permissions: [],
-      },
-    ],
-  },
-  {
-    name: 'Courses',
-    isVisible: false,
-    subroutes: [
-      {
-        name: AppScreenName.COURSE,
-        component: Course,
-        permissions: [],
-      },
-    ],
-  },
-];
-
-export { NAVIGATION_ITEMS, NO_AUTH_NAVIGATION_ITEMS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };
