@@ -6,6 +6,7 @@ import {
   TaskNoteManipulateRequestBodyDto,
 } from 'common/types/types';
 import { Content, IconButton, Spinner } from 'components/common/common';
+import { generateDynamicPath } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -93,8 +94,13 @@ const CourseModule: FC = () => {
   }
 
   const backRoute = isMentorView
-    ? `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${courseId}`
-    : `${AppRoute.COURSES}/${courseId}`;
+    ? generateDynamicPath(AppRoute.STUDENTS_$ID_COURSES_$ID, {
+        studentId: studentId as string,
+        courseId: courseId as string,
+      })
+    : generateDynamicPath(AppRoute.COURSES_$ID, {
+        courseId: courseId as string,
+      });
 
   const canSeeTaskAbsencePlaceholder = !task && !isMentorView && !isMentor;
 
