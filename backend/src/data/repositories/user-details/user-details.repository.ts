@@ -41,7 +41,7 @@ class UserDetails {
         userId,
       })
       .withGraphFetched('avatar')
-      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN.join(', '))
+      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
       .castTo<UserDetailsResponseDto>()
       .execute();
   }
@@ -54,7 +54,7 @@ class UserDetails {
       .query()
       .findOne({ userId })
       .patch(userDetails)
-      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN.join(', '))
+      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
       .first()
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
@@ -79,7 +79,7 @@ class UserDetails {
     return this.#UserDetailsModel
       .query()
       .patchAndFetchById(userDetailsId, { avatarFileId: fileId })
-      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN.join(', '))
+      .returning(UserDetails.DEFAULT_DETAILS_COLUMNS_TO_RETURN)
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
       .execute();
