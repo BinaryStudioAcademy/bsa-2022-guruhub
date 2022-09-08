@@ -10,10 +10,12 @@ import styles from './styles.module.scss';
 type Props = {
   control: FormControl;
   name: FormControlPath;
-  label: string;
-  maxDate: Date;
-  minDate: Date;
+  label?: string;
+  maxDate?: Date;
+  minDate?: Date;
   placeholder?: string;
+  selectedDate?: Date | string;
+  withTime?: boolean;
 };
 
 const Datepicker: FC<Props> = ({
@@ -23,6 +25,8 @@ const Datepicker: FC<Props> = ({
   placeholder,
   maxDate,
   minDate,
+  selectedDate,
+  withTime,
 }) => {
   const { field } = useFormControl({ name, control });
 
@@ -34,9 +38,15 @@ const Datepicker: FC<Props> = ({
 
   return (
     <div className={styles.dateWrapper}>
-      <span className={styles.bdLabel}>{label}</span>
+      {label && <span className={styles.bdLabel}>{label}</span>}
       <DatePicker
-        selected={field.value ? new Date(field.value) : null}
+        selected={
+          field.value
+            ? new Date(field.value)
+            : selectedDate
+            ? new Date(selectedDate)
+            : null
+        }
         onChange={handleChange}
         className={styles.datePickerInput}
         calendarClassName={styles.datePicker}
@@ -44,10 +54,11 @@ const Datepicker: FC<Props> = ({
         showYearDropdown
         showMonthDropdown
         dropdownMode="select"
-        dateFormat="dd.MM.yyyy"
+        dateFormat={withTime ? 'HH:mm dd.MM.yyyy' : 'dd.MM.yyyy'}
         maxDate={maxDate}
         minDate={minDate}
         placeholderText={placeholder}
+        showTimeInput={withTime}
       />
     </div>
   );

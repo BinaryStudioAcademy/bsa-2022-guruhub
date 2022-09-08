@@ -11,6 +11,8 @@ const interviewUpdate = Joi.object({
   [getNameOf<InterviewsUpdateRequestDto>('status')]: Joi.string()
     .required()
     .valid(...Object.values(InterviewStatus)),
+  [getNameOf<InterviewsUpdateRequestDto>('interviewDate')]:
+    Joi.date().allow(null),
 });
 
 export { interviewUpdate };
