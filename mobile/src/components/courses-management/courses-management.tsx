@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { DataStatus } from '~/common/enums/enums';
 import { CourseGetResponseDto } from '~/common/types/types';
 import {
+  CategoryCell,
   Pagination,
   ScrollView,
   Spinner,
@@ -36,7 +37,11 @@ const CoursesManagement: FC = () => {
   const coursesRows = coursesWithCategory.map((item: CourseGetResponseDto) => {
     return {
       title: item.title,
-      category: item.category?.name ?? 'Unknown',
+      category: item.category ? (
+        <CategoryCell category={item.category} />
+      ) : (
+        'Unknown'
+      ),
       action: (
         <ActionCell
           categoryId={item.courseCategoryId}

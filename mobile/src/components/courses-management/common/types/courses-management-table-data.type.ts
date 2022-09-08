@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 type CoursesManagementTableData = {
   title: string;
-  category: string;
+  category: string | ReactElement;
   action: ReactElement;
 };
 
