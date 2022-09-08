@@ -45,7 +45,7 @@ const InterviewItem: FC<Props> = ({
     useAppForm<InterviewsUpdateRequestDto>({
       defaultValues: {
         interviewerUserId: interview.interviewer?.id ?? '',
-        status: interview.status ?? '',
+        status: interview.status,
       },
       validationSchema: interviewUpdateValidationSchema,
     });
