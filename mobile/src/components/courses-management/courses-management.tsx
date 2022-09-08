@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { DataStatus } from '~/common/enums/enums';
+import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetResponseDto } from '~/common/types/types';
 import {
   CategoryCell,
@@ -11,12 +11,13 @@ import {
 } from '~/components/common/common';
 import {
   useAppDispatch,
+  useAppNavigate,
   useAppSelector,
   useCallback,
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
-import { coursesManagementActions } from '~/store/actions';
+import { coursesActions, coursesManagementActions } from '~/store/actions';
 
 import { DEFAULT_PAGE_SIZE } from './common/constants/constants';
 import { ActionCell } from './components/action-cell/action-cell';
@@ -25,13 +26,15 @@ import { styles } from './styles';
 
 const CoursesManagement: FC = () => {
   const { page, handlePageChange } = usePagination();
+  const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
   const { dataStatus, coursesWithCategory, totalCoursesNumber } =
     useAppSelector((state) => state.coursesManagement);
 
-  const handleEditCourse = (courseId: number): void => {
-    // eslint-disable-next-line no-console
-    console.log(courseId);
+  const handleEditCourse = (course: CourseGetResponseDto): void => {
+    dispatch(coursesActions.setCourse(course))
+      .unwrap()
+      .then(() => navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY));
   };
 
   const coursesRows = coursesWithCategory.map((item: CourseGetResponseDto) => {
@@ -42,12 +45,7 @@ const CoursesManagement: FC = () => {
       ) : (
         'Unknown'
       ),
-      action: (
-        <ActionCell
-          categoryId={item.courseCategoryId}
-          onEdit={handleEditCourse}
-        />
-      ),
+      action: <ActionCell onEdit={(): void => handleEditCourse(item)} />,
     };
   });
 

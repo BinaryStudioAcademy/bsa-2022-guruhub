@@ -19,6 +19,7 @@ import {
   getMenteesMentor,
   getMentorsByCourseId,
   setBecomeMentorInvisible,
+  setCourse,
   updateCategory,
   updateisMentorChoosingEnabled,
   updateVisibilityBecomeMentor,
@@ -85,6 +86,10 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(addCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(setCourse.fulfilled, (state, { payload }) => {
+    state.course = payload;
   });
 
   builder.addCase(updateCategory.pending, (state) => {
