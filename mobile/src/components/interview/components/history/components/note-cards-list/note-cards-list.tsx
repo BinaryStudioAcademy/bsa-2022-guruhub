@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { InterviewNoteGetAllItemResponseDto } from '~/common/types/types';
-import { View } from '~/components/common/common';
+import { Text, View } from '~/components/common/common';
 
 import { NoteCard } from './components/components';
 import { styles } from './styles';
@@ -11,6 +11,12 @@ type Props = {
 };
 
 const NoteCardsList: FC<Props> = ({ notes }) => {
+  const hasNotes = Boolean(notes.length);
+
+  if (!hasNotes) {
+    return <Text style={styles.noNotes}>No notes yet!</Text>;
+  }
+
   return (
     <View style={styles.container}>
       {notes.map((note) => (
