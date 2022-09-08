@@ -2,6 +2,7 @@ import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC, UserDetailsResponseDto } from 'common/types/types';
 import { Image, Link } from 'components/common/common';
+import { generateDynamicPath } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -19,9 +20,10 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
       {hasMentees ? (
         mentees.map(({ id, fullName, avatar }) => (
           <Link
-            to={
-              `${AppRoute.STUDENTS}/${id}${AppRoute.COURSES}/${courseId}` as AppRoute
-            }
+            to={generateDynamicPath(AppRoute.STUDENTS_$ID_COURSES_$ID, {
+              studentId: id,
+              courseId,
+            })}
           >
             <div key={id} className={styles.student}>
               <div className={styles.imageWrapper}>

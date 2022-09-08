@@ -6,6 +6,7 @@ import {
   TaskWithModuleResponseDto,
 } from 'common/types/types';
 import { Link } from 'components/common/common';
+import { generateDynamicPath } from 'helpers/helpers';
 
 import { ModuleCard } from './components/components';
 import { getTaskForModule } from './helpers/helpers';
@@ -30,10 +31,15 @@ const ModulesCardsContainer: FC<Props> = ({
     <ul className={styles.container}>
       {modules.map((courseModule) => {
         const linkTo = isMentorView
-          ? `${AppRoute.STUDENTS}/${studentId}${AppRoute.COURSES}/${
-              (course as CourseGetResponseDto).id
-            }${AppRoute.MODULES}/${courseModule.id}`
-          : `${AppRoute.COURSES}/${course?.id}/modules/${courseModule.id}`;
+          ? generateDynamicPath(AppRoute.STUDENTS_$ID_COURSES_$ID_MODULES_$ID, {
+              studentId,
+              courseId: course.id,
+              moduleId: courseModule.id,
+            })
+          : generateDynamicPath(AppRoute.COURSES_$ID_MODULES_$ID, {
+              courseId: course.id,
+              moduleId: courseModule.id,
+            });
 
         const task = isMentorView
           ? getTaskForModule({ moduleId: courseModule.id, tasks })
