@@ -1,10 +1,7 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { BillingApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
-import {
-  BillingReplenishParamsDto,
-  UserGetResponseWithMoneyBalanceDto,
-} from '~/common/types/types';
+import { BillingReplenishParamsDto } from '~/common/types/types';
 import {
   billing as billingService,
   user as userService,
@@ -21,11 +18,7 @@ type Options = {
 };
 
 const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const {
-    billing: billingService,
-    user: userService,
-    userDetails: userDetailsService,
-  } = opts.services;
+  const { billing: billingService } = opts.services;
 
   fastify.route({
     method: HttpMethod.POST,
@@ -37,25 +30,12 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { id } = req.user;
       const { amountOfMoneyToReplenish } = req.body;
-      const userWithBalance = await userService.getByIdWithMoneyBalance(id);
-
-      const replenishDto = await billingService.initReplenish(
+      const userDetailsWithMoneyBalance = await billingService.replenish(
+        id,
         amountOfMoneyToReplenish,
       );
 
-      let userDetailsWithBalance = null;
-
-      if (replenishDto.status === 'complete') {
-        const newBalance =
-          (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
-            .moneyBalance + amountOfMoneyToReplenish;
-        userDetailsWithBalance = await userDetailsService.updateMoneyBalance(
-          id,
-          newBalance,
-        );
-      }
-
-      rep.status(HttpCode.OK).send(userDetailsWithBalance);
+      rep.status(HttpCode.OK).send(userDetailsWithMoneyBalance);
     },
   });
 
@@ -64,24 +44,10 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: BillingApiPath.WITHDRAW,
     async handler(req, rep) {
       const { id } = req.user;
-      const userWithBalance = await userService.getByIdWithMoneyBalance(id);
 
-      const withdrawDto = await billingService.initWithdraw(
-        (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
-          .moneyBalance,
-      );
+      const userDetailsWithMoneyBalance = await billingService.withdraw(id);
 
-      let userDtailsWithBalance = null;
-
-      if (withdrawDto.status === 'in_transit') {
-        const newBalance = 0;
-        userDtailsWithBalance = await userDetailsService.updateMoneyBalance(
-          id,
-          newBalance,
-        );
-      }
-
-      rep.status(HttpCode.OK).send(userDtailsWithBalance);
+      rep.status(HttpCode.OK).send(userDetailsWithMoneyBalance);
     },
   });
 };

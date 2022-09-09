@@ -51,7 +51,7 @@ class UserDetails {
     return userDetails ?? null;
   }
 
-  public async updateMoneyBalance(
+  public updateMoneyBalance(
     userId: number,
     newMoneyBalance: number,
   ): Promise<UserDetailsWithMoneyBalanceDto | null> {

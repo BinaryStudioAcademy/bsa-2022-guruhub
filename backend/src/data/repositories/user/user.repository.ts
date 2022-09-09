@@ -78,15 +78,16 @@ class User {
     return this.#UserModel.query().findByIds(ids).execute();
   }
 
-  public getByIdWithMoneyBalance(
+  public async getByIdWithMoneyBalance(
     id: number,
   ): Promise<UserGetResponseWithMoneyBalanceDto | null> {
-    return this.#UserModel
+    const userWithMoneyBalance = await this.#UserModel
       .query()
       .findById(id)
       .withGraphJoined('userDetails')
-      .castTo<UserGetResponseWithMoneyBalanceDto>()
-      .execute();
+      .castTo<UserGetResponseWithMoneyBalanceDto>();
+
+    return userWithMoneyBalance ?? null;
   }
 
   public create(user: {

@@ -169,6 +169,7 @@ const stripe = new Stripe({
   secretKey: ENV.STRIPE.SECRET_KEY,
   successUrl: ENV.STRIPE.OPERATION_REDIRECTION_URL,
   cancelUrl: ENV.STRIPE.OPERATION_REDIRECTION_URL,
+  apiVersion: ENV.STRIPE.API_VERSION,
 });
 
 const taskNote = new TaskNote({ taskNoteRepository });
@@ -180,6 +181,8 @@ const transaction = new Transaction({ transactionRepository });
 const billing = new Billing({
   stripeService: stripe,
   transactionService: transaction,
+  userService: user,
+  userDetailsService: userDetails,
 });
 
 export {

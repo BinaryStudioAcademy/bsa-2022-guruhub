@@ -27,7 +27,12 @@ export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SortOrder } from './sort/sort';
 export { StringCase } from './string/string';
-export { PaymentCurrency, PaymentMethod, PaymentMode } from './stripe/stripe';
+export {
+  PaymentCurrency,
+  PaymentMethod,
+  PaymentMode,
+  PaymentUnits,
+} from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TransactionStatus } from './transaction/transaction';
 export { UserGender } from './user/user';

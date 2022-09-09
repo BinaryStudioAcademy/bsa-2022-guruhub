@@ -4,17 +4,17 @@ import {
   PaymentCurrency,
   PaymentMethod,
   PaymentMode,
+  PaymentUnits,
 } from '~/common/enums/enums';
 
 const QUANTITY_OF_ITEMS = 1;
 const OPERATION_NAME = 'Replenish your funds on GuruHub';
-const CENTS_IN_ONE_DOLLAR = 100;
-const API_VERSION = '2022-08-01';
 
 type Constructor = {
   secretKey: string;
   successUrl: string;
   cancelUrl: string;
+  apiVersion: '2022-08-01';
 };
 
 class Stripe {
@@ -24,13 +24,18 @@ class Stripe {
 
   #cancelUrl: string;
 
-  public constructor({ secretKey, successUrl, cancelUrl }: Constructor) {
-    this.#stripe = new StripeApi(secretKey, { apiVersion: API_VERSION });
+  public constructor({
+    secretKey,
+    successUrl,
+    cancelUrl,
+    apiVersion,
+  }: Constructor) {
+    this.#stripe = new StripeApi(secretKey, { apiVersion });
     this.#successUrl = successUrl;
     this.#cancelUrl = cancelUrl;
   }
 
-  public async initReplenish(
+  public initReplenish(
     amountOfMoney: number,
   ): Promise<StripeApi.Response<StripeApi.Checkout.Session>> {
     return this.#stripe.checkout.sessions.create({
@@ -43,7 +48,7 @@ class Stripe {
             product_data: {
               name: OPERATION_NAME,
             },
-            unit_amount: amountOfMoney * CENTS_IN_ONE_DOLLAR,
+            unit_amount: amountOfMoney * PaymentUnits.CENTS_IN_ONE_DOLLAR,
           },
           quantity: QUANTITY_OF_ITEMS,
         },
@@ -53,9 +58,9 @@ class Stripe {
     });
   }
 
-  public async initWithdraw(
+  public initWithdraw(
     amount: number,
-    currency: PaymentCurrency,
+    currency: PaymentCurrency = PaymentCurrency.USD,
   ): Promise<StripeApi.Response<StripeApi.Payout>> {
     return this.#stripe.payouts.create({
       amount,

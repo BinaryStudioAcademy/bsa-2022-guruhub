@@ -6,30 +6,32 @@ type Constructor = {
 };
 
 class CourseCategoryPrice {
-  #CourseCategoryModel: typeof CourseCategoryPriceM;
+  #CourseCategoryPriceModel: typeof CourseCategoryPriceM;
 
   public constructor({
     CourseCategoryPriceModel: CourseCategoryModel,
   }: Constructor) {
-    this.#CourseCategoryModel = CourseCategoryModel;
+    this.#CourseCategoryPriceModel = CourseCategoryModel;
   }
 
   public getAll(): Promise<CourseCategoryPriceGetAllItemResponseDto[]> {
-    return this.#CourseCategoryModel
+    return this.#CourseCategoryPriceModel
       .query()
       .withGraphJoined('category')
       .castTo<CourseCategoryPriceGetAllItemResponseDto[]>()
       .execute();
   }
 
-  public getById(
+  public async getById(
     id: number,
   ): Promise<CourseCategoryPriceGetAllItemResponseDto | null> {
-    return this.#CourseCategoryModel
+    const courseCategoryPrice = await this.#CourseCategoryPriceModel
       .query()
       .findById(id)
       .castTo<CourseCategoryPriceGetAllItemResponseDto>()
       .execute();
+
+    return courseCategoryPrice ?? null;
   }
 }
 

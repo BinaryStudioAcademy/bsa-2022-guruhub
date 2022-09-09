@@ -1,41 +1,89 @@
-import StripeApi from 'stripe';
-
-import { PaymentCurrency, TransactionStatus } from '~/common/enums/enums';
+import { TransactionStatus } from '~/common/enums/enums';
 import {
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
+  UserDetailsWithMoneyBalanceDto,
+  UserGetResponseWithMoneyBalanceDto,
 } from '~/common/types/types';
 import {
   stripe as stripeServ,
   transaction as transactionServ,
+  user as userServ,
+  userDetails as userDetailsServ,
 } from '~/services/services';
 
 type Constructor = {
-  transactionService: typeof transactionServ;
   stripeService: typeof stripeServ;
+  transactionService: typeof transactionServ;
+  userService: typeof userServ;
+  userDetailsService: typeof userDetailsServ;
 };
 
 class Billing {
-  #transactionService: typeof transactionServ;
-
   #stripeService: typeof stripeServ;
 
-  public constructor({ transactionService, stripeService }: Constructor) {
-    this.#transactionService = transactionService;
+  #transactionService: typeof transactionServ;
+
+  #userService: typeof userServ;
+
+  #userDetailsService: typeof userDetailsServ;
+
+  public constructor({
+    stripeService,
+    transactionService,
+    userService,
+    userDetailsService,
+  }: Constructor) {
     this.#stripeService = stripeService;
+    this.#transactionService = transactionService;
+    this.#userService = userService;
+    this.#userDetailsService = userDetailsService;
   }
 
-  public initReplenish(
+  public async replenish(
+    userId: number,
     amountOfMoney: number,
-  ): Promise<StripeApi.Response<StripeApi.Checkout.Session>> {
-    return this.#stripeService.initReplenish(amountOfMoney);
+  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+    const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
+      userId,
+    );
+
+    const replenishDto = await this.#stripeService.initReplenish(amountOfMoney);
+
+    let userDetailsWithBalance = null;
+
+    if (replenishDto.status === 'complete') {
+      const newBalance =
+        (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
+          .moneyBalance + amountOfMoney;
+      userDetailsWithBalance =
+        await this.#userDetailsService.updateMoneyBalance(userId, newBalance);
+    }
+
+    return userDetailsWithBalance;
   }
 
-  public initWithdraw(
-    amount: number,
-    currency: PaymentCurrency = PaymentCurrency.USD,
-  ): Promise<StripeApi.Response<StripeApi.Payout>> {
-    return this.#stripeService.initWithdraw(amount, currency);
+  public async withdraw(
+    userId: number,
+  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+    const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
+      userId,
+    );
+
+    let userDetailsWithBalance = null;
+
+    const withdrawDto = await this.#stripeService.initWithdraw(
+      (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
+        .moneyBalance,
+    );
+
+    if (withdrawDto.status === 'in_transit') {
+      const newBalance = 0;
+      userDetailsWithBalance =
+        await this.#userDetailsService.updateMoneyBalance(userId, newBalance);
+    }
+
+    return userDetailsWithBalance;
   }
 
   public makeTransaction(
@@ -47,33 +95,27 @@ class Billing {
   public holdTransaction(
     transactionId: number,
   ): Promise<TransactionGetAllItemResponseDto> {
-    const NEW_TRANSACTION_STATUS = TransactionStatus.HOLD;
-
     return this.#transactionService.updateStatus({
       transactionId,
-      newStatus: NEW_TRANSACTION_STATUS,
+      newStatus: TransactionStatus.HOLD,
     });
   }
 
   public fulfillTransaction(
     transactionId: number,
   ): Promise<TransactionGetAllItemResponseDto> {
-    const NEW_TRANSACTION_STATUS = TransactionStatus.FULFILLED;
-
     return this.#transactionService.updateStatus({
       transactionId,
-      newStatus: NEW_TRANSACTION_STATUS,
+      newStatus: TransactionStatus.FULFILLED,
     });
   }
 
   public rejectTransaction(
     transactionId: number,
   ): Promise<TransactionGetAllItemResponseDto> {
-    const NEW_TRANSACTION_STATUS = TransactionStatus.REJECTED;
-
     return this.#transactionService.updateStatus({
       transactionId,
-      newStatus: NEW_TRANSACTION_STATUS,
+      newStatus: TransactionStatus.REJECTED,
     });
   }
 }

@@ -1,12 +1,12 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { DbTableName, TransactionStatus } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 import { User } from '../models';
 
 class Transaction extends Abstract {
-  public 'status': string;
+  public 'status': TransactionStatus;
 
   public 'amount': number;
 
