@@ -29,7 +29,7 @@ class User {
     const { results, total } = await this.#UserModel
       .query()
       .select()
-      .withGraphJoined('userDetails')
+      .withGraphJoined('userDetails(withoutMoneyBalance)')
       .page(page, count)
       .castTo<Page<UserM & UsersGetResponseDto>>();
 
@@ -43,7 +43,7 @@ class User {
     return this.#UserModel
       .query()
       .select()
-      .withGraphJoined('userDetails')
+      .withGraphJoined('userDetails(withoutMoneyBalance)')
       .where({ email })
       .first()
       .castTo<UsersByEmailResponseDto>()
@@ -54,7 +54,7 @@ class User {
     return this.#UserModel
       .query()
       .findById(id)
-      .withGraphJoined('userDetails.[avatar]')
+      .withGraphJoined('userDetails(withoutMoneyBalance).[avatar]')
       .castTo<UsersGetResponseDto>()
       .execute();
   }

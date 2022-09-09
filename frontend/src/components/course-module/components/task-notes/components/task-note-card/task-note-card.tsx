@@ -20,7 +20,7 @@ const TaskNoteCard: FC<Props> = ({ note, author, createdAt, status }) => {
         <p>Status: {status}</p>
       </div>
       <div className={styles.cardContentWrapper}>
-        <p>{note}</p>
+        <p className={styles.noteContent}>{note}</p>
         <p>{getFormattedDate(createdAt, 'HH:mm, dd.MM')}</p>
       </div>
       <div className={styles.cardAuthorSection}>

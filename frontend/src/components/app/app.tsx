@@ -130,6 +130,22 @@ const App: FC = () => {
           }
         />
         <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <Course />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID_MODULES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <CourseModule />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
           path={AppRoute.CHATS}
           element={
             <AuthorizedWrapper>

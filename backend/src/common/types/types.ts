@@ -111,8 +111,11 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
   type TaskManipulateRequestArgumentsDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteCreateArgumentsDto,
@@ -128,6 +131,7 @@ export {
 } from './transaction/transaction';
 export {
   type UdemyCourseGetResponseDto,
+  type UdemyCoursesGetResponseDto,
   type UdemyModuleGetResponseDto,
   type UdemyModulesGetResponseDto,
 } from './udemy/udemy';

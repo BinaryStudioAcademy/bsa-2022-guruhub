@@ -8,6 +8,12 @@ parameters:
       type: integer
     required: true
     description: interview unique ID
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/interviews/interviews-update-interviewer-request-dto.yaml'
 responses:
   '200':
     content:
