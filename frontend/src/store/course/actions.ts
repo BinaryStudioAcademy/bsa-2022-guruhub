@@ -246,7 +246,8 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
     (mentor) => mentor.id === (user as UserWithPermissions).id,
   );
   const isInterviewProcessActive = activeInterviewsCategoryIds.some(
-    (categoryId) => categoryId === course?.courseCategoryId,
+    (categoryId) =>
+      categoryId === (course as CourseGetResponseDto).courseCategoryId,
   );
 
   const hasMentor = Boolean(mentor);
