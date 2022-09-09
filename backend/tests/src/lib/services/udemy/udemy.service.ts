@@ -64,7 +64,7 @@ class UdemyService {
     courseId: number,
   ): Promise<UdemyModulesGetResponseDto> {
     const {
-      body: { count, results: firstPage },
+      body: { count, results: firstPage, next },
     } = await this.getModulesPage(courseId, this.#MIN_PAGE_NUMBER);
 
     const maxPageNumber = Math.ceil(count / this.#MAX_PAGE_SIZE);
@@ -84,6 +84,7 @@ class UdemyService {
 
     return {
       count,
+      next,
       results: [...firstPage, ...restOfModules.flat(1)],
     };
   }
