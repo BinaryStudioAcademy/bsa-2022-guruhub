@@ -127,6 +127,7 @@ const Course: FC = () => {
           <Pressable
             onPress={(): void => handleModulePress(module.courseId, module.id)}
             disabled={!user}
+            style={Boolean(index) && styles.separator}
           >
             <Module
               index={index}
@@ -142,9 +143,6 @@ const Course: FC = () => {
             <Text style={styles.noModules}>No modules found</Text>
           )
         }
-        ItemSeparatorComponent={(): ReactElement => (
-          <View style={styles.separator}></View>
-        )}
         showsVerticalScrollIndicator={false}
       />
     </View>

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_100,
     fontSize: 18,
     lineHeight: 24,
-    marginBottom: 20,
+    marginVertical: 20,
   },
   h1: {
     color: AppColor.TEXT.GRAY_100,
