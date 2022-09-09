@@ -26,12 +26,14 @@ type Props = {
   interview: InterviewsGetAllItemResponseDto;
   handleUpdateInterview: (payload: InterviewsUpdateRequestDto) => void;
   interviewers: InterviewsGetInterviewerResponseDto[];
+  hasPermissionToSelectInterviwer: boolean;
 };
 
 const InterviewItem: FC<Props> = ({
   interview,
   interviewers,
   handleUpdateInterview,
+  hasPermissionToSelectInterviwer,
 }) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -138,13 +140,7 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Interviewer</p>
-            {!isEditMode && (
-              <p className={styles.interviewValue}>
-                {interview?.interviewer?.userDetails.fullName ??
-                  'Not assigned yet'}
-              </p>
-            )}
-            {isEditMode && (
+            {isEditMode && hasPermissionToSelectInterviwer ? (
               <Select
                 options={interviewersOptions}
                 name={getNameOf<InterviewsUpdateRequestDto>(
@@ -156,6 +152,11 @@ const InterviewItem: FC<Props> = ({
                 label="Interviewers"
                 hasVisuallyHiddenLabel
               />
+            ) : (
+              <p className={styles.interviewValue}>
+                {interview?.interviewer?.userDetails.fullName ??
+                  'Not assigned yet'}
+              </p>
             )}
           </div>
 
