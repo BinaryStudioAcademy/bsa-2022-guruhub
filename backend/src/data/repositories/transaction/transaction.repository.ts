@@ -1,3 +1,4 @@
+import { TransactionStatus } from '~/common/enums/enums';
 import {
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
@@ -32,9 +33,16 @@ class Transaction {
     receiverId,
     amount,
   }: TransactionCreateArgumentsDto): Promise<TransactionGetAllItemResponseDto> {
+    const INITIAL_TRANSACTION_STATUS = TransactionStatus.PENDING;
+
     return this.#TransactionModel
       .query()
-      .insert({ senderId, receiverId, amount, status: 'PENDING' })
+      .insert({
+        senderId,
+        receiverId,
+        amount,
+        status: INITIAL_TRANSACTION_STATUS,
+      })
       .withGraphFetched(
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )

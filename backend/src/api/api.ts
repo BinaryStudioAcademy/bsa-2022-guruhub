@@ -12,6 +12,7 @@ import {
 } from '~/plugins/plugins';
 import {
   auth,
+  billing,
   chatMessage,
   course,
   courseCategory,
@@ -20,7 +21,6 @@ import {
   interview,
   mentor,
   permission,
-  stripe,
   task,
   token,
   user,
@@ -147,7 +147,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
 
   fastify.register(initBillingApi, {
     services: {
-      stripe,
+      billing,
       user,
       userDetails,
     },

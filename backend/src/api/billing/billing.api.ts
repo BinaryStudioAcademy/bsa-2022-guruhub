@@ -6,7 +6,7 @@ import {
   UserGetResponseWithMoneyBalanceDto,
 } from '~/common/types/types';
 import {
-  stripe as stripeService,
+  billing as billingService,
   user as userService,
   userDetails as userDetailsService,
 } from '~/services/services';
@@ -14,7 +14,7 @@ import { billingReplenishParams as billingReplenishParamsValidationSchema } from
 
 type Options = {
   services: {
-    stripe: typeof stripeService;
+    billing: typeof billingService;
     user: typeof userService;
     userDetails: typeof userDetailsService;
   };
@@ -22,7 +22,7 @@ type Options = {
 
 const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   const {
-    stripe: stripeService,
+    billing: billingService,
     user: userService,
     userDetails: userDetailsService,
   } = opts.services;
@@ -39,7 +39,7 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { amountOfMoneyToReplenish } = req.body;
       const userWithBalance = await userService.getByIdWithMoneyBalance(id);
 
-      const replenishDto = await stripeService.initReplenish(
+      const replenishDto = await billingService.initReplenish(
         amountOfMoneyToReplenish,
       );
 
@@ -66,7 +66,7 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { id } = req.user;
       const userWithBalance = await userService.getByIdWithMoneyBalance(id);
 
-      const withdrawDto = await stripeService.initWithdraw(
+      const withdrawDto = await billingService.initWithdraw(
         (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
           .moneyBalance,
       );

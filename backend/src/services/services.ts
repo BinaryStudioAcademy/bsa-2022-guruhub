@@ -25,6 +25,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { File } from './aws/file/file.service';
+import { Billing } from './billing/billing.service';
 import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
@@ -176,8 +177,14 @@ const task = new Task({ taskRepository, taskNoteService: taskNote });
 
 const transaction = new Transaction({ transactionRepository });
 
+const billing = new Billing({
+  stripeService: stripe,
+  transactionService: transaction,
+});
+
 export {
   auth,
+  billing,
   chatMessage,
   course,
   courseCategory,

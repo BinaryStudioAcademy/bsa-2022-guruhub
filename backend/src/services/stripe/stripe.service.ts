@@ -9,6 +9,7 @@ import {
 const QUANTITY_OF_ITEMS = 1;
 const OPERATION_NAME = 'Replenish your funds on GuruHub';
 const CENTS_IN_ONE_DOLLAR = 100;
+const API_VERSION = '2022-08-01';
 
 type Constructor = {
   secretKey: string;
@@ -24,7 +25,7 @@ class Stripe {
   #cancelUrl: string;
 
   public constructor({ secretKey, successUrl, cancelUrl }: Constructor) {
-    this.#stripe = new StripeApi(secretKey, { apiVersion: '2022-08-01' });
+    this.#stripe = new StripeApi(secretKey, { apiVersion: API_VERSION });
     this.#successUrl = successUrl;
     this.#cancelUrl = cancelUrl;
   }
@@ -54,7 +55,7 @@ class Stripe {
 
   public async initWithdraw(
     amount: number,
-    currency: PaymentCurrency = PaymentCurrency.USD,
+    currency: PaymentCurrency,
   ): Promise<StripeApi.Response<StripeApi.Payout>> {
     return this.#stripe.payouts.create({
       amount,
