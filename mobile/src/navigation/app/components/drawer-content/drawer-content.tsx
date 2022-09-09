@@ -10,9 +10,9 @@ import {
   ScrollView,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, getScreensByAuth } from '~/helpers/helpers';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants/constants';
+import { DrawerNavigationList } from '~/navigation/app/common/types/drawer-navigation-list.type';
 import {
   BecomeMentor,
   DrawerList,
@@ -21,8 +21,14 @@ import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
-const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
+type Props = {
+  props: DrawerContentComponentProps;
+  navigationItems: DrawerNavigationList[];
+};
+
+const DrawerContent: FC<Props> = ({ props, navigationItems }) => {
   const dispatch = useAppDispatch();
+  const { state } = props;
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
   const allowedRoutes = state.routes.map((item) => item.name);
 
@@ -33,8 +39,10 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
       dataBecomeMentorStatus: courses.dataBecomeMentorStatus,
     }));
 
-  const visibleNavigationItems = NAVIGATION_ITEMS.filter(
-    (item) => item.isVisible,
+  const visibleNavigationItems = navigationItems.filter(
+    (item) =>
+      item.isVisible &&
+      Boolean(getScreensByAuth(item.subroutes, Boolean(user)).length),
   );
 
   const handleBecomeMentor = (): void => {

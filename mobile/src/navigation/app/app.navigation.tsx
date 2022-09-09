@@ -33,7 +33,9 @@ const App: FC = () => {
     <Drawer.Navigator
       initialRouteName={AppScreenName.COURSES}
       screenOptions={SCREEN_OPTIONS}
-      drawerContent={(props): JSX.Element => <DrawerContent {...props} />}
+      drawerContent={(props): JSX.Element => (
+        <DrawerContent props={props} navigationItems={NAVIGATION_ITEMS} />
+      )}
     >
       {allowedScreens.map((screen) => {
         return (
