@@ -8,13 +8,10 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   margin-bottom: 10px;
   column-gap: 30px;
   color-scheme: dark;
-}
-
-.align {
-  align-items: center;
 }
 
 .formWrapper {
@@ -65,6 +62,7 @@
 
 .fieldWrapper {
   max-width: 240px;
+  margin-bottom: auto;
 }
 
 .formSelect div[class$='-control'] {

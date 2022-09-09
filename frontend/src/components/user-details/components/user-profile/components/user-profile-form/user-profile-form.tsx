@@ -5,7 +5,7 @@ import {
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Datepicker, Input, Select } from 'components/common/common';
-import { getNameOf, getValidClasses, subtractYears } from 'helpers/helpers';
+import { getNameOf, subtractYears } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -103,7 +103,7 @@ const UserProfileForm: FC = () => {
                 />
               </div>
             </div>
-            <div className={getValidClasses(styles.grid, styles.align)}>
+            <div className={styles.grid}>
               <Input
                 type="text"
                 label="Telegram Username"
