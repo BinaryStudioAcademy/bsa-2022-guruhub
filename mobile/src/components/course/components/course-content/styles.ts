@@ -3,10 +3,12 @@ import { StyleSheet } from 'react-native';
 import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
+  title: {
+    fontFamily: AppFontFamily.INTER_600,
+    color: AppColor.TEXT.GRAY_100,
+    fontSize: 18,
+    lineHeight: 24,
+    marginVertical: 20,
   },
   h1: {
     color: AppColor.TEXT.GRAY_100,
@@ -37,20 +39,19 @@ const styles = StyleSheet.create({
   currentCategory: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 60,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  categoryWrapper: {
+    borderWidth: 1,
+    borderColor: AppColor.BRAND.BLUE_100,
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
   },
   editIconContainer: {
     marginTop: 10,
     marginRight: 10,
-  },
-  separator: {
-    height: 15,
-  },
-  noModules: {
-    fontFamily: AppFontFamily.INTER_400,
-    color: AppColor.TEXT.GRAY_100,
-    fontSize: 16,
-    lineHeight: 20,
   },
 });
 
