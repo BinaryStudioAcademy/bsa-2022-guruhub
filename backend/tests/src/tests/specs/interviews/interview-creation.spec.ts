@@ -4,6 +4,7 @@ import {
   InterviewsByIdResponseDto,
   InterviewsGetAllItemResponseDto,
   InterviewsResponseDto,
+  InterviewStatus,
   UserDetailsResponseDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
@@ -40,7 +41,19 @@ describe('Interview creating flow', () => {
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
-  after(() => apiSessionStorage.removeSession('default'));
+  after(async () => {
+    const response = await interviewService.updateInterviewStatus(interviewId, {
+      interviewerUserId: 1,
+      status: InterviewStatus.REJECTED,
+      interviewDate: null,
+    });
+
+    response.should.have.status(HttpCode.OK);
+    response.should.have.normalExecutionTime;
+    response.should.have.jsonSchema(interviewGetAllSchema);
+
+    apiSessionStorage.removeSession('default');
+  });
 
   it('Signing up as a new user without permissions', async () => {
     signUpData = signUpRequestMock();

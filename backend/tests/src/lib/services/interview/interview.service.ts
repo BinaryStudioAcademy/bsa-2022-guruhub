@@ -3,8 +3,10 @@ import {
   HttpErrorDto,
   InterviewsApiPath,
   InterviewsByIdRequestParamsDto,
+  InterviewsByIdResponseDto,
   InterviewsCreateRequestBodyDto,
   InterviewsGetAllItemResponseDto,
+  InterviewsUpdateRequestDto,
 } from 'guruhub-shared';
 
 import { Response } from '~/lib/common/types/types';
@@ -50,6 +52,18 @@ class InterviewService {
       .request()
       .get()
       .path(`${ApiPath.INTERVIEWS}/${id}`)
+      .send();
+  }
+
+  public updateInterviewStatus(
+    id: number,
+    data: InterviewsUpdateRequestDto,
+  ): Promise<Response<InterviewsByIdResponseDto | HttpErrorDto>> {
+    return this.#httpService
+      .request()
+      .put()
+      .path(`${ApiPath.INTERVIEWS}/${id}`)
+      .data(data)
       .send();
   }
 }
