@@ -88,14 +88,14 @@ const Header: FC = () => {
               </button>
             ) : (
               <div className={styles.buttonsWrapper}>
-                <div className={styles.authButton}>
+                <div>
                   <Button
                     label="Sign In"
                     btnColor="gray"
                     to={AppRoute.SIGN_IN}
                   />
                 </div>
-                <div className={styles.authButton}>
+                <div>
                   <Button
                     label="Sign Up"
                     btnColor="blue"

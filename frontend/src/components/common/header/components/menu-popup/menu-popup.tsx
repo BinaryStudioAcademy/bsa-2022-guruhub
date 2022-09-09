@@ -28,13 +28,17 @@ const Popup: FC<Props> = ({ onClose }) => {
       <div className={styles.wrapper} ref={popupRef}>
         <ul className={styles.ul}>
           <li className={styles.li}>
-            <div className={styles.button}>
-              <Button label="Profile" to={AppRoute.PROFILE} />
+            <div className={styles.buttonWrapper}>
+              <div>
+                <Button label="Profile" to={AppRoute.PROFILE} />
+              </div>
             </div>
           </li>
           <li className={styles.li}>
-            <div className={styles.button}>
-              <Button label="Sign Out" onClick={handleLogout} />
+            <div className={styles.buttonWrapper}>
+              <div>
+                <Button label="Sign Out" onClick={handleLogout} />
+              </div>
             </div>
           </li>
         </ul>

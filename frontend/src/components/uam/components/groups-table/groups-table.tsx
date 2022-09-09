@@ -42,7 +42,7 @@ const GroupsTable: FC = () => {
     <div className={styles.groupsTable}>
       <div className={styles.groupTableHeadingPanel}>
         <h1 className={styles.groupsTableHeading}>Groups</h1>
-        <div className={styles.button}>
+        <div>
           <Button
             label="Create Group"
             btnColor="blue"

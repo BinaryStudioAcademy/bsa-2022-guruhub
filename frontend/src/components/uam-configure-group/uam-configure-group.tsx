@@ -141,7 +141,7 @@ const UAMConfigureGroup: FC = () => {
       />
       <div className={styles.btnsBlock}>
         <div className={styles.btnsWrapper}>
-          <div className={styles.button}>
+          <div>
             <Button
               type="button"
               btnColor="gray"
@@ -150,7 +150,7 @@ const UAMConfigureGroup: FC = () => {
               to={AppRoute.UAM}
             />
           </div>
-          <div className={styles.button}>
+          <div>
             <Button
               onClick={handleSubmit(handleCreateOrEdit)}
               type="submit"

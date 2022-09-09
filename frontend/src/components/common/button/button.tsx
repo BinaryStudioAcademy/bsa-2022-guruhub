@@ -32,10 +32,9 @@ const Button: FC<Props> = ({
   onFileSelect,
 }) => {
   const isLink = Boolean(to);
+  const hasIcon = Boolean(iconName);
 
   const getContent = (): ReactElement | string => {
-    const hasIcon = Boolean(iconName);
-
     return (
       <>
         {hasIcon && (
@@ -62,6 +61,7 @@ const Button: FC<Props> = ({
         to={to as AppRoute}
         className={getValidClasses(
           styles.button,
+          hasIcon && styles.iconButton,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],
         )}
@@ -78,6 +78,7 @@ const Button: FC<Props> = ({
       <label
         className={getValidClasses(
           styles.button,
+          hasIcon && styles.iconButton,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],
         )}

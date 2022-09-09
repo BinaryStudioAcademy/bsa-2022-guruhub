@@ -3,9 +3,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  min-width: 93px;
   height: 100%;
   min-height: 52px;
-  padding: 0 16px;
+  padding: 16px;
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -17,6 +18,11 @@
   border: none;
   border-radius: 28px;
   cursor: pointer;
+}
+
+.iconButton {
+  min-width: 15px;
+  min-height: 15px;
 }
 
 .button-blue {

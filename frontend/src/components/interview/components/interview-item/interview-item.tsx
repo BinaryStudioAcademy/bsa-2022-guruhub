@@ -68,7 +68,7 @@ const InterviewItem: FC<Props> = ({
         <div className={styles.headerInterview}>
           <p className={styles.parameters}>Parameters</p>
           {!isEditMode && (
-            <div className={styles.button}>
+            <div>
               <Button
                 type="button"
                 btnColor="blue"
@@ -79,9 +79,7 @@ const InterviewItem: FC<Props> = ({
           )}
           {isEditMode && (
             <div className={styles.buttonsWrapper}>
-              <div
-                className={getValidClasses(styles.marginRight, styles.button)}
-              >
+              <div className={styles.marginRight}>
                 <Button
                   type="button"
                   btnColor="gray"
@@ -89,7 +87,7 @@ const InterviewItem: FC<Props> = ({
                   onClick={handleToggleEditMode}
                 />
               </div>
-              <div className={styles.button}>
+              <div>
                 <Button
                   label="Save"
                   btnColor="blue"
