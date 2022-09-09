@@ -2,10 +2,12 @@ import { CoursesManagementTableAccessor } from 'components/courses-management/co
 import {
   CoursesManagementTableActionsProps,
   CoursesManagementTableRow,
+  CoursesManagementTableTitleProps,
 } from 'components/courses-management/common/types/types';
 import {
   ActionsCell,
   CategoryCell,
+  TitleCell,
 } from 'components/courses-management/components/components';
 import { Column } from 'react-table';
 
@@ -15,7 +17,13 @@ const getCoursesManagementColumns = (
   return [
     {
       Header: 'Title',
-      accessor: CoursesManagementTableAccessor.TITLE,
+      accessor: (
+        course: CoursesManagementTableRow,
+      ): CoursesManagementTableTitleProps => ({
+        id: course.id,
+        title: course.title,
+      }),
+      Cell: TitleCell,
       width: 500,
     },
     {
@@ -33,7 +41,7 @@ const getCoursesManagementColumns = (
         course,
       }),
       Cell: ActionsCell,
-      width: 80,
+      width: 30,
     },
   ];
 };
