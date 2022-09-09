@@ -9,8 +9,8 @@ const DEFAULT_ENV_CONFIG: Knex.Config<ConfigPropType> = {
   client: ENV.DB.DIALECT,
   connection: ENV.DB.CONNECTION_STRING,
   pool: {
-    min: ENV.DB.POOL_MIN,
     max: ENV.DB.POOL_MIN,
+    min: ENV.DB.POOL_MIN,
   },
   migrations: {
     directory: './src/data/migrations',
