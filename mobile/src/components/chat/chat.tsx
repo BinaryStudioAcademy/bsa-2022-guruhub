@@ -2,12 +2,13 @@ import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { UserWithPermissions } from '~/common/types/types';
-import { Spinner, View } from '~/components/common/common';
+import { Search, Spinner, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
   useEffect,
+  useState,
 } from '~/hooks/hooks';
 import { chatActions } from '~/store/actions';
 
@@ -15,6 +16,7 @@ import { ConversationsList } from './components/components';
 import { styles } from './styles';
 
 const Chat: FC = () => {
+  const [searchValue, setSearchValue] = useState('');
   const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
     ({ auth, chat }) => ({
       authDataStatus: auth.dataStatus,
@@ -32,25 +34,41 @@ const Chat: FC = () => {
     navigation.navigate(AppScreenName.CONVERSATION);
   };
 
+  const handleSearch = (search: string): void => {
+    setSearchValue(search);
+  };
+
   useEffect(() => {
     dispatch(chatActions.getLastMessages({ fullName: '' }));
   }, [dispatch]);
 
-  if (
-    chatDataStatus === DataStatus.PENDING ||
-    authDataStatus === DataStatus.PENDING
-  ) {
+  useEffect(() => {
+    dispatch(chatActions.getLastMessages({ fullName: searchValue }));
+  }, [dispatch, searchValue]);
+
+  if (authDataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
   }
 
   return (
-    <View style={styles.container}>
-      <ConversationsList
-        chatsItems={lastMessages}
-        currentUserId={(user as UserWithPermissions).id}
-        onChatMessagesLoad={handleChatMessagesLoad}
-      />
-    </View>
+    <>
+      <View style={styles.searchFieldContainer}>
+        <Search onSearch={handleSearch} />
+      </View>
+      {chatDataStatus === DataStatus.PENDING ? (
+        <View style={styles.spinnerContainer}>
+          <Spinner isOverflow />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <ConversationsList
+            chatsItems={lastMessages}
+            currentUserId={(user as UserWithPermissions).id}
+            onChatMessagesLoad={handleChatMessagesLoad}
+          />
+        </View>
+      )}
+    </>
   );
 };
 
