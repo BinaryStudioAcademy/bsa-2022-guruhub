@@ -43,6 +43,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginRight: 10,
   },
+  separator: {
+    height: 15,
+  },
+  noModules: {
+    fontFamily: AppFontFamily.INTER_400,
+    color: AppColor.TEXT.GRAY_100,
+    fontSize: 16,
+    lineHeight: 20,
+  },
 });
 
 export { styles };

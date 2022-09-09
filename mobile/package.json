@@ -17,6 +17,7 @@
   "dependencies": {
     "@hookform/resolvers": "2.9.5",
     "@react-native-community/checkbox": "0.5.12",
+    "@react-native-community/datetimepicker": "6.3.2",
     "@react-navigation/drawer": "6.4.3",
     "@react-navigation/material-top-tabs": "6.2.2",
     "@react-navigation/native": "6.0.11",

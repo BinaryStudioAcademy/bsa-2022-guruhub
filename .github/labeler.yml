@@ -1,0 +1,18 @@
+backend:
+  - any: ['backend/**/*', '!backend/tests/**/*']
+
+beanstalk: .ebextensions/**/*
+
+documentation: docs/**/*
+
+frontend: frontend/**/*
+
+mobile: mobile/**/*
+
+root: '*'
+
+shared: shared/**/*
+
+tests: backend/tests/**/*
+
+workflows: .github/**/*

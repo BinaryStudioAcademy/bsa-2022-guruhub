@@ -95,7 +95,7 @@ const App: FC = () => {
           }
         />
         <Route
-          path={AppRoute.SETTINGS_PROFILE}
+          path={AppRoute.PROFILE}
           element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
@@ -132,6 +132,22 @@ const App: FC = () => {
               ]}
               component={<Interview />}
             />
+          }
+        />
+        <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <Course />
+            </AuthorizedWrapper>
+          }
+        />
+        <Route
+          path={AppRoute.STUDENTS_$ID_COURSES_$ID_MODULES_$ID}
+          element={
+            <AuthorizedWrapper>
+              <CourseModule />
+            </AuthorizedWrapper>
           }
         />
         <Route

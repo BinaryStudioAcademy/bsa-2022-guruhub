@@ -24,6 +24,7 @@ type Props = {
   hasVisuallyHiddenLabel?: boolean;
   className?: string;
   stylingProps?: SelectStyles;
+  isSearchable?: boolean;
 };
 
 const Select: FC<Props> = ({
@@ -35,6 +36,7 @@ const Select: FC<Props> = ({
   options,
   className,
   stylingProps = DEFAULT_SELECT_STYLES,
+  isSearchable = true,
 }) => {
   const { field } = useFormControl({ name, control });
 
@@ -71,7 +73,7 @@ const Select: FC<Props> = ({
         value={handleOptionValue(field.value)}
         onChange={handleChange}
         name={name}
-        isSearchable={false}
+        isSearchable={isSearchable}
         className={styles.select}
         styles={stylingProps}
       />

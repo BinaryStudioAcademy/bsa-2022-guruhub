@@ -10,12 +10,16 @@ import {
   EntityPaginationRequestQueryDto,
   TaskByIdRequestParamsDto,
   TaskGetByMenteeIdAndModuleId,
+  TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskNoteManipulateRequestBodyDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
 } from '~/common/types/types';
 import { task as taskService } from '~/services/services';
 import {
   pagination as paginationValidationSchema,
   taskByMenteeIdAndModuleId as taskByMenteeIdAndModuleIdValidationSchema,
+  taskByMenteeIdCourseIdModuleIdParams as taskByMenteeIdCourseIdModuleIdParamsValidationSchema,
+  tasksByCourseIdAndMenteeId as tasksByCourseIdAndMenteeIdValidationSchema,
   tasksByIdParams as tasksByIdParamsValidationSchema,
   tasksManipulateRequestBody as tasksManipulateRequestBodyValidationSchema,
 } from '~/validation-schemas/validation-schemas';
@@ -97,6 +101,45 @@ const initTasksApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const notes = await taskService.getAllNotes({ taskId, count, page });
 
       rep.status(HttpCode.OK).send(notes);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: TasksApiPath.COURSES_$ID_MODULES_$ID_MENTEES_$ID,
+    schema: { params: taskByMenteeIdCourseIdModuleIdParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{
+        Params: TaskGetByMenteeIdCourseIdModuleIdRequestDto;
+      }>,
+      rep,
+    ) {
+      const { courseId, menteeId, moduleId } = req.params;
+      const task = await taskService.getByMenteeIdCourseIdModuleId({
+        courseId,
+        menteeId,
+        moduleId,
+      });
+
+      rep.status(HttpCode.OK).send(task);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: TasksApiPath.COURSES_$ID_MENTEES_$ID,
+    schema: { params: tasksByCourseIdAndMenteeIdValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: TasksGetByCourseIdAndMenteeIdRequestDto }>,
+      rep,
+    ) {
+      const { courseId, menteeId } = req.params;
+      const tasks = await taskService.getAllByCourseIdAndMenteeId({
+        courseId,
+        menteeId,
+      });
+
+      rep.status(HttpCode.OK).send(tasks);
     },
   });
 };

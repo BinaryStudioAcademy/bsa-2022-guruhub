@@ -8,6 +8,12 @@ type Props = {
 };
 
 const InterviewNoteCardList: FC<Props> = ({ notes }) => {
+  const hasNotes = Boolean(notes.length);
+
+  if (!hasNotes) {
+    return <p className={styles.placeholder}>No data to display</p>;
+  }
+
   return (
     <div className={styles.notesBlock}>
       {notes.map(({ id, note, author, createdAt }) => (

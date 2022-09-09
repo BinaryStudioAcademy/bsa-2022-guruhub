@@ -1,0 +1,17 @@
+type: object
+properties:
+  interviewerUserId:
+    required: true
+    type: integer
+    example: 10
+  status:
+    required: true
+    type: string
+    enum:
+      - New
+      - Rejected
+      - Canceled
+      - Pending
+      - In Progress
+      - Completed
+    example: New

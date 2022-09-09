@@ -96,13 +96,22 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
   type TaskManipulateRequestArgumentsDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteGetItemResponseDto,
   type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
+export {
+  type UdemyCourseGetResponseDto,
+  type UdemyCoursesGetResponseDto,
+  type UdemyModuleGetResponseDto,
+  type UdemyModulesGetResponseDto,
+} from './udemy/udemy';
 export {
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,

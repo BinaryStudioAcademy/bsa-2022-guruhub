@@ -1,0 +1,25 @@
+summary: Update interview's interviewer
+tags:
+  - interviews
+parameters:
+  - in: path
+    name: ID
+    schema:
+      type: integer
+    required: true
+    description: interview unique ID
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../schemas/interviews/interviews-update-interviewer-request-dto.yaml'
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/interviews/interview-response-dto.yaml'
+
+security:
+  - bearerAuth: []
