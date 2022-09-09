@@ -22,14 +22,13 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { user, userPermissions, course, isMentor } = useAppSelector(
-    ({ auth, courses }) => ({
-      user: auth.user,
-      userPermissions: auth.user?.permissions ?? [],
-      course: courses.course,
-      isMentor: courses.isMentor,
-    }),
-  );
+  const { user, course, isMentor } = useAppSelector(({ auth, courses }) => ({
+    user: auth.user,
+    course: courses.course,
+    isMentor: courses.isMentor,
+  }));
+
+  const userPermissions = user?.permissions ?? [];
 
   const allowedScreens = useMemo(() => {
     const screensByAuth = getScreensByAuth(COURSE_TAB_ITEMS, Boolean(user));

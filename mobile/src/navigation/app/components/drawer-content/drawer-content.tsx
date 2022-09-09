@@ -14,9 +14,8 @@ import {
   ScrollView,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, groupByKey } from '~/helpers/helpers';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { groupByKey } from '~/navigation/app/common/helpers/helpers';
 import { DrawerNavigationItem } from '~/navigation/app/common/types/types';
 import {
   BecomeMentor,
