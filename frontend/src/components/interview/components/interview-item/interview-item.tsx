@@ -1,3 +1,4 @@
+import { StringCase } from 'common/enums/enums';
 import {
   FC,
   InterviewsGetAllItemResponseDto,
@@ -6,7 +7,12 @@ import {
   SelectorOption,
 } from 'common/types/types';
 import { Button, Datepicker, Select } from 'components/common/common';
-import { getFormattedDate, getNameOf } from 'helpers/helpers';
+import {
+  changeStringCase,
+  getFormattedDate,
+  getNameOf,
+  getValidClasses,
+} from 'helpers/helpers';
 import { useAppForm, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
 
@@ -40,6 +46,11 @@ const InterviewItem: FC<Props> = ({
   const statusOptions = useMemo<SelectorOption[]>(() => {
     return getInterviewStatusOptions();
   }, []);
+
+  const camelCaseStatus = changeStringCase({
+    caseType: StringCase.CAMEL_CASE,
+    stringToChange: interview.status,
+  });
 
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
@@ -151,7 +162,15 @@ const InterviewItem: FC<Props> = ({
           <div className={styles.interviewRow}>
             <p className={styles.header}>Status</p>
             {!isEditMode && (
-              <p className={styles.interviewValue}>{interview?.status}</p>
+              <p
+                className={getValidClasses(
+                  styles.interviewValue,
+                  styles.status,
+                  styles[camelCaseStatus],
+                )}
+              >
+                {interview.status}
+              </p>
             )}
             {isEditMode && (
               <Select
