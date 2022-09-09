@@ -1,4 +1,5 @@
 import {
+  MenteesToMentorsChangeStatusRequestDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
@@ -54,8 +55,11 @@ class MenteesToMentors {
     );
   }
 
-  public deleteById(id: number): Promise<number> {
-    return this.#menteesToMentorsRepository.deleteById(id);
+  public changeStatus({
+    id,
+    status,
+  }: MenteesToMentorsChangeStatusRequestDto): Promise<number> {
+    return this.#menteesToMentorsRepository.changeStatus({ id, status });
   }
 }
 

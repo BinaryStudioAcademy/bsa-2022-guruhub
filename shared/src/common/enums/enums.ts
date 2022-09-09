@@ -26,6 +26,7 @@ export {
   HttpStatusMessage,
 } from './http/http';
 export { InterviewStatus } from './interview/interview';
+export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,

@@ -1,6 +1,11 @@
-import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
+import {
+  ExceptionMessage,
+  MenteesToMentorsStatus,
+  TaskStatus,
+} from '~/common/enums/enums';
 import {
   EntityPagination,
+  TaskCreateRequestDto,
   TaskGetByMenteeIdAndModuleId,
   TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskGetItemReponseDto,
@@ -76,7 +81,10 @@ class Task {
         );
 
       if (!hasUnfinishedTasks) {
-        this.#menteesToMentorsService.deleteById(task.menteesToMentorsId);
+        this.#menteesToMentorsService.changeStatus({
+          id: task.menteesToMentorsId,
+          status: MenteesToMentorsStatus.COMPLETED,
+        });
       }
     }
 
@@ -153,6 +161,13 @@ class Task {
       courseId,
       menteeId,
     });
+  }
+
+  public createTask({
+    menteesToMentorsId,
+    moduleId,
+  }: TaskCreateRequestDto): Promise<TaskGetItemReponseDto> {
+    return this.#taskRepository.createTask({ menteesToMentorsId, moduleId });
   }
 }
 

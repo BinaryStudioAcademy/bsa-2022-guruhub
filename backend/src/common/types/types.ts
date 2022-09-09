@@ -93,6 +93,7 @@ export {
 } from './interview-note/interview-note';
 export {
   type GetMentorRequestParamsDto,
+  type MenteesToMentorsChangeStatusRequestDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
@@ -105,6 +106,7 @@ export {
 } from './permission/permission';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,

@@ -145,22 +145,24 @@ const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
 
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
-const mentor = new Mentor({
-  menteesToMentorsService: menteesToMentors,
-  coursesToMentorsService: coursesToMentors,
-});
-
-const chatMessage = new ChatMessage({
-  chatMessageRepository,
-  menteesToMentorsRepository,
-});
-
 const taskNote = new TaskNote({ taskNoteRepository });
 
 const task = new Task({
   taskRepository,
   taskNoteService: taskNote,
   menteesToMentorsService: menteesToMentors,
+});
+
+const mentor = new Mentor({
+  menteesToMentorsService: menteesToMentors,
+  coursesToMentorsService: coursesToMentors,
+  courseModuleService: courseModule,
+  taskService: task,
+});
+
+const chatMessage = new ChatMessage({
+  chatMessageRepository,
+  menteesToMentorsRepository,
 });
 
 export {

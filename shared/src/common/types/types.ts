@@ -93,6 +93,7 @@ export {
 } from './permission/permission';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,

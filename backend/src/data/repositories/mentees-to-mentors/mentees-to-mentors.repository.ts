@@ -1,4 +1,6 @@
+import { MenteesToMentorsStatus } from '~/common/enums/enums';
 import {
+  MenteesToMentorsChangeStatusRequestDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
@@ -64,6 +66,7 @@ class MenteesToMentors {
       .query()
       .where({ courseId })
       .andWhere({ menteeId })
+      .andWhereNot({ status: MenteesToMentorsStatus.COMPLETED })
       .withGraphJoined(
         'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
       )
@@ -111,8 +114,15 @@ class MenteesToMentors {
       .execute();
   }
 
-  public deleteById(id: number): Promise<number> {
-    return this.#MenteesToMentorsModel.query().deleteById(id).execute();
+  public changeStatus({
+    id,
+    status,
+  }: MenteesToMentorsChangeStatusRequestDto): Promise<number> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .findById(id)
+      .patch({ status })
+      .execute();
   }
 }
 
