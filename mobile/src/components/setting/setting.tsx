@@ -70,8 +70,6 @@ const Settings: FC = () => {
       return;
     }
 
-    // TODO: Можно как-то отобризить выбранную картинку запроса на сервер ?
-
     setSelectedImage(image);
   };
 
@@ -80,7 +78,8 @@ const Settings: FC = () => {
       const { uri, type, fileName: name } = selectedImage;
 
       const formData = new FormData();
-      formData.append('File', { uri, type, name });
+      // eslint-disable-next-line no-use-before-define
+      formData.append('image', { uri, type, name });
 
       dispatch(
         userDetailsActions.updateUserAvatar({
@@ -93,7 +92,10 @@ const Settings: FC = () => {
     }
   };
 
-  const handleCancel = (): void => reset();
+  const handleCancel = (): void => {
+    reset();
+    setSelectedImage(null);
+  };
 
   const handleUpdateProfile = (
     payload: UserDetailsUpdateInfoRequestDto,
@@ -137,7 +139,9 @@ const Settings: FC = () => {
                 style={styles.avatar}
                 source={{
                   uri:
-                    userDetails?.avatar?.url ?? getImageUri(defaultUserAvatar),
+                    selectedImage?.uri ??
+                    userDetails?.avatar?.url ??
+                    getImageUri(defaultUserAvatar),
                 }}
               />
             </Pressable>
