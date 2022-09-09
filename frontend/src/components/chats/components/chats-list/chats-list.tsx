@@ -1,5 +1,6 @@
 import {
   ChatMessageGetAllItemResponseDto,
+  ChatMessageGetEmptyChatDto,
   ChatMessageUserResponseDto,
   FC,
 } from 'common/types/types';
@@ -11,6 +12,7 @@ import styles from './styles.module.scss';
 type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
+  emptyChats: ChatMessageGetEmptyChatDto[];
   onChatMessagesLoad: (chatId: string) => void;
 };
 
@@ -18,8 +20,9 @@ const ChatsList: FC<Props> = ({
   currentUserId,
   chatsItems,
   onChatMessagesLoad,
+  emptyChats,
 }) => {
-  const hasChatItems = Boolean(chatsItems.length);
+  const hasChatItems = Boolean(chatsItems.length || emptyChats.length);
 
   return (
     <div className={styles.listWrapper}>
@@ -46,6 +49,18 @@ const ChatsList: FC<Props> = ({
                     chat.createdAt,
                     'distance',
                   )}
+                  onClick={onChatMessagesLoad}
+                />
+              </li>
+            );
+          })}
+
+          {emptyChats.map((chat) => {
+            return (
+              <li key={chat.chatId}>
+                <Chat
+                  chatId={chat.chatId}
+                  chatOpponent={chat.receiver}
                   onClick={onChatMessagesLoad}
                 />
               </li>
