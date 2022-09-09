@@ -2,7 +2,11 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import { AppScreenName, RootScreenName } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  AuthScreenName,
+  RootScreenName,
+} from '~/common/enums/enums';
 import {
   Image,
   Link,
@@ -68,7 +72,13 @@ const DrawerContent: FC<Props> = ({ state, items }) => {
       </ScrollView>
       {!user && (
         <View style={styles.signInWrapper}>
-          <Link label="Sign in" to={`/${RootScreenName.AUTH}`} />
+          <Link
+            label="Sign in"
+            to={{
+              screen: RootScreenName.AUTH,
+              params: { screen: AuthScreenName.SIGN_IN },
+            }}
+          />
         </View>
       )}
     </SafeAreaView>

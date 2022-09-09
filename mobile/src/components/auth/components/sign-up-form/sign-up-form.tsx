@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { RootScreenName } from '~/common/enums/enums';
+import { AppScreenName, RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
 import {
   Button,
@@ -61,7 +61,13 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
           <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
         </View>
         <View style={styles.linkWrapper}>
-          <Link label="Skip for now" to={`/${RootScreenName.APP}`} />
+          <Link
+            label="Skip for now"
+            to={{
+              screen: RootScreenName.APP,
+              params: { screen: AppScreenName.COURSES },
+            }}
+          />
         </View>
       </View>
     </>
