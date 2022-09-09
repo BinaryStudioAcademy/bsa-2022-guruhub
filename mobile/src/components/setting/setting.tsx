@@ -78,8 +78,7 @@ const Settings: FC = () => {
       const { uri, type, fileName: name } = selectedImage;
 
       const formData = new FormData();
-      // eslint-disable-next-line no-use-before-define
-      formData.append('image', { uri, type, name });
+      formData.append('image', JSON.stringify({ uri, type, name }));
 
       dispatch(
         userDetailsActions.updateUserAvatar({
