@@ -44,7 +44,7 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
-  const [selectedImage, setSelectedImage] = useState<Asset[] | null>();
+  const [selectedImage, setSelectedImage] = useState<Asset | null>();
 
   const { user, userDataStatus, userDetails, userDetailsDataStatus } =
     useAppSelector(({ auth, userDetails }) => ({
@@ -65,7 +65,7 @@ const Settings: FC = () => {
     });
 
   const handleChooseAvatar = async (): Promise<void> => {
-    const image = await pickImage(selectionLimit);
+    const [image] = (await pickImage(selectionLimit)) ?? [];
 
     if (!image) {
       return;
@@ -78,7 +78,7 @@ const Settings: FC = () => {
     if (selectedImage) {
       dispatch(
         userDetailsActions.updateUserAvatar({
-          file: selectedImage[0],
+          file: selectedImage,
           userId: (user as UserWithPermissions).id,
         }),
       );
@@ -133,10 +133,10 @@ const Settings: FC = () => {
               <Image
                 style={styles.avatar}
                 source={{
-                  uri: selectedImage
-                    ? selectedImage[0].uri
-                    : userDetails?.avatar?.url ??
-                      getImageUri(defaultUserAvatar),
+                  uri:
+                    selectedImage?.uri ??
+                    userDetails?.avatar?.url ??
+                    getImageUri(defaultUserAvatar),
                 }}
               />
             </Pressable>
