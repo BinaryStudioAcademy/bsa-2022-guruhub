@@ -1,7 +1,4 @@
-const groupByKey = <T extends Record<string, T[]>>(
-  items: T[],
-  key: keyof T,
-): Record<string, T[]> => {
+const groupByKey = <T>(items: T[], key: keyof T): Record<string, T[]> => {
   return items.reduce((hash, item) => {
     const groupName = item[key];
 
