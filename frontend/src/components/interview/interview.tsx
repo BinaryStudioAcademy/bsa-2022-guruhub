@@ -53,7 +53,7 @@ const Interview: FC = () => {
   }));
   const [isInputOpen, setIsInputOpen] = useState<boolean>(false);
   const hasInterview = Boolean(interview);
-  const hasPermissionToSelectInterviwer = checkHasPermission({
+  const hasPermissionToSelectInterviewer = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
     userPermissions: (user as UserWithPermissions).permissions,
   });
@@ -67,7 +67,7 @@ const Interview: FC = () => {
       return;
     }
 
-    if (hasPermissionToSelectInterviwer) {
+    if (hasPermissionToSelectInterviewer) {
       dispatch(
         interviewActions.getInterviewersByCategory({
           categoryId: (interview as InterviewsGetAllItemResponseDto)
@@ -116,7 +116,7 @@ const Interview: FC = () => {
             interview={interview as InterviewsGetAllItemResponseDto}
             handleUpdateInterview={handleUpdateInterview}
             interviewers={interviewers}
-            hasPermissionToSelectInterviwer={hasPermissionToSelectInterviwer}
+            hasPermissionToSelectInterviewer={hasPermissionToSelectInterviewer}
           />
         )}
         <h1>Other Applications</h1>
