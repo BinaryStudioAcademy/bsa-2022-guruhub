@@ -16,7 +16,10 @@ type Props = {
   chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto;
   lastMessage?: string;
   dateTheLastMessageWasSent?: string;
-  onClick: (chatId: string) => void;
+  onClick: (
+    chatId: string,
+    chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
+  ) => void;
 };
 
 const Chat: FC<Props> = ({
@@ -29,7 +32,7 @@ const Chat: FC<Props> = ({
   onClick,
 }) => {
   const handleChatMessagesLoad = (): void => {
-    onClick(chatId);
+    onClick(chatId, chatOpponent);
   };
 
   return (

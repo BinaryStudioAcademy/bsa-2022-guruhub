@@ -20,7 +20,14 @@ const CurrentChat: FC<Props> = ({
   currentUserId,
   messages,
 }) => {
-  const hasMessages = Boolean(messages.length);
+  if (!chatId) {
+    return (
+      <h1 className={styles.emptyChatMessage}>
+        {' '}
+        There is no active chat selected{' '}
+      </h1>
+    );
+  }
 
   return (
     <div className={styles.currentChatWrapper}>
@@ -28,13 +35,7 @@ const CurrentChat: FC<Props> = ({
         {chatOpponent && <h4>{chatOpponent.userDetails.fullName}</h4>}
       </div>
       <div className={styles.currentChatContent}>
-        {hasMessages ? (
-          <MessagesList currentUserId={currentUserId} messages={messages} />
-        ) : (
-          <h1 className={styles.emptyChatMessage}>
-            There is no active chat selected
-          </h1>
-        )}
+        <MessagesList currentUserId={currentUserId} messages={messages} />
       </div>
       <div className={styles.currentChatFooter}>
         {chatOpponent && (

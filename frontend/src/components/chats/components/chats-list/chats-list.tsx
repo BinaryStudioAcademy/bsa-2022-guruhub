@@ -3,6 +3,7 @@ import {
   ChatMessageGetEmptyChatDto,
   ChatMessageUserResponseDto,
   FC,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { getFormattedDate } from 'helpers/helpers';
 
@@ -13,7 +14,10 @@ type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
   emptyChats: ChatMessageGetEmptyChatDto[];
-  onChatMessagesLoad: (chatId: string) => void;
+  onChatMessagesLoad: (
+    chatId: string,
+    chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
+  ) => void;
 };
 
 const ChatsList: FC<Props> = ({

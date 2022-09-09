@@ -4,6 +4,7 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetEmptyChatDto,
   ChatMessageUserResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
@@ -21,7 +22,7 @@ type State = {
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
-  chatOpponent: ChatMessageUserResponseDto | null;
+  chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto | null;
 };
 
 const initialState: State = {

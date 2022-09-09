@@ -61,11 +61,14 @@ class ChatMessage {
       fullName,
     );
 
-    const usersWithCreatedChats: number[] = [];
-    lastMessagesInChats.forEach((item) => {
-      usersWithCreatedChats.push(item.sender.id);
-      usersWithCreatedChats.push(item.receiver.id);
-    });
+    const usersWithCreatedChats: number[] = lastMessagesInChats.reduce<
+      number[]
+    >((usersWithChats, chatMessage) => {
+      return usersWithChats.concat([
+        chatMessage.sender.id,
+        chatMessage.receiver.id,
+      ]);
+    }, []);
 
     const usersWithoutChatsIds = userMenteesOrMentorsIds.filter(
       (id) => !usersWithCreatedChats.includes(id),
@@ -73,12 +76,10 @@ class ChatMessage {
 
     const receivers = await this.#userRepository.getByIds(usersWithoutChatsIds);
 
-    return receivers.map((receiver) => {
-      return {
-        receiver: receiver,
-        chatId: createUuid(),
-      };
-    });
+    return receivers.map((receiver) => ({
+      chatId: createUuid(),
+      receiver,
+    }));
   }
 
   public async getMentorsAndMenteesIds(
