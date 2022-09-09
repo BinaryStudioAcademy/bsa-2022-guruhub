@@ -38,6 +38,8 @@ const OtherApplications: FC<Props> = ({
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
+  const hasInterviews = Boolean(interviews.length);
+
   const handleInterviewSelect = (
     id: InterviewsUpdateRequestParamsDto,
   ): void => {
@@ -70,7 +72,7 @@ const OtherApplications: FC<Props> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Other Applications</Text>
-      {!interviews.length ? (
+      {!hasInterviews ? (
         <Text style={styles.noApplications}>No more applications yet</Text>
       ) : (
         <>
