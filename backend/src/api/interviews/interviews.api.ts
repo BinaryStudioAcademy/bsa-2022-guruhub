@@ -161,11 +161,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     method: HttpMethod.GET,
     url: InterviewsApiPath.INTERVIEWERS_CATEGORIES_$ID,
     schema: { params: interviewGetInterviewersByCategoryValidationSchema },
-    preHandler: checkHasPermissions(
-      'oneOf',
-      PermissionKey.MANAGE_INTERVIEWS,
-      PermissionKey.MANAGE_INTERVIEW,
-    ),
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
     async handler(
       req: FastifyRequest<{
         Params: InterviewsGetInterviewersByCategoryRequestDto;
