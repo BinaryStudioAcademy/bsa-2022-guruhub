@@ -76,14 +76,9 @@ const Settings: FC = () => {
 
   const handleSaveAvatar = (): void => {
     if (selectedImage) {
-      const { uri, type, fileName: name } = selectedImage[0];
-
-      const formData = new FormData();
-      formData.append('image', JSON.stringify({ uri, type, name }));
-
       dispatch(
         userDetailsActions.updateUserAvatar({
-          file: formData,
+          file: selectedImage[0],
           userId: (user as UserWithPermissions).id,
         }),
       );

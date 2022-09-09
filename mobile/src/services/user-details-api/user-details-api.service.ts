@@ -52,6 +52,10 @@ class UserDetailsApi {
     file,
     userId,
   }: UserDetailsUpdateAvatarRequestDto): Promise<UserDetailsResponseDto> {
+    const { uri, type, fileName: name } = file;
+    const formData = new FormData();
+    formData.append('image', JSON.stringify({ uri, type, name }));
+
     return this.#http.load<UserDetailsResponseDto>(
       `${this.#apiPrefix}${ApiPath.USER_DETAILS}${
         UserDetailsApiPath.ROOT
@@ -59,7 +63,7 @@ class UserDetailsApi {
       {
         method: HttpMethod.PUT,
         contentType: ContentType.MULTIPART,
-        payload: file,
+        payload: formData,
       },
     );
   }
