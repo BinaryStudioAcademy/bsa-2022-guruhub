@@ -126,11 +126,8 @@ const Course: FC = () => {
 
   useEffect(() => {
     dispatch(courseActions.getCourse({ id: Number(courseId) }));
-
-    if (!isMentorView) {
-      dispatch(courseActions.getModules({ courseId: Number(courseId) }));
-      dispatch(courseActions.getCategories());
-    }
+    dispatch(courseActions.getModules({ courseId: Number(courseId) }));
+    dispatch(courseActions.getCategories());
 
     if (user && !isMentorView) {
       dispatch(

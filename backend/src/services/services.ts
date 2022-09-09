@@ -157,7 +157,11 @@ const chatMessage = new ChatMessage({
 
 const taskNote = new TaskNote({ taskNoteRepository });
 
-const task = new Task({ taskRepository, taskNoteService: taskNote });
+const task = new Task({
+  taskRepository,
+  taskNoteService: taskNote,
+  menteesToMentorsService: menteesToMentors,
+});
 
 export {
   auth,

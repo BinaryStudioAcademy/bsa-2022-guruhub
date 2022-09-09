@@ -53,6 +53,10 @@ class MenteesToMentors {
       menteesToMentors,
     );
   }
+
+  public deleteById(id: number): Promise<number> {
+    return this.#menteesToMentorsRepository.deleteById(id);
+  }
 }
 
 export { MenteesToMentors };

@@ -110,6 +110,10 @@ class MenteesToMentors {
       )
       .execute();
   }
+
+  public deleteById(id: number): Promise<number> {
+    return this.#MenteesToMentorsModel.query().deleteById(id).execute();
+  }
 }
 
 export { MenteesToMentors };

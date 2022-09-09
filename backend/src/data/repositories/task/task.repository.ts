@@ -75,6 +75,17 @@ class Task {
       .castTo<TaskWithModuleResponseDto[]>()
       .execute();
   }
+
+  public async hasUncompletedModulesByMenteesToMentorsId(
+    menteesToMentorsId: number,
+  ): Promise<boolean> {
+    const firstUncompleted = await this.#TaskModel
+      .query()
+      .findOne({ menteesToMentorsId })
+      .whereNot('status', TaskStatus.COMPLETED);
+
+    return Boolean(firstUncompleted);
+  }
 }
 
 export { Task };

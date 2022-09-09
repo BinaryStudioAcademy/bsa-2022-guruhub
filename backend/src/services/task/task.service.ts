@@ -14,11 +14,15 @@ import {
 import { task as taskRep } from '~/data/repositories/repositories';
 import { TasksError } from '~/exceptions/exceptions';
 
-import { taskNote as taskNoteServ } from '../services';
+import {
+  menteesToMentors as menteesToMentorsServ,
+  taskNote as taskNoteServ,
+} from '../services';
 
 type Constructor = {
   taskRepository: typeof taskRep;
   taskNoteService: typeof taskNoteServ;
+  menteesToMentorsService: typeof menteesToMentorsServ;
 };
 
 class Task {
@@ -26,9 +30,16 @@ class Task {
 
   #taskNoteService: typeof taskNoteServ;
 
-  public constructor({ taskRepository, taskNoteService }: Constructor) {
+  #menteesToMentorsService: typeof menteesToMentorsServ;
+
+  public constructor({
+    taskRepository,
+    taskNoteService,
+    menteesToMentorsService,
+  }: Constructor) {
     this.#taskRepository = taskRepository;
     this.#taskNoteService = taskNoteService;
+    this.#menteesToMentorsService = menteesToMentorsService;
   }
 
   public async manipulate({
@@ -57,6 +68,17 @@ class Task {
     });
 
     await this.updateStatus(taskId, status);
+
+    if (status === TaskStatus.COMPLETED) {
+      const hasUnfinishedTasks =
+        await this.#taskRepository.hasUncompletedModulesByMenteesToMentorsId(
+          task.menteesToMentorsId,
+        );
+
+      if (!hasUnfinishedTasks) {
+        this.#menteesToMentorsService.deleteById(task.menteesToMentorsId);
+      }
+    }
 
     return newNote;
   }
