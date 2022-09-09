@@ -15,7 +15,7 @@ class Interview extends Abstract {
 
   public 'intervieweeUserId': number;
 
-  public 'interviewerUserId': number;
+  public 'interviewerUserId': number | null;
 
   public static override get relationMappings(): RelationMappings {
     return {
