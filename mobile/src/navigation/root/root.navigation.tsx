@@ -22,6 +22,7 @@ const screenOptions: NativeStackNavigationOptions = {
 const Root: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  // const navigation = useAppNavigate();
 
   const hasUser = Boolean(user);
   const hasToken = Boolean(storage.get(StorageKey.ACCESS_TOKEN));
@@ -33,6 +34,10 @@ const Root: FC = () => {
       dispatch(authActions.loadCurrentUser());
     }
   }, [dispatch, hasToken]);
+
+  // useEffect(() => {
+  //   navigation.navigate(hasUser ? RootScreenName.APP : RootScreenName.AUTH);
+  // }, [hasUser]);
 
   if (!hasUser && hasToken && dataStatus !== DataStatus.REJECTED) {
     return <Spinner isOverflow />;

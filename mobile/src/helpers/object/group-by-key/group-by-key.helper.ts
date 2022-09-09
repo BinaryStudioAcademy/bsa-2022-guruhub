@@ -1,13 +1,23 @@
-const groupByKey = <T>(
+const groupByKey = <
+  T extends Record<K, PropertyKey>,
+  K extends keyof {
+    [P in keyof T as T[P] extends PropertyKey ? P : never]: any;
+  },
+>(
   items: T[],
   key: keyof T,
-): Array<Record<T[keyof T], T[]>> => {
+): Record<T[keyof T], T[]> => {
   return items.reduce((hash, item) => {
-    if (item[key] === undefined) return hash;
+    const groupName = item[key];
 
-    return Object.assign(hash, {
-      [`${item[key]}`]: (hash[`${item[key]}`] || []).concat(item),
-    });
+    if (typeof groupName !== 'string') return hash;
+
+    const group = hash[groupName] ?? [];
+
+    return {
+      ...hash,
+      [groupName]: group.concat(item),
+    };
   }, Object.create(null));
 };
 
