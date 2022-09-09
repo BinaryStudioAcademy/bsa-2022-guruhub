@@ -64,6 +64,6 @@ describe('Get all permissions tests', () => {
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(allPermissionsSchema);
     response.body.total.should.be.equal(permissionsCount);
-    response.body.items.map(({ key }) => key).should.be.deep.equal(keys);
+    response.body.items.map(({ key }) => key).should.have.members(keys);
   });
 });
