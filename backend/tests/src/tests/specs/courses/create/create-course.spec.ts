@@ -1,16 +1,20 @@
 import {
   CourseGetResponseDto,
-  CourseModulesGetAllItemResponseDto,
   ExceptionMessage,
   HttpCode,
   HttpErrorDto,
   HttpStatusMessage,
   sanitizeHTML,
   UserSignInResponseDto,
-  VendorGetResponseDto,
 } from 'guruhub-shared';
 
-import { Response, UdemyCourseInfo } from '~/lib/common/types/types';
+import {
+  CourseCreateExpected,
+  CourseExpected,
+  ModuleCreateExpected,
+  Response,
+  UdemyCourseInfo,
+} from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {
   apiSessionStorage,
@@ -43,47 +47,14 @@ describe('Course creation tests', () => {
   let course1: UdemyCourseInfo;
   let course2: UdemyCourseInfo;
 
-  let course1CreateExpected: Pick<
-    CourseGetResponseDto,
-    'category' | 'description' | 'title'
-  > & {
-    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
-  };
+  let course1CreateExpected: CourseCreateExpected;
+  let course2CreateExpected: CourseCreateExpected;
 
-  let course2CreateExpected: Pick<
-    CourseGetResponseDto,
-    'category' | 'description' | 'title'
-  > & {
-    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
-  };
+  let course1Expected: CourseExpected;
+  let course2Expected: CourseExpected;
 
-  let course1Expected: Pick<
-    CourseGetResponseDto,
-    'id' | 'category' | 'description' | 'title'
-  > & {
-    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
-  };
-
-  let course2Expected: Pick<
-    CourseGetResponseDto,
-    'id' | 'category' | 'description' | 'title'
-  > & {
-    vendor: Pick<VendorGetResponseDto, 'key' | 'name'>;
-  };
-
-  let course1ModulesExpected: Array<
-    Pick<
-      CourseModulesGetAllItemResponseDto,
-      'courseId' | 'title' | 'description'
-    >
-  >;
-
-  let course2ModulesExpected: Array<
-    Pick<
-      CourseModulesGetAllItemResponseDto,
-      'courseId' | 'title' | 'description'
-    >
-  >;
+  let course1ModulesExpected: ModuleCreateExpected[];
+  let course2ModulesExpected: ModuleCreateExpected[];
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
