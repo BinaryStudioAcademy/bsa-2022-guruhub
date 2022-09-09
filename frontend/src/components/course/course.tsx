@@ -33,13 +33,14 @@ const Course: FC = () => {
   const {
     categories,
     course,
-    modules,
     dataStatus,
     passedInterviewsCategoryIds,
     user,
     mentors,
     mentor,
     mentees,
+    modules,
+    tasks,
     isMentorChoosingEnabled,
     isMentor,
     menteesByCourseDataStatus,
@@ -47,19 +48,21 @@ const Course: FC = () => {
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
-    modules: course.modules,
     dataStatus: course.dataStatus,
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
     user: auth.user,
     mentors: course.mentors,
     mentor: course.mentor,
+    modules: course.modules,
+    tasks: course.tasks,
     isMentorChoosingEnabled: course.isMentorChoosingEnabled,
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
     menteesByCourseDataStatus: course.menteesByCourseDataStatus,
     mentorCheckDataStatus: course.mentorCheckDataStatus,
   }));
-  const { id } = useParams();
+  const { courseId, studentId } = useParams();
+  const isMentorView = Boolean(studentId);
   const dispatch = useAppDispatch();
 
   const isCategoryEditAllowed = checkHasPermission({
@@ -102,7 +105,7 @@ const Course: FC = () => {
   const handleMentorsSearch = (mentorName: string): void => {
     dispatch(
       courseActions.getMentorsByCourseId({
-        courseId: Number(id),
+        courseId: Number(courseId),
         filteringOpts: { mentorName },
       }),
     );
@@ -113,7 +116,10 @@ const Course: FC = () => {
   ): void => {
     const { newCategoryId } = payload;
     dispatch(
-      courseActions.updateCategory({ courseId: Number(id), newCategoryId }),
+      courseActions.updateCategory({
+        courseId: Number(courseId),
+        newCategoryId,
+      }),
     )
       .unwrap()
       .then(() => {
@@ -122,25 +128,25 @@ const Course: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(courseActions.getCourse({ id: Number(id) }));
-    dispatch(courseActions.getModules({ courseId: Number(id) }));
+    dispatch(courseActions.getCourse({ id: Number(courseId) }));
+    dispatch(courseActions.getModules({ courseId: Number(courseId) }));
     dispatch(courseActions.getCategories());
 
     if (user) {
       dispatch(
         courseActions.getMentorsByCourseId({
-          courseId: Number(id),
+          courseId: Number(courseId),
           filteringOpts: { mentorName: '' },
         }),
       );
-      dispatch(courseActions.getMenteesByCourseId({ id: Number(id) }));
+      dispatch(courseActions.getMenteesByCourseId({ id: Number(courseId) }));
       dispatch(
         courseActions.getMentor({
-          courseId: Number(id),
+          courseId: Number(courseId),
           menteeId: user.id,
         }),
       );
-      dispatch(courseActions.updateIsMentorChoosingEnabled(Number(id)));
+      dispatch(courseActions.updateIsMentorChoosingEnabled(Number(courseId)));
     }
 
     return () => {
@@ -148,7 +154,7 @@ const Course: FC = () => {
       dispatch(courseActions.cleanMentor());
       dispatch(courseActions.cleanMentors());
     };
-  }, [dispatch, id, user]);
+  }, [dispatch, courseId, user]);
 
   useEffect(() => {
     if (course && user) {
@@ -161,10 +167,21 @@ const Course: FC = () => {
   }, [user, course, passedInterviewsCategoryIds]);
 
   useEffect(() => {
+    if (isMentorView) {
+      dispatch(
+        courseActions.getTasksByCourseIdAndMenteeId({
+          courseId: Number(courseId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [studentId, courseId]);
+
+  useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
     }
-    dispatch(courseActions.checkIsMentor({ id: Number(id) }));
   }, [user]);
 
   if (dataStatus === DataStatus.PENDING) {
@@ -183,7 +200,7 @@ const Course: FC = () => {
     if (isMentor) {
       return (
         menteesByCourseDataStatus === DataStatus.FULFILLED && (
-          <MyStudentsContainer mentees={mentees} />
+          <MyStudentsContainer mentees={mentees} courseId={Number(courseId)} />
         )
       );
     }
@@ -250,7 +267,13 @@ const Course: FC = () => {
         <Content html={course?.description ?? ''} />
         <h3 className={styles.modulesContentHeader}>Course Content</h3>
         <div className={styles.modulesContainer}>
-          <ModulesCardsContainer modules={modules} />
+          <ModulesCardsContainer
+            isMentorView={isMentorView}
+            studentId={Number(studentId)}
+            modules={modules}
+            tasks={tasks}
+            course={course}
+          />
         </div>
       </div>
 

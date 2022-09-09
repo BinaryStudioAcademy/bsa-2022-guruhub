@@ -4,6 +4,7 @@ import {
   CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
@@ -24,6 +25,7 @@ import {
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
+  getTasksByCourseIdAndMenteeId,
   updateCategory,
   updateIsMentorBecomingEnabled,
   updateIsMentorChoosingEnabled,
@@ -43,6 +45,7 @@ type State = {
   menteesByCourseDataStatus: DataStatus;
   isMentor: boolean;
   mentorCheckDataStatus: DataStatus;
+  tasks: TaskWithModuleResponseDto[];
 };
 
 const initialState: State = {
@@ -59,6 +62,7 @@ const initialState: State = {
   menteesByCourseDataStatus: DataStatus.IDLE,
   isMentor: false,
   mentorCheckDataStatus: DataStatus.IDLE,
+  tasks: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -203,6 +207,21 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(cleanMentors, (state) => {
     state.mentors = [];
+  });
+
+  builder.addCase(getTasksByCourseIdAndMenteeId.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(
+    getTasksByCourseIdAndMenteeId.fulfilled,
+    (state, { payload }) => {
+      state.dataStatus = DataStatus.FULFILLED;
+      state.tasks = payload;
+    },
+  );
+  builder.addCase(getTasksByCourseIdAndMenteeId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.tasks = [];
   });
 });
 

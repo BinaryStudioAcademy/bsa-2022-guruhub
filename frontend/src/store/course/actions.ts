@@ -14,6 +14,8 @@ import {
   GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
@@ -321,6 +323,23 @@ const updateCategory = createAsyncThunk<
   return updatedCourse;
 });
 
+const getTasksByCourseIdAndMenteeId = createAsyncThunk<
+  TaskWithModuleResponseDto[],
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  AsyncThunkConfig
+>(
+  ActionType.GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID,
+  async ({ courseId, menteeId }, { extra }) => {
+    const { tasksApi } = extra;
+    const modules = await tasksApi.getAllByCourseIdAndMenteeId({
+      courseId,
+      menteeId,
+    });
+
+    return modules;
+  },
+);
+
 export {
   becomeAMentor,
   changeMentor,
@@ -339,6 +358,7 @@ export {
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
+  getTasksByCourseIdAndMenteeId,
   updateCategory,
   updateIsMentorBecomingEnabled,
   updateIsMentorChoosingEnabled,

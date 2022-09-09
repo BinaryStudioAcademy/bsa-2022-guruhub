@@ -19,6 +19,7 @@ enum ActionType {
   DISABLE_MENTOR_CHOOSING = 'course/disable-mentor-choosing',
   CLEAN_MENTOR = 'course/clean-mentor',
   CLEAN_MENTORS = 'course/clean-mentors',
+  GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID = 'course/get-modules-by-course-id-and-mentee-id',
 }
 
 export { ActionType };

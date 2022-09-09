@@ -1,0 +1,24 @@
+get:
+  summary: Get Tasks by Course ID and Mentee ID
+  parameters:
+    - in: path
+      name: courseId
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of the course
+    - in: path
+      name: menteeId
+      schema:
+        type: integer
+      required: true
+      description: Numeric ID of mentee
+  tags:
+    - tasks
+  responses:
+    '200':
+      description: Task was received successfully
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/tasks/tasks-get-by-course-id-mentee-id-response-dto.yaml'
