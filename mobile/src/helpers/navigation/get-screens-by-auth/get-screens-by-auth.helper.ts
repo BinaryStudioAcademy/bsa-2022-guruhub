@@ -2,10 +2,10 @@ import { NavigationItem } from '~/common/types/types';
 
 const getScreensByAuth = (
   screens: NavigationItem[],
-  hasUser: boolean,
+  isAuthRequired: boolean,
 ): NavigationItem[] => {
-  if (!hasUser) {
-    return screens.filter((screen) => screen.requireAuth === hasUser);
+  if (!isAuthRequired) {
+    return screens.filter((screen) => !screen.requireAuth);
   }
 
   return screens;
