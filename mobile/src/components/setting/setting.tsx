@@ -44,7 +44,7 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
-  const [selectedImage, setSelectedImage] = useState<Asset | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Asset[] | null>();
 
   const { user, userDataStatus, userDetails, userDetailsDataStatus } =
     useAppSelector(({ auth, userDetails }) => ({
@@ -56,6 +56,7 @@ const Settings: FC = () => {
 
   const maxDate = subtractYears(new Date(), UserAge.MIN);
   const minDate = subtractYears(new Date(), UserAge.MAX);
+  const selectionLimit = 1;
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
@@ -64,7 +65,7 @@ const Settings: FC = () => {
     });
 
   const handleChooseAvatar = async (): Promise<void> => {
-    const image = await pickImage();
+    const image = await pickImage(selectionLimit);
 
     if (!image) {
       return;
@@ -75,7 +76,7 @@ const Settings: FC = () => {
 
   const handleSaveAvatar = (): void => {
     if (selectedImage) {
-      const { uri, type, fileName: name } = selectedImage;
+      const { uri, type, fileName: name } = selectedImage[0];
 
       const formData = new FormData();
       formData.append('image', JSON.stringify({ uri, type, name }));
@@ -137,10 +138,10 @@ const Settings: FC = () => {
               <Image
                 style={styles.avatar}
                 source={{
-                  uri:
-                    selectedImage?.uri ??
-                    userDetails?.avatar?.url ??
-                    getImageUri(defaultUserAvatar),
+                  uri: selectedImage
+                    ? selectedImage[0].uri
+                    : userDetails?.avatar?.url ??
+                      getImageUri(defaultUserAvatar),
                 }}
               />
             </Pressable>
