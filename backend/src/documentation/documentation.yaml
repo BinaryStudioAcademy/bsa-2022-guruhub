@@ -12,6 +12,11 @@ paths:
     $ref: './endpoints/auth/user-sign-in.yaml'
   /auth/current-user:
     $ref: './endpoints/auth/current-user.yaml'
+  # Billing
+  /billing/replenish:
+    $ref: './endpoints/billing/billing-replenish.yaml'
+  /billing/withdraw:
+    $ref: './endpoints/billing/billing-withdraw.yaml'
   # Users
   /users:
     $ref: './endpoints/users/users-get-all.yaml'
@@ -93,6 +98,10 @@ components:
       $ref: './schemas/auth/user-sign-in-response-dto.yaml'
     UsersDeleteRequestDto:
       $ref: './schemas/users/users-delete-request-dto.yaml'
+    BillingReplenishRequestDto:
+      $ref: './schemas/billing/billing-replenish-request-dto.yaml'
+    BillingOperationResponseDto:
+      $ref: './schemas/billing/billing-operation-response-dto.yaml'
     CurrentUserResponseDto:
       $ref: './schemas/auth/current-user-response-dto.yaml'
     GroupsGetAllResponseDto:

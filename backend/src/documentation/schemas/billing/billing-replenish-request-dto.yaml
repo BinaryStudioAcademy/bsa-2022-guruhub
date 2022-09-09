@@ -1,0 +1,5 @@
+type: object
+properties:
+  amountOfMoneyToReplenish:
+    type: number
+    example: 100

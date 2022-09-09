@@ -1,0 +1,10 @@
+post:
+  summary: Initialize Withdraw
+  tags:
+    - billing
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/billing/billing-operation-response-dto.yaml'

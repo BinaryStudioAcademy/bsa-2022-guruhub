@@ -25,14 +25,11 @@ class CourseCategoryPrice {
   public getById(
     id: number,
   ): Promise<CourseCategoryPriceGetAllItemResponseDto | null> {
-    const courseCategoryPrice = this.#CourseCategoryModel
+    return this.#CourseCategoryModel
       .query()
-      .select()
       .findById(id)
       .castTo<CourseCategoryPriceGetAllItemResponseDto>()
       .execute();
-
-    return courseCategoryPrice ?? null;
   }
 }
 

@@ -9,6 +9,7 @@ import { Transaction as TransactionM } from '~/data/models/models';
 type Constructor = {
   TransactionModel: typeof TransactionM;
 };
+const INITIAL_TRANSACTION_STATUS = TransactionStatus.PENDING;
 
 class Transaction {
   #TransactionModel: typeof TransactionM;
@@ -33,8 +34,6 @@ class Transaction {
     receiverId,
     amount,
   }: TransactionCreateArgumentsDto): Promise<TransactionGetAllItemResponseDto> {
-    const INITIAL_TRANSACTION_STATUS = TransactionStatus.PENDING;
-
     return this.#TransactionModel
       .query()
       .insert({
