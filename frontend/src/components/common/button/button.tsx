@@ -78,7 +78,6 @@ const Button: FC<Props> = ({
       <label
         className={getValidClasses(
           styles.button,
-          hasIcon && styles.iconButton,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],
         )}
