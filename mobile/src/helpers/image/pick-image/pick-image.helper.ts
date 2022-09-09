@@ -13,4 +13,13 @@ const pickImage = async (): Promise<Asset | undefined> => {
   return res.assets[0];
 };
 
-export { pickImage };
+const pickImages = async (selectionLimit: number): Promise<Asset[]> => {
+  const res = await launchImageLibrary({
+    mediaType: 'photo',
+    selectionLimit: selectionLimit,
+  });
+
+  return res.assets ?? [];
+};
+
+export { pickImage, pickImages };
