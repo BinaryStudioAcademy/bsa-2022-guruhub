@@ -1,6 +1,7 @@
 import {
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
+  UserDetailsWithMoneyBalanceDto,
 } from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
@@ -46,6 +47,19 @@ class UserDetails {
       .first()
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
+      .execute();
+  }
+
+  public updateMoneyBalance(
+    userId: number,
+    newMoneyBalance: number,
+  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+    return this.#UserDetailsModel
+      .query()
+      .patchAndFetchById(userId, {
+        moneyBalance: newMoneyBalance,
+      })
+      .castTo<UserDetailsWithMoneyBalanceDto>()
       .execute();
   }
 

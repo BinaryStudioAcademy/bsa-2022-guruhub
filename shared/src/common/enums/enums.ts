@@ -1,6 +1,7 @@
 export {
   ApiPath,
   AuthApiPath,
+  BillingApiPath,
   CategoriesApiPath,
   ChatsApiPath,
   CourseModulesApiPath,

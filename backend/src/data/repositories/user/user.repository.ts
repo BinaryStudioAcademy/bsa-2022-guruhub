@@ -3,6 +3,7 @@ import { Page } from 'objection';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  UserGetResponseWithMoneyBalanceDto,
   UsersByEmailResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
@@ -79,12 +80,12 @@ class User {
 
   public getByIdWithMoneyBalance(
     id: number,
-  ): Promise<UsersGetResponseDto | null> {
+  ): Promise<UserGetResponseWithMoneyBalanceDto | null> {
     return this.#UserModel
       .query()
       .findById(id)
       .withGraphJoined('userDetails')
-      .castTo<UsersGetResponseDto>()
+      .castTo<UserGetResponseWithMoneyBalanceDto>()
       .execute();
   }
 

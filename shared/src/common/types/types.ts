@@ -1,3 +1,4 @@
+export { type BillingReplenishParamsDto } from './billing/billing';
 export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,
@@ -106,6 +107,7 @@ export {
   type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
 export {
+  type UserGetResponseWithMoneyBalanceDto,
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
@@ -120,6 +122,7 @@ export {
   type UserDetailsResponseDto,
   type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
+  type UserDetailsWithMoneyBalanceDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

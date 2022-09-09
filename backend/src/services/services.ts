@@ -41,6 +41,7 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
+import { Stripe } from './stripe/stripe.service';
 import { Task } from './task/task.service';
 import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
@@ -163,6 +164,12 @@ const chatMessage = new ChatMessage({
   menteesToMentorsRepository,
 });
 
+const stripe = new Stripe({
+  secretKey: ENV.STRIPE.SECRET_KEY,
+  successUrl: ENV.STRIPE.OPERATION_REDIRECTION_URL,
+  cancelUrl: ENV.STRIPE.OPERATION_REDIRECTION_URL,
+});
+
 const taskNote = new TaskNote({ taskNoteRepository });
 
 const task = new Task({ taskRepository, taskNoteService: taskNote });
@@ -188,6 +195,7 @@ export {
   menteesToMentors,
   mentor,
   permission,
+  stripe,
   task,
   taskNote,
   token,

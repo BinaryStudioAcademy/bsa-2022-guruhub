@@ -2,6 +2,7 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   PermissionsGetAllItemResponseDto,
+  UserGetResponseWithMoneyBalanceDto,
   UsersBasicInfoDto,
   UsersByEmailResponseDto,
   UsersGetResponseDto,
@@ -122,6 +123,12 @@ class User {
       createdAt: user.createdAt,
       permissions,
     };
+  }
+
+  public getByIdWithMoneyBalance(
+    id: number,
+  ): Promise<UserGetResponseWithMoneyBalanceDto | null> {
+    return this.#userRepository.getByIdWithMoneyBalance(id);
   }
 
   public async getByIds(ids: number[]): Promise<UsersBasicInfoDto[]> {

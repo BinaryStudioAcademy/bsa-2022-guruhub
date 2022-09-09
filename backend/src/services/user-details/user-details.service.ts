@@ -2,6 +2,7 @@ import { ContentType } from '~/common/enums/enums';
 import {
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
+  UserDetailsWithMoneyBalanceDto,
 } from '~/common/types/types';
 import { userDetails as userDetailsRep } from '~/data/repositories/repositories';
 import { UserDetailsError } from '~/exceptions/exceptions';
@@ -40,6 +41,16 @@ class UserDetails {
     );
 
     return userDetails ?? null;
+  }
+
+  public async updateMoneyBalance(
+    userId: number,
+    newMoneyBalance: number,
+  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+    return this.#userDetailsRepository.updateMoneyBalance(
+      userId,
+      newMoneyBalance,
+    );
   }
 
   public async create(

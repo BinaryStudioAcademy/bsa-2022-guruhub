@@ -20,6 +20,7 @@ import {
   interview,
   mentor,
   permission,
+  stripe,
   task,
   token,
   user,
@@ -27,6 +28,7 @@ import {
 } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
+import { initBillingApi } from './billing/billing.api';
 import { initCategoriesApi } from './categories/categories.api';
 import { initChatsApi } from './chats/chats.api';
 import { initCourseModulesApi } from './course-modules/course-modules.api';
@@ -141,6 +143,15 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       task,
     },
     prefix: ApiPath.TASKS,
+  });
+
+  fastify.register(initBillingApi, {
+    services: {
+      stripe,
+      user,
+      userDetails,
+    },
+    prefix: ApiPath.BILLING,
   });
 };
 

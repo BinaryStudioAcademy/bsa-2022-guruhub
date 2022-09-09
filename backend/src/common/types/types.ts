@@ -1,4 +1,5 @@
 export { type WhiteRoute } from './api/api';
+export { type BillingReplenishParamsDto } from './billing/billing';
 export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,
@@ -132,6 +133,7 @@ export {
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UserGetResponseWithMoneyBalanceDto,
   type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
   type UsersDeleteRequestParamsDto,
@@ -146,6 +148,7 @@ export {
   type UserDetailsResponseDto,
   type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
+  type UserDetailsWithMoneyBalanceDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';
