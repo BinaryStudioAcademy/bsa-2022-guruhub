@@ -20,7 +20,7 @@ import {
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { CourseHeader } from './components/course-header/course-header';
+import { CourseContent } from './components/course-content/course-content';
 import { Module } from './components/module/module';
 import { styles } from './styles';
 
@@ -114,7 +114,7 @@ const Course: FC = () => {
     <View style={styles.container}>
       <FlatList
         ListHeaderComponent={(): ReactElement => (
-          <CourseHeader
+          <CourseContent
             width={width}
             course={course}
             hasEditCategoryPermission={hasEditCategoryPermission}

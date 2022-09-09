@@ -23,7 +23,7 @@ type Props = {
   onEditModeToggle: () => void;
 };
 
-const CourseHeader: FC<Props> = ({
+const CourseContent: FC<Props> = ({
   width,
   course,
   hasEditCategoryPermission,
@@ -83,4 +83,4 @@ const CourseHeader: FC<Props> = ({
   );
 };
 
-export { CourseHeader };
+export { CourseContent };
