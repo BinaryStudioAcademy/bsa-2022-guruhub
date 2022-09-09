@@ -21,6 +21,6 @@ describe('Get all categories tests', () => {
     response.body.items
       .map(({ key }) => key)
       .sort()
-      .should.be.deep.equal(keys.sort());
+      .should.have.members(keys.sort());
   });
 });

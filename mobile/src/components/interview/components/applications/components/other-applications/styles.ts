@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
     lineHeight: 32,
     marginVertical: 15,
   },
+  noApplications: {
+    color: AppColor.TEXT.GRAY_200,
+    fontFamily: AppFontFamily.INTER_500,
+    fontSize: 16,
+    lineHeight: 24,
+  },
 });
 
 export { styles };
