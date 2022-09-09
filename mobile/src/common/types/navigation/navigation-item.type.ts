@@ -10,7 +10,7 @@ type NavigationItem = {
   name: AppScreenName | CourseScreenName;
   permissions: PermissionKey[];
   component: React.FC;
-  requireAuth: boolean;
+  isAuthRequired: boolean;
 };
 
 export { type NavigationItem };

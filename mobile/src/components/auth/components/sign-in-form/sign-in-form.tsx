@@ -51,7 +51,7 @@ const SignInForm: FC<Props> = ({ onSubmit }) => {
         <View style={styles.buttonWrapper}>
           <Button label="Sign in" onPress={handleSubmit(onSubmit)} />
         </View>
-        <View style={styles.buttonWrapper}>
+        <View style={styles.linkWrapper}>
           <Link label="Skip for now" to={`/${RootScreenName.APP}`} />
         </View>
       </View>

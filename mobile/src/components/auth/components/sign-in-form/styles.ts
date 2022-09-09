@@ -19,15 +19,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
   },
-  skipWrapper: {
-    marginTop: 20,
-  },
-  skipText: {
-    fontSize: 16,
-    lineHeight: 20,
-    fontFamily: AppFontFamily.INTER_600,
-    color: AppColor.BRAND.BLUE_100,
+  linkWrapper: {
     textAlign: 'center',
+    alignSelf: 'center',
+    marginTop: 20,
   },
 });
 

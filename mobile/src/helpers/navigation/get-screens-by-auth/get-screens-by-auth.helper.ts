@@ -5,7 +5,7 @@ const getScreensByAuth = (
   isAuthRequired: boolean,
 ): NavigationItem[] => {
   if (!isAuthRequired) {
-    return screens.filter((screen) => !screen.requireAuth);
+    return screens.filter((screen) => !screen.isAuthRequired);
   }
 
   return screens;

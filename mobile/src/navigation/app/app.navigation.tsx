@@ -7,34 +7,37 @@ import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 
 import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
+import { DrawerNavigationItem } from './common/types/drawer-navigation-item.type';
 import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
 const App: FC = () => {
-  const { user, userPermissions } = useAppSelector(({ auth }) => ({
-    userPermissions: auth.user?.permissions ?? [],
-    user: auth.user,
-  }));
+  const { user } = useAppSelector((state) => state.auth);
+
+  const userPermissions = user?.permissions ?? [];
 
   const allowedScreens = useMemo(() => {
-    const screensByAuth = NAVIGATION_ITEMS.flatMap((item) =>
-      getScreensByAuth(item.subroutes, Boolean(user)),
-    );
+    const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
+
     const permittedScreens = getPermittedScreens(
       screensByAuth,
       userPermissions,
     );
 
     return permittedScreens;
-  }, [userPermissions, user]);
+  }, [user]);
+
+  const drawerItems = allowedScreens.filter((item: DrawerNavigationItem) =>
+    Boolean(item.drawerGroup),
+  );
 
   return (
     <Drawer.Navigator
       initialRouteName={AppScreenName.COURSES}
       screenOptions={SCREEN_OPTIONS}
       drawerContent={(props): JSX.Element => (
-        <DrawerContent props={props} navigationItems={NAVIGATION_ITEMS} />
+        <DrawerContent {...props} items={drawerItems} />
       )}
     >
       {allowedScreens.map((screen) => {

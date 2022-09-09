@@ -10,9 +10,10 @@ import {
   ScrollView,
   View,
 } from '~/components/common/common';
-import { getImageUri, getScreensByAuth } from '~/helpers/helpers';
+import { getImageUri } from '~/helpers/helpers';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { DrawerNavigationList } from '~/navigation/app/common/types/drawer-navigation-list.type';
+import { groupByKey } from '~/navigation/app/common/helpers/helpers';
+import { DrawerNavigationItem } from '~/navigation/app/common/types/types';
 import {
   BecomeMentor,
   DrawerList,
@@ -21,16 +22,13 @@ import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
-type Props = {
-  props: DrawerContentComponentProps;
-  navigationItems: DrawerNavigationList[];
+type Props = DrawerContentComponentProps & {
+  items: DrawerNavigationItem[];
 };
 
-const DrawerContent: FC<Props> = ({ props, navigationItems }) => {
+const DrawerContent: FC<Props> = ({ state, items }) => {
   const dispatch = useAppDispatch();
-  const { state } = props;
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
-  const allowedRoutes = state.routes.map((item) => item.name);
 
   const { user, isMentorBecomingVisible, dataBecomeMentorStatus } =
     useAppSelector(({ auth, courses }) => ({
@@ -39,15 +37,11 @@ const DrawerContent: FC<Props> = ({ props, navigationItems }) => {
       dataBecomeMentorStatus: courses.dataBecomeMentorStatus,
     }));
 
-  const visibleNavigationItems = navigationItems.filter(
-    (item) =>
-      item.isVisible &&
-      Boolean(getScreensByAuth(item.subroutes, Boolean(user)).length),
-  );
-
   const handleBecomeMentor = (): void => {
     dispatch(coursesActions.becomeMentor());
   };
+
+  const itemGroups = groupByKey(items, 'drawerGroup');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,14 +49,12 @@ const DrawerContent: FC<Props> = ({ props, navigationItems }) => {
         <View style={styles.header}>
           <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
         </View>
-        {visibleNavigationItems.map(({ name, subroutes }, index) => (
-          <View style={styles.listWrapper} key={name}>
+        {Object.entries(itemGroups).map(([key, value], index) => (
+          <View style={styles.listWrapper} key={key}>
             {Boolean(index) && <View style={styles.listBorder} />}
             <DrawerList
-              name={name}
-              subroutes={subroutes.filter((item) =>
-                allowedRoutes.includes(item.name),
-              )}
+              name={key}
+              subroutes={value}
               focusedRouteName={focusedRouteName}
             />
           </View>

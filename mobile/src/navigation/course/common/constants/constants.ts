@@ -36,19 +36,19 @@ const COURSE_TAB_ITEMS: NavigationItem[] = [
     name: CourseScreenName.ABOUT,
     component: Course,
     permissions: [],
-    requireAuth: false,
+    isAuthRequired: false,
   },
   {
     name: CourseScreenName.MY_MENTOR,
     component: MyMentor,
     permissions: [],
-    requireAuth: true,
+    isAuthRequired: true,
   },
   {
     name: CourseScreenName.MY_STUDENTS,
     component: CourseStudents,
     permissions: [],
-    requireAuth: true,
+    isAuthRequired: true,
   },
 ];
 

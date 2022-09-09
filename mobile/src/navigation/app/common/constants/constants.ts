@@ -23,7 +23,7 @@ import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configur
 import { Course } from '~/navigation/course/course.navigation';
 import { CourseModule } from '~/navigation/course-module/course-module.navigation';
 
-import { DrawerNavigationList } from '../types/types';
+import { DrawerNavigationItem } from '../types/types';
 
 const SCREEN_OPTIONS: DrawerNavigationOptions = {
   swipeEdgeWidth: 70,
@@ -43,160 +43,132 @@ const SCREEN_OPTIONS: DrawerNavigationOptions = {
   headerTitleAlign: 'center',
 };
 
-const NAVIGATION_ITEMS: DrawerNavigationList[] = [
+const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
   {
-    name: 'Menu',
-    isVisible: true,
-    subroutes: [
-      {
-        name: AppScreenName.COURSES,
-        icon: 'book',
-        component: Courses,
-        permissions: [],
-        requireAuth: false,
-      },
-      {
-        name: AppScreenName.MENTORS,
-        icon: 'mentors',
-        component: Mentors,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.MY_EDUCATION,
-        icon: 'education',
-        component: MyEducation,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.INTERVIEWS,
-        icon: 'interview',
-        component: Interviews,
-        permissions: [
-          PermissionKey.MANAGE_INTERVIEW,
-          PermissionKey.MANAGE_INTERVIEWS,
-        ],
-        requireAuth: true,
-      },
-    ],
+    name: AppScreenName.COURSES,
+    icon: 'book',
+    component: Courses,
+    permissions: [],
+    isAuthRequired: false,
+    drawerGroup: 'Menu',
   },
   {
-    name: 'Account',
-    isVisible: true,
-    subroutes: [
-      {
-        name: AppScreenName.CHAT,
-        icon: 'message',
-        component: Chat,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.BILLING,
-        icon: 'billing',
-        component: Billing,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.SETTINGS,
-        icon: 'settings',
-        component: Settings,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.UAM,
-        icon: 'uam',
-        component: UAM,
-        permissions: [PermissionKey.MANAGE_UAM],
-        requireAuth: true,
-      },
-    ],
+    name: AppScreenName.MENTORS,
+    icon: 'mentors',
+    component: Mentors,
+    permissions: [],
+    isAuthRequired: true,
+    drawerGroup: 'Menu',
   },
   {
-    name: 'UAM Configure Group',
-    isVisible: false,
-    subroutes: [
-      {
-        name: AppScreenName.UAM_GROUPS_CREATE,
-        icon: 'uam',
-        component: UAMConfigureGroup,
-        permissions: [PermissionKey.MANAGE_UAM],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.UAM_GROUPS_EDIT,
-        icon: 'uam',
-        component: UAMConfigureGroup,
-        permissions: [PermissionKey.MANAGE_UAM],
-        requireAuth: true,
-      },
-    ],
+    name: AppScreenName.MY_EDUCATION,
+    icon: 'education',
+    component: MyEducation,
+    permissions: [],
+    isAuthRequired: true,
+    drawerGroup: 'Menu',
   },
   {
-    name: 'Courses',
-    isVisible: false,
-    subroutes: [
-      {
-        name: AppScreenName.ADD_COURSE,
-        component: AddCourse,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.COURSE,
-        component: Course,
-        permissions: [],
-        requireAuth: false,
-      },
-      {
-        name: AppScreenName.EDIT_COURSE_CATEGORY,
-        component: EditCourseCategory,
-        permissions: [PermissionKey.MANAGE_CATEGORIES],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.COURSE_MODULE,
-        component: CourseModule,
-        permissions: [],
-        requireAuth: true,
-      },
-      {
-        name: AppScreenName.TASK,
-        component: Task,
-        permissions: [],
-        requireAuth: true,
-      },
+    name: AppScreenName.INTERVIEWS,
+    icon: 'interview',
+    component: Interviews,
+    permissions: [
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
     ],
+    isAuthRequired: true,
+    drawerGroup: 'Menu',
   },
   {
-    name: 'Interviews',
-    isVisible: false,
-    subroutes: [
-      {
-        name: AppScreenName.INTERVIEW,
-        component: Interview,
-        permissions: [
-          PermissionKey.MANAGE_INTERVIEW,
-          PermissionKey.MANAGE_INTERVIEWS,
-        ],
-        requireAuth: true,
-      },
-    ],
+    name: AppScreenName.CHAT,
+    icon: 'message',
+    component: Chat,
+    permissions: [],
+    isAuthRequired: true,
+    drawerGroup: 'Account',
   },
   {
-    name: 'Chat',
-    isVisible: false,
-    subroutes: [
-      {
-        name: AppScreenName.CONVERSATION,
-        component: ChatConversation,
-        permissions: [],
-        requireAuth: true,
-      },
+    name: AppScreenName.BILLING,
+    icon: 'billing',
+    component: Billing,
+    permissions: [],
+    isAuthRequired: true,
+    drawerGroup: 'Account',
+  },
+  {
+    name: AppScreenName.SETTINGS,
+    icon: 'settings',
+    component: Settings,
+    permissions: [],
+    isAuthRequired: true,
+    drawerGroup: 'Account',
+  },
+  {
+    name: AppScreenName.UAM,
+    icon: 'uam',
+    component: UAM,
+    permissions: [PermissionKey.MANAGE_UAM],
+    isAuthRequired: true,
+    drawerGroup: 'Account',
+  },
+  {
+    name: AppScreenName.UAM_GROUPS_CREATE,
+    icon: 'uam',
+    component: UAMConfigureGroup,
+    permissions: [PermissionKey.MANAGE_UAM],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.UAM_GROUPS_EDIT,
+    icon: 'uam',
+    component: UAMConfigureGroup,
+    permissions: [PermissionKey.MANAGE_UAM],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.ADD_COURSE,
+    component: AddCourse,
+    permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.COURSE,
+    component: Course,
+    permissions: [],
+    isAuthRequired: false,
+  },
+  {
+    name: AppScreenName.EDIT_COURSE_CATEGORY,
+    component: EditCourseCategory,
+    permissions: [PermissionKey.MANAGE_CATEGORIES],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.COURSE_MODULE,
+    component: CourseModule,
+    permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.TASK,
+    component: Task,
+    permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.INTERVIEW,
+    component: Interview,
+    permissions: [
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
     ],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.CONVERSATION,
+    component: ChatConversation,
+    permissions: [],
+    isAuthRequired: true,
   },
 ];
 
