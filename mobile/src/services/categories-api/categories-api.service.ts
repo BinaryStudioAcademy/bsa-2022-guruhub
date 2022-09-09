@@ -1,4 +1,4 @@
-import { ApiPath, CategoriesApiPath, HttpMethod } from '~/common/enums/enums';
+import { ApiPath, CategoriesApiPath } from '~/common/enums/enums';
 import {
   CategoryGetAllResponseDto,
   CourseCategoryGetByIdRequestParamsDto,
@@ -24,9 +24,6 @@ class CategoriesApi {
   public getAll(): Promise<CategoryGetAllResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.DASHBOARD}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 

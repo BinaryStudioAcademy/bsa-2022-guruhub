@@ -38,7 +38,6 @@ class Courses {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           title: options.filtering.title,
           categoryKey: options.filtering.categoryKey,
@@ -52,9 +51,6 @@ class Courses {
   }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
@@ -94,7 +90,6 @@ class Courses {
         CoursesApiPath.MENTORS
       }`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           mentorName: filteringOpts.mentorName,
         },
