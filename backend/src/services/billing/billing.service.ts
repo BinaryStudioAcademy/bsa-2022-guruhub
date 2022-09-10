@@ -48,6 +48,10 @@ class Billing {
       userId,
     );
 
+    if (!userWithBalance) {
+      return null;
+    }
+
     const replenishDto = await this.#stripeService.initReplenish(amountOfMoney);
 
     let userDetailsWithBalance = null;
@@ -69,6 +73,10 @@ class Billing {
     const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
       userId,
     );
+
+    if (!userWithBalance) {
+      return null;
+    }
 
     let userDetailsWithBalance = null;
 
