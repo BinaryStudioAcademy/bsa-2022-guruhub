@@ -1,18 +1,18 @@
 import { Knex } from 'knex';
 
-const ColumnName = 'max_students_count';
+const COLUMN_NAME = 'max_students_count';
 
-const TableName = 'courses_to_mentors';
+const TABLE_NAME = 'courses_to_mentors';
 
 async function up(knex: Knex): Promise<void> {
-  await knex.schema.table(TableName, (table) => {
-    table.integer(ColumnName).defaultTo(1).notNullable();
+  await knex.schema.table(TABLE_NAME, (table) => {
+    table.integer(COLUMN_NAME).defaultTo(1).notNullable();
   });
 }
 
 async function down(knex: Knex): Promise<void> {
-  await knex.schema.alterTable(TableName, (table) => {
-    table.dropColumn(ColumnName);
+  await knex.schema.alterTable(TABLE_NAME, (table) => {
+    table.dropColumn(COLUMN_NAME);
   });
 }
 

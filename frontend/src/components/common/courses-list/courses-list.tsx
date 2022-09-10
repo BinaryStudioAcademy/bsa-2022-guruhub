@@ -8,13 +8,12 @@ type Props = {
   placeholderText?: string;
 };
 
-const CoursesList: FC<Props> = ({ courses, placeholderText }) => {
+const CoursesList: FC<Props> = ({
+  courses,
+  placeholderText = 'There is no courses',
+}) => {
   if (!courses.length) {
-    return (
-      <p className={styles.placeholder}>
-        {placeholderText ?? 'There is no courses'}
-      </p>
-    );
+    return <p className={styles.placeholder}>{placeholderText}</p>;
   }
 
   return (

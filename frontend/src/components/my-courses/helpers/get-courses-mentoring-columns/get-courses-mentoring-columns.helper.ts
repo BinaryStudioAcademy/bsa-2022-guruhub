@@ -23,7 +23,7 @@ const getCoursesMentoringColumns = (
         title: course.title,
       }),
       Cell: TitleCell,
-      width: '85%',
+      width: 800,
     },
     {
       Header: 'Actions',
@@ -38,7 +38,7 @@ const getCoursesMentoringColumns = (
         },
       }),
       Cell: ActionsCell,
-      width: '15%',
+      width: 30,
     },
   ];
 };
