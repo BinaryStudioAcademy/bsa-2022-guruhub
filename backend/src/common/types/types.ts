@@ -10,6 +10,7 @@ export {
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type CourseUpdateMentoringDto,
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {
@@ -128,6 +129,7 @@ export {
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UserCountRequestDto,
   type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
   type UsersDeleteRequestParamsDto,

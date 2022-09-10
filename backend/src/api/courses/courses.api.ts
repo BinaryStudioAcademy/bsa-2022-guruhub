@@ -16,6 +16,7 @@ import {
   CourseSelectMentorRequestDto,
   CourseSelectMentorRequestParamsDto,
   CourseUpdateCategoryRequestDto,
+  CourseUpdateMentoringDto,
   EntityPaginationRequestQueryDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
@@ -29,6 +30,7 @@ import {
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
   courseMentorCreate as courseMentorCreateBodyValidationSchema,
+  courseMentoringUpdateMaxCount as courseMentoringUpdateMaxCountValidationSchema,
   courseMentorsFiltering as courseMentorsFilteringValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
@@ -91,6 +93,27 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       );
 
       return res.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PATCH,
+    url: CoursesApiPath.MENTORING,
+    schema: {
+      body: courseMentoringUpdateMaxCountValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Body: CourseUpdateMentoringDto;
+      }>,
+      res,
+    ) {
+      const result = await courseService.updateMaxStudentsCount(
+        req.user.id,
+        req.body,
+      );
+
+      return res.status(HttpCode.OK).send(result);
     },
   });
 

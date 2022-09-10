@@ -15,7 +15,7 @@ export {
 } from './api/api';
 export { StringCase } from './case/case';
 export { ChatMessageStatus } from './chat/chat';
-export { CourseValidationMessage } from './course/course';
+export { CourseValidationMessage, CourseValidationRule } from './course/course';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';

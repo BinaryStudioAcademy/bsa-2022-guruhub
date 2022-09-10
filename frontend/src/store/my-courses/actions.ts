@@ -1,8 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CourseGetMentoringDto,
   CourseGetResponseDto,
+  CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
 } from 'common/types/types';
@@ -35,4 +37,15 @@ const getCoursesMentoring = createAsyncThunk<
   return coursesMentoring;
 });
 
-export { getCoursesMentoring, getCoursesStudying };
+const updateCoursesMentoring = createAsyncThunk<
+  void,
+  CourseUpdateMentoringDto,
+  AsyncThunkConfig
+>(ActionType.UPDATE_MENTORING_COURSES, async (payload, { extra }) => {
+  const { coursesApi, notification } = extra;
+
+  await coursesApi.updateCoursesMentoring(payload);
+  notification.success(NotificationMessage.COURSES_MENTORING_UPDATE);
+});
+
+export { getCoursesMentoring, getCoursesStudying, updateCoursesMentoring };

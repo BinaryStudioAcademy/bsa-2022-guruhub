@@ -6,9 +6,9 @@ const routes: NavigationMenuItem[] = [
     name: 'Menu',
     subroutes: [
       {
-        name: 'Courses',
+        name: 'My Courses',
         iconName: 'course',
-        href: AppRoute.ROOT,
+        href: AppRoute.MY_COURSES,
         permissions: [],
       },
       {

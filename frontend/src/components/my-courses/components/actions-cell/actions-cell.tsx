@@ -37,7 +37,7 @@ const ActionsCell: FC<
           hasVisuallyHiddenLabel
           name={CoursesMentoringTableAccessor.STUDENTS_COUNT}
           type="number"
-          inputClassName={styles.nameField}
+          inputClassName={styles.inputStyled}
         />
       </form>
     </div>

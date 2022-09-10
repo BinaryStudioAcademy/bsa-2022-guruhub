@@ -3,6 +3,7 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseMentoringUpdateMaxCount,
   courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,

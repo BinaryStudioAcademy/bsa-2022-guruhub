@@ -123,6 +123,8 @@ const courseModule = new CourseModule({
   udemyService: udemy,
 });
 
+const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+
 const course = new Course({
   courseRepository,
   vendorService: vendor,
@@ -130,6 +132,7 @@ const course = new Course({
   udemyService: udemy,
   edxService: edx,
   courseCategoryService: courseCategory,
+  coursesToMentorsService: coursesToMentors,
 });
 
 const interviewNote = new InterviewNote({
@@ -140,8 +143,6 @@ const interview = new Interview({
   interviewRepository,
   interviewNoteService: interviewNote,
 });
-
-const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
 
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 

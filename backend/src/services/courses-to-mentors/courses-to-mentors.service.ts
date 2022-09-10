@@ -1,3 +1,5 @@
+import { CourseUpdateMentoringDto } from 'guruhub-shared';
+
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
@@ -33,6 +35,16 @@ class CoursesToMentors {
       courseId,
       userId,
     });
+  }
+
+  public updateMaxStudentsCount(
+    userId: number,
+    data: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#coursesToMentorsRepository.updateMaxStudentsCount(
+      userId,
+      data,
+    );
   }
 
   public checkIsMentor({

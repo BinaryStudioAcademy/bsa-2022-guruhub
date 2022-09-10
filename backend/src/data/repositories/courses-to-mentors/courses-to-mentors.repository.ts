@@ -1,4 +1,7 @@
-import { CoursesToMentorsRequestDto } from '~/common/types/types';
+import {
+  CoursesToMentorsRequestDto,
+  CourseUpdateMentoringDto,
+} from '~/common/types/types';
 import { CoursesToMentors as CoursesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -19,6 +22,22 @@ class CoursesToMentors {
     return this.#CoursesToMentorsModel
       .query()
       .insert({ courseId, userId })
+      .execute();
+  }
+
+  public updateMaxStudentsCount(
+    userId: number,
+    { courseId, maxStudentsCount }: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#CoursesToMentorsModel
+      .query()
+      .findOne({
+        courseId,
+        userId,
+      })
+      .patch({
+        maxStudentsCount,
+      })
       .execute();
   }
 

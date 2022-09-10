@@ -46,9 +46,6 @@ const MyCourses: FC = () => {
     );
   }, [dispatch]);
 
-  // const [activeCourse, setActiveCourse] =
-  //   useState<CourseGetMentoringDto | null>(null);
-
   useEffect(() => {
     dispatch(
       myCoursesActions.getCoursesMentoring({
@@ -59,10 +56,14 @@ const MyCourses: FC = () => {
   }, [page]);
 
   const handleEdit = (course: CourseUpdateMentoringDto): void => {
-    // eslint-disable-next-line no-console
-    console.log('course my-courses');
-    // eslint-disable-next-line no-console
-    console.log(course);
+    dispatch(myCoursesActions.updateCoursesMentoring(course)).then(() => {
+      dispatch(
+        myCoursesActions.getCoursesMentoring({
+          page,
+          count: PaginationDefaultValue.DEFAULT_COUNT,
+        }),
+      );
+    });
   };
 
   const columns = useMemo<Column<CoursesMentoringTableRow>[]>(() => {
@@ -72,29 +73,23 @@ const MyCourses: FC = () => {
   const data: CoursesMentoringTableRow[] =
     getCoursesMentoringRows(coursesMentoring);
 
+  if (dataStatus === DataStatus.PENDING) {
+    return <Spinner />;
+  }
+
   return (
     <div className={styles.myCourses}>
-      {dataStatus === DataStatus.PENDING ? (
-        <Spinner />
-      ) : (
-        <>
-          <div className={styles.header}>
-            <h1 className={styles.headingText}>My courses (as student)</h1>
-          </div>
-          <CoursesList courses={coursesStudying} />
-          <div className={styles.header}>
-            <h1 className={styles.headingText}>My courses (as mentor)</h1>
-          </div>
-          <Table
-            data={data}
-            columns={columns}
-            currentPage={page}
-            onPageChange={handlePageChange}
-            pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-            totalCount={totalCoursesMentoring}
-          />
-        </>
-      )}
+      <h1 className={styles.header}>My courses (as student)</h1>
+      <CoursesList courses={coursesStudying} />
+      <h1 className={styles.header}>My courses (as mentor)</h1>
+      <Table
+        data={data}
+        columns={columns}
+        currentPage={page}
+        onPageChange={handlePageChange}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={totalCoursesMentoring}
+      />
     </div>
   );
 };

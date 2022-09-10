@@ -1,10 +1,13 @@
 import { CourseUpdateMentoringDto } from 'common/types/types';
-import { CoursesMentoringTableAccessor } from 'components/my-courses/common/enums/enums';
 import {
   CoursesMentoringTableActionsProps,
   CoursesMentoringTableRow,
+  CoursesMentoringTableTitleProps,
 } from 'components/my-courses/common/types/types';
-import { ActionsCell } from 'components/my-courses/components/components';
+import {
+  ActionsCell,
+  TitleCell,
+} from 'components/my-courses/components/components';
 import { Column } from 'react-table';
 
 const getCoursesMentoringColumns = (
@@ -13,8 +16,14 @@ const getCoursesMentoringColumns = (
   return [
     {
       Header: 'Title',
-      accessor: CoursesMentoringTableAccessor.TITLE,
-      width: '65%',
+      accessor: (
+        course: CoursesMentoringTableRow,
+      ): CoursesMentoringTableTitleProps => ({
+        id: course.id,
+        title: course.title,
+      }),
+      Cell: TitleCell,
+      width: '85%',
     },
     {
       Header: 'Actions',
@@ -29,7 +38,7 @@ const getCoursesMentoringColumns = (
         },
       }),
       Cell: ActionsCell,
-      width: '35%',
+      width: '15%',
     },
   ];
 };

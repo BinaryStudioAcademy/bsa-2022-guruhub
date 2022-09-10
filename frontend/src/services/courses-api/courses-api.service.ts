@@ -13,6 +13,7 @@ import {
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
+  CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
@@ -74,6 +75,20 @@ class CoursesApi {
           count,
           page,
         },
+      },
+    );
+  }
+
+  public updateCoursesMentoring({
+    courseId,
+    maxStudentsCount,
+  }: CourseUpdateMentoringDto): Promise<number> {
+    return this.#http.load<number>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ courseId, maxStudentsCount }),
       },
     );
   }

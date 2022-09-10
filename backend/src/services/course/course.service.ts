@@ -7,6 +7,7 @@ import {
   CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
   UserDetailsResponseDto,
@@ -17,6 +18,7 @@ import { sanitizeHTML } from '~/helpers/helpers';
 import {
   courseCategory as courseCategoryServ,
   courseModule as courseModuleServ,
+  coursesToMentors as coursesToMentorsServ,
   edx as edxServ,
   udemy as udemyServ,
   vendor as vendorServ,
@@ -29,6 +31,7 @@ type Constructor = {
   udemyService: typeof udemyServ;
   edxService: typeof edxServ;
   courseCategoryService: typeof courseCategoryServ;
+  coursesToMentorsService: typeof coursesToMentorsServ;
 };
 
 class Course {
@@ -44,6 +47,8 @@ class Course {
 
   #courseCategoryService: typeof courseCategoryServ;
 
+  #coursesToMentorsService: typeof coursesToMentorsServ;
+
   public constructor({
     courseRepository,
     courseModuleService,
@@ -51,6 +56,7 @@ class Course {
     udemyService,
     edxService,
     courseCategoryService,
+    coursesToMentorsService,
   }: Constructor) {
     this.#courseRepository = courseRepository;
     this.#courseModuleService = courseModuleService;
@@ -58,6 +64,7 @@ class Course {
     this.#udemyService = udemyService;
     this.#edxService = edxService;
     this.#courseCategoryService = courseCategoryService;
+    this.#coursesToMentorsService = coursesToMentorsService;
   }
 
   public async getAllWithCategories(
@@ -227,11 +234,35 @@ class Course {
     return course ?? null;
   }
 
-  public getMentorsByCourseId({
+  public async getMentorsByCourseId({
     courseId,
     filteringOpts,
   }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
-    return this.#courseRepository.getMentorsByCourseId({
+    const mentorsWithMenteesCount =
+      await this.#courseRepository.getMentorsWithMenteesCount(courseId);
+
+    const mentorsWithMenteesMaxCount =
+      await this.#courseRepository.getMentorsWithMenteesMaxCount(courseId);
+
+    const filteredMentorIds = mentorsWithMenteesMaxCount.map(
+      (mentorWithMaxCount) => {
+        const mentorWithCountFiltered = mentorsWithMenteesCount.find(
+          (mentorWithCount) => mentorWithCount.id === mentorWithMaxCount.id,
+        );
+
+        if (!mentorWithCountFiltered) {
+          return mentorWithMaxCount.id;
+        }
+
+        if (mentorWithCountFiltered.count < mentorWithMaxCount.count) {
+          return mentorWithCountFiltered.id;
+        }
+
+        return -1;
+      },
+    );
+
+    return this.#courseRepository.getMentorsByCourseId(filteredMentorIds, {
       courseId,
       filteringOpts,
     });
@@ -245,6 +276,13 @@ class Course {
       courseId,
       mentorId,
     });
+  }
+
+  public updateMaxStudentsCount(
+    userId: number,
+    data: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#coursesToMentorsService.updateMaxStudentsCount(userId, data);
   }
 
   public updateCategory(

@@ -5,7 +5,11 @@ import {
   CourseGetResponseDto,
 } from 'common/types/types';
 
-import { getCoursesMentoring, getCoursesStudying } from './actions';
+import {
+  getCoursesMentoring,
+  getCoursesStudying,
+  updateCoursesMentoring,
+} from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -41,6 +45,12 @@ const reducer = createReducer(initialState, (builder) => {
     state.totalCoursesMentoring = payload.total;
   });
   builder.addCase(getCoursesMentoring.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+  builder.addCase(updateCoursesMentoring.fulfilled, (state) => {
+    state.dataStatus = DataStatus.FULFILLED;
+  });
+  builder.addCase(updateCoursesMentoring.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });
