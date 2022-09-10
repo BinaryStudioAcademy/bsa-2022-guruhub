@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { UserWithPermissions } from '~/common/types/types';
-import { Search, Spinner, View } from '~/components/common/common';
+import { FAB, Search, Spinner, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -37,7 +37,12 @@ const Chat: FC = () => {
   const handleSearch = (search: string): void => {
     setSearchValue(search);
   };
-  const renderEmptyChats = searchValue === '' ? [] : emptyChats;
+
+  const handleAddChat = (): void => {
+    navigation.navigate(AppScreenName.ALL_CHATS);
+  };
+
+  const showAddChats = emptyChats ? Boolean(emptyChats.length) : false;
 
   useEffect(() => {
     dispatch(chatActions.getLastMessages({ fullName: '' }));
@@ -64,12 +69,12 @@ const Chat: FC = () => {
         <View style={styles.container}>
           <ConversationsList
             chatsItems={lastMessages}
-            emptyChats={renderEmptyChats}
             currentUserId={(user as UserWithPermissions).id}
             onChatMessagesLoad={handleChatMessagesLoad}
           />
         </View>
       )}
+      {showAddChats && <FAB onPress={handleAddChat} />}
     </>
   );
 };
