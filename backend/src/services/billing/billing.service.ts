@@ -3,7 +3,6 @@ import {
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
   UserDetailsWithMoneyBalanceDto,
-  UserGetResponseWithMoneyBalanceDto,
 } from '~/common/types/types';
 import {
   stripe as stripeServ,
@@ -50,17 +49,14 @@ class Billing {
 
     const replenishDto = await this.#stripeService.initReplenish(amountOfMoney);
 
-    let userDetailsWithBalance = null;
-
     if (replenishDto.status === 'complete') {
       const newBalance =
-        (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
-          .moneyBalance + amountOfMoney;
-      userDetailsWithBalance =
-        await this.#userDetailsService.updateMoneyBalance(userId, newBalance);
+        userWithBalance.userDetails.moneyBalance + amountOfMoney;
+
+      return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
     }
 
-    return userDetailsWithBalance;
+    return null;
   }
 
   public async withdraw(
@@ -70,20 +66,17 @@ class Billing {
       userId,
     );
 
-    let userDetailsWithBalance = null;
-
     const withdrawDto = await this.#stripeService.initWithdraw(
-      (userWithBalance as UserGetResponseWithMoneyBalanceDto).userDetails
-        .moneyBalance,
+      userWithBalance.userDetails.moneyBalance,
     );
 
     if (withdrawDto.status === 'in_transit') {
       const newBalance = 0;
-      userDetailsWithBalance =
-        await this.#userDetailsService.updateMoneyBalance(userId, newBalance);
+
+      return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
     }
 
-    return userDetailsWithBalance;
+    return null;
   }
 
   public makeTransaction(

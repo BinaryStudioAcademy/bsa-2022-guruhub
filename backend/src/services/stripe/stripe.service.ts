@@ -14,7 +14,7 @@ type Constructor = {
   secretKey: string;
   successUrl: string;
   cancelUrl: string;
-  apiVersion: '2022-08-01';
+  apiVersion: string;
 };
 
 class Stripe {
@@ -30,7 +30,9 @@ class Stripe {
     cancelUrl,
     apiVersion,
   }: Constructor) {
-    this.#stripe = new StripeApi(secretKey, { apiVersion });
+    this.#stripe = new StripeApi(secretKey, {
+      apiVersion: apiVersion as '2022-08-01',
+    });
     this.#successUrl = successUrl;
     this.#cancelUrl = cancelUrl;
   }

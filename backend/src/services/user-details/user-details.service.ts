@@ -54,7 +54,7 @@ class UserDetails {
   public updateMoneyBalance(
     userId: number,
     newMoneyBalance: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+  ): Promise<UserDetailsWithMoneyBalanceDto> {
     return this.#userDetailsRepository.updateMoneyBalance(
       userId,
       newMoneyBalance,

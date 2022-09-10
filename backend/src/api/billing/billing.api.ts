@@ -2,18 +2,12 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { BillingApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import { BillingReplenishParamsDto } from '~/common/types/types';
-import {
-  billing as billingService,
-  user as userService,
-  userDetails as userDetailsService,
-} from '~/services/services';
+import { billing as billingService } from '~/services/services';
 import { billingReplenishParams as billingReplenishParamsValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
     billing: typeof billingService;
-    user: typeof userService;
-    userDetails: typeof userDetailsService;
   };
 };
 
