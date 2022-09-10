@@ -15,13 +15,13 @@ import { Conversation } from '../conversations-list/components/components';
 import { styles } from './styles';
 
 const EmptyChats: FC = () => {
+  const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
   const { user, emptyChats } = useAppSelector(({ auth, chat }) => ({
     user: auth.user,
     emptyChats: chat.emptyChats,
   }));
 
-  const dispatch = useAppDispatch();
-  const navigation = useAppNavigate();
   const userId = (user as UserWithPermissions).id;
 
   const handleChatMessagesLoad = (chatId: string): void => {
