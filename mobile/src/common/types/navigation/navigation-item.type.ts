@@ -1,13 +1,9 @@
 import React from 'react';
 
-import {
-  AppScreenName,
-  CourseScreenName,
-  PermissionKey,
-} from '~/common/enums/enums';
+import { PermissionKey } from '~/common/enums/enums';
 
 type NavigationItem = {
-  name: AppScreenName | CourseScreenName;
+  name: string;
   permissions: PermissionKey[];
   component: React.FC;
   isAuthRequired: boolean;
