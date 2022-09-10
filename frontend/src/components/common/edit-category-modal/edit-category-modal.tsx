@@ -56,9 +56,7 @@ const EditCategoryModal: FC<Props> = ({
           />
         </div>
         <div className={styles.buttonWrapper}>
-          <div>
-            <Button type="submit" label="Edit" btnColor="blue" />
-          </div>
+          <Button type="submit" label="Edit" btnColor="blue" />
         </div>
       </form>
     </Modal>

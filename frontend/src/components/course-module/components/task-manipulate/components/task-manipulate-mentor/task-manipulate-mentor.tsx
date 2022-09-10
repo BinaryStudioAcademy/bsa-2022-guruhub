@@ -45,24 +45,20 @@ const TaskManipulateMentor: FC<Props> = ({
         rows={INPUT_NUMBER_OF_ROWS}
       />
       <div className={styles.buttonWrapper}>
-        <div className={styles.button}>
-          <Button
-            label="Accept the task"
-            type="submit"
-            btnType="filled"
-            btnColor="blue"
-            onClick={handleSubmit(handleNoteApprove)}
-          />
-        </div>
-        <div className={styles.button}>
-          <Button
-            label="Reject the task"
-            type="submit"
-            btnType="outlined"
-            btnColor="blue"
-            onClick={handleSubmit(handleNoteReject)}
-          />
-        </div>
+        <Button
+          label="Accept the task"
+          type="submit"
+          btnType="filled"
+          btnColor="blue"
+          onClick={handleSubmit(handleNoteApprove)}
+        />
+        <Button
+          label="Reject the task"
+          type="submit"
+          btnType="outlined"
+          btnColor="blue"
+          onClick={handleSubmit(handleNoteReject)}
+        />
       </div>
     </form>
   );

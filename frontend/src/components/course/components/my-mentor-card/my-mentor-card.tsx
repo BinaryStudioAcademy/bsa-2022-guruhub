@@ -28,7 +28,7 @@ const MyMentor: FC<Props> = ({ mentor, onMentorChange }) => {
           </div>
         </div>
         <div className={styles.changeMentor}>
-          <div>
+          <div className={styles.buttonWrapper}>
             <Button
               label="Change Mentor"
               btnColor="gray"

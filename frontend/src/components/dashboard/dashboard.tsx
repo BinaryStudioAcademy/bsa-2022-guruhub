@@ -43,7 +43,7 @@ const Dashboard: FC = () => {
         <div className={styles.header}>
           <h1 className={styles.headingText}>Courses</h1>
           {hasUser && (
-            <div>
+            <div className={styles.buttonWrapper}>
               <Button
                 label="+ Add new course"
                 btnColor="blue"

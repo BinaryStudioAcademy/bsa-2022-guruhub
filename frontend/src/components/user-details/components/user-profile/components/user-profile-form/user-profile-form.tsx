@@ -123,23 +123,19 @@ const UserProfileForm: FC = () => {
             </div>
           </div>
           <div className={styles.buttonWrapper}>
-            <div className={styles.btn}>
-              <Button
-                type="button"
-                btnType="filled"
-                btnColor="gray"
-                label="Cancel"
-                onClick={handleGetUsers}
-              />
-            </div>
-            <div className={styles.btn}>
-              <Button
-                onClick={handleSubmit(handleUpdateProfile)}
-                type="submit"
-                label="Save"
-                btnColor="blue"
-              />
-            </div>
+            <Button
+              type="button"
+              btnType="filled"
+              btnColor="gray"
+              label="Cancel"
+              onClick={handleGetUsers}
+            />
+            <Button
+              onClick={handleSubmit(handleUpdateProfile)}
+              type="submit"
+              label="Save"
+              btnColor="blue"
+            />
           </div>
         </form>
       )}

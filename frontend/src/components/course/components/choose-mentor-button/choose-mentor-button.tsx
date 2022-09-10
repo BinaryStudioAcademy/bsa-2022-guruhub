@@ -21,9 +21,7 @@ const ChooseMentorButton: FC<Props> = ({ onClick }) => {
       </div>
 
       <div className={styles.buttonWrapper}>
-        <div className={styles.button}>
-          <Button label="Choose a mentor" btnColor="blue" onClick={onClick} />
-        </div>
+        <Button label="Choose a mentor" btnColor="blue" onClick={onClick} />
       </div>
     </div>
   );
