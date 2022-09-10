@@ -74,18 +74,20 @@ class Task {
 
     await this.updateStatus(taskId, status);
 
-    if (status === TaskStatus.COMPLETED) {
-      const hasUnfinishedTasks =
-        await this.#taskRepository.hasUncompletedModulesByMenteesToMentorsId(
-          task.menteesToMentorsId,
-        );
+    if (status !== TaskStatus.COMPLETED) {
+      return newNote;
+    }
 
-      if (!hasUnfinishedTasks) {
-        this.#menteesToMentorsService.changeStatus({
-          id: task.menteesToMentorsId,
-          status: MenteesToMentorsStatus.COMPLETED,
-        });
-      }
+    const hasUnfinishedTasks =
+      await this.#taskRepository.hasUncompletedModulesByMenteesToMentorsId(
+        task.menteesToMentorsId,
+      );
+
+    if (!hasUnfinishedTasks) {
+      await this.#menteesToMentorsService.changeStatus({
+        id: task.menteesToMentorsId,
+        status: MenteesToMentorsStatus.COMPLETED,
+      });
     }
 
     return newNote;
