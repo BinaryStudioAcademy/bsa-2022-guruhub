@@ -3,8 +3,10 @@ import { Asset } from 'react-native-image-picker';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import {
+  AuthScreenName,
   ButtonVariant,
   DataStatus,
+  RootScreenName,
   UserAge,
   UserGender,
 } from '~/common/enums/enums';
@@ -29,6 +31,7 @@ import { getImageUri, pickImage, subtractYears } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
+  useAppNavigate,
   useAppSelector,
   useEffect,
   useState,
@@ -44,6 +47,7 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
   const [selectedImage, setSelectedImage] = useState<Asset | null>();
 
   const { user, userDataStatus, userDetails, userDetailsDataStatus } =
@@ -82,8 +86,6 @@ const Settings: FC = () => {
           userId: (user as UserWithPermissions).id,
         }),
       );
-
-      setSelectedImage(null);
     }
   };
 
@@ -98,8 +100,11 @@ const Settings: FC = () => {
     dispatch(userDetailsActions.updateUserDetails(payload));
   };
 
-  const handleLogout = (): void => {
-    dispatch(authActions.signOut());
+  const handleLogout = async (): Promise<void> => {
+    await dispatch(authActions.signOut());
+    navigation.navigate(RootScreenName.AUTH, {
+      screen: AuthScreenName.SIGN_IN,
+    });
   };
 
   useEffect(() => {

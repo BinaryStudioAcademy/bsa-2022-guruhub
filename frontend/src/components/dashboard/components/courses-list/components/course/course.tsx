@@ -2,6 +2,7 @@ import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { AppRoute } from 'common/enums/enums';
 import { CourseGetResponseDto, FC } from 'common/types/types';
 import { Image, Link } from 'components/common/common';
+import { generateDynamicPath } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -22,7 +23,9 @@ const Course: FC<Props> = ({ course }) => {
       </div>
       <div className={styles.content}>
         <Link
-          to={`${AppRoute.COURSES}/${course.id}` as AppRoute}
+          to={generateDynamicPath(AppRoute.COURSES_$ID, {
+            courseId: course.id,
+          })}
           className={styles.image}
         >
           <Image

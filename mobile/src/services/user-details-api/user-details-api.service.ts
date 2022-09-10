@@ -29,9 +29,6 @@ class UserDetailsApi {
   public get(): Promise<UserDetailsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USER_DETAILS}${UserDetailsApiPath.ROOT}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 

@@ -7,6 +7,7 @@ import { RequestBuilder } from './request-builder';
 
 type Constructor = {
   sessionStorage: SessionStorage<ApiSession>;
+  prefixUrl?: string;
 };
 
 class HttpService {
@@ -14,13 +15,13 @@ class HttpService {
 
   #sessionStorage: SessionStorage<ApiSession>;
 
-  public constructor({ sessionStorage }: Constructor) {
+  public constructor({ sessionStorage, prefixUrl }: Constructor) {
     this.#sessionStorage = sessionStorage;
 
     this.#got = got.extend({
       http2: true,
       throwHttpErrors: false,
-      prefixUrl: testsConfig.prefixUrl,
+      prefixUrl: prefixUrl ?? testsConfig.prefixUrl,
       responseType: 'json',
       headers: {
         Accept: 'application/json',

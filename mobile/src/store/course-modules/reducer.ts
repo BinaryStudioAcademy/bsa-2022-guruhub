@@ -9,6 +9,7 @@ import {
 } from '~/common/types/types';
 
 import {
+  clearModules,
   createNote,
   getCourseModules,
   getModuleById,
@@ -87,6 +88,10 @@ const reducer = createReducer(initialState, (builder) => {
     state.notes = [payload, ...state.notes];
     state.totalNotesNumber += 1;
     (state.task as TaskGetItemReponseDto).status = payload.status;
+  });
+
+  builder.addCase(clearModules, (state) => {
+    state.courseModules = [];
   });
 });
 

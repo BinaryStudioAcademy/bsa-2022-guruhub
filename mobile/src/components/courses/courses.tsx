@@ -35,12 +35,21 @@ const Courses: FC = (): ReactElement => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { courses, dataStatus } = useAppSelector((state) => state.courses);
   const {
+    user,
+    courses,
+    dataStatus,
     categories,
     courseCategory,
     dataStatus: categoryDataStatus,
-  } = useAppSelector((state) => state.categories);
+  } = useAppSelector(({ courses, categories, auth }) => ({
+    user: auth.user,
+    courses: courses.courses,
+    dataStatus: courses.dataStatus,
+    categories: categories.categories,
+    courseCategory: categories.courseCategory,
+    categoryDataStatus: categories.dataStatus,
+  }));
 
   const filter = useRef<CourseFilteringDto>({
     title: '',
@@ -143,7 +152,7 @@ const Courses: FC = (): ReactElement => {
           />
         )}
 
-        <FAB onPress={handleAddCourse} />
+        {user && <FAB onPress={handleAddCourse} />}
       </View>
     </>
   );
