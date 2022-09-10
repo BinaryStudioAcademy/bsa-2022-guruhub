@@ -1,4 +1,6 @@
 .table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 15px;
   background: var(--background-gray-300);
@@ -53,4 +55,10 @@
   display: inline-block;
   width: 20px;
   height: 100%;
+}
+
+.tableWrapper {
+  display: grid;
+  width: 100%;
+  overflow-x: scroll;
 }
