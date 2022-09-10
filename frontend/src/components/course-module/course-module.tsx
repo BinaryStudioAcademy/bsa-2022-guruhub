@@ -6,12 +6,12 @@ import {
   TaskNoteManipulateRequestBodyDto,
 } from 'common/types/types';
 import { Content, IconButton, Spinner } from 'components/common/common';
+import { generateDynamicPath } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
   useParams,
-  useState,
 } from 'hooks/hooks';
 import { courseModuleActions } from 'store/actions';
 
@@ -19,8 +19,8 @@ import { TaskManipulate, TaskNotes } from './components/components';
 import styles from './styles.module.scss';
 
 const CourseModule: FC = () => {
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-  const { courseId, moduleId } = useParams();
+  const { courseId, moduleId, studentId } = useParams();
+  const isMentorView = Boolean(studentId);
   const { dataStatus, courseModule, notes, task, isMentor, user } =
     useAppSelector((state) => ({
       dataStatus: state.courseModule.dataStatus,
@@ -42,18 +42,6 @@ const CourseModule: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (user && !isMentor) {
-      setSelectedUserId(user.id);
-
-      return;
-    }
-
-    return () => {
-      setSelectedUserId(null);
-    };
-  }, [user, isMentor]);
-
-  useEffect(() => {
     dispatch(courseModuleActions.checkIsMentor(Number(courseId)));
   }, [courseId]);
 
@@ -64,15 +52,16 @@ const CourseModule: FC = () => {
   }, [task]);
 
   useEffect(() => {
-    if (selectedUserId) {
+    if (user) {
+      const menteeId = isMentorView ? Number(studentId) : user.id;
       dispatch(
         courseModuleActions.getTask({
-          menteeId: selectedUserId,
+          menteeId,
           moduleId: Number(moduleId),
         }),
       );
     }
-  }, [selectedUserId]);
+  }, [user, moduleId]);
 
   const handleManipulateNote = (
     payload: TaskNoteManipulateRequestBodyDto,
@@ -104,6 +93,20 @@ const CourseModule: FC = () => {
     return <Spinner />;
   }
 
+  const backRoute = isMentorView
+    ? generateDynamicPath(AppRoute.STUDENTS_$ID_COURSES_$ID, {
+        studentId: studentId as string,
+        courseId: courseId as string,
+      })
+    : generateDynamicPath(AppRoute.COURSES_$ID, {
+        courseId: courseId as string,
+      });
+
+  const canSeeTaskAbsencePlaceholder = !task && !isMentorView && !isMentor;
+
+  const canManipulateTask =
+    user && task && task.status !== TaskStatus.COMPLETED;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -111,7 +114,7 @@ const CourseModule: FC = () => {
           <IconButton
             label="back"
             iconName="leftArrow"
-            to={`${AppRoute.COURSES}/${courseId}` as AppRoute}
+            to={backRoute as AppRoute}
             iconColor="blue"
           />
           <p>{courseModule?.courseTitle}</p>
@@ -129,18 +132,18 @@ const CourseModule: FC = () => {
         <Content html={courseModule?.description ?? ''} />
       </div>
       <div>
-        {user && task && task.status !== TaskStatus.COMPLETED && (
+        {canManipulateTask && (
           <TaskManipulate
             onSendOnReview={handleSendOnReview}
             onApprove={handleApprove}
             onReject={handleReject}
-            isMentor={isMentor}
+            isMentorView={isMentorView}
           />
         )}
         {user && task && <TaskNotes notes={notes} />}
-        <p className={styles.taskAbsenceTitle}>
-          {!task && 'Task does not exist.'}
-        </p>
+        {canSeeTaskAbsencePlaceholder && (
+          <p className={styles.taskAbsenceTitle}>Task does not exist.</p>
+        )}
       </div>
     </div>
   );

@@ -1,20 +1,19 @@
-get:
-  summary: Get Interview by ID
-  tags:
-    - interviews
-  parameters:
-    - in: path
-      name: ID
-      schema:
-        type: integer
-      required: true
-      description: interview unique ID
-  responses:
-    '200':
-      content:
-        application/json:
-          schema:
-            $ref: '../../schemas/interviews/interviews-get-by-id-response-dto.yaml'
+summary: Get Interview by ID
+tags:
+  - interviews
+parameters:
+  - in: path
+    name: ID
+    schema:
+      type: integer
+    required: true
+    description: interview unique ID
+responses:
+  '200':
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/interviews/interview-response-dto.yaml'
 
-  security:
-    - bearerAuth: []
+security:
+  - bearerAuth: []

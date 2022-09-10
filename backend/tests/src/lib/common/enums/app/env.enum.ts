@@ -22,6 +22,12 @@ const {
   MENTORING_MANAGER_PASSWORD,
   UAM_MANAGER_EMAIL,
   UAM_MANAGER_PASSWORD,
+  UDEMY_CLIENT_ID,
+  UDEMY_CLIENT_SECRET,
+  UDEMY_BASE_URL,
+  EDX_CLIENT_ID,
+  EDX_CLIENT_SECRET,
+  EDX_BASE_URL,
 } = process.env;
 
 const ENV = {
@@ -79,6 +85,16 @@ const ENV = {
       email: UAM_MANAGER_EMAIL ?? '',
       password: UAM_MANAGER_PASSWORD ?? '',
     },
+  },
+  UDEMY: {
+    CLIENT_ID: UDEMY_CLIENT_ID ?? '',
+    CLIENT_SECRET: UDEMY_CLIENT_SECRET ?? '',
+    BASE_URL: UDEMY_BASE_URL ?? '',
+  },
+  EDX: {
+    CLIENT_ID: EDX_CLIENT_ID ?? '',
+    CLIENT_SECRET: EDX_CLIENT_SECRET ?? '',
+    BASE_URL: EDX_BASE_URL ?? '',
   },
 } as const;
 

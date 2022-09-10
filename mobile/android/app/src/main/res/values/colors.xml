@@ -1,3 +1,5 @@
 <resources>
     <color name="bootsplash_background">#242636</color>
+    <color name="datetime_picker_accent">#242636</color>
+    <color name="datetime_picker_control_activated">#2563EB</color>
 </resources>

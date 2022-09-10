@@ -3,6 +3,7 @@ export {
   AuthApiPath,
   CategoriesApiPath,
   ChatsApiPath,
+  CourseModulesApiPath,
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,

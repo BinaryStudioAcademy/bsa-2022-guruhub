@@ -1,4 +1,4 @@
-import { ApiPath, CoursesApiPath, HttpMethod } from '~/common/enums/enums';
+import { ApiPath, CoursesApiPath } from '~/common/enums/enums';
 import {
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
@@ -29,9 +29,6 @@ class CourseModulesApi {
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MODULES
       }`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
