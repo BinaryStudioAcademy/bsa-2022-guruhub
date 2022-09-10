@@ -21,10 +21,14 @@ class CategoriesApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAll(): Promise<CategoryGetAllResponseDto> {
+  public getAllExist(): Promise<CategoryGetAllResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.DASHBOARD}`,
     );
+  }
+
+  public getAll(): Promise<CategoryGetAllResponseDto> {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.CATEGORIES}`);
   }
 
   public getById({

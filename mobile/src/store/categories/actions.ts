@@ -9,7 +9,18 @@ import {
 
 import { ActionType } from './common';
 
-const getCategories = createAsyncThunk<
+const getExistCategories = createAsyncThunk<
+  CategoryGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_ALL_EXIST_CATEGORIES, async (_, { extra }) => {
+  const { categoriesApi } = extra;
+  const categoriesDto = await categoriesApi.getAllExist();
+
+  return categoriesDto;
+});
+
+const getAllCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
   void,
   AsyncThunkConfig
@@ -33,4 +44,4 @@ const getCategoryById = createAsyncThunk<
 
 const clearCategory = createAction(ActionType.CLEAR_CATEGORY);
 
-export { clearCategory, getCategories, getCategoryById };
+export { clearCategory, getAllCategories, getCategoryById, getExistCategories };

@@ -105,7 +105,7 @@ const Courses: FC = (): ReactElement => {
   useFocusEffect(
     useCallback(() => {
       dispatch(categoryActions.clearCategory());
-      dispatch(categoryActions.getCategories());
+      dispatch(categoryActions.getExistCategories());
       handleCoursesLoad();
       setActiveCategoryId(null);
     }, []),

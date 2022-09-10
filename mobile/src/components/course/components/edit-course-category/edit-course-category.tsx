@@ -2,22 +2,15 @@ import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseUpdateCategoryRequestDto } from '~/common/types/types';
-import {
-  BackButton,
-  Button,
-  Dropdown,
-  Spinner,
-  View,
-} from '~/components/common/common';
+import { BackButton, Spinner, View } from '~/components/common/common';
+import { EditCategoryDropdown } from '~/components/course/components/components';
 import {
   useAppDispatch,
-  useAppForm,
   useAppNavigate,
   useAppSelector,
   useEffect,
 } from '~/hooks/hooks';
-import { coursesActions } from '~/store/actions';
-import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
+import { categoryActions, coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
@@ -29,20 +22,10 @@ const EditCourseCategory: FC = () => {
     ({ courses, categories }) => ({
       course: courses.course,
       dataStatus: courses.dataStatus,
-      categories: categories.categories,
+      categories: categories.allCategories,
     }),
   );
   const courseCategoryId = course?.courseCategoryId;
-  const categoriesData = categories.map(({ name, id }) => ({
-    label: name,
-    value: id,
-  }));
-
-  const { control, handleSubmit, reset, errors } =
-    useAppForm<CourseUpdateCategoryRequestDto>({
-      defaultValues: {},
-      validationSchema: courseUpdateCategoryValidationSchema,
-    });
 
   const navigateToCourseScreen = (): void => {
     navigation.navigate(AppScreenName.COURSE);
@@ -68,15 +51,8 @@ const EditCourseCategory: FC = () => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={navigateToCourseScreen} />,
     });
+    dispatch(categoryActions.getAllCategories());
   }, []);
-
-  useEffect(() => {
-    if (course) {
-      reset({
-        newCategoryId: course.courseCategoryId,
-      });
-    }
-  }, [courseCategoryId]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
@@ -84,16 +60,11 @@ const EditCourseCategory: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Dropdown
-        items={categoriesData}
-        control={control}
-        name="newCategoryId"
-        errors={errors}
-        placeholder="Select category"
+      <EditCategoryDropdown
+        categories={categories}
+        courseCategoryId={courseCategoryId}
+        onSave={handleSelectNewCategory}
       />
-      <View style={styles.saveButtonContainer}>
-        <Button label="Save" onPress={handleSubmit(handleSelectNewCategory)} />
-      </View>
     </View>
   );
 };
