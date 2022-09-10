@@ -222,7 +222,6 @@ class Course {
         'fullName',
         'gender',
         'dateOfBirth',
-        'maxStudentsCount',
         'mentors:userDetails:avatar as avatar',
       )
       .withGraphJoined(
