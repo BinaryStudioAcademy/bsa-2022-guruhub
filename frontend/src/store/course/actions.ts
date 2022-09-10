@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { NotificationMessage, PermissionKey } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
@@ -125,6 +125,12 @@ const disableMentorBecoming = createAsyncThunk<boolean, void, AsyncThunkConfig>(
     return false;
   },
 );
+
+const disableMentorChoosing = createAction(ActionType.DISABLE_MENTOR_CHOOSING);
+
+const cleanMentor = createAction(ActionType.CLEAN_MENTOR);
+
+const cleanMentors = createAction(ActionType.CLEAN_MENTORS);
 
 const getMentorsByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
@@ -259,21 +265,28 @@ const changeMentor = createAsyncThunk<
 
 const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
-  void,
+  number,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
-  const {
-    auth: { user },
-    course: { mentors, mentor },
-  } = getState();
-  const isMentor = mentors.some(
-    (mentor) => mentor.id === (user as UserWithPermissions).id,
-  );
-  const hasMentor = Boolean(mentor);
-  const canChooseMentor = !(isMentor || hasMentor);
+>(
+  ActionType.SET_IS_MENTOR_CHOOSING_ENABLED,
+  async (id, { extra, getState }) => {
+    const {
+      auth: { user },
+      course: { mentors },
+    } = getState();
 
-  return canChooseMentor;
-});
+    const isMentor = mentors.some(
+      (mentor) => mentor.id === (user as UserWithPermissions).id,
+    );
+    const hasMentor = await extra.coursesApi.checkHasMentor({
+      courseId: id,
+    });
+
+    const canChooseMentor = !(isMentor || hasMentor);
+
+    return canChooseMentor;
+  },
+);
 
 const checkIsMentor = createAsyncThunk<
   boolean,
@@ -332,9 +345,12 @@ export {
   changeMentor,
   checkIsMentor,
   chooseMentor,
+  cleanMentor,
+  cleanMentors,
   createInterview,
   createMentor,
   disableMentorBecoming,
+  disableMentorChoosing,
   getCategories,
   getCourse,
   getMenteesByCourseId,

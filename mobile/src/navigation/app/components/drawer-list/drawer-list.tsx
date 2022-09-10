@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import { DrawerNavigationItem } from '~/common/types/types';
 import { Text, View } from '~/components/common/common';
 import { DrawerItem } from '~/navigation/app/components/components';
 
+import { DrawerNavigationItem } from '../../common/types/types';
 import { styles } from './styles';
 
 type Props = {
@@ -21,7 +21,7 @@ const DrawerList: FC<Props> = ({ name, subroutes, focusedRouteName }) => {
         return (
           <DrawerItem
             key={name}
-            name={name}
+            name={name as AppScreenName}
             isFocused={focusedRouteName === name}
             icon={icon}
           />

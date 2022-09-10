@@ -6,6 +6,7 @@ type FormatDate =
   | 'dd-MM-yyyy'
   | 'dd.MM.yyyy'
   | 'HH:mm'
+  | 'dd MMM'
   | 'HH:mm, dd.MM'
   | 'kk:mm, dd/MM/yyyy'
   | 'HH:mm dd.MM.yyyy';
@@ -16,6 +17,7 @@ const getFormattedDate = (date: string, formatDate: FormatDate): string => {
       return formatDistance(new Date(date), new Date());
     }
     case 'HH:mm':
+    case 'dd MMM':
     case 'HH:mm, dd.MM':
     case 'yyyy-MM-dd':
     case 'dd-MM-yyyy':

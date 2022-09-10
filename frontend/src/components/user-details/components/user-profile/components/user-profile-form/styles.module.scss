@@ -8,6 +8,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   margin-bottom: 10px;
   column-gap: 30px;
   color-scheme: dark;
@@ -57,6 +58,11 @@
 
 .formInput {
   background: var(--background-gray-200);
+}
+
+.fieldWrapper {
+  max-width: 240px;
+  margin-bottom: auto;
 }
 
 .formSelect div[class$='-control'] {

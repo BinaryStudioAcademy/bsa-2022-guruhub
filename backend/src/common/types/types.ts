@@ -121,6 +121,7 @@ export {
 export { type TokenPayload } from './token/token';
 export {
   type UdemyCourseGetResponseDto,
+  type UdemyCoursesGetResponseDto,
   type UdemyModuleGetResponseDto,
   type UdemyModulesGetResponseDto,
 } from './udemy/udemy';

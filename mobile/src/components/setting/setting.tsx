@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import {
+  AuthScreenName,
   ButtonVariant,
   DataStatus,
+  RootScreenName,
   UserAge,
   UserGender,
 } from '~/common/enums/enums';
@@ -24,6 +26,7 @@ import { getImageUri, subtractYears } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
+  useAppNavigate,
   useAppSelector,
   useEffect,
 } from '~/hooks/hooks';
@@ -38,9 +41,11 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
-  const { userDetails, dataStatus } = useAppSelector(
-    (state) => state.userDetails,
-  );
+  const navigation = useAppNavigate();
+  const { userDetails, dataStatus } = useAppSelector(({ userDetails }) => ({
+    userDetails: userDetails.userDetails,
+    dataStatus: userDetails.dataStatus,
+  }));
 
   const maxDate = subtractYears(new Date(), UserAge.MIN);
   const minDate = subtractYears(new Date(), UserAge.MAX);
@@ -59,8 +64,11 @@ const Settings: FC = () => {
     dispatch(userDetailsActions.updateUserDetails(payload));
   };
 
-  const handleLogout = (): void => {
-    dispatch(authActions.signOut());
+  const handleLogout = async (): Promise<void> => {
+    await dispatch(authActions.signOut());
+    navigation.navigate(RootScreenName.AUTH, {
+      screen: AuthScreenName.SIGN_IN,
+    });
   };
 
   useEffect(() => {

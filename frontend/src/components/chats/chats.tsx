@@ -22,9 +22,11 @@ const Chats: FC = () => {
     chatId,
     currentChatMessages,
     chatOpponent,
+    fetchLastMessagesDataStatus,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
     user: auth.user,
+    fetchLastMessagesDataStatus: chats.fetchLastMessagesDataStatus,
     chatDataStatus: chats.dataStatus,
     lastMessages: chats.lastMessages,
     chatId: chats.currentChatId,
@@ -66,6 +68,7 @@ const Chats: FC = () => {
       <div className={styles.lastMessagesColumn}>
         <SearchUser searchParams={searchParams} onSearch={handleSearch} />
         <ChatsList
+          fetchLastMessagesDataStatus={fetchLastMessagesDataStatus}
           chatsItems={lastMessages}
           currentUserId={(user as UserWithPermissions).id}
           onChatMessagesLoad={handleChatMessagesLoad}

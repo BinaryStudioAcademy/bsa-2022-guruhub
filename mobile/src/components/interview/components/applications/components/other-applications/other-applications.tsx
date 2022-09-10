@@ -38,6 +38,8 @@ const OtherApplications: FC<Props> = ({
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
+  const hasInterviews = Boolean(interviews.length);
+
   const handleInterviewSelect = (
     id: InterviewsUpdateRequestParamsDto,
   ): void => {
@@ -70,17 +72,23 @@ const OtherApplications: FC<Props> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Other Applications</Text>
-      <Table
-        columnWidthArr={[50, 180, 180, 150, 180, 155]}
-        columns={otherInterviewsColumns}
-        data={otherInterviewsRows}
-      />
-      <Pagination
-        totalCount={totalOtherInterviewsNumber}
-        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-        currentPage={page}
-        onPageChange={onPageChange}
-      />
+      {!hasInterviews ? (
+        <Text style={styles.noApplications}>No more applications yet</Text>
+      ) : (
+        <>
+          <Table
+            columnWidthArr={[50, 180, 180, 150, 180, 155]}
+            columns={otherInterviewsColumns}
+            data={otherInterviewsRows}
+          />
+          <Pagination
+            totalCount={totalOtherInterviewsNumber}
+            pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+            currentPage={page}
+            onPageChange={onPageChange}
+          />
+        </>
+      )}
     </View>
   );
 };

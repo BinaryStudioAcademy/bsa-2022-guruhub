@@ -16,6 +16,9 @@ enum ActionType {
   CHANGE_A_MENTOR = 'course/change-a-mentor',
   SET_IS_MENTOR_CHOOSING_ENABLED = 'course/set-is-mentor-choosing-enabled',
   CHECK_IS_MENTOR = 'course/check-is-a-mentor',
+  DISABLE_MENTOR_CHOOSING = 'course/disable-mentor-choosing',
+  CLEAN_MENTOR = 'course/clean-mentor',
+  CLEAN_MENTORS = 'course/clean-mentors',
   GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID = 'course/get-modules-by-course-id-and-mentee-id',
 }
 
