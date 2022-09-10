@@ -4,17 +4,13 @@ import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 16,
   },
   placeholder: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  buttonWrapper: {
-    width: 215,
-    alignSelf: 'center',
-    marginTop: 10,
   },
   searchFieldContainer: {
     backgroundColor: AppColor.BACKGROUND.GRAY_300,

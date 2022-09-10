@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 
 import defaultAvatar from '~/assets/images/avatar-default.png';
-import { ChatMessageUserResponseDto } from '~/common/types/types';
+import {
+  ChatMessageUserResponseDto,
+  UsersGetResponseDto,
+} from '~/common/types/types';
 import { OPPONENT_MESSAGE_SHORT_LENGTH } from '~/components/chat/common/constants/constants';
 import { Image, Pressable, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
@@ -12,9 +15,9 @@ type Props = {
   chatId: string;
   currentUserId: number;
   messageSenderId: number;
-  chatOpponent: ChatMessageUserResponseDto;
-  lastMessage: string;
-  lastMessageDate: string;
+  chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto;
+  lastMessage?: string;
+  lastMessageDate?: string;
   onPress: (chatId: string) => void;
 };
 
@@ -28,13 +31,12 @@ const Conversation: FC<Props> = ({
   onPress,
 }) => {
   const messageStart = messageSenderId === currentUserId ? 'You: ' : '';
-  const messageShortView = `${lastMessage.slice(
-    0,
-    OPPONENT_MESSAGE_SHORT_LENGTH,
-  )}...`;
+  const messageShortView =
+    lastMessage && `${lastMessage.slice(0, OPPONENT_MESSAGE_SHORT_LENGTH)}...`;
   const chatLastMessage = `${messageStart}${messageShortView}`;
 
-  const messageDate = getFormattedDate(lastMessageDate, 'HH:mm');
+  const messageDate =
+    lastMessageDate && getFormattedDate(lastMessageDate, 'HH:mm');
 
   const handleChatSelect = (): void => {
     onPress(chatId);
@@ -56,11 +58,11 @@ const Conversation: FC<Props> = ({
         <Text style={styles.opponentName}>
           {chatOpponent.userDetails.fullName}
         </Text>
-        <Text style={styles.opponentMessage}>{chatLastMessage}</Text>
+        {lastMessageDate && (
+          <Text style={styles.opponentMessage}>{chatLastMessage}</Text>
+        )}
       </View>
-      <View>
-        <Text style={styles.date}>{messageDate}</Text>
-      </View>
+      {messageDate && <Text style={styles.date}>{messageDate}</Text>}
     </Pressable>
   );
 };

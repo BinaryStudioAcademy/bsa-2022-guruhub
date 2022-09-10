@@ -5,7 +5,7 @@ import {
   ChatMessageCreateRequestBodyDto,
   ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
-  ChatMessageGetAllLastResponseDto,
+  ChatMessageGetAllLastWithEmptyChatsDto,
   ChatMessageGetAllRequestParamsDto,
   ChatMessageGetAllResponseDto,
 } from '~/common/types/types';
@@ -13,7 +13,7 @@ import {
 import { ActionType } from './common';
 
 const getLastMessages = createAsyncThunk<
-  ChatMessageGetAllLastResponseDto,
+  ChatMessageGetAllLastWithEmptyChatsDto,
   ChatMessageFilteringDto,
   AsyncThunkConfig
 >(ActionType.GET_LAST_MESSAGES, async ({ fullName }, { extra }) => {

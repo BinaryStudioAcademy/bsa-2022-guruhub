@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import defaultAvatar from '~/assets/images/avatar-default.png';
-import { AppScreenName } from '~/common/enums/enums';
+import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { ChatMessageCreateRequestBodyDto } from '~/common/types/types';
 import { BackButton, Image, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
@@ -17,16 +17,23 @@ import { MessageForm, MessagesList } from './components/components';
 import { styles } from './styles';
 
 const ChatConversation: FC = () => {
-  const { chatId, currentChatMessages, chatOpponent, currentUserId } =
-    useAppSelector(({ auth, chat }) => ({
-      chatId: chat.currentChatId,
-      currentChatMessages: chat.currentChatMessages,
-      chatOpponent: chat.chatOpponent,
-      currentUserId: auth.user?.id,
-    }));
+  const {
+    chatId,
+    currentChatMessages,
+    chatOpponent,
+    currentUserId,
+    dataStatus,
+  } = useAppSelector(({ auth, chat }) => ({
+    chatId: chat.currentChatId,
+    currentChatMessages: chat.currentChatMessages,
+    chatOpponent: chat.chatOpponent,
+    currentUserId: auth.user?.id,
+    dataStatus: chat.dataStatus,
+  }));
 
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
+  const isLoading = dataStatus === DataStatus.PENDING;
 
   useEffect(() => {
     navigation.setOptions({
@@ -47,7 +54,7 @@ const ChatConversation: FC = () => {
         />
       ),
     });
-  }, []);
+  }, [isLoading]);
 
   const handleMessageSubmit = (
     payload: ChatMessageCreateRequestBodyDto,

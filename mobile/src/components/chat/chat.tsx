@@ -17,14 +17,14 @@ import { styles } from './styles';
 
 const Chat: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
-    ({ auth, chat }) => ({
+  const { authDataStatus, chatDataStatus, lastMessages, user, emptyChats } =
+    useAppSelector(({ auth, chat }) => ({
       authDataStatus: auth.dataStatus,
       user: auth.user,
       chatDataStatus: chat.dataStatus,
       lastMessages: chat.lastMessages,
-    }),
-  );
+      emptyChats: chat.emptyChats,
+    }));
 
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
@@ -63,6 +63,7 @@ const Chat: FC = () => {
         <View style={styles.container}>
           <ConversationsList
             chatsItems={lastMessages}
+            emptyChats={emptyChats}
             currentUserId={(user as UserWithPermissions).id}
             onChatMessagesLoad={handleChatMessagesLoad}
           />

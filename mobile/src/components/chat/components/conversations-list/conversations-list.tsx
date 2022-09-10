@@ -1,10 +1,11 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC } from 'react';
 
 import {
   ChatMessageGetAllItemResponseDto,
+  ChatMessageGetEmptyChatDto,
   ChatMessageUserResponseDto,
 } from '~/common/types/types';
-import { FlatList, Text } from '~/components/common/common';
+import { ScrollView, Text } from '~/components/common/common';
 
 import { Conversation } from './components/conversation/conversation';
 import { styles } from './styles';
@@ -13,18 +14,28 @@ type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
   onChatMessagesLoad: (chatId: string) => void;
+  emptyChats: ChatMessageGetEmptyChatDto[];
 };
 
 const ConversationsList: FC<Props> = ({
   chatsItems,
   currentUserId,
   onChatMessagesLoad,
+  emptyChats = [],
 }) => {
+  const existChats = chatsItems.map((chat) => chat.receiver.userDetails.id);
+  const filteredExistChats = emptyChats.filter(
+    (chat) => !existChats.includes(chat.receiver.userDetails.id),
+  );
+  const hasChats = Boolean(chatsItems.length) && Boolean(emptyChats.length);
+
+  if (!hasChats) {
+    return <Text style={styles.noMessages}>No conversations yet</Text>;
+  }
+
   return (
-    <FlatList
-      data={chatsItems}
-      keyExtractor={({ id }): string => id.toString()}
-      renderItem={({ item: chat, index }): ReactElement => {
+    <ScrollView>
+      {chatsItems.map((chat, index) => {
         const chatOpponent: ChatMessageUserResponseDto =
           chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
@@ -40,11 +51,18 @@ const ConversationsList: FC<Props> = ({
             onPress={onChatMessagesLoad}
           />
         );
-      }}
-      ListEmptyComponent={(): ReactElement => (
-        <Text style={styles.noMessages}>No conversations yet</Text>
-      )}
-    />
+      })}
+      {filteredExistChats.map((chat, index) => (
+        <Conversation
+          key={index}
+          chatId={chat.chatId}
+          chatOpponent={chat.receiver}
+          currentUserId={currentUserId}
+          messageSenderId={chat.receiver.id}
+          onPress={onChatMessagesLoad}
+        />
+      ))}
+    </ScrollView>
   );
 };
 
