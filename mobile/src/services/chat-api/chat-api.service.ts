@@ -32,7 +32,6 @@ class ChatApi {
     filtering: ChatMessageFilteringDto;
   }): Promise<ChatMessageGetAllLastWithEmptyChatsDto> {
     return this.#http.load(`${this.#apiPrefix}${ApiPath.CHATS}`, {
-      method: HttpMethod.GET,
       queryParams: {
         fullName: options.filtering.fullName,
       },

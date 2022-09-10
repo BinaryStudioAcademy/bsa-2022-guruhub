@@ -23,10 +23,6 @@ const ConversationsList: FC<Props> = ({
   onChatMessagesLoad,
   emptyChats = [],
 }) => {
-  const existChats = chatsItems.map((chat) => chat.receiver.userDetails.id);
-  const filteredExistChats = emptyChats.filter(
-    (chat) => !existChats.includes(chat.receiver.userDetails.id),
-  );
   const hasChats = Boolean(chatsItems.length) && Boolean(emptyChats.length);
 
   if (!hasChats) {
@@ -52,7 +48,7 @@ const ConversationsList: FC<Props> = ({
           />
         );
       })}
-      {filteredExistChats.map((chat, index) => (
+      {emptyChats.map((chat, index) => (
         <Conversation
           key={index}
           chatId={chat.chatId}
