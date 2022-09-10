@@ -11,6 +11,7 @@
 
 .react-datepicker__year-select,
 .react-datepicker__month-select {
+  color: var(--typography-text-100-inverse);
   background-color: var(--background-gray-300);
   border: 1px solid var(--background-gray-200);
   border-radius: 5px;
@@ -48,4 +49,16 @@
 
 .react-datepicker__day--disabled {
   opacity: 0.3;
+}
+
+.react-datepicker-time__caption {
+  color: var(--typography-text-100-inverse);
+}
+
+.react-datepicker-time__input input {
+  color: var(--typography-text-100-inverse);
+  background-color: var(--background-gray-300);
+  border: 1px solid var(--background-gray-200);
+  border-radius: 5px;
+  cursor: pointer;
 }

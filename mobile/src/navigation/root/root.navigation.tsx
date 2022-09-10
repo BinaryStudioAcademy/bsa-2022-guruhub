@@ -26,6 +26,8 @@ const Root: FC = () => {
   const hasUser = Boolean(user);
   const hasToken = Boolean(storage.get(StorageKey.ACCESS_TOKEN));
 
+  const initialScreen = hasUser ? RootScreenName.APP : RootScreenName.AUTH;
+
   useEffect(() => {
     if (hasToken) {
       dispatch(authActions.loadCurrentUser());
@@ -37,18 +39,15 @@ const Root: FC = () => {
   }
 
   return (
-    <NativeStack.Navigator screenOptions={screenOptions}>
-      {hasUser ? (
-        <NativeStack.Screen
-          name={RootScreenName.APP}
-          component={AppNavigation}
-        />
-      ) : (
-        <NativeStack.Screen
-          name={RootScreenName.AUTH}
-          component={AuthNavigation}
-        />
-      )}
+    <NativeStack.Navigator
+      screenOptions={screenOptions}
+      initialRouteName={initialScreen}
+    >
+      <NativeStack.Screen
+        name={RootScreenName.AUTH}
+        component={AuthNavigation}
+      />
+      <NativeStack.Screen name={RootScreenName.APP} component={AppNavigation} />
     </NativeStack.Navigator>
   );
 };

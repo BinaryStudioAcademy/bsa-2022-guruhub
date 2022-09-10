@@ -144,15 +144,16 @@ class Interview {
 
   public update(interview: {
     id: number;
-    interviewerUserId: number;
+    interviewerUserId: number | null;
     status: InterviewStatus;
+    interviewDate: string | null;
   }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewerUserId, status } = interview;
+    const { id, interviewerUserId, status, interviewDate } = interview;
 
     return this.#InterviewModel
       .query()
       .select()
-      .patchAndFetchById(id, { interviewerUserId, status })
+      .patchAndFetchById(id, { interviewerUserId, status, interviewDate })
       .withGraphFetched(
         '[courseCategory, interviewee(withoutPassword).[userDetails(withoutMoneyBalance)], interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )

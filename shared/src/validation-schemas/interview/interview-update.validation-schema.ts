@@ -7,10 +7,12 @@ import { getNameOf } from '~/helpers/helpers';
 const interviewUpdate = Joi.object({
   [getNameOf<InterviewsUpdateRequestDto>('interviewerUserId')]: Joi.number()
     .integer()
-    .required(),
+    .allow(null),
   [getNameOf<InterviewsUpdateRequestDto>('status')]: Joi.string()
     .required()
     .valid(...Object.values(InterviewStatus)),
+  [getNameOf<InterviewsUpdateRequestDto>('interviewDate')]:
+    Joi.date().allow(null),
 });
 
 export { interviewUpdate };

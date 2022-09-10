@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
@@ -75,4 +75,13 @@ const getNotes = createAsyncThunk<
   return notes;
 });
 
-export { createNote, getCourseModules, getModuleById, getNotes, getTask };
+const clearModules = createAction(ActionType.CLEAR_MODULES);
+
+export {
+  clearModules,
+  createNote,
+  getCourseModules,
+  getModuleById,
+  getNotes,
+  getTask,
+};

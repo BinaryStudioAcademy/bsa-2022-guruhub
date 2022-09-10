@@ -1,4 +1,5 @@
 import axios, {
+  AxiosError,
   AxiosInstance,
   AxiosRequestHeaders,
   AxiosResponse,
@@ -6,6 +7,7 @@ import axios, {
 
 import { HttpMethod } from '~/common/enums/enums';
 import { HttpOptions } from '~/common/types/types';
+import { HttpError } from '~/exceptions/exceptions';
 
 class Http {
   #http: AxiosInstance;
@@ -36,7 +38,14 @@ class Http {
     return res.data;
   }
 
-  private throwError(err: Error): never {
+  private throwError(err: AxiosError): never {
+    if (err.response) {
+      throw new HttpError({
+        status: err.response.status,
+        message: err.message,
+      });
+    }
+
     throw err;
   }
 }
