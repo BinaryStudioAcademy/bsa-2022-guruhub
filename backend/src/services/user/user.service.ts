@@ -127,7 +127,7 @@ class User {
 
   public getByIdWithMoneyBalance(
     id: number,
-  ): Promise<UserGetResponseWithMoneyBalanceDto | null> {
+  ): Promise<UserGetResponseWithMoneyBalanceDto> {
     return this.#userRepository.getByIdWithMoneyBalance(id);
   }
 
