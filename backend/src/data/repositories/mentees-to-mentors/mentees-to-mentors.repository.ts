@@ -77,24 +77,6 @@ class MenteesToMentors {
     return menteeToMentor ?? null;
   }
 
-  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
-    courseId: number;
-    menteeId: number;
-  }): Promise<MenteesToMentorsResponseDto | null> {
-    const { courseId, menteeId } = getMenteesToMentors;
-    const menteeToMentor = await this.#MenteesToMentorsModel
-      .query()
-      .where({ courseId })
-      .andWhere({ menteeId })
-      .withGraphJoined(
-        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
-      )
-      .castTo<MenteesToMentorsResponseDto>()
-      .first();
-
-    return menteeToMentor ?? null;
-  }
-
   public async checkIsMentee(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
@@ -105,7 +87,6 @@ class MenteesToMentors {
       .select(1)
       .where({ courseId })
       .andWhere({ menteeId })
-      .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
       .first();
 
     return Boolean(menteeToMentor);

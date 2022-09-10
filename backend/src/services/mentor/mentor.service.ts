@@ -1,11 +1,9 @@
-import { MenteesToMentorsStatus } from '~/common/enums/enums';
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
-import { MentorsError } from '~/exceptions/exceptions';
 import {
   courseModule as courseModuleServ,
   coursesToMentors as coursesToMentorsServ,
@@ -47,26 +45,6 @@ class Mentor {
     mentorId,
   }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
     const menteeToMentor =
-      await this.#menteesToMentorsService.getByCourseIdAndMenteeId({
-        courseId,
-        menteeId,
-      });
-
-    const isMentee = Boolean(menteeToMentor);
-
-    if (
-      isMentee &&
-      (menteeToMentor as MenteesToMentorsResponseDto).status !==
-        MenteesToMentorsStatus.COMPLETED
-    ) {
-      throw new MentorsError();
-    }
-
-    if (isMentee) {
-      return this.changeMentor({ courseId, menteeId, mentorId });
-    }
-
-    const newMenteeToMentor =
       await this.#menteesToMentorsService.createMenteesToMentors({
         courseId,
         menteeId,
@@ -80,13 +58,13 @@ class Mentor {
     await Promise.all(
       modules.map((module) => {
         return this.#taskService.createTask({
-          menteesToMentorsId: newMenteeToMentor.id,
+          menteesToMentorsId: menteeToMentor.id,
           moduleId: module.id,
         });
       }),
     );
 
-    return newMenteeToMentor;
+    return menteeToMentor;
   }
 
   public changeMentor(

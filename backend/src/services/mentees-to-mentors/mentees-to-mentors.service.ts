@@ -4,6 +4,7 @@ import {
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
 import { menteesToMentors as menteesToMentorsRep } from '~/data/repositories/repositories';
+import { MenteesToMentorsError } from '~/exceptions/exceptions';
 
 type Constructor = {
   menteesToMentorsRepository: typeof menteesToMentorsRep;
@@ -16,9 +17,19 @@ class MenteesToMentors {
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
 
-  public createMenteesToMentors(
+  public async createMenteesToMentors(
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {
+    const { courseId, menteeId } = menteesToMentors;
+    const isMentee = await this.checkIsMentee({
+      courseId,
+      menteeId,
+    });
+
+    if (isMentee) {
+      throw new MenteesToMentorsError();
+    }
+
     return this.#menteesToMentorsRepository.create(menteesToMentors);
   }
 
@@ -40,15 +51,6 @@ class MenteesToMentors {
     menteeId: number;
   }): Promise<MenteesToMentorsResponseDto | null> {
     return this.#menteesToMentorsRepository.getUncompletedByCourseIdAndMenteeId(
-      menteesToMentors,
-    );
-  }
-
-  public getByCourseIdAndMenteeId(menteesToMentors: {
-    courseId: number;
-    menteeId: number;
-  }): Promise<MenteesToMentorsResponseDto | null> {
-    return this.#menteesToMentorsRepository.getByCourseIdAndMenteeId(
       menteesToMentors,
     );
   }
