@@ -37,6 +37,7 @@ const Chat: FC = () => {
   const handleSearch = (search: string): void => {
     setSearchValue(search);
   };
+  const renderEmptyChats = searchValue === '' ? [] : emptyChats;
 
   useEffect(() => {
     dispatch(chatActions.getLastMessages({ fullName: '' }));
@@ -63,7 +64,7 @@ const Chat: FC = () => {
         <View style={styles.container}>
           <ConversationsList
             chatsItems={lastMessages}
-            emptyChats={emptyChats}
+            emptyChats={renderEmptyChats}
             currentUserId={(user as UserWithPermissions).id}
             onChatMessagesLoad={handleChatMessagesLoad}
           />
