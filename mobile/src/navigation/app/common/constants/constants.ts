@@ -10,9 +10,11 @@ import { Billing } from '~/components/billing/billing';
 import { Chat } from '~/components/chat/chat';
 import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
 import { EditCourseCategory } from '~/components/course/components/components';
+import { EditCourse } from '~/components/course/components/edit-course/edit-course';
 import { Task } from '~/components/course-module/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
+import { CoursesManagement } from '~/components/courses-management/courses-management';
 import { Interview } from '~/components/interview/interview';
 import { Interviews } from '~/components/interviews/interviews';
 import { Mentors } from '~/components/mentors/mentors';
@@ -76,6 +78,14 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
       PermissionKey.MANAGE_INTERVIEW,
       PermissionKey.MANAGE_INTERVIEWS,
     ],
+    isAuthRequired: true,
+    drawerGroup: 'Menu',
+  },
+  {
+    name: AppScreenName.COURSE_MANAGEMENT,
+    icon: 'book',
+    component: CoursesManagement,
+    permissions: [PermissionKey.MANAGE_CATEGORIES],
     isAuthRequired: true,
     drawerGroup: 'Menu',
   },
@@ -168,6 +178,12 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     name: AppScreenName.CONVERSATION,
     component: ChatConversation,
     permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.EDIT_COURSE,
+    component: EditCourse,
+    permissions: [PermissionKey.MANAGE_CATEGORIES],
     isAuthRequired: true,
   },
 ];
