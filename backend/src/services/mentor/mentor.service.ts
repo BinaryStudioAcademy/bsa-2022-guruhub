@@ -5,7 +5,7 @@ import {
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
-import { MenteesToMentorsError } from '~/exceptions/exceptions';
+import { MentorsError } from '~/exceptions/exceptions';
 import {
   courseModule as courseModuleServ,
   coursesToMentors as coursesToMentorsServ,
@@ -59,7 +59,7 @@ class Mentor {
       (menteeToMentor as MenteesToMentorsResponseDto).status !==
         MenteesToMentorsStatus.COMPLETED
     ) {
-      throw new MenteesToMentorsError();
+      throw new MentorsError();
     }
 
     if (isMentee) {

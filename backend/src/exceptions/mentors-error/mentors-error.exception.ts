@@ -6,14 +6,14 @@ import {
   HttpCode,
 } from '~/common/enums/enums';
 
-class MenteesToMentorsError extends HttpError {
+class MentorsError extends HttpError {
   public constructor({
     message = ExceptionMessage.ALREADY_HAVE_MENTOR_FOR_COURSE,
     status = HttpCode.BAD_REQUEST,
   } = {}) {
     super({ message, status });
-    this.name = CustomExceptionName.MENTEES_TO_MENTORS_ERROR;
+    this.name = CustomExceptionName.MENTORS_ERROR;
   }
 }
 
-export { MenteesToMentorsError };
+export { MentorsError };

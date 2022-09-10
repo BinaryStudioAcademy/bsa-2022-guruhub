@@ -7,7 +7,7 @@ export { GroupsError } from './groups-error/groups-error.exception';
 export { InterviewNotesError } from './interview-notes-error/interview-note-error.exception';
 export { InterviewsError } from './interviews-error/interviews-error.exception';
 export { InvalidFilesError } from './invalid-files-error/invalid-files-error.exception';
-export { MenteesToMentorsError } from './mentees-to-mentors-error/mentees-to-mentors-error.exception';
+export { MentorsError } from './mentors-error/mentors-error.exception';
 export { PermissionsError } from './permission-error/permission-error.exception';
 export { TasksError } from './tasks-error/tasks-error.exception';
 export { UdemyError } from './udemy-error/udemy-error.exception';

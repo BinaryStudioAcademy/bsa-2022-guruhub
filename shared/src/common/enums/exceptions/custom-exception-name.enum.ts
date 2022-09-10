@@ -11,7 +11,7 @@ enum CustomExceptionName {
   USER_ERROR = 'UserError',
   INTERVIEW_ERROR = 'InterviewError',
   COURSES_TO_MENTORS_ERROR = 'CoursesToMentorsError',
-  MENTEES_TO_MENTORS_ERROR = 'MenteesToMentorsError',
+  MENTORS_ERROR = 'MentorsError',
   INVALID_FILE = 'InvalidFileError',
   TASKS_ERROR = 'TasksError',
   USER_DETAILS_ERROR = 'UserDetailsError',
