@@ -1,8 +1,4 @@
-import {
-  ApiPath,
-  CategoriesApiPath,
-  CategoryGetAllResponseDto,
-} from 'guruhub-shared';
+import { ApiPath, CategoryGetAllResponseDto } from 'guruhub-shared';
 
 import { Response } from '~/lib/common/types/types';
 
@@ -20,11 +16,7 @@ class CategoriesService {
   }
 
   public getAll(): Promise<Response<CategoryGetAllResponseDto>> {
-    return this.#httpService
-      .request()
-      .get()
-      .path(`${ApiPath.CATEGORIES}${CategoriesApiPath.ROOT}`)
-      .send();
+    return this.#httpService.request().get().path(ApiPath.CATEGORIES).send();
   }
 }
 

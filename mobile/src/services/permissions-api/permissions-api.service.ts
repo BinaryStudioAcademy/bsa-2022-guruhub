@@ -1,4 +1,4 @@
-import { ApiPath, HttpMethod } from '~/common/enums/enums';
+import { ApiPath } from '~/common/enums/enums';
 import { PermissionsGetAllResponseDto } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -19,9 +19,7 @@ class PermissionsApi {
   }
 
   public getAll(): Promise<PermissionsGetAllResponseDto> {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.PERMISSIONS}`, {
-      method: HttpMethod.GET,
-    });
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.PERMISSIONS}`);
   }
 }
 

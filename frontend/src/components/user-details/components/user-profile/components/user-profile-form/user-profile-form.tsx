@@ -90,24 +90,18 @@ const UserProfileForm: FC = () => {
                 placeholder="Enter your full name"
                 inputClassName={styles.formInput}
               />
-              <Datepicker
-                control={control}
-                name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
-                label="Birth date"
-                placeholder="Enter date of birth"
-                maxDate={maxDate}
-                minDate={minDate}
-              />
-            </div>
-            <div className={styles.grid}>
-              <Select
-                label="Gender"
-                options={genderOptions}
-                name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
-                control={control}
-                errors={errors}
-                className={styles.formSelect}
-              />
+              <div className={styles.fieldWrapper}>
+                <Datepicker
+                  control={control}
+                  name={getNameOf<UserDetailsUpdateInfoRequestDto>(
+                    'dateOfBirth',
+                  )}
+                  label="Birth date"
+                  placeholder="Enter date of birth"
+                  maxDate={maxDate}
+                  minDate={minDate}
+                />
+              </div>
             </div>
             <div className={styles.grid}>
               <Input
@@ -119,7 +113,18 @@ const UserProfileForm: FC = () => {
                 control={control}
                 errors={errors}
                 placeholder="Enter your telegram username"
+                inputClassName={styles.formInput}
               />
+              <div className={styles.fieldWrapper}>
+                <Select
+                  label="Gender"
+                  options={genderOptions}
+                  name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
+                  control={control}
+                  errors={errors}
+                  className={styles.formSelect}
+                />
+              </div>
             </div>
           </div>
           <div className={styles.buttonWrapper}>

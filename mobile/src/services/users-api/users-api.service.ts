@@ -32,7 +32,6 @@ class UsersApi {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.USERS}${UsersApiPath.ROOT}`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           page,
           count,

@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
   spinnerContainer: {
     flex: 1,
   },
+  buttonWrapper: {
+    width: 215,
+    alignSelf: 'center',
+    marginTop: 10,
+  },
 });
 
 export { styles };

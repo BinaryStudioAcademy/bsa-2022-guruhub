@@ -40,7 +40,6 @@ class GroupsApi {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           page,
           count,
@@ -63,9 +62,6 @@ class GroupsApi {
   }: GroupsUpdateRequestParamsDto): Promise<GroupGetByIdResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
