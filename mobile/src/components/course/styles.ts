@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   separator: {
-    height: 15,
+    marginTop: 15,
   },
   noModules: {
     fontFamily: AppFontFamily.INTER_400,
