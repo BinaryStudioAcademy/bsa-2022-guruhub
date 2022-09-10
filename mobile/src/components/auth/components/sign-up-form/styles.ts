@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
   },
+  linkWrapper: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
 });
 
 export { styles };

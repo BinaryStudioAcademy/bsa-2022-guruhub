@@ -1,13 +1,13 @@
 import {
-  DrawerNavigationItem,
+  NavigationItem,
   PermissionsGetAllItemResponseDto,
 } from '~/common/types/types';
 import { checkHasPermission } from '~/helpers/helpers';
 
-const getAllowedScreens = (
-  screens: DrawerNavigationItem[],
+const getPermittedScreens = (
+  screens: NavigationItem[],
   userPermissions: PermissionsGetAllItemResponseDto[],
-): DrawerNavigationItem[] => {
+): NavigationItem[] => {
   return screens.filter((screen) => {
     return checkHasPermission({
       permissionKeys: screen.permissions,
@@ -16,4 +16,4 @@ const getAllowedScreens = (
   });
 };
 
-export { getAllowedScreens };
+export { getPermittedScreens };
