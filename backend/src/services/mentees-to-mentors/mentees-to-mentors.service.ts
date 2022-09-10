@@ -4,7 +4,6 @@ import {
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
 import { menteesToMentors as menteesToMentorsRep } from '~/data/repositories/repositories';
-import { MenteesToMentorsError } from '~/exceptions/exceptions';
 
 type Constructor = {
   menteesToMentorsRepository: typeof menteesToMentorsRep;
@@ -27,7 +26,7 @@ class MenteesToMentors {
     });
 
     if (isMentee) {
-      throw new MenteesToMentorsError();
+      return this.#menteesToMentorsRepository.changeMentor(menteesToMentors);
     }
 
     return this.#menteesToMentorsRepository.create(menteesToMentors);

@@ -45,6 +45,7 @@ class MenteesToMentors {
       .query()
       .patch({
         mentorId,
+        status: MenteesToMentorsStatus.IN_PROGRESS,
       })
       .where({
         menteeId,
