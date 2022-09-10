@@ -20,7 +20,6 @@ const Chats: FC = () => {
     lastMessages,
     user,
     chatId,
-    currentChatMessages,
     chatOpponent,
     fetchLastMessagesDataStatus,
   } = useAppSelector(({ auth, chats }) => ({
@@ -30,7 +29,6 @@ const Chats: FC = () => {
     chatDataStatus: chats.dataStatus,
     lastMessages: chats.lastMessages,
     chatId: chats.currentChatId,
-    currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
   }));
 
@@ -76,7 +74,6 @@ const Chats: FC = () => {
       </div>
       <CurrentChat
         chatId={chatId}
-        messages={currentChatMessages}
         currentUserId={(user as UserWithPermissions).id}
         chatOpponent={chatOpponent}
       />

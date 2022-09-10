@@ -5,6 +5,11 @@
   cursor: pointer;
 }
 
+.selected {
+  border-radius: 7px;
+  outline: 1px solid var(--brand-blue-100);
+}
+
 .chatContentWrapper {
   display: flex;
   flex-direction: column;
