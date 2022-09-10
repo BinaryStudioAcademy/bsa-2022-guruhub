@@ -10,7 +10,7 @@ import {
   UserWithPermissions,
 } from 'common/types/types';
 import { Spinner } from 'components/common/common';
-import { checkHasPermission } from 'guruhub-shared';
+import { checkHasPermission } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
