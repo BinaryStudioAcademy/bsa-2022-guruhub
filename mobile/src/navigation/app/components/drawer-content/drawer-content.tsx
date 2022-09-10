@@ -2,16 +2,21 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import { AppScreenName } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  AuthScreenName,
+  RootScreenName,
+} from '~/common/enums/enums';
 import {
   Image,
+  Link,
   SafeAreaView,
   ScrollView,
   View,
 } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { getImageUri, groupByKey } from '~/helpers/helpers';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { NAVIGATION_ITEMS } from '~/navigation/app/common/constants';
+import { DrawerNavigationItem } from '~/navigation/app/common/types/types';
 import {
   BecomeMentor,
   DrawerList,
@@ -20,21 +25,26 @@ import { coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
-const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
+type Props = DrawerContentComponentProps & {
+  items: DrawerNavigationItem[];
+};
+
+const DrawerContent: FC<Props> = ({ state, items }) => {
   const dispatch = useAppDispatch();
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
-  const allowedRoutes = state.routes.map((item) => item.name);
-  const visibleNavigationItems = NAVIGATION_ITEMS.filter(
-    (item) => item.isVisible,
-  );
 
-  const { isMentorBecomingVisible, dataBecomeMentorStatus } = useAppSelector(
-    (rootState) => rootState.courses,
-  );
+  const { user, isMentorBecomingVisible, dataBecomeMentorStatus } =
+    useAppSelector(({ auth, courses }) => ({
+      user: auth.user,
+      isMentorBecomingVisible: courses.isMentorBecomingVisible,
+      dataBecomeMentorStatus: courses.dataBecomeMentorStatus,
+    }));
 
   const handleBecomeMentor = (): void => {
     dispatch(coursesActions.becomeMentor());
   };
+
+  const itemGroups = groupByKey(items, 'drawerGroup');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -42,25 +52,34 @@ const DrawerContent: FC<DrawerContentComponentProps> = ({ state }) => {
         <View style={styles.header}>
           <Image source={{ uri: getImageUri(logo) }} style={styles.logo} />
         </View>
-        {visibleNavigationItems.map(({ name, subroutes }, index) => (
-          <View style={styles.listWrapper} key={name}>
+        {Object.entries(itemGroups).map(([key, value], index) => (
+          <View style={styles.listWrapper} key={key}>
             {Boolean(index) && <View style={styles.listBorder} />}
             <DrawerList
-              name={name}
-              subroutes={subroutes.filter((item) =>
-                allowedRoutes.includes(item.name),
-              )}
+              name={key}
+              subroutes={value}
               focusedRouteName={focusedRouteName}
             />
           </View>
         ))}
-        {isMentorBecomingVisible && (
+        {isMentorBecomingVisible && user && (
           <BecomeMentor
             dataStatus={dataBecomeMentorStatus}
             onPress={handleBecomeMentor}
           />
         )}
       </ScrollView>
+      {!user && (
+        <View style={styles.signInWrapper}>
+          <Link
+            label="Sign in"
+            to={{
+              screen: RootScreenName.AUTH,
+              params: { screen: AuthScreenName.SIGN_IN },
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

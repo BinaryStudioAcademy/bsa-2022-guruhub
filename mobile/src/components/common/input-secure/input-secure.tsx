@@ -27,7 +27,7 @@ const InputSecure = <T extends FormControlValues>({
   errors,
   placeholder,
 }: Props<T>): ReactElement => {
-  const [isContentVisible, setIsContentVisible] = useState(true);
+  const [isContentVisible, setIsContentVisible] = useState(false);
 
   const handleContentVisabilityToggle = (): void => {
     setIsContentVisible(!isContentVisible);
@@ -41,12 +41,12 @@ const InputSecure = <T extends FormControlValues>({
         control={control}
         errors={errors}
         placeholder={placeholder}
-        isSecure={isContentVisible}
+        isSecure={!isContentVisible}
         isSecurePadding
       />
       <Pressable style={styles.button} onPress={handleContentVisabilityToggle}>
         <Icon
-          name={isContentVisible ? 'visibilityOff' : 'visibility'}
+          name={!isContentVisible ? 'visibility' : 'visibilityOff'}
           color={AppColor.TEXT.GRAY_200}
           width={24}
           height={24}

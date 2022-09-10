@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 
+import { AppScreenName, RootScreenName } from '~/common/enums/enums';
 import { UserSignUpRequestDto } from '~/common/types/types';
 import {
   Button,
   Input,
   InputSecure,
+  Link,
   Text,
   View,
 } from '~/components/common/common';
@@ -57,6 +59,15 @@ const SignUpForm: FC<Props> = ({ onSubmit }) => {
         </View>
         <View style={styles.buttonWrapper}>
           <Button label="Sign up" onPress={handleSubmit(onSubmit)} />
+        </View>
+        <View style={styles.linkWrapper}>
+          <Link
+            label="Skip for now"
+            to={{
+              screen: RootScreenName.APP,
+              params: { screen: AppScreenName.COURSES },
+            }}
+          />
         </View>
       </View>
     </>
