@@ -18,10 +18,11 @@ const EditCourseCategory: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { course, dataStatus, categories } = useAppSelector(
+  const { course, dataStatus, categories, categoryDataStatus } = useAppSelector(
     ({ courses, categories }) => ({
       course: courses.course,
       dataStatus: courses.dataStatus,
+      categoryDataStatus: categories.dataStatus,
       categories: categories.allCategories,
     }),
   );
@@ -54,7 +55,10 @@ const EditCourseCategory: FC = () => {
     dispatch(categoryActions.getAllCategories());
   }, []);
 
-  if (dataStatus === DataStatus.PENDING) {
+  if (
+    dataStatus === DataStatus.PENDING ||
+    categoryDataStatus === DataStatus.PENDING
+  ) {
     return <Spinner isOverflow />;
   }
 

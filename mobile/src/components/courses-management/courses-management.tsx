@@ -17,7 +17,7 @@ import {
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
-import { coursesManagementActions } from '~/store/actions';
+import { coursesActions, coursesManagementActions } from '~/store/actions';
 
 import { DEFAULT_PAGE_SIZE } from './common/constants/constants';
 import { ActionCell } from './components/action-cell/action-cell';
@@ -31,7 +31,8 @@ const CoursesManagement: FC = () => {
   const { dataStatus, coursesWithCategory, totalCoursesNumber } =
     useAppSelector((state) => state.coursesManagement);
 
-  const navigateToEditCourse = (): void => {
+  const navigateToEditCourse = (courseId: number): void => {
+    dispatch(coursesActions.getCourse({ id: courseId }));
     navigation.navigate(AppScreenName.EDIT_COURSE);
   };
 
@@ -43,7 +44,7 @@ const CoursesManagement: FC = () => {
       ) : (
         'Unknown'
       ),
-      action: <ActionCell onEdit={navigateToEditCourse} />,
+      action: <ActionCell onEdit={(): void => navigateToEditCourse(item.id)} />,
     };
   });
 
