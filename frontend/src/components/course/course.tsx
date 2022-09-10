@@ -17,6 +17,7 @@ import {
   useParams,
   useState,
 } from 'hooks/hooks';
+import { ReactNode } from 'react';
 import { courseActions } from 'store/actions';
 
 import {
@@ -43,6 +44,7 @@ const Course: FC = () => {
     isMentorChoosingEnabled,
     isMentor,
     menteesByCourseDataStatus,
+    mentorCheckDataStatus,
   } = useAppSelector(({ auth, course }) => ({
     categories: course.categories,
     course: course.course,
@@ -57,6 +59,7 @@ const Course: FC = () => {
     mentees: course.menteesByCourseId,
     isMentor: course.isMentor,
     menteesByCourseDataStatus: course.menteesByCourseDataStatus,
+    mentorCheckDataStatus: course.mentorCheckDataStatus,
   }));
   const { courseId, studentId } = useParams();
   const isMentorView = Boolean(studentId);
@@ -129,7 +132,7 @@ const Course: FC = () => {
     dispatch(courseActions.getModules({ courseId: Number(courseId) }));
     dispatch(courseActions.getCategories());
 
-    if (user && !isMentorView) {
+    if (user) {
       dispatch(
         courseActions.getMentorsByCourseId({
           courseId: Number(courseId),
@@ -137,29 +140,25 @@ const Course: FC = () => {
         }),
       );
       dispatch(courseActions.getMenteesByCourseId({ id: Number(courseId) }));
-    }
-  }, [dispatch, courseId, user]);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
       dispatch(
         courseActions.getMentor({
           courseId: Number(courseId),
           menteeId: user.id,
         }),
       );
+      dispatch(courseActions.updateIsMentorChoosingEnabled(Number(courseId)));
     }
-    dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
-  }, [user]);
+
+    return () => {
+      dispatch(courseActions.disableMentorChoosing());
+      dispatch(courseActions.cleanMentor());
+      dispatch(courseActions.cleanMentors());
+    };
+  }, [dispatch, courseId, user]);
 
   useEffect(() => {
     if (course && user) {
       dispatch(courseActions.updateIsMentorBecomingEnabled());
-    }
-
-    if (course) {
-      dispatch(courseActions.updateIsMentorChoosingEnabled());
     }
 
     return () => {
@@ -178,6 +177,13 @@ const Course: FC = () => {
     }
   }, [studentId, courseId]);
 
+  useEffect(() => {
+    if (user) {
+      dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
+    }
+  }, [user]);
+
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
@@ -189,11 +195,29 @@ const Course: FC = () => {
   }
 
   const isUserAuthorized = Boolean(user);
-  const canSeeStudents =
-    isMentor &&
-    !isMentorView &&
-    menteesByCourseDataStatus === DataStatus.FULFILLED;
-  const canChooseMentor = isMentorChoosingEnabled && !isMentorView;
+
+  const handleMentorOrStudentComponentOutput = (): ReactNode => {
+    if (isMentor) {
+      return (
+        menteesByCourseDataStatus === DataStatus.FULFILLED && (
+          <MyStudentsContainer mentees={mentees} courseId={Number(courseId)} />
+        )
+      );
+    }
+
+    if (isMentorChoosingEnabled) {
+      return <ChooseMentorButton onClick={handleChooseMentorModalToggle} />;
+    }
+
+    return (
+      mentor && (
+        <MyMentor
+          mentor={mentor}
+          onMentorChange={handleChooseMentorModalToggle}
+        />
+      )
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -253,23 +277,9 @@ const Course: FC = () => {
         </div>
       </div>
 
-      {isUserAuthorized && (
+      {isUserAuthorized && mentorCheckDataStatus === DataStatus.FULFILLED && (
         <div className={styles.additional}>
-          {mentor && (
-            <MyMentor
-              mentor={mentor}
-              onMentorChange={handleChooseMentorModalToggle}
-            />
-          )}
-          {canSeeStudents && (
-            <MyStudentsContainer
-              mentees={mentees}
-              courseId={Number(courseId)}
-            />
-          )}
-          {canChooseMentor && (
-            <ChooseMentorButton onClick={handleChooseMentorModalToggle} />
-          )}
+          {handleMentorOrStudentComponentOutput()}
         </div>
       )}
     </div>

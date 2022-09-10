@@ -1,5 +1,5 @@
 backend:
-  - any ['backend/**/*', '!backend/tests/**/*']
+  - any: ['backend/**/*', '!backend/tests/**/*']
 
 beanstalk: .ebextensions/**/*
 

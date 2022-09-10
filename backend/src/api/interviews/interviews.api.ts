@@ -98,7 +98,11 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       body: interviewUpdateValidationSchema,
       params: interviewUpdateParamsValidationSchema,
     },
-    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEWS,
+      PermissionKey.MANAGE_INTERVIEW,
+    ),
     async handler(
       req: FastifyRequest<{
         Body: InterviewsUpdateRequestDto;
