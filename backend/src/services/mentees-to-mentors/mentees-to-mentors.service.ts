@@ -16,19 +16,9 @@ class MenteesToMentors {
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
 
-  public async createMenteesToMentors(
+  public createMenteesToMentors(
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {
-    const { courseId, menteeId } = menteesToMentors;
-    const isMentee = await this.checkIsMentee({
-      courseId,
-      menteeId,
-    });
-
-    if (isMentee) {
-      return this.#menteesToMentorsRepository.changeMentor(menteesToMentors);
-    }
-
     return this.#menteesToMentorsRepository.create(menteesToMentors);
   }
 
@@ -43,6 +33,15 @@ class MenteesToMentors {
     menteeId: number;
   }): Promise<boolean> {
     return this.#menteesToMentorsRepository.checkIsMentee(menteesToMentors);
+  }
+
+  public getUncompletedByCourseIdAndMenteeId(menteesToMentors: {
+    courseId: number;
+    menteeId: number;
+  }): Promise<MenteesToMentorsResponseDto | null> {
+    return this.#menteesToMentorsRepository.getUncompletedByCourseIdAndMenteeId(
+      menteesToMentors,
+    );
   }
 
   public getByCourseIdAndMenteeId(menteesToMentors: {
