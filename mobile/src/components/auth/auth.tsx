@@ -1,14 +1,14 @@
 import React, { FC, ReactElement } from 'react';
 
 import logo from '~/assets/images/logo.png';
-import { AuthScreenName } from '~/common/enums/enums';
+import { AuthScreenName, RootScreenName } from '~/common/enums/enums';
 import {
   UserSignInRequestDto,
   UserSignUpRequestDto,
 } from '~/common/types/types';
 import { Image, ScrollView, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
-import { useAppDispatch, useAppRoute } from '~/hooks/hooks';
+import { useAppDispatch, useAppNavigate, useAppRoute } from '~/hooks/hooks';
 import { authActions } from '~/store/actions';
 
 import { SignInForm, SignUpForm } from './components/components';
@@ -17,13 +17,20 @@ import { styles } from './styles';
 const Auth: FC = () => {
   const { name } = useAppRoute();
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
 
-  const handleSignInSubmit = (payload: UserSignInRequestDto): void => {
-    dispatch(authActions.signIn(payload));
+  const handleSignInSubmit = async (
+    payload: UserSignInRequestDto,
+  ): Promise<void> => {
+    await dispatch(authActions.signIn(payload)).unwrap();
+    navigation.navigate(RootScreenName.APP);
   };
 
-  const handleSignUpSubmit = (payload: UserSignUpRequestDto): void => {
-    dispatch(authActions.signUp(payload));
+  const handleSignUpSubmit = async (
+    payload: UserSignUpRequestDto,
+  ): Promise<void> => {
+    await dispatch(authActions.signUp(payload)).unwrap();
+    navigation.navigate(RootScreenName.APP);
   };
 
   const getScreen = (screen: string): ReactElement | null => {

@@ -5,7 +5,7 @@ import {
   AppFontFamily,
   CourseScreenName,
 } from '~/common/enums/enums';
-import { TabNavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import {
   CourseStudents,
   MyMentor,
@@ -31,21 +31,24 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const COURSE_TAB_ITEMS: TabNavigationItem[] = [
+const COURSE_TAB_ITEMS: NavigationItem[] = [
   {
     name: CourseScreenName.ABOUT,
     component: Course,
     permissions: [],
+    isAuthRequired: false,
   },
   {
     name: CourseScreenName.MY_MENTOR,
     component: MyMentor,
     permissions: [],
+    isAuthRequired: true,
   },
   {
     name: CourseScreenName.MY_STUDENTS,
     component: CourseStudents,
     permissions: [],
+    isAuthRequired: true,
   },
 ];
 
