@@ -10,18 +10,18 @@ type Props = {
   onSendOnReview: (payload: TaskNoteFormRequestDto) => void;
   onApprove: (payload: TaskNoteFormRequestDto) => void;
   onReject: (payload: TaskNoteFormRequestDto) => void;
-  isMentor: boolean;
+  isMentorView: boolean;
 };
 
 const TaskManipulate: FC<Props> = ({
   onSendOnReview,
   onApprove,
   onReject,
-  isMentor,
+  isMentorView,
 }) => {
   return (
     <div>
-      {isMentor ? (
+      {isMentorView ? (
         <TaskManipulateMentor
           defaultValues={CREATE_NOTE_DEFAULT_VALUES}
           onApprove={onApprove}

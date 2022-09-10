@@ -1,4 +1,4 @@
-import { Model, RelationMappings } from 'objection';
+import { Model, Modifiers, QueryBuilder, RelationMappings } from 'objection';
 
 import { DbTableName, UserGender } from '~/common/enums/enums';
 
@@ -15,6 +15,10 @@ class UserDetails extends Abstract {
   public 'dateOfBirth': string | null;
 
   public 'userId': number;
+
+  public 'moneyBalance': number;
+
+  public 'telegramUsername': string | null;
 
   public static override get relationMappings(): RelationMappings {
     return {
@@ -39,6 +43,24 @@ class UserDetails extends Abstract {
 
   public static override get tableName(): string {
     return DbTableName.USER_DETAILS;
+  }
+
+  public static override get modifiers(): Modifiers<QueryBuilder<UserDetails>> {
+    return {
+      withoutMoneyBalance(builder): QueryBuilder<UserDetails> {
+        return builder.select(
+          'id',
+          'gender',
+          'createdAt',
+          'updatedAt',
+          'dateOfBirth',
+          'userId',
+          'fullName',
+          'telegramUsername',
+          'avatarFileId',
+        );
+      },
+    };
   }
 }
 

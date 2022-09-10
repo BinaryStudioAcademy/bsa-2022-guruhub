@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: 30,
+    minWidth: 120,
+    minHeight: 40,
   },
   buttonSmall: {
     paddingVertical: 8,

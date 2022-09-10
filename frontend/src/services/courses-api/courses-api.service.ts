@@ -153,6 +153,26 @@ class CoursesApi {
     );
   }
 
+  public changeMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
+      },
+    );
+  }
+
   public checkIsMentor({
     courseId,
   }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {

@@ -8,20 +8,20 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   margin-bottom: 10px;
   column-gap: 30px;
   color-scheme: dark;
 }
 
 .formWrapper {
-  margin: 60px 0 20px;
+  margin: 20px 0;
   color: var(--typography-text-100-inverse);
 }
 
 .formContent {
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
   padding: 24px 0;
   column-gap: 20px;
 }
@@ -54,4 +54,21 @@
 .saveBtn {
   min-width: 85px;
   padding: 15px 20px;
+}
+
+.formInput {
+  background: var(--background-gray-200);
+}
+
+.fieldWrapper {
+  max-width: 240px;
+  margin-bottom: auto;
+}
+
+.formSelect div[class$='-control'] {
+  background: var(--background-gray-200);
+}
+
+.formSelect label {
+  font-weight: 500;
 }

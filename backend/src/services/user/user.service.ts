@@ -1,3 +1,4 @@
+import { ExceptionMessage, HttpCode } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -80,6 +81,7 @@ class User {
       fullName,
       gender: null,
       dateOfBirth: null,
+      telegramUsername: null,
     });
 
     return {
@@ -141,9 +143,16 @@ class User {
       throw new UsersError();
     }
 
-    const deletedUsersCount = await this.#userRepository.delete(idToDelete);
+    try {
+      const deletedUsersCount = await this.#userRepository.delete(idToDelete);
 
-    return Boolean(deletedUsersCount);
+      return Boolean(deletedUsersCount);
+    } catch {
+      throw new UsersError({
+        status: HttpCode.INTERNAL_SERVER_ERROR,
+        message: ExceptionMessage.USER_CAN_NOT_BE_DELETED,
+      });
+    }
   }
 }
 

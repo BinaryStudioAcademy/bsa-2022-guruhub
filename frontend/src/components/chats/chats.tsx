@@ -1,10 +1,11 @@
-import { DataStatus, SearchValue } from 'common/enums/enums';
+import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useNavigate,
   useUserSearch,
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
@@ -21,15 +22,23 @@ const Chats: FC = () => {
     chatId,
     currentChatMessages,
     chatOpponent,
+    fetchLastMessagesDataStatus,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
     user: auth.user,
+    fetchLastMessagesDataStatus: chats.fetchLastMessagesDataStatus,
     chatDataStatus: chats.dataStatus,
     lastMessages: chats.lastMessages,
     chatId: chats.currentChatId,
     currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
   }));
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate(AppRoute.ROOT);
+  }
 
   const dispatch = useAppDispatch();
 
@@ -59,6 +68,7 @@ const Chats: FC = () => {
       <div className={styles.lastMessagesColumn}>
         <SearchUser searchParams={searchParams} onSearch={handleSearch} />
         <ChatsList
+          fetchLastMessagesDataStatus={fetchLastMessagesDataStatus}
           chatsItems={lastMessages}
           currentUserId={(user as UserWithPermissions).id}
           onChatMessagesLoad={handleChatMessagesLoad}

@@ -45,7 +45,6 @@ class InterviewsApi {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           page,
           count,
@@ -57,9 +56,6 @@ class InterviewsApi {
   public getById(id: number): Promise<InterviewsGetAllItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
@@ -70,9 +66,6 @@ class InterviewsApi {
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
         InterviewsApiPath.INTERVIEWERS
       }${InterviewsApiPath.CATEGORIES}${InterviewsApiPath.ROOT}${categoryId}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
@@ -97,7 +90,6 @@ class InterviewsApi {
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}/${interviewId}${
         InterviewsApiPath.NOTES
       }`,
-      { method: HttpMethod.GET },
     );
   }
 
@@ -135,9 +127,6 @@ class InterviewsApi {
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
         InterviewsApiPath.INTERVIEWEE
       }/${payload}${InterviewsApiPath.CATEGORIES}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
@@ -153,7 +142,6 @@ class InterviewsApi {
         InterviewsApiPath.ROOT
       }${interviewId}${InterviewsApiPath.OTHER}`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           count,
           page,

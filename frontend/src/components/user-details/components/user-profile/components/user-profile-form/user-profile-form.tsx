@@ -1,11 +1,11 @@
-import { DataStatus, UserGender } from 'common/enums/enums';
+import { DataStatus, UserAge, UserGender } from 'common/enums/enums';
 import {
   FC,
   SelectorOption,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Datepicker, Input, Select } from 'components/common/common';
-import { getNameOf } from 'helpers/helpers';
+import { getNameOf, subtractYears } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
@@ -45,6 +45,7 @@ const UserProfileForm: FC = () => {
         fullName: userDetails.fullName,
         gender: userDetails.gender ?? UserGender.MALE,
         dateOfBirth: userDetails.dateOfBirth ?? null,
+        telegramUsername: userDetails.telegramUsername ?? '',
       });
     }
   }, [userDetails]);
@@ -63,6 +64,14 @@ const UserProfileForm: FC = () => {
     return getGenderOptions();
   }, []);
 
+  const maxDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MIN);
+  }, []);
+
+  const minDate = useMemo<Date>(() => {
+    return subtractYears(new Date(), UserAge.MAX);
+  }, []);
+
   return (
     <div>
       {dataStatus !== DataStatus.PENDING && (
@@ -79,22 +88,43 @@ const UserProfileForm: FC = () => {
                 control={control}
                 errors={errors}
                 placeholder="Enter your full name"
+                inputClassName={styles.formInput}
               />
-              <Datepicker
-                control={control}
-                errors={errors}
-                name={getNameOf<UserDetailsUpdateInfoRequestDto>('dateOfBirth')}
-                label="Birth date"
-              />
+              <div className={styles.fieldWrapper}>
+                <Datepicker
+                  control={control}
+                  name={getNameOf<UserDetailsUpdateInfoRequestDto>(
+                    'dateOfBirth',
+                  )}
+                  label="Birth date"
+                  placeholder="Enter date of birth"
+                  maxDate={maxDate}
+                  minDate={minDate}
+                />
+              </div>
             </div>
             <div className={styles.grid}>
-              <Select
-                label="Gender"
-                options={genderOptions}
-                name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
+              <Input
+                type="text"
+                label="Telegram Username"
+                name={getNameOf<UserDetailsUpdateInfoRequestDto>(
+                  'telegramUsername',
+                )}
                 control={control}
                 errors={errors}
+                placeholder="Enter your telegram username"
+                inputClassName={styles.formInput}
               />
+              <div className={styles.fieldWrapper}>
+                <Select
+                  label="Gender"
+                  options={genderOptions}
+                  name={getNameOf<UserDetailsUpdateInfoRequestDto>('gender')}
+                  control={control}
+                  errors={errors}
+                  className={styles.formSelect}
+                />
+              </div>
             </div>
           </div>
           <div className={styles.buttonWrapper}>

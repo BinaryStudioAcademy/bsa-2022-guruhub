@@ -96,7 +96,7 @@ const History: FC = () => {
         {isAddButtonShown && (
           <Button
             label="Add"
-            variant={ButtonVariant.SECONDARY}
+            variant={ButtonVariant.PRIMARY}
             onPress={toggleInput}
             size="small"
             icon="plus"
@@ -115,7 +115,7 @@ const History: FC = () => {
           />
           <View style={styles.buttonContainer}>
             <Stack isHorizontal space={20}>
-              <View style={styles.button}>
+              <View>
                 <Button
                   label="Cancel"
                   variant={ButtonVariant.SECONDARY}
@@ -123,7 +123,7 @@ const History: FC = () => {
                   onPress={toggleInput}
                 />
               </View>
-              <View style={styles.button}>
+              <View>
                 <Button
                   label="Submit"
                   variant={ButtonVariant.PRIMARY}
