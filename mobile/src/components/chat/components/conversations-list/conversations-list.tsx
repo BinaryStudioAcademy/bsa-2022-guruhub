@@ -11,7 +11,7 @@ import { styles } from './styles';
 
 type Props = {
   currentUserId: number;
-  chatsItems?: ChatMessageGetAllItemResponseDto[];
+  chatsItems: ChatMessageGetAllItemResponseDto[];
   onChatMessagesLoad: (chatId: string) => void;
 };
 
