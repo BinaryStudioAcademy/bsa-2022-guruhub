@@ -4,7 +4,7 @@ import {
   PaymentCurrency,
   PaymentMethod,
   PaymentMode,
-  PaymentUnits,
+  PaymentUnit,
 } from '~/common/enums/enums';
 
 const QUANTITY_OF_ITEMS = 1;
@@ -48,7 +48,7 @@ class Stripe {
             product_data: {
               name: OPERATION_NAME,
             },
-            unit_amount: amountOfMoney * PaymentUnits.CENTS_IN_ONE_DOLLAR,
+            unit_amount: amountOfMoney * PaymentUnit.CENTS_IN_ONE_DOLLAR,
           },
           quantity: QUANTITY_OF_ITEMS,
         },

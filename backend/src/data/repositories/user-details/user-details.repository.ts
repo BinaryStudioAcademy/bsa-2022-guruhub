@@ -63,12 +63,14 @@ class UserDetails {
   }
 
   public updateMoneyBalance(
-    id: number,
+    userId: number,
     newMoneyBalance: number,
   ): Promise<UserDetailsWithMoneyBalanceDto | null> {
     return this.#UserDetailsModel
       .query()
-      .patchAndFetchById(id, {
+      .select()
+      .where('userId', userId)
+      .patchAndFetch({
         moneyBalance: newMoneyBalance,
       })
       .castTo<UserDetailsWithMoneyBalanceDto>()

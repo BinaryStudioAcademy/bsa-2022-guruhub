@@ -31,7 +31,7 @@ export {
   PaymentCurrency,
   PaymentMethod,
   PaymentMode,
-  PaymentUnits,
+  PaymentUnit,
 } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TransactionStatus } from './transaction/transaction';
