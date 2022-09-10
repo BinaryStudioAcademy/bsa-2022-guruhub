@@ -1,3 +1,4 @@
+import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetEmptyChatDto,
@@ -5,6 +6,7 @@ import {
   FC,
   UsersGetResponseDto,
 } from 'common/types/types';
+import { Spinner } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
 
 import { Chat } from './components/components';
@@ -18,6 +20,7 @@ type Props = {
     chatId: string,
     chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
   ) => void;
+  fetchLastMessagesDataStatus: DataStatus;
 };
 
 const ChatsList: FC<Props> = ({
@@ -25,8 +28,13 @@ const ChatsList: FC<Props> = ({
   chatsItems,
   onChatMessagesLoad,
   emptyChats,
+  fetchLastMessagesDataStatus,
 }) => {
-  const hasChatItems = Boolean(chatsItems.length || emptyChats.length);
+  const hasChatItems = Boolean(chatsItems.length) || Boolean(emptyChats.length);
+
+  if (fetchLastMessagesDataStatus === DataStatus.PENDING) {
+    return <Spinner />;
+  }
 
   return (
     <div className={styles.listWrapper}>

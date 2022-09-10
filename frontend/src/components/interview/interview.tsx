@@ -1,10 +1,16 @@
-import { DataStatus, PaginationDefaultValue } from 'common/enums/enums';
+import {
+  DataStatus,
+  PaginationDefaultValue,
+  PermissionKey,
+} from 'common/enums/enums';
 import {
   FC,
   InterviewsGetAllItemResponseDto,
   InterviewsUpdateRequestDto,
+  UserWithPermissions,
 } from 'common/types/types';
 import { Spinner } from 'components/common/common';
+import { checkHasPermission } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -35,6 +41,7 @@ const Interview: FC = () => {
     interview,
     dataStatus,
     interviewers,
+    user,
   } = useAppSelector((state) => ({
     interview: state.interview.interview,
     dataStatus: state.interview.dataStatus,
@@ -42,9 +49,14 @@ const Interview: FC = () => {
     notes: state.interview.notes,
     otherInterviews: state.interview.otherInterviews,
     totalOtherInterviewsNumber: state.interview.totalOtherInterviewsNumber,
+    user: state.auth.user,
   }));
   const [isInputOpen, setIsInputOpen] = useState<boolean>(false);
   const hasInterview = Boolean(interview);
+  const hasPermissionToSelectInterviewer = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
+    userPermissions: (user as UserWithPermissions).permissions,
+  });
 
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
@@ -55,12 +67,14 @@ const Interview: FC = () => {
       return;
     }
 
-    dispatch(
-      interviewActions.getInterviewersByCategory({
-        categoryId: (interview as InterviewsGetAllItemResponseDto)
-          .courseCategory.id,
-      }),
-    );
+    if (hasPermissionToSelectInterviewer) {
+      dispatch(
+        interviewActions.getInterviewersByCategory({
+          categoryId: (interview as InterviewsGetAllItemResponseDto)
+            .courseCategory.id,
+        }),
+      );
+    }
   }, [hasInterview]);
 
   const handleUpdateInterview = (payload: InterviewsUpdateRequestDto): void => {
@@ -102,6 +116,7 @@ const Interview: FC = () => {
             interview={interview as InterviewsGetAllItemResponseDto}
             handleUpdateInterview={handleUpdateInterview}
             interviewers={interviewers}
+            hasPermissionToSelectInterviewer={hasPermissionToSelectInterviewer}
           />
         )}
         <h1>Other Applications</h1>

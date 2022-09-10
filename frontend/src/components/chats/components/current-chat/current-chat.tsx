@@ -23,8 +23,7 @@ const CurrentChat: FC<Props> = ({
   if (!chatId) {
     return (
       <h1 className={styles.emptyChatMessage}>
-        {' '}
-        There is no active chat selected{' '}
+        There is no active chat selected
       </h1>
     );
   }

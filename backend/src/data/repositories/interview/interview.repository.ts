@@ -144,7 +144,7 @@ class Interview {
 
   public update(interview: {
     id: number;
-    interviewerUserId: number;
+    interviewerUserId: number | null;
     status: InterviewStatus;
     interviewDate: string | null;
   }): Promise<InterviewsByIdResponseDto> {

@@ -19,6 +19,7 @@ type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
   emptyChats: ChatMessageGetEmptyChatDto[];
+  fetchLastMessagesDataStatus: DataStatus;
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
@@ -29,6 +30,7 @@ const initialState: State = {
   dataStatus: DataStatus.IDLE,
   lastMessages: [],
   emptyChats: [],
+  fetchLastMessagesDataStatus: DataStatus.IDLE,
   currentChatMessages: [],
   currentChatId: null,
   hasUnreadMessages: false,
@@ -37,15 +39,15 @@ const initialState: State = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getLastMessages.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.fetchLastMessagesDataStatus = DataStatus.PENDING;
   });
   builder.addCase(getLastMessages.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
+    state.fetchLastMessagesDataStatus = DataStatus.FULFILLED;
     state.lastMessages = action.payload.items;
     state.emptyChats = action.payload.emptyChats;
   });
   builder.addCase(getLastMessages.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.fetchLastMessagesDataStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(getMessages.pending, (state) => {

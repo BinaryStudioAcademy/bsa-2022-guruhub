@@ -2,42 +2,49 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { FC } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import {
-  AppNavigationParamList,
-  DrawerNavigationItem,
-} from '~/common/types/types';
+import { AppNavigationParamList } from '~/common/types/types';
+import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
-import { getAllowedScreens } from '~/navigation/app/helpers/helpers';
 
-import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
+import { DrawerNavigationItem } from './common/types/drawer-navigation-item.type';
 import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
 
 const App: FC = () => {
-  const userPermissions = useAppSelector(
-    (state) => state.auth.user?.permissions ?? [],
-  );
+  const { user } = useAppSelector((state) => state.auth);
+
+  const userPermissions = user?.permissions ?? [];
 
   const allowedScreens = useMemo(() => {
-    const screens: DrawerNavigationItem[] = NAVIGATION_ITEMS.flatMap(
-      (item) => item.subroutes,
+    const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
+
+    const permittedScreens = getPermittedScreens(
+      screensByAuth,
+      userPermissions,
     );
 
-    return getAllowedScreens(screens, userPermissions);
-  }, [userPermissions]);
+    return permittedScreens;
+  }, [user]);
+
+  const drawerItems = allowedScreens.filter((item: DrawerNavigationItem) =>
+    Boolean(item.drawerGroup),
+  );
 
   return (
     <Drawer.Navigator
       initialRouteName={AppScreenName.COURSES}
       screenOptions={SCREEN_OPTIONS}
-      drawerContent={(props): JSX.Element => <DrawerContent {...props} />}
+      drawerContent={(props): JSX.Element => (
+        <DrawerContent {...props} items={drawerItems} />
+      )}
     >
       {allowedScreens.map((screen) => {
         return (
           <Drawer.Screen
             key={screen.name}
-            name={screen.name}
+            name={screen.name as AppScreenName}
             component={screen.component}
           />
         );
