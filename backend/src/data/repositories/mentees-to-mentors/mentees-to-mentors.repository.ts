@@ -118,6 +118,7 @@ class MenteesToMentors {
   }: MenteesToMentorsRequestDto): Promise<boolean> {
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
+      .select(1)
       .where({ courseId })
       .andWhere({ menteeId })
       .andWhere({ mentorId })
