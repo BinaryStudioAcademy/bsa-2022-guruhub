@@ -75,7 +75,7 @@ class Course {
     };
   }
 
-  public async getAllCoursesStudying(
+  public getAllCoursesStudying(
     userId: number,
   ): Promise<CourseGetResponseDto[]> {
     return this.#CourseModel

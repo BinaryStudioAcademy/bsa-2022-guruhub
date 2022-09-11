@@ -38,12 +38,6 @@ const MyCourses: FC = () => {
 
   useEffect(() => {
     dispatch(myCoursesActions.getCoursesStudying());
-    dispatch(
-      myCoursesActions.getCoursesMentoring({
-        page,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
-      }),
-    );
   }, [dispatch]);
 
   useEffect(() => {
@@ -56,22 +50,16 @@ const MyCourses: FC = () => {
   }, [page]);
 
   const handleEdit = (course: CourseUpdateMentoringDto): void => {
-    dispatch(myCoursesActions.updateCoursesMentoring(course)).then(() => {
-      dispatch(
-        myCoursesActions.getCoursesMentoring({
-          page,
-          count: PaginationDefaultValue.DEFAULT_COUNT,
-        }),
-      );
-    });
+    dispatch(myCoursesActions.updateCoursesMentoring(course));
   };
 
   const columns = useMemo<Column<CoursesMentoringTableRow>[]>(() => {
     return getCoursesMentoringColumns(handleEdit);
   }, []);
 
-  const data: CoursesMentoringTableRow[] =
-    getCoursesMentoringRows(coursesMentoring);
+  const data = useMemo<CoursesMentoringTableRow[]>(() => {
+    return getCoursesMentoringRows(coursesMentoring);
+  }, [coursesMentoring]);
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;

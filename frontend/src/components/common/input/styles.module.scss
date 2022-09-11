@@ -25,6 +25,10 @@
   appearance: none;
 }
 
+.input[type='number'] {
+  appearance: textfield;
+}
+
 .input.error {
   border: 1px solid var(--support-error-red-100);
 }

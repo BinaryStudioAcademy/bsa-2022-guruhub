@@ -38,14 +38,15 @@ const getCoursesMentoring = createAsyncThunk<
 });
 
 const updateCoursesMentoring = createAsyncThunk<
-  void,
+  CourseUpdateMentoringDto,
   CourseUpdateMentoringDto,
   AsyncThunkConfig
 >(ActionType.UPDATE_MENTORING_COURSES, async (payload, { extra }) => {
   const { coursesApi, notification } = extra;
-
   await coursesApi.updateCoursesMentoring(payload);
   notification.success(NotificationMessage.COURSES_MENTORING_UPDATE);
+
+  return payload;
 });
 
 export { getCoursesMentoring, getCoursesStudying, updateCoursesMentoring };

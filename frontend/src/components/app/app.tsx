@@ -100,7 +100,11 @@ const App: FC = () => {
         />
         <Route
           path={AppRoute.MY_COURSES}
-          element={<AuthorizedProtectedRoute component={<MyCourses />} />}
+          element={
+            <AuthorizedWrapper>
+              <MyCourses />
+            </AuthorizedWrapper>
+          }
         />
         <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}

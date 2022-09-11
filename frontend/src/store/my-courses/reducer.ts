@@ -47,8 +47,16 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getCoursesMentoring.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
-  builder.addCase(updateCoursesMentoring.fulfilled, (state) => {
+  builder.addCase(updateCoursesMentoring.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
+    const foundIndex = state.coursesMentoring.findIndex(
+      (course) => course.id == payload.courseId,
+    );
+    const courseToUpdate = state.coursesMentoring[foundIndex];
+    state.coursesMentoring[foundIndex] = {
+      ...courseToUpdate,
+      maxStudentsCount: payload.maxStudentsCount,
+    };
   });
   builder.addCase(updateCoursesMentoring.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
