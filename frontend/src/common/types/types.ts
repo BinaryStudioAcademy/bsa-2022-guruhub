@@ -1,4 +1,5 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
+export { type BillingReplenishParamsDto } from './billing/billing';
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,

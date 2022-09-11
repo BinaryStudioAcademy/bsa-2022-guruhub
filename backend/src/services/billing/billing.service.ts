@@ -42,7 +42,7 @@ class Billing {
   public async replenish(
     userId: number,
     amountOfMoney: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+  ): Promise<UserDetailsWithMoneyBalanceDto> {
     const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
       userId,
     );
@@ -56,12 +56,12 @@ class Billing {
       return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
     }
 
-    return null;
+    return userWithBalance.userDetails;
   }
 
   public async withdraw(
     userId: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto | null> {
+  ): Promise<UserDetailsWithMoneyBalanceDto> {
     const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
       userId,
     );
@@ -76,7 +76,7 @@ class Billing {
       return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
     }
 
-    return null;
+    return userWithBalance.userDetails;
   }
 
   public makeTransaction(

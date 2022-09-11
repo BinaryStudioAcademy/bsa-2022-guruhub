@@ -1,6 +1,7 @@
 import { BillingApiPath } from 'common/enums/api/api';
 import { ApiPath, ContentType, HttpMethod } from 'common/enums/enums';
 import {
+  BillingReplenishParamsDto,
   UserDetailsWithMoneyBalanceDto,
   UserGetResponseWithMoneyBalanceDto,
 } from 'common/types/types';
@@ -30,9 +31,9 @@ class BillingApi {
     );
   }
 
-  public replenish(
-    amountOfMoneyToReplenish: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto> {
+  public replenish({
+    amountOfMoneyToReplenish,
+  }: BillingReplenishParamsDto): Promise<UserDetailsWithMoneyBalanceDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.REPLENISH}`,
       {
