@@ -1,0 +1,3 @@
+const DEFAULT_REPLENISH_AMOUNTS: number[] = [10, 20, 50, 100];
+
+export { DEFAULT_REPLENISH_AMOUNTS };
