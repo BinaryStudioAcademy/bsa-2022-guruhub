@@ -50,7 +50,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(updateCoursesMentoring.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     const foundIndex = state.coursesMentoring.findIndex(
-      (course) => course.id == payload.courseId,
+      (course) => course.id === payload.courseId,
     );
     const courseToUpdate = state.coursesMentoring[foundIndex];
     state.coursesMentoring[foundIndex] = {
