@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 
 import defaultAvatar from '~/assets/images/avatar-default.png';
-import {
-  ChatMessageUserResponseDto,
-  UsersGetResponseDto,
-} from '~/common/types/types';
+import { ChatMessageUserResponseDto } from '~/common/types/types';
 import { OPPONENT_MESSAGE_SHORT_LENGTH } from '~/components/chat/common/constants/constants';
 import { Image, Pressable, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
@@ -15,7 +12,7 @@ type Props = {
   chatId: string;
   currentUserId: number;
   messageSenderId: number;
-  chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto;
+  chatOpponent: ChatMessageUserResponseDto;
   lastMessage?: string;
   lastMessageDate?: string;
   onPress: (chatId: string) => void;
