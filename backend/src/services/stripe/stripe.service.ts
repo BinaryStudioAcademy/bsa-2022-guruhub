@@ -1,13 +1,16 @@
 import StripeApi from 'stripe';
 
 import {
+  ExceptionMessage,
   PaymentCurrency,
   PaymentMethod,
   PaymentMode,
   PaymentUnit,
 } from '~/common/enums/enums';
+import { BillingError } from '~/exceptions/exceptions';
 
 const QUANTITY_OF_ITEMS = 1;
+const MINIMAL_SUM_OF_MONEY_TO_WITHDRAW = 1;
 const OPERATION_NAME = 'Replenish your funds on GuruHub';
 
 type Constructor = {
@@ -64,6 +67,12 @@ class Stripe {
     amount: number,
     currency: PaymentCurrency = PaymentCurrency.USD,
   ): Promise<StripeApi.Response<StripeApi.Payout>> {
+    if (amount < MINIMAL_SUM_OF_MONEY_TO_WITHDRAW) {
+      throw new BillingError({
+        message: ExceptionMessage.NOT_ENOUGH_FUNDS_TO_WITHDRAW,
+      });
+    }
+
     return this.#stripe.payouts.create({
       amount,
       currency,

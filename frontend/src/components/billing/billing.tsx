@@ -1,4 +1,4 @@
-import { AppRoute, DataStatus } from 'common/enums/enums';
+import { AppRoute, DataStatus, NotificationMessage } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, Spinner } from 'components/common/common';
 import {
@@ -7,6 +7,7 @@ import {
   useEffect,
   useNavigate,
 } from 'hooks/hooks';
+import { notification } from 'services/services';
 import { billingActions } from 'store/actions';
 
 import { DEFAULT_REPLENISH_AMOUNTS } from './common';
@@ -31,7 +32,14 @@ const Billing: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleWithdraw = (): void => {
-    dispatch(billingActions.withdraw());
+    if (
+      userWithMoneyBalance &&
+      userWithMoneyBalance?.userDetails.moneyBalance >= 1
+    ) {
+      dispatch(billingActions.withdraw());
+    } else {
+      notification.info(NotificationMessage.NOT_ENOUGH_FUNDS_TO_WITHDRAW);
+    }
   };
 
   const handleReplenish = (amountOfMoneyToReplenish: number): void => {

@@ -13,6 +13,7 @@ enum NotificationMessage {
   USER_DELETE = 'User has been successfully deleted!',
   PROFILE_DETAILS_UPDATE = 'Successful update!',
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
+  NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You need to have at least 1$ to withdraw your funds',
 }
 
 export { NotificationMessage };
