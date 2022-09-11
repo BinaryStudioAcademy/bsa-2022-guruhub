@@ -289,7 +289,7 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
     });
     const hasCategory = Boolean(course.category);
 
-    const canChooseMentor = !(isMentor || hasMentor || !hasCategory);
+    const canChooseMentor = !isMentor && !hasMentor && hasCategory;
 
     return canChooseMentor;
   },
