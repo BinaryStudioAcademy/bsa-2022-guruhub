@@ -2,17 +2,32 @@ import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
 import { BillingApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
 import { BillingReplenishParamsDto } from '~/common/types/types';
-import { billing as billingService } from '~/services/services';
+import {
+  billing as billingService,
+  user as userService,
+} from '~/services/services';
 import { billingReplenishParams as billingReplenishParamsValidationSchema } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
     billing: typeof billingService;
+    user: typeof userService;
   };
 };
 
 const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { billing: billingService } = opts.services;
+  const { billing: billingService, user: userService } = opts.services;
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: BillingApiPath.BALANCE,
+    async handler(req, rep) {
+      const { id } = req.user;
+      const userWithBalance = await userService.getByIdWithMoneyBalance(id);
+
+      rep.status(HttpCode.OK).send(userWithBalance);
+    },
+  });
 
   fastify.route({
     method: HttpMethod.POST,

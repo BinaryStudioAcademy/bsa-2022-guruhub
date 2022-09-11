@@ -148,6 +148,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.register(initBillingApi, {
     services: {
       billing,
+      user,
     },
     prefix: ApiPath.BILLING,
   });
