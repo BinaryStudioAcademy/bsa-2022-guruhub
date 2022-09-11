@@ -272,17 +272,24 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
   async (id, { extra, getState }) => {
     const {
       auth: { user },
-      course: { mentors },
+      course: { mentors, course },
     } = getState();
+
+    if (!course) {
+      return false;
+    }
+
+    const { coursesApi } = extra;
 
     const isMentor = mentors.some(
       (mentor) => mentor.id === (user as UserWithPermissions).id,
     );
-    const hasMentor = await extra.coursesApi.checkHasMentor({
+    const hasMentor = await coursesApi.checkHasMentor({
       courseId: id,
     });
+    const hasCategory = Boolean(course.category);
 
-    const canChooseMentor = !(isMentor || hasMentor);
+    const canChooseMentor = !(isMentor || hasMentor || !hasCategory);
 
     return canChooseMentor;
   },
