@@ -33,10 +33,7 @@ import {
 import { authActions, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import {
-  DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
-  GENDER_OPTIONS,
-} from './common/constants';
+import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common/constants';
 import { styles } from './styles';
 
 const Settings: FC = () => {
@@ -47,6 +44,10 @@ const Settings: FC = () => {
     dataStatus: userDetails.dataStatus,
   }));
 
+  const GENDER_OPTIONS = Object.values(UserGender).map((gender) => ({
+    label: gender,
+    value: gender,
+  }));
   const maxDate = subtractYears(new Date(), UserAge.MIN);
   const minDate = subtractYears(new Date(), UserAge.MAX);
 
