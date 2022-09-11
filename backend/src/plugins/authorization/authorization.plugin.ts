@@ -42,7 +42,8 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
       }
 
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
-      const hasToken = authToken && authToken !== 'null';
+      const TOKEN_NULL_VALUE = 'null';
+      const hasToken = authToken && authToken !== TOKEN_NULL_VALUE;
 
       if (!hasToken) {
         throw new InvalidCredentialsError(ExceptionMessage.UNAUTHORIZED_USER);

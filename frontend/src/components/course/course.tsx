@@ -195,10 +195,7 @@ const Course: FC = () => {
     }
   }, [user]);
 
-  if (
-    dataStatus === DataStatus.PENDING ||
-    mentorCheckDataStatus === DataStatus.PENDING
-  ) {
+  if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
 
