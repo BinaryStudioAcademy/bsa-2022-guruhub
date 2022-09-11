@@ -292,7 +292,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
   fastify.route({
     method: HttpMethod.GET,
-    url: CoursesApiPath.$ID_MENTEE_$ID_IS_MENTOR_CHECK,
+    url: CoursesApiPath.$ID_MENTEES_$ID_IS_MENTOR_CHECK,
     schema: { params: courseCheckIsMentorForStudentParamsValidationSchema },
     async handler(
       req: FastifyRequest<{
@@ -303,7 +303,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { courseId, menteeId } = req.params;
       const { id: mentorId } = req.user;
 
-      const isMentorForMentee = mentorService.checkIsMentorForMentee({
+      const isMentorForMentee = await mentorService.checkIsMentorForMentee({
         courseId,
         menteeId,
         mentorId,

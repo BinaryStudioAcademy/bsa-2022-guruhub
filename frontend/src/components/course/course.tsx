@@ -178,13 +178,27 @@ const Course: FC = () => {
   }, [studentId, courseId]);
 
   useEffect(() => {
+    if (isMentorView) {
+      dispatch(
+        courseActions.checkIsMentorForMentee({
+          courseId: Number(courseId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [studentId, courseId, isMentorView]);
+
+  useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
       dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
     }
   }, [user]);
 
-  if (dataStatus === DataStatus.PENDING) {
+  if (
+    dataStatus === DataStatus.PENDING ||
+    mentorCheckDataStatus === DataStatus.PENDING
+  ) {
     return <Spinner />;
   }
 
