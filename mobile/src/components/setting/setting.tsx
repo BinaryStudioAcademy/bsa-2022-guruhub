@@ -42,6 +42,7 @@ import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '
 import {
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
   GENDER_OPTIONS,
+  SELECTION_LIMIT,
 } from './common/constants';
 import { styles } from './styles';
 
@@ -60,7 +61,6 @@ const Settings: FC = () => {
 
   const maxDate = subtractYears(new Date(), UserAge.MIN);
   const minDate = subtractYears(new Date(), UserAge.MAX);
-  const selectionLimit = 1;
 
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
@@ -69,7 +69,7 @@ const Settings: FC = () => {
     });
 
   const handleChooseAvatar = async (): Promise<void> => {
-    const [image] = (await pickImage(selectionLimit)) ?? [];
+    const [image] = (await pickImage(SELECTION_LIMIT)) ?? [];
 
     if (!image) {
       return;
