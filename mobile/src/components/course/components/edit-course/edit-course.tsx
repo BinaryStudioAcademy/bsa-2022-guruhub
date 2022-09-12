@@ -69,7 +69,7 @@ const EditCourse: FC = () => {
     <View style={styles.container}>
       <EditCategoryDropdown
         categories={allCategories}
-        courseCategoryId={courseCategoryId}
+        defaultCategoryId={courseCategoryId}
         onSave={handleSelectNewCategory}
       />
     </View>

@@ -5,10 +5,13 @@ import {
   CourseUpdateCategoryRequestDto,
 } from '~/common/types/types';
 import { Button, Dropdown, View } from '~/components/common/common';
-import { useAppForm, useEffect } from '~/hooks/hooks';
+import { useAppForm } from '~/hooks/hooks';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import { getCategoriesOptions } from './helpers/helpers';
+import {
+  getCategoriesOptions,
+  getDefaultEditCourseCategoryPayload,
+} from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -24,19 +27,11 @@ const EditCategoryDropdown: FC<Props> = ({
 }) => {
   const categoriesOptions = getCategoriesOptions(categories);
 
-  const { control, handleSubmit, reset, errors } =
+  const { control, handleSubmit, errors } =
     useAppForm<CourseUpdateCategoryRequestDto>({
-      defaultValues: {},
+      defaultValues: getDefaultEditCourseCategoryPayload(defaultCategoryId),
       validationSchema: courseUpdateCategoryValidationSchema,
     });
-
-  useEffect(() => {
-    if (defaultCategoryId) {
-      reset({
-        newCategoryId: defaultCategoryId,
-      });
-    }
-  }, [defaultCategoryId]);
 
   return (
     <>
