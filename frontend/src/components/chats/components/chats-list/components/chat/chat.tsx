@@ -34,6 +34,7 @@ const Chat: FC<Props> = ({
 
   return (
     <button
+      type="button"
       className={getValidClasses(
         styles.chat,
         currentChatId === chatId && styles.selected,

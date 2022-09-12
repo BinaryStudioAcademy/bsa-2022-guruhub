@@ -45,12 +45,9 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
         rows={INITIAL_TEXT_AREA_ROWS}
         hasVisuallyHiddenLabel
       />
-      <Button
-        className={styles.submitButton}
-        label="Send"
-        type="submit"
-        btnColor="blue"
-      />
+      <div className={styles.sendButtonWrapper}>
+        <Button label="Send" type="submit" btnColor="blue" />
+      </div>
     </form>
   );
 };
