@@ -2,7 +2,7 @@ export { checkIsToday, getFormattedDate, subtractYears } from './date/date';
 export { debounce } from './debounce/debounce';
 export { getImageUri } from './image/image';
 export { getPermittedScreens, getScreensByAuth } from './navigation/navigation';
-export { groupByKey, sortByDates } from './object/object';
+export { groupByKey, sortByDate } from './object/object';
 export { checkHasPermission } from './permissions/permissions';
 export { getTextWithoutHTMLTags, sanitizeHTML } from './sanitize/sanitize';
 export { capitalize } from './strings/strings';
