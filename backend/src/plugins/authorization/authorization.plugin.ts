@@ -14,6 +14,8 @@ import {
   user as userService,
 } from '~/services/services';
 
+const TOKEN_NULL_VALUE = 'null';
+
 type Options = {
   routesWhiteList: WhiteRoute[];
   services: {
@@ -42,7 +44,6 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
       }
 
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
-      const TOKEN_NULL_VALUE = 'null';
       const hasToken = authToken && authToken !== TOKEN_NULL_VALUE;
 
       if (!hasToken) {
