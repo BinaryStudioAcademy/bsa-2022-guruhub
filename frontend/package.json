@@ -30,6 +30,7 @@
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
     "react-select": "5.4.0",
+    "react-stripe-checkout": "2.6.3",
     "react-table": "7.8.0",
     "react-toastify": "9.0.8"
   },
