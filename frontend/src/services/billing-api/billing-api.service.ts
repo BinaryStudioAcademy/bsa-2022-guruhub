@@ -33,13 +33,14 @@ class BillingApi {
 
   public replenish({
     amountOfMoneyToReplenish,
+    token,
   }: BillingReplenishParamsDto): Promise<UserDetailsWithMoneyBalanceDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.REPLENISH}`,
       {
         method: HttpMethod.POST,
         contentType: ContentType.JSON,
-        payload: JSON.stringify({ amountOfMoneyToReplenish }),
+        payload: JSON.stringify({ amountOfMoneyToReplenish, token }),
       },
     );
   }

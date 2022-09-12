@@ -28,6 +28,7 @@ export {
 export { PermissionKey } from './permissions/permissions';
 export { SearchValue } from './search/search';
 export { StringCase } from './string/string';
+export { PaymentUnit } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
 export { UserAge, UserGender } from './user/user';

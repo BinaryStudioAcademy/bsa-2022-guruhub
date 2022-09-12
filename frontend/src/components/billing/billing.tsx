@@ -7,10 +7,11 @@ import {
   useEffect,
   useNavigate,
 } from 'hooks/hooks';
+import { Token } from 'react-stripe-checkout';
 import { notification } from 'services/services';
 import { billingActions } from 'store/actions';
 
-import { DEFAULT_REPLENISH_AMOUNTS } from './common';
+import { DEFAULT_REPLENISH_AMOUNTS, REPLENISH_PUBLIC_KEY } from './common';
 import { ReplenishCardsList } from './components/components';
 import styles from './styles.module.scss';
 
@@ -42,8 +43,11 @@ const Billing: FC = () => {
     }
   };
 
-  const handleReplenish = (amountOfMoneyToReplenish: number): void => {
-    dispatch(billingActions.replenish({ amountOfMoneyToReplenish }));
+  const handleReplenish = (
+    amountOfMoneyToReplenish: number,
+    token: Token,
+  ): void => {
+    dispatch(billingActions.replenish({ amountOfMoneyToReplenish, token }));
   };
 
   useEffect(() => {
@@ -73,6 +77,7 @@ const Billing: FC = () => {
           </div>
         </div>
         <ReplenishCardsList
+          replenishKey={REPLENISH_PUBLIC_KEY}
           replenishingPrices={DEFAULT_REPLENISH_AMOUNTS}
           onReplenish={handleReplenish}
         />

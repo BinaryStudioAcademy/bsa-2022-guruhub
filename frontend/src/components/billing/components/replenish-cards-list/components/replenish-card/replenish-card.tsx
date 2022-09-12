@@ -1,32 +1,33 @@
+import { PaymentUnit } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button } from 'components/common/common';
+import StripeCheckout, { Token } from 'react-stripe-checkout';
 
 import styles from './styles.module.scss';
 
 type Props = {
+  replenishKey: string;
   amount: number;
-  onReplenish: (amountOfMoneyToReplenish: number) => void;
+  onReplenish: (amountOfMoneyToReplenish: number, token: Token) => void;
 };
 
-const ReplenishCard: FC<Props> = ({ amount, onReplenish }) => {
-  const handleReplenish = (): void => {
-    onReplenish(amount);
+const ReplenishCard: FC<Props> = ({ amount, onReplenish, replenishKey }) => {
+  const handleReplenish = (token: Token): void => {
+    onReplenish(amount, token);
   };
 
   return (
     <div className={styles.replenishCardWrapper}>
       <h1 className={styles.amount}>{`${amount}$`}</h1>
-      <Button label="Replenish" btnColor="blue" onClick={handleReplenish} />
-      {/* <StripeCheckout
-        stripeKey="pk_test_51LfPDzBwVLfGD9Cv51EPgpttHUKYfT5L9oB2FIR8LFHEKlBAs5wbPuiDru4gZpgthQvJIQ3Aq5lLcuvh7F3P5A1i00jsud9jbC"
-        label="Pay Now"
+      <StripeCheckout
+        stripeKey={replenishKey}
+        label="Replenish"
         name="Pay with credit card"
         billingAddress
         shippingAddress
-        amount={amount * 100}
+        amount={amount * PaymentUnit.CENTS_IN_ONE_DOLLAR}
         description={`Your total is ${amount}`}
-        token={}
-      /> */}
+        token={handleReplenish}
+      />
     </div>
   );
 };

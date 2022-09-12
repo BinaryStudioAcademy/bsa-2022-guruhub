@@ -1,3 +1,7 @@
+import { ENV } from 'common/enums/enums';
+
+const REPLENISH_PUBLIC_KEY = ENV.REPLENISH_PUBLIC_KEY;
+
 const DEFAULT_REPLENISH_AMOUNTS: number[] = [10, 20, 50, 100];
 
-export { DEFAULT_REPLENISH_AMOUNTS };
+export { DEFAULT_REPLENISH_AMOUNTS, REPLENISH_PUBLIC_KEY };

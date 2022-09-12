@@ -20,17 +20,19 @@ const getUserWithMoneyBalance = createAsyncThunk<
 });
 
 const replenish = createAsyncThunk<
-  UserDetailsWithMoneyBalanceDto,
+  void,
   BillingReplenishParamsDto,
   AsyncThunkConfig
->(ActionType.REPLENISH, async ({ amountOfMoneyToReplenish }, { extra }) => {
-  const { billingApi } = extra;
-  const userDetailsWithMoneyBalance = await billingApi.replenish({
-    amountOfMoneyToReplenish,
-  });
-
-  return userDetailsWithMoneyBalance;
-});
+>(
+  ActionType.REPLENISH,
+  async ({ amountOfMoneyToReplenish, token }, { extra }) => {
+    const { billingApi } = extra;
+    await billingApi.replenish({
+      amountOfMoneyToReplenish,
+      token,
+    });
+  },
+);
 
 const withdraw = createAsyncThunk<
   UserDetailsWithMoneyBalanceDto,
