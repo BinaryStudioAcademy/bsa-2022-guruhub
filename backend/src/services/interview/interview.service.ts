@@ -149,14 +149,14 @@ class Interview {
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, interviewUpdateInfoRequestDto, user } = data;
-    const { interviewerUserId, status, interviewDate } =
-      interviewUpdateInfoRequestDto;
+    const { status, interviewDate } = interviewUpdateInfoRequestDto;
 
     const hasInterviewsPermission = checkHasPermission({
       permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
       userPermissions: user.permissions,
     });
-    const hasInterviewerUserId = interviewerUserId !== undefined;
+    const hasInterviewerUserId =
+      'interviewerUserId' in interviewUpdateInfoRequestDto;
 
     if (!hasInterviewsPermission && hasInterviewerUserId) {
       throw new PermissionsError({
