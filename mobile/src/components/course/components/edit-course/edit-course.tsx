@@ -8,9 +8,15 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
 } from '~/hooks/hooks';
-import { categoryActions, coursesActions } from '~/store/actions';
+import {
+  categoryActions,
+  coursesActions,
+  coursesManagementActions,
+} from '~/store/actions';
 
 import { styles } from './styles';
 
@@ -18,18 +24,27 @@ const EditCourse: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { course, dataStatus, categories, categoryDataStatus } = useAppSelector(
-    ({ courses, categories }) => ({
-      course: courses.course,
-      dataStatus: courses.dataStatus,
-      categoryDataStatus: categories.dataStatus,
-      categories: categories.allCategories,
-    }),
-  );
+  const {
+    course,
+    dataStatus,
+    categories,
+    categoryDataStatus,
+    isFromCoursesManagement,
+  } = useAppSelector(({ courses, categories, coursesManagement }) => ({
+    course: courses.course,
+    dataStatus: courses.dataStatus,
+    categoryDataStatus: categories.dataStatus,
+    categories: categories.allCategories,
+    isFromCoursesManagement: coursesManagement.navigateFromCoursesManagement,
+  }));
   const courseCategoryId = course?.courseCategoryId;
 
-  const navigateToCourseScreen = (): void => {
-    navigation.navigate(AppScreenName.COURSE);
+  const toScreen = isFromCoursesManagement
+    ? AppScreenName.COURSE_MANAGEMENT
+    : AppScreenName.COURSE;
+
+  const goBack = (): void => {
+    navigation.navigate(toScreen);
   };
 
   const handleSelectNewCategory = (
@@ -44,16 +59,24 @@ const EditCourse: FC = () => {
           newCategoryId,
         }),
       );
-      navigateToCourseScreen();
+      goBack();
     }
   };
 
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <BackButton onPress={navigateToCourseScreen} />,
+      headerLeft: () => <BackButton onPress={goBack} />,
     });
     dispatch(categoryActions.getAllCategories());
-  }, []);
+  }, [isFromCoursesManagement]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        dispatch(coursesManagementActions.unsetNavigateFromCoursesManagement());
+      };
+    }, []),
+  );
 
   if (
     dataStatus === DataStatus.PENDING ||

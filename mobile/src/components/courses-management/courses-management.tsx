@@ -32,6 +32,7 @@ const CoursesManagement: FC = () => {
     useAppSelector((state) => state.coursesManagement);
 
   const navigateToEditCourse = (courseId: number): void => {
+    dispatch(coursesManagementActions.setNavigateFromCoursesManagement());
     dispatch(coursesActions.getCourse({ id: courseId }));
     navigation.navigate(AppScreenName.EDIT_COURSE);
   };

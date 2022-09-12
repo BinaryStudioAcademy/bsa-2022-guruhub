@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
@@ -20,4 +20,16 @@ const getCoursesWithCategory = createAsyncThunk<
   return courses;
 });
 
-export { getCoursesWithCategory };
+const setNavigateFromCoursesManagement = createAction(
+  ActionType.SET_NAVIGATE_FROM_COURSES_MANAGEMENT,
+);
+
+const unsetNavigateFromCoursesManagement = createAction(
+  ActionType.UNSET_NAVIGATE_FROM_COURSES_MANAGEMENT,
+);
+
+export {
+  getCoursesWithCategory,
+  setNavigateFromCoursesManagement,
+  unsetNavigateFromCoursesManagement,
+};
