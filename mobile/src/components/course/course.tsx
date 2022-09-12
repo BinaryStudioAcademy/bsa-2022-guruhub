@@ -48,7 +48,7 @@ const Course: FC = () => {
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
-    navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
+    navigation.navigate(AppScreenName.EDIT_COURSE);
   };
 
   const hasEditCategoryPermission = checkHasPermission({

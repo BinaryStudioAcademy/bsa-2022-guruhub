@@ -18,45 +18,42 @@ const EditCourse: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const {
-    courseCategoryId,
-    courseId,
-    dataStatus,
-    allCategories,
-    categoryDataStatus,
-  } = useAppSelector(({ courses, categories }) => ({
-    courseId: courses.course?.id,
-    courseCategoryId: courses.course?.courseCategoryId,
-    dataStatus: courses.dataStatus,
-    categoryDataStatus: categories.dataStatus,
-    allCategories: categories.allCategories,
-  }));
+  const { course, dataStatus, categories, categoryDataStatus } = useAppSelector(
+    ({ courses, categories }) => ({
+      course: courses.course,
+      dataStatus: courses.dataStatus,
+      categoryDataStatus: categories.dataStatus,
+      categories: categories.allCategories,
+    }),
+  );
+  const courseCategoryId = course?.courseCategoryId;
 
-  const navigateToCourseManagement = (): void => {
-    navigation.navigate(AppScreenName.COURSE_MANAGEMENT);
+  const navigateToCourseScreen = (): void => {
+    navigation.navigate(AppScreenName.COURSE);
   };
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackButton onPress={navigateToCourseManagement} />,
-    });
-    dispatch(categoryActions.getAllCategories());
-  }, []);
 
   const handleSelectNewCategory = (
     payload: CourseUpdateCategoryRequestDto,
   ): void => {
     const { newCategoryId } = payload;
 
-    if (courseId) {
+    if (course) {
       dispatch(
         coursesActions.updateCategory({
-          courseId,
+          courseId: course.id,
           newCategoryId,
         }),
       );
+      navigateToCourseScreen();
     }
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={navigateToCourseScreen} />,
+    });
+    dispatch(categoryActions.getAllCategories());
+  }, []);
 
   if (
     dataStatus === DataStatus.PENDING ||
@@ -68,7 +65,7 @@ const EditCourse: FC = () => {
   return (
     <View style={styles.container}>
       <EditCategory
-        categories={allCategories}
+        categories={categories}
         defaultCategoryId={courseCategoryId}
         onSave={handleSelectNewCategory}
       />

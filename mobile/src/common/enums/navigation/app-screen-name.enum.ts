@@ -10,7 +10,6 @@ enum AppScreenName {
   ADD_COURSE = 'Add new course',
   COURSE = 'Course',
   INTERVIEWS = 'Interviews',
-  EDIT_COURSE_CATEGORY = 'Edit category',
   EDIT_COURSE = 'Edit course',
   INTERVIEW = 'Interview',
   CHAT = 'Chat',

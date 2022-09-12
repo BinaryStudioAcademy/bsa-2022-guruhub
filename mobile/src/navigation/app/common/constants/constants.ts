@@ -9,8 +9,7 @@ import {
 import { Billing } from '~/components/billing/billing';
 import { Chat } from '~/components/chat/chat';
 import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
-import { EditCourseCategory } from '~/components/course/components/components';
-import { EditCourse } from '~/components/course/components/edit-course/edit-course';
+import { EditCourse } from '~/components/course/components/components';
 import { Task } from '~/components/course-module/components/components';
 import { AddCourse } from '~/components/courses/components/components';
 import { Courses } from '~/components/courses/courses';
@@ -146,12 +145,6 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     component: Course,
     permissions: [],
     isAuthRequired: false,
-  },
-  {
-    name: AppScreenName.EDIT_COURSE_CATEGORY,
-    component: EditCourseCategory,
-    permissions: [PermissionKey.MANAGE_CATEGORIES],
-    isAuthRequired: true,
   },
   {
     name: AppScreenName.COURSE_MODULE,
