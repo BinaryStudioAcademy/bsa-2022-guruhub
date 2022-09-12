@@ -12,4 +12,4 @@ type BillingReplenishToken = {
   used: boolean;
 };
 
-export { BillingReplenishToken };
+export { type BillingReplenishToken };

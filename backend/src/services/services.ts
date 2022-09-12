@@ -167,8 +167,6 @@ const chatMessage = new ChatMessage({
 
 const stripe = new Stripe({
   secretKey: ENV.STRIPE.SECRET_KEY,
-  successUrl: ENV.STRIPE.OPERATION_REDIRECTION_URL,
-  cancelUrl: ENV.STRIPE.OPERATION_REDIRECTION_URL,
   apiVersion: ENV.STRIPE.API_VERSION,
 });
 

@@ -1,5 +1,6 @@
 import { TransactionStatus } from '~/common/enums/enums';
 import {
+  BillingReplenishArgumentsDto,
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
   UserDetailsWithMoneyBalanceDto,
@@ -39,24 +40,24 @@ class Billing {
     this.#userDetailsService = userDetailsService;
   }
 
-  public async replenish(
-    userId: number,
-    amountOfMoney: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto> {
+  public async replenish({
+    userId,
+    amountOfMoneyToReplenish,
+    token,
+  }: BillingReplenishArgumentsDto): Promise<UserDetailsWithMoneyBalanceDto> {
     const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
       userId,
     );
 
-    const replenishDto = await this.#stripeService.initReplenish(amountOfMoney);
+    await this.#stripeService.initReplenish({
+      amount: amountOfMoneyToReplenish,
+      token,
+    });
 
-    if (replenishDto.status === 'complete') {
-      const newBalance =
-        userWithBalance.userDetails.moneyBalance + amountOfMoney;
+    const newBalance =
+      userWithBalance.userDetails.moneyBalance + amountOfMoneyToReplenish;
 
-      return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
-    }
-
-    return userWithBalance.userDetails;
+    return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
   }
 
   public async withdraw(

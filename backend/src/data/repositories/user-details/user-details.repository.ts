@@ -62,14 +62,18 @@ class UserDetails {
       .execute();
   }
 
-  public updateMoneyBalance(
+  public async updateMoneyBalance(
     userId: number,
     newMoneyBalance: number,
   ): Promise<UserDetailsWithMoneyBalanceDto> {
-    return this.#UserDetailsModel
+    const details = await this.#UserDetailsModel
       .query()
       .select()
       .where('userId', userId)
+      .first();
+
+    return (details as UserDetailsM)
+      .$query()
       .patchAndFetch({
         moneyBalance: newMoneyBalance,
       })

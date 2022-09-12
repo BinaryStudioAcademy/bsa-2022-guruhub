@@ -1,4 +1,7 @@
-export { type BillingReplenishParamsDto } from './billing/billing';
+export {
+  type BillingReplenishParamsDto,
+  type BillingReplenishToken,
+} from './billing/billing';
 export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,

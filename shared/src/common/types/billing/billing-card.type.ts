@@ -22,4 +22,4 @@ type BillingCard = {
   tokenization_method: string | null;
 };
 
-export { BillingCard };
+export { type BillingCard };

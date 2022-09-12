@@ -1,65 +1,33 @@
 import StripeApi from 'stripe';
 
-import {
-  ExceptionMessage,
-  PaymentCurrency,
-  PaymentMethod,
-  PaymentMode,
-  PaymentUnit,
-} from '~/common/enums/enums';
+import { ExceptionMessage, PaymentCurrency } from '~/common/enums/enums';
+import { StripeReplenishArgumentsDto } from '~/common/types/types';
 import { BillingError } from '~/exceptions/exceptions';
 
-const QUANTITY_OF_ITEMS = 1;
 const MINIMAL_SUM_OF_MONEY_TO_WITHDRAW = 1;
-const OPERATION_NAME = 'Replenish your funds on GuruHub';
 
 type Constructor = {
   secretKey: string;
-  successUrl: string;
-  cancelUrl: string;
   apiVersion: string;
 };
 
 class Stripe {
   #stripe: StripeApi;
 
-  #successUrl: string;
-
-  #cancelUrl: string;
-
-  public constructor({
-    secretKey,
-    successUrl,
-    cancelUrl,
-    apiVersion,
-  }: Constructor) {
+  public constructor({ secretKey, apiVersion }: Constructor) {
     this.#stripe = new StripeApi(secretKey, {
       apiVersion: apiVersion as '2022-08-01',
     });
-    this.#successUrl = successUrl;
-    this.#cancelUrl = cancelUrl;
   }
 
-  public initReplenish(
-    amountOfMoney: number,
-  ): Promise<StripeApi.Response<StripeApi.Checkout.Session>> {
-    return this.#stripe.checkout.sessions.create({
-      payment_method_types: [PaymentMethod.CARD],
-      mode: PaymentMode.PAYMENT,
-      line_items: [
-        {
-          price_data: {
-            currency: PaymentCurrency.USD,
-            product_data: {
-              name: OPERATION_NAME,
-            },
-            unit_amount: amountOfMoney * PaymentUnit.CENTS_IN_ONE_DOLLAR,
-          },
-          quantity: QUANTITY_OF_ITEMS,
-        },
-      ],
-      success_url: this.#successUrl,
-      cancel_url: this.#cancelUrl,
+  public initReplenish({
+    amount,
+    token,
+  }: StripeReplenishArgumentsDto): Promise<StripeApi.Charge> {
+    return this.#stripe.charges.create({
+      source: token.id,
+      amount,
+      currency: PaymentCurrency.USD,
     });
   }
 

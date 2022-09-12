@@ -1,5 +1,9 @@
 export { type WhiteRoute } from './api/api';
-export { type BillingReplenishParamsDto } from './billing/billing';
+export {
+  type BillingReplenishArgumentsDto,
+  type BillingReplenishParamsDto,
+  type BillingReplenishToken,
+} from './billing/billing';
 export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,
@@ -108,6 +112,7 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export { type StripeReplenishArgumentsDto } from './stripe/stripe';
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
