@@ -53,7 +53,8 @@ const updateInterview = createAsyncThunk<
   async (updateInterviewPayload, { getState, extra }) => {
     const { interviewsApi, notification } = extra;
     const { id, payload } = updateInterviewPayload;
-    const { interviewDate, status } = payload;
+
+    const { interviewerUserId, ...formData } = payload;
     const {
       auth: { user },
     } = getState();
@@ -63,9 +64,14 @@ const updateInterview = createAsyncThunk<
       userPermissions: (user as UserWithPermissions).permissions,
     });
 
+    const payloadDependOnPermission = {
+      ...formData,
+      ...(hasInterviewsPermission && { interviewerUserId }),
+    };
+
     const interview = await interviewsApi.update({
       id,
-      payload: hasInterviewsPermission ? payload : { interviewDate, status },
+      payload: payloadDependOnPermission,
     });
     notification.success(NotificationMessage.INTERVIEW_UPDATE);
 

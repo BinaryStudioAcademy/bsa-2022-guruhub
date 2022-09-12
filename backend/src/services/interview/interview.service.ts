@@ -149,7 +149,6 @@ class Interview {
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, interviewUpdateInfoRequestDto, user } = data;
-    const { status, interviewDate } = interviewUpdateInfoRequestDto;
 
     const hasInterviewsPermission = checkHasPermission({
       permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
@@ -165,13 +164,9 @@ class Interview {
       });
     }
 
-    const interviewUpdateInfoDependOnPermission = !hasInterviewsPermission
-      ? { status, interviewDate }
-      : interviewUpdateInfoRequestDto;
-
     const interview = await this.#interviewRepository.update(
       id,
-      interviewUpdateInfoDependOnPermission,
+      interviewUpdateInfoRequestDto,
     );
 
     return interview;
