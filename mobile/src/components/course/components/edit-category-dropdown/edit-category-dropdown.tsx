@@ -8,6 +8,7 @@ import { Button, Dropdown, View } from '~/components/common/common';
 import { useAppForm, useEffect } from '~/hooks/hooks';
 import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from '~/validation-schemas/validation-schemas';
 
+import { getCategoriesOptions } from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -21,10 +22,7 @@ const EditCategoryDropdown: FC<Props> = ({
   courseCategoryId,
   onSave,
 }) => {
-  const categoriesData = categories.map(({ name, id }) => ({
-    label: name,
-    value: id,
-  }));
+  const categoriesOptions = getCategoriesOptions(categories);
 
   const { control, handleSubmit, reset, errors } =
     useAppForm<CourseUpdateCategoryRequestDto>({
@@ -43,7 +41,7 @@ const EditCategoryDropdown: FC<Props> = ({
   return (
     <>
       <Dropdown
-        items={categoriesData}
+        items={categoriesOptions}
         control={control}
         name="newCategoryId"
         errors={errors}
