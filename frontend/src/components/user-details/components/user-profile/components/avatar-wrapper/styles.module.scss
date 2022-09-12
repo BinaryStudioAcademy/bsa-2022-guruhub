@@ -14,7 +14,7 @@
 }
 
 .btn {
-  min-width: 130px;
+  width: 130px;
 }
 
 .marginBottom {
@@ -45,4 +45,5 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 130px;
 }

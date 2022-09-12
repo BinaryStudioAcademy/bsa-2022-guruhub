@@ -6,6 +6,7 @@ import {
 } from '~/common/enums/enums';
 import {
   UserDetailsResponseDto,
+  UserDetailsUpdateAvatarRequestDto,
   UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
 import { Http } from '~/services/http/http.service';
@@ -40,6 +41,26 @@ class UserDetailsApi {
         method: HttpMethod.PUT,
         contentType: ContentType.JSON,
         payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public updateUserAvatar({
+    file,
+    userId,
+  }: UserDetailsUpdateAvatarRequestDto): Promise<UserDetailsResponseDto> {
+    const { uri, type, fileName: name } = file;
+    const formData = new FormData();
+    formData.append('file', { uri, type, name } as unknown as Blob);
+
+    return this.#http.load<UserDetailsResponseDto>(
+      `${this.#apiPrefix}${ApiPath.USER_DETAILS}${
+        UserDetailsApiPath.ROOT
+      }${userId}${UserDetailsApiPath.AVATAR}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.FORM_DATA,
+        payload: formData,
       },
     );
   }

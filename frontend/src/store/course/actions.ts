@@ -289,6 +289,12 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
       course: { mentors, course, activeInterviewsCategoryIds },
     } = getState();
 
+    if (!course) {
+      return false;
+    }
+
+    const { coursesApi } = extra;
+
     const isMentor = mentors.some(
       (mentor) => mentor.id === (user as UserWithPermissions).id,
     );
@@ -298,15 +304,13 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
       },
     );
 
-    const hasMentor = await extra.coursesApi.checkHasMentor({
+    const hasMentor = await coursesApi.checkHasMentor({
       courseId: id,
     });
+    const hasCategory = Boolean(course.category);
 
-    const canChooseMentor = !(
-      isMentor ||
-      hasMentor ||
-      isInterviewProcessActive
-    );
+    const canChooseMentor =
+      !isMentor && !hasMentor && hasCategory && !isInterviewProcessActive;
 
     return canChooseMentor;
   },
