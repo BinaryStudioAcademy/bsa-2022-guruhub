@@ -4,7 +4,6 @@ const MENTORS_GROUP_NAME = 'Mentors';
 
 const TableName = {
   PERMISSIONS: 'permissions',
-  USERS_TO_GROUPS: 'users_to_groups',
   GROUPS: 'groups',
   GROUPS_TO_PERMISSIONS: 'groups_to_permissions',
 };

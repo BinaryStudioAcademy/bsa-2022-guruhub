@@ -156,11 +156,7 @@ class Group {
     const { id, groupsRequestDto } = data;
     const { name, permissionIds, userIds } = groupsRequestDto;
 
-    const groupById = await this.#groupsRepository.getById(id);
-
-    const isProtectedGroup =
-      groupById &&
-      Object.values(ProtectedGroupKey).some((key) => key === groupById.key);
+    const isProtectedGroup = await this.checkIsProtectedGroup(id);
 
     if (isProtectedGroup) {
       throw new GroupsError({
@@ -207,11 +203,7 @@ class Group {
   }
 
   public async delete(id: number): Promise<boolean> {
-    const groupById = await this.#groupsRepository.getById(id);
-
-    const isProtectedGroup =
-      groupById &&
-      Object.values(ProtectedGroupKey).some((key) => key === groupById.key);
+    const isProtectedGroup = await this.checkIsProtectedGroup(id);
 
     if (isProtectedGroup) {
       throw new GroupsError({
@@ -226,6 +218,16 @@ class Group {
 
   public getByKey(key: string): Promise<GroupsItemResponseDto | null> {
     return this.#groupsRepository.getByKey(key);
+  }
+
+  public async checkIsProtectedGroup(groupId: number): Promise<boolean> {
+    const groupById = await this.#groupsRepository.getById(groupId);
+
+    const isProtectedGroup =
+      groupById &&
+      Object.values(ProtectedGroupKey).some((key) => key === groupById.key);
+
+    return Boolean(isProtectedGroup);
   }
 }
 
