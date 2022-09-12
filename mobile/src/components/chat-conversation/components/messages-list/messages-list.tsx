@@ -3,7 +3,7 @@ import React, { FC, ReactElement } from 'react';
 import defaultAvatar from '~/assets/images/avatar-default.png';
 import { ChatMessageGetAllItemResponseDto } from '~/common/types/types';
 import { SectionList, Text, View } from '~/components/common/common';
-import { getFormattedDate, getImageUri, sortDates } from '~/helpers/helpers';
+import { getFormattedDate, getImageUri, sortByDates } from '~/helpers/helpers';
 
 import { DateSeparator, Message } from './components/components';
 import { groupMessagesByDate } from './helpers/helpers';
@@ -19,7 +19,7 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
   const renderMessages = Object.entries(groupedByDateMessages).map(
     ([key, value]) => ({
       title: key,
-      data: sortDates(value, 'desc'),
+      data: sortByDates(value, 'desc'),
     }),
   );
 
