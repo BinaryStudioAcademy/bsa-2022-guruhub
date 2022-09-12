@@ -32,7 +32,27 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
     onClick?.(keyName);
   };
 
-  return isRoot ? (
+  if (!isRoot) {
+    return (
+      <span
+        className={getValidClasses(styles.categorySpan)}
+        style={{ borderColor: color }}
+        onClick={handleClick}
+      >
+        <Image
+          width="30px"
+          height="30px"
+          src={`/category-icons/${keyNameKebabCase}.svg`}
+          alt={`${keyName} img`}
+          isCircular
+        />
+
+        <p className={styles.categoryName}>{name}</p>
+      </span>
+    );
+  }
+
+  return (
     <button
       className={getValidClasses(styles.category, isActive && styles.selected)}
       style={{ borderColor: color }}
@@ -48,22 +68,6 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
 
       <p className={styles.categoryName}>{name}</p>
     </button>
-  ) : (
-    <span
-      className={getValidClasses(styles.categorySpan)}
-      style={{ borderColor: color }}
-      onClick={handleClick}
-    >
-      <Image
-        width="30px"
-        height="30px"
-        src={`/category-icons/${keyNameKebabCase}.svg`}
-        alt={`${keyName} img`}
-        isCircular
-      />
-
-      <p className={styles.categoryName}>{name}</p>
-    </span>
   );
 };
 
