@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseUpdateCategoryRequestDto } from '~/common/types/types';
 import { BackButton, Spinner, View } from '~/components/common/common';
-import { EditCategoryDropdown } from '~/components/course/components/components';
+import { EditCategory } from '~/components/course/components/components';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -67,7 +67,7 @@ const EditCourse: FC = () => {
 
   return (
     <View style={styles.container}>
-      <EditCategoryDropdown
+      <EditCategory
         categories={allCategories}
         defaultCategoryId={courseCategoryId}
         onSave={handleSelectNewCategory}

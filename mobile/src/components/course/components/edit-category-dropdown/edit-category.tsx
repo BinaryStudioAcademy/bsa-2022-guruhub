@@ -20,11 +20,7 @@ type Props = {
   onSave: (payload: CourseUpdateCategoryRequestDto) => void;
 };
 
-const EditCategoryDropdown: FC<Props> = ({
-  categories,
-  defaultCategoryId,
-  onSave,
-}) => {
+const EditCategory: FC<Props> = ({ categories, defaultCategoryId, onSave }) => {
   const categoriesOptions = getCategoriesOptions(categories);
 
   const { control, handleSubmit, errors } =
@@ -49,4 +45,4 @@ const EditCategoryDropdown: FC<Props> = ({
   );
 };
 
-export { EditCategoryDropdown };
+export { EditCategory };
