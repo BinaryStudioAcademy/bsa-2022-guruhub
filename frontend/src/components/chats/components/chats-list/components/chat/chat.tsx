@@ -33,7 +33,7 @@ const Chat: FC<Props> = ({
   };
 
   return (
-    <div
+    <button
       className={getValidClasses(
         styles.chat,
         currentChatId === chatId && styles.selected,
@@ -62,7 +62,7 @@ const Chat: FC<Props> = ({
           } ${lastMessage}`}</p>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

@@ -15,7 +15,7 @@ type Props = {
 const CurrentChat: FC<Props> = ({ chatId, chatOpponent, currentUserId }) => {
   const { currentChatMessages, dataStatus } = useAppSelector(({ chats }) => ({
     currentChatMessages: chats.currentChatMessages,
-    dataStatus: chats.getCurrentChatMessagesDataStatus,
+    dataStatus: chats.currentChatMessagesDataStatus,
   }));
 
   const hasMessages = Boolean(currentChatMessages.length);

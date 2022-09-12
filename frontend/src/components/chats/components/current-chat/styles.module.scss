@@ -15,13 +15,12 @@
 .currentChatContent {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 235px);
+  height: calc(100vh - 247px);
   overflow-y: auto;
   background: var(--background-gray-400);
 }
 
 .currentChatFooter {
-  height: 75px;
   background: var(--background-gray-300);
 }
 

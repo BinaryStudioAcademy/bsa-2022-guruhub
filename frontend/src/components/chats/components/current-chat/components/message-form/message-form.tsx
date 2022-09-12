@@ -41,8 +41,9 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
         control={control}
         errors={errors}
         name={getNameOf<ChatMessageCreateRequestBodyDto>('message')}
-        label=""
+        label="Chat message"
         rows={INITIAL_TEXT_AREA_ROWS}
+        hasVisuallyHiddenLabel
       />
       <Button
         className={styles.submitButton}
