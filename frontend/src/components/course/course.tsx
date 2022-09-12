@@ -146,7 +146,6 @@ const Course: FC = () => {
           menteeId: user.id,
         }),
       );
-      dispatch(courseActions.updateIsMentorChoosingEnabled(Number(courseId)));
     }
 
     return () => {
@@ -159,6 +158,7 @@ const Course: FC = () => {
   useEffect(() => {
     if (course && user) {
       dispatch(courseActions.updateIsMentorBecomingEnabled());
+      dispatch(courseActions.updateIsMentorChoosingEnabled(Number(courseId)));
     }
 
     return () => {
@@ -180,7 +180,6 @@ const Course: FC = () => {
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
-      dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
     }
   }, [user]);
 
