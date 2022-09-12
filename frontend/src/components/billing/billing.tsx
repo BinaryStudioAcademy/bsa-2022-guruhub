@@ -66,11 +66,13 @@ const Billing: FC = () => {
       <div className={styles.billing}>
         <div className={styles.yourBalanceSectionWrapper}>
           <div className={styles.yourBalanceSection}>
-            <Button
-              label="Withdraw your funds"
-              btnColor="blue"
-              onClick={handleWithdraw}
-            />
+            <div>
+              <Button
+                label="Withdraw your funds"
+                btnColor="blue"
+                onClick={handleWithdraw}
+              />
+            </div>
             <h1>
               {`Your balance is ${userWithMoneyBalance.userDetails.moneyBalance}$`}
             </h1>
