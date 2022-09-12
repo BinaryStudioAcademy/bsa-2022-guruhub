@@ -40,11 +40,7 @@ const CoursesManagement: FC = () => {
   const coursesRows = coursesWithCategory.map((item: CourseGetResponseDto) => {
     return {
       title: item.title,
-      category: item.category ? (
-        <CategoryCell category={item.category} />
-      ) : (
-        'Unknown'
-      ),
+      category: <CategoryCell category={item.category} />,
       action: <ActionCell onEdit={(): void => navigateToEditCourse(item.id)} />,
     };
   });
