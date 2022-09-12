@@ -1,12 +1,8 @@
 import defaultAvatar from 'assets/img/avatar-default.svg';
-import { StringCase, TaskStatus } from 'common/enums/enums';
+import { TaskStatus } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Image } from 'components/common/common';
-import {
-  changeStringCase,
-  getFormattedDate,
-  getValidClasses,
-} from 'helpers/helpers';
+import { getFormattedDate, getValidClasses } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -18,11 +14,6 @@ type Props = {
 };
 
 const TaskNoteCard: FC<Props> = ({ note, author, createdAt, status }) => {
-  const camelCaseStatus = changeStringCase({
-    caseType: StringCase.CAMEL_CASE,
-    stringToChange: status ?? '',
-  });
-
   return (
     <div className={styles.card}>
       <div className={styles.cardContentWrapper}>
@@ -43,12 +34,7 @@ const TaskNoteCard: FC<Props> = ({ note, author, createdAt, status }) => {
           </div>
         </div>
         <div className={styles.statusWrapper}>
-          <span
-            className={getValidClasses(
-              styles.status,
-              camelCaseStatus && styles[camelCaseStatus],
-            )}
-          >
+          <span className={getValidClasses(styles.status, styles[status])}>
             {status}
           </span>
         </div>
