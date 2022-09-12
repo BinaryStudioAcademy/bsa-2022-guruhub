@@ -13,13 +13,13 @@ import { styles } from './styles';
 
 type Props = {
   categories: CategoryGetAllItemResponseDto[];
-  courseCategoryId: number | undefined;
+  defaultCategoryId: number | undefined;
   onSave: (payload: CourseUpdateCategoryRequestDto) => void;
 };
 
 const EditCategoryDropdown: FC<Props> = ({
   categories,
-  courseCategoryId,
+  defaultCategoryId,
   onSave,
 }) => {
   const categoriesOptions = getCategoriesOptions(categories);
@@ -31,12 +31,12 @@ const EditCategoryDropdown: FC<Props> = ({
     });
 
   useEffect(() => {
-    if (courseCategoryId) {
+    if (defaultCategoryId) {
       reset({
-        newCategoryId: courseCategoryId,
+        newCategoryId: defaultCategoryId,
       });
     }
-  }, [courseCategoryId]);
+  }, [defaultCategoryId]);
 
   return (
     <>
