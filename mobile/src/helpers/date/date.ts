@@ -1,6 +1,6 @@
 export {
   checkIsToday,
   getFormattedDate,
-  sortDatesDesc,
+  sortDates,
   subtractYears,
 } from 'guruhub-shared/helpers/helpers';

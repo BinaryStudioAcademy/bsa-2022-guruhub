@@ -1,7 +1,7 @@
 export {
   checkIsToday,
   getFormattedDate,
-  sortDatesDesc,
+  sortDates,
   subtractYears,
 } from './date/date';
 export { debounce } from './debounce/debounce';
