@@ -6,6 +6,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useCallback,
+  useEffect,
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
@@ -32,22 +33,17 @@ const MyMentor: FC = () => {
     setIsMentorCardShown(!isMentorCardShown);
   };
 
-  // useEffect(() => {
-  //   console.log('useeff');
-
-  //   setIsMentorCardShown(isMentorChoosingEnabled);
-  // }, [isMentorChoosingEnabled]);
+  useEffect(() => {
+    setIsMentorCardShown(!isMentorChoosingEnabled);
+  }, [isMentorChoosingEnabled]);
 
   useFocusEffect(
     useCallback(() => {
       if (course) {
         dispatch(coursesActions.updateIsMentorChoosingEnabled(course?.id));
       }
-
-      return setIsMentorCardShown(isMentorChoosingEnabled);
-    }, []),
+    }, [course]),
   );
-  //console.log(isMentorChoosingEnabled,isMentorCardShown);
 
   return (
     <View style={styles.container}>
