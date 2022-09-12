@@ -6,7 +6,6 @@ import {
   useAppDispatch,
   useAppSelector,
   useCallback,
-  useEffect,
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
@@ -25,24 +24,30 @@ const MyMentor: FC = () => {
       dataStatus: courses.dataStatus,
       isMentorChoosingEnabled: courses.isMentorChoosingEnabled,
     }));
-  const [isMentorCardShown, setIsMentorCardShown] = useState<boolean>();
+  const [isMentorCardShown, setIsMentorCardShown] = useState<boolean>(false);
 
   const areMentorsLoading = dataStatus === DataStatus.PENDING;
 
   const handleMentorCardShownToggle = (): void => {
-    dispatch(coursesActions.clearMentor());
     setIsMentorCardShown(!isMentorCardShown);
   };
 
-  useEffect(() => {
-    setIsMentorCardShown(!isMentorChoosingEnabled);
-  }, [isMentorChoosingEnabled]);
+  // useEffect(() => {
+  //   console.log('useeff');
+
+  //   setIsMentorCardShown(isMentorChoosingEnabled);
+  // }, [isMentorChoosingEnabled]);
 
   useFocusEffect(
     useCallback(() => {
-      return setIsMentorCardShown(!isMentorChoosingEnabled);
+      if (course) {
+        dispatch(coursesActions.updateIsMentorChoosingEnabled(course?.id));
+      }
+
+      return setIsMentorCardShown(isMentorChoosingEnabled);
     }, []),
   );
+  //console.log(isMentorChoosingEnabled,isMentorCardShown);
 
   return (
     <View style={styles.container}>
@@ -55,7 +60,9 @@ const MyMentor: FC = () => {
         <ChooseMentor
           course={course}
           mentors={mentors}
+          mentor={mentor}
           isLoading={areMentorsLoading}
+          onChangeMentor={handleMentorCardShownToggle}
         />
       )}
     </View>

@@ -4,6 +4,7 @@ import { AppColor } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
   UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import {
   FlatList,
@@ -22,16 +23,29 @@ import { styles } from './styles';
 type Props = {
   mentors: UserDetailsResponseDto[];
   course: CourseGetResponseDto | null;
+  mentor: UsersGetResponseDto | null;
   isLoading: boolean;
+  onChangeMentor: () => void;
 };
 
-const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
+const ChooseMentor: FC<Props> = ({
+  mentors,
+  course,
+  isLoading,
+  mentor,
+  onChangeMentor,
+}) => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useAppDispatch();
-
   const courseId = course?.id;
 
   const handleChooseButton = (mentorId: number): void => {
+    if (mentor) {
+      dispatch(coursesActions.changeMentor({ id: mentorId }));
+      onChangeMentor();
+
+      return;
+    }
     dispatch(coursesActions.chooseMentor({ id: mentorId }));
   };
 
@@ -41,6 +55,7 @@ const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
 
   const handleMentorsLoad = (): void => {
     if (courseId) {
+      dispatch(coursesActions.updateIsMentorChoosingEnabled(courseId));
       dispatch(
         coursesActions.getMentorsByCourseId({
           courseId: courseId,
@@ -51,7 +66,6 @@ const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
   };
 
   useEffect(() => {
-    dispatch(coursesActions.updateisMentorChoosingEnabled());
     handleMentorsLoad();
   }, [courseId, searchValue]);
 
