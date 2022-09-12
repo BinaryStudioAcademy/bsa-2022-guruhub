@@ -13,4 +13,16 @@
 .actionButtonsSection {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto;
+}
+
+.addButtonWrapper {
+  max-width: 93px;
+  margin-left: auto;
+}
+
+.buttonWrapper {
+  max-width: 93px;
 }

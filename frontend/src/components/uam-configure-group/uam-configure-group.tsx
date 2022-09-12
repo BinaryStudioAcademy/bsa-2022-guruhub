@@ -143,8 +143,8 @@ const UAMConfigureGroup: FC = () => {
         <div className={styles.btnsWrapper}>
           <Button
             type="button"
-            btnType="outlined"
-            btnColor="blue"
+            btnColor="gray"
+            btnType="filled"
             label="Cancel"
             to={AppRoute.UAM}
           />

@@ -28,7 +28,6 @@ import { CategoryList } from './components/category-list/category-list';
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
-  const [isLoading] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
@@ -50,6 +49,10 @@ const Courses: FC = (): ReactElement => {
     courseCategory: categories.courseCategory,
     categoryDataStatus: categories.dataStatus,
   }));
+
+  const isLoading =
+    dataStatus === DataStatus.PENDING ||
+    categoryDataStatus === DataStatus.PENDING;
 
   const filter = useRef<CourseFilteringDto>({
     title: '',
@@ -111,10 +114,6 @@ const Courses: FC = (): ReactElement => {
     }, []),
   );
 
-  if (categoryDataStatus === DataStatus.PENDING) {
-    return <Spinner isOverflow />;
-  }
-
   return (
     <>
       <View style={styles.searchFieldContainer}>
@@ -126,7 +125,7 @@ const Courses: FC = (): ReactElement => {
         activeCategoryId={activeCategoryId}
       />
       <View style={styles.container}>
-        {dataStatus === DataStatus.PENDING ? (
+        {isLoading ? (
           <View style={styles.spinnerContainer}>
             <Spinner isOverflow />
           </View>
@@ -140,7 +139,7 @@ const Courses: FC = (): ReactElement => {
             refreshControl={
               <RefreshControl
                 colors={[AppColor.BRAND.BLUE_100]}
-                refreshing={isLoading}
+                refreshing={false}
                 onRefresh={handleRefresh}
               />
             }

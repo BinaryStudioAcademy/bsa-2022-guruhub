@@ -134,14 +134,12 @@ const UserProfileForm: FC = () => {
               btnColor="gray"
               label="Cancel"
               onClick={handleGetUsers}
-              className={styles.cancelBtn}
             />
             <Button
               onClick={handleSubmit(handleUpdateProfile)}
               type="submit"
               label="Save"
               btnColor="blue"
-              className={styles.saveBtn}
             />
           </div>
         </form>
