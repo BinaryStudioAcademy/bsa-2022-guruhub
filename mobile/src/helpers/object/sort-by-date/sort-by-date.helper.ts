@@ -14,13 +14,9 @@ const sortByDate = <T>(
   const sortingHelper = type === 'desc' ? compareDesc : compareAsc;
   const sortingKey = sortItems.key;
 
-  if (sortingKey === 'createdAt') {
-    return sortItems.items.sort((a, b) =>
-      sortingHelper(new Date(`${a[sortingKey]}`), new Date(`${b[sortingKey]}`)),
-    );
-  }
-
-  return sortItems.items;
+  return sortItems.items.sort((a, b) =>
+    sortingHelper(new Date(`${a[sortingKey]}`), new Date(`${b[sortingKey]}`)),
+  );
 };
 
 export { sortByDate };
