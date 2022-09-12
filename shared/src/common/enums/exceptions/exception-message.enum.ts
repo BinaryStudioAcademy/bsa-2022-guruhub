@@ -15,6 +15,7 @@ enum ExceptionMessage {
   COURSE_EXIST = 'Course already exists.',
   UNKNOWN_INTERVIEW_NOTE_AUTHOR = 'Unknown interview note author',
   PERMISSION_LACK = 'You do not have permission to access this resource.',
+  PERMISSION_LACK_FOR_INTERVIEWER_UPDATE = 'You do not have permission to update interviewer.',
   STORAGE_NOT_FOUND = 'Storage was not found.',
   INVALID_USER_REQUEST = 'User request is invalid.',
   INTERVIEW_EXIST = 'Interview for this category was either passed or is in progress.',

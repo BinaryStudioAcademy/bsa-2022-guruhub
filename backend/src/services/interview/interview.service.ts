@@ -1,5 +1,6 @@
 import {
   ExceptionMessage,
+  HttpCode,
   InterviewStatus,
   PermissionKey,
 } from '~/common/enums/enums';
@@ -18,9 +19,10 @@ import {
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewsUpdateRequestDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
-import { InterviewsError } from '~/exceptions/exceptions';
+import { InterviewsError, PermissionsError } from '~/exceptions/exceptions';
 import { checkHasPermission } from '~/helpers/helpers';
 
 import { interviewNote as interviewNoteServ } from '../services';
@@ -143,18 +145,34 @@ class Interview {
 
   public async update(data: {
     id: number;
+    user: UserWithPermissions;
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewUpdateInfoRequestDto } = data;
+    const { id, interviewUpdateInfoRequestDto, user } = data;
     const { interviewerUserId, status, interviewDate } =
       interviewUpdateInfoRequestDto;
 
-    const interview = await this.#interviewRepository.update({
-      id,
-      interviewerUserId,
-      status,
-      interviewDate,
+    const hasInterviewsPermission = checkHasPermission({
+      permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
+      userPermissions: user.permissions,
     });
+    const hasInterviewerUserId = interviewerUserId !== undefined;
+
+    if (!hasInterviewsPermission && hasInterviewerUserId) {
+      throw new PermissionsError({
+        message: ExceptionMessage.PERMISSION_LACK_FOR_INTERVIEWER_UPDATE,
+        status: HttpCode.FORBIDDEN,
+      });
+    }
+
+    const interviewUpdateInfoDependOnPermission = !hasInterviewsPermission
+      ? { status, interviewDate }
+      : interviewUpdateInfoRequestDto;
+
+    const interview = await this.#interviewRepository.update(
+      id,
+      interviewUpdateInfoDependOnPermission,
+    );
 
     return interview;
   }

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { NotificationMessage } from 'common/enums/enums';
+import { NotificationMessage, PermissionKey } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   EntityPagination,
@@ -14,7 +14,9 @@ import {
   InterviewsGetOtherRequestDto,
   InterviewsUpdateRequestParamsDto,
   InterviewUpdateRequestArgumentsDto,
+  UserWithPermissions,
 } from 'common/types/types';
+import { checkHasPermission } from 'helpers/helpers';
 
 import { ActionType } from './common';
 
@@ -46,13 +48,30 @@ const updateInterview = createAsyncThunk<
   InterviewsGetAllItemResponseDto,
   InterviewUpdateRequestArgumentsDto,
   AsyncThunkConfig
->(ActionType.UPDATE_INTERVIEW, async (updateInterviewPayload, { extra }) => {
-  const { interviewsApi, notification } = extra;
-  const interview = await interviewsApi.update(updateInterviewPayload);
-  notification.success(NotificationMessage.INTERVIEW_UPDATE);
+>(
+  ActionType.UPDATE_INTERVIEW,
+  async (updateInterviewPayload, { getState, extra }) => {
+    const { interviewsApi, notification } = extra;
+    const { id, payload } = updateInterviewPayload;
+    const { interviewDate, status } = payload;
+    const {
+      auth: { user },
+    } = getState();
 
-  return interview;
-});
+    const hasInterviewsPermission = checkHasPermission({
+      permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
+      userPermissions: (user as UserWithPermissions).permissions,
+    });
+
+    const interview = await interviewsApi.update({
+      id,
+      payload: hasInterviewsPermission ? payload : { interviewDate, status },
+    });
+    notification.success(NotificationMessage.INTERVIEW_UPDATE);
+
+    return interview;
+  },
+);
 
 const getNotes = createAsyncThunk<
   InterviewNoteGetAllResponseDto,

@@ -9,6 +9,7 @@ import {
   InterviewsGetInterviewerResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestArgumentsDto,
+  InterviewsUpdateRequestDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -142,18 +143,14 @@ class Interview {
     return { items, total: total.length };
   }
 
-  public update(interview: {
-    id: number;
-    interviewerUserId: number | null;
-    status: InterviewStatus;
-    interviewDate: string | null;
-  }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewerUserId, status, interviewDate } = interview;
-
+  public update(
+    id: number,
+    interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto,
+  ): Promise<InterviewsByIdResponseDto> {
     return this.#InterviewModel
       .query()
       .select()
-      .patchAndFetchById(id, { interviewerUserId, status, interviewDate })
+      .patchAndFetchById(id, interviewUpdateInfoRequestDto)
       .withGraphFetched(
         '[courseCategory, interviewee(withoutPassword).[userDetails(withoutMoneyBalance)], interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )

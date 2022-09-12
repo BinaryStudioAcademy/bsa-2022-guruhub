@@ -112,6 +112,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
     ) {
       const interview = await interviewService.update({
         id: req.params.id,
+        user: req.user,
         interviewUpdateInfoRequestDto: req.body,
       });
 
