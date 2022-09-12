@@ -73,6 +73,10 @@ class Interview {
     return interview ?? null;
   }
 
+  public checkIsInterviewee(userId: number): Promise<boolean> {
+    return this.#interviewRepository.checkIsInterviewee(userId);
+  }
+
   public getInterviewersByCategoryId(
     interviewId: number,
   ): Promise<InterviewsGetInterviewerResponseDto[]> {

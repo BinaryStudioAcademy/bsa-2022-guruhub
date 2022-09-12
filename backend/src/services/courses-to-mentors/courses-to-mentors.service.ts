@@ -44,6 +44,10 @@ class CoursesToMentors {
       userId,
     });
   }
+
+  public checkIsMentorForAnyCourse(userId: number): Promise<boolean> {
+    return this.#coursesToMentorsRepository.checkIsMentorForAnyCourse(userId);
+  }
 }
 
 export { CoursesToMentors };

@@ -35,6 +35,16 @@ class CoursesToMentors {
 
     return Boolean(courseToMentor);
   }
+
+  public async checkIsMentorForAnyCourse(userId: number): Promise<boolean> {
+    const courseToMentor = await this.#CoursesToMentorsModel
+      .query()
+      .select(1)
+      .where({ userId })
+      .first();
+
+    return Boolean(courseToMentor);
+  }
 }
 
 export { CoursesToMentors };

@@ -26,6 +26,8 @@ enum ExceptionMessage {
   TASK_COMPLETED = 'Task is already completed and cannot be updated.',
   USER_DETAILS_NOT_FOUND = 'User was not found.',
   FILE_TOO_BIG = 'This file is too large to upload. The maximum supported file size is: 1MB',
-  USER_CAN_NOT_BE_DELETED = 'This user is forbidden to delete',
+  MENTOR_CAN_NOT_BE_DELETED = 'This user is forbidden to delete because he is a mentor.',
+  MENTEE_CAN_NOT_BE_DELETED = 'This user is forbidden to delete because he is a mentee.',
+  INTERVIEWEE_CAN_NOT_BE_DELETED = 'This user is forbidden to delete because he has interviews.',
 }
 export { ExceptionMessage };

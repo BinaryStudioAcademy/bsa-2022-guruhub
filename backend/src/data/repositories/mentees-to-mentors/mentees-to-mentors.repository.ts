@@ -88,6 +88,16 @@ class MenteesToMentors {
     return Boolean(menteeToMentor);
   }
 
+  public async checkIsMenteeForAnyCourse(menteeId: number): Promise<boolean> {
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(1)
+      .where({ menteeId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
   public getMenteesOrMentorsByFullName(
     userId: number,
     fullName: string,

@@ -66,10 +66,26 @@ const userDetails = new UserDetails({
   avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
+const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
+const interviewNote = new InterviewNote({
+  interviewNoteRepository,
+});
+
+const interview = new Interview({
+  interviewRepository,
+  interviewNoteService: interviewNote,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
   userDetailsService: userDetails,
+  coursesToMentorsService: coursesToMentors,
+  menteesToMentorsService: menteesToMentors,
+  interviewService: interview,
 });
 
 const auth = new Auth({
@@ -131,19 +147,6 @@ const course = new Course({
   edxService: edx,
   courseCategoryService: courseCategory,
 });
-
-const interviewNote = new InterviewNote({
-  interviewNoteRepository,
-});
-
-const interview = new Interview({
-  interviewRepository,
-  interviewNoteService: interviewNote,
-});
-
-const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,

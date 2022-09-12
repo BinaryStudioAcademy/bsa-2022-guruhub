@@ -99,6 +99,16 @@ class Interview {
       .execute();
   }
 
+  public async checkIsInterviewee(intervieweeUserId: number): Promise<boolean> {
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(1)
+      .where({ intervieweeUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
   public async getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,

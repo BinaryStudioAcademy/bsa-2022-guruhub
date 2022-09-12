@@ -45,6 +45,10 @@ class MenteesToMentors {
     return this.#menteesToMentorsRepository.checkIsMentee(menteesToMentors);
   }
 
+  public checkIsMenteeForAnyCourse(userId: number): Promise<boolean> {
+    return this.#menteesToMentorsRepository.checkIsMenteeForAnyCourse(userId);
+  }
+
   public getByCourseIdAndMenteeId(menteesToMentors: {
     courseId: number;
     menteeId: number;
