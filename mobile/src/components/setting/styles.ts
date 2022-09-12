@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     width: 136,
     height: 136,
     marginRight: 20,
+    borderRadius: 68,
   },
   buttons: {
     alignSelf: 'flex-end',

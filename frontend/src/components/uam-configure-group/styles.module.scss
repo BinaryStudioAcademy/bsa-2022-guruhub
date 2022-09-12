@@ -22,7 +22,9 @@
 .btnsWrapper {
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  align-items: center;
+  gap: 14px;
+  max-width: 200px;
 }
 
 .errorMessage {

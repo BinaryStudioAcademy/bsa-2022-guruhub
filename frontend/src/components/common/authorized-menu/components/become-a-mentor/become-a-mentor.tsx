@@ -25,7 +25,6 @@ const BecomeAMentor: FC<Props> = ({ onClick }) => {
           btnType="filled"
           btnColor="blue"
           onClick={onClick}
-          className={styles.button}
         />
       </div>
     </div>

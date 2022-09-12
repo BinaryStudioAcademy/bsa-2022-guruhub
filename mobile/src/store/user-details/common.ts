@@ -1,6 +1,7 @@
 enum ActionType {
   GET_USER_DETAILS = 'user-details/get-user-details',
   UPDATE_USER_DETAILS = 'user-details/update-user-details',
+  UPDATE_USER_AVATAR = 'user-details/update-user-avatar',
 }
 
 export { ActionType };
