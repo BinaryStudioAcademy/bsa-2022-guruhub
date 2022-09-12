@@ -1,4 +1,5 @@
 export {
+  checkIsCurrentYear,
   checkIsToday,
   getFormattedDate,
   subtractYears,
