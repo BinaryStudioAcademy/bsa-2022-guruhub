@@ -16,11 +16,13 @@ const DateSeparator: FC<Props> = ({ postTime }) => {
   const isToday = checkIsToday(messageDate);
   const isCurrentYear = checkIsCurrentYear(messageDate);
 
-  const date = isCurrentYear
-    ? getFormattedDate(postTime, 'dd MMM')
-    : getFormattedDate(postTime, 'dd MMM yyyy');
+  const dateFormat = isCurrentYear ? 'dd MMM' : 'dd MMM yyyy';
 
-  return <div className={styles.dateSeparator}>{isToday ? 'Today' : date}</div>;
+  return (
+    <div className={styles.dateSeparator}>
+      {isToday ? 'Today' : getFormattedDate(postTime, dateFormat)}
+    </div>
+  );
 };
 
 export { DateSeparator };
