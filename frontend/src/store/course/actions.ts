@@ -293,8 +293,9 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
       (mentor) => mentor.id === (user as UserWithPermissions).id,
     );
     const isInterviewProcessActive = activeInterviewsCategoryIds.some(
-      (categoryId) =>
-        categoryId === (course as CourseGetResponseDto).courseCategoryId,
+      (categoryId) => {
+        return categoryId === (course as CourseGetResponseDto).courseCategoryId;
+      },
     );
 
     const hasMentor = await extra.coursesApi.checkHasMentor({
