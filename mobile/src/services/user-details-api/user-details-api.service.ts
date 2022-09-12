@@ -51,7 +51,7 @@ class UserDetailsApi {
   }: UserDetailsUpdateAvatarRequestDto): Promise<UserDetailsResponseDto> {
     const { uri, type, fileName: name } = file;
     const formData = new FormData();
-    formData.append('file', { uri, type, name } as unknown as string);
+    formData.append('file', { uri, type, name } as unknown as Blob);
 
     return this.#http.load<UserDetailsResponseDto>(
       `${this.#apiPrefix}${ApiPath.USER_DETAILS}${
