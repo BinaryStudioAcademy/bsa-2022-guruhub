@@ -4,8 +4,11 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetEmptyChatDto,
   type ChatMessageUserResponseDto,
 } from './chat-message/chat-message';
 export {

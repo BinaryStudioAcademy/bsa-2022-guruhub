@@ -1,3 +1,4 @@
+export { type ChatMessageGetEmptyChatsRequestDto } from './chat-message-get-empty-chats-request-dto.type';
 export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,
@@ -7,7 +8,8 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type CourseUpdateMentoringDto,
+  type ChatMessageGetEmptyChatDto,
 } from 'guruhub-shared/common/types/types';

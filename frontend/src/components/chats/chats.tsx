@@ -1,5 +1,10 @@
 import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
-import { FC, UserWithPermissions } from 'common/types/types';
+import {
+  ChatMessageUserResponseDto,
+  FC,
+  UsersGetResponseDto,
+  UserWithPermissions,
+} from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import {
   useAppDispatch,
@@ -22,6 +27,7 @@ const Chats: FC = () => {
     chatId,
     currentChatMessages,
     chatOpponent,
+    emptyChats,
     fetchLastMessagesDataStatus,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
@@ -29,6 +35,7 @@ const Chats: FC = () => {
     fetchLastMessagesDataStatus: chats.fetchLastMessagesDataStatus,
     chatDataStatus: chats.dataStatus,
     lastMessages: chats.lastMessages,
+    emptyChats: chats.emptyChats,
     chatId: chats.currentChatId,
     currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
@@ -42,8 +49,11 @@ const Chats: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleChatMessagesLoad = (chatId: string): void => {
-    dispatch(chatsActions.getMessages({ id: chatId }));
+  const handleChatMessagesLoad = (
+    chatId: string,
+    chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
+  ): void => {
+    dispatch(chatsActions.getMessages({ id: chatId, chatOpponent }));
   };
 
   useEffect(() => {
@@ -70,6 +80,7 @@ const Chats: FC = () => {
         <ChatsList
           fetchLastMessagesDataStatus={fetchLastMessagesDataStatus}
           chatsItems={lastMessages}
+          emptyChats={emptyChats}
           currentUserId={(user as UserWithPermissions).id}
           onChatMessagesLoad={handleChatMessagesLoad}
         />

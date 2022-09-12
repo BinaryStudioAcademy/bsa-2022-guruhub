@@ -73,8 +73,13 @@ class User {
       .execute();
   }
 
-  public getByIds(ids: number[]): Promise<UserM[]> {
-    return this.#UserModel.query().findByIds(ids).execute();
+  public getByIds(ids: number[]): Promise<UsersGetResponseDto[]> {
+    return this.#UserModel
+      .query()
+      .findByIds(ids)
+      .withGraphJoined('userDetails.[avatar]')
+      .castTo<UsersGetResponseDto[]>()
+      .execute();
   }
 
   public create(user: {

@@ -6,6 +6,8 @@ export { type ChatMessageCreateRequestWithStatusDto } from './chat-message-creat
 export { type ChatMessageFilteringDto } from './chat-message-filtering-dto.type';
 export { type ChatMessageGetAllItemResponseDto } from './chat-message-get-all-item-response-dto.type';
 export { type ChatMessageGetAllLastResponseDto } from './chat-message-get-all-last-response-dto.type';
+export { type ChatMessageGetAllLastWithEmptyChatsDto } from './chat-message-get-all-last-with-empty-chats-dto.type';
 export { type ChatMessageGetAllRequestParamsDto } from './chat-message-get-all-request-params-dto.type';
 export { type ChatMessageGetAllResponseDto } from './chat-message-get-all-response-dto.type';
+export { type ChatMessageGetEmptyChatDto } from './chat-message-get-empty-chat-dto.type';
 export { type ChatMessageUserResponseDto } from './chat-message-user-response-dto-type';

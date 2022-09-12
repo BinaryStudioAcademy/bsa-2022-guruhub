@@ -12,6 +12,7 @@ type Props<Data extends Record<string, unknown>> = {
   currentPage?: number;
   onPageChange?: (newPage: number) => void;
   placeholder?: string;
+  bodyRowPadding?: string;
 };
 
 const Table = <Data extends Record<string, unknown>>({
@@ -22,6 +23,7 @@ const Table = <Data extends Record<string, unknown>>({
   currentPage,
   onPageChange,
   placeholder = 'No data to display',
+  bodyRowPadding,
 }: Props<Data>): ReactElement => {
   const defaultColumn = useMemo(
     () => ({
@@ -83,7 +85,7 @@ const Table = <Data extends Record<string, unknown>>({
                     <td
                       {...cell.getCellProps()}
                       width={cell.column.width}
-                      className={styles.tableBodyRowData}
+                      className={styles.tableBodyRowData && bodyRowPadding}
                     >
                       {cell.render('Cell')}
                     </td>

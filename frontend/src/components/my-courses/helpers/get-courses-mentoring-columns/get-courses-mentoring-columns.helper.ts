@@ -26,7 +26,7 @@ const getCoursesMentoringColumns = (
       width: 800,
     },
     {
-      Header: 'Actions',
+      Header: 'Maximum students count',
       accessor: ({
         id,
         maxStudentsCount,
