@@ -113,7 +113,7 @@ const Settings: FC = () => {
             <Dropdown
               name="gender"
               label="Gender"
-              items={[...GENDER_OPTIONS]}
+              items={GENDER_OPTIONS}
               control={control}
               errors={errors}
               placeholder="Select gender"
