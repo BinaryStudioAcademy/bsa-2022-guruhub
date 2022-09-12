@@ -1,9 +1,5 @@
 import defaultAvatar from 'assets/img/avatar-default.svg';
-import {
-  ChatMessageUserResponseDto,
-  FC,
-  UsersGetResponseDto,
-} from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 
@@ -13,13 +9,10 @@ type Props = {
   chatId: string;
   currentUserId?: number;
   messageSenderId?: number;
-  chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto;
+  chatOpponent: UsersGetResponseDto;
   lastMessage?: string;
   dateTheLastMessageWasSent?: string;
-  onClick: (
-    chatId: string,
-    chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
-  ) => void;
+  onClick: (chatId: string, chatOpponent: UsersGetResponseDto) => void;
 };
 
 const Chat: FC<Props> = ({

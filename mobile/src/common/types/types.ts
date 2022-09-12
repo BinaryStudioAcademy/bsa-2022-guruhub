@@ -16,7 +16,6 @@ export {
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessageUserResponseDto,
 } from './chat/chat';
 export {
   type CourseModuleGetByIdResponseDto,

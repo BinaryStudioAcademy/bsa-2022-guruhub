@@ -2,7 +2,6 @@ import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetEmptyChatDto,
-  ChatMessageUserResponseDto,
   FC,
   UsersGetResponseDto,
 } from 'common/types/types';
@@ -18,7 +17,7 @@ type Props = {
   emptyChats: ChatMessageGetEmptyChatDto[];
   onChatMessagesLoad: (
     chatId: string,
-    chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
+    chatOpponent: UsersGetResponseDto,
   ) => void;
   fetchLastMessagesDataStatus: DataStatus;
 };
@@ -46,7 +45,7 @@ const ChatsList: FC<Props> = ({
       ) : (
         <ul className={styles.chatsList}>
           {chatsItems.map((chat) => {
-            const chatOpponent: ChatMessageUserResponseDto =
+            const chatOpponent: UsersGetResponseDto =
               chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
             return (

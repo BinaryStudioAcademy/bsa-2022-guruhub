@@ -3,7 +3,6 @@ import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetEmptyChatDto,
-  ChatMessageUserResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -23,7 +22,7 @@ type State = {
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
-  chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto | null;
+  chatOpponent: UsersGetResponseDto | null;
 };
 
 const initialState: State = {
