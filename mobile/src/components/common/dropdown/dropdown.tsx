@@ -42,7 +42,7 @@ const Dropdown = <T extends FormControlValues>({
       <DropDownPicker
         open={open}
         value={value}
-        items={items}
+        items={[...items]}
         setOpen={setOpen}
         setValue={onChange}
         onChangeValue={onChange}
