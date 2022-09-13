@@ -38,6 +38,9 @@ class Course extends Abstract {
           through: {
             from: `${DbTableName.COURSES_TO_MENTORS}.courseId`,
             to: `${DbTableName.COURSES_TO_MENTORS}.userId`,
+            extra: {
+              studentsCount: 'studentsCount',
+            },
           },
           to: `${DbTableName.USERS}.id`,
         },

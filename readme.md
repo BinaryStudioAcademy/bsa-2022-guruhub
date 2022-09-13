@@ -207,6 +207,7 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
+    int students_count
     int user_id FK
     int course_id FK
   }

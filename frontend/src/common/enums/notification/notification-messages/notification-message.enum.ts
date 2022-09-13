@@ -13,6 +13,7 @@ enum NotificationMessage {
   USER_DELETE = 'User has been successfully deleted!',
   PROFILE_DETAILS_UPDATE = 'Successful update!',
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
+  COURSES_MENTORING_UPDATE = 'Students count is successfully updated!',
   PERMISSION_DENIED = 'You have no permission to open this page!',
 }
 
