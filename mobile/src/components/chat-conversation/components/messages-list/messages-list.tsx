@@ -6,7 +6,7 @@ import { SectionList, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
 
 import { DateSeparator, Message } from './components/components';
-import { groupMessagesByDate, sortMessagesByDate } from './helpers/helpers';
+import { groupMessagesByDate } from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -19,7 +19,7 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
   const renderMessages = Object.entries(groupedByDateMessages).map(
     ([key, value]) => ({
       title: key,
-      data: sortMessagesByDate(value),
+      data: value,
     }),
   );
 
