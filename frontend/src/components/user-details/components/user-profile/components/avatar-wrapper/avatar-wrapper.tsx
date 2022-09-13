@@ -46,6 +46,7 @@ const AvatarWrapper: FC = () => {
           height="136"
           src={userDetails?.avatar?.url ?? defaultUserAvatar}
           alt="user avatar"
+          classes={styles.profileImage}
           isCircular
         />
       </div>
