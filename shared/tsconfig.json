@@ -1,9 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": [
-    "src",
-    "../mobile/src/common/types/chat/chat-validation-rule.enum.ts"
-  ],
+  "include": ["src"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
