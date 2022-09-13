@@ -1,6 +1,5 @@
 import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
 import {
-  ChatMessageUserResponseDto,
   FC,
   UsersGetResponseDto,
   UserWithPermissions,
@@ -51,7 +50,7 @@ const Chats: FC = () => {
 
   const handleChatMessagesLoad = (
     chatId: string,
-    chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto,
+    chatOpponent: UsersGetResponseDto,
   ): void => {
     dispatch(chatsActions.getMessages({ id: chatId, chatOpponent }));
   };

@@ -1,7 +1,7 @@
-import { ChatMessageUserResponseDto, UsersGetResponseDto } from '../types';
+import { UsersGetResponseDto } from '../types';
 
 type ChatMessageGetAllMessagesFromChatDto = {
   id: string;
-  chatOpponent: ChatMessageUserResponseDto | UsersGetResponseDto;
+  chatOpponent: UsersGetResponseDto;
 };
 export { type ChatMessageGetAllMessagesFromChatDto };

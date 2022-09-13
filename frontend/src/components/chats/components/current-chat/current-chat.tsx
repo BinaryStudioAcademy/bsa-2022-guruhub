@@ -1,7 +1,7 @@
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
   FC,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import { MessageForm, MessagesList } from './components/components';
@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   chatId: string | null;
-  chatOpponent: ChatMessageUserResponseDto | null;
+  chatOpponent: UsersGetResponseDto | null;
   currentUserId: number;
   messages: ChatMessageGetAllItemResponseDto[];
 };
