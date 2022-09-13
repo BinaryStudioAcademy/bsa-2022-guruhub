@@ -1,8 +1,8 @@
-import { AppRoute, StringCase } from 'common/enums/enums';
+import { StringCase } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
-import { useLocation, useMemo } from 'hooks/hooks';
+import { useMemo } from 'hooks/hooks';
 
 import { getRandomColor } from './helpers/helpers';
 import styles from './styles.module.scss';
@@ -12,17 +12,20 @@ type Props = {
   name: string;
   isActive?: boolean;
   onClick?: (keyName: string) => void;
+  isInteractive?: boolean;
 };
 
-const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
+const Category: FC<Props> = ({
+  keyName,
+  name,
+  isActive,
+  onClick,
+  isInteractive,
+}) => {
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
   });
-
-  const location = useLocation();
-
-  const isRoot = location.pathname === AppRoute.ROOT;
 
   const color = useMemo(() => {
     return getRandomColor();
@@ -32,7 +35,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
     onClick?.(keyName);
   };
 
-  if (!isRoot) {
+  if (!isInteractive) {
     return (
       <span
         className={getValidClasses(styles.categorySpan)}
