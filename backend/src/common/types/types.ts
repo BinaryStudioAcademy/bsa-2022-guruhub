@@ -16,6 +16,7 @@ export {
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,

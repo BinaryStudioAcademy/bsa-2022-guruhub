@@ -1,4 +1,5 @@
 export {
+  courseCheckIsMentorForStudentParams,
   courseCheckIsMentorParams,
   courseCreate,
   courseFiltering,

@@ -4,6 +4,7 @@ export {
   chatMessageGetAllParams,
 } from './chat-message/chat-message';
 export {
+  courseCheckIsMentorForStudentParams,
   courseCheckIsMentorParams,
   courseCreate,
   courseFiltering,

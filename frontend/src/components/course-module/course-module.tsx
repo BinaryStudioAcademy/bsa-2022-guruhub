@@ -52,6 +52,17 @@ const CourseModule: FC = () => {
   }, [task]);
 
   useEffect(() => {
+    if (isMentorView) {
+      dispatch(
+        courseModuleActions.checkIsMentorForMentee({
+          courseId: Number(courseId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [courseId, studentId, isMentorView]);
+
+  useEffect(() => {
     if (user) {
       const menteeId = isMentorView ? Number(studentId) : user.id;
       dispatch(

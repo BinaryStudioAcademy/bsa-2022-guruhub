@@ -14,6 +14,7 @@ enum NotificationMessage {
   PROFILE_DETAILS_UPDATE = 'Successful update!',
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
   COURSES_MENTORING_UPDATE = 'Maximum students count is successfully updated!',
+  PERMISSION_DENIED = 'You have no permission to open this page!',
 }
 
 export { NotificationMessage };
