@@ -8,6 +8,7 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseCheckIsMentorRequestParamsDto,
   CourseCreateRequestDto,
   CourseFilteringDto,
@@ -24,6 +25,7 @@ import {
   mentor as mentorService,
 } from '~/services/services';
 import {
+  courseCheckIsMentorForStudentParams as courseCheckIsMentorForStudentParamsValidationSchema,
   courseCheckIsMentorParams as courseCheckIsMentorParamsValidationSchema,
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
@@ -285,6 +287,29 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(changeMentor);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_MENTEES_$ID_IS_MENTOR_CHECK,
+    schema: { params: courseCheckIsMentorForStudentParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseCheckIsMentorForMenteeRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { courseId, menteeId } = req.params;
+      const { id: mentorId } = req.user;
+
+      const isMentorForMentee = await mentorService.checkIsMentorForMentee({
+        courseId,
+        menteeId,
+        mentorId,
+      });
+
+      rep.status(HttpCode.OK).send(isMentorForMentee);
     },
   });
 };

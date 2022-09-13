@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
   },
+  messageList: {
+    minWidth: '100%',
+  },
 });
 
 export { styles };

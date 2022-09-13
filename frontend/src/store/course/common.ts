@@ -5,6 +5,7 @@ enum ActionType {
   CREATE_INTERVIEW = 'course/create-interview',
   CREATE_MENTOR = 'course/create-mentor',
   GET_PASSED_INTERVIEW_CATEGORY_IDS = 'course/get-passed-interview-category-ids',
+  GET_ACTIVE_INTERVIEW_CATEGORY_IDS = 'course/get-active-interview-category-ids',
   SET_IS_MENTOR_BECOMING_ENABLED = 'course/set-is-mentor-becoming-enabled',
   GET_MENTORS = 'course/get-mentors',
   GET_MENTOR = 'course/get-mentor',
@@ -20,6 +21,7 @@ enum ActionType {
   CLEAN_MENTOR = 'course/clean-mentor',
   CLEAN_MENTORS = 'course/clean-mentors',
   GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID = 'course/get-modules-by-course-id-and-mentee-id',
+  CHECK_IS_MENTOR_FOR_MENTEE = 'course/check-is-mentor-for-mentee',
 }
 
 export { ActionType };

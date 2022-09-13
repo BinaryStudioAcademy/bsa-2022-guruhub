@@ -1,5 +1,5 @@
 import { DataStatus } from 'common/enums/enums';
-import { ChatMessageUserResponseDto, FC } from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import { useAppSelector } from 'hooks/hooks';
 
@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   chatId: string | null;
-  chatOpponent: ChatMessageUserResponseDto | null;
+  chatOpponent: UsersGetResponseDto | null;
   currentUserId: number;
 };
 
@@ -18,7 +18,13 @@ const CurrentChat: FC<Props> = ({ chatId, chatOpponent, currentUserId }) => {
     dataStatus: chats.currentChatMessagesDataStatus,
   }));
 
-  const hasMessages = Boolean(currentChatMessages.length);
+  if (!chatId) {
+    return (
+      <h1 className={styles.emptyChatMessage}>
+        There is no active chat selected
+      </h1>
+    );
+  }
 
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -30,16 +36,10 @@ const CurrentChat: FC<Props> = ({ chatId, chatOpponent, currentUserId }) => {
         {chatOpponent && <h4>{chatOpponent.userDetails.fullName}</h4>}
       </div>
       <div className={styles.currentChatContent}>
-        {hasMessages ? (
-          <MessagesList
-            currentUserId={currentUserId}
-            messages={currentChatMessages}
-          />
-        ) : (
-          <h1 className={styles.emptyChatMessage}>
-            There is no active chat selected
-          </h1>
-        )}
+        <MessagesList
+          currentUserId={currentUserId}
+          messages={currentChatMessages}
+        />
       </div>
       <div className={styles.currentChatFooter}>
         {chatOpponent && (

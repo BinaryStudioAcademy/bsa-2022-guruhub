@@ -6,6 +6,7 @@ enum NotificationMessage {
   UPDATE_SUCCESS = 'Successful update!',
   EDIT_CATEGORY_SUCCESS = 'Course category has been successfully updated!',
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
+  IMAGE_TO_BIG = 'Image size should be less than 1mb',
 }
 
 export { NotificationMessage };

@@ -8,7 +8,7 @@ import {
   ChatMessageCreateRequestBodyDto,
   ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
-  ChatMessageGetAllLastResponseDto,
+  ChatMessageGetAllLastWithEmptyChatsDto,
   ChatMessageGetAllResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
@@ -30,7 +30,7 @@ class ChatsApi {
 
   public getAllChatsLastMessages(opts: {
     filtering: ChatMessageFilteringDto;
-  }): Promise<ChatMessageGetAllLastResponseDto> {
+  }): Promise<ChatMessageGetAllLastWithEmptyChatsDto> {
     return this.#http.load(`${this.#apiPrefix}${ApiPath.CHATS}`, {
       method: HttpMethod.GET,
       queryString: {

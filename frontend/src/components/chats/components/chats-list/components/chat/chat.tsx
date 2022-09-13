@@ -1,5 +1,5 @@
 import defaultAvatar from 'assets/img/avatar-default.svg';
-import { ChatMessageUserResponseDto, FC } from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useAppSelector } from 'hooks/hooks';
@@ -8,12 +8,12 @@ import styles from './styles.module.scss';
 
 type Props = {
   chatId: string;
-  currentUserId: number;
-  messageSenderId: number;
-  chatOpponent: ChatMessageUserResponseDto;
-  lastMessage: string;
-  dateTheLastMessageWasSent: string;
-  onClick: (chatId: string) => void;
+  currentUserId?: number;
+  messageSenderId?: number;
+  chatOpponent: UsersGetResponseDto;
+  lastMessage?: string;
+  dateTheLastMessageWasSent?: string;
+  onClick: (chatId: string, chatOpponent: UsersGetResponseDto) => void;
 };
 
 const Chat: FC<Props> = ({
@@ -29,7 +29,7 @@ const Chat: FC<Props> = ({
     currentChatId: chats.currentChatId,
   }));
   const handleChatMessagesLoad = (): void => {
-    onClick(chatId);
+    onClick(chatId, chatOpponent);
   };
 
   return (
@@ -50,7 +50,12 @@ const Chat: FC<Props> = ({
       />
       <div className={styles.chatContentWrapper}>
         <div className={styles.chatOpponentAndDateLastMessageWasSentWrapper}>
-          <p className={styles.chatOpponentFullName}>
+          <p
+            className={getValidClasses(
+              styles.chatOpponentFullName,
+              lastMessage ?? styles.marginTopZero,
+            )}
+          >
             {chatOpponent.userDetails.fullName}
           </p>
           <p className={styles.dateTheLastMessageWasSent}>
@@ -58,9 +63,11 @@ const Chat: FC<Props> = ({
           </p>
         </div>
         <div className={styles.lastMessageWrapper}>
-          <p className={styles.lastMessage}>{`${
-            messageSenderId === currentUserId ? 'You:' : ''
-          } ${lastMessage}`}</p>
+          {messageSenderId && currentUserId && (
+            <p className={styles.lastMessage}>{`${
+              messageSenderId === currentUserId ? 'You:' : ''
+            } ${lastMessage}`}</p>
+          )}
         </div>
       </div>
     </button>

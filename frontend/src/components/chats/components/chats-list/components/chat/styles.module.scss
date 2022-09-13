@@ -42,12 +42,20 @@
   color: var(--typography-text-100-inverse);
 }
 
+.marginTopZero {
+  margin-top: 0;
+}
+
 .dateTheLastMessageWasSent {
   margin-bottom: 0;
   color: var(--typography-text-gray-200);
 }
 
 .lastMessage {
+  max-width: 320px;
   margin-top: 0;
+  overflow: hidden;
   color: var(--typography-text-gray-200);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

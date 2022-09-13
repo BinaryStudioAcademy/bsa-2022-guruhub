@@ -2,7 +2,8 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
+  ChatMessageGetEmptyChatDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
@@ -16,17 +17,19 @@ import {
 type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
+  emptyChats: ChatMessageGetEmptyChatDto[];
   fetchLastMessagesDataStatus: DataStatus;
   currentChatMessagesDataStatus: DataStatus;
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
-  chatOpponent: ChatMessageUserResponseDto | null;
+  chatOpponent: UsersGetResponseDto | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   lastMessages: [],
+  emptyChats: [],
   fetchLastMessagesDataStatus: DataStatus.IDLE,
   currentChatMessagesDataStatus: DataStatus.IDLE,
   currentChatMessages: [],
@@ -42,6 +45,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getLastMessages.fulfilled, (state, action) => {
     state.fetchLastMessagesDataStatus = DataStatus.FULFILLED;
     state.lastMessages = action.payload.items;
+    state.emptyChats = action.payload.emptyChats;
   });
   builder.addCase(getLastMessages.rejected, (state) => {
     state.fetchLastMessagesDataStatus = DataStatus.REJECTED;
