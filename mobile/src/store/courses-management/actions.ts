@@ -9,16 +9,19 @@ import {
 
 import { ActionType } from './common';
 
-const getCoursesWithCategory = createAsyncThunk<
+const getAllWithCategories = createAsyncThunk<
   EntityPagination<CourseGetResponseDto>,
   EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES_WITH_CATEGORY, async ({ count, page }, { extra }) => {
-  const { coursesApi } = extra;
-  const courses = await coursesApi.getAllWithCategory({ page, count });
+>(
+  ActionType.GET_COURSES_WITH_CATEGORIES,
+  async ({ count, page }, { extra }) => {
+    const { coursesApi } = extra;
+    const courses = await coursesApi.getAllWithCategories({ page, count });
 
-  return courses;
-});
+    return courses;
+  },
+);
 
 const setNavigateFromCoursesManagement = createAction(
   ActionType.SET_NAVIGATE_FROM_COURSES_MANAGEMENT,
@@ -29,7 +32,7 @@ const unsetNavigateFromCoursesManagement = createAction(
 );
 
 export {
-  getCoursesWithCategory,
+  getAllWithCategories,
   setNavigateFromCoursesManagement,
   unsetNavigateFromCoursesManagement,
 };

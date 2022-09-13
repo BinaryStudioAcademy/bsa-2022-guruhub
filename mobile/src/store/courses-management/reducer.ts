@@ -4,7 +4,7 @@ import { DataStatus } from '~/common/enums/enums';
 import { CourseGetResponseDto } from '~/common/types/types';
 
 import {
-  getCoursesWithCategory,
+  getAllWithCategories,
   setNavigateFromCoursesManagement,
   unsetNavigateFromCoursesManagement,
 } from './actions';
@@ -24,15 +24,15 @@ const initialState: State = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(getCoursesWithCategory.pending, (state) => {
+  builder.addCase(getAllWithCategories.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(getCoursesWithCategory.fulfilled, (state, { payload }) => {
+  builder.addCase(getAllWithCategories.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.coursesWithCategory = payload.items;
     state.totalCoursesNumber = payload.total;
   });
-  builder.addCase(getCoursesWithCategory.rejected, (state) => {
+  builder.addCase(getAllWithCategories.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 

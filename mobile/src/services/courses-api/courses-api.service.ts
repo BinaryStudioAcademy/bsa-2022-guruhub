@@ -34,7 +34,7 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAllWithCategory({
+  public getAllWithCategories({
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<

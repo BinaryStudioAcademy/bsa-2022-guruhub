@@ -48,7 +48,7 @@ const CoursesManagement: FC = () => {
   useFocusEffect(
     useCallback(() => {
       dispatch(
-        coursesManagementActions.getCoursesWithCategory({
+        coursesManagementActions.getAllWithCategories({
           page,
           count: DEFAULT_PAGE_SIZE,
         }),
