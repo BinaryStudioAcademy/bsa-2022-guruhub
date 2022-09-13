@@ -14,8 +14,6 @@ import {
   user as userService,
 } from '~/services/services';
 
-const TOKEN_NULL_VALUE = 'null';
-
 type Options = {
   routesWhiteList: WhiteRoute[];
   services: {
@@ -44,11 +42,6 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
       }
 
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
-      const hasToken = authToken && authToken !== TOKEN_NULL_VALUE;
-
-      if (!hasToken) {
-        throw new InvalidCredentialsError(ExceptionMessage.UNAUTHORIZED_USER);
-      }
 
       const { user, token } = opts.services;
       const { userId } = await token.decode(authToken);
