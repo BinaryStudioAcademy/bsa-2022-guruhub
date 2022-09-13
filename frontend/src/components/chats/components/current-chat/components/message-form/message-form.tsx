@@ -6,7 +6,7 @@ import { chatsActions } from 'store/actions';
 import { chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema } from 'validation-schemas/validation-schemas';
 
 import {
-  checkMessageHasNotOnlyWhiteSpaces,
+  checkIsMessageHasNotOnlyWhiteSpaces,
   getDefaultMessagePayload,
 } from './helpers/helpers';
 
@@ -27,7 +27,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
   const handleMessageSubmit = (
     payload: ChatMessageCreateRequestBodyDto,
   ): void => {
-    if (checkMessageHasNotOnlyWhiteSpaces(payload.message)) {
+    if (checkIsMessageHasNotOnlyWhiteSpaces(payload.message)) {
       dispatch(chatsActions.createMessage(payload));
     }
 
