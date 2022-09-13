@@ -21,6 +21,8 @@ const userSignUp = Joi.object({
       'string.empty': UserValidationMessage.EMAIL_REQUIRE,
       'string.min': UserValidationMessage.EMAIL_MIN_LENGTH,
       'string.max': UserValidationMessage.EMAIL_MAX_LENGTH,
+      'string.base': UserValidationMessage.EMAIL_STRING,
+      'any.required': UserValidationMessage.EMAIL_REQUIRE,
     }),
   [getNameOf<UserSignUpRequestDto>('password')]: Joi.string()
     .trim()
@@ -31,6 +33,8 @@ const userSignUp = Joi.object({
       'string.empty': UserValidationMessage.PASSWORD_REQUIRE,
       'string.min': UserValidationMessage.PASSWORD_MIN_LENGTH,
       'string.max': UserValidationMessage.PASSWORD_MAX_LENGTH,
+      'string.base': UserValidationMessage.PASSWORD_STRING,
+      'any.required': UserValidationMessage.PASSWORD_REQUIRE,
     }),
   [getNameOf<UserSignUpRequestDto>('fullName')]: Joi.string()
     .trim()
@@ -43,6 +47,8 @@ const userSignUp = Joi.object({
       'string.min': UserValidationMessage.NAME_MIN_LENGTH,
       'string.max': UserValidationMessage.NAME_MAX_LENGTH,
       'string.pattern.base': UserValidationMessage.NAME_WRONG,
+      'string.base': UserValidationMessage.NAME_STRING,
+      'any.required': UserValidationMessage.NAME_REQUIRE,
     }),
 });
 
