@@ -1,6 +1,11 @@
-import { ExceptionMessage, TaskStatus } from '~/common/enums/enums';
+import {
+  ExceptionMessage,
+  MenteesToMentorsStatus,
+  TaskStatus,
+} from '~/common/enums/enums';
 import {
   EntityPagination,
+  TaskCreateRequestDto,
   TaskGetByMenteeIdAndModuleId,
   TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TaskGetItemReponseDto,
@@ -14,11 +19,15 @@ import {
 import { task as taskRep } from '~/data/repositories/repositories';
 import { TasksError } from '~/exceptions/exceptions';
 
-import { taskNote as taskNoteServ } from '../services';
+import {
+  menteesToMentors as menteesToMentorsServ,
+  taskNote as taskNoteServ,
+} from '../services';
 
 type Constructor = {
   taskRepository: typeof taskRep;
   taskNoteService: typeof taskNoteServ;
+  menteesToMentorsService: typeof menteesToMentorsServ;
 };
 
 class Task {
@@ -26,9 +35,16 @@ class Task {
 
   #taskNoteService: typeof taskNoteServ;
 
-  public constructor({ taskRepository, taskNoteService }: Constructor) {
+  #menteesToMentorsService: typeof menteesToMentorsServ;
+
+  public constructor({
+    taskRepository,
+    taskNoteService,
+    menteesToMentorsService,
+  }: Constructor) {
     this.#taskRepository = taskRepository;
     this.#taskNoteService = taskNoteService;
+    this.#menteesToMentorsService = menteesToMentorsService;
   }
 
   public async manipulate({
@@ -57,6 +73,22 @@ class Task {
     });
 
     await this.updateStatus(taskId, status);
+
+    if (status !== TaskStatus.COMPLETED) {
+      return newNote;
+    }
+
+    const hasUnfinishedTasks =
+      await this.#taskRepository.hasUncompletedModulesByMenteesToMentorsId(
+        task.menteesToMentorsId,
+      );
+
+    if (!hasUnfinishedTasks) {
+      await this.#menteesToMentorsService.changeStatus({
+        id: task.menteesToMentorsId,
+        status: MenteesToMentorsStatus.COMPLETED,
+      });
+    }
 
     return newNote;
   }
@@ -131,6 +163,13 @@ class Task {
       courseId,
       menteeId,
     });
+  }
+
+  public createTask({
+    menteesToMentorsId,
+    moduleId,
+  }: TaskCreateRequestDto): Promise<TaskGetItemReponseDto> {
+    return this.#taskRepository.createTask({ menteesToMentorsId, moduleId });
   }
 }
 

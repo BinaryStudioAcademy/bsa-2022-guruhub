@@ -6,4 +6,5 @@ export {
 } from './courses/courses';
 export { type RequestOptions, type Response } from './got/got';
 export { type ModuleCreateExpected } from './modules/modules';
+export { type UserCreateExpected, type UserExpected } from './users/users';
 export { type VendorExpected } from './vendors/vendors';

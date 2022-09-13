@@ -159,6 +159,25 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
 
   fastify.route({
     method: HttpMethod.GET,
+    url: InterviewsApiPath.INTERVIEWEE_USER_$ID_ACTIVE_CATEGORIES,
+    schema: { params: interviewByIntervieweeIdValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: InterviewsByIntervieweeIdRequestDto }>,
+      rep,
+    ) {
+      const { intervieweeUserId } = req.params;
+
+      const categoryIds =
+        await interviewService.getActiveInterviewsCategoryIdsByUserId(
+          intervieweeUserId,
+        );
+
+      rep.status(HttpCode.OK).send(categoryIds);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
     url: InterviewsApiPath.INTERVIEWERS_CATEGORIES_$ID,
     schema: { params: interviewGetInterviewersByCategoryValidationSchema },
     preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),

@@ -8,11 +8,15 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetEmptyChatDto,
+  type ChatMessageGetEmptyChatsRequestDto,
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
@@ -93,6 +97,7 @@ export {
 } from './interview-note/interview-note';
 export {
   type GetMentorRequestParamsDto,
+  type MenteesToMentorsChangeStatusRequestDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
@@ -105,6 +110,7 @@ export {
 } from './permission/permission';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,

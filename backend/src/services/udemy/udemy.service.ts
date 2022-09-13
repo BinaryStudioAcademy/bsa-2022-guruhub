@@ -15,7 +15,7 @@ type Constructor = {
 };
 
 class Udemy {
-  #MODULE_API_PAGE_SIZE = 15;
+  #MODULE_API_PAGE_SIZE = 100;
 
   #INITIAL_PAGE = 1;
 

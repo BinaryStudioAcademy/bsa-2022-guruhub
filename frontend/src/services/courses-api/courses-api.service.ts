@@ -5,6 +5,7 @@ import {
   HttpMethod,
 } from 'common/enums/enums';
 import {
+  CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseFilteringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
@@ -212,6 +213,17 @@ class CoursesApi {
         contentType: ContentType.JSON,
         payload: JSON.stringify({ newCategoryId }),
       },
+    );
+  }
+
+  public checkIsMentorForMentee({
+    courseId,
+    menteeId,
+  }: CourseCheckIsMentorForMenteeRequestParamsDto): Promise<boolean> {
+    return this.#http.load<boolean>(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.MENTEES
+      }/${menteeId}${CoursesApiPath.IS_MENTOR_CHECK}`,
     );
   }
 }
