@@ -35,6 +35,7 @@ const Course: FC = () => {
     course,
     dataStatus,
     passedInterviewsCategoryIds,
+    activeInterviewsCategoriesIds,
     user,
     mentors,
     mentor,
@@ -50,6 +51,7 @@ const Course: FC = () => {
     course: course.course,
     dataStatus: course.dataStatus,
     passedInterviewsCategoryIds: course.passedInterviewsCategoryIds,
+    activeInterviewsCategoriesIds: course.activeInterviewsCategoryIds,
     user: auth.user,
     mentors: course.mentors,
     mentor: course.mentor,
@@ -146,6 +148,7 @@ const Course: FC = () => {
           menteeId: user.id,
         }),
       );
+      dispatch(courseActions.getActiveInterviewsCategoryIdsByUserId(user.id));
     }
 
     return () => {
@@ -164,7 +167,12 @@ const Course: FC = () => {
     return () => {
       dispatch(courseActions.disableMentorBecoming());
     };
-  }, [user, course, passedInterviewsCategoryIds]);
+  }, [
+    user,
+    course,
+    passedInterviewsCategoryIds,
+    activeInterviewsCategoriesIds,
+  ]);
 
   useEffect(() => {
     if (isMentorView) {
@@ -180,6 +188,7 @@ const Course: FC = () => {
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
+      dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
     }
   }, [user]);
 

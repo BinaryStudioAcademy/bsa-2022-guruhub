@@ -53,10 +53,11 @@ const createInterview = createAsyncThunk<
   void,
   InterviewsCreateRequestBodyDto,
   AsyncThunkConfig
->(ActionType.CREATE_INTERVIEW, async (payload, { extra }) => {
+>(ActionType.CREATE_INTERVIEW, async (payload, { extra, dispatch }) => {
   const { interviewsApi, notification } = extra;
 
   await interviewsApi.create(payload);
+  dispatch(getActiveInterviewsCategoryIdsByUserId(payload.intervieweeUserId));
 
   notification.success(NotificationMessage.INTERVIEW_CREATE);
 });
@@ -96,6 +97,19 @@ const getPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
     await interviewsApi.getPassedInterviewsCategoryIdsByUserId(payload);
 
   return passedInterviewsCategoryIds;
+});
+
+const getActiveInterviewsCategoryIdsByUserId = createAsyncThunk<
+  number[],
+  number,
+  AsyncThunkConfig
+>(ActionType.GET_ACTIVE_INTERVIEW_CATEGORY_IDS, async (payload, { extra }) => {
+  const { interviewsApi } = extra;
+
+  const activeInterviewsCategoryIds =
+    await interviewsApi.getActiveInterviewsCategoryIdsByUserId(payload);
+
+  return activeInterviewsCategoryIds;
 });
 
 const updateIsMentorBecomingEnabled = createAsyncThunk<
@@ -272,7 +286,7 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
   async (id, { extra, getState }) => {
     const {
       auth: { user },
-      course: { mentors, course },
+      course: { mentors, course, activeInterviewsCategoryIds },
     } = getState();
 
     if (!course) {
@@ -284,12 +298,19 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
     const isMentor = mentors.some(
       (mentor) => mentor.id === (user as UserWithPermissions).id,
     );
+    const isInterviewProcessActive = activeInterviewsCategoryIds.some(
+      (categoryId) => {
+        return categoryId === (course as CourseGetResponseDto).courseCategoryId;
+      },
+    );
+
     const hasMentor = await coursesApi.checkHasMentor({
       courseId: id,
     });
     const hasCategory = Boolean(course.category);
 
-    const canChooseMentor = !isMentor && !hasMentor && hasCategory;
+    const canChooseMentor =
+      !isMentor && !hasMentor && hasCategory && !isInterviewProcessActive;
 
     return canChooseMentor;
   },
@@ -358,6 +379,7 @@ export {
   createMentor,
   disableMentorBecoming,
   disableMentorChoosing,
+  getActiveInterviewsCategoryIdsByUserId,
   getCategories,
   getCourse,
   getMenteesByCourseId,

@@ -18,6 +18,7 @@ import {
   createMentor,
   disableMentorBecoming,
   disableMentorChoosing,
+  getActiveInterviewsCategoryIdsByUserId,
   getCategories,
   getCourse,
   getMenteesByCourseId,
@@ -36,6 +37,7 @@ type State = {
   course: CourseGetResponseDto | null;
   modules: CourseModulesGetAllItemResponseDto[];
   passedInterviewsCategoryIds: number[];
+  activeInterviewsCategoryIds: number[];
   isMentorBecomingEnabled: boolean;
   isMentorChoosingEnabled: boolean;
   mentors: UserDetailsResponseDto[];
@@ -53,6 +55,7 @@ const initialState: State = {
   course: null,
   modules: [],
   passedInterviewsCategoryIds: [],
+  activeInterviewsCategoryIds: [],
   isMentorBecomingEnabled: false,
   isMentorChoosingEnabled: false,
   mentors: [],
@@ -76,7 +79,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getCourse.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
-
   builder.addCase(getModules.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
@@ -97,11 +99,21 @@ const reducer = createReducer(initialState, (builder) => {
     state.passedInterviewsCategoryIds = [];
   });
   builder.addCase(
+    getActiveInterviewsCategoryIdsByUserId.fulfilled,
+    (state, { payload }) => {
+      state.activeInterviewsCategoryIds = payload;
+    },
+  );
+  builder.addCase(getActiveInterviewsCategoryIdsByUserId.rejected, (state) => {
+    state.activeInterviewsCategoryIds = [];
+  });
+  builder.addCase(
     updateIsMentorBecomingEnabled.fulfilled,
     (state, { payload }) => {
       state.isMentorBecomingEnabled = payload;
     },
   );
+
   builder.addCase(getMentorsByCourseId.fulfilled, (state, { payload }) => {
     state.mentors = payload;
   });
