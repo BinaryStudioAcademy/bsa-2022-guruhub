@@ -11,6 +11,9 @@ import { ENV, FileSizeBytesValue } from '~/common/enums/enums';
 
 import knexConfig from '../knexfile';
 
+// import http from 'http';
+// import { Server as SocketServer } from 'socket.io';
+
 const app = Fastify({
   logger: {
     transport: {
@@ -18,6 +21,15 @@ const app = Fastify({
     },
   },
 });
+
+// const socketServer = new http.Server(app);
+
+// const io = new SocketServer(socketServer, {
+//   cors: {
+//     origin: '*',
+//     credentials: true,
+//   },
+// });
 
 Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
 
