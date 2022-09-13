@@ -75,6 +75,7 @@ const coursesToMentors = new CoursesToMentors({
   groupRepository: groupsRepository,
   usersToGroupsService: usersToGroups,
 });
+
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const interviewNote = new InterviewNote({
@@ -151,9 +152,19 @@ const course = new Course({
   courseCategoryService: courseCategory,
 });
 
+const taskNote = new TaskNote({ taskNoteRepository });
+
+const task = new Task({
+  taskRepository,
+  taskNoteService: taskNote,
+  menteesToMentorsService: menteesToMentors,
+});
+
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,
   coursesToMentorsService: coursesToMentors,
+  courseModuleService: courseModule,
+  taskService: task,
 });
 
 const chatMessage = new ChatMessage({
@@ -161,10 +172,6 @@ const chatMessage = new ChatMessage({
   menteesToMentorsRepository,
   userRepository,
 });
-
-const taskNote = new TaskNote({ taskNoteRepository });
-
-const task = new Task({ taskRepository, taskNoteService: taskNote });
 
 export {
   auth,

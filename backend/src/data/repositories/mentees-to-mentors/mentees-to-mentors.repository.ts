@@ -1,4 +1,6 @@
+import { MenteesToMentorsStatus } from '~/common/enums/enums';
 import {
+  MenteesToMentorsChangeStatusRequestDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
@@ -45,6 +47,7 @@ class MenteesToMentors {
       .query()
       .patch({
         mentorId,
+        status: MenteesToMentorsStatus.IN_PROGRESS,
       })
       .where({
         menteeId,
@@ -57,7 +60,7 @@ class MenteesToMentors {
       .execute();
   }
 
-  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
+  public async getUncompletedByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
   }): Promise<MenteesToMentorsResponseDto | null> {
@@ -66,6 +69,7 @@ class MenteesToMentors {
       .query()
       .where({ courseId })
       .andWhere({ menteeId })
+      .andWhereNot({ status: MenteesToMentorsStatus.COMPLETED })
       .withGraphJoined(
         'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
       )
@@ -120,6 +124,17 @@ class MenteesToMentors {
       .withGraphJoined(
         '[mentee(withoutPassword).[userDetails(withoutMoneyBalance)], mentor(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
+      .execute();
+  }
+
+  public changeStatus({
+    id,
+    status,
+  }: MenteesToMentorsChangeStatusRequestDto): Promise<number> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .findById(id)
+      .patch({ status })
       .execute();
   }
 
