@@ -9,6 +9,7 @@ export {
   type ChatMessageUserResponseDto,
 } from './chat-message/chat-message';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
