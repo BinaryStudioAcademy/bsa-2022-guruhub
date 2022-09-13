@@ -33,9 +33,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_200,
     marginBottom: 5,
   },
-  textWrapper: {
-    flex: 1,
-  },
   opponentMessageAvatar: {
     width: 28,
     height: 28,
