@@ -17,10 +17,14 @@ class UsersToGroups {
   }): Promise<UsersToGroupsM> {
     const { groupId, userId } = usersToGroups;
 
-    return this.#UsersToGroupsModel.query().insert({
-      groupId,
-      userId,
-    });
+    return this.#UsersToGroupsModel
+      .query()
+      .insert({
+        groupId,
+        userId,
+      })
+      .onConflict(['userId', 'groupId'])
+      .ignore();
   }
 
   public async getByUserId(userId: number): Promise<UsersToGroupsM[] | null> {
