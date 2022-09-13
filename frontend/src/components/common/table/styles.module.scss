@@ -54,3 +54,8 @@
   width: 20px;
   height: 100%;
 }
+
+.tableWrapper {
+  display: flex;
+  overflow-x: scroll;
+}

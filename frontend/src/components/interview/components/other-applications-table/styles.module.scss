@@ -1,14 +1,9 @@
-.usersTable {
+.otherApplications {
   display: grid;
   width: fit-content;
   max-width: 100%;
+  margin-bottom: 20px;
   padding: 10px;
   background: var(--background-gray-300);
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
-}
-
-.usersTableHeading {
-  margin: 15px;
-  color: var(--typography-text-100-inverse);
 }
