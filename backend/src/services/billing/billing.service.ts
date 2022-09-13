@@ -1,4 +1,4 @@
-import { TransactionStatus } from '~/common/enums/enums';
+import { PaymentCurrency, TransactionStatus } from '~/common/enums/enums';
 import {
   BillingReplenishArgumentsDto,
   TransactionCreateArgumentsDto,
@@ -52,6 +52,7 @@ class Billing {
     await this.#stripeService.initReplenish({
       amount: amountOfMoneyToReplenish,
       token,
+      currency: PaymentCurrency.USD,
     });
 
     const newBalance =
@@ -67,17 +68,13 @@ class Billing {
       userId,
     );
 
-    const withdrawDto = await this.#stripeService.initWithdraw(
+    await this.#stripeService.initWithdraw(
       userWithBalance.userDetails.moneyBalance,
     );
 
-    if (withdrawDto.status === 'in_transit') {
-      const newBalance = 0;
+    const newBalance = 0;
 
-      return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
-    }
-
-    return userWithBalance.userDetails;
+    return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
   }
 
   public makeTransaction(

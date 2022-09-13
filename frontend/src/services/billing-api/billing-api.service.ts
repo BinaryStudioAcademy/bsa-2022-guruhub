@@ -38,7 +38,7 @@ class BillingApi {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.REPLENISH}`,
       {
-        method: HttpMethod.POST,
+        method: HttpMethod.PATCH,
         contentType: ContentType.JSON,
         payload: JSON.stringify({ amountOfMoneyToReplenish, token }),
       },
@@ -49,7 +49,7 @@ class BillingApi {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.WITHDRAW}`,
       {
-        method: HttpMethod.POST,
+        method: HttpMethod.PATCH,
       },
     );
   }

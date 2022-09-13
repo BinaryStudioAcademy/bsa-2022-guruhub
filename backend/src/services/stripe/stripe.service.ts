@@ -1,10 +1,8 @@
 import StripeApi from 'stripe';
 
-import { ExceptionMessage, PaymentCurrency } from '~/common/enums/enums';
+import { PaymentCurrency, PaymentUnit } from '~/common/enums/enums';
 import { StripeReplenishArgumentsDto } from '~/common/types/types';
 import { BillingError } from '~/exceptions/exceptions';
-
-const MINIMAL_SUM_OF_MONEY_TO_WITHDRAW = 1;
 
 type Constructor = {
   secretKey: string;
@@ -24,27 +22,39 @@ class Stripe {
     amount,
     token,
   }: StripeReplenishArgumentsDto): Promise<StripeApi.Charge> {
-    return this.#stripe.charges.create({
-      source: token.id,
-      amount,
-      currency: PaymentCurrency.USD,
-    });
+    try {
+      return this.#stripe.charges.create({
+        source: token.id,
+        amount: amount * PaymentUnit.CENTS_IN_ONE_DOLLAR,
+        currency: PaymentCurrency.USD,
+      });
+    } catch (err: unknown) {
+      this.throwError(err);
+    }
   }
 
   public initWithdraw(
     amount: number,
     currency: PaymentCurrency = PaymentCurrency.USD,
   ): Promise<StripeApi.Response<StripeApi.Payout>> {
-    if (amount < MINIMAL_SUM_OF_MONEY_TO_WITHDRAW) {
+    try {
+      return this.#stripe.payouts.create({
+        amount: amount * PaymentUnit.CENTS_IN_ONE_DOLLAR,
+        currency,
+      });
+    } catch (err: unknown) {
+      this.throwError(err);
+    }
+  }
+
+  private throwError(err: unknown): never {
+    if (err instanceof StripeApi.errors.StripeError) {
       throw new BillingError({
-        message: ExceptionMessage.NOT_ENOUGH_FUNDS_TO_WITHDRAW,
+        message: err.message,
+        status: err.statusCode,
       });
     }
-
-    return this.#stripe.payouts.create({
-      amount,
-      currency,
-    });
+    throw new BillingError();
   }
 }
 

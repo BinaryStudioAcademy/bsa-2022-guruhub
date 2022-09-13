@@ -1,6 +1,10 @@
 import { HttpError } from 'guruhub-shared/exceptions/exceptions';
 
-import { CustomExceptionName } from '~/common/enums/enums';
+import {
+  CustomExceptionName,
+  ExceptionMessage,
+  HttpCode,
+} from '~/common/enums/enums';
 
 type Constructor = {
   message?: string;
@@ -8,7 +12,10 @@ type Constructor = {
 };
 
 class BillingError extends HttpError {
-  public constructor({ message, status }: Constructor = {}) {
+  public constructor({
+    message = ExceptionMessage.UNABLE_TO_PERFORM_BILLING_OPERATION,
+    status = HttpCode.BAD_REQUEST,
+  }: Constructor = {}) {
     super({ message, status });
     this.name = CustomExceptionName.BILLING_ERROR;
   }

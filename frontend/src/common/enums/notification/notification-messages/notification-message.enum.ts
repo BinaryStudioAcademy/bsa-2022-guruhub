@@ -14,6 +14,8 @@ enum NotificationMessage {
   PROFILE_DETAILS_UPDATE = 'Successful update!',
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
   NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You need to have at least 1$ to withdraw your funds',
+  SUCCESSFULL_REPLENISH = 'You have successfully replenished your balance',
+  SUCCESSFUL_WITHDRAW_START = 'Withdrawing process has successfully started. You need to wait when your bank transfers your funds on your count.',
 }
 
 export { NotificationMessage };

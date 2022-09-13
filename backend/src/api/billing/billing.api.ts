@@ -30,7 +30,7 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   });
 
   fastify.route({
-    method: HttpMethod.POST,
+    method: HttpMethod.PATCH,
     url: BillingApiPath.REPLENISH,
     schema: { body: billingReplenishParamsValidationSchema },
     async handler(
@@ -51,7 +51,7 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   });
 
   fastify.route({
-    method: HttpMethod.POST,
+    method: HttpMethod.PATCH,
     url: BillingApiPath.WITHDRAW,
     async handler(req, rep) {
       const { id } = req.user;

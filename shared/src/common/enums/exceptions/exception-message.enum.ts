@@ -27,6 +27,7 @@ enum ExceptionMessage {
   USER_DETAILS_NOT_FOUND = 'User was not found.',
   FILE_TOO_BIG = 'This file is too large to upload. The maximum supported file size is: 1MB',
   USER_CAN_NOT_BE_DELETED = 'This user is forbidden to delete',
+  UNABLE_TO_PERFORM_BILLING_OPERATION = 'Unable to perform billing operation',
   NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You do not have minimal sum of funds (1$) to withdraw.',
 }
 export { ExceptionMessage };

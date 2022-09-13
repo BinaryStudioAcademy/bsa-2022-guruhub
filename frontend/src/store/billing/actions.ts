@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   BillingReplenishParamsDto,
@@ -26,11 +27,13 @@ const replenish = createAsyncThunk<
 >(
   ActionType.REPLENISH,
   async ({ amountOfMoneyToReplenish, token }, { extra }) => {
-    const { billingApi } = extra;
+    const { billingApi, notification } = extra;
     const userDetailsWithMoneyBalance = await billingApi.replenish({
       amountOfMoneyToReplenish,
       token,
     });
+
+    notification.success(NotificationMessage.SUCCESSFULL_REPLENISH);
 
     return userDetailsWithMoneyBalance;
   },
@@ -41,8 +44,10 @@ const withdraw = createAsyncThunk<
   void,
   AsyncThunkConfig
 >(ActionType.WITHDRAW, async (_, { extra }) => {
-  const { billingApi } = extra;
+  const { billingApi, notification } = extra;
   const userDetailsWithMoneyBalance = await billingApi.withdraw();
+
+  notification.success(NotificationMessage.SUCCESSFUL_WITHDRAW_START);
 
   return userDetailsWithMoneyBalance;
 });
