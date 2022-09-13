@@ -1,11 +1,10 @@
 import { ChatMessageStatus } from '~/common/enums/enums';
-
-import { ChatMessageUserResponseDto } from './chat-message-user-response-dto-type';
+import { UsersGetResponseDto } from '~/common/types/types';
 
 type ChatMessageGetAllItemResponseDto = {
   id: number;
-  receiver: ChatMessageUserResponseDto;
-  sender: ChatMessageUserResponseDto;
+  receiver: UsersGetResponseDto;
+  sender: UsersGetResponseDto;
   message: string;
   createdAt: string;
   chatId: string;

@@ -157,6 +157,7 @@ const mentor = new Mentor({
 const chatMessage = new ChatMessage({
   chatMessageRepository,
   menteesToMentorsRepository,
+  userRepository,
 });
 
 const taskNote = new TaskNote({ taskNoteRepository });

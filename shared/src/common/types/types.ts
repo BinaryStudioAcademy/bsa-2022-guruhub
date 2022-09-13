@@ -7,9 +7,10 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessageUserResponseDto,
+  type ChatMessageGetEmptyChatDto,
 } from './chat-message/chat-message';
 export {
   type CourseCheckIsMentorForMenteeRequestParamsDto,
