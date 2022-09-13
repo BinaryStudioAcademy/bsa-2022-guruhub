@@ -1,5 +1,7 @@
 .usersTable {
-  width: 100%;
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
   padding: 10px;
   background: var(--background-gray-300);
   border-radius: 10px;

@@ -19,6 +19,7 @@ type State = {
   lastMessages: ChatMessageGetAllItemResponseDto[];
   emptyChats: ChatMessageGetEmptyChatDto[];
   fetchLastMessagesDataStatus: DataStatus;
+  currentChatMessagesDataStatus: DataStatus;
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
@@ -30,6 +31,7 @@ const initialState: State = {
   lastMessages: [],
   emptyChats: [],
   fetchLastMessagesDataStatus: DataStatus.IDLE,
+  currentChatMessagesDataStatus: DataStatus.IDLE,
   currentChatMessages: [],
   currentChatId: null,
   hasUnreadMessages: false,
@@ -50,21 +52,18 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(getMessages.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.currentChatMessagesDataStatus = DataStatus.PENDING;
   });
   builder.addCase(getMessages.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
+    state.currentChatMessagesDataStatus = DataStatus.FULFILLED;
     state.currentChatMessages = action.payload.items;
     state.currentChatId = action.payload.chatId;
     state.chatOpponent = action.payload.chatOpponent;
   });
   builder.addCase(getMessages.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.currentChatMessagesDataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(createMessage.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
   builder.addCase(createMessage.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.currentChatMessages = [...state.currentChatMessages, action.payload];

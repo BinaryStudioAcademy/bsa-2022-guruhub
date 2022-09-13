@@ -19,7 +19,7 @@ type Constructor = {
 class Interview {
   #InterviewModel: typeof InterviewM;
 
-  private static SELECT_NO_COLUMNS = 1;
+  private static RECORD_EXISTS_CHECK = 1;
 
   public constructor({ InterviewModel }: Constructor) {
     this.#InterviewModel = InterviewModel;
@@ -101,6 +101,16 @@ class Interview {
       .execute();
   }
 
+  public async checkIsInterviewee(intervieweeUserId: number): Promise<boolean> {
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.RECORD_EXISTS_CHECK)
+      .where({ intervieweeUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
   public getActiveInterviewsByUserId(
     intervieweeUserId: number,
   ): Promise<InterviewM[]> {
@@ -165,7 +175,7 @@ class Interview {
     const { interviewId, intervieweeUserId } = interview;
     const menteeToMentor = await this.#InterviewModel
       .query()
-      .select(Interview.SELECT_NO_COLUMNS)
+      .select(Interview.RECORD_EXISTS_CHECK)
       .where({ id: interviewId, intervieweeUserId })
       .first();
 
