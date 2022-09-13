@@ -1,7 +1,8 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   AsyncThunkConfig,
+  CategoryGetAllResponseDto,
   CourseGetResponseDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -23,16 +24,15 @@ const getAllWithCategories = createAsyncThunk<
   },
 );
 
-const setNavigateFromCoursesManagement = createAction(
-  ActionType.SET_NAVIGATE_FROM_COURSES_MANAGEMENT,
-);
+const getCategories = createAsyncThunk<
+  CategoryGetAllResponseDto,
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_CATEGORIES, async (_, { extra }) => {
+  const { categoriesApi } = extra;
+  const categoriesDto = await categoriesApi.getAll();
 
-const unsetNavigateFromCoursesManagement = createAction(
-  ActionType.UNSET_NAVIGATE_FROM_COURSES_MANAGEMENT,
-);
+  return categoriesDto;
+});
 
-export {
-  getAllWithCategories,
-  setNavigateFromCoursesManagement,
-  unsetNavigateFromCoursesManagement,
-};
+export { getAllWithCategories, getCategories };

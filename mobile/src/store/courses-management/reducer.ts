@@ -1,26 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { DataStatus } from '~/common/enums/enums';
-import { CourseGetResponseDto } from '~/common/types/types';
-
 import {
-  getAllWithCategories,
-  setNavigateFromCoursesManagement,
-  unsetNavigateFromCoursesManagement,
-} from './actions';
+  CategoryGetAllItemResponseDto,
+  CourseGetResponseDto,
+} from '~/common/types/types';
+
+import { getAllWithCategories, getCategories } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  coursesWithCategory: CourseGetResponseDto[];
+  courses: CourseGetResponseDto[];
+  categories: CategoryGetAllItemResponseDto[];
   totalCoursesNumber: number;
-  navigateFromCoursesManagement: boolean;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  coursesWithCategory: [],
+  courses: [],
+  categories: [],
   totalCoursesNumber: 0,
-  navigateFromCoursesManagement: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -29,19 +28,22 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getAllWithCategories.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.coursesWithCategory = payload.items;
+    state.courses = payload.items;
     state.totalCoursesNumber = payload.total;
   });
   builder.addCase(getAllWithCategories.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(setNavigateFromCoursesManagement, (state) => {
-    state.navigateFromCoursesManagement = true;
+  builder.addCase(getCategories.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
   });
-
-  builder.addCase(unsetNavigateFromCoursesManagement, (state) => {
-    state.navigateFromCoursesManagement = false;
+  builder.addCase(getCategories.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.categories = payload.items;
+  });
+  builder.addCase(getCategories.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 });
 

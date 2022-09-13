@@ -28,16 +28,16 @@ const CoursesManagement: FC = () => {
   const { page, handlePageChange } = usePagination();
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
-  const { dataStatus, coursesWithCategory, totalCoursesNumber } =
-    useAppSelector((state) => state.coursesManagement);
+  const { dataStatus, courses, totalCoursesNumber } = useAppSelector(
+    (state) => state.coursesManagement,
+  );
 
   const handleEditPress = (courseId: number): void => {
-    dispatch(coursesManagementActions.setNavigateFromCoursesManagement());
     dispatch(coursesActions.getCourse({ id: courseId }));
     navigation.navigate(AppScreenName.EDIT_COURSE);
   };
 
-  const coursesRows = coursesWithCategory.map((item: CourseGetResponseDto) => {
+  const coursesRows = courses.map((item: CourseGetResponseDto) => {
     return {
       title: item.title,
       category: <CategoryCell category={item.category} />,
