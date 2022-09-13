@@ -23,6 +23,7 @@ const ChatConversation: FC = () => {
       currentChatMessages: chat.currentChatMessages,
       chatOpponent: chat.chatOpponent,
       currentUserId: auth.user?.id,
+      dataStatus: chat.dataStatus,
     }));
 
   const dispatch = useAppDispatch();
@@ -47,7 +48,7 @@ const ChatConversation: FC = () => {
         />
       ),
     });
-  }, []);
+  }, [chatOpponent]);
 
   const handleMessageSubmit = (
     payload: ChatMessageCreateRequestBodyDto,

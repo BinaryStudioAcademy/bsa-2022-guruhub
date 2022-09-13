@@ -23,6 +23,10 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
     });
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
+  const handleSend = (payload: ChatMessageCreateRequestBodyDto): void => {
+    onSubmit(payload);
+    reset(getDefaultMessagePayload(chatOpponentId, chatId));
+  };
 
   const handleMessageSubmit = (
     payload: ChatMessageCreateRequestBodyDto,
@@ -34,7 +38,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
   useFocusEffect(
     useCallback(() => {
       return () => {
-        reset({ message: '' });
+        reset(getDefaultMessagePayload(chatOpponentId, chatId));
       };
     }, []),
   );
