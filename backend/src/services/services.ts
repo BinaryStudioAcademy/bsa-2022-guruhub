@@ -184,6 +184,7 @@ const task = new Task({
   taskNoteService: taskNote,
   transactionService: transaction,
   menteesToMentorsService: menteesToMentors,
+  userDetailsService: userDetails,
 });
 
 const mentor = new Mentor({
