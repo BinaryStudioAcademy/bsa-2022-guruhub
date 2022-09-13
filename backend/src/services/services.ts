@@ -70,13 +70,14 @@ const usersToGroups = new UsersToGroups({
   usersToGroupsRepository,
 });
 
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
 const coursesToMentors = new CoursesToMentors({
   coursesToMentorsRepository,
   groupRepository: groupsRepository,
   usersToGroupsService: usersToGroups,
+  menteesToMentorsService: menteesToMentors,
 });
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const interviewNote = new InterviewNote({
   interviewNoteRepository,
@@ -151,24 +152,6 @@ const course = new Course({
   edxService: edx,
   courseCategoryService: courseCategory,
   coursesToMentorsService: coursesToMentors,
-});
-
-const interviewNote = new InterviewNote({
-  interviewNoteRepository,
-});
-
-const interview = new Interview({
-  interviewRepository,
-  interviewNoteService: interviewNote,
-});
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
-
-const coursesToMentors = new CoursesToMentors({
-  coursesToMentorsRepository,
-  groupService: group,
-  usersToGroupsService: usersToGroups,
-  menteesToMentorsService: menteesToMentors,
 });
 
 const taskNote = new TaskNote({ taskNoteRepository });
