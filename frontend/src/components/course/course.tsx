@@ -134,7 +134,7 @@ const Course: FC = () => {
     dispatch(courseActions.getModules({ courseId: Number(courseId) }));
     dispatch(courseActions.getCategories());
 
-    if (user) {
+    if (user && !isMentorView) {
       dispatch(
         courseActions.getMentorsByCourseId({
           courseId: Number(courseId),

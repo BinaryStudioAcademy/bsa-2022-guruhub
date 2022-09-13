@@ -1,6 +1,6 @@
 import { Page } from 'objection';
 
-import { SortOrder } from '~/common/enums/enums';
+import { MenteesToMentorsStatus, SortOrder } from '~/common/enums/enums';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
@@ -169,10 +169,11 @@ class Course {
       .query()
       .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
       .withGraphJoined(
-        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentorsWithMentees]',
+        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentors]',
       )
-      .where('mentorsWithMentees.id', mentorId)
-      .where('courses.id', courseId)
+      .where('mentors.id', mentorId)
+      .andWhere('courses.id', courseId)
+      .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
       .distinct('mentees.id')
       .castTo<UserDetailsResponseDto[]>()
       .execute();

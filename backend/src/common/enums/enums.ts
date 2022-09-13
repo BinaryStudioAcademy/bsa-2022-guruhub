@@ -23,6 +23,7 @@ export { ContentType, FileSizeBytesValue } from './file/file';
 export { ProtectedGroupKey } from './group/group';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { InterviewStatus } from './interview/interview';
+export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SortOrder } from './sort/sort';

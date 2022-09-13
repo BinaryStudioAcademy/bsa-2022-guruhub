@@ -33,6 +33,7 @@ export {
   InterviewStatus,
   InterviewValidationMessage,
 } from './interview/interview';
+export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors';
 export { MentorValidationMessage } from './mentor/mentor';
 export {
   PaginationDefaultValue,
