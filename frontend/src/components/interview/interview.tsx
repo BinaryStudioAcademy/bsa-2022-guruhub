@@ -58,6 +58,10 @@ const Interview: FC = () => {
     userPermissions: (user as UserWithPermissions).permissions,
   });
 
+  const hasManageInterviewPermissions = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_INTERVIEW],
+    userPermissions: (user as UserWithPermissions).permissions,
+  });
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
   }, []);
@@ -72,6 +76,16 @@ const Interview: FC = () => {
         interviewActions.getInterviewersByCategory({
           categoryId: (interview as InterviewsGetAllItemResponseDto)
             .courseCategory.id,
+        }),
+      );
+    }
+
+    if (hasManageInterviewPermissions && !hasPermissionToSelectInterviewer) {
+      dispatch(
+        interviewActions.checkUserIsInterviewerOrInterviewee({
+          interviewee: interview?.interviewee.id as number,
+          interviewer: interview?.interviewer?.id as number,
+          userId: user?.id as number,
         }),
       );
     }

@@ -53,6 +53,7 @@ export {
 } from './groups/groups';
 export { type HttpOptions } from './http/http';
 export {
+  type InterviewsCheckUserIsInterviewerOrIntervieweePayload,
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
   type InterviewsGetInterviewerResponseDto,
