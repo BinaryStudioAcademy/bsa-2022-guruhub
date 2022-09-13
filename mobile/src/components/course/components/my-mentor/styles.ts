@@ -5,7 +5,6 @@ import { AppColor } from '~/common/enums/enums';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
   },
   isMentorChoosingEnabled: {
     marginTop: 20,
