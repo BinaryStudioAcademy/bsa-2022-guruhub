@@ -11,6 +11,7 @@ import { courseUpdateCategory as courseUpdateCategoryValidationSchema } from 'va
 
 import { getDefaultUpdateCourseCategoryPayload } from './common';
 import { getCategoriesOptions } from './helpers/helpers';
+import styles from './styles.module.scss';
 
 const DEFAULT_CATEGORY_ID = 1;
 
@@ -54,7 +55,7 @@ const EditCategoryModal: FC<Props> = ({
             label="Course categories"
           />
         </div>
-        <div>
+        <div className={styles.buttonWrapper}>
           <Button type="submit" label="Edit" btnColor="blue" />
         </div>
       </form>

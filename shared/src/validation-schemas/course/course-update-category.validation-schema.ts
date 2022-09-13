@@ -9,7 +9,9 @@ const courseUpdateCategory = Joi.object({
     .integer()
     .required()
     .messages({
-      'string.empty': CourseValidationMessage.EMPTY_COURSE_CATEGORY_ID,
+      'number.empty': CourseValidationMessage.EMPTY_COURSE_CATEGORY_ID,
+      'number.base': CourseValidationMessage.CATEGORY_INTEGER,
+      'any.required': CourseValidationMessage.CATEGORY_REQUIRE,
     }),
 });
 

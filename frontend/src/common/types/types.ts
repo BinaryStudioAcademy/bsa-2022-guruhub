@@ -5,12 +5,13 @@ export {
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
-  type ChatMessageUserResponseDto,
 } from './chat-message/chat-message';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,

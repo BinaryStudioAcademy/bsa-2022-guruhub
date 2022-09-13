@@ -11,9 +11,9 @@ export {
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
-  type ChatMessageUserResponseDto,
 } from './chat-message/chat-message';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
@@ -95,6 +95,7 @@ export {
 } from './permission/permission';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,

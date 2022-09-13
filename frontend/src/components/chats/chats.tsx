@@ -1,5 +1,9 @@
 import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
-import { FC, UserWithPermissions } from 'common/types/types';
+import {
+  FC,
+  UsersGetResponseDto,
+  UserWithPermissions,
+} from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import {
   useAppDispatch,
@@ -44,8 +48,11 @@ const Chats: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleChatMessagesLoad = (chatId: string): void => {
-    dispatch(chatsActions.getMessages({ id: chatId }));
+  const handleChatMessagesLoad = (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ): void => {
+    dispatch(chatsActions.getMessages({ id: chatId, chatOpponent }));
   };
 
   useEffect(() => {

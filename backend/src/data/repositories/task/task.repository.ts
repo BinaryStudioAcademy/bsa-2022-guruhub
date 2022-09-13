@@ -1,5 +1,6 @@
 import { TaskStatus } from '~/common/enums/enums';
 import {
+  TaskCreateRequestDto,
   TaskGetByMenteeIdAndModuleId,
   TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   TasksGetByCourseIdAndMenteeIdRequestDto,
@@ -73,6 +74,30 @@ class Task {
       .where('menteesToMentors.courseId', courseId)
       .andWhere('menteesToMentors.menteeId', menteeId)
       .castTo<TaskWithModuleResponseDto[]>()
+      .execute();
+  }
+
+  public async hasUncompletedModulesByMenteesToMentorsId(
+    menteesToMentorsId: number,
+  ): Promise<boolean> {
+    const firstUncompleted = await this.#TaskModel
+      .query()
+      .findOne({ menteesToMentorsId })
+      .whereNot('status', TaskStatus.COMPLETED);
+
+    return Boolean(firstUncompleted);
+  }
+
+  public createTask({
+    menteesToMentorsId,
+    moduleId,
+  }: TaskCreateRequestDto): Promise<TaskM> {
+    return this.#TaskModel
+      .query()
+      .insert({
+        menteesToMentorsId,
+        moduleId,
+      })
       .execute();
   }
 }

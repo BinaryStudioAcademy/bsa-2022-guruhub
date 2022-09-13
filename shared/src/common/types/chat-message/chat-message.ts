@@ -10,4 +10,3 @@ export { type ChatMessageGetAllLastWithEmptyChatsDto } from './chat-message-get-
 export { type ChatMessageGetAllRequestParamsDto } from './chat-message-get-all-request-params-dto.type';
 export { type ChatMessageGetAllResponseDto } from './chat-message-get-all-response-dto.type';
 export { type ChatMessageGetEmptyChatDto } from './chat-message-get-empty-chat-dto.type';
-export { type ChatMessageUserResponseDto } from './chat-message-user-response-dto-type';

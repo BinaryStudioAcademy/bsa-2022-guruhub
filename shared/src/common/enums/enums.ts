@@ -14,7 +14,7 @@ export {
   UsersApiPath,
 } from './api/api';
 export { StringCase } from './case/case';
-export { ChatMessageStatus } from './chat/chat';
+export { ChatMessageStatus, ChatValidationMessage } from './chat/chat';
 export { CourseValidationMessage } from './course/course';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
@@ -25,7 +25,12 @@ export {
   HttpMethod,
   HttpStatusMessage,
 } from './http/http';
-export { InterviewStatus } from './interview/interview';
+export {
+  InterviewStatus,
+  InterviewValidationMessage,
+} from './interview/interview';
+export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors';
+export { MentorValidationMessage } from './mentor/mentor';
 export {
   PaginationDefaultValue,
   PaginationValidationRule,
