@@ -26,6 +26,7 @@ const getCoursesManagementColumns = (
       Cell: TitleCell,
       width: 400,
       maxWidth: 700,
+      minWidth: 200,
     },
     {
       Header: 'Category',
