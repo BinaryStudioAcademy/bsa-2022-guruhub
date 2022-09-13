@@ -24,6 +24,13 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
 
+  const handleMessageSubmit = (
+    payload: ChatMessageCreateRequestBodyDto,
+  ): void => {
+    onSubmit(payload);
+    reset({ message: '' });
+  };
+
   useFocusEffect(
     useCallback(() => {
       return () => {
@@ -40,10 +47,11 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
           name="message"
           control={control}
           errors={errors}
+          rows={3}
         />
       </View>
       <Pressable
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit(handleMessageSubmit)}
         hitSlop={hitSlop}
         style={styles.button}
       >
