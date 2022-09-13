@@ -1,6 +1,6 @@
 import { Model, RelationMappings } from 'objection';
 
-import { DbTableName } from '~/common/enums/enums';
+import { DbTableName, MenteesToMentorsStatus } from '~/common/enums/enums';
 
 import { Abstract } from '../abstract/abstract.model';
 import { Course, User } from '../models';
@@ -11,6 +11,8 @@ class MenteesToMentors extends Abstract {
   public 'mentorId': number;
 
   public 'menteeId': number;
+
+  public 'status': MenteesToMentorsStatus;
 
   public static override get relationMappings(): RelationMappings {
     return {

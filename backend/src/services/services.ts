@@ -151,28 +151,39 @@ const interview = new Interview({
   interviewNoteService: interviewNote,
 });
 
-const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupService: group,
+  usersToGroupsService: usersToGroups,
+});
 
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
+const taskNote = new TaskNote({ taskNoteRepository });
+
+const task = new Task({
+  taskRepository,
+  taskNoteService: taskNote,
+  menteesToMentorsService: menteesToMentors,
+});
 
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,
   coursesToMentorsService: coursesToMentors,
+  courseModuleService: courseModule,
+  taskService: task,
 });
 
 const chatMessage = new ChatMessage({
   chatMessageRepository,
   menteesToMentorsRepository,
+  userRepository,
 });
 
 const stripe = new Stripe({
   secretKey: ENV.STRIPE.SECRET_KEY,
   apiVersion: ENV.STRIPE.API_VERSION,
 });
-
-const taskNote = new TaskNote({ taskNoteRepository });
-
-const task = new Task({ taskRepository, taskNoteService: taskNote });
 
 const transaction = new Transaction({ transactionRepository });
 

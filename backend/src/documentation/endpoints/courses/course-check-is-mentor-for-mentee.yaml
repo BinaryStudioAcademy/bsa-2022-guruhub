@@ -1,0 +1,24 @@
+get:
+  summary: Get if the user is a mentor for this mentee in that course
+  tags:
+    - courses
+  parameters:
+    - name: courseId
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Unique ID for the course
+    - name: menteeId
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Unique ID for the Mentee
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: boolean
+            example: false

@@ -29,5 +29,7 @@ enum ExceptionMessage {
   USER_CAN_NOT_BE_DELETED = 'This user is forbidden to delete',
   UNABLE_TO_PERFORM_BILLING_OPERATION = 'Unable to perform billing operation',
   NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You do not have minimal sum of funds (1$) to withdraw.',
+  PROTECTED_GROUP_UPDATE = 'This group is protected and cannot be updated.',
+  PROTECTED_GROUP_DELETE = 'This group is protected and cannot be deleted.',
 }
 export { ExceptionMessage };

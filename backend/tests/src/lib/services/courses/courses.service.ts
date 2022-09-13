@@ -50,6 +50,18 @@ class CoursesService {
       .data(data)
       .send();
   }
+
+  public updateCategory(
+    courseId: number,
+    newCategoryId: number,
+  ): Promise<Response<CourseGetResponseDto | HttpErrorDto>> {
+    return this.#httpService
+      .request()
+      .patch()
+      .path(`${ApiPath.COURSES}/${courseId}${CoursesApiPath.CATEGORY}`)
+      .data({ newCategoryId })
+      .send();
+  }
 }
 
 export { CoursesService };

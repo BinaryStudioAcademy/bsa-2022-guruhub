@@ -16,6 +16,7 @@ enum NotificationMessage {
   NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You need to have at least 1$ to withdraw your funds',
   SUCCESSFULL_REPLENISH = 'You have successfully replenished your balance',
   SUCCESSFUL_WITHDRAW_START = 'Withdrawing process has successfully started. You need to wait when your bank transfers your funds on your count.',
+  PERMISSION_DENIED = 'You have no permission to open this page!',
 }
 
 export { NotificationMessage };

@@ -1,4 +1,5 @@
 import {
+  MenteesToMentorsChangeStatusRequestDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
@@ -45,11 +46,26 @@ class MenteesToMentors {
     return this.#menteesToMentorsRepository.checkIsMentee(menteesToMentors);
   }
 
-  public getByCourseIdAndMenteeId(menteesToMentors: {
+  public getUncompletedByCourseIdAndMenteeId(menteesToMentors: {
     courseId: number;
     menteeId: number;
   }): Promise<MenteesToMentorsResponseDto | null> {
-    return this.#menteesToMentorsRepository.getByCourseIdAndMenteeId(
+    return this.#menteesToMentorsRepository.getUncompletedByCourseIdAndMenteeId(
+      menteesToMentors,
+    );
+  }
+
+  public changeStatus({
+    id,
+    status,
+  }: MenteesToMentorsChangeStatusRequestDto): Promise<number> {
+    return this.#menteesToMentorsRepository.changeStatus({ id, status });
+  }
+
+  public checkIsMentorForMentee(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<boolean> {
+    return this.#menteesToMentorsRepository.checkIsMentorForMentee(
       menteesToMentors,
     );
   }
