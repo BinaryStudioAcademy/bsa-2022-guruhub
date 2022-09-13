@@ -7,5 +7,4 @@ export {
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
-  type ChatMessageUserResponseDto,
 } from 'guruhub-shared/common/types/types';
