@@ -145,7 +145,7 @@ class MenteesToMentors {
   }: MenteesToMentorsRequestDto): Promise<boolean> {
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(MenteesToMentors.SELECT_NO_COLUMNS)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
       .andWhere({ mentorId })
