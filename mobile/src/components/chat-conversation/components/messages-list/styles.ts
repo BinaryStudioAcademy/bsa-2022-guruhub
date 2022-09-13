@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   },
   messageList: {
     minWidth: '100%',
+    flexDirection: 'column-reverse',
   },
 });
 

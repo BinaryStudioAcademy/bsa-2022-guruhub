@@ -12,7 +12,10 @@ import { styles } from './styles';
 type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
-  onChatMessagesLoad: (chatId: string) => void;
+  onChatMessagesLoad: (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ) => void;
 };
 
 const ConversationsList: FC<Props> = ({

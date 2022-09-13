@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import { AppScreenName } from '~/common/enums/enums';
-import { UserWithPermissions } from '~/common/types/types';
+import { UsersGetResponseDto, UserWithPermissions } from '~/common/types/types';
 import { BackButton, FlatList, View } from '~/components/common/common';
 import {
   useAppDispatch,
@@ -24,8 +24,11 @@ const EmptyChats: FC = () => {
 
   const userId = (user as UserWithPermissions).id;
 
-  const handleChatMessagesLoad = (chatId: string): void => {
-    dispatch(chatActions.getMessages({ id: chatId }));
+  const handleChatMessagesLoad = (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ): void => {
+    dispatch(chatActions.getMessages({ id: chatId, chatOpponent }));
     navigation.navigate(AppScreenName.CONVERSATION);
   };
 

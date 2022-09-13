@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
-import { UserWithPermissions } from '~/common/types/types';
+import { UsersGetResponseDto, UserWithPermissions } from '~/common/types/types';
 import { FAB, Search, Spinner, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   useState,
 } from '~/hooks/hooks';
 import { chatActions } from '~/store/actions';
@@ -29,8 +31,11 @@ const Chat: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const handleChatMessagesLoad = (chatId: string): void => {
-    dispatch(chatActions.getMessages({ id: chatId }));
+  const handleChatMessagesLoad = (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ): void => {
+    dispatch(chatActions.getMessages({ id: chatId, chatOpponent }));
     navigation.navigate(AppScreenName.CONVERSATION);
   };
 
@@ -42,15 +47,15 @@ const Chat: FC = () => {
     navigation.navigate(AppScreenName.ALL_CHATS);
   };
 
-  const showAddChats = emptyChats ? Boolean(emptyChats.length) : false;
-
-  useEffect(() => {
-    dispatch(chatActions.getLastMessages({ fullName: '' }));
-  }, [dispatch]);
-
   useEffect(() => {
     dispatch(chatActions.getLastMessages({ fullName: searchValue }));
   }, [dispatch, searchValue]);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(chatActions.getLastMessages({ fullName: '' }));
+    }, []),
+  );
 
   if (authDataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
@@ -74,7 +79,7 @@ const Chat: FC = () => {
           />
         </View>
       )}
-      {showAddChats && <FAB onPress={handleAddChat} />}
+      {Boolean(emptyChats.length) && <FAB onPress={handleAddChat} />}
     </>
   );
 };

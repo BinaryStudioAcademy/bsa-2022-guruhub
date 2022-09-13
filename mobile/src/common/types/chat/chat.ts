@@ -1,3 +1,4 @@
+export { type ChatMessageGetAllMessagesFromChatDto } from './chat-message-get-all-messages-from-chat-dto.type';
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,

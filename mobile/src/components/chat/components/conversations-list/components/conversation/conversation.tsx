@@ -15,7 +15,7 @@ type Props = {
   chatOpponent: UsersGetResponseDto;
   lastMessage?: string;
   lastMessageDate?: string;
-  onPress: (chatId: string) => void;
+  onPress: (chatId: string, chatOpponent: UsersGetResponseDto) => void;
 };
 
 const Conversation: FC<Props> = ({
@@ -36,7 +36,7 @@ const Conversation: FC<Props> = ({
     lastMessageDate && getFormattedDate(lastMessageDate, 'HH:mm');
 
   const handleChatSelect = (): void => {
-    onPress(chatId);
+    onPress(chatId, chatOpponent);
   };
 
   return (

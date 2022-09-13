@@ -15,6 +15,7 @@ export {
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
   type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
