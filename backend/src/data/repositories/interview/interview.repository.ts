@@ -19,6 +19,8 @@ type Constructor = {
 class Interview {
   #InterviewModel: typeof InterviewM;
 
+  private static SELECT_NO_COLUMNS = 1;
+
   public constructor({ InterviewModel }: Constructor) {
     this.#InterviewModel = InterviewModel;
   }
@@ -154,6 +156,21 @@ class Interview {
       .orWhere('interviewerUserId', userId);
 
     return { items, total: total.length };
+  }
+
+  public async checkIsIntervieweeOnInterview(interview: {
+    interviewId: number;
+    intervieweeUserId: number;
+  }): Promise<boolean> {
+    const { interviewId, intervieweeUserId } = interview;
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.SELECT_NO_COLUMNS)
+      .where({ id: interviewId })
+      .andWhere({ intervieweeUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
   }
 
   public update(interview: {

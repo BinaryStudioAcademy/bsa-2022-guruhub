@@ -5,6 +5,7 @@ import {
   InterviewsGetInterviewerResponseDto,
   InterviewsUpdateRequestDto,
   SelectorOption,
+  UserWithPermissions,
 } from 'common/types/types';
 import { Button, Datepicker, Select } from 'components/common/common';
 import {
@@ -13,7 +14,7 @@ import {
   getNameOf,
   getValidClasses,
 } from 'helpers/helpers';
-import { useAppForm, useMemo, useState } from 'hooks/hooks';
+import { useAppForm, useAppSelector, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
 
 import {
@@ -35,6 +36,7 @@ const InterviewItem: FC<Props> = ({
   handleUpdateInterview,
   hasPermissionToSelectInterviewer,
 }) => {
+  const { user } = useAppSelector((state) => state.auth);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const handleToggleEditMode = (): void => {
@@ -54,6 +56,10 @@ const InterviewItem: FC<Props> = ({
     stringToChange: interview.status,
   });
 
+  const isInterviewee =
+    (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
+    (user as UserWithPermissions).id;
+
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
       defaultValues: {
@@ -69,7 +75,7 @@ const InterviewItem: FC<Props> = ({
       <form onSubmit={handleSubmit(handleUpdateInterview)}>
         <div className={styles.headerInterview}>
           <p className={styles.parameters}>Parameters</p>
-          {!isEditMode && (
+          {!isEditMode && !isInterviewee && (
             <div className={styles.buttonWrapper}>
               <Button
                 type="button"

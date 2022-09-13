@@ -1,5 +1,6 @@
 import {
   ExceptionMessage,
+  HttpCode,
   InterviewStatus,
   PermissionKey,
 } from '~/common/enums/enums';
@@ -18,6 +19,7 @@ import {
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewsUpdateRequestDto,
+  UserWithPermissions,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
@@ -152,13 +154,33 @@ class Interview {
     });
   }
 
+  public checkIsIntervieweeOnInterview(interview: {
+    interviewId: number;
+    intervieweeUserId: number;
+  }): Promise<boolean> {
+    return this.#interviewRepository.checkIsIntervieweeOnInterview(interview);
+  }
+
   public async update(data: {
     id: number;
+    user: UserWithPermissions;
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewUpdateInfoRequestDto } = data;
+    const { id, user, interviewUpdateInfoRequestDto } = data;
     const { interviewerUserId, status, interviewDate } =
       interviewUpdateInfoRequestDto;
+
+    const isInterviewee = await this.checkIsIntervieweeOnInterview({
+      interviewId: id,
+      intervieweeUserId: user.id,
+    });
+
+    if (isInterviewee) {
+      throw new InterviewsError({
+        message: ExceptionMessage.INTERVIEWEE_CAN_NOT_UPDATE_OWN_INTERVIEW,
+        status: HttpCode.FORBIDDEN,
+      });
+    }
 
     const interview = await this.#interviewRepository.update({
       id,
