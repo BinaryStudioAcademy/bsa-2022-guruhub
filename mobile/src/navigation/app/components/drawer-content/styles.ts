@@ -29,19 +29,18 @@ const styles = StyleSheet.create({
   signInWrapper: {
     padding: 30,
   },
-  signInText: {
-    padding: 30,
+  singOutWrapper: {
+    alignSelf: 'center',
+    paddingHorizontal: 30,
+    marginBottom: 30,
+  },
+  signOutLabel: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.BRAND.BLUE_100,
-    fontSize: 18,
-    lineHeight: 24,
+    fontSize: 16,
+    lineHeight: 20,
     textAlign: 'center',
-  },
-  singOutWrapper: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 30,
-    marginTop: -15,
-    marginBottom: 30,
+    padding: 5,
   },
 });
 

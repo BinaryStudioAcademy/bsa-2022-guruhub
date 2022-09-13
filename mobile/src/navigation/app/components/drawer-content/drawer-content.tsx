@@ -8,11 +8,12 @@ import {
   RootScreenName,
 } from '~/common/enums/enums';
 import {
-  Button,
   Image,
   Link,
+  Pressable,
   SafeAreaView,
   ScrollView,
+  Text,
   View,
 } from '~/components/common/common';
 import { getImageUri, groupByKey } from '~/helpers/helpers';
@@ -71,16 +72,18 @@ const DrawerContent: FC<Props> = ({ state, items }) => {
             />
           </View>
         ))}
-        {user && (
-          <View style={styles.singOutWrapper}>
-            <Button label="Sign Out" icon="signOut" onPress={handleLogout} />
-          </View>
-        )}
         {isMentorBecomingVisible && user && (
           <BecomeMentor
             dataStatus={dataBecomeMentorStatus}
             onPress={handleBecomeMentor}
           />
+        )}
+        {user && (
+          <View style={styles.singOutWrapper}>
+            <Pressable onPress={handleLogout}>
+              <Text style={styles.signOutLabel}>Sign Out</Text>
+            </Pressable>
+          </View>
         )}
       </ScrollView>
       {!user && (
