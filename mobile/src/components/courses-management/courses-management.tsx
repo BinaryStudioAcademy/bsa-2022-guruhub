@@ -31,7 +31,7 @@ const CoursesManagement: FC = () => {
   const { dataStatus, coursesWithCategory, totalCoursesNumber } =
     useAppSelector((state) => state.coursesManagement);
 
-  const navigateToEditCourse = (courseId: number): void => {
+  const handleEditPress = (courseId: number): void => {
     dispatch(coursesManagementActions.setNavigateFromCoursesManagement());
     dispatch(coursesActions.getCourse({ id: courseId }));
     navigation.navigate(AppScreenName.EDIT_COURSE);
@@ -41,7 +41,7 @@ const CoursesManagement: FC = () => {
     return {
       title: item.title,
       category: <CategoryCell category={item.category} />,
-      action: <ActionCell onEdit={(): void => navigateToEditCourse(item.id)} />,
+      action: <ActionCell onEdit={(): void => handleEditPress(item.id)} />,
     };
   });
 
