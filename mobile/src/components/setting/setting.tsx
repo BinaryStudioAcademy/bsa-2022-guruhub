@@ -6,6 +6,8 @@ import {
   AuthScreenName,
   ButtonVariant,
   DataStatus,
+  NotificationMessage,
+  NotificationType,
   RootScreenName,
   UserAge,
   UserGender,
@@ -36,10 +38,11 @@ import {
   useEffect,
   useState,
 } from '~/hooks/hooks';
-import { authActions, userDetailsActions } from '~/store/actions';
+import { app, authActions, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import {
+  AVATAR_MAX_SIZE,
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
   GENDER_OPTIONS,
   SELECTION_LIMIT,
@@ -73,6 +76,19 @@ const Settings: FC = () => {
 
     if (!image) {
       return;
+    }
+
+    if (image.fileSize) {
+      if (image.fileSize > AVATAR_MAX_SIZE) {
+        dispatch(
+          app.notify({
+            type: NotificationType.INFO,
+            message: NotificationMessage.IMAGE_TO_BIG,
+          }),
+        );
+
+        return;
+      }
     }
 
     setSelectedImage(image);
