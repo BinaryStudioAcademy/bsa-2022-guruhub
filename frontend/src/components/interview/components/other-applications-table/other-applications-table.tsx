@@ -9,6 +9,8 @@ import {
 import { useMemo } from 'hooks/hooks';
 import { Column } from 'react-table';
 
+import styles from './styles.module.scss';
+
 type Props = {
   interviews: InterviewsGetOtherItemResponseDto[];
   page: number;
@@ -31,7 +33,7 @@ const OtherApplicationsTable: FC<Props> = ({
   }, [interviews]);
 
   return (
-    <div>
+    <div className={styles.otherApplications}>
       <Table
         data={data}
         columns={columns}

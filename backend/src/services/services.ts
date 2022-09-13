@@ -72,10 +72,34 @@ const userDetails = new UserDetails({
   avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
+const usersToGroups = new UsersToGroups({
+  usersToGroupsRepository,
+});
+
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupRepository: groupsRepository,
+  usersToGroupsService: usersToGroups,
+});
+
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
+const interviewNote = new InterviewNote({
+  interviewNoteRepository,
+});
+
+const interview = new Interview({
+  interviewRepository,
+  interviewNoteService: interviewNote,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
   userDetailsService: userDetails,
+  coursesToMentorsService: coursesToMentors,
+  menteesToMentorsService: menteesToMentors,
+  interviewService: interview,
 });
 
 const auth = new Auth({
@@ -90,10 +114,6 @@ const permission = new Permission({
 
 const groupsToPermissions = new GroupsToPermissions({
   groupsToPermissionsRepository,
-});
-
-const usersToGroups = new UsersToGroups({
-  usersToGroupsRepository,
 });
 
 const group = new Group({
@@ -141,23 +161,6 @@ const course = new Course({
   edxService: edx,
   courseCategoryService: courseCategory,
 });
-
-const interviewNote = new InterviewNote({
-  interviewNoteRepository,
-});
-
-const interview = new Interview({
-  interviewRepository,
-  interviewNoteService: interviewNote,
-});
-
-const coursesToMentors = new CoursesToMentors({
-  coursesToMentorsRepository,
-  groupService: group,
-  usersToGroupsService: usersToGroups,
-});
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const taskNote = new TaskNote({ taskNoteRepository });
 

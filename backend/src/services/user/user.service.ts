@@ -13,12 +13,20 @@ import {
 import { user as userRep } from '~/data/repositories/repositories';
 import { UsersError } from '~/exceptions/exceptions';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
-import { userDetails as userDetailsServ } from '~/services/services';
+import {
+  coursesToMentors as coursesToMentorsServ,
+  interview as interviewServ,
+  menteesToMentors as menteesToMentorsServ,
+  userDetails as userDetailsServ,
+} from '~/services/services';
 
 type Constructor = {
   userRepository: typeof userRep;
   encryptService: Encrypt;
   userDetailsService: typeof userDetailsServ;
+  coursesToMentorsService: typeof coursesToMentorsServ;
+  menteesToMentorsService: typeof menteesToMentorsServ;
+  interviewService: typeof interviewServ;
 };
 
 class User {
@@ -28,14 +36,26 @@ class User {
 
   #userDetailsService: typeof userDetailsServ;
 
+  #coursesToMentorsService: typeof coursesToMentorsServ;
+
+  #menteesToMentorsService: typeof menteesToMentorsServ;
+
+  #interviewService: typeof interviewServ;
+
   public constructor({
     userRepository,
     encryptService,
     userDetailsService,
+    coursesToMentorsService,
+    menteesToMentorsService,
+    interviewService,
   }: Constructor) {
     this.#userRepository = userRepository;
     this.#encryptService = encryptService;
     this.#userDetailsService = userDetailsService;
+    this.#coursesToMentorsService = coursesToMentorsService;
+    this.#menteesToMentorsService = menteesToMentorsService;
+    this.#interviewService = interviewService;
   }
 
   public async getAll({
@@ -150,16 +170,39 @@ class User {
       throw new UsersError();
     }
 
-    try {
-      const deletedUsersCount = await this.#userRepository.delete(idToDelete);
+    const isMentorForAnyCourse =
+      await this.#coursesToMentorsService.checkIsMentorForAnyCourse(idToDelete);
 
-      return Boolean(deletedUsersCount);
-    } catch {
+    if (isMentorForAnyCourse) {
       throw new UsersError({
         status: HttpCode.INTERNAL_SERVER_ERROR,
-        message: ExceptionMessage.USER_CAN_NOT_BE_DELETED,
+        message: ExceptionMessage.MENTOR_CAN_NOT_BE_DELETED,
       });
     }
+
+    const isMenteeForAnyCourse =
+      await this.#menteesToMentorsService.checkIsMenteeForAnyCourse(idToDelete);
+
+    if (isMenteeForAnyCourse) {
+      throw new UsersError({
+        status: HttpCode.INTERNAL_SERVER_ERROR,
+        message: ExceptionMessage.MENTEE_CAN_NOT_BE_DELETED,
+      });
+    }
+
+    const isInterviewee = await this.#interviewService.checkIsInterviewee(
+      idToDelete,
+    );
+
+    if (isInterviewee) {
+      throw new UsersError({
+        status: HttpCode.INTERNAL_SERVER_ERROR,
+        message: ExceptionMessage.INTERVIEWEE_CAN_NOT_BE_DELETED,
+      });
+    }
+    const deletedUsersCount = await this.#userRepository.delete(idToDelete);
+
+    return Boolean(deletedUsersCount);
   }
 }
 
