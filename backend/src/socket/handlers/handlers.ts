@@ -1,5 +1,5 @@
 import { SocketEvent } from '~/common/enums/enums';
-import { Socket } from '~/common/types/types';
+import { Socket, SocketMessageEventDto } from '~/common/types/types';
 
 const handlers = (socket: Socket): void => {
   socket.on(SocketEvent.JOIN_ROOM, (roomId: string): void => {
@@ -9,6 +9,13 @@ const handlers = (socket: Socket): void => {
   socket.on(SocketEvent.LEAVE_ROOM, (roomId: string): void => {
     socket.leave(roomId);
   });
+
+  socket.on(
+    SocketEvent.SEND_MESSAGE,
+    ({ message, roomId }: SocketMessageEventDto) => {
+      socket.to(roomId).emit(message);
+    },
+  );
 };
 
 export { handlers };

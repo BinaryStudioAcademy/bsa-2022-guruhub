@@ -1,1 +1,2 @@
-export { Socket, Server as SocketServer } from 'socket.io';
+export { type SocketMessageEventDto } from 'guruhub-shared/common/types/types';
+export { type Socket } from 'socket.io';
