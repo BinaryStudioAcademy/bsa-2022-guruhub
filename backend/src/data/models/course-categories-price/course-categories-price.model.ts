@@ -24,7 +24,7 @@ class CourseCategoryPrice extends Abstract {
   }
 
   public static override get tableName(): string {
-    return DbTableName.COURSE_CATEGORIES;
+    return DbTableName.COURSE_CATEGORIES_PRICES;
   }
 }
 

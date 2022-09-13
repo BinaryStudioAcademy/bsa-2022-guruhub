@@ -28,6 +28,7 @@ enum ExceptionMessage {
   FILE_TOO_BIG = 'This file is too large to upload. The maximum supported file size is: 1MB',
   UNABLE_TO_PERFORM_BILLING_OPERATION = 'Unable to perform billing operation',
   NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You do not have minimal sum of funds (1$) to withdraw.',
+  NOT_ENOUGH_FUNDS_TO_PAY_FOR_MENTORS_SERVICES = 'You do not have enough funds on your account to pay for mentors services.',
   USER_CAN_NOT_BE_DELETED = 'This user is forbidden to delete',
   MENTOR_CAN_NOT_BE_DELETED = 'This user is forbidden to delete because he is a mentor.',
   MENTEE_CAN_NOT_BE_DELETED = 'This user is forbidden to delete because he is a mentee.',

@@ -33,6 +33,20 @@ class CourseCategoryPrice {
 
     return courseCategoryPrice ?? null;
   }
+
+  public async getByCategoryId(
+    categoryId: number,
+  ): Promise<CourseCategoryPriceGetAllItemResponseDto | null> {
+    const courseCategoryPrice = await this.#CourseCategoryPriceModel
+      .query()
+      .select()
+      .where('categoryId', categoryId)
+      .first()
+      .castTo<CourseCategoryPriceGetAllItemResponseDto>()
+      .execute();
+
+    return courseCategoryPrice ?? null;
+  }
 }
 
 export { CourseCategoryPrice };

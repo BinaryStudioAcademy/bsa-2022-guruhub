@@ -27,6 +27,12 @@ class CourseCategoryPrice {
   ): Promise<CourseCategoryPriceGetAllItemResponseDto | null> {
     return this.#courseCategoryPriceRepository.getById(id);
   }
+
+  public getByCategoryId(
+    categoryId: number,
+  ): Promise<CourseCategoryPriceGetAllItemResponseDto | null> {
+    return this.#courseCategoryPriceRepository.getByCategoryId(categoryId);
+  }
 }
 
 export { CourseCategoryPrice };

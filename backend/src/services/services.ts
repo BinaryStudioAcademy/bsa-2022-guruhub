@@ -170,11 +170,18 @@ const task = new Task({
   menteesToMentorsService: menteesToMentors,
 });
 
+const transaction = new Transaction({ transactionRepository });
+
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,
+  courseService: course,
   coursesToMentorsService: coursesToMentors,
   courseModuleService: courseModule,
+  courseCategoryPriceService: courseCategoryPrice,
   taskService: task,
+  transactionService: transaction,
+  userService: user,
+  userDetailsService: userDetails,
 });
 
 const chatMessage = new ChatMessage({
@@ -187,8 +194,6 @@ const stripe = new Stripe({
   secretKey: ENV.STRIPE.SECRET_KEY,
   apiVersion: ENV.STRIPE.API_VERSION,
 });
-
-const transaction = new Transaction({ transactionRepository });
 
 const billing = new Billing({
   stripeService: stripe,

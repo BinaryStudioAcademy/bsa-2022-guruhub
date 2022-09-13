@@ -163,6 +163,9 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorChoosingEnabled = false;
     state.mentor = payload.mentor;
   });
+  builder.addCase(chooseMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
 
   builder.addCase(changeMentor.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
