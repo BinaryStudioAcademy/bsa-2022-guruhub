@@ -122,6 +122,22 @@ class MenteesToMentors {
       )
       .execute();
   }
+
+  public async checkIsMentorForMentee({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<boolean> {
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(MenteesToMentors.SELECT_NO_COLUMNS)
+      .where({ courseId })
+      .andWhere({ menteeId })
+      .andWhere({ mentorId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
 }
 
 export { MenteesToMentors };

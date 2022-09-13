@@ -57,6 +57,14 @@ class MenteesToMentors {
       menteesToMentors,
     );
   }
+
+  public checkIsMentorForMentee(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<boolean> {
+    return this.#menteesToMentorsRepository.checkIsMentorForMentee(
+      menteesToMentors,
+    );
+  }
 }
 
 export { MenteesToMentors };

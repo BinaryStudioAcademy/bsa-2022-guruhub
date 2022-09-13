@@ -66,8 +66,15 @@ const userDetails = new UserDetails({
   avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
-const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+const usersToGroups = new UsersToGroups({
+  usersToGroupsRepository,
+});
 
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupRepository: groupsRepository,
+  usersToGroupsService: usersToGroups,
+});
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const interviewNote = new InterviewNote({
@@ -100,10 +107,6 @@ const permission = new Permission({
 
 const groupsToPermissions = new GroupsToPermissions({
   groupsToPermissionsRepository,
-});
-
-const usersToGroups = new UsersToGroups({
-  usersToGroupsRepository,
 });
 
 const group = new Group({
@@ -156,6 +159,7 @@ const mentor = new Mentor({
 const chatMessage = new ChatMessage({
   chatMessageRepository,
   menteesToMentorsRepository,
+  userRepository,
 });
 
 const taskNote = new TaskNote({ taskNoteRepository });

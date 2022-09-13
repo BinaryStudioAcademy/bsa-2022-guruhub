@@ -89,6 +89,12 @@ class Group {
   public delete(groupId: number): Promise<number> {
     return this.#GroupModel.query().delete().where({ id: groupId }).execute();
   }
+
+  public async getByKey(key: string): Promise<GroupM | null> {
+    const group = await this.#GroupModel.query().where({ key }).first();
+
+    return group ?? null;
+  }
 }
 
 export { Group };

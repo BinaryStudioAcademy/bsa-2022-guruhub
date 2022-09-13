@@ -5,7 +5,10 @@ import { useAppDispatch, useAppForm } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
 import { chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema } from 'validation-schemas/validation-schemas';
 
-import { getDefaultMessagePayload } from './helpers/helpers';
+import {
+  checkIsMessageHasNotOnlyWhiteSpaces,
+  getDefaultMessagePayload,
+} from './helpers/helpers';
 
 type Props = {
   chatId: string | null;
@@ -15,7 +18,7 @@ type Props = {
 const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
   const dispatch = useAppDispatch();
 
-  const { control, errors, handleSubmit } =
+  const { control, errors, handleSubmit, setValue } =
     useAppForm<ChatMessageCreateRequestBodyDto>({
       defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
       validationSchema: chatMessageCreateArgumentsValidationSchema,
@@ -24,7 +27,11 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
   const handleMessageSubmit = (
     payload: ChatMessageCreateRequestBodyDto,
   ): void => {
-    dispatch(chatsActions.createMessage(payload));
+    if (checkIsMessageHasNotOnlyWhiteSpaces(payload.message)) {
+      dispatch(chatsActions.createMessage(payload));
+    }
+
+    setValue(getNameOf<ChatMessageCreateRequestBodyDto>('message'), '');
   };
 
   return (
