@@ -166,8 +166,7 @@ class Interview {
     const menteeToMentor = await this.#InterviewModel
       .query()
       .select(Interview.SELECT_NO_COLUMNS)
-      .where({ id: interviewId })
-      .andWhere({ intervieweeUserId })
+      .where({ id: interviewId, intervieweeUserId })
       .first();
 
     return Boolean(menteeToMentor);

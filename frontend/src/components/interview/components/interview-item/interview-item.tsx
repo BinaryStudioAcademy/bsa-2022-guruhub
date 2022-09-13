@@ -14,7 +14,7 @@ import {
   getNameOf,
   getValidClasses,
 } from 'helpers/helpers';
-import { useAppForm, useAppSelector, useMemo, useState } from 'hooks/hooks';
+import { useAppForm, useMemo, useState } from 'hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from 'validation-schemas/validation-schemas';
 
 import {
@@ -28,6 +28,7 @@ type Props = {
   handleUpdateInterview: (payload: InterviewsUpdateRequestDto) => void;
   interviewers: InterviewsGetInterviewerResponseDto[];
   hasPermissionToSelectInterviewer: boolean;
+  user: UserWithPermissions;
 };
 
 const InterviewItem: FC<Props> = ({
@@ -35,8 +36,8 @@ const InterviewItem: FC<Props> = ({
   interviewers,
   handleUpdateInterview,
   hasPermissionToSelectInterviewer,
+  user,
 }) => {
-  const { user } = useAppSelector((state) => state.auth);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const handleToggleEditMode = (): void => {
