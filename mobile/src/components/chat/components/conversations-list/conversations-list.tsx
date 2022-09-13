@@ -6,13 +6,16 @@ import {
 } from '~/common/types/types';
 import { FlatList, Text } from '~/components/common/common';
 
-import { Conversation } from './components/conversation/conversation';
+import { Conversation } from './components/components';
 import { styles } from './styles';
 
 type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
-  onChatMessagesLoad: (chatId: string) => void;
+  onChatMessagesLoad: (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ) => void;
 };
 
 const ConversationsList: FC<Props> = ({
