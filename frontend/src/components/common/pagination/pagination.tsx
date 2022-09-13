@@ -32,7 +32,9 @@ const Pagination: FC<Props> = ({
 
   return (
     <div className={styles.paginationContainer}>
-      <p className={styles.results}>{totalCount} results</p>
+      <p className={styles.results}>
+        {totalCount} {totalCount === 1 ? 'result' : 'results'}
+      </p>
       <div className={styles.pagination}>
         <button
           className={styles.back}
