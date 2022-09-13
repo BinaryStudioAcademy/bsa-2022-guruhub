@@ -1,4 +1,9 @@
-export { checkIsToday, getFormattedDate, subtractYears } from './date/date';
+export {
+  checkIsCurrentYear,
+  checkIsToday,
+  getFormattedDate,
+  subtractYears,
+} from './date/date';
 export { debounce } from './debounce/debounce';
 export { getImageUri, pickImage } from './image/image';
 export { getPermittedScreens, getScreensByAuth } from './navigation/navigation';

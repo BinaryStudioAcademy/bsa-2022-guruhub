@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 
 import { Text, View } from '~/components/common/common';
-import { checkIsToday, getFormattedDate } from '~/helpers/helpers';
+import {
+  checkIsCurrentYear,
+  checkIsToday,
+  getFormattedDate,
+} from '~/helpers/helpers';
 
 import { styles } from './styles';
 
@@ -10,8 +14,13 @@ type Props = {
 };
 
 const DateSeparator: FC<Props> = ({ messageTime }) => {
-  const isToday = checkIsToday(new Date(messageTime));
-  const date = isToday ? 'Today' : getFormattedDate(messageTime, 'dd MMM');
+  const messageDate = new Date(messageTime);
+  const isToday = checkIsToday(messageDate);
+  const isCurrentYear = checkIsCurrentYear(messageDate);
+
+  const dateFormat = isCurrentYear ? 'dd MMM' : 'dd MMM yyyy';
+
+  const date = isToday ? 'Today' : getFormattedDate(messageTime, dateFormat);
 
   return (
     <View style={styles.container}>
