@@ -78,7 +78,7 @@ const Settings: FC = () => {
       return;
     }
 
-    if (image.fileSize ?? 0 > AVATAR_MAX_SIZE) {
+    if ((image.fileSize ?? 0) > AVATAR_MAX_SIZE) {
       dispatch(
         app.notify({
           type: NotificationType.INFO,
