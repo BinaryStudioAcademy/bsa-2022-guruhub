@@ -47,13 +47,10 @@ class CoursesToMentors {
   }: CoursesToMentorsRequestDto): Promise<boolean> {
     const courseToMentor = await this.#CoursesToMentorsModel
       .query()
-      // .select(1)
+      .select(1)
       .where({ courseId })
       .andWhere({ userId })
       .first();
-
-    // eslint-disable-next-line no-console
-    console.log(courseToMentor);
 
     return Boolean(courseToMentor);
   }

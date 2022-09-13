@@ -2,6 +2,7 @@ import { Pagination } from 'components/common/common';
 import { ReactElement, useMemo } from 'react';
 import { Column, useResizeColumns, useTable } from 'react-table';
 
+import { getValidClasses } from '../../../helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props<Data extends Record<string, unknown>> = {
@@ -85,7 +86,10 @@ const Table = <Data extends Record<string, unknown>>({
                     <td
                       {...cell.getCellProps()}
                       width={cell.column.width}
-                      className={styles.tableBodyRowData && bodyRowPadding}
+                      className={getValidClasses(
+                        styles.tableBodyRowData,
+                        bodyRowPadding,
+                      )}
                     >
                       {cell.render('Cell')}
                     </td>
