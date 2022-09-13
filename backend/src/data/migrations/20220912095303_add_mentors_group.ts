@@ -11,8 +11,8 @@ const TableName = {
 const MENTOR_PERMISSION_KEY = 'manage_mentoring';
 
 async function up(knex: Knex): Promise<void> {
-  const permissionId = await knex(TableName.PERMISSIONS).select('id', 'key');
-  const permissionIdToGive = permissionId
+  const permissionsData = await knex(TableName.PERMISSIONS).select('id', 'key');
+  const [permissionId] = permissionsData
     .filter((permission) => permission.key === MENTOR_PERMISSION_KEY)
     .map((permission) => permission.id);
 
@@ -26,14 +26,10 @@ async function up(knex: Knex): Promise<void> {
   const [mentorGroup] = insertedMentorGroups;
   const { id: groupId } = mentorGroup;
 
-  await Promise.all(
-    permissionIdToGive.map((permissionId) => {
-      return knex(TableName.GROUPS_TO_PERMISSIONS).insert({
-        groupId,
-        permissionId,
-      });
-    }),
-  );
+  await knex(TableName.GROUPS_TO_PERMISSIONS).insert({
+    groupId,
+    permissionId,
+  });
 }
 
 async function down(knex: Knex): Promise<void> {
