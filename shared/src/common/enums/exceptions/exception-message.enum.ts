@@ -29,5 +29,7 @@ enum ExceptionMessage {
   USER_CAN_NOT_BE_DELETED = 'This user is forbidden to delete.',
   PROTECTED_GROUP_UPDATE = 'This group is protected and cannot be updated.',
   PROTECTED_GROUP_DELETE = 'This group is protected and cannot be deleted.',
+  MENTOR_CANT_BE_STUDENT = 'A course mentor cannot become a student of the course',
+  STUDENT_CANT_BE_MENTOR = 'A course student cannot become a mentor of the course',
 }
 export { ExceptionMessage };

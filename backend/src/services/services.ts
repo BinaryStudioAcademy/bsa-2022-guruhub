@@ -141,13 +141,14 @@ const interview = new Interview({
   interviewNoteService: interviewNote,
 });
 
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
 const coursesToMentors = new CoursesToMentors({
   coursesToMentorsRepository,
   groupService: group,
   usersToGroupsService: usersToGroups,
+  menteesToMentorsService: menteesToMentors,
 });
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const taskNote = new TaskNote({ taskNoteRepository });
 
