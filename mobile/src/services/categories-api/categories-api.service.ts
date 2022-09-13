@@ -21,7 +21,7 @@ class CategoriesApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAllExist(): Promise<CategoryGetAllResponseDto> {
+  public getAllWithCourses(): Promise<CategoryGetAllResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.CATEGORIES}${CategoriesApiPath.DASHBOARD}`,
     );

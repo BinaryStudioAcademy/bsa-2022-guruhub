@@ -9,8 +9,8 @@ import {
 import {
   clearCategory,
   getAllCategories,
+  getAllWithCourses,
   getCategoryById,
-  getExistCategories,
 } from './actions';
 
 type State = {
@@ -28,14 +28,14 @@ const initialState: State = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(getExistCategories.pending, (state) => {
+  builder.addCase(getAllWithCourses.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(getExistCategories.fulfilled, (state, { payload }) => {
+  builder.addCase(getAllWithCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.categories = payload.items;
   });
-  builder.addCase(getExistCategories.rejected, (state) => {
+  builder.addCase(getAllWithCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
