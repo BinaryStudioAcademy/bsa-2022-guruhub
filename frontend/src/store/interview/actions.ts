@@ -7,7 +7,6 @@ import {
   InterviewNoteGetAllItemResponseDto,
   InterviewNoteGetAllResponseDto,
   InterviewNoteGetRequestArgumentsDto,
-  InterviewsCheckUserIsInterviewerOrIntervieweePayload,
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
   InterviewsGetInterviewersByCategoryRequestDto,
@@ -99,28 +98,22 @@ const getOtherByInterviewId = createAsyncThunk<
   },
 );
 
-const checkUserIsInterviewerOrInterviewee = createAsyncThunk<
+const handleUserHasNoPermission = createAsyncThunk<
   void,
-  InterviewsCheckUserIsInterviewerOrIntervieweePayload,
+  void,
   AsyncThunkConfig
->(
-  ActionType.CHECK_USER_IS_INTERVIEWER_OR_INTERVIEWEE,
-  ({ interviewer, interviewee, userId }, { extra }) => {
-    const { navigation, notification } = extra;
-
-    if (!(interviewer === userId || interviewee === userId)) {
-      notification.error(NotificationMessage.PERMISSION_DENIED);
-      navigation.push(AppRoute.SIGN_IN);
-    }
-  },
-);
+>(ActionType.HANDLE_USER_HAS_NO_PERMISSION, (_payload, { extra }) => {
+  const { navigation, notification } = extra;
+  notification.error(NotificationMessage.PERMISSION_DENIED);
+  navigation.push(AppRoute.SIGN_IN);
+});
 
 export {
-  checkUserIsInterviewerOrInterviewee,
   createNote,
   getInterview,
   getInterviewersByCategory,
   getNotes,
   getOtherByInterviewId,
+  handleUserHasNoPermission,
   updateInterview,
 };

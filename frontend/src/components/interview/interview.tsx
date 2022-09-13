@@ -57,11 +57,14 @@ const Interview: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
     userPermissions: (user as UserWithPermissions).permissions,
   });
-
   const hasManageInterviewPermissions = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_INTERVIEW],
     userPermissions: (user as UserWithPermissions).permissions,
   });
+  const isInterviewerOrInterviewee =
+    interview?.interviewee.id === user?.id ||
+    interview?.interviewer?.id === user?.id;
+
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
   }, []);
@@ -80,14 +83,12 @@ const Interview: FC = () => {
       );
     }
 
-    if (hasManageInterviewPermissions && !hasPermissionToSelectInterviewer) {
-      dispatch(
-        interviewActions.checkUserIsInterviewerOrInterviewee({
-          interviewee: interview?.interviewee.id as number,
-          interviewer: interview?.interviewer?.id as number,
-          userId: user?.id as number,
-        }),
-      );
+    if (
+      hasManageInterviewPermissions &&
+      !hasPermissionToSelectInterviewer &&
+      !isInterviewerOrInterviewee
+    ) {
+      dispatch(interviewActions.handleUserHasNoPermission());
     }
   }, [hasInterview]);
 

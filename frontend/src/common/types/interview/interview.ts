@@ -1,5 +1,4 @@
 export { InterviewUpdateRequestArgumentsDto } from './interview-update-request-arguments-dto.type';
-export { InterviewsCheckUserIsInterviewerOrIntervieweePayload } from './interviews-check-user-is-interviewer-or-interviewee-payload.type';
 export {
   type InterviewsCreateRequestBodyDto,
   type InterviewsGetAllItemResponseDto,
