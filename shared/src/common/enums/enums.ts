@@ -14,7 +14,11 @@ export {
   UsersApiPath,
 } from './api/api';
 export { StringCase } from './case/case';
-export { ChatMessageStatus, ChatValidationMessage } from './chat/chat';
+export {
+  ChatMessageStatus,
+  ChatValidationMessage,
+  ChatValidationRule,
+} from './chat/chat';
 export { CourseValidationMessage } from './course/course';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
