@@ -78,17 +78,15 @@ const Settings: FC = () => {
       return;
     }
 
-    if (image.fileSize) {
-      if (image.fileSize > AVATAR_MAX_SIZE) {
-        dispatch(
-          app.notify({
-            type: NotificationType.INFO,
-            message: NotificationMessage.IMAGE_TO_BIG,
-          }),
-        );
+    if (image.fileSize ?? 0 > AVATAR_MAX_SIZE) {
+      dispatch(
+        app.notify({
+          type: NotificationType.INFO,
+          message: NotificationMessage.IMAGE_TO_BIG,
+        }),
+      );
 
-        return;
-      }
+      return;
     }
 
     setSelectedImage(image);
