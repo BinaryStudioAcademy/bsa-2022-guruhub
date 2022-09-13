@@ -11,6 +11,7 @@ import {
   navigation,
   notification,
   permissionsApi,
+  socket,
   storage,
   tasksApi,
   userDetailsApi,
@@ -36,6 +37,7 @@ const extraArgument = {
   courseModulesApi,
   mentorsApi,
   tasksApi,
+  socket,
 };
 
 const store = configureStore({

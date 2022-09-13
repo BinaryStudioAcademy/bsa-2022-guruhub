@@ -1,12 +1,14 @@
 import { ENV, SocketEvent } from 'common/enums/enums';
 import {
+  ChatMessageGetAllItemResponseDto,
   ClientToServerEvents,
   ServerToClientEvents,
-  SocketMessageEventDto,
 } from 'common/types/types';
 import { io, Socket as SocketType } from 'socket.io-client';
 
-type NewMessagesListener = ({ message, roomId }: SocketMessageEventDto) => void;
+type NewMessagesListener = (
+  chatMessage: ChatMessageGetAllItemResponseDto,
+) => void;
 
 class Socket {
   #socket: SocketType<ServerToClientEvents, ClientToServerEvents>;
@@ -23,16 +25,12 @@ class Socket {
     this.#socket.emit(SocketEvent.LEAVE_ROOM, roomId);
   }
 
-  public sendMessage({ message, roomId }: SocketMessageEventDto): void {
-    this.#socket.emit(SocketEvent.SEND_MESSAGE, { message, roomId });
-  }
-
   public listenToNewMessages(cb: NewMessagesListener): void {
-    this.#socket.on(SocketEvent.RECEIVE_MESSAGE, cb);
+    this.#socket.on(SocketEvent.MESSAGE, cb);
   }
 
   public removeMessageListener(): void {
-    this.#socket.off(SocketEvent.RECEIVE_MESSAGE);
+    this.#socket.off(SocketEvent.MESSAGE);
   }
 }
 

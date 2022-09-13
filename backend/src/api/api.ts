@@ -20,6 +20,7 @@ import {
   interview,
   mentor,
   permission,
+  socket,
   task,
   token,
   user,
@@ -132,6 +133,7 @@ const initApi: FastifyPluginAsync = async (fastify) => {
   fastify.register(initChatsApi, {
     services: {
       chatMessage,
+      socket,
     },
     prefix: ApiPath.CHATS,
   });

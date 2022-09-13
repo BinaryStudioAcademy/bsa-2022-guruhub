@@ -1,7 +1,7 @@
 import { ChatMessageStatus } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
-  ChatMessageCreateRequestDto,
+  ChatMessageCreateRequestWithStatusDto,
   ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllLastResponseDto,
@@ -82,16 +82,22 @@ class ChatMessage {
   }
 
   public create(
-    chatMessageCreateDto: ChatMessageCreateRequestDto,
+    chatMessageCreateDto: ChatMessageCreateRequestWithStatusDto,
   ): Promise<ChatMessageGetAllItemResponseDto> {
-    const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
+    const {
+      receiverId,
+      senderId,
+      message,
+      chatId,
+      status = ChatMessageStatus.UNREAD,
+    } = chatMessageCreateDto;
 
     return this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
       chatId: chatId ?? createUuid(),
-      status: ChatMessageStatus.UNREAD,
+      status,
     });
   }
 

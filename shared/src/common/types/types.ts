@@ -91,7 +91,10 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
-export { type SocketMessageEventDto } from './socket/socket';
+export {
+  type ClientToServerEvents,
+  type ServerToClientEvents,
+} from './socket/socket';
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,

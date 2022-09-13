@@ -6,27 +6,32 @@ import {
   ChatMessageFilteringDto,
   ChatMessageGetAllRequestParamsDto,
 } from '~/common/types/types';
-import { chatMessage as chatMessageService } from '~/services/services';
+import {
+  chatMessage as chatMessageService,
+  socket as socketService,
+} from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
-  chatMessageFiltering as сhatMessageFilteringValidationSchema,
+  chatMessageFiltering as chatMessageFilteringValidationSchema,
   chatMessageGetAllParams as chatMessageGetAllParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
     chatMessage: typeof chatMessageService;
+    socket: typeof socketService;
   };
 };
 
 const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { chatMessage: chatMessageService } = opts.services;
+  const { chatMessage: chatMessageService, socket: socketService } =
+    opts.services;
 
   fastify.route({
     method: HttpMethod.GET,
     url: ChatsApiPath.ROOT,
     schema: {
-      querystring: сhatMessageFilteringValidationSchema,
+      querystring: chatMessageFilteringValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
@@ -84,11 +89,16 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { id: userId } = req.user;
       const { message, chatId, receiverId } = req.body;
-      const newChatMessage = await chatMessageService.create({
-        senderId: userId,
-        receiverId,
-        message,
-        chatId,
+      const { io } = req;
+
+      const newChatMessage = await socketService.sendMessage({
+        io,
+        messageData: {
+          message,
+          chatId,
+          receiverId,
+          senderId: userId,
+        },
       });
 
       return rep.status(HttpCode.CREATED).send(newChatMessage);

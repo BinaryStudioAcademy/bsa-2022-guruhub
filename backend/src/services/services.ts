@@ -38,6 +38,7 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
+import { Socket } from './socket/socket.service';
 import { Task } from './task/task.service';
 import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
@@ -159,6 +160,8 @@ const taskNote = new TaskNote({ taskNoteRepository });
 
 const task = new Task({ taskRepository, taskNoteService: taskNote });
 
+const socket = new Socket({ chatMessageService: chatMessage });
+
 export {
   auth,
   chatMessage,
@@ -177,6 +180,7 @@ export {
   menteesToMentors,
   mentor,
   permission,
+  socket,
   task,
   taskNote,
   token,

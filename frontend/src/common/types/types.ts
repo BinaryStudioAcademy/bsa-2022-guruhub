@@ -99,7 +99,6 @@ export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export {
   type ClientToServerEvents,
   type ServerToClientEvents,
-  type SocketMessageEventDto,
 } from './socket/socket';
 export {
   type TaskByIdRequestParamsDto,

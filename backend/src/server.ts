@@ -10,9 +10,11 @@ import { Server as SocketServer } from 'socket.io';
 
 import { initApi } from '~/api/api';
 import { ENV, FileSizeBytesValue, SocketEvent } from '~/common/enums/enums';
+import { SocketServer as SocketServerType } from '~/common/types/types';
 import { handlers as socketHandlers } from '~/socket/socket';
 
 import knexConfig from '../knexfile';
+import { socketInjector } from './plugins/plugins';
 
 const app = Fastify({
   logger: {
@@ -24,7 +26,7 @@ const app = Fastify({
 
 const socketServer = new http.Server(app as unknown as RequestListener);
 
-const io = new SocketServer(socketServer, {
+const io: SocketServerType = new SocketServer(socketServer, {
   cors: {
     origin: '*',
     credentials: true,
@@ -34,6 +36,8 @@ const io = new SocketServer(socketServer, {
 Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
 
 io.on(SocketEvent.CONNECTION, socketHandlers);
+
+app.register(socketInjector, { io });
 
 app.register(fastifyMultipart, {
   limits: {
