@@ -1,6 +1,11 @@
 import { Pagination } from 'components/common/common';
 import { ReactElement, useMemo } from 'react';
-import { Column, useResizeColumns, useTable } from 'react-table';
+import {
+  Column,
+  useBlockLayout,
+  useResizeColumns,
+  useTable,
+} from 'react-table';
 
 import styles from './styles.module.scss';
 
@@ -38,6 +43,7 @@ const Table = <Data extends Record<string, unknown>>({
       data,
       defaultColumn,
     },
+    useBlockLayout,
     useResizeColumns,
   );
 
@@ -53,47 +59,49 @@ const Table = <Data extends Record<string, unknown>>({
 
   return (
     <>
-      <table {...getTableProps()} className={styles.table}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className={styles.tableHeadRowHeader}
-                >
-                  {column.render('Header')}
-                  <div
-                    {...column.getResizerProps()}
-                    className={styles.resizer}
-                  />
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      width={cell.column.width}
-                      className={styles.tableBodyRowData}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  );
-                })}
+      <div className={styles.tableWrapper}>
+        <table {...getTableProps()} className={styles.table}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps()}
+                    className={styles.tableHeadRowHeader}
+                  >
+                    {column.render('Header')}
+                    <div
+                      {...column.getResizerProps()}
+                      className={styles.resizer}
+                    />
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        width={cell.column.width}
+                        className={styles.tableBodyRowData}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {hasPagination && (
         <Pagination
           currentPage={currentPage}

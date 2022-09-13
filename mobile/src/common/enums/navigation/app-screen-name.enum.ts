@@ -17,6 +17,7 @@ enum AppScreenName {
   COURSE_MODULE = 'Module',
   COURSE_MANAGEMENT = 'Courses management',
   TASK = 'Task',
+  ALL_CHATS = 'All chats',
 }
 
 export { AppScreenName };

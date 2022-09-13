@@ -1,5 +1,7 @@
 .groupsTable {
-  width: 100%;
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
   margin-top: 20px;
   padding: 10px;
   background: var(--background-gray-300);
@@ -17,4 +19,9 @@
   align-items: center;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.buttonWrapper {
+  max-width: 142px;
+  margin-left: auto;
 }

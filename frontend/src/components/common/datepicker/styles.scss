@@ -62,3 +62,8 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.react-datepicker-time__input input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(100%);
+}

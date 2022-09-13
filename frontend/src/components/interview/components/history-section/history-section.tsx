@@ -47,14 +47,11 @@ const HistorySection: FC<Props> = ({
   return (
     <div className={styles.history}>
       <div className={styles.historyHeading}>
-        <h2>History</h2>
+        <h2>Notes</h2>
         {!isOpen && (
-          <Button
-            label="+ Add"
-            btnColor="blue"
-            btnType="outlined"
-            onClick={onToggle}
-          />
+          <div className={styles.addButtonWrapper}>
+            <Button label="+ Add" btnColor="blue" onClick={onToggle} />
+          </div>
         )}
       </div>
       <div className={styles.noteInput}>
@@ -70,13 +67,16 @@ const HistorySection: FC<Props> = ({
               placeholder="Your note here"
             />
             <div className={styles.actionButtonsSection}>
-              <Button
-                label="Cancel"
-                btnColor="red"
-                btnType="outlined"
-                onClick={handleToggleNoteContentClear}
-              />
-              <Button label="Submit" btnColor="blue" type="submit" />
+              <div className={styles.buttonWrapper}>
+                <Button
+                  label="Cancel"
+                  btnColor="gray"
+                  onClick={handleToggleNoteContentClear}
+                />
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button label="Submit" btnColor="blue" type="submit" />
+              </div>
             </div>
           </form>
         )}
