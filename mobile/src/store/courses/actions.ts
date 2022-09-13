@@ -206,7 +206,7 @@ const updateIsMentorChoosingEnabled = createAsyncThunk<
       courseId: id,
     });
 
-    const canChooseMentor = !(isMentor || hasMentor);
+    const canChooseMentor = !isMentor && !hasMentor;
 
     return canChooseMentor;
   },
