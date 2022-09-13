@@ -18,14 +18,19 @@ const Message: FC<Props> = ({
   isUserMessageSender,
 }) => {
   return (
-    <View style={styles.message}>
+    <View
+      style={{
+        ...styles.message,
+        ...(!isUserMessageSender && styles.messageOpponent),
+      }}
+    >
       {!isUserMessageSender && (
         <Image
           style={styles.opponentMessageAvatar}
           source={{ uri: messageOpponentAvatar }}
         />
       )}
-      <View>
+      <View style={styles.textWrapper}>
         <Text
           style={
             isUserMessageSender

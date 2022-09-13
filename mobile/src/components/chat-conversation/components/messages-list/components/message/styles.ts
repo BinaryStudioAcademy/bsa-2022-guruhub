@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
   },
   message: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
     marginBottom: 15,
+    justifyContent: 'flex-end',
+  },
+  messageOpponent: {
+    justifyContent: 'flex-start',
   },
   opponentMessageText: {
-    flex: 1,
     fontFamily: AppFontFamily.INTER_400,
     fontSize: 14,
     lineHeight: 20,
@@ -30,6 +32,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     backgroundColor: AppColor.BACKGROUND.GRAY_200,
     marginBottom: 5,
+  },
+  textWrapper: {
+    flex: 1,
   },
   opponentMessageAvatar: {
     width: 28,

@@ -1,8 +1,13 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { NotificationMessage, PermissionKey } from 'common/enums/enums';
+import {
+  AppRoute,
+  NotificationMessage,
+  PermissionKey,
+} from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
+  CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
@@ -20,7 +25,6 @@ import {
   UserWithPermissions,
 } from 'common/types/types';
 import { checkHasPermission } from 'helpers/helpers';
-import { notification } from 'services/services';
 
 import { ActionType } from './common';
 
@@ -242,7 +246,7 @@ const chooseMentor = createAsyncThunk<
     course: { course },
     auth: { user },
   } = getState();
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
 
   const menteeToMentor = await coursesApi.chooseMentor({
     courseId: (course as CourseGetResponseDto).id,
@@ -264,7 +268,7 @@ const changeMentor = createAsyncThunk<
     course: { course },
     auth: { user },
   } = getState();
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
 
   const newMenteeToMentor = await coursesApi.changeMentor({
     courseId: (course as CourseGetResponseDto).id,
@@ -344,7 +348,7 @@ const updateCategory = createAsyncThunk<
   CourseUpdateCategoryRequestArguments,
   AsyncThunkConfig
 >(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
   const updatedCourse = await coursesApi.updateCategory(payload);
   notification.success(NotificationMessage.COURSE_CATEGORY_UPDATED);
 
@@ -368,10 +372,36 @@ const getTasksByCourseIdAndMenteeId = createAsyncThunk<
   },
 );
 
+const checkIsMentorForMentee = createAsyncThunk<
+  void,
+  CourseCheckIsMentorForMenteeRequestParamsDto,
+  AsyncThunkConfig
+>(
+  ActionType.CHECK_IS_MENTOR_FOR_MENTEE,
+  async ({ courseId, menteeId }, { extra }) => {
+    const { coursesApi, navigation, notification } = extra;
+
+    try {
+      const isMentorForMentee = await coursesApi.checkIsMentorForMentee({
+        courseId,
+        menteeId,
+      });
+
+      if (!isMentorForMentee) {
+        notification.error(NotificationMessage.PERMISSION_DENIED);
+        navigation.push(AppRoute.SIGN_IN);
+      }
+    } catch {
+      navigation.push(AppRoute.SIGN_IN);
+    }
+  },
+);
+
 export {
   becomeAMentor,
   changeMentor,
   checkIsMentor,
+  checkIsMentorForMentee,
   chooseMentor,
   cleanMentor,
   cleanMentors,

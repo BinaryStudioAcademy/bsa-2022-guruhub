@@ -39,8 +39,16 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
 
       const allChatsLastMessagesMessagesDto =
         await chatMessageService.getAllLastMessages(id, { fullName });
+      const emptyChatsDto = await chatMessageService.getAllEmptyChats({
+        userId: id,
+        fullName,
+        lastMessagesInChats: allChatsLastMessagesMessagesDto,
+      });
 
-      return rep.status(HttpCode.OK).send(allChatsLastMessagesMessagesDto);
+      return rep.status(HttpCode.OK).send({
+        items: allChatsLastMessagesMessagesDto,
+        emptyChats: emptyChatsDto,
+      });
     },
   });
 

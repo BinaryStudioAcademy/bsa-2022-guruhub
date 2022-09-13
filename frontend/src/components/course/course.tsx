@@ -134,7 +134,7 @@ const Course: FC = () => {
     dispatch(courseActions.getModules({ courseId: Number(courseId) }));
     dispatch(courseActions.getCategories());
 
-    if (user) {
+    if (user && !isMentorView) {
       dispatch(
         courseActions.getMentorsByCourseId({
           courseId: Number(courseId),
@@ -184,6 +184,17 @@ const Course: FC = () => {
       );
     }
   }, [studentId, courseId]);
+
+  useEffect(() => {
+    if (isMentorView) {
+      dispatch(
+        courseActions.checkIsMentorForMentee({
+          courseId: Number(courseId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [studentId, courseId, isMentorView]);
 
   useEffect(() => {
     if (user) {
