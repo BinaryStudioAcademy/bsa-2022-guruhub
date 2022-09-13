@@ -160,6 +160,7 @@ const course = new Course({
   udemyService: udemy,
   edxService: edx,
   courseCategoryService: courseCategory,
+  coursesToMentorsService: coursesToMentors,
 });
 
 const taskNote = new TaskNote({ taskNoteRepository });

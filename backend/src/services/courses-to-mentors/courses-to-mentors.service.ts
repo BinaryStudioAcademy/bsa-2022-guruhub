@@ -2,6 +2,7 @@ import { ProtectedGroupKey } from '~/common/enums/enums';
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
+  CourseUpdateMentoringDto,
   GroupsItemResponseDto,
 } from '~/common/types/types';
 import {
@@ -60,6 +61,13 @@ class CoursesToMentors {
       courseId,
       userId,
     });
+  }
+
+  public updateStudentsCount(
+    userId: number,
+    data: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#coursesToMentorsRepository.updateStudentsCount(userId, data);
   }
 
   public checkIsMentor({

@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   EntityPagination,
@@ -9,7 +10,6 @@ import {
   UsersGetResponseDto,
 } from 'common/types/types';
 
-import { NotificationMessage } from '../../common/enums/notification/notification-messages/notification-message.enum';
 import { authActions } from '../actions';
 import { ActionType } from './common';
 

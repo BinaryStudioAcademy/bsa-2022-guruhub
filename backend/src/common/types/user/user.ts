@@ -1,3 +1,4 @@
+export { type UserCountRequestDto } from './user-count-request-dto.type';
 export { type UsersByEmailResponseDto } from './users-by-email-response-dto.type';
 export {
   type EntityPaginationRequestQueryDto,
