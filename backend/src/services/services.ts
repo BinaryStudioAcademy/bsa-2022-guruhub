@@ -123,7 +123,11 @@ const courseModule = new CourseModule({
   udemyService: udemy,
 });
 
-const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupService: group,
+  usersToGroupsService: usersToGroups,
+});
 
 const course = new Course({
   courseRepository,

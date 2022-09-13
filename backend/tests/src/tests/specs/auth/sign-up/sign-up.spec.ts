@@ -1,14 +1,16 @@
 import {
   HttpCode,
   HttpStatusMessage,
-  UserDetailsResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-  UserWithPermissions,
 } from 'guruhub-shared';
 
 import { JWT_TOKEN_REGEX } from '~/lib/common/constants/constants';
-import { Response } from '~/lib/common/types/types';
+import {
+  Response,
+  UserCreateExpected,
+  UserExpected,
+} from '~/lib/common/types/types';
 import {
   apiSessionStorage,
   authService,
@@ -24,14 +26,8 @@ import { signUpRequestMock } from '~/tests/mocks/mocks';
 
 describe('Sign up tests', () => {
   let signUpData: UserSignUpRequestDto;
-
-  let expectedSignUpResponse: Pick<UserWithPermissions, 'email'> & {
-    userDetails: Pick<UserDetailsResponseDto, 'fullName'>;
-  };
-
-  let expectedUserData: Pick<UserWithPermissions, 'id' | 'email'> & {
-    userDetails: Pick<UserDetailsResponseDto, 'fullName'>;
-  };
+  let expectedSignUpResponse: UserCreateExpected;
+  let expectedUserData: UserExpected;
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
