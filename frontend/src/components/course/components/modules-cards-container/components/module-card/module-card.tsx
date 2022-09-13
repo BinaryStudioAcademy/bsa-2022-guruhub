@@ -23,7 +23,7 @@ const ModuleCard: FC<Props> = ({ title, status }) => {
         </div>
       </div>
       {status && (
-        <div>
+        <div className={styles.statusContainer}>
           <p
             className={getValidClasses(
               styles.status,

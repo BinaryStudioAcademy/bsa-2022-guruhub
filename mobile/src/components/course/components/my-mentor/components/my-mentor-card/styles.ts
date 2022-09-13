@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 12,
+    margin: 20,
   },
   avatar: {
     width: 65,

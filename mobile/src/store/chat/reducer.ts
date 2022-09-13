@@ -3,7 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 
 import {
@@ -20,7 +20,7 @@ type State = {
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
-  chatOpponent: ChatMessageUserResponseDto | null;
+  chatOpponent: UsersGetResponseDto | null;
 };
 
 const initialState: State = {

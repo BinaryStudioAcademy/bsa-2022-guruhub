@@ -17,6 +17,8 @@ const groupConfigureClient = Joi.object({
       'string.empty': GroupValidationMessage.NAME_REQUIRE,
       'string.min': GroupValidationMessage.NAME_MIN_LENGTH,
       'string.max': GroupValidationMessage.NAME_MAX_LENGTH,
+      'string.base': GroupValidationMessage.NAME_STRING,
+      'any.required': GroupValidationMessage.NAME_REQUIRE,
     }),
 });
 

@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppRoute, NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
+  CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseModuleGetByIdResponseDto,
   CourseModuleGetRequestParamsDto,
   EntityPagination,
@@ -80,4 +81,36 @@ const checkIsMentor = createAsyncThunk<boolean, number, AsyncThunkConfig>(
   },
 );
 
-export { checkIsMentor, createNote, getById, getNotes, getTask };
+const checkIsMentorForMentee = createAsyncThunk<
+  void,
+  CourseCheckIsMentorForMenteeRequestParamsDto,
+  AsyncThunkConfig
+>(
+  ActionType.CHECK_IS_MENTOR_FOR_MENTEE,
+  async ({ courseId, menteeId }, { extra }) => {
+    const { coursesApi, notification, navigation } = extra;
+
+    try {
+      const isMentorForMentee = await coursesApi.checkIsMentorForMentee({
+        courseId,
+        menteeId,
+      });
+
+      if (!isMentorForMentee) {
+        notification.error(NotificationMessage.PERMISSION_DENIED);
+        navigation.push(AppRoute.SIGN_IN);
+      }
+    } catch {
+      navigation.push(AppRoute.SIGN_IN);
+    }
+  },
+);
+
+export {
+  checkIsMentor,
+  checkIsMentorForMentee,
+  createNote,
+  getById,
+  getNotes,
+  getTask,
+};

@@ -16,12 +16,16 @@ const ActionsCell: FC<
 
   return (
     <div className={styles.container}>
-      <IconButton
-        iconName="settings"
-        to={generateDynamicPath(AppRoute.UAM_CONFIGURE_GROUP_$ID, { id })}
-        label="Edit"
-      />
-      <IconButton iconName="delete" onClick={handleDelete} label="Delete" />
+      <div>
+        <IconButton
+          iconName="settings"
+          to={generateDynamicPath(AppRoute.UAM_CONFIGURE_GROUP_$ID, { id })}
+          label="Edit"
+        />
+      </div>
+      <div>
+        <IconButton iconName="delete" onClick={handleDelete} label="Delete" />
+      </div>
     </div>
   );
 };

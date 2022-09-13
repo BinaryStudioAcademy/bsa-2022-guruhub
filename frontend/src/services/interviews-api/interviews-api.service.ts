@@ -81,6 +81,21 @@ class InterviewsApi {
     );
   }
 
+  public getActiveInterviewsCategoryIdsByUserId(
+    intervieweeUserId: number,
+  ): Promise<number[]> {
+    return this.#http.load<number[]>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.INTERVIEWEE
+      }/${intervieweeUserId}${InterviewsApiPath.ACTIVE}${
+        InterviewsApiPath.CATEGORIES
+      }`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
   public getById(id: number): Promise<InterviewsGetAllItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}`,
