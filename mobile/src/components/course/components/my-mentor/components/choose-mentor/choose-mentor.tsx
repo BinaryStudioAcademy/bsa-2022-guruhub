@@ -4,7 +4,6 @@ import { AppColor } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
   UserDetailsResponseDto,
-  UsersGetResponseDto,
 } from '~/common/types/types';
 import {
   FlatList,
@@ -17,37 +16,25 @@ import {
 import { useAppDispatch, useEffect, useState } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
-import { MentorCard } from './components/components';
+import { MentorCard } from '../components';
 import { styles } from './styles';
 
 type Props = {
   mentors: UserDetailsResponseDto[];
   course: CourseGetResponseDto | null;
-  mentor: UsersGetResponseDto | null;
   isLoading: boolean;
-  onChangeMentor: () => void;
+  onChangeMentor: (mentorId: number) => void;
 };
 
 const ChooseMentor: FC<Props> = ({
   mentors,
   course,
   isLoading,
-  mentor,
   onChangeMentor,
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useAppDispatch();
   const courseId = course?.id;
-
-  const handleChooseButton = (mentorId: number): void => {
-    if (mentor) {
-      dispatch(coursesActions.changeMentor({ id: mentorId }));
-      onChangeMentor();
-
-      return;
-    }
-    dispatch(coursesActions.chooseMentor({ id: mentorId }));
-  };
 
   const handleSearch = (search: string): void => {
     setSearchValue(search);
@@ -84,7 +71,7 @@ const ChooseMentor: FC<Props> = ({
             data={mentors}
             keyExtractor={({ id }): string => id.toString()}
             renderItem={({ item: mentor }): ReactElement => (
-              <MentorCard mentor={mentor} onChoose={handleChooseButton} />
+              <MentorCard mentor={mentor} onChoose={onChangeMentor} />
             )}
             refreshControl={
               <RefreshControl

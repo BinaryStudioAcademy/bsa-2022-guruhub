@@ -12,7 +12,7 @@ import {
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
-import { ChooseMentor, MyMentorCard } from './components/components';
+import { ChooseMentor, MentorCard } from './components/components';
 import { styles } from './styles';
 
 const MyMentor: FC = () => {
@@ -33,6 +33,16 @@ const MyMentor: FC = () => {
     setIsMentorCardShown(!isMentorCardShown);
   };
 
+  const handleChooseMentor = (mentorId: number): void => {
+    if (mentor) {
+      dispatch(coursesActions.changeMentor({ id: mentorId }));
+      handleMentorCardShownToggle();
+
+      return;
+    }
+    dispatch(coursesActions.chooseMentor({ id: mentorId }));
+  };
+
   useEffect(() => {
     setIsMentorCardShown(!isMentorChoosingEnabled);
   }, [isMentorChoosingEnabled]);
@@ -47,18 +57,18 @@ const MyMentor: FC = () => {
 
   return (
     <View style={styles.container}>
-      {isMentorCardShown ? (
-        <MyMentorCard
-          mentor={mentor}
-          onChangeMentor={handleMentorCardShownToggle}
+      {isMentorCardShown && mentor ? (
+        <MentorCard
+          mentor={mentor.userDetails}
+          onChoose={handleMentorCardShownToggle}
+          buttonLabel="Change mentor"
         />
       ) : (
         <ChooseMentor
           course={course}
           mentors={mentors}
-          mentor={mentor}
           isLoading={areMentorsLoading}
-          onChangeMentor={handleMentorCardShownToggle}
+          onChangeMentor={handleChooseMentor}
         />
       )}
     </View>
