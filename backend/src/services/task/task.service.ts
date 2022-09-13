@@ -2,6 +2,7 @@ import {
   ExceptionMessage,
   MenteesToMentorsStatus,
   TaskStatus,
+  TransactionStatus,
 } from '~/common/enums/enums';
 import {
   EntityPagination,
@@ -22,12 +23,16 @@ import { TasksError } from '~/exceptions/exceptions';
 import {
   menteesToMentors as menteesToMentorsServ,
   taskNote as taskNoteServ,
+  transaction as transactionServ,
+  userDetails as userDetailsServ,
 } from '../services';
 
 type Constructor = {
   taskRepository: typeof taskRep;
   taskNoteService: typeof taskNoteServ;
+  transactionService: typeof transactionServ;
   menteesToMentorsService: typeof menteesToMentorsServ;
+  userDetailsService: typeof userDetailsServ;
 };
 
 class Task {
@@ -35,16 +40,24 @@ class Task {
 
   #taskNoteService: typeof taskNoteServ;
 
+  #transactionService: typeof transactionServ;
+
   #menteesToMentorsService: typeof menteesToMentorsServ;
+
+  #userDetailsService: typeof userDetailsServ;
 
   public constructor({
     taskRepository,
     taskNoteService,
+    transactionService,
     menteesToMentorsService,
+    userDetailsService,
   }: Constructor) {
     this.#taskRepository = taskRepository;
     this.#taskNoteService = taskNoteService;
+    this.#transactionService = transactionService;
     this.#menteesToMentorsService = menteesToMentorsService;
+    this.#userDetailsService = userDetailsService;
   }
 
   public async manipulate({
@@ -87,6 +100,26 @@ class Task {
       await this.#menteesToMentorsService.changeStatus({
         id: task.menteesToMentorsId,
         status: MenteesToMentorsStatus.COMPLETED,
+      });
+
+      const menteesToMentorDto = await this.#menteesToMentorsService.getById(
+        task.menteesToMentorsId,
+      );
+
+      const transactionToProcess =
+        await this.#transactionService.getBySenderAndReceiverId(
+          menteesToMentorDto.menteeId,
+          menteesToMentorDto.mentor.id,
+        );
+
+      await this.#userDetailsService.updateMoneyBalance(
+        menteesToMentorDto.mentor.id,
+        transactionToProcess.amount,
+      );
+
+      await this.#transactionService.updateStatus({
+        transactionId: transactionToProcess.id,
+        newStatus: TransactionStatus.FULFILLED,
       });
     }
 

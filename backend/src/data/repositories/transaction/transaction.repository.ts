@@ -29,6 +29,22 @@ class Transaction {
       .execute();
   }
 
+  public getBySenderAndReceiverId(
+    senderId: number,
+    receiverId: number,
+  ): Promise<TransactionGetAllItemResponseDto> {
+    return this.#TransactionModel
+      .query()
+      .where('senderId', senderId)
+      .andWhere('receiverId', receiverId)
+      .first()
+      .withGraphJoined(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
+      .castTo<TransactionGetAllItemResponseDto>()
+      .execute();
+  }
+
   public create({
     senderId,
     receiverId,

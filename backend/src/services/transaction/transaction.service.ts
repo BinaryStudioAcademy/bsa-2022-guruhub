@@ -20,6 +20,16 @@ class Transaction {
     return this.#transactionRepository.getById(id);
   }
 
+  public getBySenderAndReceiverId(
+    senderId: number,
+    receiverId: number,
+  ): Promise<TransactionGetAllItemResponseDto> {
+    return this.#transactionRepository.getBySenderAndReceiverId(
+      senderId,
+      receiverId,
+    );
+  }
+
   public create(
     transactionCreateBody: TransactionCreateArgumentsDto,
   ): Promise<TransactionGetAllItemResponseDto> {

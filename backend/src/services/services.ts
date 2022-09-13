@@ -165,31 +165,7 @@ const course = new Course({
 
 const taskNote = new TaskNote({ taskNoteRepository });
 
-const task = new Task({
-  taskRepository,
-  taskNoteService: taskNote,
-  menteesToMentorsService: menteesToMentors,
-});
-
 const transaction = new Transaction({ transactionRepository });
-
-const mentor = new Mentor({
-  menteesToMentorsService: menteesToMentors,
-  courseService: course,
-  coursesToMentorsService: coursesToMentors,
-  courseModuleService: courseModule,
-  courseCategoryPriceService: courseCategoryPrice,
-  taskService: task,
-  transactionService: transaction,
-  userService: user,
-  userDetailsService: userDetails,
-});
-
-const chatMessage = new ChatMessage({
-  chatMessageRepository,
-  menteesToMentorsRepository,
-  userRepository,
-});
 
 const stripe = new Stripe({
   secretKey: ENV.STRIPE.SECRET_KEY,
@@ -201,6 +177,31 @@ const billing = new Billing({
   transactionService: transaction,
   userService: user,
   userDetailsService: userDetails,
+});
+
+const task = new Task({
+  taskRepository,
+  taskNoteService: taskNote,
+  transactionService: transaction,
+  menteesToMentorsService: menteesToMentors,
+});
+
+const mentor = new Mentor({
+  menteesToMentorsService: menteesToMentors,
+  courseService: course,
+  coursesToMentorsService: coursesToMentors,
+  courseModuleService: courseModule,
+  courseCategoryPriceService: courseCategoryPrice,
+  taskService: task,
+  billingService: billing,
+  userService: user,
+  userDetailsService: userDetails,
+});
+
+const chatMessage = new ChatMessage({
+  chatMessageRepository,
+  menteesToMentorsRepository,
+  userRepository,
 });
 
 export {

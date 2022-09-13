@@ -1,4 +1,4 @@
-import { ExceptionMessage, TransactionStatus } from '~/common/enums/enums';
+import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CourseCategoryPriceGetAllItemResponseDto,
   CourseGetResponseDto,
@@ -9,13 +9,13 @@ import {
 } from '~/common/types/types';
 import { BillingError } from '~/exceptions/exceptions';
 import {
+  billing as billingServ,
   course as courseServ,
   courseCategoryPrice as courseCategoryPriceServ,
   courseModule as courseModuleServ,
   coursesToMentors as coursesToMentorsServ,
   menteesToMentors as menteesToMentorsServ,
   task as taskServ,
-  transaction as transactionServ,
   user as userServ,
   userDetails as userDetailsServ,
 } from '~/services/services';
@@ -23,18 +23,20 @@ import {
 const DEFAULT_STUDYING_PRICE_COEFFICIENT = 0.5;
 
 type Constructor = {
+  billingService: typeof billingServ;
   courseService: typeof courseServ;
   coursesToMentorsService: typeof coursesToMentorsServ;
   courseModuleService: typeof courseModuleServ;
   courseCategoryPriceService: typeof courseCategoryPriceServ;
   menteesToMentorsService: typeof menteesToMentorsServ;
   taskService: typeof taskServ;
-  transactionService: typeof transactionServ;
   userService: typeof userServ;
   userDetailsService: typeof userDetailsServ;
 };
 
 class Mentor {
+  #billingService: typeof billingServ;
+
   #courseService: typeof courseServ;
 
   #coursesToMentorsService: typeof coursesToMentorsServ;
@@ -47,30 +49,28 @@ class Mentor {
 
   #taskService: typeof taskServ;
 
-  #transactionService: typeof transactionServ;
-
   #userService: typeof userServ;
 
   #userDetailsService: typeof userDetailsServ;
 
   public constructor({
+    billingService,
     menteesToMentorsService,
     courseService,
     coursesToMentorsService,
     courseModuleService,
     courseCategoryPriceService,
     taskService,
-    transactionService,
     userService,
     userDetailsService,
   }: Constructor) {
+    this.#billingService = billingService;
     this.#menteesToMentorsService = menteesToMentorsService;
     this.#courseService = courseService;
     this.#coursesToMentorsService = coursesToMentorsService;
     this.#courseModuleService = courseModuleService;
     this.#courseCategoryPriceService = courseCategoryPriceService;
     this.#taskService = taskService;
-    this.#transactionService = transactionService;
     this.#userService = userService;
     this.#userDetailsService = userDetailsService;
   }
@@ -194,15 +194,12 @@ class Mentor {
       newMenteeBalance,
     );
 
-    const transaction = await this.#transactionService.create({
+    const transaction = await this.#billingService.makeTransaction({
       senderId: menteeId,
       receiverId: mentorId,
       amount: priceOfStudying,
     });
-    await this.#transactionService.updateStatus({
-      transactionId: transaction.id,
-      newStatus: TransactionStatus.HOLD,
-    });
+    await this.#billingService.holdTransaction(transaction.id);
   }
 }
 
