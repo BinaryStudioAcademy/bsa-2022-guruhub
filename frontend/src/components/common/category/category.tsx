@@ -12,16 +12,11 @@ type Props = {
   name: string;
   isActive?: boolean;
   onClick?: (keyName: string) => void;
-  isInteractive?: boolean;
 };
 
-const Category: FC<Props> = ({
-  keyName,
-  name,
-  isActive,
-  onClick,
-  isInteractive,
-}) => {
+const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
+  const isInteractive = Boolean(onClick);
+
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
