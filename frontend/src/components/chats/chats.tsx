@@ -49,10 +49,12 @@ const Chats: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleChatMessagesLoad = (
-    chatId: string,
+    selectedChatId: string,
     chatOpponent: UsersGetResponseDto,
   ): void => {
-    dispatch(chatsActions.getMessages({ id: chatId, chatOpponent }));
+    if (selectedChatId !== chatId) {
+      dispatch(chatsActions.getMessages({ id: selectedChatId, chatOpponent }));
+    }
   };
 
   useEffect(() => {
