@@ -24,9 +24,8 @@ const AddCourseModal: FC<Props> = ({ isModalOpen, onModalToggle }) => {
 
   const onSubmit = (payload: CourseCreateRequestDto): void => {
     onModalToggle();
-    dispatch(dashboardActions.addCourse(payload))
-      .unwrap()
-      .then(() => reset());
+    reset();
+    dispatch(dashboardActions.addCourse(payload));
   };
 
   return (

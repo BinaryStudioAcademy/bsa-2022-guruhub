@@ -180,7 +180,6 @@ const Course: FC = () => {
   useEffect(() => {
     if (user) {
       dispatch(courseActions.getPassedInterviewsCategoryIdsByUserId(user.id));
-      dispatch(courseActions.checkIsMentor({ id: Number(courseId) }));
     }
   }, [user]);
 
