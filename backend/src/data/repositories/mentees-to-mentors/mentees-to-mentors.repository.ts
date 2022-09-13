@@ -11,6 +11,8 @@ type Constructor = {
 class MenteesToMentors {
   #MenteesToMentorsModel: typeof MenteesToMentorsM;
 
+  private static RECORD_EXISTS_CHECK = 1;
+
   public constructor({ MenteesToMentorsModel }: Constructor) {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
   }
@@ -80,7 +82,7 @@ class MenteesToMentors {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(1)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
       .first();
@@ -91,7 +93,7 @@ class MenteesToMentors {
   public async checkIsMenteeForAnyCourse(menteeId: number): Promise<boolean> {
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(1)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ menteeId })
       .first();
 
