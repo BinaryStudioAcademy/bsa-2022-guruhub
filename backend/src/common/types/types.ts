@@ -4,6 +4,7 @@ export {
   type ChatGetLastMessagesRequestDto,
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageCreateRequestDto,
+  type ChatMessageCreateRequestWithStatusDto,
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
@@ -105,8 +106,11 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
   type TaskManipulateRequestArgumentsDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteCreateArgumentsDto,
@@ -117,6 +121,7 @@ export {
 export { type TokenPayload } from './token/token';
 export {
   type UdemyCourseGetResponseDto,
+  type UdemyCoursesGetResponseDto,
   type UdemyModuleGetResponseDto,
   type UdemyModulesGetResponseDto,
 } from './udemy/udemy';

@@ -15,10 +15,12 @@ export {
   UsersApiPath,
 } from './api/api';
 export { AppEnvironment, ENV, LogLevel } from './app/app';
+export { ChatMessageStatus } from './chat/chat';
 export { CourseHost } from './course/course';
 export { DbTableName } from './db/db';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType, FileSizeBytesValue } from './file/file';
+export { ProtectedGroupKey } from './group/group';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { InterviewStatus } from './interview/interview';
 export { PaginationDefaultValue } from './pagination/pagination';

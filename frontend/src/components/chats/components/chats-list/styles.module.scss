@@ -1,7 +1,7 @@
 .listWrapper {
   display: flex;
   flex-direction: column;
-  min-width: 346px;
+  min-width: 450px;
   background: var(--background-gray-300);
 }
 
@@ -16,7 +16,7 @@
 }
 
 .chatsList {
-  height: 83vh;
+  height: calc(100vh - 250px);
   margin: 0;
   padding: 25px;
   overflow-y: scroll;

@@ -11,6 +11,10 @@ type IconName =
   | 'search'
   | 'leftArrow'
   | 'interview'
-  | 'uam';
+  | 'uam'
+  | 'chat'
+  | 'chatUnread'
+  | 'hidePass'
+  | 'showPass';
 
 export { type IconName };

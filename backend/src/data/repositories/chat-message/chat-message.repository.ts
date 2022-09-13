@@ -1,8 +1,8 @@
-import { SortOrder } from '~/common/enums/enums';
+import { ChatMessageStatus, SortOrder } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
   ChatGetLastMessagesRequestDto,
-  ChatMessageCreateRequestDto,
+  ChatMessageCreateRequestWithStatusDto,
   ChatMessageGetAllItemResponseDto,
   DeepNonNullable,
 } from '~/common/types/types';
@@ -14,6 +14,8 @@ type Constructor = {
 
 class ChatMessage {
   #ChatMessageModel: typeof ChatMessageM;
+
+  private static RECORD_EXISTS_CHECK = 1;
 
   public constructor({ ChatMessageModel }: Constructor) {
     this.#ChatMessageModel = ChatMessageModel;
@@ -28,8 +30,9 @@ class ChatMessage {
       .query()
       .select()
       .where({ chatId })
+      .orderBy('created_at', SortOrder.ASC)
       .withGraphJoined(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();
@@ -40,12 +43,19 @@ class ChatMessage {
     receiverId,
     message,
     chatId,
-  }: DeepNonNullable<ChatMessageCreateRequestDto>): Promise<ChatMessageGetAllItemResponseDto> {
+    status,
+  }: DeepNonNullable<ChatMessageCreateRequestWithStatusDto>): Promise<ChatMessageGetAllItemResponseDto> {
     return this.#ChatMessageModel
       .query()
-      .insert({ senderId, receiverId, message, chatId: chatId as string })
+      .insert({
+        senderId,
+        receiverId,
+        message,
+        chatId: chatId as string,
+        status,
+      })
       .withGraphFetched(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto>()
       .execute();
@@ -63,10 +73,21 @@ class ChatMessage {
       .orderBy('createdAt', SortOrder.DESC)
       .first()
       .withGraphJoined(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto>()
       .execute();
+  }
+
+  public async checkHasUnreadMessages(userId: number): Promise<boolean> {
+    const hasUnreadMessages = await this.#ChatMessageModel
+      .query()
+      .select(ChatMessage.RECORD_EXISTS_CHECK)
+      .where({ receiverId: userId })
+      .andWhere({ status: ChatMessageStatus.UNREAD })
+      .first();
+
+    return Boolean(hasUnreadMessages);
   }
 
   public getLastMessagesInChats(
@@ -98,7 +119,7 @@ class ChatMessage {
       .select('chatMessages.id', 'message', 'createdAt', 'chatId')
       .whereIn('chatMessages.id', lastMessagesInChatsIds)
       .withGraphFetched(
-        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+        '[sender(withoutPassword).[userDetails(withoutMoneyBalance)], receiver(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();

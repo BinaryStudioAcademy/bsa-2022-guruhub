@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 const CategoryCell: FC<CellProps<OtherApplicationsTableRow>> = ({ value }) => {
   const categoryKeyKebabCase = changeStringCase({
     caseType: StringCase.KEBAB_CASE,
-    stringToChange: value,
+    stringToChange: value.key,
   });
 
   return (
@@ -21,7 +21,7 @@ const CategoryCell: FC<CellProps<OtherApplicationsTableRow>> = ({ value }) => {
         width="30"
         src={`/category-icons/${categoryKeyKebabCase}.svg`}
       />
-      <p>{value}</p>
+      <p>{value.name}</p>
     </div>
   );
 };

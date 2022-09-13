@@ -117,6 +117,17 @@ class Interview {
     return interviewsByUserId.map((interview) => interview.categoryId);
   }
 
+  public async getActiveInterviewsCategoryIdsByUserId(
+    intervieweeUserId: number,
+  ): Promise<number[]> {
+    const interviewsByUserId =
+      await this.#interviewRepository.getActiveInterviewsByUserId(
+        intervieweeUserId,
+      );
+
+    return interviewsByUserId.map((interview) => interview.categoryId);
+  }
+
   public getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,
@@ -146,11 +157,14 @@ class Interview {
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, interviewUpdateInfoRequestDto } = data;
-    const { interviewerUserId } = interviewUpdateInfoRequestDto;
+    const { interviewerUserId, status, interviewDate } =
+      interviewUpdateInfoRequestDto;
 
     const interview = await this.#interviewRepository.update({
       id,
       interviewerUserId,
+      status,
+      interviewDate,
     });
 
     return interview;

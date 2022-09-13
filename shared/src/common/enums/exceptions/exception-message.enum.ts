@@ -25,5 +25,9 @@ enum ExceptionMessage {
   TASK_DOES_NOT_EXIST = 'Task does not exist.',
   TASK_COMPLETED = 'Task is already completed and cannot be updated.',
   USER_DETAILS_NOT_FOUND = 'User was not found.',
+  FILE_TOO_BIG = 'This file is too large to upload. The maximum supported file size is: 1MB.',
+  USER_CAN_NOT_BE_DELETED = 'This user is forbidden to delete.',
+  PROTECTED_GROUP_UPDATE = 'This group is protected and cannot be updated.',
+  PROTECTED_GROUP_DELETE = 'This group is protected and cannot be deleted.',
 }
 export { ExceptionMessage };

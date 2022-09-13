@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { NotificationMessage, PermissionKey } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
@@ -14,6 +14,8 @@ import {
   GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
@@ -51,10 +53,11 @@ const createInterview = createAsyncThunk<
   void,
   InterviewsCreateRequestBodyDto,
   AsyncThunkConfig
->(ActionType.CREATE_INTERVIEW, async (payload, { extra }) => {
+>(ActionType.CREATE_INTERVIEW, async (payload, { extra, dispatch }) => {
   const { interviewsApi, notification } = extra;
 
   await interviewsApi.create(payload);
+  dispatch(getActiveInterviewsCategoryIdsByUserId(payload.intervieweeUserId));
 
   notification.success(NotificationMessage.INTERVIEW_CREATE);
 });
@@ -96,6 +99,19 @@ const getPassedInterviewsCategoryIdsByUserId = createAsyncThunk<
   return passedInterviewsCategoryIds;
 });
 
+const getActiveInterviewsCategoryIdsByUserId = createAsyncThunk<
+  number[],
+  number,
+  AsyncThunkConfig
+>(ActionType.GET_ACTIVE_INTERVIEW_CATEGORY_IDS, async (payload, { extra }) => {
+  const { interviewsApi } = extra;
+
+  const activeInterviewsCategoryIds =
+    await interviewsApi.getActiveInterviewsCategoryIdsByUserId(payload);
+
+  return activeInterviewsCategoryIds;
+});
+
 const updateIsMentorBecomingEnabled = createAsyncThunk<
   boolean,
   void,
@@ -124,13 +140,30 @@ const disableMentorBecoming = createAsyncThunk<boolean, void, AsyncThunkConfig>(
   },
 );
 
+const disableMentorChoosing = createAction(ActionType.DISABLE_MENTOR_CHOOSING);
+
+const cleanMentor = createAction(ActionType.CLEAN_MENTOR);
+
+const cleanMentors = createAction(ActionType.CLEAN_MENTORS);
+
 const getMentorsByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async (payload, { extra }) => {
+>(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
+  const {
+    course: { mentor },
+  } = getState();
   const { coursesApi } = extra;
   const mentors = await coursesApi.getMentorsByCourseId(payload);
+
+  if (mentor) {
+    const availableMentors = mentors.filter((m: UserDetailsResponseDto) => {
+      return m.id !== mentor.id;
+    });
+
+    return availableMentors;
+  }
 
   return mentors;
 });
@@ -144,7 +177,6 @@ const getMenteesByCourseId = createAsyncThunk<
   async (payload, { extra, dispatch, getState }) => {
     const { coursesApi } = extra;
     const {
-      course: { isMentor },
       auth: { user },
     } = getState();
     const hasMentoringPermission = checkHasPermission({
@@ -154,6 +186,10 @@ const getMenteesByCourseId = createAsyncThunk<
 
     if (hasMentoringPermission) {
       await dispatch(checkIsMentor({ id: payload.id }));
+
+      const {
+        course: { isMentor },
+      } = getState();
 
       if (!isMentor) {
         return [];
@@ -219,23 +255,66 @@ const chooseMentor = createAsyncThunk<
   return menteeToMentor;
 });
 
+const changeMentor = createAsyncThunk<
+  MenteesToMentorsResponseDto,
+  CourseSelectMentorRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHANGE_A_MENTOR, async ({ id }, { extra, getState }) => {
+  const {
+    course: { course },
+    auth: { user },
+  } = getState();
+  const { coursesApi } = extra;
+
+  const newMenteeToMentor = await coursesApi.changeMentor({
+    courseId: (course as CourseGetResponseDto).id,
+    menteeId: (user as UserWithPermissions).id,
+    mentorId: id,
+  });
+
+  notification.success(NotificationMessage.MENTOR_CHANGE);
+
+  return newMenteeToMentor;
+});
+
 const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
-  void,
+  number,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
-  const {
-    auth: { user },
-    course: { mentors, mentor },
-  } = getState();
-  const isMentor = mentors.some(
-    (mentor) => mentor.id === (user as UserWithPermissions).id,
-  );
-  const hasMentor = Boolean(mentor);
-  const canChooseMentor = !(isMentor || hasMentor);
+>(
+  ActionType.SET_IS_MENTOR_CHOOSING_ENABLED,
+  async (id, { extra, getState }) => {
+    const {
+      auth: { user },
+      course: { mentors, course, activeInterviewsCategoryIds },
+    } = getState();
 
-  return canChooseMentor;
-});
+    if (!course) {
+      return false;
+    }
+
+    const { coursesApi } = extra;
+
+    const isMentor = mentors.some(
+      (mentor) => mentor.id === (user as UserWithPermissions).id,
+    );
+    const isInterviewProcessActive = activeInterviewsCategoryIds.some(
+      (categoryId) => {
+        return categoryId === (course as CourseGetResponseDto).courseCategoryId;
+      },
+    );
+
+    const hasMentor = await coursesApi.checkHasMentor({
+      courseId: id,
+    });
+    const hasCategory = Boolean(course.category);
+
+    const canChooseMentor =
+      !isMentor && !hasMentor && hasCategory && !isInterviewProcessActive;
+
+    return canChooseMentor;
+  },
+);
 
 const checkIsMentor = createAsyncThunk<
   boolean,
@@ -272,13 +351,35 @@ const updateCategory = createAsyncThunk<
   return updatedCourse;
 });
 
+const getTasksByCourseIdAndMenteeId = createAsyncThunk<
+  TaskWithModuleResponseDto[],
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  AsyncThunkConfig
+>(
+  ActionType.GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID,
+  async ({ courseId, menteeId }, { extra }) => {
+    const { tasksApi } = extra;
+    const modules = await tasksApi.getAllByCourseIdAndMenteeId({
+      courseId,
+      menteeId,
+    });
+
+    return modules;
+  },
+);
+
 export {
   becomeAMentor,
+  changeMentor,
   checkIsMentor,
   chooseMentor,
+  cleanMentor,
+  cleanMentors,
   createInterview,
   createMentor,
   disableMentorBecoming,
+  disableMentorChoosing,
+  getActiveInterviewsCategoryIdsByUserId,
   getCategories,
   getCourse,
   getMenteesByCourseId,
@@ -286,6 +387,7 @@ export {
   getMentorsByCourseId,
   getModules,
   getPassedInterviewsCategoryIdsByUserId,
+  getTasksByCourseIdAndMenteeId,
   updateCategory,
   updateIsMentorBecomingEnabled,
   updateIsMentorChoosingEnabled,

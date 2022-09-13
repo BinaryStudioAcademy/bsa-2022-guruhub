@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   buttonWrapper: {
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
   },
 });
 

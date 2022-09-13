@@ -99,6 +99,20 @@ class Interview {
       .execute();
   }
 
+  public getActiveInterviewsByUserId(
+    intervieweeUserId: number,
+  ): Promise<InterviewM[]> {
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .whereIn('status', [
+        InterviewStatus.IN_PROGRESS,
+        InterviewStatus.NEW,
+        InterviewStatus.PENDING,
+      ])
+      .execute();
+  }
+
   public async getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,
@@ -127,7 +141,7 @@ class Interview {
       .where('intervieweeUserId', userId)
       .orWhere('interviewerUserId', userId)
       .withGraphJoined(
-        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+        '[courseCategory, interviewee(withoutPassword).[userDetails(withoutMoneyBalance)], interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .offset(elementsToSkip)
       .limit(count)
@@ -144,16 +158,18 @@ class Interview {
 
   public update(interview: {
     id: number;
-    interviewerUserId: number;
+    interviewerUserId: number | null;
+    status: InterviewStatus;
+    interviewDate: string | null;
   }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewerUserId } = interview;
+    const { id, interviewerUserId, status, interviewDate } = interview;
 
     return this.#InterviewModel
       .query()
       .select()
-      .patchAndFetchById(id, { interviewerUserId })
+      .patchAndFetchById(id, { interviewerUserId, status, interviewDate })
       .withGraphFetched(
-        '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
+        '[courseCategory, interviewee(withoutPassword).[userDetails(withoutMoneyBalance)], interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .castTo<InterviewsByIdResponseDto>()
       .execute();
@@ -174,8 +190,12 @@ class Interview {
       .where({ intervieweeUserId })
       .andWhereNot('interviews.id', interviewId)
       .withGraphJoined('courseCategory')
-      .withGraphJoined('interviewee(withoutPassword).[userDetails]')
-      .withGraphJoined('interviewer(withoutPassword).[userDetails]')
+      .withGraphJoined(
+        'interviewee(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
+      .withGraphJoined(
+        'interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
       .limit(count)
       .offset(ELEMENTS_TO_SKIP)
       .castTo<InterviewsGetOtherItemResponseDto[]>();

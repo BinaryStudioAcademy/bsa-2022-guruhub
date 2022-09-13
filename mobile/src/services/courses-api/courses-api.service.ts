@@ -9,6 +9,7 @@ import {
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
+  CourseModulesGetAllRequestParamsDto,
   CourseUpdateCategoryRequestArguments,
   MenteesToMentorsRequestDto,
   UserDetailsResponseDto,
@@ -35,9 +36,8 @@ class Courses {
     filtering: CourseFilteringDto;
   }): Promise<CourseGetResponseDto[]> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}`,
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           title: options.filtering.title,
           categoryKey: options.filtering.categoryKey,
@@ -51,9 +51,6 @@ class Courses {
   }: CourseGetRequestParamsDto): Promise<CourseGetResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${id}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
@@ -93,7 +90,6 @@ class Courses {
         CoursesApiPath.MENTORS
       }`,
       {
-        method: HttpMethod.GET,
         queryParams: {
           mentorName: filteringOpts.mentorName,
         },
@@ -118,6 +114,26 @@ class Courses {
           mentorId,
         }),
       },
+    );
+  }
+
+  public getMenteesByCourseId(
+    courseId: number,
+  ): Promise<UserDetailsResponseDto[]> {
+    return this.#http.load<UserDetailsResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTEES
+      }`,
+    );
+  }
+
+  public checkIsMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.IS_MENTOR_CHECK
+      }`,
     );
   }
 }

@@ -3,15 +3,13 @@ import {
   HttpCode,
   HttpErrorDto,
   HttpStatusMessage,
-  UserDetailsResponseDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-  UserWithPermissions,
 } from 'guruhub-shared';
 
 import { JWT_TOKEN_REGEX } from '~/lib/common/constants/constants';
-import { Response } from '~/lib/common/types/types';
+import { Response, UserCreateExpected } from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {
   apiSessionStorage,
@@ -40,8 +38,8 @@ describe('Users delete tests', () => {
     mentoringManager: testsConfig.users.mentoringManager,
   } as const;
 
-  let expectedUserDetails: Pick<UserDetailsResponseDto, 'fullName'>;
-  let expectedSignUpResponse: Pick<UserWithPermissions, 'email'>;
+  let expectedSignUpResponse: UserCreateExpected;
+
   let userToDeleteId = 0;
 
   after(() => {
@@ -58,10 +56,9 @@ describe('Users delete tests', () => {
 
     expectedSignUpResponse = {
       email: userToDeleteData.email,
-    };
-
-    expectedUserDetails = {
-      fullName: userToDeleteData.fullName,
+      userDetails: {
+        fullName: userToDeleteData.fullName,
+      },
     };
 
     const response = (await authService.signUp(
@@ -76,8 +73,7 @@ describe('Users delete tests', () => {
     response.should.have.status(HttpCode.CREATED);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signUpResponseSchema);
-    response.body.user.should.deep.include(expectedSignUpResponse);
-    response.body.user.userDetails.should.deep.include(expectedUserDetails);
+    response.body.user.should.include.deep.keys(expectedSignUpResponse);
     JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
   });
 

@@ -34,9 +34,17 @@ class UserDetails {
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,
   ): Promise<UserDetailsResponseDto | null> {
+    const { telegramUsername } = userDetailsUpdateInfoRequestDto;
+    const hasTelegram = Boolean(telegramUsername);
+
+    const userDetailsUpdateWithTelegram = {
+      ...userDetailsUpdateInfoRequestDto,
+      telegramUsername: hasTelegram ? telegramUsername : null,
+    };
+
     const userDetails = await this.#userDetailsRepository.update(
       userId,
-      userDetailsUpdateInfoRequestDto,
+      userDetailsUpdateWithTelegram,
     );
 
     return userDetails ?? null;

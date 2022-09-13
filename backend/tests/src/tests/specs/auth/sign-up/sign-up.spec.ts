@@ -1,14 +1,16 @@
 import {
   HttpCode,
   HttpStatusMessage,
-  UserDetailsResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-  UserWithPermissions,
 } from 'guruhub-shared';
 
 import { JWT_TOKEN_REGEX } from '~/lib/common/constants/constants';
-import { Response } from '~/lib/common/types/types';
+import {
+  Response,
+  UserCreateExpected,
+  UserExpected,
+} from '~/lib/common/types/types';
 import {
   apiSessionStorage,
   authService,
@@ -24,9 +26,8 @@ import { signUpRequestMock } from '~/tests/mocks/mocks';
 
 describe('Sign up tests', () => {
   let signUpData: UserSignUpRequestDto;
-  let expectedUserDetails: Pick<UserDetailsResponseDto, 'fullName'>;
-  let expectedSignUpResponse: Pick<UserWithPermissions, 'email'>;
-  let expectedUserData: Pick<UserWithPermissions, 'id' | 'email'>;
+  let expectedSignUpResponse: UserCreateExpected;
+  let expectedUserData: UserExpected;
 
   before(() => apiSessionStorage.addAndEnterSession('default'));
 
@@ -40,7 +41,7 @@ describe('Sign up tests', () => {
     response.should.have.status(HttpCode.UNAUTHORIZED);
     response.should.have.normalExecutionTime;
 
-    response.body.should.be.deep.include({
+    response.body.should.include.deep.keys({
       statusCode: HttpCode.UNAUTHORIZED,
       error: HttpStatusMessage.UNAUTHORIZED,
     });
@@ -53,10 +54,9 @@ describe('Sign up tests', () => {
 
     expectedSignUpResponse = {
       email: signUpData.email,
-    };
-
-    expectedUserDetails = {
-      fullName: signUpData.fullName,
+      userDetails: {
+        fullName: signUpData.fullName,
+      },
     };
 
     const response = (await authService.signUp(
@@ -66,8 +66,7 @@ describe('Sign up tests', () => {
     response.should.have.status(HttpCode.CREATED);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signUpResponseSchema);
-    response.body.user.should.deep.include(expectedSignUpResponse);
-    response.body.user.userDetails.should.deep.include(expectedUserDetails);
+    response.body.user.should.include.deep.keys(expectedSignUpResponse);
     JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
 
     expectedUserData = {
@@ -84,8 +83,7 @@ describe('Sign up tests', () => {
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(userWithPermissionsSchema);
-    response.body.should.deep.include(expectedUserData);
-    response.body.userDetails.should.deep.include(expectedUserDetails);
+    response.body.should.include.deep.keys(expectedUserData);
 
     httpService.removeToken();
   });
@@ -99,8 +97,7 @@ describe('Sign up tests', () => {
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(signInResponseSchema);
-    response.body.user.should.deep.include(expectedUserData);
-    response.body.user.userDetails.should.deep.include(expectedUserDetails);
+    response.body.user.should.include.deep.keys(expectedUserData);
     JWT_TOKEN_REGEX.test(response.body.token).should.be.true;
 
     httpService.setToken(response.body.token);
@@ -112,8 +109,7 @@ describe('Sign up tests', () => {
     response.should.have.status(HttpCode.OK);
     response.should.have.normalExecutionTime;
     response.body.should.have.jsonSchema(userWithPermissionsSchema);
-    response.body.should.deep.include(expectedUserData);
-    response.body.userDetails.should.deep.include(expectedUserDetails);
+    response.body.should.include.deep.keys(expectedUserData);
 
     httpService.removeToken();
   });

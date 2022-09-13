@@ -4,6 +4,7 @@ import {
   UdemyModuleGetResponseDto,
   UdemyModulesGetResponseDto,
 } from '~/common/types/types';
+import { UdemyError } from '~/exceptions/exceptions';
 import { http as httpServ } from '~/services/services';
 
 type Constructor = {
@@ -14,7 +15,7 @@ type Constructor = {
 };
 
 class Udemy {
-  #MODULE_API_PAGE_SIZE = 15;
+  #MODULE_API_PAGE_SIZE = 100;
 
   #INITIAL_PAGE = 1;
 
@@ -42,18 +43,22 @@ class Udemy {
   }
 
   public async getCourseByUrl(url: URL): Promise<UdemyCourseGetResponseDto> {
-    const courseIdOrSlug = url.pathname
-      .split('/')
-      .filter(Boolean)
-      .pop() as string;
+    try {
+      const courseIdOrSlug = url.pathname
+        .split('/')
+        .filter(Boolean)
+        .pop() as string;
 
-    const headers = this.getHeaders();
-    const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
-      this.getCourseRequestUrl(courseIdOrSlug),
-      { headers, method: HttpMethod.GET },
-    );
+      const headers = this.getHeaders();
+      const res = await this.#httpService.load<UdemyCourseGetResponseDto>(
+        this.getCourseRequestUrl(courseIdOrSlug),
+        { headers, method: HttpMethod.GET },
+      );
 
-    return res;
+      return res;
+    } catch {
+      throw new UdemyError();
+    }
   }
 
   public async getModulesByCourseId(
@@ -73,23 +78,22 @@ class Udemy {
   ): Promise<UdemyModuleGetResponseDto[]> {
     const modules: UdemyModuleGetResponseDto[] = [];
 
-    let fetchedModules: UdemyModuleGetResponseDto[] =
+    let fetchedModulesData: UdemyModulesGetResponseDto =
       await this.fetchModulesPage(
         this.getModuleRequestUrl(courseId, page),
         this.getHeaders(),
       );
 
-    let nextPage = page;
-    while (fetchedModules.length === this.#MODULE_API_PAGE_SIZE) {
-      modules.push(...fetchedModules);
-      fetchedModules = await this.fetchModulesPage(
-        this.getModuleRequestUrl(courseId, nextPage),
+    while (fetchedModulesData.next) {
+      modules.push(...fetchedModulesData.results);
+
+      fetchedModulesData = await this.fetchModulesPage(
+        fetchedModulesData.next,
         this.getHeaders(),
       );
-
-      nextPage++;
     }
-    modules.push(...fetchedModules);
+
+    modules.push(...fetchedModulesData.results);
 
     return modules;
   }
@@ -97,14 +101,14 @@ class Udemy {
   private async fetchModulesPage(
     requestUrl: string,
     headers: Record<string, string>,
-  ): Promise<UdemyModuleGetResponseDto[]> {
+  ): Promise<UdemyModulesGetResponseDto> {
     const fetchedModules =
       await this.#httpService.load<UdemyModulesGetResponseDto>(requestUrl, {
         headers,
         method: HttpMethod.GET,
       });
 
-    return fetchedModules.results;
+    return fetchedModules;
   }
 
   private getCourseRequestUrl(courseIdOrSlug: string): string {

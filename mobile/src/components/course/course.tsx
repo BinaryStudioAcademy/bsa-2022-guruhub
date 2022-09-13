@@ -1,17 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 
-import defaultCourseImage from '~/assets/images/default-course-image.png';
 import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
-  Icon,
-  Image,
+  FlatList,
   Pressable,
-  ScrollView,
   Spinner,
   Text,
   View,
 } from '~/components/common/common';
-import { checkHasPermission, getImageUri } from '~/helpers/helpers';
+import { checkHasPermission } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -19,13 +16,12 @@ import {
   useCallback,
   useEffect,
   useFocusEffect,
-  useState,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { CourseCategory, CourseDescription } from './components/components';
-import { CourseModules } from './components/course-modules/course-modules';
+import { CourseContent } from './components/course-content/course-content';
+import { Module } from './components/module/module';
 import { styles } from './styles';
 
 const Course: FC = () => {
@@ -48,12 +44,8 @@ const Course: FC = () => {
     modulesDataStatus: courseModules.dataStatus,
   }));
 
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
-
-  const currentCategory = course?.category;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -63,10 +55,6 @@ const Course: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
-
-  const handleExpandedToggle = (): void => {
-    setIsDescriptionExpanded(!isDescriptionExpanded);
-  };
 
   useEffect(() => {
     if (course) {
@@ -90,11 +78,29 @@ const Course: FC = () => {
     };
   }, [mentors]);
 
+  useEffect(() => {
+    if (user && course) {
+      dispatch(
+        coursesActions.getMenteesMentor({
+          courseId: course.id,
+          menteeId: user.id,
+        }),
+      );
+    }
+  }, [user, course]);
+
   useFocusEffect(
     useCallback(() => {
-      return () => setIsDescriptionExpanded(false);
+      return () => {
+        dispatch(courseModulesActions.clearModules());
+      };
     }, []),
   );
+
+  const handleModulePress = (courseId: number, moduleId: number): void => {
+    dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
+    navigation.navigate(AppScreenName.COURSE_MODULE);
+  };
 
   if (courseIsLoading) {
     return <Spinner isOverflow />;
@@ -105,46 +111,41 @@ const Course: FC = () => {
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.h1}>{course?.title}</Text>
-        <View style={styles.currentCategory}>
-          <CourseCategory
-            keyName={currentCategory?.key ?? 'unknown'}
-            name={currentCategory?.name ?? 'Unknown'}
-            isActive={false}
-          />
-          {hasEditCategoryPermission && (
-            <Pressable
-              style={styles.editIconContainer}
-              onPress={handleEditModeToggle}
-            >
-              <Icon width={25} height={25} name="edit" color="white" />
-            </Pressable>
-          )}
-        </View>
-
-        <Image
-          style={styles.image}
-          source={{
-            uri: course?.imageUrl ?? getImageUri(defaultCourseImage),
-          }}
-        />
-        <Text style={styles.h2}>About this course</Text>
-        {Boolean(course.description) && (
-          <CourseDescription
-            description={course.description}
-            isExpanded={isDescriptionExpanded}
-            handleExpandedToggle={handleExpandedToggle}
+    <View style={styles.container}>
+      <FlatList
+        ListHeaderComponent={(): ReactElement => (
+          <CourseContent
             width={width}
+            course={course}
+            hasEditCategoryPermission={hasEditCategoryPermission}
+            onEditModeToggle={handleEditModeToggle}
           />
         )}
-        <CourseModules
-          courseModules={courseModules}
-          isLoading={moduleIsLoading}
-        />
-      </View>
-    </ScrollView>
+        data={courseModules}
+        keyExtractor={({ id }): string => id.toString()}
+        renderItem={({ item: module, index }): ReactElement => (
+          <Pressable
+            onPress={(): void => handleModulePress(module.courseId, module.id)}
+            disabled={!user}
+            style={Boolean(index) && styles.separator}
+          >
+            <Module
+              index={index}
+              title={module.title}
+              description={module.description}
+            />
+          </Pressable>
+        )}
+        ListEmptyComponent={(): ReactElement =>
+          moduleIsLoading ? (
+            <Spinner />
+          ) : (
+            <Text style={styles.noModules}>No modules found</Text>
+          )
+        }
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
   );
 };
 

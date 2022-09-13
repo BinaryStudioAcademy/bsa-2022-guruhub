@@ -27,6 +27,8 @@ paths:
     $ref: './endpoints/chat-messages/chat-messages-root-operations.yaml'
   /chats/:chatId:
     $ref: './endpoints/chat-messages/chat-get-all-messages.yaml'
+  /chats/has-unread-messages:
+    $ref: './endpoints/chat-messages/chat-has-unread-messages.yaml'
   # Courses
   /courses:
     $ref: './endpoints/courses/courses.yaml'
@@ -35,7 +37,7 @@ paths:
   /courses/:id/category:
     $ref: './endpoints/courses/course-update-category-by-id.yaml'
   /courses/:id/mentors:
-    $ref: './endpoints/courses/courses-add-mentor.yaml'
+    $ref: './endpoints/courses/courses-mentor.yaml'
   /courses/:id/is-mentor-check:
     $ref: './endpoints/courses/course-check-is-mentor.yaml'
   /courses/:id/has-mentor-check:
@@ -57,11 +59,13 @@ paths:
   /interviews:
     $ref: './endpoints/interviews/interviews.yaml'
   /interviews/{id}:
-    $ref: './endpoints/interviews/interviews-get-by-id.yaml'
+    $ref: './endpoints/interviews/interview-manipulate.yaml'
   /interviews/:id/notes:
     $ref: './endpoints/interviews/interview-notes-operations.yaml'
   /interviews/interviewee/{intervieweeUserId}/categories:
     $ref: './endpoints/interviews/interviews-interviewee-get-pending-or-passed-category-ids.yaml'
+  /interviews/interviewee/{intervieweeUserId}/active/categories:
+    $ref: './endpoints/interviews/interview-interviewee-get-active-category-ids.yaml'
   # Mentors
   /mentors:
     $ref: './endpoints/mentors/mentors.yaml'
@@ -77,6 +81,10 @@ paths:
     $ref: './endpoints/tasks/tasks-get-by-mentee-id-and-module-id.yaml'
   /tasks/:id/notes:
     $ref: './endpoints/tasks/tasks-get-notes.yaml'
+  /tasks/courses/:courseId/modules/:moduleId/mentees/:menteeId:
+    $ref: './endpoints/tasks/tasks-get-by-course-id-module-id-mentee-id.yaml'
+  /tasks/courses/:courseId/mentees/:menteeId:
+    $ref: './endpoints/tasks/tasks-get-by-course-id-mentee-id.yaml'
 components:
   schemas:
     UserSignUpRequestDto:
@@ -136,7 +144,7 @@ components:
     InterviewsGetAllResponseDto:
       $ref: './schemas/interviews/interview-get-all-response-dto.yaml'
     InterviewsGetByIdResponseDto:
-      $ref: './schemas/interviews/interviews-get-by-id-response-dto.yaml'
+      $ref: './schemas/interviews/interview-response-dto.yaml'
     InterviewsGetAllNotesRequestDto:
       $ref: './schemas/interviews/interviews-get-all-notes-request-dto.yaml'
     InterviewsGetAllNotesResponseDto:
@@ -151,6 +159,8 @@ components:
       $ref: './schemas/user-details/user-details-response-dto.yaml'
     UserDetailsUpdateInfoRequestDto:
       $ref: './schemas/user-details/user-details-update-request-dto.yaml'
+    MenteesToMentorsResponseDto:
+      $ref: './schemas/mentors/mentor-get-response-dto.yaml'
   securitySchemes:
     bearerAuth:
       type: http

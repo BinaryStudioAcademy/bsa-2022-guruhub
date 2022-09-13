@@ -2,6 +2,8 @@ export {
   ApiPath,
   AuthApiPath,
   CategoriesApiPath,
+  ChatsApiPath,
+  CourseModulesApiPath,
   CoursesApiPath,
   GroupsApiPath,
   InterviewsApiPath,
@@ -28,5 +30,5 @@ export { SearchValue } from './search/search';
 export { StringCase } from './string/string';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
-export { UserGender } from './user/user';
+export { UserAge, UserGender } from './user/user';
 export { VendorKey } from './vendor/vendor';

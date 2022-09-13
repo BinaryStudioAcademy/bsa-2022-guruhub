@@ -45,7 +45,7 @@ const SearchUser: FC<Props> = ({ onSearch, searchParams }) => {
           errors={errors}
           name="fullName"
           label="fullName"
-          placeholder="Search your mentor or mentee"
+          placeholder="Search your mentor or student"
           inputClassName={styles.searchField}
           hasVisuallyHiddenLabel
         />

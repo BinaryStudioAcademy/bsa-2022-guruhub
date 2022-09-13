@@ -1,9 +1,14 @@
+import { Page } from 'objection';
+
+import { SortOrder } from '~/common/enums/enums';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
@@ -19,14 +24,16 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAll(filteringOpts: {
+  public getAllWithCategories(filteringOpts: {
     categoryId: number | null;
     title: string;
   }): Promise<CourseGetResponseDto[]> {
     const { categoryId, title } = filteringOpts ?? {};
+    const normalizedTitle = title.replaceAll('\\', '\\\\');
 
     return this.#CourseModel
       .query()
+      .select('*')
       .where((builder) => {
         if (categoryId) {
           builder.where({ courseCategoryId: categoryId });
@@ -34,12 +41,36 @@ class Course {
       })
       .andWhere((builder) => {
         if (title) {
-          builder.where('title', 'ilike', `%${title}%`);
+          builder.where('title', 'ilike', `%${normalizedTitle}%`);
         }
       })
+      .innerJoin(
+        'courseCategories',
+        'courses.courseCategoryId',
+        'courseCategories.id',
+      )
       .withGraphJoined('vendor')
       .castTo<CourseGetResponseDto[]>()
       .execute();
+  }
+
+  public async getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    const { results, total } = await this.#CourseModel
+      .query()
+      .withGraphJoined('category')
+      .orderBy('courseCategoryId', SortOrder.DESC)
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public async create(
@@ -123,7 +154,9 @@ class Course {
         'dateOfBirth',
         'mentors:userDetails:avatar as avatar',
       )
-      .withGraphJoined('mentors(withoutPassword).[userDetails.[avatar]]')
+      .withGraphJoined(
+        'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
       .castTo<UserDetailsResponseDto[]>()
       .execute();
   }
@@ -135,7 +168,9 @@ class Course {
     return this.#CourseModel
       .query()
       .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
-      .withGraphJoined('[mentees.[userDetails.[avatar]], mentorsWithMentees]')
+      .withGraphJoined(
+        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentorsWithMentees]',
+      )
       .where('mentorsWithMentees.id', mentorId)
       .where('courses.id', courseId)
       .distinct('mentees.id')

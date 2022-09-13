@@ -18,6 +18,10 @@ const DEFAULT_SELECT_STYLES: SelectStyles = {
     ...styles,
     backgroundColor: state.isFocused ? '#2563EB' : '#343646',
   }),
+  input: (styles: CSSObjectWithLabel): CSSObjectWithLabel => ({
+    ...styles,
+    color: 'var(--typography-text-100-inverse)',
+  }),
 };
 
 export { DEFAULT_SELECT_STYLES };

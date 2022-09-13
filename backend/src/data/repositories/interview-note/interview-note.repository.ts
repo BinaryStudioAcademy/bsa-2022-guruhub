@@ -22,7 +22,9 @@ class InterviewNote {
       .query()
       .select()
       .where({ interviewId })
-      .withGraphJoined('author(withoutPassword).[userDetails.[avatar]]')
+      .withGraphJoined(
+        'author(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
       .orderBy('createdAt', SortOrder.DESC)
       .castTo<InterviewNoteGetAllItemResponseDto[]>()
       .execute();
@@ -36,7 +38,9 @@ class InterviewNote {
     return this.#InterviewNoteModel
       .query()
       .insert({ note, interviewId, authorId })
-      .withGraphFetched('author(withoutPassword).[userDetails]')
+      .withGraphFetched(
+        'author(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
       .castTo<InterviewNoteGetAllItemResponseDto>()
       .execute();
   }
