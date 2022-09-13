@@ -25,6 +25,7 @@ export {
   Image,
   Pressable,
   RefreshControl,
+  SectionList,
   StatusBar,
   View,
 } from 'react-native';
