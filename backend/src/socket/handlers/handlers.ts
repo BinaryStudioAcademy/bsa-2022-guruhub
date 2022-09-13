@@ -13,7 +13,7 @@ const handlers = (socket: Socket): void => {
   socket.on(
     SocketEvent.SEND_MESSAGE,
     ({ message, roomId }: SocketMessageEventDto) => {
-      socket.to(roomId).emit(message);
+      socket.to(roomId).emit(SocketEvent.RECEIVE_MESSAGE, message);
     },
   );
 };
