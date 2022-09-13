@@ -10,6 +10,7 @@ import {
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestArgumentsDto,
   InterviewsUpdateRequestDto,
+  InterviewsUpdateWithoutInterviewerRequestDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -145,7 +146,9 @@ class Interview {
 
   public update(
     id: number,
-    interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto,
+    interviewUpdateInfoRequestDto:
+      | InterviewsUpdateRequestDto
+      | InterviewsUpdateWithoutInterviewerRequestDto,
   ): Promise<InterviewsByIdResponseDto> {
     return this.#InterviewModel
       .query()

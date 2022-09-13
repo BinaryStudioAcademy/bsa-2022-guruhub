@@ -1,9 +1,8 @@
 import { InterviewStatus } from '~/common/enums/enums';
 
-type InterviewsUpdateRequestDto = {
-  interviewerUserId: number | null;
+type InterviewsUpdateWithoutInterviewerRequestDto = {
   status: InterviewStatus;
   interviewDate: string | null;
 };
 
-export { type InterviewsUpdateRequestDto };
+export { type InterviewsUpdateWithoutInterviewerRequestDto };

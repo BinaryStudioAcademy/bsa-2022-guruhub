@@ -10,3 +10,4 @@ export { type InterviewsGetOtherRequestDto } from './interviews-get-other-reques
 export { type InterviewsResponseDto } from './interviews-response-dto.type';
 export { type InterviewsUpdateRequestDto } from './interviews-update-request-dto.type';
 export { type InterviewsUpdateRequestParamsDto } from './interviews-update-request-params-dto.type';
+export { type InterviewsUpdateWithoutInterviewerRequestDto } from './interviews-update-without-interviewer-request-dto.type';

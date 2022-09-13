@@ -18,6 +18,7 @@ import {
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewUpdateRequestArgumentsDto,
+  InterviewUpdateWithoutInterviewerRequestArgumentsDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -129,6 +130,22 @@ class InterviewsApi {
   }: InterviewUpdateRequestArgumentsDto): Promise<InterviewsGetAllItemResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify(payload),
+      },
+    );
+  }
+
+  public updateWithoutInterviewer({
+    id,
+    payload,
+  }: InterviewUpdateWithoutInterviewerRequestArgumentsDto): Promise<InterviewsGetAllItemResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${InterviewsApiPath.ROOT}${id}${
+        InterviewsApiPath.UPDATE_WITHOUT_INTERVIEWER
+      }`,
       {
         method: HttpMethod.PUT,
         contentType: ContentType.JSON,

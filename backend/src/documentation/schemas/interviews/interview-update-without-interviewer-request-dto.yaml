@@ -1,0 +1,17 @@
+type: object
+properties:
+  interviewDate:
+    required: false
+    type: date
+    example: '2022-08-25T13:17:29.715Z'
+  status:
+    required: true
+    type: string
+    enum:
+      - New
+      - Rejected
+      - Canceled
+      - Pending
+      - In Progress
+      - Completed
+    example: Pending
