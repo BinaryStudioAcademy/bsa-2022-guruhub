@@ -9,4 +9,4 @@ type UdemyCourseInfo = {
   modules: UdemyModulesGetResponseDto;
 };
 
-export { UdemyCourseInfo };
+export { type UdemyCourseInfo };
