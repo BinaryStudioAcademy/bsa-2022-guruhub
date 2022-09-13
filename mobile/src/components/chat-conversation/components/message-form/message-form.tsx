@@ -16,7 +16,7 @@ type Props = {
 };
 
 const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
-  const { control, errors, handleSubmit, reset } =
+  const { control, errors, handleSubmit, reset, setValue } =
     useAppForm<ChatMessageCreateRequestBodyDto>({
       defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
       validationSchema: chatMessageCreateArguments,
@@ -28,7 +28,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
     payload: ChatMessageCreateRequestBodyDto,
   ): void => {
     onSubmit(payload);
-    reset({ message: '' });
+    setValue('message', '');
   };
 
   useFocusEffect(
