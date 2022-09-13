@@ -82,14 +82,14 @@ class CoursesApi {
 
   public updateCoursesMentoring({
     courseId,
-    maxStudentsCount,
+    studentsCount,
   }: CourseUpdateMentoringDto): Promise<number> {
     return this.#http.load<number>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
       {
         method: HttpMethod.PATCH,
         contentType: ContentType.JSON,
-        payload: JSON.stringify({ courseId, maxStudentsCount }),
+        payload: JSON.stringify({ courseId, studentsCount }),
       },
     );
   }

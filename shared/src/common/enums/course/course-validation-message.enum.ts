@@ -12,7 +12,7 @@ const CourseValidationMessage = {
   MENTOR_ID_INTEGER: 'Mentor id must be of type integer',
   MENTEE_ID_REQUIRE: 'Mentee id is required',
   MENTEE_ID_INTEGER: 'Mentee id must be of type integer',
-  EMPTY_MAX_STUDENTS_COUNT: 'Maximum students count can not be empty',
+  EMPTY_STUDENTS_COUNT: 'Students count can not be empty',
   INVALID_STUDENTS_COUNT_NUMBER: `Students count number should be not less than ${CourseValidationRule.STUDENTS_COUNT_MIN_NUMBER}`,
 } as const;
 

@@ -1,7 +1,7 @@
 type CoursesMentoringTableRow = {
   id: number;
   title: string;
-  maxStudentsCount: number;
+  studentsCount: number;
 };
 
 export { type CoursesMentoringTableRow };

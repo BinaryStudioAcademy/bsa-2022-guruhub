@@ -14,8 +14,11 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetEmptyChatDto,
 } from './chat/chat';
 export {
   type CourseModuleGetByIdResponseDto,

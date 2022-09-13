@@ -7,11 +7,11 @@ import {
 import { CourseUpdateMentoringDto } from '~/common/types/types';
 import { getNameOf } from '~/helpers/helpers';
 
-const courseMentoringUpdateMaxCount = Joi.object({
+const courseMentoringUpdateCount = Joi.object({
   [getNameOf<CourseUpdateMentoringDto>('courseId')]: Joi.number()
     .integer()
     .required(),
-  [getNameOf<CourseUpdateMentoringDto>('maxStudentsCount')]: Joi.number()
+  [getNameOf<CourseUpdateMentoringDto>('studentsCount')]: Joi.number()
     .integer()
     .min(CourseValidationRule.STUDENTS_COUNT_MIN_NUMBER)
     .required()
@@ -20,4 +20,4 @@ const courseMentoringUpdateMaxCount = Joi.object({
     }),
 });
 
-export { courseMentoringUpdateMaxCount };
+export { courseMentoringUpdateCount };

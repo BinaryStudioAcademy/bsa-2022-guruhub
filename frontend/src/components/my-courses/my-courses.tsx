@@ -77,7 +77,6 @@ const MyCourses: FC = () => {
         onPageChange={handlePageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         totalCount={totalCoursesMentoring}
-        bodyRowPadding={styles.bodyRowPadding}
       />
     </div>
   );

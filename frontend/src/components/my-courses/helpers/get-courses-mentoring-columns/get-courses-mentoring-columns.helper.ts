@@ -5,7 +5,7 @@ import {
   CoursesMentoringTableTitleProps,
 } from 'components/my-courses/common/types/types';
 import {
-  ActionsCell,
+  StudentsCountCell,
   TitleCell,
 } from 'components/my-courses/components/components';
 import { Column } from 'react-table';
@@ -26,19 +26,19 @@ const getCoursesMentoringColumns = (
       width: 800,
     },
     {
-      Header: 'Maximum students count',
+      Header: 'Students count',
       accessor: ({
         id,
-        maxStudentsCount,
+        studentsCount,
       }: CoursesMentoringTableRow): CoursesMentoringTableActionsProps => ({
         onEdit: onCourseEdit,
         course: {
           courseId: id,
-          maxStudentsCount,
+          studentsCount,
         },
       }),
-      Cell: ActionsCell,
-      width: 30,
+      Cell: StudentsCountCell,
+      width: 400,
     },
   ];
 };

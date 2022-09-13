@@ -1,6 +1,6 @@
 import { Page } from 'objection';
 
-import { SortOrder } from '~/common/enums/enums';
+import { MenteesToMentorsStatus, SortOrder } from '~/common/enums/enums';
 import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
@@ -102,7 +102,7 @@ class Course {
   ): Promise<EntityPagination<CourseGetMentoringDto>> {
     const { results, total } = await this.#CourseModel
       .query()
-      .select('courses.id', 'title', 'maxStudentsCount')
+      .select('courses.id', 'title', 'studentsCount')
       .withGraphJoined('mentors')
       .where('userId', userId)
       .page(page, count)
@@ -193,7 +193,7 @@ class Course {
   ): Promise<UserCountRequestDto[]> {
     return this.#CourseModel
       .query()
-      .select('mentors.id', 'maxStudentsCount as count')
+      .select('mentors.id', 'studentsCount as count')
       .where({ courseId })
       .withGraphJoined(
         'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
@@ -239,10 +239,11 @@ class Course {
       .query()
       .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
       .withGraphJoined(
-        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentorsWithMentees]',
+        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentors]',
       )
-      .where('mentorsWithMentees.id', mentorId)
-      .where('courses.id', courseId)
+      .where('mentors.id', mentorId)
+      .andWhere('courses.id', courseId)
+      .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
       .distinct('mentees.id')
       .castTo<UserDetailsResponseDto[]>()
       .execute();

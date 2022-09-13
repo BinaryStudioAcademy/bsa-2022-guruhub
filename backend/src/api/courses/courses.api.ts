@@ -32,7 +32,7 @@ import {
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
   courseMentorCreate as courseMentorCreateBodyValidationSchema,
-  courseMentoringUpdateMaxCount as courseMentoringUpdateMaxCountValidationSchema,
+  courseMentoringUpdateCount as courseMentoringUpdateCountValidationSchema,
   courseMentorsFiltering as courseMentorsFilteringValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
@@ -102,7 +102,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.PATCH,
     url: CoursesApiPath.MENTORING,
     schema: {
-      body: courseMentoringUpdateMaxCountValidationSchema,
+      body: courseMentoringUpdateCountValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
@@ -110,7 +110,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       }>,
       res,
     ) {
-      const result = await courseService.updateMaxStudentsCount(
+      const result = await courseService.updateStudentsCount(
         req.user.id,
         req.body,
       );

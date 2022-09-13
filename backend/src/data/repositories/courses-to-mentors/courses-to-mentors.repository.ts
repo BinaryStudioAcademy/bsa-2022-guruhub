@@ -11,6 +11,8 @@ type Constructor = {
 class CoursesToMentors {
   #CoursesToMentorsModel: typeof CoursesToMentorsM;
 
+  private static RECORD_EXISTS_CHECK = 1;
+
   public constructor({ CoursesToMentorsModel }: Constructor) {
     this.#CoursesToMentorsModel = CoursesToMentorsModel;
   }
@@ -25,9 +27,9 @@ class CoursesToMentors {
       .execute();
   }
 
-  public updateMaxStudentsCount(
+  public updateStudentsCount(
     userId: number,
-    { courseId, maxStudentsCount }: CourseUpdateMentoringDto,
+    { courseId, studentsCount }: CourseUpdateMentoringDto,
   ): Promise<number> {
     return this.#CoursesToMentorsModel
       .query()
@@ -36,7 +38,7 @@ class CoursesToMentors {
         userId,
       })
       .patch({
-        maxStudentsCount,
+        studentsCount,
       })
       .execute();
   }
@@ -47,9 +49,19 @@ class CoursesToMentors {
   }: CoursesToMentorsRequestDto): Promise<boolean> {
     const courseToMentor = await this.#CoursesToMentorsModel
       .query()
-      .select(1)
+      .select(CoursesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ userId })
+      .first();
+
+    return Boolean(courseToMentor);
+  }
+
+  public async checkIsMentorForAnyCourse(userId: number): Promise<boolean> {
+    const courseToMentor = await this.#CoursesToMentorsModel
+      .query()
+      .select(CoursesToMentors.RECORD_EXISTS_CHECK)
+      .where({ userId })
       .first();
 
     return Boolean(courseToMentor);

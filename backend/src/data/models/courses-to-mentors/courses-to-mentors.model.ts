@@ -7,7 +7,7 @@ class CoursesToMentors extends Abstract {
 
   public 'courseId': number;
 
-  public 'maxStudentsCount': number;
+  public 'studentsCount': number;
 
   public static override get tableName(): string {
     return DbTableName.COURSES_TO_MENTORS;

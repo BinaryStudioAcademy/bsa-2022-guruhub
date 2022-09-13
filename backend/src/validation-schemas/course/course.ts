@@ -4,7 +4,7 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
-  courseMentoringUpdateMaxCount,
+  courseMentoringUpdateCount,
   courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,

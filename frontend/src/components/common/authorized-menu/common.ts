@@ -12,12 +12,6 @@ const routes: NavigationMenuItem[] = [
         permissions: [],
       },
       {
-        name: 'Mentors',
-        iconName: 'mentors',
-        href: AppRoute.MENTORS,
-        permissions: [PermissionKey.MANAGE_MENTORING],
-      },
-      {
         name: 'Interviews',
         iconName: 'interview',
         href: AppRoute.INTERVIEW,

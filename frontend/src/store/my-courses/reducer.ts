@@ -55,7 +55,7 @@ const reducer = createReducer(initialState, (builder) => {
     const courseToUpdate = state.coursesMentoring[foundIndex];
     state.coursesMentoring[foundIndex] = {
       ...courseToUpdate,
-      maxStudentsCount: payload.maxStudentsCount,
+      studentsCount: payload.studentsCount,
     };
   });
   builder.addCase(updateCoursesMentoring.rejected, (state) => {

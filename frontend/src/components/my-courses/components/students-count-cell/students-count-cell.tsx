@@ -10,13 +10,13 @@ import { CellProps } from 'react-table';
 
 import styles from './styles.module.scss';
 
-const ActionsCell: FC<
+const StudentsCountCell: FC<
   CellProps<CoursesMentoringTableRow, CoursesMentoringTableActionsProps>
 > = ({ value: { onEdit, course } }) => {
   const { control, errors, handleSubmit } =
     useAppForm<CourseUpdateMentoringDto>({
       defaultValues: {
-        maxStudentsCount: course.maxStudentsCount,
+        studentsCount: course.studentsCount,
         courseId: course.courseId,
       },
     });
@@ -29,7 +29,7 @@ const ActionsCell: FC<
           errors={errors}
           label="Students count"
           hasVisuallyHiddenLabel
-          name={getNameOf<CourseUpdateMentoringDto>('maxStudentsCount')}
+          name={getNameOf<CourseUpdateMentoringDto>('studentsCount')}
           type="number"
           inputClassName={styles.inputStyled}
         />
@@ -38,4 +38,4 @@ const ActionsCell: FC<
   );
 };
 
-export { ActionsCell };
+export { StudentsCountCell };

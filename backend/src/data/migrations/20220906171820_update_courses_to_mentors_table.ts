@@ -1,6 +1,6 @@
 import { Knex } from 'knex';
 
-const COLUMN_NAME = 'max_students_count';
+const COLUMN_NAME = 'students_count';
 
 const TABLE_NAME = 'courses_to_mentors';
 

@@ -1,7 +1,7 @@
 type CourseGetMentoringDto = {
   id: number;
   title: string;
-  maxStudentsCount: number;
+  studentsCount: number;
 };
 
 export { type CourseGetMentoringDto };

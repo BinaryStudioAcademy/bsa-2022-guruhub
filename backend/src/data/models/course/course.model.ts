@@ -39,7 +39,7 @@ class Course extends Abstract {
             from: `${DbTableName.COURSES_TO_MENTORS}.courseId`,
             to: `${DbTableName.COURSES_TO_MENTORS}.userId`,
             extra: {
-              maxStudentsCount: 'maxStudentsCount',
+              studentsCount: 'studentsCount',
             },
           },
           to: `${DbTableName.USERS}.id`,

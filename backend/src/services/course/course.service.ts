@@ -278,11 +278,11 @@ class Course {
     });
   }
 
-  public updateMaxStudentsCount(
+  public updateStudentsCount(
     userId: number,
     data: CourseUpdateMentoringDto,
   ): Promise<number> {
-    return this.#coursesToMentorsService.updateMaxStudentsCount(userId, data);
+    return this.#coursesToMentorsService.updateStudentsCount(userId, data);
   }
 
   public updateCategory(

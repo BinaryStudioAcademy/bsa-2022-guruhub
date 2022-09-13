@@ -1,5 +1,5 @@
 type CourseUpdateMentoringDto = {
-  maxStudentsCount: number;
+  studentsCount: number;
   courseId: number;
 };
 

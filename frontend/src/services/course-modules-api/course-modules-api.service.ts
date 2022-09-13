@@ -25,7 +25,7 @@ class CourseModulesApi {
     moduleId,
   }: CourseModuleGetRequestParamsDto): Promise<CourseModuleGetByIdResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}/${ApiPath.COURSES}/${courseId}${
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
         CoursesApiPath.MODULES
       }/${moduleId}`,
       {

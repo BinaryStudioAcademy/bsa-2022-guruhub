@@ -8,7 +8,7 @@ const getCoursesMentoringRows = (
   return courses.map((course) => ({
     [CoursesMentoringTableAccessor.ID]: course.id,
     [CoursesMentoringTableAccessor.TITLE]: course.title,
-    [CoursesMentoringTableAccessor.STUDENTS_COUNT]: course.maxStudentsCount,
+    [CoursesMentoringTableAccessor.STUDENTS_COUNT]: course.studentsCount,
   }));
 };
 

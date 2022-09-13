@@ -66,10 +66,34 @@ const userDetails = new UserDetails({
   avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
+const usersToGroups = new UsersToGroups({
+  usersToGroupsRepository,
+});
+
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupRepository: groupsRepository,
+  usersToGroupsService: usersToGroups,
+});
+
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
+const interviewNote = new InterviewNote({
+  interviewNoteRepository,
+});
+
+const interview = new Interview({
+  interviewRepository,
+  interviewNoteService: interviewNote,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
   userDetailsService: userDetails,
+  coursesToMentorsService: coursesToMentors,
+  menteesToMentorsService: menteesToMentors,
+  interviewService: interview,
 });
 
 const auth = new Auth({
@@ -84,10 +108,6 @@ const permission = new Permission({
 
 const groupsToPermissions = new GroupsToPermissions({
   groupsToPermissionsRepository,
-});
-
-const usersToGroups = new UsersToGroups({
-  usersToGroupsRepository,
 });
 
 const group = new Group({
@@ -123,12 +143,6 @@ const courseModule = new CourseModule({
   udemyService: udemy,
 });
 
-const coursesToMentors = new CoursesToMentors({
-  coursesToMentorsRepository,
-  groupService: group,
-  usersToGroupsService: usersToGroups,
-});
-
 const course = new Course({
   courseRepository,
   vendorService: vendor,
@@ -139,20 +153,19 @@ const course = new Course({
   coursesToMentorsService: coursesToMentors,
 });
 
-const interviewNote = new InterviewNote({
-  interviewNoteRepository,
-});
+const taskNote = new TaskNote({ taskNoteRepository });
 
-const interview = new Interview({
-  interviewRepository,
-  interviewNoteService: interviewNote,
+const task = new Task({
+  taskRepository,
+  taskNoteService: taskNote,
+  menteesToMentorsService: menteesToMentors,
 });
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,
   coursesToMentorsService: coursesToMentors,
+  courseModuleService: courseModule,
+  taskService: task,
 });
 
 const chatMessage = new ChatMessage({
@@ -160,10 +173,6 @@ const chatMessage = new ChatMessage({
   menteesToMentorsRepository,
   userRepository,
 });
-
-const taskNote = new TaskNote({ taskNoteRepository });
-
-const task = new Task({ taskRepository, taskNoteService: taskNote });
 
 export {
   auth,
