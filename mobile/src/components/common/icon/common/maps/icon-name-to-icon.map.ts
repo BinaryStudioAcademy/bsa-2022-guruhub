@@ -14,6 +14,7 @@ import Save from '~/assets/icons/save.svg';
 import Search from '~/assets/icons/search.svg';
 import Send from '~/assets/icons/send.svg';
 import Settings from '~/assets/icons/settings.svg';
+import SignOut from '~/assets/icons/sign-out.svg';
 import Trash from '~/assets/icons/trash.svg';
 import UAM from '~/assets/icons/uam.svg';
 import Visibility from '~/assets/icons/visibility.svg';
@@ -40,5 +41,6 @@ const iconNameToIcon: Record<IconName, FC<SvgProps>> = {
   visibility: Visibility,
   visibilityOff: VisibilityOff,
   send: Send,
+  signOut: SignOut,
 };
 export { iconNameToIcon };

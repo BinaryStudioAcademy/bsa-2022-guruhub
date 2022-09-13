@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
   },
+  singOutWrapper: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 30,
+    marginTop: -15,
+    marginBottom: 30,
+  },
 });
 
 export { styles };

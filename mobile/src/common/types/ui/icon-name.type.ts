@@ -16,6 +16,7 @@ type IconName =
   | 'interview'
   | 'visibility'
   | 'visibilityOff'
+  | 'signOut'
   | 'send';
 
 export { type IconName };
