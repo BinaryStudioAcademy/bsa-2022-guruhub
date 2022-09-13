@@ -16,7 +16,7 @@ type Props = {
 };
 
 const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
-  const { control, errors, handleSubmit, reset, setValue } =
+  const { control, errors, handleSubmit, reset } =
     useAppForm<ChatMessageCreateRequestBodyDto>({
       defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
       validationSchema: chatMessageCreateArguments,
@@ -26,13 +26,6 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
   const handleSend = (payload: ChatMessageCreateRequestBodyDto): void => {
     onSubmit(payload);
     reset(getDefaultMessagePayload(chatOpponentId, chatId));
-  };
-
-  const handleMessageSubmit = (
-    payload: ChatMessageCreateRequestBodyDto,
-  ): void => {
-    onSubmit(payload);
-    setValue('message', '');
   };
 
   useFocusEffect(
@@ -55,7 +48,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
         />
       </View>
       <Pressable
-        onPress={handleSubmit(handleMessageSubmit)}
+        onPress={handleSubmit(handleSend)}
         hitSlop={hitSlop}
         style={styles.button}
       >
