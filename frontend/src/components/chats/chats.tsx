@@ -24,7 +24,6 @@ const Chats: FC = () => {
     lastMessages,
     user,
     chatId,
-    currentChatMessages,
     chatOpponent,
     emptyChats,
     fetchLastMessagesDataStatus,
@@ -36,7 +35,6 @@ const Chats: FC = () => {
     lastMessages: chats.lastMessages,
     emptyChats: chats.emptyChats,
     chatId: chats.currentChatId,
-    currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
   }));
 
@@ -88,7 +86,6 @@ const Chats: FC = () => {
       </div>
       <CurrentChat
         chatId={chatId}
-        messages={currentChatMessages}
         currentUserId={(user as UserWithPermissions).id}
         chatOpponent={chatOpponent}
       />
