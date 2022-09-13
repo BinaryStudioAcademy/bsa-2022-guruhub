@@ -15,6 +15,8 @@ enum CoursesApiPath {
   MENTEES = '/mentees',
   $ID_CATEGORY = '/:id/category',
   DASHBOARD = '/dashboard',
+  MENTORING = '/mentoring',
+  STUDYING = '/studying',
   $ID_MENTEES_$ID_IS_MENTOR_CHECK = '/:courseId/mentees/:menteeId/is-mentor-check',
 }
 

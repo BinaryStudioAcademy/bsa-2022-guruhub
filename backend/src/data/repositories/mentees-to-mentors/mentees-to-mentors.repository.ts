@@ -13,7 +13,7 @@ type Constructor = {
 class MenteesToMentors {
   #MenteesToMentorsModel: typeof MenteesToMentorsM;
 
-  private static SELECT_NO_COLUMNS = 1;
+  private static RECORD_EXISTS_CHECK = 1;
 
   public constructor({ MenteesToMentorsModel }: Constructor) {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
@@ -86,9 +86,19 @@ class MenteesToMentors {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(MenteesToMentors.SELECT_NO_COLUMNS)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
+  public async checkIsMenteeForAnyCourse(menteeId: number): Promise<boolean> {
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
+      .where({ menteeId })
       .first();
 
     return Boolean(menteeToMentor);
@@ -135,7 +145,7 @@ class MenteesToMentors {
   }: MenteesToMentorsRequestDto): Promise<boolean> {
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(MenteesToMentors.SELECT_NO_COLUMNS)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
       .andWhere({ mentorId })

@@ -24,8 +24,9 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
               studentId: id,
               courseId,
             })}
+            key={id}
           >
-            <div key={id} className={styles.student}>
+            <div className={styles.student}>
               <div className={styles.imageWrapper}>
                 <Image
                   width="74"

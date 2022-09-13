@@ -2,21 +2,24 @@ import { ExceptionMessage, ProtectedGroupKey } from '~/common/enums/enums';
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
+  CourseUpdateMentoringDto,
   GroupsItemResponseDto,
 } from '~/common/types/types';
-import { coursesToMentors as coursesToMentorsRep } from '~/data/repositories/repositories';
-import { CoursesToMentorsError } from '~/exceptions/exceptions';
 import {
-  group as groupServ,
+  coursesToMentors as coursesToMentorsRep,
+  group as groupRep,
+} from '~/data/repositories/repositories';
+import { CoursesToMentorsError } from '~/exceptions/exceptions';
+import { 
   menteesToMentors as menteesToMentorsServ,
-  usersToGroups as usersToGroupsServ,
+  usersToGroups as usersToGroupsServ, 
 } from '~/services/services';
 
 type Constructor = {
   coursesToMentorsRepository: typeof coursesToMentorsRep;
   usersToGroupsService: typeof usersToGroupsServ;
-  groupService: typeof groupServ;
   menteesToMentorsService: typeof menteesToMentorsServ;
+  groupRepository: typeof groupRep;
 };
 
 class CoursesToMentors {
@@ -24,19 +27,19 @@ class CoursesToMentors {
 
   #usersToGroupsService: typeof usersToGroupsServ;
 
-  #groupService: typeof groupServ;
+  #groupRepository: typeof groupRep;
 
   #menteesToMentorsService: typeof menteesToMentorsServ;
 
   public constructor({
     coursesToMentorsRepository,
     usersToGroupsService,
-    groupService,
     menteesToMentorsService,
+    groupRepository,
   }: Constructor) {
     this.#coursesToMentorsRepository = coursesToMentorsRepository;
     this.#usersToGroupsService = usersToGroupsService;
-    this.#groupService = groupService;
+    this.#groupRepository = groupRepository;
     this.#menteesToMentorsService = menteesToMentorsService;
   }
 
@@ -64,7 +67,7 @@ class CoursesToMentors {
       });
     }
 
-    const mentorsGroup = (await this.#groupService.getByKey(
+    const mentorsGroup = (await this.#groupRepository.getByKey(
       ProtectedGroupKey.MENTORS,
     )) as GroupsItemResponseDto;
 
@@ -79,6 +82,13 @@ class CoursesToMentors {
     });
   }
 
+  public updateStudentsCount(
+    userId: number,
+    data: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#coursesToMentorsRepository.updateStudentsCount(userId, data);
+  }
+
   public checkIsMentor({
     courseId,
     userId,
@@ -87,6 +97,10 @@ class CoursesToMentors {
       courseId,
       userId,
     });
+  }
+
+  public checkIsMentorForAnyCourse(userId: number): Promise<boolean> {
+    return this.#coursesToMentorsRepository.checkIsMentorForAnyCourse(userId);
   }
 }
 

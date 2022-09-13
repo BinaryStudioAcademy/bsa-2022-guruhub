@@ -20,30 +20,34 @@ const getInterviewsColumns = (): Column<InterviewsTableRow>[] => {
     {
       Header: 'Name',
       accessor: InterviewsTableAccessor.NAME,
-      width: 200,
+      width: 170,
+      minWidth: 80,
     },
     {
       Header: 'Category',
       accessor: InterviewsTableAccessor.CATEGORY,
       Cell: CategoryCell,
-      width: 200,
+      minWidth: 110,
     },
     {
       Header: 'Status',
       accessor: InterviewsTableAccessor.STATUS,
       Cell: StatusCell,
-      width: 200,
+      width: 150,
+      minWidth: 120,
     },
     {
       Header: 'Interviewer',
       accessor: InterviewsTableAccessor.INTERVIEWER,
-      width: 200,
+      width: 170,
+      minWidth: 120,
     },
     {
       Header: 'Date',
       accessor: InterviewsTableAccessor.DATE,
       Cell: DateCell,
-      width: 200,
+      width: 140,
+      minWidth: 70,
     },
   ];
 };

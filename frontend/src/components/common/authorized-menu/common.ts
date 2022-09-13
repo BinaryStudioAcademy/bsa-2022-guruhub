@@ -6,16 +6,10 @@ const routes: NavigationMenuItem[] = [
     name: 'Menu',
     subroutes: [
       {
-        name: 'Courses',
+        name: 'My Courses',
         iconName: 'course',
-        href: AppRoute.ROOT,
+        href: AppRoute.MY_COURSES,
         permissions: [],
-      },
-      {
-        name: 'Mentors',
-        iconName: 'mentors',
-        href: AppRoute.MENTORS,
-        permissions: [PermissionKey.MANAGE_MENTORING],
       },
       {
         name: 'Interviews',
