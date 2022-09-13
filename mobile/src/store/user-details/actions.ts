@@ -4,6 +4,7 @@ import { NotificationMessage, NotificationType } from '~/common/enums/enums';
 import {
   AsyncThunkConfig,
   UserDetailsResponseDto,
+  UserDetailsUpdateAvatarRequestDto,
   UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
 import { app } from '~/store/actions';
@@ -43,4 +44,29 @@ const updateUserDetails = createAsyncThunk<
   },
 );
 
-export { getUserDetails, updateUserDetails };
+const updateUserAvatar = createAsyncThunk<
+  UserDetailsResponseDto,
+  UserDetailsUpdateAvatarRequestDto,
+  AsyncThunkConfig
+>(
+  ActionType.UPDATE_USER_AVATAR,
+  async ({ file, userId }, { dispatch, extra }) => {
+    const { userDetailsApi } = extra;
+
+    const updatedUserDetails = await userDetailsApi.updateUserAvatar({
+      file,
+      userId,
+    });
+
+    dispatch(
+      app.notify({
+        type: NotificationType.SUCCESS,
+        message: NotificationMessage.UPDATE_SUCCESS,
+      }),
+    );
+
+    return updatedUserDetails;
+  },
+);
+
+export { getUserDetails, updateUserAvatar, updateUserDetails };

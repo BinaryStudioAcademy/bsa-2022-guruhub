@@ -49,7 +49,7 @@ class GroupsApi {
 
   public getById(id: number): Promise<GroupsGetByIdResponseDto> {
     return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}/${id}`,
+      `${this.#apiPrefix}${ApiPath.GROUPS}${GroupsApiPath.ROOT}${id}`,
       {
         method: HttpMethod.GET,
       },

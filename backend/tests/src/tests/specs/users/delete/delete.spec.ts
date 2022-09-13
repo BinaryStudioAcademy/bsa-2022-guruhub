@@ -3,15 +3,13 @@ import {
   HttpCode,
   HttpErrorDto,
   HttpStatusMessage,
-  UserDetailsResponseDto,
   UserSignInResponseDto,
   UserSignUpRequestDto,
   UserSignUpResponseDto,
-  UserWithPermissions,
 } from 'guruhub-shared';
 
 import { JWT_TOKEN_REGEX } from '~/lib/common/constants/constants';
-import { Response } from '~/lib/common/types/types';
+import { Response, UserCreateExpected } from '~/lib/common/types/types';
 import { withTestData } from '~/lib/helpers/helpers';
 import {
   apiSessionStorage,
@@ -40,9 +38,7 @@ describe('Users delete tests', () => {
     mentoringManager: testsConfig.users.mentoringManager,
   } as const;
 
-  let expectedSignUpResponse: Pick<UserWithPermissions, 'email'> & {
-    userDetails: Pick<UserDetailsResponseDto, 'fullName'>;
-  };
+  let expectedSignUpResponse: UserCreateExpected;
 
   let userToDeleteId = 0;
 

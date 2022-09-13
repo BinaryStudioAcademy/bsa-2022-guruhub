@@ -9,4 +9,4 @@ type CourseCreateExpected = Pick<
   vendor: VendorExpected;
 };
 
-export { CourseCreateExpected };
+export { type CourseCreateExpected };

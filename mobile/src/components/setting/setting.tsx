@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Asset } from 'react-native-image-picker';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import {
@@ -9,26 +10,31 @@ import {
   UserAge,
   UserGender,
 } from '~/common/enums/enums';
-import { UserDetailsUpdateInfoRequestDto } from '~/common/types/types';
+import {
+  UserDetailsUpdateInfoRequestDto,
+  UserWithPermissions,
+} from '~/common/types/types';
 import {
   Button,
   DatePicker,
   Dropdown,
   Image,
   Input,
+  Pressable,
   ScrollView,
   Spinner,
   Stack,
   Text,
   View,
 } from '~/components/common/common';
-import { getImageUri, subtractYears } from '~/helpers/helpers';
+import { getImageUri, pickImage, subtractYears } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
   useAppNavigate,
   useAppSelector,
   useEffect,
+  useState,
 } from '~/hooks/hooks';
 import { authActions, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
@@ -36,16 +42,22 @@ import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '
 import {
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
   GENDER_OPTIONS,
+  SELECTION_LIMIT,
 } from './common/constants';
 import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
-  const { userDetails, dataStatus } = useAppSelector(({ userDetails }) => ({
-    userDetails: userDetails.userDetails,
-    dataStatus: userDetails.dataStatus,
-  }));
+  const [selectedImage, setSelectedImage] = useState<Asset | null>();
+
+  const { user, userDataStatus, userDetails, userDetailsDataStatus } =
+    useAppSelector(({ auth, userDetails }) => ({
+      user: auth.user,
+      userDataStatus: auth.dataStatus,
+      userDetails: userDetails.userDetails,
+      userDetailsDataStatus: userDetails.dataStatus,
+    }));
 
   const maxDate = subtractYears(new Date(), UserAge.MIN);
   const minDate = subtractYears(new Date(), UserAge.MAX);
@@ -56,7 +68,31 @@ const Settings: FC = () => {
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
 
-  const handleCancel = (): void => reset();
+  const handleChooseAvatar = async (): Promise<void> => {
+    const [image] = (await pickImage(SELECTION_LIMIT)) ?? [];
+
+    if (!image) {
+      return;
+    }
+
+    setSelectedImage(image);
+  };
+
+  const handleSaveAvatar = (): void => {
+    if (selectedImage) {
+      dispatch(
+        userDetailsActions.updateUserAvatar({
+          file: selectedImage,
+          userId: (user as UserWithPermissions).id,
+        }),
+      );
+    }
+  };
+
+  const handleCancel = (): void => {
+    reset();
+    setSelectedImage(null);
+  };
 
   const handleUpdateProfile = (
     payload: UserDetailsUpdateInfoRequestDto,
@@ -85,7 +121,10 @@ const Settings: FC = () => {
     }
   }, [userDetails]);
 
-  if (dataStatus === DataStatus.PENDING) {
+  if (
+    userDataStatus === DataStatus.PENDING ||
+    userDetailsDataStatus === DataStatus.PENDING
+  ) {
     return <Spinner isOverflow />;
   }
 
@@ -95,12 +134,26 @@ const Settings: FC = () => {
         <View style={styles.profileWrapper}>
           <Text style={styles.title}>Profile</Text>
           <View style={styles.avatarSection}>
-            <Image
-              style={styles.avatar}
-              source={{
-                uri: userDetails?.avatar?.url ?? getImageUri(defaultUserAvatar),
-              }}
-            />
+            <Pressable onPress={handleChooseAvatar}>
+              <Image
+                style={styles.avatar}
+                source={{
+                  uri:
+                    selectedImage?.uri ??
+                    userDetails?.avatar?.url ??
+                    getImageUri(defaultUserAvatar),
+                }}
+              />
+            </Pressable>
+            <Stack space={20}>
+              <Button
+                label="Update file"
+                variant={ButtonVariant.SECONDARY}
+                onPress={handleChooseAvatar}
+                size="small"
+              />
+              <Button label="Save" onPress={handleSaveAvatar} size="small" />
+            </Stack>
           </View>
           <Stack space={20}>
             <Input

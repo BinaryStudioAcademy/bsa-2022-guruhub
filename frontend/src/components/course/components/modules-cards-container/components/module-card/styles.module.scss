@@ -26,6 +26,7 @@
 
 .status {
   display: inline-block;
+  width: 100%;
   padding: 5px 10px;
   color: var(--typography-text-100-inverse);
   text-align: center;
@@ -53,4 +54,8 @@
   justify-content: space-between;
   align-items: center;
   padding-right: 10px;
+}
+
+.statusContainer {
+  width: 115px;
 }
