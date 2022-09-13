@@ -5,7 +5,7 @@ const TABLE_NAME = 'mentees_to_mentors';
 const COLUMN_NAME = 'status';
 
 enum Status {
-  IN_PROGRESS = 'in progress',
+  IN_PROGRESS = 'in-progress',
   COMPLETED = 'completed',
 }
 
