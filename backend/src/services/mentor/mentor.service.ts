@@ -111,6 +111,12 @@ class Mentor {
       menteeId: userId,
     });
   }
+
+  public checkIsMentorForMentee(
+    menteeToMentor: MenteesToMentorsRequestDto,
+  ): Promise<boolean> {
+    return this.#menteesToMentorsService.checkIsMentorForMentee(menteeToMentor);
+  }
 }
 
 export { Mentor };

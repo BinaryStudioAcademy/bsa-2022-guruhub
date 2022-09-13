@@ -61,6 +61,14 @@ class MenteesToMentors {
   }: MenteesToMentorsChangeStatusRequestDto): Promise<number> {
     return this.#menteesToMentorsRepository.changeStatus({ id, status });
   }
+
+  public checkIsMentorForMentee(
+    menteesToMentors: MenteesToMentorsRequestDto,
+  ): Promise<boolean> {
+    return this.#menteesToMentorsRepository.checkIsMentorForMentee(
+      menteesToMentors,
+    );
+  }
 }
 
 export { MenteesToMentors };

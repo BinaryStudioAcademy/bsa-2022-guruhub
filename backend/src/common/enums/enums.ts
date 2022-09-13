@@ -20,6 +20,7 @@ export { CourseHost } from './course/course';
 export { DbTableName } from './db/db';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType, FileSizeBytesValue } from './file/file';
+export { ProtectedGroupKey } from './group/group';
 export { HttpCode, HttpHeader, HttpMethod } from './http/http';
 export { InterviewStatus } from './interview/interview';
 export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors';

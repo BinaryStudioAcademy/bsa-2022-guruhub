@@ -141,7 +141,11 @@ const interview = new Interview({
   interviewNoteService: interviewNote,
 });
 
-const coursesToMentors = new CoursesToMentors({ coursesToMentorsRepository });
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupService: group,
+  usersToGroupsService: usersToGroups,
+});
 
 const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
