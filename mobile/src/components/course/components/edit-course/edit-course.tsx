@@ -32,20 +32,19 @@ const EditCourse: FC = () => {
     navigation.goBack();
   };
 
-  const handleSelectNewCategory = (
+  const handleSelectNewCategory = async (
     payload: CourseUpdateCategoryRequestDto,
-  ): void => {
+  ): Promise<void> => {
     const { newCategoryId } = payload;
 
     if (course) {
-      dispatch(
+      await dispatch(
         coursesActions.updateCategory({
           courseId: course.id,
           newCategoryId,
         }),
-      )
-        .unwrap()
-        .then(() => goBack());
+      ).unwrap();
+      goBack();
     }
   };
 
