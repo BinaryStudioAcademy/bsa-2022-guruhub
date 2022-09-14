@@ -16,19 +16,26 @@ const MentorCard: FC<Props> = ({ onClick, mentor }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.avatarWrapper}>
-        <Image
-          alt="mentor image"
-          src={mentor.avatar?.url ?? defaultUserAvatar}
-          width="200"
-          height="100"
-          classes={styles.avatar}
-        />
+      <div className={styles.topWrapper}>
+        <div className={styles.avatarWrapper}>
+          <Image
+            alt="mentor image"
+            src={mentor.avatar?.url ?? defaultUserAvatar}
+            width="200"
+            height="100"
+            classes={styles.avatar}
+          />
+        </div>
       </div>
       <div className={styles.infoContainer}>
         <p className={styles.fullName}>{mentor.fullName}</p>
         <div className={styles.button}>
-          <Button label="Choose" btnColor="blue" onClick={handleClick} />
+          <Button
+            label="Choose"
+            btnType="bottom"
+            btnColor="blue"
+            onClick={handleClick}
+          />
         </div>
       </div>
     </div>

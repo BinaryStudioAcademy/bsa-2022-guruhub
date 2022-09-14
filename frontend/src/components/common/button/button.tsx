@@ -11,7 +11,7 @@ type Props = {
   hasVisuallyHiddenLabel?: boolean;
   btnColor?: 'blue' | 'gray' | 'red';
   type?: 'button' | 'submit';
-  btnType?: 'filled' | 'outlined' | 'upload' | 'icon';
+  btnType?: 'filled' | 'outlined' | 'upload' | 'icon' | 'bottom';
   to?: AppRoute;
   onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
