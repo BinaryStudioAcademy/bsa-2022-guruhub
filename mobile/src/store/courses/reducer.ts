@@ -3,6 +3,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
@@ -19,6 +20,7 @@ import {
   getMenteesByCourseId,
   getMenteesMentor,
   getMentorsByCourseId,
+  getTasksByCourseIdAndMenteeId,
   setBecomeMentorInvisible,
   updateCategory,
   updateIsMentorChoosingEnabled,
@@ -37,6 +39,7 @@ type State = {
   isMentorBecomingVisible: boolean;
   isMentorChoosingEnabled: boolean;
   isMentor: boolean;
+  tasks: TaskWithModuleResponseDto[];
 };
 
 const initialState: State = {
@@ -51,6 +54,7 @@ const initialState: State = {
   isMentorBecomingVisible: false,
   isMentorChoosingEnabled: false,
   isMentor: false,
+  tasks: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -184,6 +188,21 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
     state.mentor = payload.mentor;
+  });
+
+  builder.addCase(getTasksByCourseIdAndMenteeId.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(
+    getTasksByCourseIdAndMenteeId.fulfilled,
+    (state, { payload }) => {
+      state.dataStatus = DataStatus.FULFILLED;
+      state.tasks = payload;
+    },
+  );
+  builder.addCase(getTasksByCourseIdAndMenteeId.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+    state.tasks = [];
   });
 });
 

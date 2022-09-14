@@ -75,9 +75,20 @@ const getNotes = createAsyncThunk<
   return notes;
 });
 
+const checkIsMentor = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+  ActionType.CHECK_IS_MENTOR,
+  async (courseId, { extra }) => {
+    const { coursesApi } = extra;
+    const isMentor = await coursesApi.checkIsMentor({ courseId });
+
+    return isMentor;
+  },
+);
+
 const clearModules = createAction(ActionType.CLEAR_MODULES);
 
 export {
+  checkIsMentor,
   clearModules,
   createNote,
   getCourseModules,

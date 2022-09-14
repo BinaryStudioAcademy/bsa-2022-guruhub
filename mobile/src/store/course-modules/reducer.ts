@@ -9,6 +9,7 @@ import {
 } from '~/common/types/types';
 
 import {
+  checkIsMentor,
   clearModules,
   createNote,
   getCourseModules,
@@ -25,6 +26,7 @@ type State = {
   task: TaskGetItemReponseDto | null;
   notes: TaskNoteGetItemResponseDto[];
   totalNotesNumber: number;
+  isMentor: boolean;
 };
 
 const initialState: State = {
@@ -35,6 +37,7 @@ const initialState: State = {
   task: null,
   notes: [],
   totalNotesNumber: 0,
+  isMentor: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -92,6 +95,17 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(clearModules, (state) => {
     state.courseModules = [];
+  });
+
+  builder.addCase(checkIsMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkIsMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentor = payload;
+  });
+  builder.addCase(checkIsMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 });
 

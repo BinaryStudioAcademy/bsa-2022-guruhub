@@ -15,6 +15,7 @@ enum ActionType {
   UPDATE_CATEGORY = 'courses/update-category',
   CHOOSE_A_MENTOR = 'courses/choose-a-mentor',
   SET_IS_MENTOR_CHOOSING_ENABLED = 'courses/set-is-mentor-choosing-enabled',
+  GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID = 'courses/get-modules-by-course-id-and-mentee-id',
 }
 
 export { ActionType };

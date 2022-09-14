@@ -18,6 +18,8 @@ import {
   GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UserWithPermissions,
 } from '~/common/types/types';
@@ -274,6 +276,23 @@ const changeMentor = createAsyncThunk<
   return newMenteeToMentor;
 });
 
+const getTasksByCourseIdAndMenteeId = createAsyncThunk<
+  TaskWithModuleResponseDto[],
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  AsyncThunkConfig
+>(
+  ActionType.GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID,
+  async ({ courseId, menteeId }, { extra }) => {
+    const { tasksApi } = extra;
+    const modules = await tasksApi.getAllByCourseIdAndMenteeId({
+      courseId,
+      menteeId,
+    });
+
+    return modules;
+  },
+);
+
 const clearMentor = createAction(ActionType.CLEAR_MENTOR);
 
 export {
@@ -289,6 +308,7 @@ export {
   getMenteesByCourseId,
   getMenteesMentor,
   getMentorsByCourseId,
+  getTasksByCourseIdAndMenteeId,
   setBecomeMentorInvisible,
   updateCategory,
   updateIsMentorChoosingEnabled,
