@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.inputStyled {
+  border: 1px solid var(--brand-blue-100);
+}

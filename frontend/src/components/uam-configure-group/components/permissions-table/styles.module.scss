@@ -4,6 +4,9 @@
 }
 
 .groupPermissions {
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
   margin-bottom: 40px;
 }
 

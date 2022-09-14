@@ -4,7 +4,7 @@ import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    marginVertical: 16,
     backgroundColor: AppColor.BACKGROUND.GRAY_100,
     borderRadius: 12,
     marginHorizontal: 20,

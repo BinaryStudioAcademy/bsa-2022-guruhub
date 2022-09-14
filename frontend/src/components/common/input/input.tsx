@@ -16,7 +16,7 @@ type Props = {
   label: string;
   name: FormControlPath;
   placeholder?: string;
-  type?: 'text' | 'email' | 'date' | 'password';
+  type?: 'text' | 'email' | 'date' | 'password' | 'number';
   hasVisuallyHiddenLabel?: boolean;
   inputClassName?: string;
   rows?: number;

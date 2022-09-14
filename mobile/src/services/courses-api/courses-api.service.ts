@@ -12,6 +12,7 @@ import {
   CourseModulesGetAllRequestParamsDto,
   CourseUpdateCategoryRequestArguments,
   MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 
@@ -133,6 +134,36 @@ class Courses {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.IS_MENTOR_CHECK
+      }`,
+    );
+  }
+
+  public changeMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
+      },
+    );
+  }
+
+  public checkHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.HAS_MENTOR_CHECK
       }`,
     );
   }

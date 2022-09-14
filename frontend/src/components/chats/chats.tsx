@@ -24,7 +24,6 @@ const Chats: FC = () => {
     lastMessages,
     user,
     chatId,
-    currentChatMessages,
     chatOpponent,
     emptyChats,
     fetchLastMessagesDataStatus,
@@ -36,7 +35,6 @@ const Chats: FC = () => {
     lastMessages: chats.lastMessages,
     emptyChats: chats.emptyChats,
     chatId: chats.currentChatId,
-    currentChatMessages: chats.currentChatMessages,
     chatOpponent: chats.chatOpponent,
   }));
 
@@ -49,10 +47,12 @@ const Chats: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleChatMessagesLoad = (
-    chatId: string,
+    selectedChatId: string,
     chatOpponent: UsersGetResponseDto,
   ): void => {
-    dispatch(chatsActions.getMessages({ id: chatId, chatOpponent }));
+    if (selectedChatId !== chatId) {
+      dispatch(chatsActions.getMessages({ id: selectedChatId, chatOpponent }));
+    }
   };
 
   useEffect(() => {
@@ -86,7 +86,6 @@ const Chats: FC = () => {
       </div>
       <CurrentChat
         chatId={chatId}
-        messages={currentChatMessages}
         currentUserId={(user as UserWithPermissions).id}
         chatOpponent={chatOpponent}
       />
