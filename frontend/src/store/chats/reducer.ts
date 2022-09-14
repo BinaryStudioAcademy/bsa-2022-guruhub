@@ -66,12 +66,15 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(createMessage.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.currentChatMessages = [
-      ...state.currentChatMessages,
-      payload.newMessage,
-    ];
-    state.currentChatId = payload.newMessage.chatId;
-    state.lastMessages = payload.lastMessages.items;
+    state.currentChatMessages = [...state.currentChatMessages, payload];
+    state.currentChatId = payload.chatId;
+    state.lastMessages = state.lastMessages.map((lastMessage) => {
+      if (lastMessage.chatId === payload.chatId) {
+        return payload;
+      }
+
+      return lastMessage;
+    });
   });
   builder.addCase(createMessage.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
