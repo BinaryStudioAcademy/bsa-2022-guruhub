@@ -25,9 +25,11 @@ const Dashboard: FC = () => {
   const hasUser = Boolean(user);
 
   useEffect(() => {
+    if (user) {
+      dispatch(userDetailsActions.getUserDetails());
+    }
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getCategories());
-    dispatch(userDetailsActions.getUserDetails());
   }, [dispatch]);
 
   const handleNewCourseModalToggle = (): void => {
