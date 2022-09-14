@@ -38,19 +38,18 @@ const getMessages = createAsyncThunk<
 });
 
 const createMessage = createAsyncThunk<
-  ChatMessageGetAllItemResponseDto,
+  void,
   ChatMessageCreateRequestBodyDto,
   AsyncThunkConfig
 >(ActionType.CREATE_MESSAGE, async (payload, { extra }) => {
   const { chatsApi } = extra;
   const { message, receiverId, chatId } = payload;
-  const newMessage = await chatsApi.createChatMessage({
+
+  await chatsApi.createChatMessage({
     message,
     receiverId,
     chatId,
   });
-
-  return newMessage;
 });
 
 const checkHasUnreadMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
@@ -70,10 +69,65 @@ const setHasUnreadMessages = createAction(
   }),
 );
 
+const getNewMessage = createAction(
+  ActionType.GET_NEW_MESSAGE,
+  (message: ChatMessageGetAllItemResponseDto) => {
+    return {
+      payload: message,
+    };
+  },
+);
+
+const listenToNewMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.LISTEN_TO_MESSAGES,
+  (_, { extra, dispatch }) => {
+    const { socket } = extra;
+
+    const listenerCallback = (
+      message: ChatMessageGetAllItemResponseDto,
+    ): void => {
+      dispatch(getNewMessage(message));
+    };
+
+    socket.listenToNewMessages(listenerCallback);
+  },
+);
+
+const removeMessageListener = createAsyncThunk<void, void, AsyncThunkConfig>(
+  ActionType.REMOVE_LISTENER,
+  (_, { extra }) => {
+    const { socket } = extra;
+    socket.removeMessageListener();
+  },
+);
+
+const joinRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
+  ActionType.JOIN_ROOM,
+  (chatId, { extra }) => {
+    const { socket } = extra;
+
+    socket.joinRoom(chatId);
+  },
+);
+
+const leaveRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
+  ActionType.JOIN_ROOM,
+  (chatId, { extra }) => {
+    const { socket } = extra;
+
+    socket.leaveRoom(chatId);
+  },
+);
+
 export {
   checkHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
+  getNewMessage,
+  joinRoom,
+  leaveRoom,
+  listenToNewMessages,
+  removeMessageListener,
   setHasUnreadMessages,
 };

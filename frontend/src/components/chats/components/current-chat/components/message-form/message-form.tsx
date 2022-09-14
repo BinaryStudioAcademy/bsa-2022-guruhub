@@ -15,7 +15,7 @@ type Props = {
 const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
   const dispatch = useAppDispatch();
 
-  const { control, errors, handleSubmit } =
+  const { control, errors, handleSubmit, reset } =
     useAppForm<ChatMessageCreateRequestBodyDto>({
       defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
       validationSchema: chatMessageCreateArgumentsValidationSchema,
@@ -25,6 +25,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
     payload: ChatMessageCreateRequestBodyDto,
   ): void => {
     dispatch(chatsActions.createMessage(payload));
+    reset();
   };
 
   return (

@@ -1,10 +1,14 @@
+import { Server } from 'http';
+import { Server as SocketServer } from 'socket.io';
+
 import { ChatMessageStatus, SocketEvent } from '~/common/enums/enums';
 import {
   ChatMessageCreateRequestDto,
   ChatMessageGetAllItemResponseDto,
-  SocketServer,
+  SocketServer as SocketServerType,
 } from '~/common/types/types';
 import { chatMessage as chatMessageServ } from '~/services/services';
+import { handlers as socketHandlers } from '~/socket/socket';
 
 type Constructor = {
   chatMessageService: typeof chatMessageServ;
@@ -13,20 +17,28 @@ type Constructor = {
 class Socket {
   #chatMessageService: typeof chatMessageServ;
 
+  #io: SocketServerType | null = null;
+
   public constructor({ chatMessageService }: Constructor) {
     this.#chatMessageService = chatMessageService;
   }
 
-  public async sendMessage({
-    io,
-    messageData,
-  }: {
-    io: SocketServer;
-    messageData: ChatMessageCreateRequestDto;
-  }): Promise<ChatMessageGetAllItemResponseDto> {
+  public initializeIo(server: Server): void {
+    this.#io = new SocketServer(server, {
+      cors: {
+        origin: '*',
+        credentials: true,
+      },
+    });
+    (this.#io as SocketServerType).on(SocketEvent.CONNECTION, socketHandlers);
+  }
+
+  public async sendMessage(
+    messageData: ChatMessageCreateRequestDto,
+  ): Promise<ChatMessageGetAllItemResponseDto> {
     const { message, chatId, receiverId, senderId } = messageData;
 
-    const areBothInChat = this.checkAreBothInChat(io, chatId as string);
+    const areBothInChat = this.checkAreBothInChat(chatId as string);
 
     const newMessageStatus = areBothInChat
       ? ChatMessageStatus.READ
@@ -40,25 +52,27 @@ class Socket {
       status: newMessageStatus,
     });
 
-    io.to(chatId as string).emit(SocketEvent.MESSAGE, newMessage);
+    (this.#io as SocketServerType)
+      .to(chatId as string)
+      .emit(SocketEvent.MESSAGE, newMessage);
 
     return newMessage;
   }
 
-  public checkAreBothInChat(io: SocketServer, chatId: string): boolean {
-    const numberOfUsersInChat = this.getNumberOfUsersInRoom(io, chatId);
+  public checkAreBothInChat(chatId: string): boolean {
+    const numberOfUsersInChat = this.getNumberOfUsersInRoom(chatId);
 
     const MAX_PEOPLE_IN_CHAT = 2;
 
     return numberOfUsersInChat === MAX_PEOPLE_IN_CHAT;
   }
 
-  public getNumberOfUsersInRoom(io: SocketServer, chatId: string): number {
+  public getNumberOfUsersInRoom(chatId: string): number {
     const numberOfUsersInRoom = (
-      io.sockets.adapter.rooms.get(chatId) as Set<string>
-    ).size;
+      this.#io as SocketServerType
+    ).sockets.adapter.rooms.get(chatId)?.size;
 
-    return numberOfUsersInRoom;
+    return numberOfUsersInRoom ?? 0;
   }
 }
 

@@ -7,9 +7,9 @@ import {
 
 import {
   checkHasUnreadMessages,
-  createMessage,
   getLastMessages,
   getMessages,
+  getNewMessage,
   setHasUnreadMessages,
 } from './actions';
 
@@ -58,18 +58,6 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(createMessage.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
-  });
-  builder.addCase(createMessage.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.currentChatMessages = [...state.currentChatMessages, action.payload];
-    state.currentChatId = action.payload.chatId;
-  });
-  builder.addCase(createMessage.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-
   builder.addCase(checkHasUnreadMessages.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
@@ -82,6 +70,17 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(setHasUnreadMessages, (state, { payload }) => {
     state.hasUnreadMessages = payload;
+  });
+
+  builder.addCase(getNewMessage, (state, { payload }) => {
+    state.currentChatMessages = [...state.currentChatMessages, payload];
+    state.lastMessages = state.lastMessages.map((lastMessage) => {
+      if (lastMessage.chatId === payload.chatId) {
+        return payload;
+      }
+
+      return lastMessage;
+    });
   });
 });
 

@@ -2,19 +2,16 @@ import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
 import Fastify from 'fastify';
-import http, { RequestListener } from 'http';
+import http from 'http';
 import Knex from 'knex';
 import path from 'node:path';
 import { Model } from 'objection';
-import { Server as SocketServer } from 'socket.io';
 
 import { initApi } from '~/api/api';
-import { ENV, FileSizeBytesValue, SocketEvent } from '~/common/enums/enums';
-import { SocketServer as SocketServerType } from '~/common/types/types';
-import { handlers as socketHandlers } from '~/socket/socket';
+import { ENV, FileSizeBytesValue } from '~/common/enums/enums';
+import { socket as socketService } from '~/services/services';
 
 import knexConfig from '../knexfile';
-import { socketInjector } from './plugins/plugins';
 
 const app = Fastify({
   logger: {
@@ -24,20 +21,11 @@ const app = Fastify({
   },
 });
 
-const socketServer = new http.Server(app as unknown as RequestListener);
+const socketServer = new http.Server();
 
-const io: SocketServerType = new SocketServer(socketServer, {
-  cors: {
-    origin: '*',
-    credentials: true,
-  },
-});
+socketService.initializeIo(socketServer);
 
 Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
-
-io.on(SocketEvent.CONNECTION, socketHandlers);
-
-app.register(socketInjector, { io });
 
 app.register(fastifyMultipart, {
   limits: {
@@ -52,10 +40,12 @@ app.register(initApi, {
 });
 
 const staticPath = path.join(__dirname, '../public');
+
 app.register(fastifyStatic, {
   root: staticPath,
   prefix: '/',
 });
+
 app.setNotFoundHandler((_req, res) => {
   res.sendFile('index.html', staticPath);
 });
