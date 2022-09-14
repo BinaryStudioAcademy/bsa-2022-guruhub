@@ -1,1 +1,1 @@
-export { chatMessageCreateArguments } from 'guruhub-shared/validation-schemas/validation-schemas';
+export { chatMessageCreate } from './chat-message-create.validation-schema';
