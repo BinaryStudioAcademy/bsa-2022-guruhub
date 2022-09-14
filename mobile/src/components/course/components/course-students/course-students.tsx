@@ -28,11 +28,7 @@ const CourseStudents: FC = () => {
   };
 
   const handleMenteeSelect = (menteeId: number): void => {
-    if (courseId) {
-      dispatch(
-        coursesActions.getTasksByCourseIdAndMenteeId({ courseId, menteeId }),
-      );
-    }
+    dispatch(coursesActions.addCurrentMenteeId(menteeId));
   };
 
   useEffect(() => {

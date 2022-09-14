@@ -13,7 +13,9 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
@@ -36,6 +38,7 @@ const Course: FC = () => {
     isMentor,
     tasks,
     tasksDataStatus,
+    menteeId,
   } = useAppSelector(({ auth, courses, courseModules }) => ({
     user: auth.user,
     course: courses.course,
@@ -46,6 +49,7 @@ const Course: FC = () => {
     isMentor: courses.isMentor,
     tasks: courses.tasks,
     tasksDataStatus: courses.dataTasksStatus,
+    menteeId: courses.menteeId,
   }));
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
@@ -79,6 +83,17 @@ const Course: FC = () => {
   }, [course]);
 
   useEffect(() => {
+    if (course && menteeId) {
+      dispatch(
+        coursesActions.getTasksByCourseIdAndMenteeId({
+          courseId: course.id,
+          menteeId: menteeId,
+        }),
+      );
+    }
+  }, [course, menteeId]);
+
+  useEffect(() => {
     dispatch(coursesActions.updateVisibilityBecomeMentor());
 
     return () => {
@@ -96,6 +111,14 @@ const Course: FC = () => {
       );
     }
   }, [user, course]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        dispatch(coursesActions.clearCurrentMenteeId());
+      };
+    }, []),
+  );
 
   const handleModulePress = (courseId: number, moduleId: number): void => {
     dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));

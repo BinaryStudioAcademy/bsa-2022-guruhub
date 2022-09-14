@@ -10,10 +10,12 @@ import {
 
 import {
   addCourse,
+  addCurrentMenteeId,
   becomeMentor,
   changeMentor,
   checkIsMentor,
   chooseMentor,
+  clearCurrentMenteeId,
   clearMentor,
   clearTasks,
   getCourse,
@@ -42,6 +44,7 @@ type State = {
   isMentor: boolean;
   tasks: TaskWithModuleResponseDto[];
   dataTasksStatus: DataStatus;
+  menteeId: number | null;
 };
 
 const initialState: State = {
@@ -58,6 +61,7 @@ const initialState: State = {
   isMentor: false,
   tasks: [],
   dataTasksStatus: DataStatus.IDLE,
+  menteeId: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -210,6 +214,14 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(clearTasks, (state) => {
     state.tasks = [];
+  });
+
+  builder.addCase(addCurrentMenteeId, (state, { payload }) => {
+    state.menteeId = payload;
+  });
+
+  builder.addCase(clearCurrentMenteeId, (state) => {
+    state.menteeId = null;
   });
 });
 
