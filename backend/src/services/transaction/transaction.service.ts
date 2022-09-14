@@ -20,11 +20,11 @@ class Transaction {
     return this.#transactionRepository.getById(id);
   }
 
-  public getBySenderAndReceiverId(
+  public getHoldBySenderAndReceiverId(
     senderId: number,
     receiverId: number,
   ): Promise<TransactionGetAllItemResponseDto> {
-    return this.#transactionRepository.getBySenderAndReceiverId(
+    return this.#transactionRepository.getHoldBySenderAndReceiverId(
       senderId,
       receiverId,
     );

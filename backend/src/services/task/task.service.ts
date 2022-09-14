@@ -2,7 +2,6 @@ import {
   ExceptionMessage,
   MenteesToMentorsStatus,
   TaskStatus,
-  TransactionStatus,
 } from '~/common/enums/enums';
 import {
   EntityPagination,
@@ -21,16 +20,16 @@ import { task as taskRep } from '~/data/repositories/repositories';
 import { TasksError } from '~/exceptions/exceptions';
 
 import {
+  billing as billingServ,
   menteesToMentors as menteesToMentorsServ,
   taskNote as taskNoteServ,
-  transaction as transactionServ,
   userDetails as userDetailsServ,
 } from '../services';
 
 type Constructor = {
   taskRepository: typeof taskRep;
   taskNoteService: typeof taskNoteServ;
-  transactionService: typeof transactionServ;
+  billingService: typeof billingServ;
   menteesToMentorsService: typeof menteesToMentorsServ;
   userDetailsService: typeof userDetailsServ;
 };
@@ -40,7 +39,7 @@ class Task {
 
   #taskNoteService: typeof taskNoteServ;
 
-  #transactionService: typeof transactionServ;
+  #billingService: typeof billingServ;
 
   #menteesToMentorsService: typeof menteesToMentorsServ;
 
@@ -49,13 +48,13 @@ class Task {
   public constructor({
     taskRepository,
     taskNoteService,
-    transactionService,
+    billingService,
     menteesToMentorsService,
     userDetailsService,
   }: Constructor) {
     this.#taskRepository = taskRepository;
     this.#taskNoteService = taskNoteService;
-    this.#transactionService = transactionService;
+    this.#billingService = billingService;
     this.#menteesToMentorsService = menteesToMentorsService;
     this.#userDetailsService = userDetailsService;
   }
@@ -107,7 +106,7 @@ class Task {
       );
 
       const transactionToProcess =
-        await this.#transactionService.getBySenderAndReceiverId(
+        await this.#billingService.getHoldTransactionBySenderAndReceiverId(
           menteesToMentorDto.menteeId,
           menteesToMentorDto.mentor.id,
         );
@@ -117,10 +116,7 @@ class Task {
         transactionToProcess.amount,
       );
 
-      await this.#transactionService.updateStatus({
-        transactionId: transactionToProcess.id,
-        newStatus: TransactionStatus.FULFILLED,
-      });
+      await this.#billingService.fulfillTransaction(transactionToProcess.id);
     }
 
     return newNote;

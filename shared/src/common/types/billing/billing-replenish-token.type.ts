@@ -1,9 +1,9 @@
-import { BillingCard } from './billing-card.type';
+import { Card } from './billing-card.type';
 
 type BillingReplenishToken = {
   id: string;
   object: string;
-  card: BillingCard;
+  card: Card;
   client_ip: string;
   created: number;
   email: string;

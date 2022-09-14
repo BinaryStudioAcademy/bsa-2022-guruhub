@@ -29,7 +29,7 @@ class Transaction {
       .execute();
   }
 
-  public getBySenderAndReceiverId(
+  public getHoldBySenderAndReceiverId(
     senderId: number,
     receiverId: number,
   ): Promise<TransactionGetAllItemResponseDto> {
@@ -37,6 +37,7 @@ class Transaction {
       .query()
       .where('senderId', senderId)
       .andWhere('receiverId', receiverId)
+      .andWhere('status', TransactionStatus.HOLD)
       .first()
       .withGraphJoined(
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',

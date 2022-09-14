@@ -1,5 +1,5 @@
 import { AppRoute, DataStatus, NotificationMessage } from 'common/enums/enums';
-import { FC } from 'common/types/types';
+import { FC, UserGetResponseWithMoneyBalanceDto } from 'common/types/types';
 import { Button, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
@@ -14,6 +14,8 @@ import { billingActions } from 'store/actions';
 import { DEFAULT_REPLENISH_AMOUNTS, REPLENISH_PUBLIC_KEY } from './common';
 import { ReplenishCardsList } from './components/components';
 import styles from './styles.module.scss';
+
+const MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW = 1;
 
 const Billing: FC = () => {
   const { authDataStatus, user, billingDataStatus, userWithMoneyBalance } =
@@ -32,10 +34,14 @@ const Billing: FC = () => {
 
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(billingActions.getUserWithMoneyBalance());
+  }, [dispatch]);
+
   const handleWithdraw = (): void => {
     if (
-      userWithMoneyBalance &&
-      userWithMoneyBalance?.userDetails.moneyBalance >= 1
+      (userWithMoneyBalance as UserGetResponseWithMoneyBalanceDto).userDetails
+        .moneyBalance >= MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW
     ) {
       dispatch(billingActions.withdraw());
     } else {
@@ -49,10 +55,6 @@ const Billing: FC = () => {
   ): void => {
     dispatch(billingActions.replenish({ amountOfMoneyToReplenish, token }));
   };
-
-  useEffect(() => {
-    dispatch(billingActions.getUserWithMoneyBalance());
-  }, [dispatch]);
 
   if (
     billingDataStatus === DataStatus.PENDING ||
@@ -80,7 +82,7 @@ const Billing: FC = () => {
         </div>
         <ReplenishCardsList
           replenishKey={REPLENISH_PUBLIC_KEY}
-          replenishingPrices={DEFAULT_REPLENISH_AMOUNTS}
+          replenishingPricesDtos={DEFAULT_REPLENISH_AMOUNTS}
           onReplenish={handleReplenish}
         />
       </div>

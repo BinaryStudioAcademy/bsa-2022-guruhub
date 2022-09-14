@@ -77,6 +77,16 @@ class Billing {
     return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
   }
 
+  public getHoldTransactionBySenderAndReceiverId(
+    senderId: number,
+    receiverId: number,
+  ): Promise<TransactionGetAllItemResponseDto> {
+    return this.#transactionService.getHoldBySenderAndReceiverId(
+      senderId,
+      receiverId,
+    );
+  }
+
   public makeTransaction(
     transactionCreateBody: TransactionCreateArgumentsDto,
   ): Promise<TransactionGetAllItemResponseDto> {

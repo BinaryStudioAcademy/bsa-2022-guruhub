@@ -182,7 +182,7 @@ const billing = new Billing({
 const task = new Task({
   taskRepository,
   taskNoteService: taskNote,
-  transactionService: transaction,
+  billingService: billing,
   menteesToMentorsService: menteesToMentors,
   userDetailsService: userDetails,
 });

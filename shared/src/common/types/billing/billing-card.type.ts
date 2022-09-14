@@ -1,4 +1,4 @@
-type BillingCard = {
+type Card = {
   id: string;
   object: string;
   address_city: string | null;
@@ -17,9 +17,9 @@ type BillingCard = {
   exp_year: number;
   funding: string;
   last4: string;
-  metadata: object;
+  metadata: Record<string, string>;
   name: string;
   tokenization_method: string | null;
 };
 
-export { type BillingCard };
+export { type Card };
