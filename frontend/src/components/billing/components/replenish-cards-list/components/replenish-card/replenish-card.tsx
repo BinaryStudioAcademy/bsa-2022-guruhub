@@ -17,7 +17,7 @@ const ReplenishCard: FC<Props> = ({ amount, onReplenish, replenishKey }) => {
 
   return (
     <div className={styles.replenishCardWrapper}>
-      <h1 className={styles.amount}>{`${amount}$`}</h1>
+      <h1 className={styles.amount}>{amount}$</h1>
       <StripeCheckout
         stripeKey={replenishKey}
         label="Replenish"

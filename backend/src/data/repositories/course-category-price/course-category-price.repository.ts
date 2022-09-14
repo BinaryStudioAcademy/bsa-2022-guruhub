@@ -28,8 +28,7 @@ class CourseCategoryPrice {
     const courseCategoryPrice = await this.#CourseCategoryPriceModel
       .query()
       .findById(id)
-      .castTo<CourseCategoryPriceGetAllItemResponseDto>()
-      .execute();
+      .castTo<CourseCategoryPriceGetAllItemResponseDto>();
 
     return courseCategoryPrice ?? null;
   }
@@ -42,8 +41,7 @@ class CourseCategoryPrice {
       .select()
       .where('categoryId', categoryId)
       .first()
-      .castTo<CourseCategoryPriceGetAllItemResponseDto>()
-      .execute();
+      .castTo<CourseCategoryPriceGetAllItemResponseDto>();
 
     return courseCategoryPrice ?? null;
   }

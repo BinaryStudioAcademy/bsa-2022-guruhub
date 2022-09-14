@@ -1,1 +1,1 @@
-export { billingReplenishParams } from './billing-replenish.validation-schema';
+export { billingReplenishParams } from './billing-replenish-params.validation-schema';

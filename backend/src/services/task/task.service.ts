@@ -23,6 +23,7 @@ import {
   billing as billingServ,
   menteesToMentors as menteesToMentorsServ,
   taskNote as taskNoteServ,
+  user as userServ,
   userDetails as userDetailsServ,
 } from '../services';
 
@@ -31,6 +32,7 @@ type Constructor = {
   taskNoteService: typeof taskNoteServ;
   billingService: typeof billingServ;
   menteesToMentorsService: typeof menteesToMentorsServ;
+  userService: typeof userServ;
   userDetailsService: typeof userDetailsServ;
 };
 
@@ -43,6 +45,8 @@ class Task {
 
   #menteesToMentorsService: typeof menteesToMentorsServ;
 
+  #userService: typeof userServ;
+
   #userDetailsService: typeof userDetailsServ;
 
   public constructor({
@@ -50,12 +54,14 @@ class Task {
     taskNoteService,
     billingService,
     menteesToMentorsService,
+    userService,
     userDetailsService,
   }: Constructor) {
     this.#taskRepository = taskRepository;
     this.#taskNoteService = taskNoteService;
     this.#billingService = billingService;
     this.#menteesToMentorsService = menteesToMentorsService;
+    this.#userService = userService;
     this.#userDetailsService = userDetailsService;
   }
 
@@ -111,9 +117,13 @@ class Task {
           menteesToMentorDto.mentor.id,
         );
 
+      const mentorToPay = await this.#userService.getByIdWithMoneyBalance(
+        menteesToMentorDto.mentor.id,
+      );
+
       await this.#userDetailsService.updateMoneyBalance(
         menteesToMentorDto.mentor.id,
-        transactionToProcess.amount,
+        mentorToPay.userDetails.moneyBalance + transactionToProcess.amount,
       );
 
       await this.#billingService.fulfillTransaction(transactionToProcess.id);

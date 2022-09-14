@@ -184,6 +184,7 @@ const task = new Task({
   taskNoteService: taskNote,
   billingService: billing,
   menteesToMentorsService: menteesToMentors,
+  userService: user,
   userDetailsService: userDetails,
 });
 

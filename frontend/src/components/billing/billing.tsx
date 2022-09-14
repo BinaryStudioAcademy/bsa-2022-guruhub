@@ -76,7 +76,7 @@ const Billing: FC = () => {
               />
             </div>
             <h1>
-              {`Your balance is ${userWithMoneyBalance.userDetails.moneyBalance}$`}
+              Your balance is {userWithMoneyBalance.userDetails.moneyBalance}$
             </h1>
           </div>
         </div>

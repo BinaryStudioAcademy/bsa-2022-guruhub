@@ -45,6 +45,7 @@ const withdraw = createAsyncThunk<
   AsyncThunkConfig
 >(ActionType.WITHDRAW, async (_, { extra }) => {
   const { billingApi, notification } = extra;
+
   const userDetailsWithMoneyBalance = await billingApi.withdraw();
 
   notification.success(NotificationMessage.SUCCESSFUL_WITHDRAW_START);
