@@ -41,6 +41,7 @@ import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '
 import {
   AVATAR_MAX_SIZE,
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
+  FILE_FORMATS,
   GENDER_OPTIONS,
   SELECTION_LIMIT,
 } from './common/constants';
@@ -71,6 +72,17 @@ const Settings: FC = () => {
     const [image] = (await pickImage(SELECTION_LIMIT)) ?? [];
 
     if (!image) {
+      return;
+    }
+
+    if (!FILE_FORMATS.includes(image.type as string)) {
+      dispatch(
+        app.notify({
+          type: NotificationType.ERROR,
+          message: NotificationMessage.INVALID_PHOTO_FORMAT,
+        }),
+      );
+
       return;
     }
 
