@@ -5,6 +5,7 @@ type FormatDate =
   | 'yyyy-MM-dd'
   | 'dd-MM-yyyy'
   | 'dd.MM.yyyy'
+  | 'dd MMM yyyy'
   | 'HH:mm'
   | 'dd MMM'
   | 'HH:mm, dd.MM'
@@ -22,6 +23,7 @@ const getFormattedDate = (date: string, formatDate: FormatDate): string => {
     case 'yyyy-MM-dd':
     case 'dd-MM-yyyy':
     case 'dd.MM.yyyy':
+    case 'dd MMM yyyy':
     case 'HH:mm dd.MM.yyyy':
     case 'kk:mm, dd/MM/yyyy': {
       return format(new Date(date), formatDate);

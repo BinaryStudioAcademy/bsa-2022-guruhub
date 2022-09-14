@@ -13,7 +13,7 @@ const getOtherApplicationsRows = (
       [OtherApplicationsTableAccessor.ID]: interview.id,
       [OtherApplicationsTableAccessor.NAME]:
         interview.interviewee.userDetails.fullName,
-      [OtherApplicationsTableAccessor.CATEGORY]: interview.courseCategory.name,
+      [OtherApplicationsTableAccessor.CATEGORY]: interview.courseCategory,
       [OtherApplicationsTableAccessor.STATUS]: interview.status,
       [OtherApplicationsTableAccessor.INTERVIEWER]: interviewerName,
       [OtherApplicationsTableAccessor.DATE]: interview.interviewDate,

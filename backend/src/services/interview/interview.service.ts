@@ -73,6 +73,10 @@ class Interview {
     return interview ?? null;
   }
 
+  public checkIsInterviewee(userId: number): Promise<boolean> {
+    return this.#interviewRepository.checkIsInterviewee(userId);
+  }
+
   public getInterviewersByCategoryId(
     interviewId: number,
   ): Promise<InterviewsGetInterviewerResponseDto[]> {
@@ -111,6 +115,17 @@ class Interview {
   ): Promise<number[]> {
     const interviewsByUserId =
       await this.#interviewRepository.getPassedInterviewsByUserId(
+        intervieweeUserId,
+      );
+
+    return interviewsByUserId.map((interview) => interview.categoryId);
+  }
+
+  public async getActiveInterviewsCategoryIdsByUserId(
+    intervieweeUserId: number,
+  ): Promise<number[]> {
+    const interviewsByUserId =
+      await this.#interviewRepository.getActiveInterviewsByUserId(
         intervieweeUserId,
       );
 

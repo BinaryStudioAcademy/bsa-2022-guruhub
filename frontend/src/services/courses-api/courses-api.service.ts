@@ -5,13 +5,16 @@ import {
   HttpMethod,
 } from 'common/enums/enums';
 import {
+  CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseFilteringDto,
+  CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
+  CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
@@ -46,6 +49,47 @@ class CoursesApi {
           title: opts.filtering.title,
           categoryKey: opts.filtering.categoryKey,
         },
+      },
+    );
+  }
+
+  public getAllCoursesStudying(): Promise<CourseGetResponseDto[]> {
+    return this.#http.load<CourseGetResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.STUDYING}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getAllCoursesMentoring({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetMentoringDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetMentoringDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
+      },
+    );
+  }
+
+  public updateCoursesMentoring({
+    courseId,
+    studentsCount,
+  }: CourseUpdateMentoringDto): Promise<number> {
+    return this.#http.load<number>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ courseId, studentsCount }),
       },
     );
   }
@@ -212,6 +256,17 @@ class CoursesApi {
         contentType: ContentType.JSON,
         payload: JSON.stringify({ newCategoryId }),
       },
+    );
+  }
+
+  public checkIsMentorForMentee({
+    courseId,
+    menteeId,
+  }: CourseCheckIsMentorForMenteeRequestParamsDto): Promise<boolean> {
+    return this.#http.load<boolean>(
+      `${this.#apiPrefix}${ApiPath.COURSES}/${courseId}${
+        CoursesApiPath.MENTEES
+      }/${menteeId}${CoursesApiPath.IS_MENTOR_CHECK}`,
     );
   }
 }

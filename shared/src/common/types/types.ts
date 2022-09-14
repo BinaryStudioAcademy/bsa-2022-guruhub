@@ -7,15 +7,18 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessageUserResponseDto,
+  type ChatMessageGetEmptyChatDto,
 } from './chat-message/chat-message';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -23,6 +26,7 @@ export {
   type CourseSelectMentorRequestDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
 export {
@@ -97,6 +101,7 @@ export {
 } from './socket/socket';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,

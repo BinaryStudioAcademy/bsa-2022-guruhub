@@ -1,22 +1,23 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
+import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 16,
-  },
-  noUser: {
-    fontSize: 24,
-    fontFamily: AppFontFamily.INTER_400_ITALIC,
-    color: AppColor.TEXT.GRAY_200,
-    textAlign: 'center',
-    paddingHorizontal: 20,
   },
   placeholder: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  searchFieldContainer: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    paddingVertical: 15,
+  },
+  spinnerContainer: {
+    flex: 1,
   },
   buttonWrapper: {
     width: 215,

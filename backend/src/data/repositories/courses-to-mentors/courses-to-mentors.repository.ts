@@ -1,4 +1,7 @@
-import { CoursesToMentorsRequestDto } from '~/common/types/types';
+import {
+  CoursesToMentorsRequestDto,
+  CourseUpdateMentoringDto,
+} from '~/common/types/types';
 import { CoursesToMentors as CoursesToMentorsM } from '~/data/models/models';
 
 type Constructor = {
@@ -7,6 +10,8 @@ type Constructor = {
 
 class CoursesToMentors {
   #CoursesToMentorsModel: typeof CoursesToMentorsM;
+
+  private static RECORD_EXISTS_CHECK = 1;
 
   public constructor({ CoursesToMentorsModel }: Constructor) {
     this.#CoursesToMentorsModel = CoursesToMentorsModel;
@@ -22,15 +27,41 @@ class CoursesToMentors {
       .execute();
   }
 
+  public updateStudentsCount(
+    userId: number,
+    { courseId, studentsCount }: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#CoursesToMentorsModel
+      .query()
+      .findOne({
+        courseId,
+        userId,
+      })
+      .patch({
+        studentsCount,
+      })
+      .execute();
+  }
+
   public async checkIsMentor({
     courseId,
     userId,
   }: CoursesToMentorsRequestDto): Promise<boolean> {
     const courseToMentor = await this.#CoursesToMentorsModel
       .query()
-      .select(1)
+      .select(CoursesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ userId })
+      .first();
+
+    return Boolean(courseToMentor);
+  }
+
+  public async checkIsMentorForAnyCourse(userId: number): Promise<boolean> {
+    const courseToMentor = await this.#CoursesToMentorsModel
+      .query()
+      .select(CoursesToMentors.RECORD_EXISTS_CHECK)
+      .where({ userId })
       .first();
 
     return Boolean(courseToMentor);

@@ -1,8 +1,9 @@
 import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
+  ChatMessageGetEmptyChatDto,
   FC,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
@@ -13,7 +14,11 @@ import styles from './styles.module.scss';
 type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
-  onChatMessagesLoad: (chatId: string) => void;
+  emptyChats: ChatMessageGetEmptyChatDto[];
+  onChatMessagesLoad: (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ) => void;
   fetchLastMessagesDataStatus: DataStatus;
 };
 
@@ -21,9 +26,10 @@ const ChatsList: FC<Props> = ({
   currentUserId,
   chatsItems,
   onChatMessagesLoad,
+  emptyChats,
   fetchLastMessagesDataStatus,
 }) => {
-  const hasChatItems = Boolean(chatsItems.length);
+  const hasChatItems = Boolean(chatsItems.length) || Boolean(emptyChats.length);
 
   if (fetchLastMessagesDataStatus === DataStatus.PENDING) {
     return <Spinner />;
@@ -39,7 +45,7 @@ const ChatsList: FC<Props> = ({
       ) : (
         <ul className={styles.chatsList}>
           {chatsItems.map((chat) => {
-            const chatOpponent: ChatMessageUserResponseDto =
+            const chatOpponent: UsersGetResponseDto =
               chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
             return (
@@ -54,6 +60,18 @@ const ChatsList: FC<Props> = ({
                     chat.createdAt,
                     'distance',
                   )}
+                  onClick={onChatMessagesLoad}
+                />
+              </li>
+            );
+          })}
+
+          {emptyChats.map((chat) => {
+            return (
+              <li key={chat.chatId}>
+                <Chat
+                  chatId={chat.chatId}
+                  chatOpponent={chat.receiver}
                   onClick={onChatMessagesLoad}
                 />
               </li>

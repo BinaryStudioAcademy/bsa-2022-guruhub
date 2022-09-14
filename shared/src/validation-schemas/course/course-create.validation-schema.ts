@@ -10,6 +10,7 @@ const courseCreate = Joi.object({
     .uri()
     .messages({
       'string.uri': CourseValidationMessage.INVALID_URL,
+      'any.required': CourseValidationMessage.URL_REQUIRE,
     }),
 });
 

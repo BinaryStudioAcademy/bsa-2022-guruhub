@@ -5,13 +5,17 @@ import {
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
 import {
+  courseModule as courseModuleServ,
   coursesToMentors as coursesToMentorsServ,
   menteesToMentors as menteesToMentorsServ,
+  task as taskServ,
 } from '~/services/services';
 
 type Constructor = {
   menteesToMentorsService: typeof menteesToMentorsServ;
   coursesToMentorsService: typeof coursesToMentorsServ;
+  courseModuleService: typeof courseModuleServ;
+  taskService: typeof taskServ;
 };
 
 class Mentor {
@@ -19,20 +23,48 @@ class Mentor {
 
   #coursesToMentorsService: typeof coursesToMentorsServ;
 
+  #courseModuleService: typeof courseModuleServ;
+
+  #taskService: typeof taskServ;
+
   public constructor({
     menteesToMentorsService,
     coursesToMentorsService,
+    courseModuleService,
+    taskService,
   }: Constructor) {
     this.#menteesToMentorsService = menteesToMentorsService;
     this.#coursesToMentorsService = coursesToMentorsService;
+    this.#courseModuleService = courseModuleService;
+    this.#taskService = taskService;
   }
 
-  public chooseMentor(
-    menteesToMentors: MenteesToMentorsRequestDto,
-  ): Promise<MenteesToMentorsResponseDto> {
-    return this.#menteesToMentorsService.createMenteesToMentors(
-      menteesToMentors,
+  public async chooseMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    const menteeToMentor =
+      await this.#menteesToMentorsService.createMenteesToMentors({
+        courseId,
+        menteeId,
+        mentorId,
+      });
+
+    const modules = await this.#courseModuleService.getModulesByCourseId(
+      courseId,
     );
+
+    await Promise.all(
+      modules.map((module) => {
+        return this.#taskService.createTask({
+          menteesToMentorsId: menteeToMentor.id,
+          moduleId: module.id,
+        });
+      }),
+    );
+
+    return menteeToMentor;
   }
 
   public changeMentor(
@@ -55,7 +87,7 @@ class Mentor {
     courseId: number;
     menteeId: number;
   }): Promise<MenteesToMentorsResponseDto | null> {
-    return this.#menteesToMentorsService.getByCourseIdAndMenteeId(
+    return this.#menteesToMentorsService.getUncompletedByCourseIdAndMenteeId(
       menteesToMentors,
     );
   }
@@ -78,6 +110,12 @@ class Mentor {
       courseId,
       menteeId: userId,
     });
+  }
+
+  public checkIsMentorForMentee(
+    menteeToMentor: MenteesToMentorsRequestDto,
+  ): Promise<boolean> {
+    return this.#menteesToMentorsService.checkIsMentorForMentee(menteeToMentor);
   }
 }
 

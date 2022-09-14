@@ -4,15 +4,15 @@ import {
   ChatMessageCreateRequestBodyDto,
   ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
-  ChatMessageGetAllLastResponseDto,
-  ChatMessageGetAllRequestParamsDto,
+  ChatMessageGetAllLastWithEmptyChatsDto,
+  ChatMessageGetAllMessagesFromChatDto,
   ChatMessageGetAllResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getLastMessages = createAsyncThunk<
-  ChatMessageGetAllLastResponseDto,
+  ChatMessageGetAllLastWithEmptyChatsDto,
   ChatMessageFilteringDto,
   AsyncThunkConfig
 >(ActionType.GET_LAST_MESSAGES, async ({ fullName }, { extra }) => {
@@ -26,7 +26,7 @@ const getLastMessages = createAsyncThunk<
 
 const getMessages = createAsyncThunk<
   ChatMessageGetAllResponseDto,
-  ChatMessageGetAllRequestParamsDto,
+  ChatMessageGetAllMessagesFromChatDto,
   AsyncThunkConfig
 >(ActionType.GET_MESSAGES, async (payload, { extra }) => {
   const { chatsApi } = extra;
@@ -34,7 +34,10 @@ const getMessages = createAsyncThunk<
 
   const messagesDto = await chatsApi.getAllChatMessages(id);
 
-  return messagesDto;
+  return {
+    ...messagesDto,
+    chatOpponent: payload.chatOpponent,
+  };
 });
 
 const createMessage = createAsyncThunk<

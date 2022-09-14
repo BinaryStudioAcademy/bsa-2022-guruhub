@@ -15,29 +15,40 @@ const getOtherApplicationsColumns = (): Column<OtherApplicationsTableRow>[] => {
       Header: 'ID',
       accessor: OtherApplicationsTableAccessor.ID,
       Cell: IdCell,
+      width: 50,
     },
     {
       Header: 'Name',
       accessor: OtherApplicationsTableAccessor.NAME,
+      width: 130,
+      minWidth: 80,
     },
     {
       Header: 'Category',
       accessor: OtherApplicationsTableAccessor.CATEGORY,
       Cell: CategoryCell,
+      width: 160,
+      minWidth: 110,
     },
     {
       Header: 'Status',
       accessor: OtherApplicationsTableAccessor.STATUS,
       Cell: StatusCell,
+      width: 140,
+      minWidth: 120,
     },
     {
       Header: 'Interviewer',
       accessor: OtherApplicationsTableAccessor.INTERVIEWER,
+      width: 130,
+      minWidth: 120,
     },
     {
       Header: 'Date',
       accessor: OtherApplicationsTableAccessor.DATE,
       Cell: DateCell,
+      width: 140,
+      minWidth: 70,
     },
   ];
 };

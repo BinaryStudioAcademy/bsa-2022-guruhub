@@ -4,20 +4,25 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessageUserResponseDto,
+  type ChatMessageGetEmptyChatDto,
 } from './chat-message/chat-message';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
   type CourseMentorsFilteringDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
+  type CourseUpdateMentoringDto,
 } from './course/course';
 export {
   type CategoryGetAllItemResponseDto,

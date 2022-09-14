@@ -2,7 +2,8 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
+  ChatMessageGetEmptyChatDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 
 import {
@@ -16,17 +17,21 @@ import {
 type State = {
   dataStatus: DataStatus;
   lastMessages: ChatMessageGetAllItemResponseDto[];
+  emptyChats: ChatMessageGetEmptyChatDto[];
   fetchLastMessagesDataStatus: DataStatus;
+  currentChatMessagesDataStatus: DataStatus;
   currentChatMessages: ChatMessageGetAllItemResponseDto[];
   currentChatId: string | null;
   hasUnreadMessages: boolean;
-  chatOpponent: ChatMessageUserResponseDto | null;
+  chatOpponent: UsersGetResponseDto | null;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
   lastMessages: [],
+  emptyChats: [],
   fetchLastMessagesDataStatus: DataStatus.IDLE,
+  currentChatMessagesDataStatus: DataStatus.IDLE,
   currentChatMessages: [],
   currentChatId: null,
   hasUnreadMessages: false,
@@ -40,22 +45,23 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getLastMessages.fulfilled, (state, action) => {
     state.fetchLastMessagesDataStatus = DataStatus.FULFILLED;
     state.lastMessages = action.payload.items;
+    state.emptyChats = action.payload.emptyChats;
   });
   builder.addCase(getLastMessages.rejected, (state) => {
     state.fetchLastMessagesDataStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(getMessages.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.currentChatMessagesDataStatus = DataStatus.PENDING;
   });
   builder.addCase(getMessages.fulfilled, (state, action) => {
-    state.dataStatus = DataStatus.FULFILLED;
+    state.currentChatMessagesDataStatus = DataStatus.FULFILLED;
     state.currentChatMessages = action.payload.items;
     state.currentChatId = action.payload.chatId;
     state.chatOpponent = action.payload.chatOpponent;
   });
   builder.addCase(getMessages.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.currentChatMessagesDataStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(checkHasUnreadMessages.pending, (state) => {
