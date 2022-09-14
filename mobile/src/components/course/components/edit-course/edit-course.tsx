@@ -43,7 +43,9 @@ const EditCourse: FC = () => {
           courseId: course.id,
           newCategoryId,
         }),
-      );
+      )
+        .unwrap()
+        .then(() => goBack());
     }
   };
 
