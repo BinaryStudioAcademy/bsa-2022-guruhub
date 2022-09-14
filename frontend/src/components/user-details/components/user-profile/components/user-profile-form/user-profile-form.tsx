@@ -2,29 +2,29 @@ import { UserAge, UserGender } from 'common/enums/enums';
 import {
   FC,
   SelectorOption,
+  UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
 } from 'common/types/types';
 import { Button, Datepicker, Input, Select } from 'components/common/common';
 import { getNameOf, subtractYears } from 'helpers/helpers';
-import {
-  useAppDispatch,
-  useAppForm,
-  useAppSelector,
-  useEffect,
-  useMemo,
-} from 'hooks/hooks';
-import { userDetailsActions } from 'store/actions';
+import { useAppForm, useEffect, useMemo } from 'hooks/hooks';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from 'validation-schemas/validation-schemas';
 
 import { DEFAULT_UPDATE_USER_DETAILS_PAYLOAD } from './common';
 import { getGenderOptions } from './helpers/helpers';
 import styles from './styles.module.scss';
 
-const UserProfileForm: FC = () => {
-  const dispatch = useAppDispatch();
+type Props = {
+  userDetails: UserDetailsResponseDto | null;
+  onGetUserDetails: () => void;
+  onUpdateProfile: (payload: UserDetailsUpdateInfoRequestDto) => void;
+};
 
-  const { userDetails } = useAppSelector((state) => state.userDetails);
-
+const UserProfileForm: FC<Props> = ({
+  userDetails,
+  onGetUserDetails,
+  onUpdateProfile,
+}) => {
   const { control, errors, handleSubmit, reset } =
     useAppForm<UserDetailsUpdateInfoRequestDto>({
       defaultValues: {
@@ -32,10 +32,6 @@ const UserProfileForm: FC = () => {
       },
       validationSchema: userDetailsUpdateInfoValidationSchema,
     });
-
-  useEffect(() => {
-    dispatch(userDetailsActions.getUserDetails());
-  }, []);
 
   useEffect(() => {
     if (userDetails) {
@@ -47,16 +43,6 @@ const UserProfileForm: FC = () => {
       });
     }
   }, [userDetails]);
-
-  const handleUpdateProfile = (
-    payload: UserDetailsUpdateInfoRequestDto,
-  ): void => {
-    dispatch(userDetailsActions.updateUserDetails(payload));
-  };
-
-  const handleGetUsers = (): void => {
-    dispatch(userDetailsActions.getUserDetails());
-  };
 
   const genderOptions = useMemo<SelectorOption[]>(() => {
     return getGenderOptions();
@@ -74,7 +60,7 @@ const UserProfileForm: FC = () => {
     <div>
       <form
         className={styles.formWrapper}
-        onSubmit={handleSubmit(handleUpdateProfile)}
+        onSubmit={handleSubmit(onUpdateProfile)}
       >
         <div className={styles.formContent}>
           <div className={styles.grid}>
@@ -128,10 +114,10 @@ const UserProfileForm: FC = () => {
             btnType="filled"
             btnColor="gray"
             label="Cancel"
-            onClick={handleGetUsers}
+            onClick={onGetUserDetails}
           />
           <Button
-            onClick={handleSubmit(handleUpdateProfile)}
+            onClick={handleSubmit(onUpdateProfile)}
             type="submit"
             label="Save"
             btnColor="blue"

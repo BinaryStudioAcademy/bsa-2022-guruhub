@@ -3,12 +3,10 @@ import { Asset } from 'react-native-image-picker';
 
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import {
-  AuthScreenName,
   ButtonVariant,
   DataStatus,
   NotificationMessage,
   NotificationType,
-  RootScreenName,
   UserAge,
   UserGender,
 } from '~/common/enums/enums';
@@ -33,12 +31,11 @@ import { getImageUri, pickImage, subtractYears } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppForm,
-  useAppNavigate,
   useAppSelector,
   useEffect,
   useState,
 } from '~/hooks/hooks';
-import { app, authActions, userDetailsActions } from '~/store/actions';
+import { app, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import {
@@ -51,7 +48,6 @@ import { styles } from './styles';
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch();
-  const navigation = useAppNavigate();
   const [selectedImage, setSelectedImage] = useState<Asset | null>();
 
   const { user, userDataStatus, userDetails, userDetailsDataStatus } =
@@ -114,13 +110,6 @@ const Settings: FC = () => {
     dispatch(userDetailsActions.updateUserDetails(payload));
   };
 
-  const handleLogout = async (): Promise<void> => {
-    await dispatch(authActions.signOut());
-    navigation.navigate(RootScreenName.AUTH, {
-      screen: AuthScreenName.SIGN_IN,
-    });
-  };
-
   useEffect(() => {
     dispatch(userDetailsActions.getUserDetails());
   }, []);
@@ -145,78 +134,73 @@ const Settings: FC = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.profileWrapper}>
-          <Text style={styles.title}>Profile</Text>
-          <View style={styles.avatarSection}>
-            <Pressable onPress={handleChooseAvatar}>
-              <Image
-                style={styles.avatar}
-                source={{
-                  uri:
-                    selectedImage?.uri ??
-                    userDetails?.avatar?.url ??
-                    getImageUri(defaultUserAvatar),
-                }}
-              />
-            </Pressable>
-            <Stack space={20}>
+        <Text style={styles.title}>Profile</Text>
+        <View style={styles.avatarSection}>
+          <Pressable onPress={handleChooseAvatar}>
+            <Image
+              style={styles.avatar}
+              source={{
+                uri:
+                  selectedImage?.uri ??
+                  userDetails?.avatar?.url ??
+                  getImageUri(defaultUserAvatar),
+              }}
+            />
+          </Pressable>
+          <Stack space={20}>
+            <Button
+              label="Update file"
+              variant={ButtonVariant.SECONDARY}
+              onPress={handleChooseAvatar}
+              size="small"
+            />
+            <Button label="Save" onPress={handleSaveAvatar} size="small" />
+          </Stack>
+        </View>
+        <Stack space={20}>
+          <Input
+            label="Name"
+            name="fullName"
+            control={control}
+            errors={errors}
+            placeholder="Enter your full name"
+          />
+          <Dropdown
+            name="gender"
+            label="Gender"
+            items={GENDER_OPTIONS}
+            control={control}
+            errors={errors}
+            placeholder="Select gender"
+          />
+          <DatePicker
+            label="Date of birth"
+            name="dateOfBirth"
+            control={control}
+            errors={errors}
+            maximumDate={maxDate}
+            minimumDate={minDate}
+            placeholder="Select date"
+          />
+        </Stack>
+        <View style={styles.buttons}>
+          <Stack space={20} isHorizontal>
+            <View style={styles.button}>
               <Button
-                label="Update file"
-                variant={ButtonVariant.SECONDARY}
-                onPress={handleChooseAvatar}
+                label="Cancel"
+                variant={ButtonVariant.CANCEL}
+                onPress={handleCancel}
                 size="small"
               />
-              <Button label="Save" onPress={handleSaveAvatar} size="small" />
-            </Stack>
-          </View>
-          <Stack space={20}>
-            <Input
-              label="Name"
-              name="fullName"
-              control={control}
-              errors={errors}
-              placeholder="Enter your full name"
-            />
-            <Dropdown
-              name="gender"
-              label="Gender"
-              items={GENDER_OPTIONS}
-              control={control}
-              errors={errors}
-              placeholder="Select gender"
-            />
-            <DatePicker
-              label="Date of birth"
-              name="dateOfBirth"
-              control={control}
-              errors={errors}
-              maximumDate={maxDate}
-              minimumDate={minDate}
-              placeholder="Select date"
-            />
+            </View>
+            <View style={styles.button}>
+              <Button
+                label="Save"
+                onPress={handleSubmit(handleUpdateProfile)}
+                size="small"
+              />
+            </View>
           </Stack>
-          <View style={styles.buttons}>
-            <Stack space={20} isHorizontal>
-              <View style={styles.button}>
-                <Button
-                  label="Cancel"
-                  variant={ButtonVariant.CANCEL}
-                  onPress={handleCancel}
-                  size="small"
-                />
-              </View>
-              <View style={styles.button}>
-                <Button
-                  label="Save"
-                  onPress={handleSubmit(handleUpdateProfile)}
-                  size="small"
-                />
-              </View>
-            </Stack>
-          </View>
-        </View>
-        <View style={styles.singOutWrapper}>
-          <Button label="Sign Out" onPress={handleLogout} />
         </View>
       </View>
     </ScrollView>

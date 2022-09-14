@@ -187,22 +187,30 @@ const chooseMentor = createAsyncThunk<
   return;
 });
 
-const updateisMentorChoosingEnabled = createAsyncThunk<
+const updateIsMentorChoosingEnabled = createAsyncThunk<
   boolean,
-  void,
+  number,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_CHOOSING_ENABLED, (_, { getState }) => {
-  const {
-    auth: { user },
-    courses: { mentors },
-  } = getState();
+>(
+  ActionType.SET_IS_MENTOR_CHOOSING_ENABLED,
+  async (id, { extra, getState }) => {
+    const {
+      auth: { user },
+      courses: { mentors },
+    } = getState();
 
-  const isMentorCheck = mentors.some(
-    (mentor) => mentor.id === (user as UserWithPermissions).id,
-  );
+    const isMentor = mentors.some(
+      (mentor) => mentor.id === (user as UserWithPermissions).id,
+    );
+    const hasMentor = await extra.coursesApi.checkHasMentor({
+      courseId: id,
+    });
 
-  return !isMentorCheck;
-});
+    const canChooseMentor = !isMentor && !hasMentor;
+
+    return canChooseMentor;
+  },
+);
 
 const getMenteesMentor = createAsyncThunk<
   MenteesToMentorsResponseDto | null,
@@ -239,11 +247,39 @@ const checkIsMentor = createAsyncThunk<
   return isMentor;
 });
 
+const changeMentor = createAsyncThunk<
+  MenteesToMentorsResponseDto,
+  CourseSelectMentorRequestParamsDto,
+  AsyncThunkConfig
+>(ActionType.CHANGE_A_MENTOR, async ({ id }, { extra, getState, dispatch }) => {
+  const {
+    courses: { course },
+    auth: { user },
+  } = getState();
+  const { coursesApi } = extra;
+
+  const newMenteeToMentor = await coursesApi.changeMentor({
+    courseId: (course as CourseGetResponseDto).id,
+    menteeId: (user as UserWithPermissions).id,
+    mentorId: id,
+  });
+
+  dispatch(
+    app.notify({
+      type: NotificationType.SUCCESS,
+      message: NotificationMessage.UPDATE_SUCCESS,
+    }),
+  );
+
+  return newMenteeToMentor;
+});
+
 const clearMentor = createAction(ActionType.CLEAR_MENTOR);
 
 export {
   addCourse,
   becomeMentor,
+  changeMentor,
   checkIsMentor,
   chooseMentor,
   clearMentor,
@@ -255,6 +291,6 @@ export {
   getMentorsByCourseId,
   setBecomeMentorInvisible,
   updateCategory,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
   updateVisibilityBecomeMentor,
 };

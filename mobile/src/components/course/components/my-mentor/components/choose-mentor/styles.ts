@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   title: {
-    marginBottom: 15,
     marginLeft: 16,
     fontSize: 20,
     color: 'white',

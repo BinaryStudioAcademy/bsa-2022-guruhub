@@ -5,6 +5,7 @@ export { Button } from './button/button';
 export { Category } from './category/category';
 export { Checkbox } from './checkbox/checkbox';
 export { Content } from './content/content';
+export { CoursesList } from './courses-list/courses-list';
 export { Datepicker } from './datepicker/datepicker';
 export { EditCategoryModal } from './edit-category-modal/edit-category-modal';
 export { Header } from './header/header';
