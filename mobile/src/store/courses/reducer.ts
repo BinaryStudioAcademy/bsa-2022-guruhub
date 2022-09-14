@@ -37,6 +37,7 @@ type State = {
   isMentorBecomingVisible: boolean;
   isMentorChoosingEnabled: boolean;
   isMentor: boolean;
+  totalCoursesNumber: number;
 };
 
 const initialState: State = {
@@ -51,15 +52,16 @@ const initialState: State = {
   isMentorBecomingVisible: false,
   isMentorChoosingEnabled: false,
   isMentor: false,
+  totalCoursesNumber: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getCourses.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(getCourses.fulfilled, (state, action) => {
+  builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses = action.payload;
+    state.courses = payload;
   });
   builder.addCase(getCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -89,9 +91,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(updateCategory.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(updateCategory.fulfilled, (state, action) => {
+  builder.addCase(updateCategory.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.course = action.payload;
+    state.course = payload;
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
