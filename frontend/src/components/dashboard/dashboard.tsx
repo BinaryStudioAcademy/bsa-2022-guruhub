@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
+import { dashboardActions, userDetailsActions } from 'store/actions';
 
 import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
@@ -27,6 +27,7 @@ const Dashboard: FC = () => {
   useEffect(() => {
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getCategories());
+    dispatch(userDetailsActions.getUserDetails());
   }, [dispatch]);
 
   const handleNewCourseModalToggle = (): void => {
