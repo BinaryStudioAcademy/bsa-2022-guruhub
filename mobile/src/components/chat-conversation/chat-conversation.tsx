@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import defaultAvatar from '~/assets/images/avatar-default.png';
 import { AppScreenName } from '~/common/enums/enums';
-import { ChatMessageCreateRequestBodyDto } from '~/common/types/types';
+import { ChatMessageFormRequestDto } from '~/common/types/types';
 import { BackButton, Image, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
 import {
@@ -50,10 +50,16 @@ const ChatConversation: FC = () => {
     });
   }, [chatOpponent]);
 
-  const handleMessageSubmit = (
-    payload: ChatMessageCreateRequestBodyDto,
-  ): void => {
-    dispatch(chatActions.createMessage(payload));
+  const handleMessageSubmit = (payload: ChatMessageFormRequestDto): void => {
+    if (chatOpponent) {
+      dispatch(
+        chatActions.createMessage({
+          chatId,
+          receiverId: chatOpponent.id,
+          message: payload.message,
+        }),
+      );
+    }
   };
 
   const hasMessages = Boolean(currentChatMessages.length);
@@ -69,13 +75,7 @@ const ChatConversation: FC = () => {
         )}
       </View>
       <View>
-        {chatOpponent && (
-          <MessageForm
-            chatId={chatId}
-            chatOpponentId={chatOpponent.id}
-            onSubmit={handleMessageSubmit}
-          />
-        )}
+        {chatOpponent && <MessageForm onSubmit={handleMessageSubmit} />}
       </View>
     </View>
   );
