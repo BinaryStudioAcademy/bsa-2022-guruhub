@@ -9,7 +9,9 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   useMemo,
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
@@ -22,11 +24,14 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { user, course, isMentor } = useAppSelector(({ auth, courses }) => ({
-    user: auth.user,
-    course: courses.course,
-    isMentor: courses.isMentor,
-  }));
+  const { user, course, isMentor, mentors } = useAppSelector(
+    ({ auth, courses }) => ({
+      user: auth.user,
+      course: courses.course,
+      mentors: courses.mentors,
+      isMentor: courses.isMentor,
+    }),
+  );
 
   const userPermissions = user?.permissions ?? [];
 
@@ -55,6 +60,20 @@ const Course: FC = () => {
       dispatch(coursesActions.checkIsMentor({ id: course.id }));
     }
   }, [course]);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(coursesActions.updateVisibilityBecomeMentor());
+    }, [mentors]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        dispatch(coursesActions.setBecomeMentorInvisible());
+      };
+    }, []),
+  );
 
   return (
     <Tab.Navigator
