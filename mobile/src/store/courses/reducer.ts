@@ -15,6 +15,7 @@ import {
   checkIsMentor,
   chooseMentor,
   clearMentor,
+  clearTasks,
   getCourse,
   getCourses,
   getMenteesByCourseId,
@@ -40,6 +41,7 @@ type State = {
   isMentorChoosingEnabled: boolean;
   isMentor: boolean;
   tasks: TaskWithModuleResponseDto[];
+  dataTasksStatus: DataStatus;
 };
 
 const initialState: State = {
@@ -55,6 +57,7 @@ const initialState: State = {
   isMentorChoosingEnabled: false,
   isMentor: false,
   tasks: [],
+  dataTasksStatus: DataStatus.IDLE,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -191,17 +194,21 @@ const reducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(getTasksByCourseIdAndMenteeId.pending, (state) => {
-    state.dataStatus = DataStatus.PENDING;
+    state.dataTasksStatus = DataStatus.PENDING;
   });
   builder.addCase(
     getTasksByCourseIdAndMenteeId.fulfilled,
     (state, { payload }) => {
-      state.dataStatus = DataStatus.FULFILLED;
+      state.dataTasksStatus = DataStatus.FULFILLED;
       state.tasks = payload;
     },
   );
   builder.addCase(getTasksByCourseIdAndMenteeId.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
+    state.dataTasksStatus = DataStatus.REJECTED;
+    state.tasks = [];
+  });
+
+  builder.addCase(clearTasks, (state) => {
     state.tasks = [];
   });
 });
