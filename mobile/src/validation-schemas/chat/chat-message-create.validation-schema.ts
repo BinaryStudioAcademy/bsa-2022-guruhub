@@ -5,10 +5,10 @@ import {
   ChatValidationMessage,
   ChatValidationRule,
 } from '~/common/enums/enums';
-import { ChatMessageCreateRequestBodyDto } from '~/common/types/types';
+import { ChatMessageFormRequestDto } from '~/common/types/types';
 
 const chatMessageCreate = Joi.object({
-  [getNameOf<ChatMessageCreateRequestBodyDto>('message')]: Joi.string()
+  [getNameOf<ChatMessageFormRequestDto>('message')]: Joi.string()
     .trim()
     .min(ChatValidationRule.MESSAGE_MIN_LENGTH)
     .required()
