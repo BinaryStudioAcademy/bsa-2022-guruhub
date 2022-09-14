@@ -46,8 +46,12 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(updateCategory.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(updateCategory.fulfilled, (state) => {
+  builder.addCase(updateCategory.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
+    const foundIndex = state.courses.findIndex(
+      (course) => course.id === action.payload.id,
+    );
+    state.courses[foundIndex] = action.payload;
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
