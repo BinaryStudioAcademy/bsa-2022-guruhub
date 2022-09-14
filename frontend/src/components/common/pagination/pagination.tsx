@@ -3,6 +3,7 @@ import { FC } from 'common/types/types';
 import styles from './styles.module.scss';
 
 const NO_ITEMS_PAGE_COUNT = 0;
+const ONE_ITEM_COUNT = 1;
 
 type Props = {
   totalCount: number;
@@ -33,7 +34,7 @@ const Pagination: FC<Props> = ({
   return (
     <div className={styles.paginationContainer}>
       <p className={styles.results}>
-        {totalCount} {totalCount === 1 ? 'result' : 'results'}
+        {totalCount} {totalCount === ONE_ITEM_COUNT ? 'result' : 'results'}
       </p>
       <div className={styles.pagination}>
         <button
