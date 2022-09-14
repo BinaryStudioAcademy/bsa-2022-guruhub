@@ -105,7 +105,10 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteFormRequestDto,
