@@ -1,21 +1,16 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useState,
-} from 'hooks/hooks';
+import { useAppDispatch, useAppSelector, useState } from 'hooks/hooks';
 import React from 'react';
 import { userDetailsActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
 const AvatarWrapper: FC = () => {
-  const { user, userDetails } = useAppSelector((state) => ({
+  const { user, avatarUrl } = useAppSelector((state) => ({
     user: state.auth.user,
-    userDetails: state.userDetails.userDetails,
+    avatarUrl: state.userDetails.avatarUrl,
   }));
   const dispatch = useAppDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -25,7 +20,7 @@ const AvatarWrapper: FC = () => {
     setSelectedFile(file);
   };
 
-  useEffect(() => {
+  const handleAvatarUpdate = (): void => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
@@ -36,7 +31,7 @@ const AvatarWrapper: FC = () => {
         }),
       );
     }
-  }, [selectedFile]);
+  };
 
   return (
     <div className={styles.flex}>
@@ -44,7 +39,11 @@ const AvatarWrapper: FC = () => {
         <Image
           width="136"
           height="136"
-          src={userDetails?.avatar?.url ?? defaultUserAvatar}
+          src={
+            selectedFile
+              ? URL.createObjectURL(selectedFile)
+              : avatarUrl ?? defaultUserAvatar
+          }
           alt="user avatar"
           classes={styles.profileImage}
           isCircular
@@ -58,7 +57,7 @@ const AvatarWrapper: FC = () => {
           btnType="upload"
           onFileSelect={handleFileSelect}
         />
-        <Button btnColor="blue" label="Save" />
+        <Button btnColor="blue" label="Save" onClick={handleAvatarUpdate} />
       </div>
     </div>
   );
