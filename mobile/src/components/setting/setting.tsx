@@ -4,6 +4,7 @@ import { Asset } from 'react-native-image-picker';
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import {
   ButtonVariant,
+  ContentType,
   DataStatus,
   NotificationMessage,
   NotificationType,
@@ -75,7 +76,7 @@ const Settings: FC = () => {
       return;
     }
 
-    if (!FILE_FORMATS.includes(image.type as string)) {
+    if (!FILE_FORMATS.includes(image.type as ContentType)) {
       dispatch(
         app.notify({
           type: NotificationType.ERROR,
