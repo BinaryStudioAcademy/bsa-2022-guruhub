@@ -10,7 +10,6 @@ export {
   type CourseCategoryGetResponseDto,
 } from './category/category';
 export {
-  type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
   type ChatMessageFormRequestDto,
   type ChatMessageGetAllItemResponseDto,
