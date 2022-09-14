@@ -4,6 +4,7 @@ import { Asset } from 'react-native-image-picker';
 import defaultUserAvatar from '~/assets/images/avatar-default.png';
 import {
   ButtonVariant,
+  ContentType,
   DataStatus,
   NotificationMessage,
   NotificationType,
@@ -39,6 +40,7 @@ import { app, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import {
+  AVATAR_FILE_FORMATS,
   AVATAR_MAX_SIZE,
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
   GENDER_OPTIONS,
@@ -71,6 +73,17 @@ const Settings: FC = () => {
     const [image] = (await pickImage(SELECTION_LIMIT)) ?? [];
 
     if (!image) {
+      return;
+    }
+
+    if (!AVATAR_FILE_FORMATS.includes(image.type as ContentType)) {
+      dispatch(
+        app.notify({
+          type: NotificationType.ERROR,
+          message: NotificationMessage.INVALID_PHOTO_FORMAT,
+        }),
+      );
+
       return;
     }
 

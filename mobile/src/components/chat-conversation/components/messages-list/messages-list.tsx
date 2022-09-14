@@ -41,7 +41,7 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
             />
           </View>
         )}
-        renderSectionFooter={({ section: { title } }): ReactElement => (
+        renderSectionHeader={({ section: { title } }): ReactElement => (
           <DateSeparator messageTime={title} />
         )}
         ListEmptyComponent={(): ReactElement => (
