@@ -17,7 +17,7 @@ const App: FC = () => {
 
   const userPermissions = user?.permissions ?? [];
 
-  const allowedScreens = useMemo(() => {
+  const allowedScreens: DrawerNavigationItem[] = useMemo(() => {
     const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
 
     const permittedScreens = getPermittedScreens(
