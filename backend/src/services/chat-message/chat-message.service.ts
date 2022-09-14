@@ -1,7 +1,7 @@
 import { ChatMessageStatus } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
-  ChatMessageCreateRequestWithStatusDto,
+  ChatMessageCreateRequestDto,
   ChatMessageFilteringDto,
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllLastResponseDto,
@@ -15,11 +15,13 @@ import {
   user as userRep,
 } from '~/data/repositories/repositories';
 import { createUuid, sanitizeHTML } from '~/helpers/helpers';
+import { socket as socketServ } from '~/services/services';
 
 type Constructor = {
   chatMessageRepository: typeof chatMessageRep;
   menteesToMentorsRepository: typeof menteesToMentorsRep;
   userRepository: typeof userRep;
+  socketService: typeof socketServ;
 };
 
 class ChatMessage {
@@ -29,14 +31,18 @@ class ChatMessage {
 
   #userRepository: typeof userRep;
 
+  #socketService: typeof socketServ;
+
   public constructor({
     chatMessageRepository,
     menteesToMentorsRepository,
     userRepository,
+    socketService,
   }: Constructor) {
     this.#chatMessageRepository = chatMessageRepository;
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
     this.#userRepository = userRepository;
+    this.#socketService = socketService;
   }
 
   public async getAll({
@@ -128,24 +134,32 @@ class ChatMessage {
     return lastMessagesWithMentorsAndMentees;
   }
 
-  public create(
-    chatMessageCreateDto: ChatMessageCreateRequestWithStatusDto,
+  public async create(
+    chatMessageCreateDto: ChatMessageCreateRequestDto,
   ): Promise<ChatMessageGetAllItemResponseDto> {
-    const {
-      receiverId,
-      senderId,
-      message,
-      chatId,
-      status = ChatMessageStatus.UNREAD,
-    } = chatMessageCreateDto;
+    const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
 
-    return this.#chatMessageRepository.create({
+    const newMessageChatId = chatId ?? createUuid();
+
+    const areBothInChat = this.#socketService.checkAreBothInChat(
+      chatId as string,
+    );
+
+    const newMessageStatus = areBothInChat
+      ? ChatMessageStatus.READ
+      : ChatMessageStatus.UNREAD;
+
+    const newMessage = await this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
-      chatId: chatId ?? createUuid(),
-      status,
+      chatId: newMessageChatId,
+      status: newMessageStatus,
     });
+
+    this.#socketService.sendMessage(newMessage);
+
+    return newMessage;
   }
 
   public checkHasUnreadMessages(userId: number): Promise<boolean> {

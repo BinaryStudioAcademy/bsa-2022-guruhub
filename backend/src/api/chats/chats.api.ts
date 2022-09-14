@@ -6,10 +6,7 @@ import {
   ChatMessageFilteringDto,
   ChatMessageGetAllRequestParamsDto,
 } from '~/common/types/types';
-import {
-  chatMessage as chatMessageService,
-  socket as socketService,
-} from '~/services/services';
+import { chatMessage as chatMessageService } from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
   chatMessageFiltering as chatMessageFilteringValidationSchema,
@@ -19,13 +16,11 @@ import {
 type Options = {
   services: {
     chatMessage: typeof chatMessageService;
-    socket: typeof socketService;
   };
 };
 
 const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
-  const { chatMessage: chatMessageService, socket: socketService } =
-    opts.services;
+  const { chatMessage: chatMessageService } = opts.services;
 
   fastify.route({
     method: HttpMethod.GET,
@@ -98,7 +93,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { id: userId } = req.user;
       const { message, chatId, receiverId } = req.body;
 
-      const newChatMessage = await socketService.sendMessage({
+      const newChatMessage = await chatMessageService.create({
         message,
         chatId,
         receiverId,

@@ -169,13 +169,14 @@ const mentor = new Mentor({
   taskService: task,
 });
 
+const socket = new Socket();
+
 const chatMessage = new ChatMessage({
   chatMessageRepository,
   menteesToMentorsRepository,
   userRepository,
+  socketService: socket,
 });
-
-const socket = new Socket({ chatMessageService: chatMessage });
 
 export {
   auth,
