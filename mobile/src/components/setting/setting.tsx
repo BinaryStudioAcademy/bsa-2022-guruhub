@@ -40,9 +40,9 @@ import { app, userDetailsActions } from '~/store/actions';
 import { userDetailsUpdateInfo as userDetailsUpdateInfoValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import {
+  AVATAR_FILE_FORMATS,
   AVATAR_MAX_SIZE,
   DEFAULT_UPDATE_USER_DETAILS_PAYLOAD,
-  FILE_FORMATS,
   GENDER_OPTIONS,
   SELECTION_LIMIT,
 } from './common/constants';
@@ -76,7 +76,7 @@ const Settings: FC = () => {
       return;
     }
 
-    if (!FILE_FORMATS.includes(image.type as ContentType)) {
+    if (!AVATAR_FILE_FORMATS.includes(image.type as ContentType)) {
       dispatch(
         app.notify({
           type: NotificationType.ERROR,
