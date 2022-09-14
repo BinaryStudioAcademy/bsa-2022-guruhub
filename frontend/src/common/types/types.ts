@@ -102,6 +102,7 @@ export {
   type URLSearchParamsInit,
 } from './react/react';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
+export { type Token } from './stripe-checkout/stripe-checkout';
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,

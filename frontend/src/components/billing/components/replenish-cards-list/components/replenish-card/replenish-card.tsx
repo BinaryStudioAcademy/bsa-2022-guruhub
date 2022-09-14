@@ -1,6 +1,6 @@
 import { PaymentUnit } from 'common/enums/enums';
-import { FC } from 'common/types/types';
-import StripeCheckout, { Token } from 'react-stripe-checkout';
+import { FC, Token } from 'common/types/types';
+import StripeCheckout from 'react-stripe-checkout';
 
 import styles from './styles.module.scss';
 

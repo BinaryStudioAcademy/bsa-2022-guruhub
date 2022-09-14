@@ -1,5 +1,9 @@
 import { AppRoute, DataStatus, NotificationMessage } from 'common/enums/enums';
-import { FC, UserGetResponseWithMoneyBalanceDto } from 'common/types/types';
+import {
+  FC,
+  Token,
+  UserGetResponseWithMoneyBalanceDto,
+} from 'common/types/types';
 import { Button, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
@@ -7,7 +11,6 @@ import {
   useEffect,
   useNavigate,
 } from 'hooks/hooks';
-import { Token } from 'react-stripe-checkout';
 import { notification } from 'services/services';
 import { billingActions } from 'store/actions';
 
