@@ -1,6 +1,12 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  DataStatus,
+  PermissionKey,
+  TaskStatus,
+} from '~/common/enums/enums';
+import { CourseModulesGetAllItemResponseDto } from '~/common/types/types';
 import {
   FlatList,
   Pressable,
@@ -24,6 +30,10 @@ import { CourseContent } from './components/course-content/course-content';
 import { Module } from './components/module/module';
 import { styles } from './styles';
 
+type CourseModulesIfMentor = CourseModulesGetAllItemResponseDto & {
+  taskStatus: TaskStatus;
+};
+
 const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
@@ -35,6 +45,8 @@ const Course: FC = () => {
     courseModules,
     modulesDataStatus,
     mentors,
+    isMentor,
+    tasks,
   } = useAppSelector(({ auth, courses, courseModules }) => ({
     user: auth.user,
     course: courses.course,
@@ -42,10 +54,22 @@ const Course: FC = () => {
     dataStatus: courses.dataStatus,
     courseModules: courseModules.courseModules,
     modulesDataStatus: courseModules.dataStatus,
+    isMentor: courses.isMentor,
+    tasks: courses.tasks,
   }));
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
+
+  const modulesWithTaskStatus: CourseModulesIfMentor[] =
+    tasks &&
+    courseModules.map((module) => {
+      const moduleTask = tasks.filter((task) => task.moduleId === module.id)[0];
+
+      return { ...module, taskStatus: moduleTask.status };
+    });
+
+  const modules = isMentor ? modulesWithTaskStatus : courseModules;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -55,6 +79,12 @@ const Course: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
+
+  useEffect(() => {
+    if (course) {
+      dispatch(coursesActions.checkIsMentor({ id: course.id }));
+    }
+  }, [course]);
 
   useEffect(() => {
     if (course) {
@@ -121,7 +151,7 @@ const Course: FC = () => {
             onEditModeToggle={handleEditModeToggle}
           />
         )}
-        data={courseModules}
+        data={modules}
         keyExtractor={({ id }): string => id.toString()}
         renderItem={({ item: module, index }): ReactElement => (
           <Pressable
@@ -133,6 +163,7 @@ const Course: FC = () => {
               index={index}
               title={module.title}
               description={module.description}
+              isMentor={isMentor}
             />
           </Pressable>
         )}
