@@ -53,7 +53,7 @@ const Button: FC<Props> = ({
       {icon && (
         <Icon
           name={icon}
-          color={styles[`button${variant}Label`].color}
+          color={styles.label.color ?? styles[`button${variant}Label`].color}
           width={20}
           height={20}
         />

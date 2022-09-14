@@ -17,18 +17,18 @@ const getGroupsColumns = (
     {
       Header: 'Name',
       accessor: GroupsTableAccessor.NAME,
-      width: 300,
+      minWidth: 80,
     },
     {
       Header: 'Key',
       accessor: GroupsTableAccessor.KEY,
-      width: 300,
+      minWidth: 60,
     },
     {
       Header: 'Created',
       accessor: GroupsTableAccessor.CREATED_AT,
       Cell: DateCell,
-      width: 300,
+      minWidth: 100,
     },
     {
       Header: 'Actions',
@@ -37,7 +37,8 @@ const getGroupsColumns = (
         id,
       }),
       Cell: ActionsCell,
-      width: 50,
+      width: 120,
+      minWidth: 120,
     },
   ];
 };

@@ -5,10 +5,12 @@ import {
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
+  CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetResponseDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  UserCountRequestDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
@@ -66,6 +68,45 @@ class Course {
       .orderBy('courseCategoryId', SortOrder.DESC)
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
+
+    return {
+      items: results,
+      total,
+    };
+  }
+
+  public getAllCoursesStudying(
+    userId: number,
+  ): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select(
+        'courses.id',
+        'title',
+        'description',
+        'url',
+        'imageUrl',
+        'courseCategoryId',
+      )
+      .distinct('courseId')
+      .withGraphJoined('[mentees, category, vendor]')
+      .where('menteeId', userId)
+      .whereNotNull('mentorId')
+      .castTo<CourseGetResponseDto[]>()
+      .execute();
+  }
+
+  public async getAllCoursesMentoring(
+    userId: number,
+    { count, page }: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetMentoringDto>> {
+    const { results, total } = await this.#CourseModel
+      .query()
+      .select('courses.id', 'title', 'studentsCount')
+      .withGraphJoined('mentors')
+      .where('userId', userId)
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetMentoringDto>>();
 
     return {
       items: results,
@@ -133,10 +174,38 @@ class Course {
       .execute();
   }
 
-  public getMentorsByCourseId({
-    courseId,
-    filteringOpts,
-  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+  public getMentorsWithMenteesCount(
+    courseId: number,
+  ): Promise<UserCountRequestDto[]> {
+    return this.#CourseModel
+      .query()
+      .select('mentorId as id')
+      .count('*')
+      .where({ courseId })
+      .innerJoin('menteesToMentors', 'courses.id', 'menteesToMentors.courseId')
+      .groupBy('mentorId')
+      .castTo<UserCountRequestDto[]>()
+      .execute();
+  }
+
+  public getMentorsWithMenteesMaxCount(
+    courseId: number,
+  ): Promise<UserCountRequestDto[]> {
+    return this.#CourseModel
+      .query()
+      .select('mentors.id', 'studentsCount as count')
+      .where({ courseId })
+      .withGraphJoined(
+        'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
+      .castTo<UserCountRequestDto[]>()
+      .execute();
+  }
+
+  public getMentorsByCourseId(
+    filteredMentorIds: number[],
+    { courseId, filteringOpts }: CourseGetMentorsRequestDto,
+  ): Promise<UserDetailsResponseDto[]> {
     const { mentorName } = filteringOpts ?? {};
 
     return this.#CourseModel
@@ -147,6 +216,7 @@ class Course {
           builder.where('fullName', 'ilike', `%${mentorName}%`);
         }
       })
+      .whereIn('mentors.id', filteredMentorIds)
       .select(
         'mentors.id',
         'fullName',

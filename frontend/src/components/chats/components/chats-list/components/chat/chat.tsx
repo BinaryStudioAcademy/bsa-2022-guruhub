@@ -2,6 +2,7 @@ import defaultAvatar from 'assets/img/avatar-default.svg';
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
+import { useAppSelector } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -24,12 +25,22 @@ const Chat: FC<Props> = ({
   dateTheLastMessageWasSent,
   onClick,
 }) => {
+  const { currentChatId } = useAppSelector(({ chats }) => ({
+    currentChatId: chats.currentChatId,
+  }));
   const handleChatMessagesLoad = (): void => {
     onClick(chatId, chatOpponent);
   };
 
   return (
-    <div className={styles.chat} onClick={handleChatMessagesLoad}>
+    <button
+      type="button"
+      className={getValidClasses(
+        styles.chat,
+        currentChatId === chatId && styles.selected,
+      )}
+      onClick={handleChatMessagesLoad}
+    >
       <Image
         width="40px"
         height="40px"
@@ -59,7 +70,7 @@ const Chat: FC<Props> = ({
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
