@@ -1,12 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 
-import {
-  AppScreenName,
-  DataStatus,
-  PermissionKey,
-  TaskStatus,
-} from '~/common/enums/enums';
-import { CourseModulesGetAllItemResponseDto } from '~/common/types/types';
+import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
 import {
   FlatList,
   Pressable,
@@ -19,9 +13,7 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
-  useCallback,
   useEffect,
-  useFocusEffect,
   useWindowDimensions,
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
@@ -29,10 +21,6 @@ import { courseModulesActions, coursesActions } from '~/store/actions';
 import { CourseContent } from './components/course-content/course-content';
 import { Module } from './components/module/module';
 import { styles } from './styles';
-
-type CourseModulesIfMentor = CourseModulesGetAllItemResponseDto & {
-  taskStatus: TaskStatus;
-};
 
 const Course: FC = () => {
   const navigation = useAppNavigate();
@@ -47,6 +35,7 @@ const Course: FC = () => {
     mentors,
     isMentor,
     tasks,
+    tasksDataStatus,
   } = useAppSelector(({ auth, courses, courseModules }) => ({
     user: auth.user,
     course: courses.course,
@@ -56,20 +45,12 @@ const Course: FC = () => {
     modulesDataStatus: courseModules.dataStatus,
     isMentor: courses.isMentor,
     tasks: courses.tasks,
+    tasksDataStatus: courses.dataTasksStatus,
   }));
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
-
-  const modulesWithTaskStatus: CourseModulesIfMentor[] =
-    tasks &&
-    courseModules.map((module) => {
-      const moduleTask = tasks.filter((task) => task.moduleId === module.id)[0];
-
-      return { ...module, taskStatus: moduleTask.status };
-    });
-
-  const modules = isMentor ? modulesWithTaskStatus : courseModules;
+  const tasksLoading = tasksDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
@@ -82,12 +63,9 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (course) {
+      dispatch(courseModulesActions.clearModules());
+      dispatch(coursesActions.clearTasks());
       dispatch(coursesActions.checkIsMentor({ id: course.id }));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course) {
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
       dispatch(
         coursesActions.getMentorsByCourseId({
@@ -119,14 +97,6 @@ const Course: FC = () => {
     }
   }, [user, course]);
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
-        dispatch(courseModulesActions.clearModules());
-      };
-    }, []),
-  );
-
   const handleModulePress = (courseId: number, moduleId: number): void => {
     dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
     navigation.navigate(AppScreenName.COURSE_MODULE);
@@ -151,22 +121,30 @@ const Course: FC = () => {
             onEditModeToggle={handleEditModeToggle}
           />
         )}
-        data={modules}
+        data={courseModules}
         keyExtractor={({ id }): string => id.toString()}
-        renderItem={({ item: module, index }): ReactElement => (
-          <Pressable
-            onPress={(): void => handleModulePress(module.courseId, module.id)}
-            disabled={!user}
-            style={Boolean(index) && styles.separator}
-          >
-            <Module
-              index={index}
-              title={module.title}
-              description={module.description}
-              isMentor={isMentor}
-            />
-          </Pressable>
-        )}
+        renderItem={({ item: module, index }): ReactElement =>
+          tasksLoading ? (
+            <Spinner />
+          ) : (
+            <Pressable
+              onPress={(): void =>
+                handleModulePress(module.courseId, module.id)
+              }
+              disabled={!user}
+              style={Boolean(index) && styles.separator}
+            >
+              <Module
+                index={index}
+                title={module.title}
+                description={module.description}
+                isMentor={isMentor}
+                moduleId={module.id}
+                tasks={tasks}
+              />
+            </Pressable>
+          )
+        }
         ListEmptyComponent={(): ReactElement =>
           moduleIsLoading ? (
             <Spinner />

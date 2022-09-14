@@ -28,13 +28,17 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_100,
     fontSize: 16,
     lineHeight: 18,
-    marginBottom: 7,
+    marginBottom: 10,
+  },
+  titleWrapper: {
+    alignItems: 'flex-start',
   },
   description: {
     fontFamily: AppFontFamily.INTER_400,
     color: AppColor.TEXT.GRAY_200,
     fontSize: 14,
     lineHeight: 19,
+    marginTop: 10,
   },
 });
 
