@@ -79,6 +79,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     ],
     isAuthRequired: true,
     drawerGroup: 'Menu',
+    screenOptions: {
+      swipeEdgeWidth: 10,
+    },
   },
   {
     name: AppScreenName.CHAT,
@@ -111,6 +114,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     permissions: [PermissionKey.MANAGE_UAM],
     isAuthRequired: true,
     drawerGroup: 'Account',
+    screenOptions: {
+      swipeEdgeWidth: 10,
+    },
   },
   {
     name: AppScreenName.UAM_GROUPS_CREATE,
@@ -118,6 +124,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     component: UAMConfigureGroup,
     permissions: [PermissionKey.MANAGE_UAM],
     isAuthRequired: true,
+    screenOptions: {
+      swipeEnabled: false,
+    },
   },
   {
     name: AppScreenName.UAM_GROUPS_EDIT,
@@ -125,6 +134,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     component: UAMConfigureGroup,
     permissions: [PermissionKey.MANAGE_UAM],
     isAuthRequired: true,
+    screenOptions: {
+      swipeEnabled: false,
+    },
   },
   {
     name: AppScreenName.ADD_COURSE,
@@ -164,6 +176,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
       PermissionKey.MANAGE_INTERVIEWS,
     ],
     isAuthRequired: true,
+    screenOptions: {
+      swipeEnabled: false,
+    },
   },
   {
     name: AppScreenName.CONVERSATION,
