@@ -8,6 +8,8 @@ import {
 } from '~/common/types/types';
 import { handlers as socketHandlers } from '~/socket/socket';
 
+const MAX_PEOPLE_IN_CHAT = 2;
+
 class Socket {
   #io: SocketServerType | null = null;
 
@@ -31,8 +33,6 @@ class Socket {
 
   public checkAreBothInChat(chatId: string): boolean {
     const numberOfUsersInChat = this.getNumberOfUsersInRoom(chatId);
-
-    const MAX_PEOPLE_IN_CHAT = 2;
 
     return numberOfUsersInChat === MAX_PEOPLE_IN_CHAT;
   }
