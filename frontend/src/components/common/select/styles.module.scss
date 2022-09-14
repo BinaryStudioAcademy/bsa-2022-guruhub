@@ -54,11 +54,6 @@
   color: var(--typography-text-100-inverse);
 }
 
-.select [class$='-option']::first-letter,
-.select [class$='-singleValue']::first-letter {
-  text-transform: capitalize;
-}
-
 .select [class$='-option'] {
   cursor: pointer;
 }
