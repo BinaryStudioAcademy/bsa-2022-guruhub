@@ -2,7 +2,6 @@ import fastifyMultipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
 import Fastify from 'fastify';
-import http from 'http';
 import Knex from 'knex';
 import path from 'node:path';
 import { Model } from 'objection';
@@ -21,9 +20,7 @@ const app = Fastify({
   },
 });
 
-const socketServer = new http.Server();
-
-socketService.initializeIo(socketServer);
+socketService.initializeIo(app.server);
 
 Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
 
@@ -67,5 +64,3 @@ app.listen({ port: ENV.APP.SERVER_PORT }, (err, address) => {
 
   app.log.info(`Listening on: ${address}; Environment: ${ENV.APP.NODE_ENV}`);
 });
-
-socketServer.listen(ENV.APP.SOCKET_PORT);
