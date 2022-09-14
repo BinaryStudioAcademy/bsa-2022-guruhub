@@ -38,10 +38,12 @@ const Module: FC<Props> = ({
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>{title}</Text>
           {isMentor && moduleTask && (
-            <Chip
-              text={moduleTask.status}
-              color={statusToColor[moduleTask.status]}
-            />
+            <View style={styles.statusWrapper}>
+              <Chip
+                text={moduleTask.status}
+                color={statusToColor[moduleTask.status]}
+              />
+            </View>
           )}
         </View>
         {description && (

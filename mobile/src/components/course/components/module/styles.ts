@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     marginTop: 10,
   },
+  statusWrapper: {
+    minWidth: 120,
+  },
 });
 
 export { styles };
