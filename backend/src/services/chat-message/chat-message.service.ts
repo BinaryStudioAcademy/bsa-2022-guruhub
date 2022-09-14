@@ -141,9 +141,8 @@ class ChatMessage {
 
     const newMessageChatId = chatId ?? createUuid();
 
-    const areBothInChat = this.#socketService.checkAreBothInChat(
-      chatId as string,
-    );
+    const areBothInChat =
+      this.#socketService.checkAreBothInChat(newMessageChatId);
 
     const newMessageStatus = areBothInChat
       ? ChatMessageStatus.READ

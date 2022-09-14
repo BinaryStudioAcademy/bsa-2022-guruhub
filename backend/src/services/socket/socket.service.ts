@@ -1,4 +1,4 @@
-import { Server } from 'http';
+import { Server as HttpServer } from 'http';
 import { Server as SocketServer } from 'socket.io';
 
 import { SocketEvent } from '~/common/enums/enums';
@@ -11,7 +11,7 @@ import { handlers as socketHandlers } from '~/socket/socket';
 class Socket {
   #io: SocketServerType | null = null;
 
-  public initializeIo(server: Server): void {
+  public initializeIo(server: HttpServer): void {
     this.#io = new SocketServer(server, {
       cors: {
         origin: '*',
@@ -21,9 +21,7 @@ class Socket {
     (this.#io as SocketServerType).on(SocketEvent.CONNECTION, socketHandlers);
   }
 
-  public async sendMessage(
-    newMessage: ChatMessageGetAllItemResponseDto,
-  ): Promise<void> {
+  public sendMessage(newMessage: ChatMessageGetAllItemResponseDto): void {
     const { chatId } = newMessage;
 
     (this.#io as SocketServerType)
