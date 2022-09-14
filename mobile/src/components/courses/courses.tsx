@@ -40,7 +40,7 @@ const Courses: FC = (): ReactElement => {
     dataStatus,
     categories,
     courseCategory,
-    dataStatus: categoryDataStatus,
+    categoryDataStatus,
   } = useAppSelector(({ courses, categories, auth }) => ({
     user: auth.user,
     courses: courses.courses,
@@ -108,7 +108,7 @@ const Courses: FC = (): ReactElement => {
   useFocusEffect(
     useCallback(() => {
       dispatch(categoryActions.clearCategory());
-      dispatch(categoryActions.getCategories());
+      dispatch(categoryActions.getAllWithCourses());
       handleCoursesLoad();
       setActiveCategoryId(null);
     }, []),

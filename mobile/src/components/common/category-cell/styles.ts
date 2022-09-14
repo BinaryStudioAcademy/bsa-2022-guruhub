@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_100,
     paddingLeft: 7,
   },
+  unknownCategory: {
+    color: AppColor.TEXT.GRAY_100,
+  },
   withoutImgText: {
     color: AppColor.TEXT.GRAY_100,
     fontFamily: AppFontFamily.INTER_600,
