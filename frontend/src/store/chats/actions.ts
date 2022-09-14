@@ -1,9 +1,9 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AsyncThunkConfig,
+  ChatCreateMessageDto,
   ChatMessageCreateRequestBodyDto,
   ChatMessageFilteringDto,
-  ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllLastWithEmptyChatsDto,
   ChatMessageGetAllMessagesFromChatDto,
   ChatMessageGetAllResponseDto,
@@ -41,7 +41,7 @@ const getMessages = createAsyncThunk<
 });
 
 const createMessage = createAsyncThunk<
-  ChatMessageGetAllItemResponseDto,
+  ChatCreateMessageDto,
   ChatMessageCreateRequestBodyDto,
   AsyncThunkConfig
 >(ActionType.CREATE_MESSAGE, async (payload, { extra }) => {
@@ -52,8 +52,11 @@ const createMessage = createAsyncThunk<
     receiverId,
     chatId,
   });
+  const lastMessages = await chatsApi.getAllChatsLastMessages({
+    filtering: { fullName: '' },
+  });
 
-  return newMessage;
+  return { newMessage, lastMessages };
 });
 
 const checkHasUnreadMessages = createAsyncThunk<void, void, AsyncThunkConfig>(

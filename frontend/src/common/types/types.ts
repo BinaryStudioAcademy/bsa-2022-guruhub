@@ -1,5 +1,6 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  type ChatCreateMessageDto,
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,

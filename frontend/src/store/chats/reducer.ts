@@ -64,10 +64,14 @@ const reducer = createReducer(initialState, (builder) => {
     state.currentChatMessagesDataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(createMessage.fulfilled, (state, action) => {
+  builder.addCase(createMessage.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.currentChatMessages = [...state.currentChatMessages, action.payload];
-    state.currentChatId = action.payload.chatId;
+    state.currentChatMessages = [
+      ...state.currentChatMessages,
+      payload.newMessage,
+    ];
+    state.currentChatId = payload.newMessage.chatId;
+    state.lastMessages = payload.lastMessages.items;
   });
   builder.addCase(createMessage.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
