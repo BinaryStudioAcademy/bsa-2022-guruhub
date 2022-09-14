@@ -7,7 +7,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   align-items: center;
   margin-bottom: 10px;
   column-gap: 30px;
@@ -24,6 +24,11 @@
   flex-direction: column;
   padding: 24px 0;
   column-gap: 20px;
+}
+
+.datePickerProfile {
+  width: 100%;
+  max-width: 250px;
 }
 
 .buttonWrapper {
@@ -53,11 +58,12 @@
 }
 
 .formInput {
+  width: 100%;
   background: var(--background-gray-200);
 }
 
 .fieldWrapper {
-  max-width: 240px;
+  max-width: 250px;
   margin-bottom: auto;
 }
 

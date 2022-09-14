@@ -2,6 +2,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './styles.scss';
 
 import { FC, FormControl, FormControlPath } from 'common/types/types';
+import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 import DatePicker from 'react-datepicker';
 
@@ -16,6 +17,7 @@ type Props = {
   placeholder?: string;
   selectedDate?: Date | string;
   withTime?: boolean;
+  className?: string;
 };
 
 const Datepicker: FC<Props> = ({
@@ -27,6 +29,7 @@ const Datepicker: FC<Props> = ({
   minDate,
   selectedDate,
   withTime,
+  className,
 }) => {
   const { field } = useFormControl({ name, control });
 
@@ -48,7 +51,7 @@ const Datepicker: FC<Props> = ({
             : null
         }
         onChange={handleChange}
-        className={styles.datePickerInput}
+        className={getValidClasses(styles.datePickerInput, className)}
         calendarClassName={styles.datePicker}
         dayClassName={handleDayClassNameGet}
         showYearDropdown
