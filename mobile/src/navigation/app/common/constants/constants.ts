@@ -125,7 +125,7 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     permissions: [PermissionKey.MANAGE_UAM],
     isAuthRequired: true,
     screenOptions: {
-      swipeEnabled: false,
+      swipeEdgeWidth: 10,
     },
   },
   {
@@ -135,7 +135,7 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     permissions: [PermissionKey.MANAGE_UAM],
     isAuthRequired: true,
     screenOptions: {
-      swipeEnabled: false,
+      swipeEdgeWidth: 10,
     },
   },
   {
@@ -177,7 +177,7 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     ],
     isAuthRequired: true,
     screenOptions: {
-      swipeEnabled: false,
+      swipeEdgeWidth: 10,
     },
   },
   {
