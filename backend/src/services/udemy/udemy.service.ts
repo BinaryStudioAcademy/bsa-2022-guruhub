@@ -19,6 +19,8 @@ class Udemy {
 
   #INITIAL_PAGE = 1;
 
+  #MODULE_TYPE = 'chapter';
+
   #authorizationToken: string;
 
   #baseUrl: string;
@@ -85,7 +87,11 @@ class Udemy {
       );
 
     while (fetchedModulesData.next) {
-      modules.push(...fetchedModulesData.results);
+      fetchedModulesData.results.map((item) => {
+        if (item._class === this.#MODULE_TYPE) {
+          modules.push(item);
+        }
+      });
 
       fetchedModulesData = await this.fetchModulesPage(
         fetchedModulesData.next,
@@ -93,7 +99,11 @@ class Udemy {
       );
     }
 
-    modules.push(...fetchedModulesData.results);
+    fetchedModulesData.results.map((item) => {
+      if (item._class === this.#MODULE_TYPE) {
+        modules.push(item);
+      }
+    });
 
     return modules;
   }
