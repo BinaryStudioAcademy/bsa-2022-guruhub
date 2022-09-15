@@ -4,6 +4,7 @@ import defaultAvatar from '~/assets/images/avatar-default.png';
 import { ChatMessageGetAllItemResponseDto } from '~/common/types/types';
 import { SectionList, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
+import { useCallback, useFocusEffect, useRef } from '~/hooks/hooks';
 
 import { DateSeparator, Message } from './components/components';
 import { groupMessagesByDate } from './helpers/helpers';
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
+  const chatRef = useRef<SectionList>(null);
   const groupedByDateMessages = groupMessagesByDate(messages);
   const renderMessages = Object.entries(groupedByDateMessages).map(
     ([key, value]) => ({
@@ -23,9 +25,24 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
     }),
   );
 
+  const scrollToDown = (): void => {
+    chatRef.current?.scrollToLocation({
+      animated: false,
+      itemIndex: 0,
+      sectionIndex: 0,
+    });
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      scrollToDown();
+    }, []),
+  );
+
   return (
     <View style={styles.container}>
       <SectionList
+        ref={chatRef}
         sections={renderMessages}
         keyExtractor={({ id }): string => id.toString()}
         renderItem={({ item: message }): ReactElement => (
@@ -51,6 +68,14 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
         )}
         inverted
         contentContainerStyle={styles.messageList}
+        getItemLayout={(
+          _item,
+          index,
+        ): { length: number; offset: number; index: number } => ({
+          length: renderMessages.length,
+          offset: renderMessages.length * index,
+          index,
+        })}
       />
     </View>
   );

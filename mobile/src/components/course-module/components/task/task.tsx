@@ -102,7 +102,7 @@ const Task: FC = () => {
   }, [task]);
 
   useEffect(() => {
-    if (user && !isMentor && moduleId) {
+    if (user && moduleId) {
       dispatch(
         courseModulesActions.getTask({
           menteeId: user.id,

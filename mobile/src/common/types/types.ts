@@ -88,6 +88,7 @@ export {
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type InterviewNavigationParamList,
+  type InterviewTabItem,
   type NavigationItem,
   type NavigationScreenProps,
   type RootNavigationParamList,
@@ -107,7 +108,10 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteFormRequestDto,

@@ -4,43 +4,69 @@ import React, { FC } from 'react';
 import { AppScreenName, CourseModuleScreenName } from '~/common/enums/enums';
 import { CourseModuleNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
-import { useAppNavigate, useAppSelector, useEffect } from '~/hooks/hooks';
+import {
+  useAppDispatch,
+  useAppNavigate,
+  useAppSelector,
+  useEffect,
+} from '~/hooks/hooks';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { MODULE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
+import {
+  COUNT_TABS_FOR_HIDE,
+  MODULE_TAB_ITEMS,
+  SCREEN_OPTIONS,
+} from './common/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseModuleNavigationParamList>();
 
 const CourseModule: FC = () => {
   const navigation = useAppNavigate();
+  const dispatch = useAppDispatch();
 
-  const { isMentor } = useAppSelector(({ courses }) => ({
-    isMentor: courses.isMentor,
-  }));
-
-  const isShowTaskScreen = isMentor && CourseModuleScreenName.TASK;
-  const filteredScreens = MODULE_TAB_ITEMS.filter(
-    (screen) => screen.name !== isShowTaskScreen,
+  const { isCourseMentor, isMenteeMentor, course, menteeId } = useAppSelector(
+    ({ courses, courseModules }) => ({
+      course: courses.course,
+      isCourseMentor: courses.isMentor,
+      isMenteeMentor: courseModules.isMentor,
+      menteeId: courses.menteeId,
+    }),
   );
-  const isShowTabs = filteredScreens.length === 1;
+
+  const showTask = !isCourseMentor || isMenteeMentor;
+
+  const handleGoBack = (): void => {
+    if (course && menteeId) {
+      dispatch(
+        coursesActions.getTasksByCourseIdAndMenteeId({
+          courseId: course.id,
+          menteeId,
+        }),
+      );
+      dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
+    }
+    navigation.navigate(AppScreenName.COURSE);
+  };
+
+  const screensToRender = MODULE_TAB_ITEMS.filter(
+    (screen) => showTask || screen.name !== CourseModuleScreenName.TASK,
+  );
+  const isTabsShown = screensToRender.length === COUNT_TABS_FOR_HIDE;
 
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <BackButton
-          onPress={(): void => navigation.navigate(AppScreenName.COURSE)}
-        />
-      ),
+      headerLeft: () => <BackButton onPress={(): void => handleGoBack()} />,
     });
   }, []);
 
   return (
     <Tab.Navigator screenOptions={SCREEN_OPTIONS}>
-      {filteredScreens.map((screen) => (
+      {screensToRender.map((screen) => (
         <Tab.Screen
           key={screen.name}
           name={screen.name}
           component={screen.component}
-          options={isShowTabs ? { tabBarStyle: { display: 'none' } } : {}}
+          options={{ tabBarStyle: { display: isTabsShown ? 'none' : 'flex' } }}
         />
       ))}
     </Tab.Navigator>

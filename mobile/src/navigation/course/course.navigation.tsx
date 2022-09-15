@@ -9,12 +9,18 @@ import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
+  useCallback,
   useEffect,
+  useFocusEffect,
   useMemo,
 } from '~/hooks/hooks';
-import { coursesActions } from '~/store/actions';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
+import {
+  COUNT_TABS_FOR_HIDE,
+  COURSE_TAB_ITEMS,
+  SCREEN_OPTIONS,
+} from './common/constants/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseNavigationParamList>();
 
@@ -22,11 +28,14 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { user, course, isMentor } = useAppSelector(({ auth, courses }) => ({
-    user: auth.user,
-    course: courses.course,
-    isMentor: courses.isMentor,
-  }));
+  const { user, course, isMentor, mentors } = useAppSelector(
+    ({ auth, courses }) => ({
+      user: auth.user,
+      course: courses.course,
+      mentors: courses.mentors,
+      isMentor: courses.isMentor,
+    }),
+  );
 
   const userPermissions = user?.permissions ?? [];
 
@@ -43,10 +52,19 @@ const Course: FC = () => {
 
     return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
   }, [userPermissions, isMentor, user]);
+  const isTabsShown = allowedScreens.length === COUNT_TABS_FOR_HIDE;
+
+  const handleLeaveCourseScreen = (): void => {
+    dispatch(courseModulesActions.clearMentor());
+    dispatch(coursesActions.clearTasks());
+    dispatch(courseModulesActions.clearModules());
+    dispatch(coursesActions.clearCurrentMenteeId());
+    navigation.goBack();
+  };
 
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <BackButton onPress={navigation.goBack} />,
+      headerLeft: () => <BackButton onPress={handleLeaveCourseScreen} />,
     });
   }, []);
 
@@ -55,6 +73,22 @@ const Course: FC = () => {
       dispatch(coursesActions.checkIsMentor({ id: course.id }));
     }
   }, [course]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (user) {
+        dispatch(coursesActions.updateVisibilityBecomeMentor(user.id));
+      }
+    }, [mentors]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        dispatch(coursesActions.setBecomeMentorInvisible());
+      };
+    }, []),
+  );
 
   return (
     <Tab.Navigator
@@ -67,6 +101,9 @@ const Course: FC = () => {
             key={screen.name}
             name={screen.name as CourseScreenName}
             component={screen.component}
+            options={{
+              tabBarStyle: { display: isTabsShown ? 'none' : 'flex' },
+            }}
           />
         );
       })}

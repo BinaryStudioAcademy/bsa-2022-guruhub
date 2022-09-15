@@ -8,6 +8,7 @@ import {
 import { TabCourseModuleNavigationItem } from '~/common/types/types';
 import { About, Task } from '~/components/course-module/components/components';
 
+const COUNT_TABS_FOR_HIDE = 1;
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
     fontFamily: AppFontFamily.INTER_600,
@@ -39,4 +40,4 @@ const MODULE_TAB_ITEMS: TabCourseModuleNavigationItem[] = [
   },
 ];
 
-export { MODULE_TAB_ITEMS, SCREEN_OPTIONS };
+export { COUNT_TABS_FOR_HIDE, MODULE_TAB_ITEMS, SCREEN_OPTIONS };
