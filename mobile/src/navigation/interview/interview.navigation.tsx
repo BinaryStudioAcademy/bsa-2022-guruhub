@@ -6,7 +6,7 @@ import { InterviewNavigationParamList } from '~/common/types/types';
 import { View } from '~/components/common/common';
 import {
   Applications,
-  History,
+  Notes,
 } from '~/components/interview/components/components';
 
 import { SCREEN_OPTIONS } from './common/constants';
@@ -22,7 +22,7 @@ const Interview: FC = () => {
           name={InterviewScreenName.APPLICATIONS}
           component={Applications}
         />
-        <Tab.Screen name={InterviewScreenName.HISTORY} component={History} />
+        <Tab.Screen name={InterviewScreenName.NOTES} component={Notes} />
       </Tab.Navigator>
     </View>
   );

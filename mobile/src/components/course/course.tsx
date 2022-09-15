@@ -28,27 +28,20 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
-  const {
-    user,
-    course,
-    dataStatus,
-    courseModules,
-    modulesDataStatus,
-    mentors,
-  } = useAppSelector(({ auth, courses, courseModules }) => ({
-    user: auth.user,
-    course: courses.course,
-    mentors: courses.mentors,
-    dataStatus: courses.dataStatus,
-    courseModules: courseModules.courseModules,
-    modulesDataStatus: courseModules.dataStatus,
-  }));
+  const { user, course, dataStatus, courseModules, modulesDataStatus } =
+    useAppSelector(({ auth, courses, courseModules }) => ({
+      user: auth.user,
+      course: courses.course,
+      dataStatus: courses.dataStatus,
+      courseModules: courseModules.courseModules,
+      modulesDataStatus: courseModules.dataStatus,
+    }));
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
-    navigation.navigate(AppScreenName.EDIT_COURSE_CATEGORY);
+    navigation.navigate(AppScreenName.EDIT_COURSE);
   };
 
   const hasEditCategoryPermission = checkHasPermission({
@@ -69,14 +62,6 @@ const Course: FC = () => {
       );
     }
   }, [course]);
-
-  useEffect(() => {
-    dispatch(coursesActions.updateVisibilityBecomeMentor());
-
-    return () => {
-      dispatch(coursesActions.setBecomeMentorInvisible());
-    };
-  }, [mentors]);
 
   useEffect(() => {
     if (user && course) {

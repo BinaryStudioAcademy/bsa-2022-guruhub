@@ -15,6 +15,8 @@ type Props = {
 };
 
 const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
+  const isInteractive = Boolean(onClick);
+
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
@@ -27,6 +29,26 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
   const handleClick = (): void => {
     onClick?.(keyName);
   };
+
+  if (!isInteractive) {
+    return (
+      <span
+        className={getValidClasses(styles.categorySpan)}
+        style={{ borderColor: color }}
+        onClick={handleClick}
+      >
+        <Image
+          width="30px"
+          height="30px"
+          src={`/category-icons/${keyNameKebabCase}.svg`}
+          alt={`${keyName} img`}
+          isCircular
+        />
+
+        <p className={styles.categoryName}>{name}</p>
+      </span>
+    );
+  }
 
   return (
     <button

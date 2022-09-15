@@ -1,37 +1,36 @@
 import React, { FC } from 'react';
 
 import { AppColor } from '~/common/enums/enums';
-import { ChatMessageCreateRequestBodyDto } from '~/common/types/types';
+import { ChatMessageFormRequestDto } from '~/common/types/types';
 import { Icon, Input, Pressable, View } from '~/components/common/common';
 import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
-import { chatMessageCreateArguments } from '~/validation-schemas/validation-schemas';
+import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
 import { getDefaultMessagePayload } from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
-  chatId: string | null;
-  chatOpponentId: number;
-  onSubmit: (payload: ChatMessageCreateRequestBodyDto) => void;
+  onSubmit: (payload: ChatMessageFormRequestDto) => void;
 };
 
-const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
+const MessageForm: FC<Props> = ({ onSubmit }) => {
   const { control, errors, handleSubmit, reset } =
-    useAppForm<ChatMessageCreateRequestBodyDto>({
-      defaultValues: getDefaultMessagePayload(chatOpponentId, chatId),
-      validationSchema: chatMessageCreateArguments,
+    useAppForm<ChatMessageFormRequestDto>({
+      defaultValues: getDefaultMessagePayload(),
+      validationSchema: chatMessageCreate,
     });
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
-  const handleSend = (payload: ChatMessageCreateRequestBodyDto): void => {
+
+  const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
-    reset(getDefaultMessagePayload(chatOpponentId, chatId));
+    reset({ message: '' });
   };
 
   useFocusEffect(
     useCallback(() => {
       return () => {
-        reset(getDefaultMessagePayload(chatOpponentId, chatId));
+        reset({ message: '' });
       };
     }, []),
   );
@@ -44,6 +43,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId, onSubmit }) => {
           name="message"
           control={control}
           errors={errors}
+          rows={3}
         />
       </View>
       <Pressable

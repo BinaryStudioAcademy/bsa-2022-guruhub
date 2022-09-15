@@ -42,7 +42,7 @@ const getUsersColumns = (
         isCurrentSignedUser: user.id === id,
       }),
       Cell: ActionsCell,
-      width: 80,
+      width: 120,
       minWidth: 80,
     },
   ];
