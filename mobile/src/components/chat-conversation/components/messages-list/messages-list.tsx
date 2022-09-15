@@ -27,7 +27,7 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
 
   const scrollToDown = (): void => {
     chatRef.current?.scrollToLocation({
-      animated: true,
+      animated: false,
       itemIndex: 0,
       sectionIndex: 0,
     });
@@ -69,7 +69,7 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
         inverted
         contentContainerStyle={styles.messageList}
         getItemLayout={(
-          _,
+          _item,
           index,
         ): { length: number; offset: number; index: number } => ({
           length: renderMessages.length,
