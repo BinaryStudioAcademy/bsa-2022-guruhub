@@ -20,8 +20,8 @@
 
 .moduleNameContainer {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  height: 100%;
   padding: 30px 40px;
   background-color: var(--background-gray-300);
   border-radius: 10px;
