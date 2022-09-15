@@ -1,4 +1,5 @@
-export { SocketServerType } from './socket-server.type';
+export { type SocketEmitArguments } from './socket-emit-arguments.type';
+export { type SocketServerType } from './socket-server.type';
 export {
   type ClientToServerEvents,
   type ServerToClientEvents,

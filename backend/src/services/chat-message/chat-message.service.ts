@@ -1,4 +1,4 @@
-import { ChatMessageStatus } from '~/common/enums/enums';
+import { ChatMessageStatus, SocketEvent } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
   ChatMessageCreateRequestDto,
@@ -32,6 +32,8 @@ class ChatMessage {
   #userRepository: typeof userRep;
 
   #socketService: typeof socketServ;
+
+  private static MAX_PEOPLE_IN_CHAT = 2;
 
   public constructor({
     chatMessageRepository,
@@ -141,8 +143,10 @@ class ChatMessage {
 
     const newMessageChatId = chatId ?? createUuid();
 
-    const areBothInChat =
-      this.#socketService.checkAreBothInChat(newMessageChatId);
+    const numOfUsersInChat =
+      this.#socketService.getNumberOfUsersInRoom(newMessageChatId);
+
+    const areBothInChat = numOfUsersInChat === ChatMessage.MAX_PEOPLE_IN_CHAT;
 
     const newMessageStatus = areBothInChat
       ? ChatMessageStatus.READ
@@ -156,7 +160,11 @@ class ChatMessage {
       status: newMessageStatus,
     });
 
-    this.#socketService.sendMessage(newMessage);
+    this.#socketService.emit({
+      event: SocketEvent.MESSAGE,
+      args: newMessage,
+      roomId: newMessageChatId,
+    });
 
     return newMessage;
   }
