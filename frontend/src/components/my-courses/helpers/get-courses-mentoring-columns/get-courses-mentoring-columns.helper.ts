@@ -23,7 +23,9 @@ const getCoursesMentoringColumns = (
         title: course.title,
       }),
       Cell: TitleCell,
-      width: 800,
+      width: 500,
+      maxWidth: 800,
+      minWidth: 200,
     },
     {
       Header: 'Students count',
@@ -38,7 +40,7 @@ const getCoursesMentoringColumns = (
         },
       }),
       Cell: StudentsCountCell,
-      width: 400,
+      width: 300,
     },
   ];
 };

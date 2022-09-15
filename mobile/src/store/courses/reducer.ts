@@ -3,24 +3,30 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
 
 import {
   addCourse,
+  addCurrentMenteeId,
   becomeMentor,
+  changeMentor,
   checkIsMentor,
   chooseMentor,
+  clearCurrentMenteeId,
   clearMentor,
+  clearTasks,
   getCourse,
   getCourses,
   getMenteesByCourseId,
   getMenteesMentor,
   getMentorsByCourseId,
+  getTasksByCourseIdAndMenteeId,
   setBecomeMentorInvisible,
   updateCategory,
-  updateisMentorChoosingEnabled,
+  updateIsMentorChoosingEnabled,
   updateVisibilityBecomeMentor,
 } from './actions';
 
@@ -36,6 +42,10 @@ type State = {
   isMentorBecomingVisible: boolean;
   isMentorChoosingEnabled: boolean;
   isMentor: boolean;
+  tasks: TaskWithModuleResponseDto[];
+  dataTasksStatus: DataStatus;
+  menteeId: number | null;
+  totalCoursesNumber: number;
 };
 
 const initialState: State = {
@@ -48,17 +58,21 @@ const initialState: State = {
   menteesByCourseId: [],
   course: null,
   isMentorBecomingVisible: false,
-  isMentorChoosingEnabled: true,
+  isMentorChoosingEnabled: false,
   isMentor: false,
+  tasks: [],
+  dataTasksStatus: DataStatus.IDLE,
+  menteeId: null,
+  totalCoursesNumber: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getCourses.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(getCourses.fulfilled, (state, action) => {
+  builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses = action.payload;
+    state.courses = payload;
   });
   builder.addCase(getCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -88,9 +102,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(updateCategory.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(updateCategory.fulfilled, (state, action) => {
+  builder.addCase(updateCategory.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.course = action.payload;
+    state.course = payload;
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -134,11 +148,11 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorChoosingEnabled = false;
   });
 
-  builder.addCase(updateisMentorChoosingEnabled.pending, (state) => {
+  builder.addCase(updateIsMentorChoosingEnabled.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
   builder.addCase(
-    updateisMentorChoosingEnabled.fulfilled,
+    updateIsMentorChoosingEnabled.fulfilled,
     (state, { payload }) => {
       state.dataStatus = DataStatus.FULFILLED;
       state.isMentorChoosingEnabled = payload;
@@ -177,6 +191,39 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(checkIsMentor.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(changeMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.isMentorChoosingEnabled = false;
+    state.mentor = payload.mentor;
+  });
+
+  builder.addCase(getTasksByCourseIdAndMenteeId.pending, (state) => {
+    state.dataTasksStatus = DataStatus.PENDING;
+  });
+  builder.addCase(
+    getTasksByCourseIdAndMenteeId.fulfilled,
+    (state, { payload }) => {
+      state.dataTasksStatus = DataStatus.FULFILLED;
+      state.tasks = payload;
+    },
+  );
+  builder.addCase(getTasksByCourseIdAndMenteeId.rejected, (state) => {
+    state.dataTasksStatus = DataStatus.REJECTED;
+    state.tasks = [];
+  });
+
+  builder.addCase(clearTasks, (state) => {
+    state.tasks = [];
+  });
+
+  builder.addCase(addCurrentMenteeId, (state, { payload }) => {
+    state.menteeId = payload;
+  });
+
+  builder.addCase(clearCurrentMenteeId, (state) => {
+    state.menteeId = null;
   });
 });
 

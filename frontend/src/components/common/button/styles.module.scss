@@ -43,6 +43,11 @@
   background: var(--hover-blue-100);
 }
 
+.button-bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .button-outlined,
 .button-upload {
   color: var(--brand-blue-100);

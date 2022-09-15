@@ -117,6 +117,7 @@ const Interview: FC = () => {
             handleUpdateInterview={handleUpdateInterview}
             interviewers={interviewers}
             hasPermissionToSelectInterviewer={hasPermissionToSelectInterviewer}
+            user={user as UserWithPermissions}
           />
         )}
         <h1>Other Applications</h1>

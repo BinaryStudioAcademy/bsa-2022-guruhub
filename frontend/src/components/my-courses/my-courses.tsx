@@ -70,14 +70,16 @@ const MyCourses: FC = () => {
       <h1 className={styles.header}>My courses (as student)</h1>
       <CoursesList courses={coursesStudying} />
       <h1 className={styles.header}>My courses (as mentor)</h1>
-      <Table
-        data={data}
-        columns={columns}
-        currentPage={page}
-        onPageChange={handlePageChange}
-        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
-        totalCount={totalCoursesMentoring}
-      />
+      <div className={styles.mentorCourses}>
+        <Table
+          data={data}
+          columns={columns}
+          currentPage={page}
+          onPageChange={handlePageChange}
+          pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+          totalCount={totalCoursesMentoring}
+        />
+      </div>
     </div>
   );
 };
