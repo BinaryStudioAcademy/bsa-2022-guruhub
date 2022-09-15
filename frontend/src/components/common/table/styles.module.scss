@@ -32,6 +32,7 @@
 .tableHeadRowHeader,
 .tableBodyRowData {
   position: relative;
+  margin: auto;
   padding: 20px;
 }
 
@@ -50,9 +51,11 @@
   position: absolute;
   top: 0;
   right: 0;
+  z-index: var(--z-index-level-one);
   display: inline-block;
   width: 20px;
   height: 100%;
+  transform: translateX(50%);
 }
 
 .tableWrapper {
