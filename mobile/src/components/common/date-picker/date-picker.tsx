@@ -44,10 +44,15 @@ const DatePicker = <T extends FormControlValues>({
   const date = value ? getFormattedDate(value, 'dd.MM.yyyy') : datePlaceholder;
 
   const handleOnChange = (
-    _event: DateTimePickerEvent,
+    event: DateTimePickerEvent,
     selectedDate: Date | undefined,
   ): void => {
     setIsDatePickerShown(false);
+
+    if (event.type === 'dismissed') {
+      return;
+    }
+
     onChange(selectedDate);
   };
 
