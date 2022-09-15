@@ -90,6 +90,7 @@ export {
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type InterviewNavigationParamList,
+  type MyCoursesNavigationParamList,
   type NavigationItem,
   type NavigationScreenProps,
   type RootNavigationParamList,
