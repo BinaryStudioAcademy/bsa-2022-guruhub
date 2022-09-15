@@ -164,7 +164,8 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         intervieweeUserId: user.id,
         categoryId: course.courseCategoryId,
       };
-      dispatch(interviewsActions.createInterview(payload));
+      await dispatch(interviewsActions.createInterview(payload)).unwrap();
+      dispatch(setBecomeMentorInvisible());
     }
   },
 );
