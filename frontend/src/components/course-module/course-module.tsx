@@ -142,6 +142,7 @@ const CourseModule: FC = () => {
             />
           </div>
         </div>
+        <Content html={courseModule?.description ?? ''} />
       </div>
       <div>
         {canManipulateTask && (
