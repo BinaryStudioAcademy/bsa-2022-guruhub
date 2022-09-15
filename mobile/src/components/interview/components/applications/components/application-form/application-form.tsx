@@ -40,7 +40,11 @@ const ApplicationForm: FC<Props> = ({
 
   const { control, handleSubmit, errors, reset } =
     useAppForm<InterviewsUpdateRequestDto>({
-      defaultValues: {},
+      defaultValues: {
+        interviewerUserId: interview.interviewer?.id ?? null,
+        status: interview.status,
+        interviewDate: interview?.interviewDate ?? null,
+      },
       validationSchema: interviewUpdateValidationSchema,
     });
 
@@ -67,7 +71,11 @@ const ApplicationForm: FC<Props> = ({
 
   useEffect(() => {
     if (interview) {
-      reset({ interviewerUserId: interview.interviewer?.id });
+      reset({
+        interviewerUserId: interview.interviewer?.id ?? null,
+        status: interview.status,
+        interviewDate: interview?.interviewDate ?? null,
+      });
     }
   }, [interview]);
 
