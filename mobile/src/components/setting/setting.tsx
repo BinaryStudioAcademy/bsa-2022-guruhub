@@ -90,7 +90,7 @@ const Settings: FC = () => {
     if ((image.fileSize ?? 0) > AVATAR_MAX_SIZE) {
       dispatch(
         app.notify({
-          type: NotificationType.INFO,
+          type: NotificationType.ERROR,
           message: NotificationMessage.IMAGE_TO_BIG,
         }),
       );

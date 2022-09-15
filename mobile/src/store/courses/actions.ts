@@ -18,6 +18,8 @@ import {
   GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  TaskWithModuleResponseDto,
   UserDetailsResponseDto,
   UserWithPermissions,
 } from '~/common/types/types';
@@ -75,19 +77,36 @@ const getMentorsByCourseId = createAsyncThunk<
 
 const updateVisibilityBecomeMentor = createAsyncThunk<
   boolean,
-  void,
+  number,
   AsyncThunkConfig
->(ActionType.UPDATE_VISIBILITY_BECOME_MENTOR, async (_, { getState }) => {
-  const {
-    auth: { user },
-    courses: { mentors, course },
-  } = getState();
-  const isMentorBecomingVisible =
-    course?.courseCategoryId &&
-    !mentors.some((mentor) => mentor.id === user?.id);
+>(
+  ActionType.UPDATE_VISIBILITY_BECOME_MENTOR,
+  async (userId, { extra, getState }) => {
+    const {
+      courses: { course },
+    } = getState();
 
-  return Boolean(isMentorBecomingVisible);
-});
+    const { coursesApi, interviewsApi } = extra;
+
+    if (!course) {
+      return false;
+    }
+
+    const isMentor = await coursesApi.checkIsMentor({
+      courseId: course.id,
+    });
+
+    const activeInterviewsCategoryIds =
+      await interviewsApi.getActiveInterviewsCategoryIdsByUserId(userId);
+
+    const isMentorBecomingEnabled =
+      course.courseCategoryId &&
+      !isMentor &&
+      !activeInterviewsCategoryIds.includes(course.courseCategoryId);
+
+    return Boolean(isMentorBecomingEnabled);
+  },
+);
 
 const setBecomeMentorInvisible = createAsyncThunk<
   boolean,
@@ -145,7 +164,8 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         intervieweeUserId: user.id,
         categoryId: course.courseCategoryId,
       };
-      dispatch(interviewsActions.createInterview(payload));
+      await dispatch(interviewsActions.createInterview(payload)).unwrap();
+      dispatch(setBecomeMentorInvisible());
     }
   },
 );
@@ -274,21 +294,47 @@ const changeMentor = createAsyncThunk<
   return newMenteeToMentor;
 });
 
+const getTasksByCourseIdAndMenteeId = createAsyncThunk<
+  TaskWithModuleResponseDto[],
+  TasksGetByCourseIdAndMenteeIdRequestDto,
+  AsyncThunkConfig
+>(
+  ActionType.GET_MODULES_BY_COURSE_ID_AND_MENTEE_ID,
+  async ({ courseId, menteeId }, { extra }) => {
+    const { tasksApi } = extra;
+    const modules = await tasksApi.getAllByCourseIdAndMenteeId({
+      courseId,
+      menteeId,
+    });
+
+    return modules;
+  },
+);
+
 const clearMentor = createAction(ActionType.CLEAR_MENTOR);
+const clearTasks = createAction(ActionType.CLEAR_TASKS);
+const addCurrentMenteeId = createAction<number>(
+  ActionType.ADD_CURRENT_MENTEE_ID,
+);
+const clearCurrentMenteeId = createAction(ActionType.CLEAR_CURRENT_MENTEE_ID);
 
 export {
   addCourse,
+  addCurrentMenteeId,
   becomeMentor,
   changeMentor,
   checkIsMentor,
   chooseMentor,
+  clearCurrentMenteeId,
   clearMentor,
+  clearTasks,
   createMentor,
   getCourse,
   getCourses,
   getMenteesByCourseId,
   getMenteesMentor,
   getMentorsByCourseId,
+  getTasksByCourseIdAndMenteeId,
   setBecomeMentorInvisible,
   updateCategory,
   updateIsMentorChoosingEnabled,
