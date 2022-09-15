@@ -2,6 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React, { FC } from 'react';
 
 import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
+import { InterviewScreenName } from '~/common/enums/enums';
 import { InterviewNavigationParamList } from '~/common/types/types';
 import { View } from '~/components/common/common';
 
@@ -19,7 +20,7 @@ const Interview: FC = () => {
         {INTERVIEW_TAB_ITEMS.map((screen) => (
           <Tab.Screen
             key={screen.name}
-            name={screen.name}
+            name={screen.name as InterviewScreenName}
             component={screen.component}
             options={{
               tabBarStyle: { display: isTabsShown ? 'flex' : 'none' },

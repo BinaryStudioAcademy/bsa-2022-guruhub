@@ -61,7 +61,7 @@ const CourseModule: FC = () => {
       {screensToRender.map((screen) => (
         <Tab.Screen
           key={screen.name}
-          name={screen.name}
+          name={screen.name as CourseModuleScreenName}
           component={screen.component}
           options={{ tabBarStyle: { display: isTabsShown ? 'flex' : 'none' } }}
         />
