@@ -81,11 +81,31 @@ const getNewMessage = createAction(
   },
 );
 
+const joinRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
+  ActionType.JOIN_ROOM,
+  (chatId, { extra }) => {
+    const { socket } = extra;
+
+    socket.joinRoom(chatId);
+  },
+);
+
+const leaveRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
+  ActionType.JOIN_ROOM,
+  (chatId, { extra }) => {
+    const { socket } = extra;
+
+    socket.leaveRoom(chatId);
+  },
+);
+
 export {
   checkHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
   getNewMessage,
+  joinRoom,
+  leaveRoom,
   setHasUnreadMessages,
 };

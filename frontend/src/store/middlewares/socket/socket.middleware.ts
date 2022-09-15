@@ -24,12 +24,10 @@ const socket: Middleware =
     };
 
     if (chatsActions.getMessages.pending.match(action)) {
-      socketService.leaveRoom(action.meta.arg.id);
       socketInstance.off(SocketEvent.MESSAGE);
     }
 
     if (chatsActions.getMessages.fulfilled.match(action)) {
-      socketService.joinRoom(action.meta.arg.id);
       socketInstance.on(SocketEvent.MESSAGE, newMessageListener);
     }
 

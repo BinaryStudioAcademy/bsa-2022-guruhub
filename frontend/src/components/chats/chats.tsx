@@ -52,6 +52,16 @@ const Chats: FC = () => {
     dispatch(chatsActions.getLastMessages({ fullName: '' }));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (chatId) {
+      dispatch(chatsActions.joinRoom(chatId));
+
+      return () => {
+        dispatch(chatsActions.leaveRoom(chatId));
+      };
+    }
+  }, [chatId]);
+
   const { handleSearchPerform, searchParams } = useUserSearch();
 
   const handleSearch = (search: string): void => {
