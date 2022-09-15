@@ -144,7 +144,7 @@ const CourseModule: FC = () => {
         </div>
         <Content html={courseModule?.description ?? ''} />
       </div>
-      <div>
+      <div className={styles.taskContainer}>
         {canManipulateTask && (
           <TaskManipulate
             onSendOnReview={handleSendOnReview}
