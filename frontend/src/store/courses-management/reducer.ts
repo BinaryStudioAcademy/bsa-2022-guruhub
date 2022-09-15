@@ -48,10 +48,13 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(updateCategory.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    const foundIndex = state.courses.findIndex(
-      (course) => course.id === action.payload.id,
-    );
-    state.courses[foundIndex] = action.payload;
+    state.courses = state.courses.map((course) => {
+      if (course.id !== action.payload.id) {
+        return course;
+      }
+
+      return action.payload;
+    });
   });
   builder.addCase(updateCategory.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
