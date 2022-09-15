@@ -20,11 +20,7 @@ import {
 import { coursesActions, coursesManagementActions } from '~/store/actions';
 
 import { DEFAULT_PAGE_SIZE } from './common/constants/constants';
-import {
-  ActionCell,
-  CoursesManagementTitle,
-  TitleCell,
-} from './components/components';
+import { ActionCell, TitleCell } from './components/components';
 import { CoursesManagementTable } from './courses-management-table/courses-management-table';
 import { styles } from './styles';
 
@@ -47,7 +43,7 @@ const CoursesManagement: FC = () => {
   };
 
   navigation.setOptions({
-    title: <CoursesManagementTitle />,
+    title: 'Courses',
   });
 
   const coursesRows = courses.map((item: CourseGetResponseDto) => {
