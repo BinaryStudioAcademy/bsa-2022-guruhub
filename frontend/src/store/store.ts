@@ -18,7 +18,10 @@ import {
   usersApi,
 } from 'services/services';
 
-import { handleError } from './middlewares/middlewares';
+import {
+  handleError,
+  socket as socketMiddleware,
+} from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
 const extraArgument = {
@@ -45,7 +48,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       thunk: { extraArgument },
-    }).concat(handleError);
+    }).concat([handleError, socketMiddleware]);
   },
 });
 

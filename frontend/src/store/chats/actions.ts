@@ -81,56 +81,11 @@ const getNewMessage = createAction(
   },
 );
 
-const listenToNewMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
-  ActionType.LISTEN_TO_MESSAGES,
-  (_, { extra, dispatch }) => {
-    const { chatsApi } = extra;
-
-    const listenerCallback = (
-      message: ChatMessageGetAllItemResponseDto,
-    ): void => {
-      dispatch(getNewMessage(message));
-    };
-
-    chatsApi.listenToNewMessages(listenerCallback);
-  },
-);
-
-const removeMessageListener = createAsyncThunk<void, void, AsyncThunkConfig>(
-  ActionType.REMOVE_LISTENER,
-  (_, { extra }) => {
-    const { chatsApi } = extra;
-    chatsApi.removeMessageListener();
-  },
-);
-
-const joinRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
-  ActionType.JOIN_ROOM,
-  (chatId, { extra }) => {
-    const { socket } = extra;
-
-    socket.joinRoom(chatId);
-  },
-);
-
-const leaveRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
-  ActionType.JOIN_ROOM,
-  (chatId, { extra }) => {
-    const { socket } = extra;
-
-    socket.leaveRoom(chatId);
-  },
-);
-
 export {
   checkHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
   getNewMessage,
-  joinRoom,
-  leaveRoom,
-  listenToNewMessages,
-  removeMessageListener,
   setHasUnreadMessages,
 };

@@ -56,7 +56,6 @@ const socket = new Socket();
 const chatsApi = new ChatsApi({
   apiPrefix: ENV.API_PATH,
   http,
-  socketService: socket,
 });
 
 const coursesApi = new CoursesApi({
