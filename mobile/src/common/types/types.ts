@@ -31,12 +31,14 @@ export {
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type MenteesToMentorsRequestDto,
 } from './courses/courses';
 export {
