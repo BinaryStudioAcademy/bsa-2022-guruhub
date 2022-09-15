@@ -20,7 +20,7 @@ import {
 import { coursesActions, coursesManagementActions } from '~/store/actions';
 
 import { DEFAULT_PAGE_SIZE } from './common/constants/constants';
-import { ActionCell } from './components/action-cell/action-cell';
+import { ActionCell, CoursesManagementTitle } from './components/components';
 import { CoursesManagementTable } from './courses-management-table/courses-management-table';
 import { styles } from './styles';
 
@@ -36,6 +36,10 @@ const CoursesManagement: FC = () => {
     dispatch(coursesActions.getCourse({ id: courseId }));
     navigation.navigate(AppScreenName.EDIT_COURSE);
   };
+
+  navigation.setOptions({
+    title: <CoursesManagementTitle />,
+  });
 
   const coursesRows = courses.map((item: CourseGetResponseDto) => {
     return {
