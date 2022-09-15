@@ -1,9 +1,5 @@
-import { AppRoute, DataStatus, NotificationMessage } from 'common/enums/enums';
-import {
-  FC,
-  Token,
-  UserGetResponseWithMoneyBalanceDto,
-} from 'common/types/types';
+import { AppRoute, DataStatus } from 'common/enums/enums';
+import { FC, Token } from 'common/types/types';
 import { Button, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
@@ -11,22 +7,19 @@ import {
   useEffect,
   useNavigate,
 } from 'hooks/hooks';
-import { notification } from 'services/services';
 import { billingActions } from 'store/actions';
 
 import { DEFAULT_REPLENISH_AMOUNTS, REPLENISH_PUBLIC_KEY } from './common';
 import { ReplenishCardsList } from './components/components';
 import styles from './styles.module.scss';
 
-const MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW = 1;
-
 const Billing: FC = () => {
-  const { authDataStatus, user, billingDataStatus, userWithMoneyBalance } =
+  const { authDataStatus, user, billingDataStatus, userMoneyBalance } =
     useAppSelector(({ auth, billing }) => ({
       authDataStatus: auth.dataStatus,
       user: auth.user,
       billingDataStatus: billing.dataStatus,
-      userWithMoneyBalance: billing.userWithMoneyBalance,
+      userMoneyBalance: billing.userMoneyBalance,
     }));
 
   const navigate = useNavigate();
@@ -42,14 +35,9 @@ const Billing: FC = () => {
   }, [dispatch]);
 
   const handleWithdraw = (): void => {
-    if (
-      (userWithMoneyBalance as UserGetResponseWithMoneyBalanceDto).userDetails
-        .moneyBalance >= MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW
-    ) {
-      dispatch(billingActions.withdraw());
-    } else {
-      notification.info(NotificationMessage.NOT_ENOUGH_FUNDS_TO_WITHDRAW);
-    }
+    dispatch(
+      billingActions.withdraw({ usersCurrentBalance: userMoneyBalance }),
+    );
   };
 
   const handleReplenish = (
@@ -67,29 +55,25 @@ const Billing: FC = () => {
   }
 
   return (
-    userWithMoneyBalance && (
-      <div className={styles.billing}>
-        <div className={styles.yourBalanceSectionWrapper}>
-          <div className={styles.yourBalanceSection}>
-            <div>
-              <Button
-                label="Withdraw your funds"
-                btnColor="blue"
-                onClick={handleWithdraw}
-              />
-            </div>
-            <h1>
-              Your balance is {userWithMoneyBalance.userDetails.moneyBalance}$
-            </h1>
+    <div className={styles.billing}>
+      <div className={styles.yourBalanceSectionWrapper}>
+        <div className={styles.yourBalanceSection}>
+          <div>
+            <Button
+              label="Withdraw your funds"
+              btnColor="blue"
+              onClick={handleWithdraw}
+            />
           </div>
+          <h1>Your balance is {userMoneyBalance}$</h1>
         </div>
-        <ReplenishCardsList
-          replenishKey={REPLENISH_PUBLIC_KEY}
-          replenishingPricesDtos={DEFAULT_REPLENISH_AMOUNTS}
-          onReplenish={handleReplenish}
-        />
       </div>
-    )
+      <ReplenishCardsList
+        replenishKey={REPLENISH_PUBLIC_KEY}
+        replenishingPricesDtos={DEFAULT_REPLENISH_AMOUNTS}
+        onReplenish={handleReplenish}
+      />
+    </div>
   );
 };
 

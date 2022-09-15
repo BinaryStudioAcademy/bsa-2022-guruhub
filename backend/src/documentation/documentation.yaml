@@ -13,6 +13,8 @@ paths:
   /auth/current-user:
     $ref: './endpoints/auth/current-user.yaml'
   # Billing
+  /billing/balance:
+    $ref: './endpoints/billing/billing-balance.yaml'
   /billing/replenish:
     $ref: './endpoints/billing/billing-replenish.yaml'
   /billing/withdraw:
@@ -108,8 +110,6 @@ components:
       $ref: './schemas/users/users-delete-request-dto.yaml'
     BillingReplenishRequestDto:
       $ref: './schemas/billing/billing-replenish-request-dto.yaml'
-    BillingOperationResponseDto:
-      $ref: './schemas/billing/billing-operation-response-dto.yaml'
     CurrentUserResponseDto:
       $ref: './schemas/auth/current-user-response-dto.yaml'
     GroupsGetAllResponseDto:

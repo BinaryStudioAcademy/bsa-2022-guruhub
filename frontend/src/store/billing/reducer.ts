@@ -1,20 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from 'common/enums/enums';
-import {
-  UserDetailsWithMoneyBalanceDto,
-  UserGetResponseWithMoneyBalanceDto,
-} from 'common/types/types';
 
 import { getUserWithMoneyBalance, replenish, withdraw } from './actions';
 
 type State = {
   dataStatus: DataStatus;
-  userWithMoneyBalance: UserGetResponseWithMoneyBalanceDto | null;
+  userMoneyBalance: number;
 };
 
 const initialState: State = {
   dataStatus: DataStatus.IDLE,
-  userWithMoneyBalance: null,
+  userMoneyBalance: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,7 +19,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getUserWithMoneyBalance.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.userWithMoneyBalance = action.payload;
+    state.userMoneyBalance = action.payload;
   });
   builder.addCase(getUserWithMoneyBalance.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -34,14 +30,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(replenish.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    const { id, email, createdAt } =
-      state.userWithMoneyBalance as UserGetResponseWithMoneyBalanceDto;
-    state.userWithMoneyBalance = {
-      id,
-      email,
-      createdAt,
-      userDetails: action.payload as UserDetailsWithMoneyBalanceDto,
-    };
+    state.userMoneyBalance = action.payload;
   });
   builder.addCase(replenish.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -52,14 +41,7 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(withdraw.fulfilled, (state, action) => {
     state.dataStatus = DataStatus.FULFILLED;
-    const { id, email, createdAt } =
-      state.userWithMoneyBalance as UserGetResponseWithMoneyBalanceDto;
-    state.userWithMoneyBalance = {
-      id,
-      email,
-      createdAt,
-      userDetails: action.payload as UserDetailsWithMoneyBalanceDto,
-    };
+    state.userMoneyBalance = action.payload;
   });
   builder.addCase(withdraw.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;

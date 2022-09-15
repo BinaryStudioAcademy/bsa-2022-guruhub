@@ -1,7 +1,7 @@
 import {
+  NumericalValueContainer,
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
-  UserDetailsWithMoneyBalanceDto,
 } from '~/common/types/types';
 import { UserDetails as UserDetailsM } from '~/data/models/models';
 
@@ -62,22 +62,18 @@ class UserDetails {
       .execute();
   }
 
-  public async updateMoneyBalance(
+  public updateMoneyBalance(
     userId: number,
     newMoneyBalance: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto> {
-    const details = await this.#UserDetailsModel
+  ): Promise<NumericalValueContainer> {
+    return this.#UserDetailsModel
       .query()
-      .select()
-      .where('userId', userId)
-      .first();
-
-    return (details as UserDetailsM)
-      .$query()
-      .patchAndFetch({
+      .findOne({ userId })
+      .patch({
         moneyBalance: newMoneyBalance,
       })
-      .castTo<UserDetailsWithMoneyBalanceDto>()
+      .returning(['moneyBalance as value'])
+      .castTo<NumericalValueContainer>()
       .execute();
   }
 

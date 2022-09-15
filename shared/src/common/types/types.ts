@@ -118,13 +118,17 @@ export {
   type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
 export {
+  type TransactionCreateArgumentsDto,
+  type TransactionGetAllItemResponseDto,
+  type TransactionUpdateStatusDto,
+} from './transaction/transaction';
+export {
   type UdemyCourseGetResponseDto,
   type UdemyCoursesGetResponseDto,
   type UdemyModuleGetResponseDto,
   type UdemyModulesGetResponseDto,
 } from './udemy/udemy';
 export {
-  type UserGetResponseWithMoneyBalanceDto,
   type UsersBasicInfoDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
@@ -139,7 +143,6 @@ export {
   type UserDetailsResponseDto,
   type UserDetailsUpdateAvatarRequestParamsDto,
   type UserDetailsUpdateInfoRequestDto,
-  type UserDetailsWithMoneyBalanceDto,
 } from './user-details/user-details';
 export { type UsersToGroupsResponseDto } from './users-to-groups/users-to-groups';
 export { type ValidationSchema } from './validation/validation';

@@ -3,7 +3,6 @@ import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
   PermissionsGetAllItemResponseDto,
-  UserGetResponseWithMoneyBalanceDto,
   UsersBasicInfoDto,
   UsersByEmailResponseDto,
   UsersGetResponseDto,
@@ -146,10 +145,10 @@ class User {
     };
   }
 
-  public getByIdWithMoneyBalance(
-    id: number,
-  ): Promise<UserGetResponseWithMoneyBalanceDto> {
-    return this.#userRepository.getByIdWithMoneyBalance(id);
+  public async getByIdMoneyBalance(id: number): Promise<number> {
+    const balance = await this.#userRepository.getByIdMoneyBalance(id);
+
+    return balance.value;
   }
 
   public async getByIds(ids: number[]): Promise<UsersBasicInfoDto[]> {

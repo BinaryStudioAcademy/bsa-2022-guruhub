@@ -1,5 +1,5 @@
-post:
-  summary: Initialize Withdraw
+get:
+  summary: Get Money Balance
   tags:
     - billing
   responses:

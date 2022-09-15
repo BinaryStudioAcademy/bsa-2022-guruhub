@@ -1,5 +1,8 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
-export { type BillingReplenishParamsDto } from './billing/billing';
+export {
+  type BillingReplenishParamsDto,
+  type BillingWithdrawDto,
+} from './billing/billing';
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
@@ -126,7 +129,6 @@ export {
   type SelectStyles,
 } from './ui/ui';
 export {
-  type UserGetResponseWithMoneyBalanceDto,
   type UsersDeleteRequestParamsDto,
   type UsersGetResponseDto,
   type UserSignInRequestDto,
@@ -139,7 +141,6 @@ export {
   type UserDetailsResponseDto,
   type UserDetailsUpdateAvatarRequestDto,
   type UserDetailsUpdateInfoRequestDto,
-  type UserDetailsWithMoneyBalanceDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';
 export { type VendorGetResponseDto } from './vendor/vendor';

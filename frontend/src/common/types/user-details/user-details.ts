@@ -2,5 +2,4 @@ export { type UserDetailsUpdateAvatarRequestDto } from './user-details-update-av
 export {
   type UserDetailsResponseDto,
   type UserDetailsUpdateInfoRequestDto,
-  type UserDetailsWithMoneyBalanceDto,
 } from 'guruhub-shared/common/types/types';

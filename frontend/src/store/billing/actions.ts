@@ -3,25 +3,26 @@ import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   BillingReplenishParamsDto,
-  UserDetailsWithMoneyBalanceDto,
-  UserGetResponseWithMoneyBalanceDto,
+  BillingWithdrawDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
+const MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW = 1;
+
 const getUserWithMoneyBalance = createAsyncThunk<
-  UserGetResponseWithMoneyBalanceDto,
+  number,
   void,
   AsyncThunkConfig
 >(ActionType.GET_USER_WITH_MONEY_BALANCE, async (_, { extra }) => {
   const { billingApi } = extra;
-  const userWithMoneyBalance = await billingApi.getUserWithMoneyBalance();
+  const userWithMoneyBalance = await billingApi.getUserMoneyBalance();
 
   return userWithMoneyBalance;
 });
 
 const replenish = createAsyncThunk<
-  UserDetailsWithMoneyBalanceDto,
+  number,
   BillingReplenishParamsDto,
   AsyncThunkConfig
 >(
@@ -39,18 +40,22 @@ const replenish = createAsyncThunk<
   },
 );
 
-const withdraw = createAsyncThunk<
-  UserDetailsWithMoneyBalanceDto,
-  void,
-  AsyncThunkConfig
->(ActionType.WITHDRAW, async (_, { extra }) => {
-  const { billingApi, notification } = extra;
+const withdraw = createAsyncThunk<number, BillingWithdrawDto, AsyncThunkConfig>(
+  ActionType.WITHDRAW,
+  async ({ usersCurrentBalance }, { extra }) => {
+    const { billingApi, notification } = extra;
 
-  const userDetailsWithMoneyBalance = await billingApi.withdraw();
+    if (usersCurrentBalance >= MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW) {
+      const newUsersMoneyBalance = await billingApi.withdraw();
+      notification.success(NotificationMessage.SUCCESSFUL_WITHDRAW_START);
 
-  notification.success(NotificationMessage.SUCCESSFUL_WITHDRAW_START);
+      return newUsersMoneyBalance;
+    }
 
-  return userDetailsWithMoneyBalance;
-});
+    notification.info(NotificationMessage.NOT_ENOUGH_FUNDS_TO_WITHDRAW);
+
+    return usersCurrentBalance;
+  },
+);
 
 export { getUserWithMoneyBalance, replenish, withdraw };

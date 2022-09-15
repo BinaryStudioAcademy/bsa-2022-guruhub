@@ -1,4 +1,4 @@
-import { Card } from './billing-card.type';
+import { Card } from './card.type';
 
 type BillingReplenishToken = {
   id: string;

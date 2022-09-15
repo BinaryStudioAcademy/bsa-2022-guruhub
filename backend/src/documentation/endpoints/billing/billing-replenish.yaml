@@ -13,4 +13,5 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../schemas/billing/billing-operation-response-dto.yaml'
+            type: number
+            example: 100

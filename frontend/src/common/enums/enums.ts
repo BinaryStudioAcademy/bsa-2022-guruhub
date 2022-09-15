@@ -13,6 +13,7 @@ export {
   UsersApiPath,
 } from './api/api';
 export { AppRoute, DataStatus, ENV, StorageKey } from './app/app';
+export { PaymentUnit } from './billing/billing';
 export { ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { HttpHeader, HttpMethod } from './http/http';
@@ -28,7 +29,6 @@ export {
 export { PermissionKey } from './permissions/permissions';
 export { SearchValue } from './search/search';
 export { StringCase } from './string/string';
-export { PaymentUnit } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
 export { UserAge, UserGender } from './user/user';

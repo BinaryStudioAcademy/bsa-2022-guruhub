@@ -23,9 +23,9 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: BillingApiPath.BALANCE,
     async handler(req, rep) {
       const { id } = req.user;
-      const userWithBalance = await userService.getByIdWithMoneyBalance(id);
+      const userBalance = await userService.getByIdMoneyBalance(id);
 
-      return rep.status(HttpCode.OK).send(userWithBalance);
+      return rep.status(HttpCode.OK).send(userBalance);
     },
   });
 
@@ -40,13 +40,13 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { id } = req.user;
       const { amountOfMoneyToReplenish, token } = req.body;
 
-      const userDetailWithMoneyBalanceDto = await billingService.replenish({
+      const userMoneyBalance = await billingService.replenish({
         userId: id,
         amountOfMoneyToReplenish,
         token,
       });
 
-      return rep.status(HttpCode.OK).send(userDetailWithMoneyBalanceDto);
+      return rep.status(HttpCode.OK).send(userMoneyBalance);
     },
   });
 
@@ -56,9 +56,9 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     async handler(req, rep) {
       const { id } = req.user;
 
-      const userDetailsWithMoneyBalance = await billingService.withdraw(id);
+      const userMoneyBalance = await billingService.withdraw(id);
 
-      return rep.status(HttpCode.OK).send(userDetailsWithMoneyBalance);
+      return rep.status(HttpCode.OK).send(userMoneyBalance);
     },
   });
 };

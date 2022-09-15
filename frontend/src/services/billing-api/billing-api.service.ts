@@ -1,10 +1,6 @@
 import { BillingApiPath } from 'common/enums/api/api';
 import { ApiPath, ContentType, HttpMethod } from 'common/enums/enums';
-import {
-  BillingReplenishParamsDto,
-  UserDetailsWithMoneyBalanceDto,
-  UserGetResponseWithMoneyBalanceDto,
-} from 'common/types/types';
+import { BillingReplenishParamsDto } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -22,7 +18,7 @@ class BillingApi {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getUserWithMoneyBalance(): Promise<UserGetResponseWithMoneyBalanceDto> {
+  public getUserMoneyBalance(): Promise<number> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.BALANCE}`,
       {
@@ -34,7 +30,7 @@ class BillingApi {
   public replenish({
     amountOfMoneyToReplenish,
     token,
-  }: BillingReplenishParamsDto): Promise<UserDetailsWithMoneyBalanceDto> {
+  }: BillingReplenishParamsDto): Promise<number> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.REPLENISH}`,
       {
@@ -45,7 +41,7 @@ class BillingApi {
     );
   }
 
-  public withdraw(): Promise<UserDetailsWithMoneyBalanceDto> {
+  public withdraw(): Promise<number> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.WITHDRAW}`,
       {

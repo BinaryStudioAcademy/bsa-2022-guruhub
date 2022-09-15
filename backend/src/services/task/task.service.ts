@@ -117,13 +117,13 @@ class Task {
           menteesToMentorDto.mentor.id,
         );
 
-      const mentorToPay = await this.#userService.getByIdWithMoneyBalance(
+      const mentorToPayBalance = await this.#userService.getByIdMoneyBalance(
         menteesToMentorDto.mentor.id,
       );
 
       await this.#userDetailsService.updateMoneyBalance(
         menteesToMentorDto.mentor.id,
-        mentorToPay.userDetails.moneyBalance + transactionToProcess.amount,
+        mentorToPayBalance + transactionToProcess.amount,
       );
 
       await this.#billingService.fulfillTransaction(transactionToProcess.id);

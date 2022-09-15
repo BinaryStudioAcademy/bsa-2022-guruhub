@@ -29,7 +29,6 @@ import { Billing } from './billing/billing.service';
 import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
-import { CourseCategoryPrice } from './course-category-price/course-category-price.service';
 import { CourseModule } from './course-module/course-module.service';
 import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.service';
 import { Edx } from './edx/edx.service';
@@ -42,7 +41,6 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
-import { Stripe } from './stripe/stripe.service';
 import { Task } from './task/task.service';
 import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
@@ -142,9 +140,8 @@ const edx = new Edx({
   clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
-const courseCategory = new CourseCategory({ courseCategoryRepository });
-
-const courseCategoryPrice = new CourseCategoryPrice({
+const courseCategory = new CourseCategory({
+  courseCategoryRepository,
   courseCategoryPriceRepository,
 });
 
@@ -167,13 +164,9 @@ const taskNote = new TaskNote({ taskNoteRepository });
 
 const transaction = new Transaction({ transactionRepository });
 
-const stripe = new Stripe({
+const billing = new Billing({
   secretKey: ENV.STRIPE.SECRET_KEY,
   apiVersion: ENV.STRIPE.API_VERSION,
-});
-
-const billing = new Billing({
-  stripeService: stripe,
   transactionService: transaction,
   userService: user,
   userDetailsService: userDetails,
@@ -193,11 +186,9 @@ const mentor = new Mentor({
   courseService: course,
   coursesToMentorsService: coursesToMentors,
   courseModuleService: courseModule,
-  courseCategoryPriceService: courseCategoryPrice,
+  courseCategoryService: courseCategory,
   taskService: task,
   billingService: billing,
-  userService: user,
-  userDetailsService: userDetails,
 });
 
 const chatMessage = new ChatMessage({
@@ -212,7 +203,6 @@ export {
   chatMessage,
   course,
   courseCategory,
-  courseCategoryPrice,
   courseModule,
   coursesToMentors,
   edx,
@@ -226,7 +216,6 @@ export {
   menteesToMentors,
   mentor,
   permission,
-  stripe,
   task,
   taskNote,
   token,

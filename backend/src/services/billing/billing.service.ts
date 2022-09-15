@@ -1,40 +1,55 @@
-import { PaymentCurrency, TransactionStatus } from '~/common/enums/enums';
+import StripeApi from 'stripe';
+
 import {
+  ExceptionMessage,
+  PaymentUnit,
+  TransactionStatus,
+} from '~/common/enums/enums';
+import {
+  BillingInitHoldStudentPaymentArgumentsDto,
   BillingReplenishArgumentsDto,
+  StripeReplenishArgumentsDto,
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
-  UserDetailsWithMoneyBalanceDto,
 } from '~/common/types/types';
+import { BillingError } from '~/exceptions/exceptions';
 import {
-  stripe as stripeServ,
   transaction as transactionServ,
   user as userServ,
   userDetails as userDetailsServ,
 } from '~/services/services';
 
+const BILLING_CURRENCY = 'usd';
+const DEFAULT_STUDYING_PRICE_COEFFICIENT = 0.5;
+const NEW_USER_BALANCE_AFTER_WITHDRAW = 0;
+
 type Constructor = {
-  stripeService: typeof stripeServ;
+  secretKey: string;
+  apiVersion: string;
   transactionService: typeof transactionServ;
   userService: typeof userServ;
   userDetailsService: typeof userDetailsServ;
 };
 
 class Billing {
-  #stripeService: typeof stripeServ;
-
   #transactionService: typeof transactionServ;
 
   #userService: typeof userServ;
 
   #userDetailsService: typeof userDetailsServ;
 
+  #stripe: StripeApi;
+
   public constructor({
-    stripeService,
     transactionService,
     userService,
     userDetailsService,
+    secretKey,
+    apiVersion,
   }: Constructor) {
-    this.#stripeService = stripeService;
+    this.#stripe = new StripeApi(secretKey, {
+      apiVersion: apiVersion as '2022-08-01',
+    });
     this.#transactionService = transactionService;
     this.#userService = userService;
     this.#userDetailsService = userDetailsService;
@@ -44,37 +59,59 @@ class Billing {
     userId,
     amountOfMoneyToReplenish,
     token,
-  }: BillingReplenishArgumentsDto): Promise<UserDetailsWithMoneyBalanceDto> {
-    const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
-      userId,
-    );
+  }: BillingReplenishArgumentsDto): Promise<number> {
+    const userBalance = await this.#userService.getByIdMoneyBalance(userId);
 
-    await this.#stripeService.initReplenish({
+    await this.initReplenish({
       amount: amountOfMoneyToReplenish,
       token,
-      currency: PaymentCurrency.USD,
     });
 
-    const newBalance =
-      userWithBalance.userDetails.moneyBalance + amountOfMoneyToReplenish;
+    const newBalance = userBalance + amountOfMoneyToReplenish;
 
     return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
   }
 
-  public async withdraw(
-    userId: number,
-  ): Promise<UserDetailsWithMoneyBalanceDto> {
-    const userWithBalance = await this.#userService.getByIdWithMoneyBalance(
+  public async withdraw(userId: number): Promise<number> {
+    const userBalance = await this.#userService.getByIdMoneyBalance(userId);
+
+    await this.initWithdraw(userBalance);
+
+    return this.#userDetailsService.updateMoneyBalance(
       userId,
+      NEW_USER_BALANCE_AFTER_WITHDRAW,
+    );
+  }
+
+  public async initHoldStudentPayment({
+    menteeId,
+    mentorId,
+    rawPriceOfStudying,
+  }: BillingInitHoldStudentPaymentArgumentsDto): Promise<void> {
+    const menteeBalance = await this.#userService.getByIdMoneyBalance(menteeId);
+
+    const priceOfStudying =
+      rawPriceOfStudying * DEFAULT_STUDYING_PRICE_COEFFICIENT;
+
+    if (menteeBalance < priceOfStudying) {
+      throw new BillingError({
+        message: ExceptionMessage.NOT_ENOUGH_FUNDS_TO_PAY_FOR_MENTORS_SERVICES,
+      });
+    }
+
+    const newMenteeBalance = menteeBalance - priceOfStudying;
+
+    await this.#userDetailsService.updateMoneyBalance(
+      menteeId,
+      newMenteeBalance,
     );
 
-    await this.#stripeService.initWithdraw(
-      userWithBalance.userDetails.moneyBalance,
-    );
-
-    const newBalance = 0;
-
-    return this.#userDetailsService.updateMoneyBalance(userId, newBalance);
+    const transaction = await this.makeTransaction({
+      senderId: menteeId,
+      receiverId: mentorId,
+      amount: priceOfStudying,
+    });
+    await this.holdTransaction(transaction.id);
   }
 
   public getHoldTransactionBySenderAndReceiverId(
@@ -85,6 +122,34 @@ class Billing {
       senderId,
       receiverId,
     );
+  }
+
+  public initReplenish({
+    amount,
+    token,
+  }: StripeReplenishArgumentsDto): Promise<StripeApi.Charge> {
+    try {
+      return this.#stripe.charges.create({
+        source: token.id,
+        amount: amount * PaymentUnit.CENTS_IN_ONE_DOLLAR,
+        currency: BILLING_CURRENCY,
+      });
+    } catch (err) {
+      this.throwError(err);
+    }
+  }
+
+  public initWithdraw(
+    amount: number,
+  ): Promise<StripeApi.Response<StripeApi.Payout>> {
+    try {
+      return this.#stripe.payouts.create({
+        amount: amount * PaymentUnit.CENTS_IN_ONE_DOLLAR,
+        currency: BILLING_CURRENCY,
+      });
+    } catch (err) {
+      this.throwError(err);
+    }
   }
 
   public makeTransaction(
@@ -118,6 +183,16 @@ class Billing {
       transactionId,
       newStatus: TransactionStatus.REJECTED,
     });
+  }
+
+  private throwError(err: unknown): never {
+    if (err instanceof StripeApi.errors.StripeError) {
+      throw new BillingError({
+        message: err.message,
+        status: err.statusCode,
+      });
+    }
+    throw new BillingError();
   }
 }
 
