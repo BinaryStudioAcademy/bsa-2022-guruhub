@@ -81,7 +81,6 @@ const UserProfileForm: FC<Props> = ({
                 placeholder="Enter date of birth"
                 maxDate={maxDate}
                 minDate={minDate}
-                className={styles.datePickerProfile}
               />
             </div>
           </div>

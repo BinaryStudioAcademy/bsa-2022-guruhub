@@ -26,11 +26,6 @@
   column-gap: 20px;
 }
 
-.datePickerProfile {
-  width: 100%;
-  max-width: 250px;
-}
-
 .buttonWrapper {
   display: flex;
   justify-content: flex-end;
@@ -63,8 +58,13 @@
 }
 
 .fieldWrapper {
+  width: 100%;
   max-width: 250px;
   margin-bottom: auto;
+}
+
+.fieldWrapper input {
+  width: 100%;
 }
 
 .formSelect div[class$='-control'] {
