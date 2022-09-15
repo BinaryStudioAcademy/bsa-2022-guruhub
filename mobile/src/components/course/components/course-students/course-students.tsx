@@ -8,7 +8,7 @@ import {
   View,
 } from '~/components/common/common';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
-import { coursesActions } from '~/store/actions';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 import { getMenteesByCourseId } from '~/store/courses/actions';
 
 import { StudentCard } from './components/components';
@@ -29,6 +29,7 @@ const CourseStudents: FC = () => {
 
   const handleMenteeSelect = (menteeId: number): void => {
     dispatch(coursesActions.addCurrentMenteeId(menteeId));
+    dispatch(courseModulesActions.checkIsMentor(courseId as number));
   };
 
   useEffect(() => {

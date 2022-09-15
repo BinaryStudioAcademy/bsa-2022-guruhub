@@ -86,9 +86,11 @@ const checkIsMentor = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 );
 
 const clearModules = createAction(ActionType.CLEAR_MODULES);
+const clearMentor = createAction(ActionType.CLEAR_MENTOR);
 
 export {
   checkIsMentor,
+  clearMentor,
   clearModules,
   createNote,
   getCourseModules,

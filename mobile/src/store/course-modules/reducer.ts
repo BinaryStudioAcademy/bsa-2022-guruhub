@@ -10,6 +10,7 @@ import {
 
 import {
   checkIsMentor,
+  clearMentor,
   clearModules,
   createNote,
   getCourseModules,
@@ -95,6 +96,10 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(clearModules, (state) => {
     state.courseModules = [];
+  });
+
+  builder.addCase(clearMentor, (state) => {
+    state.isMentor = false;
   });
 
   builder.addCase(checkIsMentor.pending, (state) => {

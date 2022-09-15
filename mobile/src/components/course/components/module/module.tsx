@@ -28,6 +28,7 @@ const Module: FC<Props> = ({
   const moduleSequenceNumber = `${index + 1}.`;
 
   const moduleTask = tasks.find((task) => task.moduleId === moduleId);
+  const showStatus = isMentor && moduleTask;
 
   return (
     <View style={styles.container}>
@@ -37,7 +38,7 @@ const Module: FC<Props> = ({
       <View style={styles.textWrapper}>
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>{title}</Text>
-          {isMentor && moduleTask && (
+          {showStatus && (
             <View style={styles.statusWrapper}>
               <Chip
                 text={moduleTask.status}

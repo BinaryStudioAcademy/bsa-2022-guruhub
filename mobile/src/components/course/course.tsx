@@ -54,7 +54,7 @@ const Course: FC = () => {
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
-  const tasksLoading = tasksDataStatus === DataStatus.PENDING;
+  const taskIsLoading = tasksDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE);
@@ -67,8 +67,6 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (course) {
-      dispatch(courseModulesActions.clearModules());
-      dispatch(coursesActions.clearTasks());
       dispatch(coursesActions.checkIsMentor({ id: course.id }));
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
       dispatch(
@@ -111,14 +109,6 @@ const Course: FC = () => {
   useFocusEffect(
     useCallback(() => {
       return () => {
-        dispatch(coursesActions.clearCurrentMenteeId());
-      };
-    }, []),
-  );
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
         dispatch(coursesActions.setBecomeMentorInvisible());
       };
     }, []),
@@ -129,7 +119,7 @@ const Course: FC = () => {
     navigation.navigate(AppScreenName.COURSE_MODULE);
   };
 
-  if (courseIsLoading) {
+  if (taskIsLoading || courseIsLoading) {
     return <Spinner isOverflow />;
   }
 
@@ -150,28 +140,22 @@ const Course: FC = () => {
         )}
         data={courseModules}
         keyExtractor={({ id }): string => id.toString()}
-        renderItem={({ item: module, index }): ReactElement =>
-          tasksLoading ? (
-            <Spinner />
-          ) : (
-            <Pressable
-              onPress={(): void =>
-                handleModulePress(module.courseId, module.id)
-              }
-              disabled={!user}
-              style={Boolean(index) && styles.separator}
-            >
-              <Module
-                index={index}
-                title={module.title}
-                description={module.description}
-                isMentor={isMentor}
-                moduleId={module.id}
-                tasks={tasks}
-              />
-            </Pressable>
-          )
-        }
+        renderItem={({ item: module, index }): ReactElement => (
+          <Pressable
+            onPress={(): void => handleModulePress(module.courseId, module.id)}
+            disabled={!user}
+            style={Boolean(index) && styles.separator}
+          >
+            <Module
+              index={index}
+              title={module.title}
+              description={module.description}
+              isMentor={isMentor}
+              moduleId={module.id}
+              tasks={tasks}
+            />
+          </Pressable>
+        )}
         ListEmptyComponent={(): ReactElement =>
           moduleIsLoading ? (
             <Spinner />
