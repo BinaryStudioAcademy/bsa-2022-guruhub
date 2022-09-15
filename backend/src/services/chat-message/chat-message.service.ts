@@ -149,9 +149,7 @@ class ChatMessage {
   public async readMessages(userId: number, chatId: string): Promise<boolean> {
     await this.#chatMessageRepository.readMessages(userId, chatId);
 
-    const hasUnreadMessages = await this.checkHasUnreadMessages(userId);
-
-    return hasUnreadMessages;
+    return this.checkHasUnreadMessages(userId);
   }
 }
 
