@@ -44,7 +44,6 @@ const StudentsCountCell: FC<Props> = ({ courseId, studentsCount }) => {
           name="studentsCount"
           control={control}
           errors={errors}
-          //   placeholder={studentsCount.toString()}
           keyboardType="numeric"
         />
       </View>
