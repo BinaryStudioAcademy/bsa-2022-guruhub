@@ -12,7 +12,7 @@ const TelegramCell: FC<CellProps<InterviewsTableRow>> = ({ value }) => {
 
   return (
     <a href={generateTelegramLink(value)} className={styles.idLink}>
-      {value}
+      @{value}
     </a>
   );
 };

@@ -62,8 +62,9 @@ const InterviewItem: FC<Props> = ({
     (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
     (user as UserWithPermissions).id;
 
-  const intervieweeTelegram =
-    interview?.interviewee.userDetails.telegramUsername;
+  const hasTelegram = Boolean(
+    interview?.interviewee.userDetails.telegramUsername,
+  );
 
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
@@ -124,15 +125,17 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Telegram</p>
-            {intervieweeTelegram ? (
+            {hasTelegram ? (
               <a
-                href={generateTelegramLink(intervieweeTelegram)}
+                href={generateTelegramLink(
+                  interview?.interviewee.userDetails.telegramUsername as string,
+                )}
                 className={getValidClasses(
                   styles.interviewValue,
                   styles.telegramLink,
                 )}
               >
-                {interview?.interviewee.userDetails.telegramUsername}
+                @{interview?.interviewee.userDetails.telegramUsername}
               </a>
             ) : (
               <p className={styles.interviewValue}>Not set</p>
