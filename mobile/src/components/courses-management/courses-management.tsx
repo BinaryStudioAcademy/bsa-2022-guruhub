@@ -80,7 +80,7 @@ const CoursesManagement: FC = () => {
         <CoursesManagementTable tableData={coursesRows} />
         <View style={styles.paginationContainer}>
           <Pagination
-            totalCount={5}
+            totalCount={totalCoursesNumber}
             pageSize={DEFAULT_PAGE_SIZE}
             currentPage={page}
             onPageChange={handlePageChange}
