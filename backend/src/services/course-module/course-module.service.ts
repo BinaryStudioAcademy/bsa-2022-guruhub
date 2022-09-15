@@ -68,17 +68,6 @@ class CourseModule {
         courseId: dbCourseId,
       });
     }
-    // await Promise.all(
-    //   courseData.map((courseModule) => {
-    //     return this.create({
-    //       ...courseModule,
-    //       description: courseModule.description
-    //         ? sanitizeHTML(courseModule.description)
-    //         : null,
-    //       courseId: dbCourseId,
-    //     });
-    //   }),
-    // );
   }
 
   public getById({
