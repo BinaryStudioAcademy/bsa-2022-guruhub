@@ -1,12 +1,12 @@
 import {
   ClientToServerEvents,
   ServerToClientEvents,
-  SocketServerType,
+  SocketServer,
 } from './socket';
 
-type SocketServer = SocketServerType<
+type SocketServerType = SocketServer<
   ClientToServerEvents,
   ServerToClientEvents
 >;
 
-export { SocketServer };
+export { SocketServerType };

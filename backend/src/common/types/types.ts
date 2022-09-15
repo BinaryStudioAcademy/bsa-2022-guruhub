@@ -110,7 +110,7 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
-export { type Socket, type SocketServer } from './socket/socket';
+export { type Socket, type SocketServerType } from './socket/socket';
 export {
   type TaskByIdRequestParamsDto,
   type TaskCreateRequestDto,

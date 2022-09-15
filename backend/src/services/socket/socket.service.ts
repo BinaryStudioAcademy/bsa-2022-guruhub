@@ -4,7 +4,7 @@ import { Server as SocketServer } from 'socket.io';
 import { SocketEvent } from '~/common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
-  SocketServer as SocketServerType,
+  SocketServerType,
 } from '~/common/types/types';
 import { handlers as socketHandlers } from '~/socket/socket';
 
