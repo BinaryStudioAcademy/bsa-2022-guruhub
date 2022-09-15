@@ -127,9 +127,12 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const { id } = req.params;
       const { id: userId } = req.user;
 
-      const isUpdated = await chatMessageService.readMessages(userId, id);
+      const hasUnreadMessages = await chatMessageService.readMessages(
+        userId,
+        id,
+      );
 
-      rep.status(HttpCode.OK).send(isUpdated);
+      rep.status(HttpCode.OK).send(hasUnreadMessages);
     },
   });
 };
