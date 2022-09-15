@@ -53,6 +53,12 @@ const DatePicker = <T extends FormControlValues>({
       return;
     }
 
+    if (event.type === 'neutralButtonPressed') {
+      onChange(null);
+
+      return;
+    }
+
     onChange(selectedDate);
   };
 
@@ -73,6 +79,7 @@ const DatePicker = <T extends FormControlValues>({
           onChange={handleOnChange}
           maximumDate={maximumDate}
           minimumDate={minimumDate}
+          neutralButtonLabel="clear"
         />
       )}
       {Boolean(error) && <Text style={styles.error}>{error as string}</Text>}
