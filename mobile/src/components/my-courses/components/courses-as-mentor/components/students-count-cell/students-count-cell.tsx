@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
 import { AppColor } from '~/common/enums/enums';
-import { CourseUpdateMentoringDto } from '~/common/types/types';
+// import { CourseUpdateMentoringDto } from '~/common/types/types';
 import { Icon, Input, Pressable, View } from '~/components/common/common';
-import { getNameOf } from '~/helpers/helpers';
-import { useAppDispatch, useAppForm, useEffect } from '~/hooks/hooks';
+import { CourseUpdateMentoringForm } from '~/components/my-courses/common/types/course-update-mentoring-form.type';
+import { useAppDispatch, useAppForm } from '~/hooks/hooks';
 import { myCoursesActions } from '~/store/actions';
 import { courseMentoringUpdateCount } from '~/validation-schemas/validation-schemas';
 
@@ -18,24 +18,25 @@ type Props = {
 const StudentsCountCell: FC<Props> = ({ courseId, studentsCount }) => {
   const dispatch = useAppDispatch();
 
-  const { control, errors, handleSubmit, setValue } =
-    useAppForm<CourseUpdateMentoringDto>({
-      defaultValues: { courseId: courseId, studentsCount: undefined },
+  const { control, errors, handleSubmit } =
+    useAppForm<CourseUpdateMentoringForm>({
+      defaultValues: {
+        courseId: courseId,
+        studentsCount: studentsCount.toString(),
+      },
       validationSchema: courseMentoringUpdateCount,
     });
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
 
-  const handleEditCourse = (course: CourseUpdateMentoringDto): void => {
-    dispatch(myCoursesActions.updateCoursesMentoring(course));
-  };
-
-  useEffect(() => {
-    setValue(
-      getNameOf<CourseUpdateMentoringDto>('studentsCount'),
-      studentsCount.toString(),
+  const handleEditCourse = (course: CourseUpdateMentoringForm): void => {
+    dispatch(
+      myCoursesActions.updateCoursesMentoring({
+        courseId: course.courseId,
+        studentsCount: parseInt(course.studentsCount),
+      }),
     );
-  }, []);
+  };
 
   return (
     <View style={styles.container}>
