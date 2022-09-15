@@ -3,16 +3,12 @@ import { StyleSheet } from 'react-native';
 import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 20,
-  },
-  noCourses: {
-    fontSize: 24,
-    fontFamily: AppFontFamily.INTER_400_ITALIC,
+  titleWrapper: {},
+  title: {
+    fontFamily: AppFontFamily.INTER_600,
+    fontSize: 16,
+    lineHeight: 20,
     color: AppColor.TEXT.GRAY_200,
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    marginTop: 150,
   },
 });
 
