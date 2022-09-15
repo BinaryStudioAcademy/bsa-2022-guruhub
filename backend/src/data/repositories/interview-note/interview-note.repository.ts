@@ -39,7 +39,7 @@ class InterviewNote {
       .query()
       .insert({ note, interviewId, authorId })
       .withGraphFetched(
-        'author(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'author(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .castTo<InterviewNoteGetAllItemResponseDto>()
       .execute();

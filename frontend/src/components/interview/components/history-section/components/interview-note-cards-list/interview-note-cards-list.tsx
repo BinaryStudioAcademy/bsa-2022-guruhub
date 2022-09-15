@@ -22,6 +22,7 @@ const InterviewNoteCardList: FC<Props> = ({ notes }) => {
           note={note}
           authorName={author.userDetails.fullName}
           postDate={createdAt}
+          authorAvatar={author.userDetails.avatar?.url}
         />
       ))}
     </div>

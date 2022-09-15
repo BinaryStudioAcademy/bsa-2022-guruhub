@@ -9,9 +9,15 @@ type Props = {
   note: string;
   authorName: string;
   postDate: string;
+  authorAvatar: string | undefined;
 };
 
-const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
+const InterviewNoteCard: FC<Props> = ({
+  note,
+  authorName,
+  postDate,
+  authorAvatar,
+}) => {
   return (
     <div className={styles.card}>
       <p className={styles.noteContent}>{note}</p>
@@ -20,7 +26,7 @@ const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
           <Image
             width="30px"
             height="30px"
-            src={defaultAvatar}
+            src={authorAvatar ?? defaultAvatar}
             alt="Author avatar"
             isCircular
           />

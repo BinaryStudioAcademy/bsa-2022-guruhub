@@ -237,12 +237,11 @@ class Course {
   }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
     return this.#CourseModel
       .query()
-      .select('mentees.id', 'fullName', 'mentees:userDetails:avatar as avatar')
+      .select('mentees.id', 'fullName', 'mentees:userDetails:avatar')
       .withGraphJoined(
-        '[mentees.[userDetails(withoutMoneyBalance).[avatar]], mentors]',
+        'mentees(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
-      .where('mentors.id', mentorId)
-      .andWhere('courses.id', courseId)
+      .where({ mentorId, courseId })
       .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
       .distinct('mentees.id')
       .castTo<UserDetailsResponseDto[]>()

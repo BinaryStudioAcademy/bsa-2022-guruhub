@@ -3,7 +3,11 @@ import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Spinner } from 'components/common/common';
 import { useAppSelector } from 'hooks/hooks';
 
-import { MessageForm, MessagesList } from './components/components';
+import {
+  ChatOpponent,
+  MessageForm,
+  MessagesList,
+} from './components/components';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -33,7 +37,12 @@ const CurrentChat: FC<Props> = ({ chatId, chatOpponent, currentUserId }) => {
   return (
     <div className={styles.currentChatWrapper}>
       <div className={styles.currentChatHeader}>
-        {chatOpponent && <h4>{chatOpponent.userDetails.fullName}</h4>}
+        {chatOpponent && (
+          <ChatOpponent
+            name={chatOpponent.userDetails.fullName}
+            avatar={chatOpponent.userDetails.avatar?.url}
+          />
+        )}
       </div>
       <div className={styles.currentChatContent}>
         <MessagesList

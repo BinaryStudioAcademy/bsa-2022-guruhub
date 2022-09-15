@@ -71,7 +71,7 @@ class MenteesToMentors {
       .andWhere({ menteeId })
       .andWhereNot({ status: MenteesToMentorsStatus.COMPLETED })
       .withGraphJoined(
-        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .castTo<MenteesToMentorsResponseDto>()
       .first();

@@ -38,6 +38,7 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
               </div>
               <p className={styles.text}>{fullName}</p>
             </div>
+            {JSON.stringify(avatar)}
           </Link>
         ))
       ) : (
