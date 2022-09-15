@@ -63,7 +63,9 @@ const Course: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(coursesActions.updateVisibilityBecomeMentor());
+      if (user) {
+        dispatch(coursesActions.updateVisibilityBecomeMentor(user.id));
+      }
     }, [mentors]),
   );
 
