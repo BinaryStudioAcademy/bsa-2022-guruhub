@@ -10,6 +10,7 @@ import {
 import { Button, Datepicker, Select } from 'components/common/common';
 import {
   changeStringCase,
+  generateTelegramLink,
   getFormattedDate,
   getNameOf,
   getValidClasses,
@@ -60,6 +61,9 @@ const InterviewItem: FC<Props> = ({
   const isInterviewee =
     (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
     (user as UserWithPermissions).id;
+
+  const intervieweeTelegram =
+    interview?.interviewee.userDetails.telegramUsername;
 
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
@@ -117,6 +121,22 @@ const InterviewItem: FC<Props> = ({
             <p className={styles.interviewValue}>
               {interview?.interviewee.userDetails.fullName}
             </p>
+          </div>
+          <div className={styles.interviewRow}>
+            <p className={styles.header}>Telegram</p>
+            {intervieweeTelegram ? (
+              <a
+                href={generateTelegramLink(intervieweeTelegram)}
+                className={getValidClasses(
+                  styles.interviewValue,
+                  styles.telegramLink,
+                )}
+              >
+                {interview?.interviewee.userDetails.telegramUsername}
+              </a>
+            ) : (
+              <p className={styles.interviewValue}>Not set</p>
+            )}
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Email</p>
