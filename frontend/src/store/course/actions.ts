@@ -21,7 +21,7 @@ import {
   MenteesToMentorsResponseDto,
   TasksGetByCourseIdAndMenteeIdRequestDto,
   TaskWithModuleResponseDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
 import { checkHasPermission } from 'helpers/helpers';
@@ -161,7 +161,7 @@ const cleanMentor = createAction(ActionType.CLEAN_MENTOR);
 const cleanMentors = createAction(ActionType.CLEAN_MENTORS);
 
 const getMentorsByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
@@ -172,7 +172,7 @@ const getMentorsByCourseId = createAsyncThunk<
   const mentors = await coursesApi.getMentorsByCourseId(payload);
 
   if (mentor) {
-    const availableMentors = mentors.filter((m: UserDetailsResponseDto) => {
+    const availableMentors = mentors.filter((m: UsersGetResponseDto) => {
       return m.id !== mentor.id;
     });
 
@@ -183,7 +183,7 @@ const getMentorsByCourseId = createAsyncThunk<
 });
 
 const getMenteesByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
 >(

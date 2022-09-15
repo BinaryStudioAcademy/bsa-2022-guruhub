@@ -2,6 +2,7 @@ import { Page } from 'objection';
 
 import { MenteesToMentorsStatus, SortOrder } from '~/common/enums/enums';
 import {
+  CourseAllMentorsDto,
   CourseCreateRequestArgumentsDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
@@ -10,8 +11,9 @@ import {
   CourseGetResponseDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  GetAllMenteesDto,
   UserCountRequestDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { Course as CourseM } from '~/data/models/models';
 
@@ -202,13 +204,13 @@ class Course {
       .execute();
   }
 
-  public getMentorsByCourseId(
+  public async getMentorsByCourseId(
     filteredMentorIds: number[],
     { courseId, filteringOpts }: CourseGetMentorsRequestDto,
-  ): Promise<UserDetailsResponseDto[]> {
+  ): Promise<UsersGetResponseDto[]> {
     const { mentorName } = filteringOpts ?? {};
 
-    return this.#CourseModel
+    const mentors = await this.#CourseModel
       .query()
       .where({ 'courses.id': courseId })
       .andWhere((builder) => {
@@ -217,35 +219,32 @@ class Course {
         }
       })
       .whereIn('mentors.id', filteredMentorIds)
-      .select(
-        'mentors.id',
-        'fullName',
-        'gender',
-        'dateOfBirth',
-        'mentors:userDetails:avatar as avatar',
-      )
+      .select('mentors')
       .withGraphJoined(
         'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
-      .castTo<UserDetailsResponseDto[]>()
-      .execute();
+      .first()
+      .castTo<CourseAllMentorsDto>();
+
+    return mentors?.mentors ?? [];
   }
 
-  public getMenteesByCourseIdAndMentorId({
+  public async getMenteesByCourseIdAndMentorId({
     courseId,
     mentorId,
-  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
-    return this.#CourseModel
+  }: CourseGetMenteesByMentorRequestDto): Promise<UsersGetResponseDto[]> {
+    const mentees = await this.#CourseModel
       .query()
-      .select('mentees.id', 'fullName', 'mentees:userDetails:avatar')
+      .select('mentees')
       .withGraphJoined(
         'mentees(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .where({ mentorId, courseId })
       .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
-      .distinct('mentees.id')
-      .castTo<UserDetailsResponseDto[]>()
-      .execute();
+      .first()
+      .castTo<GetAllMenteesDto>();
+
+    return mentees?.mentees ?? [];
   }
 
   public async updateCategory(

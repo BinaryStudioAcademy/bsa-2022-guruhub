@@ -1,10 +1,10 @@
-import { FC, UserDetailsResponseDto } from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Modal } from 'components/common/common';
 
 import { MentorsList, SearchBar } from './components/components';
 
 type Props = {
-  mentors: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
   isOpen: boolean;
   onModalToggle: () => void;
   onMentorSelectClick: (mentorId: number) => void;
