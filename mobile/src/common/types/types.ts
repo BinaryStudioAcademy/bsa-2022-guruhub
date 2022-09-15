@@ -45,7 +45,6 @@ export {
   type FormControl,
   type FormControlErrors,
   type FormControlPath,
-  type FormControlSetValues,
   type FormControlValues,
 } from './form/form';
 export {
