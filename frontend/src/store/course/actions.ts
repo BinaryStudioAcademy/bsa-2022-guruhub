@@ -133,12 +133,17 @@ const updateIsMentorBecomingEnabled = createAsyncThunk<
       courseId: (course as CourseGetResponseDto).id,
     });
 
+    const hasMentor = await coursesApi.checkHasMentor({
+      courseId: (course as CourseGetResponseDto).id,
+    });
+
     const activeInterviewsCategoryIds =
       await interviewsApi.getActiveInterviewsCategoryIdsByUserId(payload);
 
     const isMentorBecomingEnabled =
       (course as CourseGetResponseDto).courseCategoryId &&
       !isMentor &&
+      !hasMentor &&
       !activeInterviewsCategoryIds.includes(
         (course as CourseGetResponseDto).courseCategoryId,
       );
