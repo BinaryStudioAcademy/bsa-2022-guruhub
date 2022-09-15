@@ -73,10 +73,22 @@ const setHasUnreadMessages = createAction(
   }),
 );
 
+const readMessages = createAsyncThunk<boolean, string, AsyncThunkConfig>(
+  ActionType.READ_MESSAGES,
+  async (chatId, { extra }) => {
+    const { chatsApi } = extra;
+
+    const hasUnreadMessages = await chatsApi.readMessages(chatId);
+
+    return hasUnreadMessages;
+  },
+);
+
 export {
   checkHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
+  readMessages,
   setHasUnreadMessages,
 };

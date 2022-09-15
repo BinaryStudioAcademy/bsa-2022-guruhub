@@ -11,6 +11,7 @@ export {
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
+  type ChatMessageReadParams,
 } from './chat-message/chat-message';
 export {
   type CourseCheckIsMentorForMenteeRequestParamsDto,

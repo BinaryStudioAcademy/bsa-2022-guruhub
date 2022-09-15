@@ -124,6 +124,15 @@ class ChatMessage {
       .castTo<ChatMessageGetAllItemResponseDto[]>()
       .execute();
   }
+
+  public readMessages(userId: number, chatId: string): Promise<number> {
+    return this.#ChatMessageModel
+      .query()
+      .where({ chatId })
+      .andWhere('receiverId', userId)
+      .update({ status: ChatMessageStatus.READ })
+      .execute();
+  }
 }
 
 export { ChatMessage };

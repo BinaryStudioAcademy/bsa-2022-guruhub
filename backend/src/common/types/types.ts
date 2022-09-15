@@ -13,6 +13,7 @@ export {
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
   type ChatMessageGetEmptyChatsRequestDto,
+  type ChatMessageReadParams,
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {

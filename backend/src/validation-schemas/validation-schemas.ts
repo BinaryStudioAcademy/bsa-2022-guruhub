@@ -2,6 +2,7 @@ export {
   chatMessageCreateArguments,
   chatMessageFiltering,
   chatMessageGetAllParams,
+  chatMessageReadParams,
 } from './chat-message/chat-message';
 export {
   courseCheckIsMentorForStudentParams,
