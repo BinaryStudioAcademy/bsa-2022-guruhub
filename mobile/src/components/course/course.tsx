@@ -93,7 +93,8 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (user && course) {
-      dispatch(coursesActions.updateVisibilityBecomeMentor());
+      dispatch(coursesActions.updateVisibilityBecomeMentor(user.id));
+
       dispatch(
         coursesActions.getMenteesMentor({
           courseId: course.id,
