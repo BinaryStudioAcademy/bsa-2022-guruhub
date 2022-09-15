@@ -5,7 +5,7 @@ import {
   AppFontFamily,
   CourseModuleScreenName,
 } from '~/common/enums/enums';
-import { TabCourseModuleNavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import { About, Task } from '~/components/course-module/components/components';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
@@ -28,14 +28,18 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const MODULE_TAB_ITEMS: TabCourseModuleNavigationItem[] = [
+const MODULE_TAB_ITEMS: NavigationItem[] = [
   {
     name: CourseModuleScreenName.ABOUT,
     component: About,
+    permissions: [],
+    isAuthRequired: true,
   },
   {
     name: CourseModuleScreenName.TASK,
     component: Task,
+    permissions: [],
+    isAuthRequired: true,
   },
 ];
 

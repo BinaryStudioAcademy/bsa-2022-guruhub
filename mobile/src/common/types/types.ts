@@ -88,12 +88,10 @@ export {
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type InterviewNavigationParamList,
-  type InterviewTabItem,
   type NavigationItem,
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
-  type TabCourseModuleNavigationItem,
   type TabNavigationItem,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';

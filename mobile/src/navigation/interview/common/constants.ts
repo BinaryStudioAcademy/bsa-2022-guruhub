@@ -5,7 +5,7 @@ import {
   AppFontFamily,
   InterviewScreenName,
 } from '~/common/enums/enums';
-import { InterviewTabItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import {
   Applications,
   Notes,
@@ -30,14 +30,18 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const INTERVIEW_TAB_ITEMS: InterviewTabItem[] = [
+const INTERVIEW_TAB_ITEMS: NavigationItem[] = [
   {
     name: InterviewScreenName.APPLICATIONS,
     component: Applications,
+    permissions: [],
+    isAuthRequired: true,
   },
   {
     name: InterviewScreenName.NOTES,
     component: Notes,
+    permissions: [],
+    isAuthRequired: true,
   },
 ];
 
