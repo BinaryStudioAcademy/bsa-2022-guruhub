@@ -66,8 +66,10 @@ const Interview: FC = () => {
     userPermissions: (user as UserWithPermissions).permissions,
   });
   const isInterviewerOrInterviewee =
-    interview?.interviewee.id === user?.id ||
-    interview?.interviewer?.id === user?.id;
+    (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
+      (user as UserWithPermissions).id ||
+    (interview as InterviewsGetAllItemResponseDto).interviewer?.id ===
+      (user as UserWithPermissions).id;
 
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
