@@ -52,7 +52,7 @@ const Course: FC = () => {
 
     return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
   }, [userPermissions, isMentor, user]);
-  const isTabsShown = allowedScreens.length === COUNT_TABS_FOR_HIDE;
+  const isTabsShown = allowedScreens.length > COUNT_TABS_FOR_HIDE;
 
   const handleLeaveCourseScreen = (): void => {
     dispatch(courseModulesActions.clearMentor());
@@ -102,7 +102,7 @@ const Course: FC = () => {
             name={screen.name as CourseScreenName}
             component={screen.component}
             options={{
-              tabBarStyle: { display: isTabsShown ? 'none' : 'flex' },
+              tabBarStyle: { display: isTabsShown ? 'flex' : 'none' },
             }}
           />
         );

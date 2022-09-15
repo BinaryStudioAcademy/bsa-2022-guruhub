@@ -51,7 +51,7 @@ const CourseModule: FC = () => {
   const screensToRender = MODULE_TAB_ITEMS.filter(
     (screen) => showTask || screen.name !== CourseModuleScreenName.TASK,
   );
-  const isTabsShown = screensToRender.length === COUNT_TABS_FOR_HIDE;
+  const isTabsShown = screensToRender.length > COUNT_TABS_FOR_HIDE;
 
   useEffect(() => {
     navigation.setOptions({
@@ -66,7 +66,7 @@ const CourseModule: FC = () => {
           key={screen.name}
           name={screen.name}
           component={screen.component}
-          options={{ tabBarStyle: { display: isTabsShown ? 'none' : 'flex' } }}
+          options={{ tabBarStyle: { display: isTabsShown ? 'flex' : 'none' } }}
         />
       ))}
     </Tab.Navigator>

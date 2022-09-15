@@ -14,7 +14,7 @@ import { styles } from './styles';
 const Tab = createMaterialTopTabNavigator<InterviewNavigationParamList>();
 
 const Interview: FC = () => {
-  const isTabsShown = INTERVIEW_TAB_ITEMS.length === COUNT_TABS_FOR_HIDE;
+  const isTabsShown = INTERVIEW_TAB_ITEMS.length > COUNT_TABS_FOR_HIDE;
 
   return (
     <View style={styles.container}>
@@ -25,7 +25,7 @@ const Interview: FC = () => {
             name={screen.name}
             component={screen.component}
             options={{
-              tabBarStyle: { display: isTabsShown ? 'none' : 'flex' },
+              tabBarStyle: { display: isTabsShown ? 'flex' : 'none' },
             }}
           />
         ))}
