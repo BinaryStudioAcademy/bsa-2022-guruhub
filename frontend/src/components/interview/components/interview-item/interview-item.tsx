@@ -5,6 +5,7 @@ import {
   InterviewsGetInterviewerResponseDto,
   InterviewsUpdateRequestDto,
   SelectorOption,
+  UserWithPermissions,
 } from 'common/types/types';
 import { Button, Datepicker, Select } from 'components/common/common';
 import {
@@ -27,6 +28,7 @@ type Props = {
   handleUpdateInterview: (payload: InterviewsUpdateRequestDto) => void;
   interviewers: InterviewsGetInterviewerResponseDto[];
   hasPermissionToSelectInterviewer: boolean;
+  user: UserWithPermissions;
 };
 
 const InterviewItem: FC<Props> = ({
@@ -34,6 +36,7 @@ const InterviewItem: FC<Props> = ({
   interviewers,
   handleUpdateInterview,
   hasPermissionToSelectInterviewer,
+  user,
 }) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -54,6 +57,10 @@ const InterviewItem: FC<Props> = ({
     stringToChange: interview.status,
   });
 
+  const isInterviewee =
+    (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
+    (user as UserWithPermissions).id;
+
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
       defaultValues: {
@@ -69,7 +76,7 @@ const InterviewItem: FC<Props> = ({
       <form onSubmit={handleSubmit(handleUpdateInterview)}>
         <div className={styles.headerInterview}>
           <p className={styles.parameters}>Parameters</p>
-          {!isEditMode && (
+          {!isEditMode && !isInterviewee && (
             <div className={styles.buttonWrapper}>
               <Button
                 type="button"
