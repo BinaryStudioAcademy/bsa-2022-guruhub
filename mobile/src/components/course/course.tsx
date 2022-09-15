@@ -28,18 +28,33 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
-  const { user, course, dataStatus, courseModules, modulesDataStatus } =
-    useAppSelector(({ auth, courses, courseModules }) => ({
-      user: auth.user,
-      course: courses.course,
-      mentors: courses.mentors,
-      dataStatus: courses.dataStatus,
-      courseModules: courseModules.courseModules,
-      modulesDataStatus: courseModules.dataStatus,
-    }));
+
+  const {
+    user,
+    course,
+    dataStatus,
+    courseModules,
+    modulesDataStatus,
+    isMentor,
+    tasks,
+    tasksDataStatus,
+    menteeId,
+  } = useAppSelector(({ auth, courses, courseModules }) => ({
+    user: auth.user,
+    course: courses.course,
+    mentors: courses.mentors,
+    dataStatus: courses.dataStatus,
+    courseModules: courseModules.courseModules,
+    modulesDataStatus: courseModules.dataStatus,
+    isMentor: courses.isMentor,
+    tasks: courses.tasks,
+    tasksDataStatus: courses.dataTasksStatus,
+    menteeId: courses.menteeId,
+  }));
 
   const courseIsLoading = dataStatus === DataStatus.PENDING;
   const moduleIsLoading = modulesDataStatus === DataStatus.PENDING;
+  const taskIsLoading = tasksDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
     navigation.navigate(AppScreenName.EDIT_COURSE);
@@ -52,6 +67,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (course) {
+      dispatch(coursesActions.checkIsMentor({ id: course.id }));
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
       dispatch(
         coursesActions.getMentorsByCourseId({
@@ -65,8 +81,20 @@ const Course: FC = () => {
   }, [course]);
 
   useEffect(() => {
+    if (course && menteeId) {
+      dispatch(
+        coursesActions.getTasksByCourseIdAndMenteeId({
+          courseId: course.id,
+          menteeId: menteeId,
+        }),
+      );
+    }
+  }, [course, menteeId]);
+
+  useEffect(() => {
     if (user && course) {
       dispatch(coursesActions.updateVisibilityBecomeMentor(user.id));
+
       dispatch(
         coursesActions.getMenteesMentor({
           courseId: course.id,
@@ -79,7 +107,7 @@ const Course: FC = () => {
   useFocusEffect(
     useCallback(() => {
       return () => {
-        dispatch(courseModulesActions.clearModules());
+        dispatch(coursesActions.setBecomeMentorInvisible());
       };
     }, []),
   );
@@ -89,7 +117,7 @@ const Course: FC = () => {
     navigation.navigate(AppScreenName.COURSE_MODULE);
   };
 
-  if (courseIsLoading) {
+  if (taskIsLoading || courseIsLoading) {
     return <Spinner isOverflow />;
   }
 
@@ -120,6 +148,9 @@ const Course: FC = () => {
               index={index}
               title={module.title}
               description={module.description}
+              isMentor={isMentor}
+              moduleId={module.id}
+              tasks={tasks}
             />
           </Pressable>
         )}

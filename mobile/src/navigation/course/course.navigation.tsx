@@ -14,7 +14,7 @@ import {
   useFocusEffect,
   useMemo,
 } from '~/hooks/hooks';
-import { coursesActions } from '~/store/actions';
+import { courseModulesActions, coursesActions } from '~/store/actions';
 
 import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
@@ -49,9 +49,17 @@ const Course: FC = () => {
     return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
   }, [userPermissions, isMentor, user]);
 
+  const handleLeaveCourseScreen = (): void => {
+    dispatch(courseModulesActions.clearMentor());
+    dispatch(coursesActions.clearTasks());
+    dispatch(courseModulesActions.clearModules());
+    dispatch(coursesActions.clearCurrentMenteeId());
+    navigation.goBack();
+  };
+
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <BackButton onPress={navigation.goBack} />,
+      headerLeft: () => <BackButton onPress={handleLeaveCourseScreen} />,
     });
   }, []);
 
