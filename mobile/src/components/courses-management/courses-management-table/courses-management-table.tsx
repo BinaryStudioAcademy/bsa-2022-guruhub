@@ -16,7 +16,7 @@ const CoursesManagementTable: FC<Props> = ({ tableData }) => {
   return (
     <View style={styles.tableContainer}>
       <Table
-        columnWidthArr={[200, 200, 100]}
+        columnWidthArr={[300, 200, 100]}
         columns={coursesManagementColumns}
         data={tableData}
       />
