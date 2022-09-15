@@ -145,6 +145,7 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(createMentor.fulfilled, (state) => {
     state.isMentorBecomingEnabled = false;
+    state.isMentorChoosingEnabled = false;
   });
 
   builder.addCase(disableMentorBecoming.fulfilled, (state, { payload }) => {
@@ -161,6 +162,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
+    state.isMentorBecomingEnabled = false;
     state.mentor = payload.mentor;
   });
   builder.addCase(chooseMentor.rejected, (state) => {

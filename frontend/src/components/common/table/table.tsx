@@ -2,7 +2,9 @@ import { Pagination } from 'components/common/common';
 import { ReactElement, useMemo } from 'react';
 import {
   Column,
-  useBlockLayout,
+  TableCellProps,
+  TableHeaderProps,
+  useFlexLayout,
   useResizeColumns,
   useTable,
 } from 'react-table';
@@ -43,9 +45,20 @@ const Table = <Data extends Record<string, unknown>>({
       data,
       defaultColumn,
     },
-    useBlockLayout,
+    useFlexLayout,
     useResizeColumns,
   );
+
+  const getStyles = (
+    props: Partial<TableHeaderProps> | Partial<TableCellProps>,
+  ): (Partial<TableHeaderProps> | Partial<TableCellProps>)[] => [
+    props,
+    {
+      style: {
+        display: 'flex',
+      },
+    },
+  ];
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
@@ -66,7 +79,7 @@ const Table = <Data extends Record<string, unknown>>({
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th
-                    {...column.getHeaderProps()}
+                    {...column.getHeaderProps(getStyles)}
                     className={styles.tableHeadRowHeader}
                   >
                     {column.render('Header')}
@@ -88,7 +101,7 @@ const Table = <Data extends Record<string, unknown>>({
                   {row.cells.map((cell) => {
                     return (
                       <td
-                        {...cell.getCellProps()}
+                        {...cell.getCellProps(getStyles)}
                         width={cell.column.width}
                         className={styles.tableBodyRowData}
                       >
