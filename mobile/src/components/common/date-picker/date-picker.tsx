@@ -16,7 +16,7 @@ import { useFormControl, useState } from '~/hooks/hooks';
 import { styles } from './styles';
 
 type Props<T> = {
-  label: string;
+  label?: string;
   name: FormControlPath<T>;
   control: FormControl<T>;
   errors: FormControlErrors<T>;
@@ -57,7 +57,7 @@ const DatePicker = <T extends FormControlValues>({
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      {label && <Text style={styles.label}>{label}</Text>}
       <Pressable style={styles.date} onPress={handleDatePickerOpen}>
         <Text style={styles.dateLabel}>{date}</Text>
       </Pressable>

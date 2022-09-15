@@ -54,6 +54,12 @@ const styles = StyleSheet.create({
   buttonHide: {
     opacity: 0,
   },
+  datePickerWrapper: {
+    minWidth: '100%',
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: AppColor.BACKGROUND.GRAY_400,
+  },
 });
 
 export { styles };
