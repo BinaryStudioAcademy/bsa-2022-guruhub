@@ -3,7 +3,7 @@ import React, { FC, ReactElement } from 'react';
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetRequestParamsDto } from '~/common/types/types';
 import { FlatList, Spinner, Text, View } from '~/components/common/common';
-import { CourseCard } from '~/components/courses/components/components';
+import { CourseCard } from '~/components/course-card/course-card';
 import {
   useAppDispatch,
   useAppNavigate,

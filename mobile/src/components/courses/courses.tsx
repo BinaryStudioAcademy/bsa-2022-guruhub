@@ -12,7 +12,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { CourseCard } from '~/components/courses/components/components';
+import { CourseCard } from '~/components/course-card/course-card';
 import {
   useAppDispatch,
   useAppNavigate,
