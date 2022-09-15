@@ -86,19 +86,19 @@ const updateVisibilityBecomeMentor = createAsyncThunk<
 
     const { coursesApi, interviewsApi } = extra;
 
-    const isMentor =
-      Boolean(course) &&
-      (await coursesApi.checkIsMentor({
-        courseId: course?.id as number,
-      }));
+    const isMentor = await coursesApi.checkIsMentor({
+      courseId: (course as CourseGetResponseDto).id as number,
+    });
 
     const activeInterviewsCategoryIds =
       await interviewsApi.getActiveInterviewsCategoryIdsByUserId(userId);
 
     const isMentorBecomingEnabled =
-      Boolean(course?.courseCategoryId) &&
+      (course as CourseGetResponseDto).courseCategoryId &&
       !isMentor &&
-      !activeInterviewsCategoryIds.includes(course?.courseCategoryId as number);
+      !activeInterviewsCategoryIds.includes(
+        (course as CourseGetResponseDto).courseCategoryId,
+      );
 
     return Boolean(isMentorBecomingEnabled);
   },
