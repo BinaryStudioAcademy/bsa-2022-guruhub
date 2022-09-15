@@ -14,6 +14,7 @@ import {
   useAppNavigate,
   useAppSelector,
   useCallback,
+  useEffect,
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
@@ -42,9 +43,11 @@ const CoursesManagement: FC = () => {
     navigation.navigate(AppScreenName.COURSE);
   };
 
-  navigation.setOptions({
-    title: 'Courses',
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Courses',
+    });
+  }, []);
 
   const coursesRows = courses.map((item: CourseGetResponseDto) => {
     return {
