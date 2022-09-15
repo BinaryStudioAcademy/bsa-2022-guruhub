@@ -27,7 +27,7 @@ import { DEFAULT_CREATE_NOTE_PAYLOAD } from './common';
 import { NoteCardsList } from './components/components';
 import { styles } from './styles';
 
-const History: FC = () => {
+const Notes: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -92,7 +92,7 @@ const History: FC = () => {
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>History</Text>
+        <Text style={styles.title}>Notes</Text>
         {isAddButtonShown && (
           <Button
             label="Add"
@@ -141,4 +141,4 @@ const History: FC = () => {
   );
 };
 
-export { History };
+export { Notes };

@@ -118,30 +118,39 @@ const getActiveInterviewsCategoryIdsByUserId = createAsyncThunk<
 
 const updateIsMentorBecomingEnabled = createAsyncThunk<
   boolean,
-  void,
+  number,
   AsyncThunkConfig
->(ActionType.SET_IS_MENTOR_BECOMING_ENABLED, async (_, { extra, getState }) => {
-  const {
-    course: { course },
-  } = getState();
+>(
+  ActionType.SET_IS_MENTOR_BECOMING_ENABLED,
+  async (payload, { extra, getState }) => {
+    const {
+      course: { course },
+    } = getState();
 
-  const { coursesApi } = extra;
+    const { coursesApi, interviewsApi } = extra;
 
-  const isMentor = await coursesApi.checkIsMentor({
-    courseId: (course as CourseGetResponseDto).id,
-  });
+    const isMentor = await coursesApi.checkIsMentor({
+      courseId: (course as CourseGetResponseDto).id,
+    });
 
-  const hasMentor = await coursesApi.checkHasMentor({
-    courseId: (course as CourseGetResponseDto).id,
-  });
+    const hasMentor = await coursesApi.checkHasMentor({
+      courseId: (course as CourseGetResponseDto).id,
+    });
 
-  const isMentorBecomingEnabled =
-    (course as CourseGetResponseDto).courseCategoryId &&
-    !isMentor &&
-    !hasMentor;
+    const activeInterviewsCategoryIds =
+      await interviewsApi.getActiveInterviewsCategoryIdsByUserId(payload);
 
-  return Boolean(isMentorBecomingEnabled);
-});
+    const isMentorBecomingEnabled =
+      (course as CourseGetResponseDto).courseCategoryId &&
+      !isMentor &&
+      !hasMentor &&
+      !activeInterviewsCategoryIds.includes(
+        (course as CourseGetResponseDto).courseCategoryId,
+      );
+
+    return Boolean(isMentorBecomingEnabled);
+  },
+);
 
 const disableMentorBecoming = createAsyncThunk<boolean, void, AsyncThunkConfig>(
   ActionType.DISABLE_MENTOR_BECOMING,

@@ -7,12 +7,16 @@ import { CategoryImage, Text, View } from '~/components/common/common';
 import { styles } from './styles';
 
 type Props = {
-  category: CategoryGetAllItemResponseDto;
+  category: CategoryGetAllItemResponseDto | null;
 };
 
 const CategoryCell: FC<Props> = ({ category }) => {
   const imageKeys = Object.keys(categoryKeyToImage);
-  const hasImage = imageKeys.includes(category.key);
+  const hasImage = category && imageKeys.includes(category.key);
+
+  if (!category) {
+    return <Text style={styles.unknownCategory}>Unknown</Text>;
+  }
 
   return (
     <View style={styles.categoryCell}>

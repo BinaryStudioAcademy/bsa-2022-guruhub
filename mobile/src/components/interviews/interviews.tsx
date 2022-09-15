@@ -6,6 +6,7 @@ import {
   InterviewsUpdateRequestParamsDto,
 } from '~/common/types/types';
 import {
+  CategoryCell,
   Chip,
   Pagination,
   ScrollView,
@@ -14,10 +15,7 @@ import {
 } from '~/components/common/common';
 import { DEFAULT_PAGE_SIZE } from '~/components/interviews/common/constants/constants';
 import { statusToColor } from '~/components/interviews/common/maps/maps';
-import {
-  CategoryCell,
-  IdCell,
-} from '~/components/interviews/interviews-table/components/components';
+import { IdCell } from '~/components/interviews/interviews-table/components/components';
 import { getFormattedDate } from '~/helpers/helpers';
 import {
   useAppDispatch,

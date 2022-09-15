@@ -10,9 +10,14 @@ import { styles } from './styles';
 type Props = {
   mentor: UserDetailsResponseDto;
   onChoose: (mentorId: number) => void;
+  buttonLabel?: string;
 };
 
-const MentorCard: FC<Props> = ({ mentor, onChoose }) => {
+const MentorCard: FC<Props> = ({
+  mentor,
+  onChoose,
+  buttonLabel = 'Choose',
+}) => {
   const handleChoose = (): void => {
     onChoose(mentor.id);
   };
@@ -32,7 +37,7 @@ const MentorCard: FC<Props> = ({ mentor, onChoose }) => {
         <Text style={styles.fullName}>{mentor.fullName}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button label="Choose" onPress={handleChoose} />
+        <Button label={buttonLabel} onPress={handleChoose} />
       </View>
     </View>
   );

@@ -12,7 +12,7 @@ import {
 } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
-import { ChooseMentor, MyMentorCard } from './components/components';
+import { ChooseMentor, MentorCard } from './components/components';
 import { styles } from './styles';
 
 const MyMentor: FC = () => {
@@ -25,13 +25,22 @@ const MyMentor: FC = () => {
       dataStatus: courses.dataStatus,
       isMentorChoosingEnabled: courses.isMentorChoosingEnabled,
     }));
-  const [isMentorCardShown, setIsMentorCardShown] = useState<boolean>();
+  const [isMentorCardShown, setIsMentorCardShown] = useState<boolean>(false);
 
   const areMentorsLoading = dataStatus === DataStatus.PENDING;
 
   const handleMentorCardShownToggle = (): void => {
-    dispatch(coursesActions.clearMentor());
     setIsMentorCardShown(!isMentorCardShown);
+  };
+
+  const handleChooseMentor = (mentorId: number): void => {
+    if (mentor) {
+      dispatch(coursesActions.changeMentor({ id: mentorId }));
+      handleMentorCardShownToggle();
+
+      return;
+    }
+    dispatch(coursesActions.chooseMentor({ id: mentorId }));
   };
 
   useEffect(() => {
@@ -40,22 +49,26 @@ const MyMentor: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return setIsMentorCardShown(!isMentorChoosingEnabled);
-    }, []),
+      if (course) {
+        dispatch(coursesActions.updateIsMentorChoosingEnabled(course?.id));
+      }
+    }, [course]),
   );
 
   return (
     <View style={styles.container}>
-      {isMentorCardShown ? (
-        <MyMentorCard
-          mentor={mentor}
-          onChangeMentor={handleMentorCardShownToggle}
+      {isMentorCardShown && mentor ? (
+        <MentorCard
+          mentor={mentor.userDetails}
+          onChoose={handleMentorCardShownToggle}
+          buttonLabel="Change mentor"
         />
       ) : (
         <ChooseMentor
           course={course}
           mentors={mentors}
           isLoading={areMentorsLoading}
+          onChangeMentor={handleChooseMentor}
         />
       )}
     </View>
