@@ -69,6 +69,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     permissions: [],
     isAuthRequired: true,
     drawerGroup: 'Menu',
+    screenOptions: {
+      swipeEdgeWidth: 10,
+    },
   },
   {
     name: AppScreenName.INTERVIEWS,
