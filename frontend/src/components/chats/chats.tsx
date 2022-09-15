@@ -4,12 +4,11 @@ import {
   UsersGetResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
-import { Spinner } from 'components/common/common';
+import { Navigate, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useNavigate,
   useUserSearch,
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
@@ -37,12 +36,6 @@ const Chats: FC = () => {
     chatId: chats.currentChatId,
     chatOpponent: chats.chatOpponent,
   }));
-
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate(AppRoute.ROOT);
-  }
 
   const dispatch = useAppDispatch();
 
@@ -82,6 +75,10 @@ const Chats: FC = () => {
     authDataStatus === DataStatus.PENDING
   ) {
     return <Spinner />;
+  }
+
+  if (!user) {
+    return <Navigate to={AppRoute.ROOT} />;
   }
 
   return (
