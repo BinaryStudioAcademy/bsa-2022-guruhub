@@ -1,6 +1,12 @@
 import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
+import {
+  AppColor,
+  AppFontFamily,
+  CourseModuleScreenName,
+} from '~/common/enums/enums';
+import { TabCourseModuleNavigationItem } from '~/common/types/types';
+import { About, Task } from '~/components/course-module/components/components';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
@@ -13,6 +19,7 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarStyle: {
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
+
   tabBarIndicatorStyle: {
     backgroundColor: AppColor.BRAND.BLUE_100,
   },
@@ -21,4 +28,15 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-export { SCREEN_OPTIONS };
+const MODULE_TAB_ITEMS: TabCourseModuleNavigationItem[] = [
+  {
+    name: CourseModuleScreenName.ABOUT,
+    component: About,
+  },
+  {
+    name: CourseModuleScreenName.TASK,
+    component: Task,
+  },
+];
+
+export { MODULE_TAB_ITEMS, SCREEN_OPTIONS };

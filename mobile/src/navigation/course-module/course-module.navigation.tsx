@@ -4,10 +4,9 @@ import React, { FC } from 'react';
 import { AppScreenName, CourseModuleScreenName } from '~/common/enums/enums';
 import { CourseModuleNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
-import { About, Task } from '~/components/course-module/components/components';
 import { useAppNavigate, useAppSelector, useEffect } from '~/hooks/hooks';
 
-import { SCREEN_OPTIONS } from './common/constants';
+import { MODULE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseModuleNavigationParamList>();
 
@@ -17,6 +16,12 @@ const CourseModule: FC = () => {
   const { isMentor } = useAppSelector(({ courses }) => ({
     isMentor: courses.isMentor,
   }));
+
+  const isShowTaskScreen = isMentor && CourseModuleScreenName.TASK;
+  const filteredScreens = MODULE_TAB_ITEMS.filter(
+    (screen) => screen.name !== isShowTaskScreen,
+  );
+  const isShowTabs = filteredScreens.length === 1;
 
   useEffect(() => {
     navigation.setOptions({
@@ -30,10 +35,14 @@ const CourseModule: FC = () => {
 
   return (
     <Tab.Navigator screenOptions={SCREEN_OPTIONS}>
-      <Tab.Screen name={CourseModuleScreenName.ABOUT} component={About} />
-      {!isMentor && (
-        <Tab.Screen name={CourseModuleScreenName.TASK} component={Task} />
-      )}
+      {filteredScreens.map((screen) => (
+        <Tab.Screen
+          key={screen.name}
+          name={screen.name}
+          component={screen.component}
+          options={isShowTabs ? { tabBarStyle: { display: 'none' } } : {}}
+        />
+      ))}
     </Tab.Navigator>
   );
 };

@@ -92,6 +92,7 @@ export {
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
+  type TabCourseModuleNavigationItem,
   type TabNavigationItem,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
