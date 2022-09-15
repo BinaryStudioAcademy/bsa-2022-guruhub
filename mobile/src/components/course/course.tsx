@@ -67,11 +67,6 @@ const Course: FC = () => {
   useEffect(() => {
     if (user && course) {
       dispatch(coursesActions.updateVisibilityBecomeMentor(user.id));
-    }
-  }, [course, user]);
-
-  useEffect(() => {
-    if (user && course) {
       dispatch(
         coursesActions.getMenteesMentor({
           courseId: course.id,
@@ -85,14 +80,6 @@ const Course: FC = () => {
     useCallback(() => {
       return () => {
         dispatch(courseModulesActions.clearModules());
-      };
-    }, []),
-  );
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
-        dispatch(coursesActions.setBecomeMentorInvisible());
       };
     }, []),
   );

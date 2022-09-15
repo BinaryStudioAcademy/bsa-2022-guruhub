@@ -160,7 +160,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (course && user) {
-      dispatch(courseActions.updateIsMentorBecomingEnabled());
+      dispatch(courseActions.updateIsMentorBecomingEnabled(user.id));
       dispatch(courseActions.updateIsMentorChoosingEnabled(Number(courseId)));
     }
 
