@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppRoute, NotificationMessage } from 'common/enums/enums';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   EntityPagination,
@@ -98,22 +98,11 @@ const getOtherByInterviewId = createAsyncThunk<
   },
 );
 
-const handleUserHasNoPermission = createAsyncThunk<
-  void,
-  void,
-  AsyncThunkConfig
->(ActionType.HANDLE_USER_HAS_NO_PERMISSION, (_payload, { extra }) => {
-  const { navigation, notification } = extra;
-  notification.error(NotificationMessage.PERMISSION_DENIED);
-  navigation.push(AppRoute.SIGN_IN);
-});
-
 export {
   createNote,
   getInterview,
   getInterviewersByCategory,
   getNotes,
   getOtherByInterviewId,
-  handleUserHasNoPermission,
   updateInterview,
 };

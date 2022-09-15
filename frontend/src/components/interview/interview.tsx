@@ -1,5 +1,8 @@
 import {
+  AppRoute,
   DataStatus,
+  NotificationMessage,
+  NotificationType,
   PaginationDefaultValue,
   PermissionKey,
 } from 'common/enums/enums';
@@ -19,7 +22,8 @@ import {
   useParams,
   useState,
 } from 'hooks/hooks';
-import { interviewActions } from 'store/actions';
+import { navigation } from 'services/services';
+import { appActions, interviewActions } from 'store/actions';
 
 import {
   HistorySection,
@@ -82,13 +86,18 @@ const Interview: FC = () => {
         }),
       );
     }
+    const hasPermissionToAccessInterviewPage =
+      hasPermissionToSelectInterviewer ||
+      (hasManageInterviewPermissions && isInterviewerOrInterviewee);
 
-    if (
-      hasManageInterviewPermissions &&
-      !hasPermissionToSelectInterviewer &&
-      !isInterviewerOrInterviewee
-    ) {
-      dispatch(interviewActions.handleUserHasNoPermission());
+    if (!hasPermissionToAccessInterviewPage) {
+      navigation.push(AppRoute.SIGN_IN);
+      dispatch(
+        appActions.notify({
+          type: NotificationType.ERROR,
+          message: NotificationMessage.PERMISSION_DENIED,
+        }),
+      );
     }
   }, [hasInterview]);
 
