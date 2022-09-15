@@ -32,6 +32,7 @@ const Course: FC = () => {
     useAppSelector(({ auth, courses, courseModules }) => ({
       user: auth.user,
       course: courses.course,
+      mentors: courses.mentors,
       dataStatus: courses.dataStatus,
       courseModules: courseModules.courseModules,
       modulesDataStatus: courseModules.dataStatus,
@@ -65,6 +66,7 @@ const Course: FC = () => {
 
   useEffect(() => {
     if (user && course) {
+      dispatch(coursesActions.updateVisibilityBecomeMentor(user.id));
       dispatch(
         coursesActions.getMenteesMentor({
           courseId: course.id,
