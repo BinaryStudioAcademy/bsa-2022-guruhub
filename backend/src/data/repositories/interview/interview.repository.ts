@@ -19,6 +19,8 @@ type Constructor = {
 class Interview {
   #InterviewModel: typeof InterviewM;
 
+  private static RECORD_EXISTS_CHECK = 1;
+
   public constructor({ InterviewModel }: Constructor) {
     this.#InterviewModel = InterviewModel;
   }
@@ -99,6 +101,30 @@ class Interview {
       .execute();
   }
 
+  public async checkIsInterviewee(intervieweeUserId: number): Promise<boolean> {
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.RECORD_EXISTS_CHECK)
+      .where({ intervieweeUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
+  public getActiveInterviewsByUserId(
+    intervieweeUserId: number,
+  ): Promise<InterviewM[]> {
+    return this.#InterviewModel
+      .query()
+      .where({ intervieweeUserId })
+      .whereIn('status', [
+        InterviewStatus.IN_PROGRESS,
+        InterviewStatus.NEW,
+        InterviewStatus.PENDING,
+      ])
+      .execute();
+  }
+
   public async getInterviewByIntervieweeUserIdAndCategoryId(
     intervieweeUserId: number,
     categoryId: number,
@@ -140,6 +166,20 @@ class Interview {
       .orWhere('interviewerUserId', userId);
 
     return { items, total: total.length };
+  }
+
+  public async checkIsIntervieweeOnInterview(interview: {
+    interviewId: number;
+    intervieweeUserId: number;
+  }): Promise<boolean> {
+    const { interviewId, intervieweeUserId } = interview;
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.RECORD_EXISTS_CHECK)
+      .where({ id: interviewId, intervieweeUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
   }
 
   public update(interview: {

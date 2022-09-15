@@ -8,11 +8,15 @@ export {
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetEmptyChatDto,
+  type ChatMessageGetEmptyChatsRequestDto,
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {
+  type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
@@ -20,6 +24,7 @@ export {
   type CourseFilteringDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -27,6 +32,7 @@ export {
   type CourseSelectMentorRequestDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
 export {
@@ -93,6 +99,7 @@ export {
 } from './interview-note/interview-note';
 export {
   type GetMentorRequestParamsDto,
+  type MenteesToMentorsChangeStatusRequestDto,
   type MenteesToMentorsRequestDto,
   type MenteesToMentorsResponseDto,
 } from './mentees-to-mentors/mentees-to-mentors';
@@ -105,6 +112,7 @@ export {
 } from './permission/permission';
 export {
   type TaskByIdRequestParamsDto,
+  type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
@@ -127,6 +135,7 @@ export {
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UserCountRequestDto,
   type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
   type UsersDeleteRequestParamsDto,

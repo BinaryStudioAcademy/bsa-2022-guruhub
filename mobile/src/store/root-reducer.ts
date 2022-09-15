@@ -3,6 +3,7 @@ import { reducer as categories } from './categories/reducer';
 import { reducer as chat } from './chat/reducer';
 import { reducer as courseModules } from './course-modules/reducer';
 import { reducer as courses } from './courses/reducer';
+import { reducer as coursesManagement } from './courses-management/reducer';
 import { reducer as interview } from './interview/reducer';
 import { reducer as interviews } from './interviews/reducer';
 import { reducer as uam } from './uam/reducer';
@@ -16,6 +17,7 @@ const rootReducer = {
   uamGroupEdit,
   uamGroupCreation,
   courses,
+  coursesManagement,
   categories,
   courseModules,
   userDetails,

@@ -5,6 +5,7 @@ import {
   InterviewsGetInterviewerResponseDto,
   InterviewsUpdateRequestDto,
   SelectorOption,
+  UserWithPermissions,
 } from 'common/types/types';
 import { Button, Datepicker, Select } from 'components/common/common';
 import {
@@ -27,6 +28,7 @@ type Props = {
   handleUpdateInterview: (payload: InterviewsUpdateRequestDto) => void;
   interviewers: InterviewsGetInterviewerResponseDto[];
   hasPermissionToSelectInterviewer: boolean;
+  user: UserWithPermissions;
 };
 
 const InterviewItem: FC<Props> = ({
@@ -34,6 +36,7 @@ const InterviewItem: FC<Props> = ({
   interviewers,
   handleUpdateInterview,
   hasPermissionToSelectInterviewer,
+  user,
 }) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -54,6 +57,10 @@ const InterviewItem: FC<Props> = ({
     stringToChange: interview.status,
   });
 
+  const isInterviewee =
+    (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
+    (user as UserWithPermissions).id;
+
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
       defaultValues: {
@@ -69,30 +76,38 @@ const InterviewItem: FC<Props> = ({
       <form onSubmit={handleSubmit(handleUpdateInterview)}>
         <div className={styles.headerInterview}>
           <p className={styles.parameters}>Parameters</p>
-          {!isEditMode && (
-            <Button
-              type="button"
-              btnType="outlined"
-              btnColor="blue"
-              label="Edit"
-              onClick={handleToggleEditMode}
-            />
+          {!isEditMode && !isInterviewee && (
+            <div className={styles.buttonWrapper}>
+              <Button
+                type="button"
+                btnColor="blue"
+                label="Edit"
+                onClick={handleToggleEditMode}
+              />
+            </div>
           )}
           {isEditMode && (
             <div className={styles.buttonsWrapper}>
-              <Button
-                type="button"
-                btnType="outlined"
-                btnColor="blue"
-                label="Cancel"
-                onClick={handleToggleEditMode}
-                className={styles.marginRight}
-              />
-              <Button
-                label="Save"
-                btnColor="blue"
-                onClick={handleSubmit(handleUpdateInterview)}
-              />
+              <div
+                className={getValidClasses(
+                  styles.marginRight,
+                  styles.buttonWrapper,
+                )}
+              >
+                <Button
+                  type="button"
+                  btnColor="gray"
+                  label="Cancel"
+                  onClick={handleToggleEditMode}
+                />
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  label="Save"
+                  btnColor="blue"
+                  onClick={handleSubmit(handleUpdateInterview)}
+                />
+              </div>
             </div>
           )}
         </div>

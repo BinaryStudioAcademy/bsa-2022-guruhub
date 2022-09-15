@@ -1,6 +1,7 @@
 export { BackButton } from './back-button/back-button';
 export { Button } from './button/button';
 export { Category } from './category/category';
+export { CategoryCell } from './category-cell/category-cell';
 export { CategoryImage } from './category-image/category-image';
 export { Checkbox } from './checkbox/checkbox';
 export { Chip } from './chip/chip';
@@ -25,6 +26,7 @@ export {
   Image,
   Pressable,
   RefreshControl,
+  SectionList,
   StatusBar,
   View,
 } from 'react-native';

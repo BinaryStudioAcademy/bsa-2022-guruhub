@@ -11,7 +11,10 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseUpdateCategoryRequestArguments,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
+  MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
 } from '~/common/types/types';
 
@@ -30,6 +33,20 @@ class Courses {
   public constructor({ http, apiPrefix }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
+  }
+
+  public getAllWithCategories({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}`, {
+      queryParams: {
+        count,
+        page,
+      },
+    });
   }
 
   public getAll(options: {
@@ -133,6 +150,36 @@ class Courses {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.IS_MENTOR_CHECK
+      }`,
+    );
+  }
+
+  public changeMentor({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.MENTORS
+      }`,
+      {
+        method: HttpMethod.PUT,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({
+          menteeId,
+          mentorId,
+        }),
+      },
+    );
+  }
+
+  public checkHasMentor({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<boolean> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
+        CoursesApiPath.HAS_MENTOR_CHECK
       }`,
     );
   }

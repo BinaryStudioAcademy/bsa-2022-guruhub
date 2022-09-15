@@ -8,6 +8,7 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import {
+  CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseCheckIsMentorRequestParamsDto,
   CourseCreateRequestDto,
   CourseFilteringDto,
@@ -16,6 +17,7 @@ import {
   CourseSelectMentorRequestDto,
   CourseSelectMentorRequestParamsDto,
   CourseUpdateCategoryRequestDto,
+  CourseUpdateMentoringDto,
   EntityPaginationRequestQueryDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
@@ -24,11 +26,13 @@ import {
   mentor as mentorService,
 } from '~/services/services';
 import {
+  courseCheckIsMentorForStudentParams as courseCheckIsMentorForStudentParamsValidationSchema,
   courseCheckIsMentorParams as courseCheckIsMentorParamsValidationSchema,
   courseCreate as courseCreateValidationSchema,
   courseFiltering as courseFilteringValidationSchema,
   courseGetParams as courseGetParamsValidationSchema,
   courseMentorCreate as courseMentorCreateBodyValidationSchema,
+  courseMentoringUpdateCount as courseMentoringUpdateCountValidationSchema,
   courseMentorsFiltering as courseMentorsFilteringValidationSchema,
   courseUpdateByIdParams as courseUpdateParamsValidationSchema,
   courseUpdateCategory as courseUpdateCategoryValidationSchema,
@@ -64,6 +68,54 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.STUDYING,
+    async handler(req, res) {
+      const courses = await courseService.getAllCoursesStudying(req.user.id);
+
+      return res.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.MENTORING,
+    schema: { querystring: paginationValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const courses = await courseService.getAllCoursesMentoring(
+        req.user.id,
+        req.query,
+      );
+
+      return res.status(HttpCode.OK).send(courses);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PATCH,
+    url: CoursesApiPath.MENTORING,
+    schema: {
+      body: courseMentoringUpdateCountValidationSchema,
+    },
+    async handler(
+      req: FastifyRequest<{
+        Body: CourseUpdateMentoringDto;
+      }>,
+      res,
+    ) {
+      const result = await courseService.updateStudentsCount(
+        req.user.id,
+        req.body,
+      );
+
+      return res.status(HttpCode.OK).send(result);
     },
   });
 
@@ -285,6 +337,29 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       });
 
       return rep.status(HttpCode.OK).send(changeMentor);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.$ID_MENTEES_$ID_IS_MENTOR_CHECK,
+    schema: { params: courseCheckIsMentorForStudentParamsValidationSchema },
+    async handler(
+      req: FastifyRequest<{
+        Params: CourseCheckIsMentorForMenteeRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const { courseId, menteeId } = req.params;
+      const { id: mentorId } = req.user;
+
+      const isMentorForMentee = await mentorService.checkIsMentorForMentee({
+        courseId,
+        menteeId,
+        mentorId,
+      });
+
+      rep.status(HttpCode.OK).send(isMentorForMentee);
     },
   });
 };

@@ -153,6 +153,7 @@ erDiagram
       int course_id FK
       int mentor_id FK
       int mentee_id FK
+      enum status
   }
 
   tasks }|--|| mentees_to_mentors : mentees_to_mentors_id
@@ -206,6 +207,7 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
+    int students_count
     int user_id FK
     int course_id FK
   }

@@ -52,6 +52,17 @@ const CourseModule: FC = () => {
   }, [task]);
 
   useEffect(() => {
+    if (isMentorView) {
+      dispatch(
+        courseModuleActions.checkIsMentorForMentee({
+          courseId: Number(courseId),
+          menteeId: Number(studentId),
+        }),
+      );
+    }
+  }, [courseId, studentId, isMentorView]);
+
+  useEffect(() => {
     if (user) {
       const menteeId = isMentorView ? Number(studentId) : user.id;
       dispatch(
@@ -111,13 +122,15 @@ const CourseModule: FC = () => {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.buttonWrapper}>
-          <IconButton
-            label="back"
-            iconName="leftArrow"
-            to={backRoute as AppRoute}
-            iconColor="blue"
-          />
-          <p>{courseModule?.courseTitle}</p>
+          <div>
+            <IconButton
+              label="back"
+              iconName="leftArrow"
+              to={backRoute as AppRoute}
+              iconColor="blue"
+            />
+          </div>
+          <p className={styles.courseTitle}>{courseModule?.courseTitle}</p>
         </div>
         <h1 className={styles.courseName}>{courseModule?.courseTitle}</h1>
         <div className={styles.moduleNameContainer}>

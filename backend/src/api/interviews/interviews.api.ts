@@ -113,6 +113,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       const interview = await interviewService.update({
         id: req.params.id,
         interviewUpdateInfoRequestDto: req.body,
+        user: req.user,
       });
 
       return rep.status(HttpCode.OK).send(interview);
@@ -150,6 +151,25 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
 
       const categoryIds =
         await interviewService.getPassedInterviewsCategoryIdsByUserId(
+          intervieweeUserId,
+        );
+
+      rep.status(HttpCode.OK).send(categoryIds);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: InterviewsApiPath.INTERVIEWEE_USER_$ID_ACTIVE_CATEGORIES,
+    schema: { params: interviewByIntervieweeIdValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Params: InterviewsByIntervieweeIdRequestDto }>,
+      rep,
+    ) {
+      const { intervieweeUserId } = req.params;
+
+      const categoryIds =
+        await interviewService.getActiveInterviewsCategoryIdsByUserId(
           intervieweeUserId,
         );
 

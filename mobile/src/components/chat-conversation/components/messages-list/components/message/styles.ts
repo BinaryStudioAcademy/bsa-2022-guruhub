@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
   },
   message: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
     marginBottom: 15,
+    justifyContent: 'flex-end',
+  },
+  messageOpponent: {
+    justifyContent: 'flex-start',
   },
   opponentMessageText: {
-    flex: 1,
     fontFamily: AppFontFamily.INTER_400,
     fontSize: 14,
     lineHeight: 20,

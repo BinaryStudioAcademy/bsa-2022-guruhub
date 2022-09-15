@@ -6,6 +6,10 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
   },
+  messageList: {
+    minWidth: '100%',
+    flexDirection: 'column-reverse',
+  },
 });
 
 export { styles };

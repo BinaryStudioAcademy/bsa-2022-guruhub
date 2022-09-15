@@ -1,6 +1,6 @@
 import { DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button, Spinner } from 'components/common/common';
+import { Button, CoursesList, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -9,11 +9,7 @@ import {
 } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
-import {
-  AddCourseModal,
-  CategoriesList,
-  CoursesList,
-} from './components/components';
+import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
@@ -43,11 +39,13 @@ const Dashboard: FC = () => {
         <div className={styles.header}>
           <h1 className={styles.headingText}>Courses</h1>
           {hasUser && (
-            <Button
-              label="+ Add new course"
-              btnColor="blue"
-              onClick={handleNewCourseModalToggle}
-            />
+            <div className={styles.buttonWrapper}>
+              <Button
+                label="+ Add new course"
+                btnColor="blue"
+                onClick={handleNewCourseModalToggle}
+              />
+            </div>
           )}
           <AddCourseModal
             isModalOpen={isNewCourseModalOpen}

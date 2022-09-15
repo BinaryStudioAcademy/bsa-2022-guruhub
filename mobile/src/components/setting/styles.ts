@@ -9,10 +9,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 25,
   },
-  profileWrapper: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
   title: {
     color: AppColor.TEXT.GRAY_100,
     fontFamily: AppFontFamily.INTER_600,
@@ -30,6 +26,7 @@ const styles = StyleSheet.create({
     width: 136,
     height: 136,
     marginRight: 20,
+    borderRadius: 68,
   },
   buttons: {
     alignSelf: 'flex-end',
@@ -37,11 +34,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 120,
-  },
-  singOutWrapper: {
-    alignSelf: 'center',
-    width: 215,
-    marginTop: 50,
   },
 });
 

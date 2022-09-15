@@ -1,12 +1,7 @@
-import { ChatMessageCreateRequestBodyDto } from '~/common/types/types';
+import { ChatMessageFormRequestDto } from '~/common/types/types';
 
-const getDefaultMessagePayload = (
-  receiverId: number,
-  chatId: string | null,
-): ChatMessageCreateRequestBodyDto => ({
+const getDefaultMessagePayload = (): ChatMessageFormRequestDto => ({
   message: '',
-  receiverId,
-  chatId,
 });
 
 export { getDefaultMessagePayload };

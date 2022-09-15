@@ -21,19 +21,15 @@ const getUserDetails = createAsyncThunk<
 });
 
 const updateUserDetails = createAsyncThunk<
-  UserDetailsResponseDto,
+  void,
   UserDetailsUpdateInfoRequestDto,
   AsyncThunkConfig
 >(
   ActionType.UPDATE_USER_DETAILS,
   async (updateUserDetailsPayload, { extra }) => {
     const { userDetailsApi, notification } = extra;
-    const userDetails = await userDetailsApi.updateUserDetails(
-      updateUserDetailsPayload,
-    );
+    await userDetailsApi.updateUserDetails(updateUserDetailsPayload);
     notification.success(NotificationMessage.PROFILE_DETAILS_UPDATE);
-
-    return userDetails;
   },
 );
 

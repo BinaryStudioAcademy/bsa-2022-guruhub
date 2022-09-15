@@ -11,9 +11,8 @@ type Props = {
   hasVisuallyHiddenLabel?: boolean;
   btnColor?: 'blue' | 'gray' | 'red';
   type?: 'button' | 'submit';
-  btnType?: 'filled' | 'outlined' | 'upload' | 'icon';
+  btnType?: 'filled' | 'outlined' | 'upload' | 'icon' | 'bottom';
   to?: AppRoute;
-  className?: string;
   onClick?: (evt: React.MouseEvent) => void;
   iconName?: IconName;
   iconColor?: 'blue' | 'gray';
@@ -28,16 +27,14 @@ const Button: FC<Props> = ({
   label,
   to,
   onClick,
-  className,
   iconName,
   iconColor = 'gray',
   onFileSelect,
 }) => {
   const isLink = Boolean(to);
+  const hasIcon = Boolean(iconName);
 
   const getContent = (): ReactElement | string => {
-    const hasIcon = Boolean(iconName);
-
     return (
       <>
         {hasIcon && (
@@ -64,6 +61,7 @@ const Button: FC<Props> = ({
         to={to as AppRoute}
         className={getValidClasses(
           styles.button,
+          hasIcon && styles.iconButton,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],
         )}
@@ -98,7 +96,6 @@ const Button: FC<Props> = ({
     <button
       type={type}
       className={getValidClasses(
-        className,
         styles.button,
         styles[`button-${btnColor}`],
         styles[`button-${btnType}`],

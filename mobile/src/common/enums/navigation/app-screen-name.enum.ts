@@ -10,12 +10,14 @@ enum AppScreenName {
   ADD_COURSE = 'Add new course',
   COURSE = 'Course',
   INTERVIEWS = 'Interviews',
-  EDIT_COURSE_CATEGORY = 'Edit category',
+  EDIT_COURSE = 'Edit course',
   INTERVIEW = 'Interview',
   CHAT = 'Chat',
   CONVERSATION = 'Conversation',
   COURSE_MODULE = 'Module',
+  COURSE_MANAGEMENT = 'Courses management',
   TASK = 'Task',
+  ALL_CHATS = 'All chats',
 }
 
 export { AppScreenName };

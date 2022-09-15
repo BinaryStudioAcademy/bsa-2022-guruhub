@@ -6,7 +6,7 @@ import {
   CourseCategoryGetResponseDto,
 } from '~/common/types/types';
 
-import { clearCategory, getCategories, getCategoryById } from './actions';
+import { clearCategory, getAllWithCourses, getCategoryById } from './actions';
 
 type State = {
   dataStatus: DataStatus;
@@ -21,14 +21,14 @@ const initialState: State = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(getCategories.pending, (state) => {
+  builder.addCase(getAllWithCourses.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
-  builder.addCase(getCategories.fulfilled, (state, { payload }) => {
+  builder.addCase(getAllWithCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.categories = payload.items;
   });
-  builder.addCase(getCategories.rejected, (state) => {
+  builder.addCase(getAllWithCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 

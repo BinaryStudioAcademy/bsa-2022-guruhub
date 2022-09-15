@@ -2,17 +2,20 @@ import React, { FC, ReactElement } from 'react';
 
 import {
   ChatMessageGetAllItemResponseDto,
-  ChatMessageUserResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { FlatList, Text } from '~/components/common/common';
 
-import { Conversation } from './components/conversation/conversation';
+import { Conversation } from './components/components';
 import { styles } from './styles';
 
 type Props = {
   currentUserId: number;
   chatsItems: ChatMessageGetAllItemResponseDto[];
-  onChatMessagesLoad: (chatId: string) => void;
+  onChatMessagesLoad: (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ) => void;
 };
 
 const ConversationsList: FC<Props> = ({
@@ -25,7 +28,7 @@ const ConversationsList: FC<Props> = ({
       data={chatsItems}
       keyExtractor={({ id }): string => id.toString()}
       renderItem={({ item: chat, index }): ReactElement => {
-        const chatOpponent: ChatMessageUserResponseDto =
+        const chatOpponent: UsersGetResponseDto =
           chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
         return (

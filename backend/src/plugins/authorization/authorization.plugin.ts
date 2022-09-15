@@ -44,15 +44,20 @@ const auth: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const [, authToken] = request.headers?.authorization?.split(' ') ?? [];
 
       const { user, token } = opts.services;
-      const { userId } = await token.decode(authToken);
 
-      const authorizedUser = await user.getById(userId);
+      try {
+        const { userId } = await token.decode(authToken);
 
-      if (!authorizedUser) {
-        throw new InvalidCredentialsError(ExceptionMessage.INVALID_TOKEN);
+        const authorizedUser = await user.getById(userId);
+
+        if (!authorizedUser) {
+          throw new InvalidCredentialsError(ExceptionMessage.INVALID_TOKEN);
+        }
+
+        request.user = authorizedUser;
+      } catch {
+        throw new InvalidCredentialsError(ExceptionMessage.UNAUTHORIZED_USER);
       }
-
-      request.user = authorizedUser;
     } catch (err) {
       reply.code(HttpCode.UNAUTHORIZED).send(err);
     }

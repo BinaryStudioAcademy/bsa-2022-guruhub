@@ -46,6 +46,7 @@ const AvatarWrapper: FC = () => {
           height="136"
           src={userDetails?.avatar?.url ?? defaultUserAvatar}
           alt="user avatar"
+          classes={styles.profileImage}
           isCircular
         />
       </div>
@@ -53,12 +54,11 @@ const AvatarWrapper: FC = () => {
         <Button
           type="button"
           btnColor="blue"
-          label="Update File"
+          label="Choose File"
           btnType="upload"
-          className={styles.marginBottom}
           onFileSelect={handleFileSelect}
         />
-        <Button btnColor="blue" label="Save" className={styles.btn} />
+        <Button btnColor="blue" label="Save changes" />
       </div>
     </div>
   );

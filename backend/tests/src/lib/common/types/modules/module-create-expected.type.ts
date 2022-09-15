@@ -5,4 +5,4 @@ type ModuleCreateExpected = Pick<
   'courseId' | 'title' | 'description'
 >;
 
-export { ModuleCreateExpected };
+export { type ModuleCreateExpected };

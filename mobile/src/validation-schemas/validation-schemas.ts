@@ -1,4 +1,4 @@
-export { chatMessageCreateArguments } from './chat/chat';
+export { chatMessageCreate } from './chat/chat';
 export { courseCreate, courseUpdateCategory } from './course/course';
 export {
   groupCreate,

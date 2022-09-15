@@ -12,11 +12,14 @@ export {
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
+  type ChatMessageFormRequestDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
-  type ChatMessageUserResponseDto,
+  type ChatMessageGetEmptyChatDto,
 } from './chat/chat';
 export {
   type CourseModuleGetByIdResponseDto,
@@ -123,6 +126,7 @@ export {
 } from './user/user';
 export {
   type UserDetailsResponseDto,
+  type UserDetailsUpdateAvatarRequestDto,
   type UserDetailsUpdateInfoRequestDto,
 } from './user-details/user-details';
 export { type ValidationSchema } from './validation/validation';

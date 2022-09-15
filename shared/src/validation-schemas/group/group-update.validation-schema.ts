@@ -15,6 +15,8 @@ const groupUpdate = Joi.object({
       'string.empty': GroupValidationMessage.NAME_REQUIRE,
       'string.min': GroupValidationMessage.NAME_MIN_LENGTH,
       'string.max': GroupValidationMessage.NAME_MAX_LENGTH,
+      'string.base': GroupValidationMessage.NAME_STRING,
+      'any.required': GroupValidationMessage.NAME_REQUIRE,
     }),
   [getNameOf<GroupsUpdateRequestDto>('permissionIds')]: Joi.array()
     .items(Joi.number())
@@ -23,10 +25,16 @@ const groupUpdate = Joi.object({
     .messages({
       'array.empty': GroupValidationMessage.PERMISSION_IDS_REQUIRE,
       'array.min': GroupValidationMessage.PERMISSION_IDS_MIN_LENGTH,
+      'array.base': GroupValidationMessage.PREMISSION_IDS_INTEGER,
+      'any.required': GroupValidationMessage.PERMISSION_IDS_REQUIRE,
     }),
   [getNameOf<GroupsUpdateRequestDto>('userIds')]: Joi.array()
     .items(Joi.number())
-    .required(),
+    .required()
+    .messages({
+      'array.base': GroupValidationMessage.USER_IDS_INTEGER,
+      'any.required': GroupValidationMessage.USER_IDS_REQUIRE,
+    }),
 });
 
 export { groupUpdate };

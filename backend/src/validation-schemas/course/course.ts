@@ -1,8 +1,10 @@
 export {
+  courseCheckIsMentorForStudentParams,
   courseCheckIsMentorParams,
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseMentoringUpdateCount,
   courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,

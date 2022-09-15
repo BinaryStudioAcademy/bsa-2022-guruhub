@@ -1,4 +1,6 @@
+import { MenteesToMentorsStatus } from '~/common/enums/enums';
 import {
+  MenteesToMentorsChangeStatusRequestDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
@@ -10,6 +12,8 @@ type Constructor = {
 
 class MenteesToMentors {
   #MenteesToMentorsModel: typeof MenteesToMentorsM;
+
+  private static RECORD_EXISTS_CHECK = 1;
 
   public constructor({ MenteesToMentorsModel }: Constructor) {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
@@ -43,6 +47,7 @@ class MenteesToMentors {
       .query()
       .patch({
         mentorId,
+        status: MenteesToMentorsStatus.IN_PROGRESS,
       })
       .where({
         menteeId,
@@ -55,7 +60,7 @@ class MenteesToMentors {
       .execute();
   }
 
-  public async getByCourseIdAndMenteeId(getMenteesToMentors: {
+  public async getUncompletedByCourseIdAndMenteeId(getMenteesToMentors: {
     courseId: number;
     menteeId: number;
   }): Promise<MenteesToMentorsResponseDto | null> {
@@ -64,6 +69,7 @@ class MenteesToMentors {
       .query()
       .where({ courseId })
       .andWhere({ menteeId })
+      .andWhereNot({ status: MenteesToMentorsStatus.COMPLETED })
       .withGraphJoined(
         'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
       )
@@ -80,9 +86,19 @@ class MenteesToMentors {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(1)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
+  public async checkIsMenteeForAnyCourse(menteeId: number): Promise<boolean> {
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
+      .where({ menteeId })
       .first();
 
     return Boolean(menteeToMentor);
@@ -109,6 +125,33 @@ class MenteesToMentors {
         '[mentee(withoutPassword).[userDetails(withoutMoneyBalance)], mentor(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
       .execute();
+  }
+
+  public changeStatus({
+    id,
+    status,
+  }: MenteesToMentorsChangeStatusRequestDto): Promise<number> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .findById(id)
+      .patch({ status })
+      .execute();
+  }
+
+  public async checkIsMentorForMentee({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<boolean> {
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
+      .where({ courseId })
+      .andWhere({ menteeId })
+      .andWhere({ mentorId })
+      .first();
+
+    return Boolean(menteeToMentor);
   }
 }
 
