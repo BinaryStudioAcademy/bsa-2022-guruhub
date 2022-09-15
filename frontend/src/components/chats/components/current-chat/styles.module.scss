@@ -15,7 +15,7 @@
 .currentChatContent {
   display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 0;
   overflow-y: auto;
   background: var(--background-gray-400);

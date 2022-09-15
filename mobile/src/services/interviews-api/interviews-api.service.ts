@@ -130,6 +130,18 @@ class InterviewsApi {
     );
   }
 
+  public getActiveInterviewsCategoryIdsByUserId(
+    intervieweeUserId: number,
+  ): Promise<number[]> {
+    return this.#http.load<number[]>(
+      `${this.#apiPrefix}${ApiPath.INTERVIEWS}${
+        InterviewsApiPath.INTERVIEWEE
+      }/${intervieweeUserId}${InterviewsApiPath.ACTIVE}${
+        InterviewsApiPath.CATEGORIES
+      }`,
+    );
+  }
+
   public getOtherByInterviewId({
     interviewId,
     count,

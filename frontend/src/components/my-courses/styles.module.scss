@@ -11,3 +11,11 @@
 .header {
   color: var(--typography-text-100-inverse);
 }
+
+.mentorCourses {
+  width: 100%;
+  padding: 10px;
+  background: var(--background-gray-300);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0 0 0 / 20%);
+}

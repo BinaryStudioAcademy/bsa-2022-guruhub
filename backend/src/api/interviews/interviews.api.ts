@@ -113,6 +113,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       const interview = await interviewService.update({
         id: req.params.id,
         interviewUpdateInfoRequestDto: req.body,
+        user: req.user,
       });
 
       return rep.status(HttpCode.OK).send(interview);

@@ -1,4 +1,6 @@
 .table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 15px;
   background: var(--background-gray-300);
@@ -32,6 +34,7 @@
 .tableHeadRowHeader,
 .tableBodyRowData {
   position: relative;
+  margin: auto;
   padding: 20px;
 }
 
@@ -50,12 +53,15 @@
   position: absolute;
   top: 0;
   right: 0;
+  z-index: var(--z-index-level-one);
   display: inline-block;
   width: 20px;
   height: 100%;
+  transform: translateX(50%);
 }
 
 .tableWrapper {
-  display: flex;
+  display: grid;
+  width: 100%;
   overflow-x: scroll;
 }

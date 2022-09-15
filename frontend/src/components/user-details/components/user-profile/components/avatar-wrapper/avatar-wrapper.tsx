@@ -54,11 +54,11 @@ const AvatarWrapper: FC = () => {
         <Button
           type="button"
           btnColor="blue"
-          label="Update File"
+          label="Choose File"
           btnType="upload"
           onFileSelect={handleFileSelect}
         />
-        <Button btnColor="blue" label="Save" />
+        <Button btnColor="blue" label="Save changes" />
       </div>
     </div>
   );

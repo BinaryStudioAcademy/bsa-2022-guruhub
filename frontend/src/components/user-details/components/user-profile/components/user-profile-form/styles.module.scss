@@ -71,6 +71,11 @@
   background: var(--background-gray-200);
 }
 
+.formSelect [class$='-option']::first-letter,
+.formSelect [class$='-singleValue']::first-letter {
+  text-transform: capitalize;
+}
+
 .formSelect label {
   font-weight: 500;
 }
