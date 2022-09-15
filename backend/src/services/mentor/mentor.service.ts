@@ -1,9 +1,11 @@
+import { ExceptionMessage } from '~/common/enums/enums';
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
 } from '~/common/types/types';
+import { MenteesToMentorsError } from '~/exceptions/exceptions';
 import {
   courseModule as courseModuleServ,
   coursesToMentors as coursesToMentorsServ,
@@ -44,6 +46,17 @@ class Mentor {
     menteeId,
     mentorId,
   }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
+    const menteeIsMentor = await this.#coursesToMentorsService.checkIsMentor({
+      courseId,
+      userId: menteeId,
+    });
+
+    if (menteeIsMentor) {
+      throw new MenteesToMentorsError({
+        message: ExceptionMessage.MENTOR_CANT_BE_STUDENT,
+      });
+    }
+
     const menteeToMentor =
       await this.#menteesToMentorsService.createMenteesToMentors({
         courseId,

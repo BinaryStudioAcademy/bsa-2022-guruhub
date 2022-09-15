@@ -1,4 +1,4 @@
-import { ProtectedGroupKey } from '~/common/enums/enums';
+import { ExceptionMessage, ProtectedGroupKey } from '~/common/enums/enums';
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
@@ -10,11 +10,15 @@ import {
   group as groupRep,
 } from '~/data/repositories/repositories';
 import { CoursesToMentorsError } from '~/exceptions/exceptions';
-import { usersToGroups as usersToGroupsServ } from '~/services/services';
+import { 
+  menteesToMentors as menteesToMentorsServ,
+  usersToGroups as usersToGroupsServ, 
+} from '~/services/services';
 
 type Constructor = {
   coursesToMentorsRepository: typeof coursesToMentorsRep;
   usersToGroupsService: typeof usersToGroupsServ;
+  menteesToMentorsService: typeof menteesToMentorsServ;
   groupRepository: typeof groupRep;
 };
 
@@ -25,14 +29,18 @@ class CoursesToMentors {
 
   #groupRepository: typeof groupRep;
 
+  #menteesToMentorsService: typeof menteesToMentorsServ;
+
   public constructor({
     coursesToMentorsRepository,
     usersToGroupsService,
+    menteesToMentorsService,
     groupRepository,
   }: Constructor) {
     this.#coursesToMentorsRepository = coursesToMentorsRepository;
     this.#usersToGroupsService = usersToGroupsService;
     this.#groupRepository = groupRepository;
+    this.#menteesToMentorsService = menteesToMentorsService;
   }
 
   public async createMentorToCourse({
@@ -46,6 +54,17 @@ class CoursesToMentors {
 
     if (isMentor) {
       throw new CoursesToMentorsError();
+    }
+
+    const isMentee = await this.#menteesToMentorsService.checkIsMentee({
+      courseId,
+      menteeId: userId,
+    });
+
+    if (isMentee) {
+      throw new CoursesToMentorsError({
+        message: ExceptionMessage.STUDENT_CANT_BE_MENTOR,
+      });
     }
 
     const mentorsGroup = (await this.#groupRepository.getByKey(

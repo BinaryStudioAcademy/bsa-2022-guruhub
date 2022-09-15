@@ -1,8 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  NotificationMessage,
-  PaginationDefaultValue,
-} from 'common/enums/enums';
+import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
@@ -31,19 +28,15 @@ const getCourses = createAsyncThunk<
 });
 
 const updateCategory = createAsyncThunk<
-  void,
+  CourseGetResponseDto,
   CourseUpdateCategoryRequestArguments,
   AsyncThunkConfig
->(ActionType.UPDATE_CATEGORY, async (payload, { extra, dispatch }) => {
+>(ActionType.UPDATE_CATEGORY, async (payload, { extra }) => {
   const { coursesApi } = extra;
-  await coursesApi.updateCategory(payload);
+  const result = await coursesApi.updateCategory(payload);
   notification.success(NotificationMessage.COURSE_CATEGORY_UPDATED);
-  dispatch(
-    getCourses({
-      page: PaginationDefaultValue.DEFAULT_PAGE,
-      count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
-    }),
-  );
+
+  return result;
 });
 
 const getCategories = createAsyncThunk<
