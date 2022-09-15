@@ -87,7 +87,7 @@ class Udemy {
       );
 
     while (fetchedModulesData.next) {
-      fetchedModulesData.results.map((item) => {
+      fetchedModulesData.results.forEach((item) => {
         if (item._class === this.#MODULE_TYPE) {
           modules.push(item);
         }
@@ -99,7 +99,7 @@ class Udemy {
       );
     }
 
-    fetchedModulesData.results.map((item) => {
+    fetchedModulesData.results.forEach((item) => {
       if (item._class === this.#MODULE_TYPE) {
         modules.push(item);
       }
