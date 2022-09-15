@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
   datePickerWrapper: {
     minWidth: '100%',
     borderRadius: 8,
-    borderWidth: 2,
-    borderColor: AppColor.BACKGROUND.GRAY_400,
+    borderWidth: 1,
+    borderColor: AppColor.TEXT.GRAY_200,
   },
 });
 

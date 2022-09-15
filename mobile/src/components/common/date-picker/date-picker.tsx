@@ -62,7 +62,7 @@ const DatePicker = <T extends FormControlValues>({
 
   return (
     <View>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {Boolean(label) && <Text style={styles.label}>{label as string}</Text>}
       <Pressable style={styles.date} onPress={handleDatePickerOpen}>
         <Text style={styles.dateLabel}>{date}</Text>
       </Pressable>
