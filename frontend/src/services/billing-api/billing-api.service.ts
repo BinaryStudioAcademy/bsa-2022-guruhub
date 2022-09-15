@@ -36,7 +36,10 @@ class BillingApi {
       {
         method: HttpMethod.PATCH,
         contentType: ContentType.JSON,
-        payload: JSON.stringify({ amountOfMoneyToReplenish, token }),
+        payload: JSON.stringify({
+          amountOfMoneyToReplenish,
+          token: { id: token.id },
+        }),
       },
     );
   }
