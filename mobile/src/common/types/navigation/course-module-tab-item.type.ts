@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CourseModuleScreenName } from '~/common/enums/enums';
 
 type TabCourseModuleNavigationItem = {

@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { FC } from 'react';
 
+import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
 import { CourseScreenName } from '~/common/enums/enums';
 import { CourseNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
@@ -16,11 +17,7 @@ import {
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import {
-  COUNT_TABS_FOR_HIDE,
-  COURSE_TAB_ITEMS,
-  SCREEN_OPTIONS,
-} from './common/constants/constants';
+import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseNavigationParamList>();
 
@@ -52,7 +49,7 @@ const Course: FC = () => {
 
     return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
   }, [userPermissions, isMentor, user]);
-  const isTabsShown = allowedScreens.length > COUNT_TABS_FOR_HIDE;
+  const isTabsShown = allowedScreens.length > MIN_SCREENS_COUNT_FOR_TABS;
 
   const handleLeaveCourseScreen = (): void => {
     dispatch(courseModulesActions.clearMentor());

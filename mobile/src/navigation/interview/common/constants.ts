@@ -11,7 +11,6 @@ import {
   Notes,
 } from '~/components/interview/components/components';
 
-const COUNT_TABS_FOR_HIDE = 1;
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
     fontFamily: AppFontFamily.INTER_600,
@@ -42,4 +41,4 @@ const INTERVIEW_TAB_ITEMS: InterviewTabItem[] = [
   },
 ];
 
-export { COUNT_TABS_FOR_HIDE, INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS };
+export { INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS };

@@ -12,7 +12,6 @@ import {
 } from '~/components/course/components/components';
 import { Course } from '~/components/course/course';
 
-const COUNT_TABS_FOR_HIDE = 1;
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
     fontFamily: AppFontFamily.INTER_600,
@@ -53,4 +52,4 @@ const COURSE_TAB_ITEMS: NavigationItem[] = [
   },
 ];
 
-export { COUNT_TABS_FOR_HIDE, COURSE_TAB_ITEMS, SCREEN_OPTIONS };
+export { COURSE_TAB_ITEMS, SCREEN_OPTIONS };

@@ -1,20 +1,17 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { FC } from 'react';
 
+import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
 import { InterviewNavigationParamList } from '~/common/types/types';
 import { View } from '~/components/common/common';
 
-import {
-  COUNT_TABS_FOR_HIDE,
-  INTERVIEW_TAB_ITEMS,
-  SCREEN_OPTIONS,
-} from './common/constants';
+import { INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
 import { styles } from './styles';
 
 const Tab = createMaterialTopTabNavigator<InterviewNavigationParamList>();
 
 const Interview: FC = () => {
-  const isTabsShown = INTERVIEW_TAB_ITEMS.length > COUNT_TABS_FOR_HIDE;
+  const isTabsShown = INTERVIEW_TAB_ITEMS.length > MIN_SCREENS_COUNT_FOR_TABS;
 
   return (
     <View style={styles.container}>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { InterviewScreenName } from '~/common/enums/enums';
 
 type InterviewTabItem = {

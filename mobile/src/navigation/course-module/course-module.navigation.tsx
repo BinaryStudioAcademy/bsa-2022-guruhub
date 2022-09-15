@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { FC } from 'react';
 
+import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
 import { AppScreenName, CourseModuleScreenName } from '~/common/enums/enums';
 import { CourseModuleNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
@@ -12,11 +13,7 @@ import {
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import {
-  COUNT_TABS_FOR_HIDE,
-  MODULE_TAB_ITEMS,
-  SCREEN_OPTIONS,
-} from './common/constants';
+import { MODULE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseModuleNavigationParamList>();
 
@@ -51,7 +48,7 @@ const CourseModule: FC = () => {
   const screensToRender = MODULE_TAB_ITEMS.filter(
     (screen) => showTask || screen.name !== CourseModuleScreenName.TASK,
   );
-  const isTabsShown = screensToRender.length > COUNT_TABS_FOR_HIDE;
+  const isTabsShown = screensToRender.length > MIN_SCREENS_COUNT_FOR_TABS;
 
   useEffect(() => {
     navigation.setOptions({
