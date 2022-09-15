@@ -4,14 +4,16 @@ import { Server as SocketServer } from 'socket.io';
 import { SocketEvent } from '~/common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
+  Socket as SocketType,
   SocketServerType,
 } from '~/common/types/types';
-import { handlers as socketHandlers } from '~/socket/socket';
-
-const MAX_PEOPLE_IN_CHAT = 2;
 
 class Socket {
   #io: SocketServerType | null = null;
+
+  private static MAX_PEOPLE_IN_CHAT = 2;
+
+  private static NO_USERS_IN_CHAT = 0;
 
   public initializeIo(server: HttpServer): void {
     this.#io = new SocketServer(server, {
@@ -20,7 +22,10 @@ class Socket {
         credentials: true,
       },
     });
-    (this.#io as SocketServerType).on(SocketEvent.CONNECTION, socketHandlers);
+    (this.#io as SocketServerType).on(
+      SocketEvent.CONNECTION,
+      this.socketHandlers,
+    );
   }
 
   public sendMessage(newMessage: ChatMessageGetAllItemResponseDto): void {
@@ -34,7 +39,7 @@ class Socket {
   public checkAreBothInChat(chatId: string): boolean {
     const numberOfUsersInChat = this.getNumberOfUsersInRoom(chatId);
 
-    return numberOfUsersInChat === MAX_PEOPLE_IN_CHAT;
+    return numberOfUsersInChat === Socket.MAX_PEOPLE_IN_CHAT;
   }
 
   public getNumberOfUsersInRoom(chatId: string): number {
@@ -42,7 +47,17 @@ class Socket {
       this.#io as SocketServerType
     ).sockets.adapter.rooms.get(chatId)?.size;
 
-    return numberOfUsersInRoom ?? 0;
+    return numberOfUsersInRoom ?? Socket.NO_USERS_IN_CHAT;
+  }
+
+  private socketHandlers(socket: SocketType): void {
+    socket.on(SocketEvent.JOIN_ROOM, (roomId: string) => {
+      socket.join(roomId);
+    });
+
+    socket.on(SocketEvent.LEAVE_ROOM, (roomId: string) => {
+      socket.leave(roomId);
+    });
   }
 }
 

@@ -84,7 +84,7 @@ const getNewMessage = createAction(
 const listenToNewMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.LISTEN_TO_MESSAGES,
   (_, { extra, dispatch }) => {
-    const { socket } = extra;
+    const { chatsApi } = extra;
 
     const listenerCallback = (
       message: ChatMessageGetAllItemResponseDto,
@@ -92,15 +92,15 @@ const listenToNewMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
       dispatch(getNewMessage(message));
     };
 
-    socket.listenToNewMessages(listenerCallback);
+    chatsApi.listenToNewMessages(listenerCallback);
   },
 );
 
 const removeMessageListener = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.REMOVE_LISTENER,
   (_, { extra }) => {
-    const { socket } = extra;
-    socket.removeMessageListener();
+    const { chatsApi } = extra;
+    chatsApi.removeMessageListener();
   },
 );
 

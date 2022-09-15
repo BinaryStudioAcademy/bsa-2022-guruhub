@@ -51,9 +51,12 @@ const permissionsApi = new PermissionsApi({
   http,
 });
 
+const socket = new Socket();
+
 const chatsApi = new ChatsApi({
   apiPrefix: ENV.API_PATH,
   http,
+  socketService: socket,
 });
 
 const coursesApi = new CoursesApi({
@@ -80,8 +83,6 @@ const interviewsApi = new InterviewsApi({ apiPrefix: ENV.API_PATH, http });
 const mentorsApi = new MentorsApi({ apiPrefix: ENV.API_PATH, http });
 
 const tasksApi = new TasksApi({ apiPrefix: ENV.API_PATH, http });
-
-const socket = new Socket();
 
 export {
   authApi,

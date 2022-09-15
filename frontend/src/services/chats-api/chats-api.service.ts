@@ -3,6 +3,7 @@ import {
   ChatsApiPath,
   ContentType,
   HttpMethod,
+  SocketEvent,
 } from 'common/enums/enums';
 import {
   ChatMessageCreateRequestBodyDto,
@@ -10,12 +11,19 @@ import {
   ChatMessageGetAllItemResponseDto,
   ChatMessageGetAllLastWithEmptyChatsDto,
   ChatMessageGetAllResponseDto,
+  SocketClient,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
+import { Socket } from 'services/socket/socket.service';
+
+type NewMessagesListener = (
+  chatMessage: ChatMessageGetAllItemResponseDto,
+) => void;
 
 type Constructor = {
   http: Http;
   apiPrefix: string;
+  socketService: Socket;
 };
 
 class ChatsApi {
@@ -23,9 +31,12 @@ class ChatsApi {
 
   #apiPrefix: string;
 
-  public constructor({ http, apiPrefix }: Constructor) {
+  #socket: SocketClient;
+
+  public constructor({ http, apiPrefix, socketService }: Constructor) {
     this.#http = http;
     this.#apiPrefix = apiPrefix;
+    this.#socket = socketService.socket;
   }
 
   public getAllChatsLastMessages(opts: {
@@ -70,6 +81,14 @@ class ChatsApi {
         method: HttpMethod.GET,
       },
     );
+  }
+
+  public listenToNewMessages(cb: NewMessagesListener): void {
+    this.#socket.on(SocketEvent.MESSAGE, cb);
+  }
+
+  public removeMessageListener(): void {
+    this.#socket.off(SocketEvent.MESSAGE);
   }
 }
 

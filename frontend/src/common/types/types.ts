@@ -104,6 +104,7 @@ export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export {
   type ClientToServerEvents,
   type ServerToClientEvents,
+  type SocketClient,
 } from './socket/socket';
 export {
   type TaskByIdRequestParamsDto,
