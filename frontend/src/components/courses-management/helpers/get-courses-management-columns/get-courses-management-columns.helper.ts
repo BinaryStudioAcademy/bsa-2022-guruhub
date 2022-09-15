@@ -24,7 +24,7 @@ const getCoursesManagementColumns = (
         title: course.title,
       }),
       Cell: TitleCell,
-      width: 400,
+      width: 500,
       maxWidth: 700,
       minWidth: 200,
     },
@@ -32,6 +32,7 @@ const getCoursesManagementColumns = (
       Header: 'Category',
       accessor: CoursesManagementTableAccessor.CATEGORY,
       Cell: CategoryCell,
+      width: 250,
       minWidth: 110,
     },
     {
@@ -43,7 +44,7 @@ const getCoursesManagementColumns = (
         course,
       }),
       Cell: ActionsCell,
-      width: 80,
+      width: 120,
       minWidth: 80,
     },
   ];

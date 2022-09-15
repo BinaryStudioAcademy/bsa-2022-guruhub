@@ -30,7 +30,7 @@ const Message: FC<Props> = ({
           source={{ uri: messageOpponentAvatar }}
         />
       )}
-      <View style={styles.textWrapper}>
+      <View>
         <Text
           style={
             isUserMessageSender

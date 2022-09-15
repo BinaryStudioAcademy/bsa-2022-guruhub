@@ -168,6 +168,20 @@ class Interview {
     return { items, total: total.length };
   }
 
+  public async checkIsIntervieweeOnInterview(interview: {
+    interviewId: number;
+    intervieweeUserId: number;
+  }): Promise<boolean> {
+    const { interviewId, intervieweeUserId } = interview;
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.RECORD_EXISTS_CHECK)
+      .where({ id: interviewId, intervieweeUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
   public update(interview: {
     id: number;
     interviewerUserId: number | null;

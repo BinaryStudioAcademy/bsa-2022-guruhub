@@ -1,19 +1,23 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import { useAppDispatch, useAppSelector, useState } from 'hooks/hooks';
+import { useAppDispatch, useEffect, useState } from 'hooks/hooks';
 import React from 'react';
 import { userDetailsActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
-const AvatarWrapper: FC = () => {
-  const { user, avatarUrl } = useAppSelector((state) => ({
-    user: state.auth.user,
-    avatarUrl: state.userDetails.avatarUrl,
-  }));
+type Props = {
+  user: UserWithPermissions | null;
+  avatarUrl: string | null;
+};
+
+const AvatarWrapper: FC<Props> = ({ user, avatarUrl }) => {
   const dispatch = useAppDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const defaultAvatar = avatarUrl ?? defaultUserAvatar;
+  const newAvatar = selectedFile ? URL.createObjectURL(selectedFile) : null;
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const [file = null] = e.target.files ?? [];
@@ -33,17 +37,21 @@ const AvatarWrapper: FC = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (newAvatar) {
+        URL.revokeObjectURL(newAvatar);
+      }
+    };
+  }, [newAvatar]);
+
   return (
     <div className={styles.flex}>
       <div className={styles.imageWrapper}>
         <Image
           width="136"
           height="136"
-          src={
-            selectedFile
-              ? URL.createObjectURL(selectedFile)
-              : avatarUrl ?? defaultUserAvatar
-          }
+          src={selectedFile ? (newAvatar as string) : defaultAvatar}
           alt="user avatar"
           classes={styles.profileImage}
           isCircular
@@ -53,11 +61,15 @@ const AvatarWrapper: FC = () => {
         <Button
           type="button"
           btnColor="blue"
-          label="Update File"
+          label="Choose File"
           btnType="upload"
           onFileSelect={handleFileSelect}
         />
-        <Button btnColor="blue" label="Save" onClick={handleAvatarUpdate} />
+        <Button
+          btnColor="blue"
+          label="Save changes"
+          onClick={handleAvatarUpdate}
+        />
       </div>
     </div>
   );
