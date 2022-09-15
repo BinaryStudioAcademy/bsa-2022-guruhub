@@ -28,13 +28,13 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
+
   const {
     user,
     course,
     dataStatus,
     courseModules,
     modulesDataStatus,
-    mentors,
     isMentor,
     tasks,
     tasksDataStatus,
@@ -92,11 +92,8 @@ const Course: FC = () => {
   }, [course, menteeId]);
 
   useEffect(() => {
-    dispatch(coursesActions.updateVisibilityBecomeMentor());
-  }, [mentors]);
-
-  useEffect(() => {
     if (user && course) {
+      dispatch(coursesActions.updateVisibilityBecomeMentor());
       dispatch(
         coursesActions.getMenteesMentor({
           courseId: course.id,

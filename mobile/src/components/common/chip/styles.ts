@@ -4,6 +4,7 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   cell: {
+    minWidth: 110,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 16,
