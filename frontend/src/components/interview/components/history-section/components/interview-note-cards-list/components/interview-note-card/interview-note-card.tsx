@@ -1,4 +1,3 @@
-import defaultAvatar from 'assets/img/avatar-default.svg';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
@@ -9,9 +8,15 @@ type Props = {
   note: string;
   authorName: string;
   postDate: string;
+  authorAvatar: string;
 };
 
-const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
+const InterviewNoteCard: FC<Props> = ({
+  note,
+  authorName,
+  postDate,
+  authorAvatar,
+}) => {
   return (
     <div className={styles.card}>
       <p className={styles.noteContent}>{note}</p>
@@ -20,7 +25,7 @@ const InterviewNoteCard: FC<Props> = ({ note, authorName, postDate }) => {
           <Image
             width="30px"
             height="30px"
-            src={defaultAvatar}
+            src={authorAvatar}
             alt="Author avatar"
             isCircular
           />

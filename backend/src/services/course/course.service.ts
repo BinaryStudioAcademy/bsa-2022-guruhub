@@ -10,7 +10,7 @@ import {
   CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
@@ -237,7 +237,7 @@ class Course {
   public async getMentorsByCourseId({
     courseId,
     filteringOpts,
-  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+  }: CourseGetMentorsRequestDto): Promise<UsersGetResponseDto[]> {
     const mentorsWithMenteesCount =
       await this.#courseRepository.getMentorsWithMenteesCount(courseId);
 
@@ -271,7 +271,7 @@ class Course {
   public getMenteesByCourseIdAndMentorId({
     mentorId,
     courseId,
-  }: CourseGetMenteesByMentorRequestDto): Promise<UserDetailsResponseDto[]> {
+  }: CourseGetMenteesByMentorRequestDto): Promise<UsersGetResponseDto[]> {
     return this.#courseRepository.getMenteesByCourseIdAndMentorId({
       courseId,
       mentorId,

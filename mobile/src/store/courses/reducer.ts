@@ -143,9 +143,10 @@ const reducer = createReducer(initialState, (builder) => {
     state.mentors = [];
   });
 
-  builder.addCase(chooseMentor.fulfilled, (state) => {
+  builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
+    state.mentor = payload ? payload.mentor : null;
   });
 
   builder.addCase(updateIsMentorChoosingEnabled.pending, (state) => {

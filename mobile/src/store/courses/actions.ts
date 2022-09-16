@@ -69,9 +69,20 @@ const getMentorsByCourseId = createAsyncThunk<
   UserDetailsResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async (payload, { extra }) => {
+>(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
+  const {
+    courses: { mentor },
+  } = getState();
   const { coursesApi } = extra;
   const mentors = await coursesApi.getMentorsByCourseId(payload);
+
+  if (mentor) {
+    const availableMentors = mentors.filter(({ id }) => {
+      return id !== mentor.id;
+    });
+
+    return availableMentors;
+  }
 
   return mentors;
 });
@@ -89,19 +100,21 @@ const updateVisibilityBecomeMentor = createAsyncThunk<
 
     const { coursesApi, interviewsApi } = extra;
 
+    if (!course) {
+      return false;
+    }
+
     const isMentor = await coursesApi.checkIsMentor({
-      courseId: (course as CourseGetResponseDto).id as number,
+      courseId: course.id,
     });
 
     const activeInterviewsCategoryIds =
       await interviewsApi.getActiveInterviewsCategoryIdsByUserId(userId);
 
     const isMentorBecomingEnabled =
-      (course as CourseGetResponseDto).courseCategoryId &&
+      course.courseCategoryId &&
       !isMentor &&
-      !activeInterviewsCategoryIds.includes(
-        (course as CourseGetResponseDto).courseCategoryId,
-      );
+      !activeInterviewsCategoryIds.includes(course.courseCategoryId);
 
     return Boolean(isMentorBecomingEnabled);
   },
@@ -163,7 +176,8 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         intervieweeUserId: user.id,
         categoryId: course.courseCategoryId,
       };
-      dispatch(interviewsActions.createInterview(payload));
+      await dispatch(interviewsActions.createInterview(payload)).unwrap();
+      dispatch(setBecomeMentorInvisible());
     }
   },
 );
@@ -186,7 +200,7 @@ const updateCategory = createAsyncThunk<
 });
 
 const chooseMentor = createAsyncThunk<
-  void,
+  MenteesToMentorsResponseDto,
   CourseSelectMentorRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.CHOOSE_A_MENTOR, async ({ id }, { extra, getState }) => {
@@ -194,15 +208,17 @@ const chooseMentor = createAsyncThunk<
     courses: { course },
     auth: { user },
   } = getState();
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
 
-  await coursesApi.chooseMentor({
+  const menteeToMentor = await coursesApi.chooseMentor({
     courseId: (course as CourseGetResponseDto).id,
     menteeId: (user as UserWithPermissions).id,
     mentorId: id,
   });
 
-  return;
+  notification.success(NotificationMessage.MENTOR_CHOOSE);
+
+  return menteeToMentor;
 });
 
 const updateIsMentorChoosingEnabled = createAsyncThunk<

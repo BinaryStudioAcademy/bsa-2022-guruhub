@@ -1,4 +1,4 @@
-export { generateDynamicPath } from './app/app';
+export { generateDynamicPath, generateTelegramLink } from './app/app';
 export {
   checkIsCurrentYear,
   checkIsToday,

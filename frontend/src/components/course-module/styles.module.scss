@@ -20,6 +20,7 @@
 
 .moduleNameContainer {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   padding: 30px 40px;
   background-color: var(--background-gray-300);
@@ -54,4 +55,8 @@
   font-weight: 600;
   font-size: 18px;
   text-align: center;
+}
+
+.taskContainer {
+  margin-bottom: 20px;
 }

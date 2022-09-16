@@ -6,7 +6,7 @@ import {
   CourseGetResponseDto,
 } from '~/common/types/courses/courses';
 import { Image, Pressable, Text, View } from '~/components/common/common';
-import { VendorLabel } from '~/components/courses/components/course-card/components/components';
+import { VendorLabel } from '~/components/course-card/components/components';
 import { getImageUri } from '~/helpers/helpers';
 
 import { styles } from './styles';

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingBottom: 10,
     paddingHorizontal: 15,
-    backgroundColor: AppColor.BACKGROUND.GRAY_100,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 6,
   },
   tableTitle: {
