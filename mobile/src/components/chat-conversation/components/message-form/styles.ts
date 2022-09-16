@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     alignSelf: 'center',
   },
+  disabledButton: {
+    opacity: 0.5,
+  },
 });
 
 export { styles };
