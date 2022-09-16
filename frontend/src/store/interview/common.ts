@@ -6,6 +6,7 @@ enum ActionType {
   CREATE_NOTE = 'interview/create-note',
   GET_OTHER_INTERVIEWS = 'interview/get-other-interviews',
   HANDLE_USER_HAS_NO_PERMISSION = 'interview/handle-user-has-no-permission',
+  CLEAN_INTERVIEW = 'interview/clean-interview',
 }
 
 export { ActionType };
