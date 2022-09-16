@@ -27,10 +27,6 @@ const Search: FC<Props> = ({ onSearch }) => {
   const [borderColor, setBorderColor] = useState('transparent');
 
   const { control, reset, watch } = useAppForm<SearchPayload>({
-    defaultValues: DEFAULT_SEARCH_PAYLOAD,
-  });
-
-  const { watch: formWatch } = useAppForm({
     mode: 'onChange',
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
@@ -47,7 +43,7 @@ const Search: FC<Props> = ({ onSearch }) => {
     debounceHandleSearch();
 
     return () => debounceHandleSearch.clear();
-  }, [formWatch('search')]);
+  }, [watch('search')]);
 
   useFocusEffect(
     useCallback(() => {
