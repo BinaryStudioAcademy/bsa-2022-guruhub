@@ -6,22 +6,26 @@ import {
   CourseCreateRequestDto,
   CourseFilteringDto,
   CourseGetResponseDto,
+  EntityPagination,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
-  CourseGetResponseDto[],
+  EntityPagination<CourseGetResponseDto>,
   CourseFilteringDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
-  const { coursesApi } = extra;
-  const courses = await coursesApi.getAllWithCategories({
-    filtering: { title, categoryKey },
-  });
+>(
+  ActionType.GET_COURSES,
+  async ({ title, categoryKey, page, count }, { extra }) => {
+    const { coursesApi } = extra;
+    const courses = await coursesApi.getAllWithCategories({
+      filtering: { title, categoryKey, page, count },
+    });
 
-  return courses;
-});
+    return courses;
+  },
+);
 
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,

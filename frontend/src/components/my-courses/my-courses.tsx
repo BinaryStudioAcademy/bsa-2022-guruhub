@@ -19,8 +19,18 @@ import {
 import styles from './styles.module.scss';
 
 const MyCourses: FC = () => {
-  const { page, handlePageChange } = usePagination({
-    queryName: 'myCoursesPage',
+  const {
+    page: pageMentorCourses,
+    handlePageChange: handlePageChangeMentorCourses,
+  } = usePagination({
+    queryName: 'myMentoringCourses',
+  });
+
+  const {
+    page: pageStudentCourses,
+    handlePageChange: handlePageChangeStudentCourses,
+  } = usePagination({
+    queryName: 'myStudyingCourses',
   });
 
   const dispatch = useAppDispatch();
@@ -28,26 +38,42 @@ const MyCourses: FC = () => {
     coursesStudying,
     coursesMentoring,
     totalCoursesMentoring,
+    totalCoursesStudying,
     dataStatus,
   } = useAppSelector((state) => ({
     coursesStudying: state.myCourses.coursesStudying,
     coursesMentoring: state.myCourses.coursesMentoring,
     dataStatus: state.myCourses.dataStatus,
     totalCoursesMentoring: state.myCourses.totalCoursesMentoring,
+    totalCoursesStudying: state.myCourses.totalCoursesStudying,
   }));
 
   useEffect(() => {
-    dispatch(myCoursesActions.getCoursesStudying());
+    dispatch(
+      myCoursesActions.getCoursesStudying({
+        page: pageStudentCourses,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(
       myCoursesActions.getCoursesMentoring({
-        page,
+        page: pageMentorCourses,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [page]);
+  }, [pageMentorCourses]);
+
+  useEffect(() => {
+    dispatch(
+      myCoursesActions.getCoursesStudying({
+        page: pageStudentCourses,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [pageStudentCourses]);
 
   const handleEdit = (course: CourseUpdateMentoringDto): void => {
     dispatch(myCoursesActions.updateCoursesMentoring(course));
@@ -68,14 +94,20 @@ const MyCourses: FC = () => {
   return (
     <div className={styles.myCourses}>
       <h1 className={styles.header}>My courses (as student)</h1>
-      <CoursesList courses={coursesStudying} />
+      <CoursesList
+        courses={coursesStudying}
+        currentPage={pageStudentCourses}
+        onPageChange={handlePageChangeStudentCourses}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        totalCount={totalCoursesStudying}
+      />
       <h1 className={styles.header}>My courses (as mentor)</h1>
       <div className={styles.mentorCourses}>
         <Table
           data={data}
           columns={columns}
-          currentPage={page}
-          onPageChange={handlePageChange}
+          currentPage={pageMentorCourses}
+          onPageChange={handlePageChangeMentorCourses}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
           totalCount={totalCoursesMentoring}
         />

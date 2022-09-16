@@ -1,4 +1,4 @@
-import { SearchValue } from 'common/enums/enums';
+import { PaginationDefaultValue, SearchValue } from 'common/enums/enums';
 import { useAppDispatch, useSearchParams } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
 
@@ -26,7 +26,14 @@ const useCourseSearch = (): UseCourseSearchResult => {
     const category = searchParams.get(SearchValue.CATEGORY) ?? '';
     const title = searchParams.get(SearchValue.TITLE) ?? '';
 
-    dispatch(dashboardActions.getCourses({ title, categoryKey: category }));
+    dispatch(
+      dashboardActions.getCourses({
+        title,
+        categoryKey: category,
+        page: PaginationDefaultValue.DEFAULT_PAGE,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
+      }),
+    );
   };
 
   return { searchParams, handleSearchPerform };

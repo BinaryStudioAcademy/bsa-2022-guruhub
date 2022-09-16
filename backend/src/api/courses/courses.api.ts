@@ -11,7 +11,7 @@ import {
   CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseCheckIsMentorRequestParamsDto,
   CourseCreateRequestDto,
-  CourseFilteringPaginationDto,
+  CourseFilteringDto,
   CourseGetRequestParamsDto,
   CourseMentorsFilteringDto,
   CourseSelectMentorRequestDto,
@@ -57,7 +57,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     },
     async handler(
       req: FastifyRequest<{
-        Querystring: CourseFilteringPaginationDto;
+        Querystring: CourseFilteringDto;
       }>,
       rep,
     ) {

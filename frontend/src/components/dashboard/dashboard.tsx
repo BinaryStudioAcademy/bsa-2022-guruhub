@@ -1,10 +1,11 @@
-import { DataStatus } from 'common/enums/enums';
+import { DataStatus, PaginationDefaultValue } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, CoursesList, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  usePagination,
   useState,
 } from 'hooks/hooks';
 import { dashboardActions } from 'store/actions';
@@ -14,20 +15,44 @@ import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { user, categories, dataStatus, courses } = useAppSelector((state) => ({
-    user: state.auth.user,
-    categories: state.dashboard.categories,
-    dataStatus: state.dashboard.dataStatus,
-    courses: state.dashboard.courses,
-  }));
+  const { page, handlePageChange } = usePagination({
+    queryName: 'dashboardPage',
+  });
+
+  const { user, categories, dataStatus, courses, totalCoursesCount } =
+    useAppSelector((state) => ({
+      user: state.auth.user,
+      categories: state.dashboard.categories,
+      dataStatus: state.dashboard.dataStatus,
+      courses: state.dashboard.courses,
+      totalCoursesCount: state.dashboard.totalCoursesCount,
+    }));
 
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
   const hasUser = Boolean(user);
 
   useEffect(() => {
-    dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
+    dispatch(
+      dashboardActions.getCourses({
+        title: '',
+        categoryKey: '',
+        page,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
+      }),
+    );
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      dashboardActions.getCourses({
+        title: '',
+        categoryKey: '',
+        page,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
+      }),
+    );
+  }, [page]);
 
   const handleNewCourseModalToggle = (): void => {
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
@@ -57,7 +82,13 @@ const Dashboard: FC = () => {
       {dataStatus === DataStatus.PENDING ? (
         <Spinner />
       ) : (
-        <CoursesList courses={courses} />
+        <CoursesList
+          courses={courses}
+          currentPage={page}
+          onPageChange={handlePageChange}
+          pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_10}
+          totalCount={totalCoursesCount}
+        />
       )}
     </div>
   );
