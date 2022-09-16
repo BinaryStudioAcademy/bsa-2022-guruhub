@@ -1,4 +1,3 @@
-import defaultAvatar from 'assets/img/avatar-default.svg';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
@@ -9,7 +8,7 @@ type Props = {
   note: string;
   authorName: string;
   postDate: string;
-  authorAvatar: string | undefined;
+  authorAvatar: string;
 };
 
 const InterviewNoteCard: FC<Props> = ({
@@ -26,7 +25,7 @@ const InterviewNoteCard: FC<Props> = ({
           <Image
             width="30px"
             height="30px"
-            src={authorAvatar ?? defaultAvatar}
+            src={authorAvatar}
             alt="Author avatar"
             isCircular
           />

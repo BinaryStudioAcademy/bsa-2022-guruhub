@@ -1,4 +1,3 @@
-import defaultAvatar from 'assets/img/avatar-default.svg';
 import { FC } from 'common/types/types';
 import { Image } from 'components/common/common';
 
@@ -6,7 +5,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   name: string;
-  avatar: string | undefined;
+  avatar: string;
 };
 
 const ChatOpponent: FC<Props> = ({ name, avatar }) => {
@@ -15,7 +14,7 @@ const ChatOpponent: FC<Props> = ({ name, avatar }) => {
       <Image
         width="40px"
         height="40px"
-        src={avatar ?? defaultAvatar}
+        src={avatar}
         alt="chat avatar"
         isCircular
         classes={styles.opponentAvatar}

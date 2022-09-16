@@ -1,3 +1,4 @@
+import defaultAvatar from 'assets/img/avatar-default.svg';
 import { DataStatus } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Spinner } from 'components/common/common';
@@ -40,7 +41,7 @@ const CurrentChat: FC<Props> = ({ chatId, chatOpponent, currentUserId }) => {
         {chatOpponent && (
           <ChatOpponent
             name={chatOpponent.userDetails.fullName}
-            avatar={chatOpponent.userDetails.avatar?.url}
+            avatar={chatOpponent.userDetails.avatar?.url ?? defaultAvatar}
           />
         )}
       </div>
