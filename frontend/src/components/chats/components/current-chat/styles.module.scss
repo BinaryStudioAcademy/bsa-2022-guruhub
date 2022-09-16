@@ -5,8 +5,9 @@
 }
 
 .currentChatHeader {
+  display: flex;
   align-items: center;
-  height: 60px;
+  height: 94px;
   padding-left: 51.35px;
   color: var(--typography-text-100-inverse);
   background: var(--background-gray-300);
