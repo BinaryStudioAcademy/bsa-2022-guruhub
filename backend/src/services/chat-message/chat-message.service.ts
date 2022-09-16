@@ -133,13 +133,11 @@ class ChatMessage {
   ): Promise<ChatMessageGetAllItemResponseDto> {
     const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
 
-    const newMessageChatId = chatId ?? createUuid();
-
     return this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
-      chatId: newMessageChatId,
+      chatId: chatId ?? createUuid(),
       status: ChatMessageStatus.UNREAD,
     });
   }

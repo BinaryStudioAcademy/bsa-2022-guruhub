@@ -76,7 +76,7 @@ const setHasUnreadMessages = createAction(
 );
 
 const addMessage = createAction(
-  ActionType.GET_NEW_MESSAGE,
+  ActionType.ADD_MESSAGE,
   (message: ChatMessageGetAllItemResponseDto) => {
     return {
       payload: message,
