@@ -87,20 +87,20 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     url: ChatsApiPath.ROOT,
     schema: { body: chatMessageCreateArgumentsValidationSchema },
     async handler(
-      _req: FastifyRequest<{ Body: ChatMessageCreateRequestBodyDto }>,
+      req: FastifyRequest<{ Body: ChatMessageCreateRequestBodyDto }>,
       rep,
     ) {
-      // const { id: userId } = req.user;
-      // const { message, chatId, receiverId } = req.body;
+      const { id: userId } = req.user;
+      const { message, chatId, receiverId } = req.body;
 
-      // const newChatMessage = await chatMessageService.create({
-      //   senderId: userId,
-      //   receiverId,
-      //   message,
-      //   chatId,
-      // });
+      const newChatMessage = await chatMessageService.create({
+        senderId: userId,
+        receiverId,
+        message,
+        chatId,
+      });
 
-      return rep.status(HttpCode.CREATED).send('newChatMessage');
+      return rep.status(HttpCode.CREATED).send(newChatMessage);
     },
   });
 

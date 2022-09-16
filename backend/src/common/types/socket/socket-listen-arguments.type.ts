@@ -1,10 +1,9 @@
-import { SocketEvent } from '~/common/enums/enums';
-
-import { Socket } from './socket';
+import { SocketEvent, SocketNamespace } from '~/common/enums/enums';
 
 type SocketListenArguments<T> = {
   event: SocketEvent;
-  callback: (socket: Socket, arg: T) => void;
+  callback: (arg: T) => void;
+  namespace: SocketNamespace;
 };
 
 export { type SocketListenArguments };

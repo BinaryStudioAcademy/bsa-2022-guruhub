@@ -1,4 +1,4 @@
-import { ChatMessageStatus, SocketEvent } from '~/common/enums/enums';
+import { ChatMessageStatus } from '~/common/enums/enums';
 import {
   ChatGetAllMessagesRequestDto,
   ChatMessageCreateRequestDto,
@@ -7,7 +7,6 @@ import {
   ChatMessageGetAllLastResponseDto,
   ChatMessageGetEmptyChatDto,
   ChatMessageGetEmptyChatsRequestDto,
-  Socket,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 import {
@@ -16,13 +15,11 @@ import {
   user as userRep,
 } from '~/data/repositories/repositories';
 import { createUuid, sanitizeHTML } from '~/helpers/helpers';
-import { socket as socketServ } from '~/services/services';
 
 type Constructor = {
   chatMessageRepository: typeof chatMessageRep;
   menteesToMentorsRepository: typeof menteesToMentorsRep;
   userRepository: typeof userRep;
-  socketService: typeof socketServ;
 };
 
 class ChatMessage {
@@ -32,23 +29,14 @@ class ChatMessage {
 
   #userRepository: typeof userRep;
 
-  #socketService: typeof socketServ;
-
   public constructor({
     chatMessageRepository,
     menteesToMentorsRepository,
     userRepository,
-    socketService,
   }: Constructor) {
     this.#chatMessageRepository = chatMessageRepository;
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
     this.#userRepository = userRepository;
-    this.#socketService = socketService;
-
-    // this.#socketService.listen<ChatMessageCreateRequestDto>({
-    //   callback: this.create,
-    //   event: SocketEvent.CHAT_CREATE_MESSAGE,
-    // });
   }
 
   public async getAll({
@@ -140,29 +128,20 @@ class ChatMessage {
     return lastMessagesWithMentorsAndMentees;
   }
 
-  public async create(
-    socket: Socket,
+  public create(
     chatMessageCreateDto: ChatMessageCreateRequestDto,
   ): Promise<ChatMessageGetAllItemResponseDto> {
     const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
 
     const newMessageChatId = chatId ?? createUuid();
 
-    const newMessage = await this.#chatMessageRepository.create({
+    return this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
       chatId: newMessageChatId,
       status: ChatMessageStatus.UNREAD,
     });
-
-    this.#socketService.broadcast<ChatMessageGetAllItemResponseDto>(socket, {
-      event: SocketEvent.CHAT_ADD_MESSAGE,
-      args: newMessage,
-      roomId: newMessageChatId,
-    });
-
-    return newMessage;
   }
 
   public checkHasUnreadMessages(userId: number): Promise<boolean> {

@@ -1,5 +1,5 @@
 import { Middleware } from '@reduxjs/toolkit';
-import { ENV, SocketEvent, SocketNamespace } from 'common/enums/enums';
+import { SocketEvent, SocketNamespace } from 'common/enums/enums';
 import {
   AppDispatch,
   ChatMessageGetAllItemResponseDto,
@@ -11,9 +11,7 @@ type SocketMiddlewareParams = {
   dispatch: AppDispatch;
 };
 
-const chatSocketInstance = io(`${ENV.SOCKET_SERVER}${SocketNamespace.CHAT}`, {
-  reconnection: true,
-});
+const chatSocketInstance = io(SocketNamespace.CHAT);
 
 const chatSocket: Middleware =
   ({ dispatch }: SocketMiddlewareParams) =>
@@ -36,7 +34,7 @@ const chatSocket: Middleware =
       chatSocketInstance.off(SocketEvent.CHAT_ADD_MESSAGE);
     }
 
-    if (chatsActions.createMessage.match(action)) {
+    if (chatsActions.createMessage.fulfilled.match(action)) {
       chatSocketInstance.emit(SocketEvent.CHAT_CREATE_MESSAGE, action.payload);
     }
 

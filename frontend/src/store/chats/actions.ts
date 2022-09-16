@@ -40,14 +40,23 @@ const getMessages = createAsyncThunk<
   };
 });
 
-const createMessage = createAction(
-  ActionType.CREATE_MESSAGE,
-  (payload: ChatMessageCreateRequestBodyDto) => {
-    return {
-      payload,
-    };
-  },
-);
+const createMessage = createAsyncThunk<
+  ChatMessageGetAllItemResponseDto,
+  ChatMessageCreateRequestBodyDto,
+  AsyncThunkConfig
+>(ActionType.CREATE_MESSAGE, async (payload, { extra, dispatch }) => {
+  const { chatsApi } = extra;
+  const { message, receiverId, chatId } = payload;
+  const newMessage = await chatsApi.createChatMessage({
+    message,
+    receiverId,
+    chatId,
+  });
+
+  dispatch(addMessage(newMessage));
+
+  return newMessage;
+});
 
 const checkHasUnreadMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.CHECK_HAS_UNREAD_MESSAGES,
@@ -81,7 +90,7 @@ const joinRoom = createAction(ActionType.JOIN_ROOM, (chatId: string) => {
   };
 });
 
-const leaveRoom = createAction(ActionType.JOIN_ROOM, (chatId: string) => {
+const leaveRoom = createAction(ActionType.LEAVE_ROOM, (chatId: string) => {
   return {
     payload: chatId,
   };
