@@ -130,7 +130,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       res,
     ) {
       const {
-        count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        count = PaginationDefaultValue.DEFAULT_COUNT_BY_10,
         page = PaginationDefaultValue.DEFAULT_PAGE,
       } = req.query;
       const courseWithCategories = await courseService.getAll({
