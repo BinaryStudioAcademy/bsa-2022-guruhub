@@ -21,7 +21,7 @@ import {
 
 type Constructor = {
   secretKey: string;
-  apiVersion: string;
+  apiVersion: '2022-08-01';
   transactionService: typeof transactionServ;
   userService: typeof userServ;
   userDetailsService: typeof userDetailsServ;
@@ -50,7 +50,7 @@ class Billing {
     apiVersion,
   }: Constructor) {
     this.#stripe = new StripeApi(secretKey, {
-      apiVersion: apiVersion as '2022-08-01',
+      apiVersion,
     });
     this.#transactionService = transactionService;
     this.#userService = userService;
