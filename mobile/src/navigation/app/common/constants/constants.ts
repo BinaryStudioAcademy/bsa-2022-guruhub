@@ -91,6 +91,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     permissions: [PermissionKey.MANAGE_CATEGORIES],
     isAuthRequired: true,
     drawerGroup: 'Menu',
+    screenOptions: {
+      swipeEdgeWidth: 10,
+    },
   },
   {
     name: AppScreenName.CHAT,
