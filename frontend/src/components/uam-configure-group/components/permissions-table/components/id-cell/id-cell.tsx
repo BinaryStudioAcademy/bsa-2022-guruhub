@@ -3,7 +3,7 @@ import { PermissionsTableRow } from 'components/uam-configure-group/common/types
 import { CellProps } from 'react-table';
 
 const IdCell: FC<CellProps<PermissionsTableRow>> = ({ value }) => {
-  return <span>{`#${value}`}</span>;
+  return <span>#{value}</span>;
 };
 
 export { IdCell };

@@ -3,7 +3,7 @@ import { GroupConfigureUsersTableRow } from 'components/uam-configure-group/comm
 import { CellProps } from 'react-table';
 
 const IdCell: FC<CellProps<GroupConfigureUsersTableRow>> = ({ value }) => {
-  return <span>{`#${value}`}</span>;
+  return <span>#{value}</span>;
 };
 
 export { IdCell };
