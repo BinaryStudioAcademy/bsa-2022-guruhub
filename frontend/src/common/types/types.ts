@@ -102,11 +102,6 @@ export {
 } from './react/react';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
 export {
-  type ClientToServerEvents,
-  type ServerToClientEvents,
-  type SocketClient,
-} from './socket/socket';
-export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
   type TaskGetByMenteeIdCourseIdModuleIdRequestDto,

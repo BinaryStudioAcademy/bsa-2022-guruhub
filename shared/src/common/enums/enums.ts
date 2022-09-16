@@ -36,7 +36,7 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
-export { SocketEvent } from './socket/socket';
+export { SocketEvent, SocketNamespace } from './socket/socket';
 export { SortOrder } from './sort/sort';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';

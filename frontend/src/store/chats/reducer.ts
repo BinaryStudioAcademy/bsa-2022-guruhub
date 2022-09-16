@@ -7,10 +7,10 @@ import {
 } from 'common/types/types';
 
 import {
+  addMessage,
   checkHasUnreadMessages,
   getLastMessages,
   getMessages,
-  getNewMessage,
   setHasUnreadMessages,
 } from './actions';
 
@@ -78,7 +78,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.hasUnreadMessages = payload;
   });
 
-  builder.addCase(getNewMessage, (state, { payload }) => {
+  builder.addCase(addMessage, (state, { payload }) => {
     state.currentChatMessages = [...state.currentChatMessages, payload];
     state.lastMessages = state.lastMessages.map((lastMessage) => {
       if (lastMessage.chatId === payload.chatId) {

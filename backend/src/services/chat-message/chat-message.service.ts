@@ -7,6 +7,7 @@ import {
   ChatMessageGetAllLastResponseDto,
   ChatMessageGetEmptyChatDto,
   ChatMessageGetEmptyChatsRequestDto,
+  Socket,
 } from '~/common/types/types';
 import { ChatMessage as ChatMessageM } from '~/data/models/models';
 import {
@@ -33,8 +34,6 @@ class ChatMessage {
 
   #socketService: typeof socketServ;
 
-  private static MAX_PEOPLE_IN_CHAT = 2;
-
   public constructor({
     chatMessageRepository,
     menteesToMentorsRepository,
@@ -45,6 +44,11 @@ class ChatMessage {
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
     this.#userRepository = userRepository;
     this.#socketService = socketService;
+
+    // this.#socketService.listen<ChatMessageCreateRequestDto>({
+    //   callback: this.create,
+    //   event: SocketEvent.CHAT_CREATE_MESSAGE,
+    // });
   }
 
   public async getAll({
@@ -137,31 +141,23 @@ class ChatMessage {
   }
 
   public async create(
+    socket: Socket,
     chatMessageCreateDto: ChatMessageCreateRequestDto,
   ): Promise<ChatMessageGetAllItemResponseDto> {
     const { receiverId, senderId, message, chatId } = chatMessageCreateDto;
 
     const newMessageChatId = chatId ?? createUuid();
 
-    const numOfUsersInChat =
-      this.#socketService.getNumberOfUsersInRoom(newMessageChatId);
-
-    const areBothInChat = numOfUsersInChat === ChatMessage.MAX_PEOPLE_IN_CHAT;
-
-    const newMessageStatus = areBothInChat
-      ? ChatMessageStatus.READ
-      : ChatMessageStatus.UNREAD;
-
     const newMessage = await this.#chatMessageRepository.create({
       receiverId,
       senderId,
       message: sanitizeHTML(message),
       chatId: newMessageChatId,
-      status: newMessageStatus,
+      status: ChatMessageStatus.UNREAD,
     });
 
-    this.#socketService.emit({
-      event: SocketEvent.MESSAGE,
+    this.#socketService.broadcast<ChatMessageGetAllItemResponseDto>(socket, {
+      event: SocketEvent.CHAT_ADD_MESSAGE,
       args: newMessage,
       roomId: newMessageChatId,
     });

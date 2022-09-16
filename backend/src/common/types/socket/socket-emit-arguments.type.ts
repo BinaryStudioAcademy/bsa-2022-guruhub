@@ -1,12 +1,8 @@
-import { ServerToClientEvents } from './socket';
+import { SocketEvent } from '~/common/enums/enums';
 
-type EventToEmit = keyof ServerToClientEvents;
-
-type EventToEmitArguments = Parameters<ServerToClientEvents[EventToEmit]>;
-
-type SocketEmitArguments = {
-  event: EventToEmit;
-  args: EventToEmitArguments[0];
+type SocketEmitArguments<T> = {
+  event: SocketEvent;
+  args: T;
   roomId: string;
 };
 

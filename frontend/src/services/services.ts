@@ -12,7 +12,6 @@ import { MentorsApi } from './mentors-api/mentors-api.service';
 import { Navigation } from './navigation/navigation.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api';
-import { Socket } from './socket/socket.service';
 import { Storage } from './storage/storage.service';
 import { TasksApi } from './tasks-api/tasks-api.service';
 import { UserDetailsApi } from './user-details-api/user-details-api.service';
@@ -50,8 +49,6 @@ const permissionsApi = new PermissionsApi({
   apiPrefix: ENV.API_PATH,
   http,
 });
-
-const socket = new Socket();
 
 const chatsApi = new ChatsApi({
   apiPrefix: ENV.API_PATH,
@@ -95,7 +92,6 @@ export {
   navigation,
   notification,
   permissionsApi,
-  socket,
   storage,
   tasksApi,
   userDetailsApi,

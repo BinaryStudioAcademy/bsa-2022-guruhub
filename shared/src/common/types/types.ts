@@ -96,10 +96,6 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
-  type ClientToServerEvents,
-  type ServerToClientEvents,
-} from './socket/socket';
-export {
   type TaskByIdRequestParamsDto,
   type TaskCreateRequestDto,
   type TaskGetByMenteeIdAndModuleId,

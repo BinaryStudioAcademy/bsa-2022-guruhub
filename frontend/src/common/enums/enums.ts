@@ -27,7 +27,7 @@ export {
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SearchValue } from './search/search';
-export { SocketEvent } from './socket/socket';
+export { SocketEvent, SocketNamespace } from './socket/socket';
 export { StringCase } from './string/string';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';

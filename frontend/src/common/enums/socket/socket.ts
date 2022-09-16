@@ -1,1 +1,4 @@
-export { SocketEvent } from 'guruhub-shared/common/enums/enums';
+export {
+  SocketEvent,
+  SocketNamespace,
+} from 'guruhub-shared/common/enums/enums';

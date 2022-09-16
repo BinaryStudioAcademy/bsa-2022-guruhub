@@ -1,17 +1,15 @@
 import { Server as HttpServer } from 'http';
 import { Server as SocketServer } from 'socket.io';
 
-import { SocketEvent } from '~/common/enums/enums';
+import { SocketEvent, SocketNamespace } from '~/common/enums/enums';
 import {
   Socket as SocketType,
   SocketEmitArguments,
-  SocketServerType,
+  SocketListenArguments,
 } from '~/common/types/types';
 
 class Socket {
-  #io: SocketServerType | null = null;
-
-  private static NO_USERS_IN_ROOM = 0;
+  #io: SocketServer | null = null;
 
   public initializeIo(server: HttpServer): void {
     this.#io = new SocketServer(server, {
@@ -20,32 +18,41 @@ class Socket {
         credentials: true,
       },
     });
-    (this.#io as SocketServerType).on(
-      SocketEvent.CONNECTION,
-      this.socketHandlers,
-    );
+    (this.#io as SocketServer)
+      .of(SocketNamespace.CHAT)
+      .on(SocketEvent.CONNECTION, this.chatHandler);
   }
 
-  public emit({ args, event, roomId }: SocketEmitArguments): void {
-    (this.#io as SocketServerType).to(roomId).emit(event, args);
-  }
+  private chatHandler(socket: SocketType): void {
+    // socket.on('*', (event, data) => {
+    //   console.log('###############################################');
 
-  public getNumberOfUsersInRoom(roomId: string): number {
-    const numberOfUsersInRoom = (
-      this.#io as SocketServerType
-    ).sockets.adapter.rooms.get(roomId)?.size;
+    //   console.log(event);
+    //   console.log(data);
+    // });
 
-    return numberOfUsersInRoom ?? Socket.NO_USERS_IN_ROOM;
-  }
-
-  private socketHandlers(socket: SocketType): void {
-    socket.on(SocketEvent.JOIN_ROOM, (roomId: string) => {
+    socket.on(SocketEvent.CHAT_JOIN_ROOM, (roomId: string) => {
       socket.join(roomId);
     });
 
-    socket.on(SocketEvent.LEAVE_ROOM, (roomId: string) => {
+    socket.on(SocketEvent.CHAT_LEAVE_ROOM, (roomId: string) => {
       socket.leave(roomId);
     });
+  }
+
+  public emit<T>({ args, event, roomId }: SocketEmitArguments<T>): void {
+    (this.#io as SocketServer).to(roomId).emit(event, args);
+  }
+
+  public broadcast<T>(
+    socket: SocketType,
+    { args, event, roomId }: SocketEmitArguments<T>,
+  ): void {
+    socket.broadcast.to(roomId).emit(event, args);
+  }
+
+  public listen<T>({ callback, event }: SocketListenArguments<T>): void {
+    (this.#io as SocketServer).on(event, callback);
   }
 }
 

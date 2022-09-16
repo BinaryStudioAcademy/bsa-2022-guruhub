@@ -111,11 +111,9 @@ export {
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
 export {
-  type ClientToServerEvents,
-  type ServerToClientEvents,
   type Socket,
   type SocketEmitArguments,
-  type SocketServerType,
+  type SocketListenArguments,
 } from './socket/socket';
 export {
   type TaskByIdRequestParamsDto,

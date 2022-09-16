@@ -11,17 +11,13 @@ import {
   navigation,
   notification,
   permissionsApi,
-  socket,
   storage,
   tasksApi,
   userDetailsApi,
   usersApi,
 } from 'services/services';
 
-import {
-  handleError,
-  socket as socketMiddleware,
-} from './middlewares/middlewares';
+import { chatSocket, handleError } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
 const extraArgument = {
@@ -40,7 +36,6 @@ const extraArgument = {
   courseModulesApi,
   mentorsApi,
   tasksApi,
-  socket,
 };
 
 const store = configureStore({
@@ -48,7 +43,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       thunk: { extraArgument },
-    }).concat([handleError, socketMiddleware]);
+    }).concat([handleError, chatSocket]);
   },
 });
 

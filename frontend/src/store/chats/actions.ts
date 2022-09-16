@@ -40,20 +40,14 @@ const getMessages = createAsyncThunk<
   };
 });
 
-const createMessage = createAsyncThunk<
-  void,
-  ChatMessageCreateRequestBodyDto,
-  AsyncThunkConfig
->(ActionType.CREATE_MESSAGE, async (payload, { extra }) => {
-  const { chatsApi } = extra;
-  const { message, receiverId, chatId } = payload;
-
-  await chatsApi.createChatMessage({
-    message,
-    receiverId,
-    chatId,
-  });
-});
+const createMessage = createAction(
+  ActionType.CREATE_MESSAGE,
+  (payload: ChatMessageCreateRequestBodyDto) => {
+    return {
+      payload,
+    };
+  },
+);
 
 const checkHasUnreadMessages = createAsyncThunk<void, void, AsyncThunkConfig>(
   ActionType.CHECK_HAS_UNREAD_MESSAGES,
@@ -72,7 +66,7 @@ const setHasUnreadMessages = createAction(
   }),
 );
 
-const getNewMessage = createAction(
+const addMessage = createAction(
   ActionType.GET_NEW_MESSAGE,
   (message: ChatMessageGetAllItemResponseDto) => {
     return {
@@ -81,30 +75,24 @@ const getNewMessage = createAction(
   },
 );
 
-const joinRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
-  ActionType.JOIN_ROOM,
-  (chatId, { extra }) => {
-    const { socket } = extra;
+const joinRoom = createAction(ActionType.JOIN_ROOM, (chatId: string) => {
+  return {
+    payload: chatId,
+  };
+});
 
-    socket.joinRoom(chatId);
-  },
-);
-
-const leaveRoom = createAsyncThunk<void, string, AsyncThunkConfig>(
-  ActionType.JOIN_ROOM,
-  (chatId, { extra }) => {
-    const { socket } = extra;
-
-    socket.leaveRoom(chatId);
-  },
-);
+const leaveRoom = createAction(ActionType.JOIN_ROOM, (chatId: string) => {
+  return {
+    payload: chatId,
+  };
+});
 
 export {
+  addMessage,
   checkHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
-  getNewMessage,
   joinRoom,
   leaveRoom,
   setHasUnreadMessages,
