@@ -1,6 +1,6 @@
 type PermissionsTableRow = {
   name: string;
-  id: string;
+  id: number;
 };
 
 export { type PermissionsTableRow };

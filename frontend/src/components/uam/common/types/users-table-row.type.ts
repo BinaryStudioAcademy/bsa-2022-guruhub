@@ -1,5 +1,5 @@
 type UsersTableRow = {
-  id: string;
+  id: number;
   email: string;
   fullName: string;
   createdAt: string;

@@ -5,7 +5,7 @@ const getGroupTableData = (
   groups: GroupsItemResponseDto[],
 ): GroupsTableRow[] => {
   return groups.map((group) => ({
-    id: `#${group.id}`,
+    id: group.id,
     name: group.name,
     key: group.key,
     createdAt: group.createdAt,

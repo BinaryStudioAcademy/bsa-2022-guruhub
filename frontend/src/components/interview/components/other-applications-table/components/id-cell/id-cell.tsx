@@ -13,7 +13,7 @@ const IdCell: FC<CellProps<OtherApplicationsTableRow>> = ({ value }) => {
       to={generateDynamicPath(AppRoute.INTERVIEWS_$ID, { id: value })}
       className={styles.idLink}
     >
-      {value}
+      {`${value}`}
     </Link>
   );
 };

@@ -3,10 +3,9 @@ import {
   GroupsTableActionsProps,
   GroupsTableRow,
 } from 'components/uam/common/types/types';
-import { removeHashtagFromId } from 'helpers/helpers';
 import { Column } from 'react-table';
 
-import { ActionsCell, DateCell } from '../../components/components';
+import { ActionsCell, DateCell, IdCell } from '../../components/components';
 
 const getGroupsColumns = (
   onGroupDelete: (groupId: number) => void,
@@ -15,6 +14,7 @@ const getGroupsColumns = (
     {
       Header: 'ID',
       accessor: GroupsTableAccessor.ID,
+      Cell: IdCell,
       width: 50,
     },
     {
@@ -37,7 +37,7 @@ const getGroupsColumns = (
       Header: 'Actions',
       accessor: ({ id }: GroupsTableRow): GroupsTableActionsProps => ({
         onDelete: onGroupDelete,
-        id: removeHashtagFromId(id),
+        id,
       }),
       Cell: ActionsCell,
       width: 120,

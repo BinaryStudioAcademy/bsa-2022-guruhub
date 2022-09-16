@@ -1,5 +1,5 @@
 type GroupConfigureUsersTableRow = {
-  id: string;
+  id: number;
   email: string;
   fullName: string;
   createdAt: string;

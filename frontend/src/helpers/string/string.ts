@@ -1,4 +1,1 @@
-export {
-  changeStringCase,
-  removeHashtagFromId,
-} from 'guruhub-shared/helpers/helpers';
+export { changeStringCase } from 'guruhub-shared/helpers/helpers';

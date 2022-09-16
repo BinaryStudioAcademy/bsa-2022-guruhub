@@ -5,7 +5,7 @@ const getUserTableData = (
   users: UsersGetResponseDto[],
 ): GroupConfigureUsersTableRow[] => {
   return users.map((user) => ({
-    id: `#${user.id}`,
+    id: user.id,
     email: user.email,
     fullName: user.userDetails.fullName,
     createdAt: user.createdAt,

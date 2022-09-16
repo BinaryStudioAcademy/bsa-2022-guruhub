@@ -4,10 +4,9 @@ import {
   UsersTableActionsProps,
   UsersTableRow,
 } from 'components/uam/common/types/types';
-import { removeHashtagFromId } from 'helpers/helpers';
 import { Column } from 'react-table';
 
-import { ActionsCell, DateCell } from '../../components/components';
+import { ActionsCell, DateCell, IdCell } from '../../components/components';
 
 const getUsersColumns = (
   user: UserWithPermissions,
@@ -17,6 +16,7 @@ const getUsersColumns = (
     {
       Header: 'ID',
       accessor: UserTableAccessor.ID,
+      Cell: IdCell,
       width: 50,
     },
     {
@@ -39,8 +39,8 @@ const getUsersColumns = (
       Header: 'Actions',
       accessor: ({ id }: UsersTableRow): UsersTableActionsProps => ({
         onDelete: onUserDelete,
-        id: removeHashtagFromId(id),
-        isCurrentSignedUser: user.id === removeHashtagFromId(id),
+        id,
+        isCurrentSignedUser: user.id === id,
       }),
       Cell: ActionsCell,
       width: 120,

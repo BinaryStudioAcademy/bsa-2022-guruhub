@@ -5,7 +5,7 @@ const getPermissionTableData = (
   permissions: PermissionsGetAllItemResponseDto[],
 ): PermissionsTableRow[] => {
   return permissions.map((permission) => ({
-    id: `#${permission.id}`,
+    id: permission.id,
     name: permission.name,
   }));
 };

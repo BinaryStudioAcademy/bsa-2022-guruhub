@@ -5,7 +5,7 @@ import {
   PermissionsTableRow,
 } from 'components/uam-configure-group/common/types/types';
 import { PermissionsActionsCell } from 'components/uam-configure-group/components/components';
-import { removeHashtagFromId } from 'helpers/helpers';
+import { IdCell } from 'components/uam-configure-group/components/permissions-table/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
@@ -24,8 +24,8 @@ const getPermissionsColumns = ({
       Header: 'Select',
       accessor: ({ id }): PermissionsTableActionsProps => ({
         name,
-        onToggle: () => onCheckboxToggle(removeHashtagFromId(id)),
-        isChecked: selectedPermissionIds.includes(removeHashtagFromId(id)),
+        onToggle: () => onCheckboxToggle(id),
+        isChecked: selectedPermissionIds.includes(id),
       }),
       Cell: PermissionsActionsCell,
       width: 90,
@@ -41,6 +41,7 @@ const getPermissionsColumns = ({
     {
       Header: 'Policy ID',
       accessor: PermissionTableAccessor.ID,
+      Cell: IdCell,
       width: 115,
       minWidth: 115,
     },

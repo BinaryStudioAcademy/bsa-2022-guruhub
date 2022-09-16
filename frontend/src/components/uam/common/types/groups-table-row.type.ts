@@ -1,5 +1,5 @@
 type GroupsTableRow = {
-  id: string;
+  id: number;
   name: string;
   key: string;
   createdAt: string;
