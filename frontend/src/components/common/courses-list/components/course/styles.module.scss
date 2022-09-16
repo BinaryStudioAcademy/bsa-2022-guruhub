@@ -1,4 +1,11 @@
 .container {
+  min-width: 255px;
+  padding: 12px;
+  background-color: var(--background-gray-100);
+  border-radius: 16px;
+}
+
+.body {
   position: relative;
 }
 
@@ -7,7 +14,6 @@
   flex-direction: column;
   width: 100%;
   min-width: 255px;
-  padding: 12px;
   background-color: var(--background-gray-100);
   border-radius: 16px;
 }
@@ -28,7 +34,38 @@
 .vendor {
   position: absolute;
   top: 30px;
+  left: -12px;
   padding: 8px 11px;
   background-color: var(--typography-text-100-inverse);
   border-radius: 0 12px 12px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--typography-text-gray-200);
+}
+
+.categoryWrapper {
+  max-width: 50%;
+}
+
+.category {
+  margin: 0;
+  margin-top: 12px;
+  padding: 5px 11px;
+  overflow: hidden;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: var(--brand-yellow-200);
+  border-radius: 12.5px;
+}
+
+.price {
+  margin: 0;
+  margin-top: 12px;
+  color: var(--typography-text-100-inverse);
+  font-weight: 600;
 }

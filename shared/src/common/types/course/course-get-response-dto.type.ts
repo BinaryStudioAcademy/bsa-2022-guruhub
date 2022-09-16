@@ -1,5 +1,5 @@
 import {
-  CategoryGetAllItemResponseDto,
+  CourseCategoryWithPriceDto,
   VendorGetResponseDto,
 } from '~/common/types/types';
 
@@ -9,7 +9,7 @@ type CourseGetResponseDto = {
   description: string;
   url: string;
   imageUrl: string | null;
-  category: CategoryGetAllItemResponseDto | null;
+  category: CourseCategoryWithPriceDto | null;
   vendor: VendorGetResponseDto;
   courseCategoryId: number;
 };

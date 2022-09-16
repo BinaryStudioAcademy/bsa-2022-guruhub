@@ -51,7 +51,7 @@ class Course {
         'courses.courseCategoryId',
         'courseCategories.id',
       )
-      .withGraphJoined('vendor')
+      .withGraphJoined('[vendor, category.[price]]')
       .castTo<CourseGetResponseDto[]>()
       .execute();
   }

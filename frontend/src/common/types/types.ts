@@ -31,6 +31,7 @@ export {
 export {
   type CategoryGetAllItemResponseDto,
   type CategoryGetAllResponseDto,
+  type CourseCategoryWithPriceDto,
   type CourseUpdateCategoryRequestDto,
 } from './course-category/course-category';
 export {
