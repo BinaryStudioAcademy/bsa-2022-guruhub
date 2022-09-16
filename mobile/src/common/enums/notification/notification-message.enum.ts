@@ -1,5 +1,6 @@
 enum NotificationMessage {
   INTERVIEW_CREATE_SUCCESS = 'Interview has been successfully created!',
+  INTERVIEW_UPDATE = 'Interview has been successfully updated!',
   MENTOR_ADD_SUCCESS = 'You have successfully became a mentor for this course!',
   GROUP_ADD_SUCCESS = 'Group has been successfully created!',
   GROUP_EDIT_SUCCESS = 'Group has been successfully updated!',
