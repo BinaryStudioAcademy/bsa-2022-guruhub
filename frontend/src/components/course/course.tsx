@@ -1,5 +1,5 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
-import { DataStatus, PermissionKey } from 'common/enums/enums';
+import { AppRoute, DataStatus, PermissionKey } from 'common/enums/enums';
 import { CourseUpdateCategoryRequestDto, FC } from 'common/types/types';
 import {
   Category,
@@ -14,6 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  useNavigate,
   useParams,
   useState,
 } from 'hooks/hooks';
@@ -66,11 +67,18 @@ const Course: FC = () => {
   const { courseId, studentId } = useParams();
   const isMentorView = Boolean(studentId);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const isCategoryEditAllowed = checkHasPermission({
     permissionKeys: [PermissionKey.MANAGE_CATEGORIES],
     userPermissions: user?.permissions ?? [],
   });
+
+  const isUserAuthorized = Boolean(user);
+
+  const mentorOrStudentOutputAuthorized =
+    isUserAuthorized && mentorCheckDataStatus === DataStatus.FULFILLED;
+  const mentorOrStudentOutputUnauthorized = !isUserAuthorized;
 
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
@@ -81,6 +89,10 @@ const Course: FC = () => {
 
   const [isChooseMentorModalOpen, setChooseMentorModalOpen] =
     useState<boolean>(false);
+
+  const handleRedirectUnauthorized = (): void => {
+    navigate(AppRoute.SIGN_IN);
+  };
 
   const handleChooseMentorModalToggle = (): void => {
     setChooseMentorModalOpen((prev) => !prev);
@@ -213,8 +225,6 @@ const Course: FC = () => {
     );
   }
 
-  const isUserAuthorized = Boolean(user);
-
   const handleMentorOrStudentComponentOutput = (): ReactNode => {
     if (isMentor) {
       return (
@@ -226,6 +236,10 @@ const Course: FC = () => {
 
     if (isMentorChoosingEnabled) {
       return <ChooseMentorButton onClick={handleChooseMentorModalToggle} />;
+    }
+
+    if (!isUserAuthorized) {
+      return <ChooseMentorButton onClick={handleRedirectUnauthorized} />;
     }
 
     return (
@@ -296,7 +310,8 @@ const Course: FC = () => {
         </div>
       </div>
 
-      {isUserAuthorized && mentorCheckDataStatus === DataStatus.FULFILLED && (
+      {(mentorOrStudentOutputAuthorized ||
+        mentorOrStudentOutputUnauthorized) && (
         <div className={styles.additional}>
           {handleMentorOrStudentComponentOutput()}
         </div>
