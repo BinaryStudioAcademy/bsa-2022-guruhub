@@ -12,6 +12,7 @@ import {
 } from '~/hooks/hooks';
 import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
+import { ROWS_MAX_COUNT } from './common/constants/rows-max-count.constants';
 import { getDefaultMessagePayload } from './helpers/helpers';
 import { styles } from './styles';
 
@@ -40,7 +41,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   useEffect(() => {
     setMessageChar(watch.name);
 
-    if (messageChar === '\n') {
+    if (messageChar === '\n' && rowsCount < ROWS_MAX_COUNT) {
       setRowsCount(rowsCount + 1);
     }
   }, [messageChar]);
