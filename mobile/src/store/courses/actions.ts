@@ -76,10 +76,9 @@ const getMentorsByCourseId = createAsyncThunk<
   const mentors = await coursesApi.getMentorsByCourseId(payload);
 
   if (mentor) {
-    const availableMentors = mentors.filter((m: UserDetailsResponseDto) => {
-      return m.id !== mentor.id;
+    const availableMentors = mentors.filter(({ id }) => {
+      return id !== mentor.id;
     });
-
     return availableMentors;
   }
 
