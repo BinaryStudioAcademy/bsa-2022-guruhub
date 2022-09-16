@@ -6,7 +6,10 @@ import { Icon, Input, Pressable, View } from '~/components/common/common';
 import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
-import { getDefaultMessagePayload } from './helpers/helpers';
+import {
+  checkIsMessageHasNotOnlyWhiteSpaces,
+  getDefaultMessagePayload,
+} from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -21,9 +24,11 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
     });
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
-
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
-    onSubmit(payload);
+    if (checkIsMessageHasNotOnlyWhiteSpaces(payload.message)) {
+      onSubmit(payload);
+    }
+
     reset({ message: '' });
   };
 

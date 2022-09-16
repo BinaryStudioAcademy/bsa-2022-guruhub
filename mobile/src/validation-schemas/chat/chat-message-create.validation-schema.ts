@@ -9,7 +9,6 @@ import { ChatMessageFormRequestDto } from '~/common/types/types';
 
 const chatMessageCreate = Joi.object({
   [getNameOf<ChatMessageFormRequestDto>('message')]: Joi.string()
-    .trim()
     .min(ChatValidationRule.MESSAGE_MIN_LENGTH)
     .required()
     .messages({
