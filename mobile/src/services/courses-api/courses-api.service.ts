@@ -120,7 +120,7 @@ class Courses {
     courseId,
     menteeId,
     mentorId,
-  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS

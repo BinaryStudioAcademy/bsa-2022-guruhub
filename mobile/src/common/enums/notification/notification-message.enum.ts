@@ -9,6 +9,7 @@ enum NotificationMessage {
   IMAGE_TO_BIG = 'Image size should be less than 1mb',
   INVALID_PHOTO_FORMAT = 'Supported formats: .PNG, .JPEG, .SVG`',
   COURSES_MENTORING_UPDATE = 'Students count is successfully updated!',
+  MENTOR_CHOOSE = 'You have successfully chose a mentor for this course!',
 }
 
 export { NotificationMessage };

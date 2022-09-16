@@ -199,7 +199,7 @@ const updateCategory = createAsyncThunk<
 });
 
 const chooseMentor = createAsyncThunk<
-  void,
+  MenteesToMentorsResponseDto,
   CourseSelectMentorRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.CHOOSE_A_MENTOR, async ({ id }, { extra, getState }) => {
@@ -207,15 +207,17 @@ const chooseMentor = createAsyncThunk<
     courses: { course },
     auth: { user },
   } = getState();
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
 
-  await coursesApi.chooseMentor({
+  const menteeToMentor = await coursesApi.chooseMentor({
     courseId: (course as CourseGetResponseDto).id,
     menteeId: (user as UserWithPermissions).id,
     mentorId: id,
   });
 
-  return;
+  notification.success(NotificationMessage.MENTOR_CHOOSE);
+
+  return menteeToMentor;
 });
 
 const updateIsMentorChoosingEnabled = createAsyncThunk<
