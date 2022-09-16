@@ -36,7 +36,7 @@ type State = {
   dataMentorStatus: DataStatus;
   courses: CourseGetResponseDto[];
   mentor: UsersGetResponseDto | null;
-  mentors: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
   menteesByCourseId: UserDetailsResponseDto[];
   course: CourseGetResponseDto | null;
   isMentorBecomingVisible: boolean;

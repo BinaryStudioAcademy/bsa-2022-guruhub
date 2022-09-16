@@ -18,6 +18,7 @@ import {
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
   UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 
 import { Http } from '../http/http.service';
@@ -103,8 +104,8 @@ class Courses {
   public getMentorsByCourseId({
     courseId,
     filteringOpts,
-  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
-    return this.#http.load<UserDetailsResponseDto[]>(
+  }: CourseGetMentorsRequestDto): Promise<UsersGetResponseDto[]> {
+    return this.#http.load<UsersGetResponseDto[]>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
       }`,

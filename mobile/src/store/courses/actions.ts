@@ -21,6 +21,7 @@ import {
   TasksGetByCourseIdAndMenteeIdRequestDto,
   TaskWithModuleResponseDto,
   UserDetailsResponseDto,
+  UsersGetResponseDto,
   UserWithPermissions,
 } from '~/common/types/types';
 import { app, interviewsActions } from '~/store/actions';
@@ -65,7 +66,7 @@ const addCourse = createAsyncThunk<
 });
 
 const getMentorsByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
