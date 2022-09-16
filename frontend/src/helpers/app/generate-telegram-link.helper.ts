@@ -1,7 +1,5 @@
-const TELEGRAM_URL = 'https://t.me/';
-
 const generateTelegramLink = (username: string): string => {
-  return TELEGRAM_URL + username;
+  return `https://t.me/${username}`;
 };
 
 export { generateTelegramLink };

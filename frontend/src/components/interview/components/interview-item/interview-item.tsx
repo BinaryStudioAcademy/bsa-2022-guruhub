@@ -128,14 +128,14 @@ const InterviewItem: FC<Props> = ({
             {hasTelegram ? (
               <a
                 href={generateTelegramLink(
-                  interview?.interviewee.userDetails.telegramUsername as string,
+                  interview.interviewee.userDetails.telegramUsername as string,
                 )}
                 className={getValidClasses(
                   styles.interviewValue,
                   styles.telegramLink,
                 )}
               >
-                @{interview?.interviewee.userDetails.telegramUsername}
+                @{interview.interviewee.userDetails.telegramUsername}
               </a>
             ) : (
               <p className={styles.interviewValue}>Not set</p>
