@@ -57,7 +57,6 @@ const Search: FC<Props> = ({ onSearch }) => {
       <SearchInput
         control={control}
         name="search"
-        onChange={debounceHandleSearch}
         onBlur={handleOnBlur}
         onFocus={handleOnFocus}
       />

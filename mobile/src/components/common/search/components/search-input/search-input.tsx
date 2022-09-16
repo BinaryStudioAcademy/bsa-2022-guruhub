@@ -16,7 +16,6 @@ type Props<T extends FormControlValues> = {
   control: FormControl<T>;
   onFocus: () => void;
   onBlur: () => void;
-  onChange: () => void;
 };
 
 const SearchInput = <T extends FormControlValues>({
@@ -24,11 +23,10 @@ const SearchInput = <T extends FormControlValues>({
   control,
   onFocus,
   onBlur,
-  onChange,
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
-  const { value } = field;
+  const { value, onChange } = field;
 
   return (
     <TextInput

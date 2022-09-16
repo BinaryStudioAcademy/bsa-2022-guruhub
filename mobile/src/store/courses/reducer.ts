@@ -4,7 +4,6 @@ import { DataStatus } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
   TaskWithModuleResponseDto,
-  UserDetailsResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
 
@@ -36,7 +35,7 @@ type State = {
   dataMentorStatus: DataStatus;
   courses: CourseGetResponseDto[];
   mentor: UsersGetResponseDto | null;
-  mentors: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
   menteesByCourseId: UsersGetResponseDto[];
   course: CourseGetResponseDto | null;
   isMentorBecomingVisible: boolean;

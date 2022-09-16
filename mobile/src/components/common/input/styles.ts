@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   },
   rows: {
     textAlignVertical: 'top',
+    maxHeight: 96,
   },
 });
 
