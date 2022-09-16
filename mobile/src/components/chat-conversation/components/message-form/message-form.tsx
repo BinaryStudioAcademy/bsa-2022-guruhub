@@ -6,10 +6,7 @@ import { Icon, Input, Pressable, View } from '~/components/common/common';
 import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
-import {
-  checkIsMessageHasNotOnlyWhiteSpaces,
-  getDefaultMessagePayload,
-} from './helpers/helpers';
+import { getDefaultMessagePayload } from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -24,11 +21,10 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
     });
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
-  const handleSend = (payload: ChatMessageFormRequestDto): void => {
-    if (checkIsMessageHasNotOnlyWhiteSpaces(payload.message)) {
-      onSubmit(payload);
-    }
+  const isError = Boolean(errors['message']?.message);
 
+  const handleSend = (payload: ChatMessageFormRequestDto): void => {
+    onSubmit(payload);
     reset({ message: '' });
   };
 
@@ -54,7 +50,8 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
       <Pressable
         onPress={handleSubmit(handleSend)}
         hitSlop={hitSlop}
-        style={styles.button}
+        style={[styles.button, isError && styles.disabledButton]}
+        disabled={isError}
       >
         <Icon
           color={AppColor.BRAND.BLUE_100}
