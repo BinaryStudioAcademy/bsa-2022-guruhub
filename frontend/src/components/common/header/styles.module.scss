@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 295px;
+  width: 340px;
   margin-left: 3px;
   border-right: 3px solid var(--background-gray-400);
 }
@@ -53,6 +53,8 @@
 
 .img {
   transform: scale(1.1);
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
 
 .buttonsWrapper {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { View } from '~/components/common/common';
-import { vendorsKeyToImage } from '~/components/courses/components/course-card/common/maps/maps';
+import { vendorsKeyToImage } from '~/components/course-card/common/maps/maps';
 
 import { styles } from './style';
 

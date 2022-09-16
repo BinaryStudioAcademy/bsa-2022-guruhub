@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { TextInput } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
 import { Icon, View } from '~/components/common/common';
@@ -13,11 +12,11 @@ import {
   useCallback,
   useEffect,
   useFocusEffect,
-  useFormControl,
   useState,
 } from '~/hooks/hooks';
 
 import { SearchPayload } from './common/types';
+import { SearchInput } from './components/components';
 import { styles } from './styles';
 
 type Props = {
@@ -27,14 +26,12 @@ type Props = {
 const Search: FC<Props> = ({ onSearch }) => {
   const [borderColor, setBorderColor] = useState('transparent');
 
-  const { control, reset } = useAppForm<SearchPayload>({
+  const { control, reset, watch } = useAppForm<SearchPayload>({
+    mode: 'onChange',
     defaultValues: DEFAULT_SEARCH_PAYLOAD,
   });
 
-  const { field } = useFormControl({ name: 'search', control: control });
-  const { value, onChange } = field;
-
-  const handleSearch = (): void => onSearch(value);
+  const handleSearch = (): void => onSearch(watch('search'));
 
   const debounceHandleSearch = debounce(handleSearch, SEARCH_DELAY_MS);
 
@@ -46,7 +43,7 @@ const Search: FC<Props> = ({ onSearch }) => {
     debounceHandleSearch();
 
     return () => debounceHandleSearch.clear();
-  }, [value]);
+  }, [watch('search')]);
 
   useFocusEffect(
     useCallback(() => {
@@ -57,17 +54,11 @@ const Search: FC<Props> = ({ onSearch }) => {
   return (
     <View style={{ ...styles.searchBar, borderColor: borderColor }}>
       <Icon name="search" />
-      <TextInput
-        selectionColor={AppColor.TEXT.GRAY_200}
-        style={styles.search}
-        onFocus={handleOnFocus}
+      <SearchInput
+        control={control}
+        name="search"
         onBlur={handleOnBlur}
-        autoComplete="off"
-        autoCorrect={false}
-        onChangeText={onChange}
-        value={value}
-        placeholder="Search"
-        placeholderTextColor={AppColor.TEXT.GRAY_200}
+        onFocus={handleOnFocus}
       />
     </View>
   );

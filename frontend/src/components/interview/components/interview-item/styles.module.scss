@@ -51,6 +51,14 @@
   line-height: 19px;
 }
 
+.telegramLink {
+  text-decoration: none;
+}
+
+.telegramLink:hover {
+  color: var(--typography-text-100-inverse);
+}
+
 .courseCategory {
   width: fit-content;
   padding: 6px 10px;

@@ -41,6 +41,7 @@ const MyMentor: FC = () => {
       return;
     }
     dispatch(coursesActions.chooseMentor({ id: mentorId }));
+    handleMentorCardShownToggle();
   };
 
   useEffect(() => {

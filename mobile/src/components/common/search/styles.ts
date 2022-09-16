@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
+import { AppColor } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   searchBar: {
@@ -13,13 +13,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 8,
     marginHorizontal: 16,
-  },
-  search: {
-    color: AppColor.TEXT.GRAY_100,
-    fontFamily: AppFontFamily.INTER_400,
-    flex: 1,
-    fontSize: 17,
-    lineHeight: 22,
   },
 });
 

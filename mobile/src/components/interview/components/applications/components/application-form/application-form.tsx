@@ -10,6 +10,7 @@ import {
 import {
   Button,
   Category,
+  DatePicker,
   Dropdown,
   Text,
   View,
@@ -40,12 +41,16 @@ const ApplicationForm: FC<Props> = ({
 
   const { control, handleSubmit, errors, reset } =
     useAppForm<InterviewsUpdateRequestDto>({
-      defaultValues: {},
+      defaultValues: {
+        interviewerUserId: interview.interviewer?.id ?? null,
+        status: interview.status,
+        interviewDate: interview?.interviewDate ?? null,
+      },
       validationSchema: interviewUpdateValidationSchema,
     });
 
   const interviewDate = interview.interviewDate
-    ? getFormattedDate(interview.interviewDate, 'HH:mm dd.MM.yyyy')
+    ? getFormattedDate(interview.interviewDate, 'dd.MM.yyyy')
     : 'Not assigned yet';
 
   const interviewersData = interviewers.map((interviewer) => ({
@@ -63,11 +68,16 @@ const ApplicationForm: FC<Props> = ({
 
   const toggleEditMode = (): void => {
     setIsEditMode(!isEditMode);
+    reset();
   };
 
   useEffect(() => {
     if (interview) {
-      reset({ interviewerUserId: interview.interviewer?.id });
+      reset({
+        interviewerUserId: interview.interviewer?.id ?? null,
+        status: interview.status,
+        interviewDate: interview?.interviewDate ?? null,
+      });
     }
   }, [interview]);
 
@@ -123,7 +133,19 @@ const ApplicationForm: FC<Props> = ({
             <Text style={styles.title}>Date of interview</Text>
           </View>
           <View style={styles.rowContent}>
-            <Text style={styles.content}>{interviewDate}</Text>
+            {!isEditMode ? (
+              <Text style={styles.content}>{interviewDate}</Text>
+            ) : (
+              <View style={styles.datePickerWrapper}>
+                <DatePicker
+                  name="interviewDate"
+                  control={control}
+                  errors={errors}
+                  minimumDate={new Date()}
+                  placeholder="Select date"
+                />
+              </View>
+            )}
           </View>
         </View>
         <View style={styles.rowData}>

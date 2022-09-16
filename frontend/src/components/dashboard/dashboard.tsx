@@ -8,7 +8,7 @@ import {
   usePagination,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
+import { dashboardActions, userDetailsActions } from 'store/actions';
 
 import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
@@ -40,6 +40,10 @@ const Dashboard: FC = () => {
         count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
       }),
     );
+
+    if (user) {
+      dispatch(userDetailsActions.getUserDetails());
+    }
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 

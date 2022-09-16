@@ -18,9 +18,10 @@ import styles from './styles.module.scss';
 
 const Header: FC = () => {
   const [isMenuPopupVisible, setIsMenuPopupVisible] = useState<boolean>(false);
-  const { user, hasUnreadMessages } = useAppSelector(({ auth, chats }) => ({
-    user: auth.user,
-    hasUnreadMessages: chats.hasUnreadMessages,
+  const { user, hasUnreadMessages, avatarUrl } = useAppSelector((state) => ({
+    user: state.auth.user,
+    hasUnreadMessages: state.chats.hasUnreadMessages,
+    avatarUrl: state.userDetails.avatarUrl,
   }));
 
   const location = useLocation();
@@ -79,7 +80,7 @@ const Header: FC = () => {
                   <Image
                     width="50"
                     height="50"
-                    src={defaultUserAvatar}
+                    src={avatarUrl ?? defaultUserAvatar}
                     alt="user avatar"
                     isCircular
                     classes={styles.img}

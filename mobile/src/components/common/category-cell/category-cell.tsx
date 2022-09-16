@@ -15,7 +15,7 @@ const CategoryCell: FC<Props> = ({ category }) => {
   const hasImage = category && imageKeys.includes(category.key);
 
   if (!category) {
-    return <Text style={styles.unknownCategory}>Unknown</Text>;
+    return <Text style={styles.unknownCategory}>No category selected</Text>;
   }
 
   return (

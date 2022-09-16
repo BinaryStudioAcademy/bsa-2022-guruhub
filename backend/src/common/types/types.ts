@@ -16,6 +16,7 @@ export {
 } from './chat-message/chat-message';
 export { IdContainer } from './common/common';
 export {
+  type CourseAllMentorsDto,
   type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
@@ -35,6 +36,7 @@ export {
   type CourseUpdateCategoryRequestDto,
   type CourseUpdateMentoringDto,
   type CourseUpdateRequestParamsDto,
+  type GetAllMenteesDto,
 } from './course/course';
 export {
   type CategoryGetAllItemResponseDto,

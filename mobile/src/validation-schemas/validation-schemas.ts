@@ -1,5 +1,9 @@
 export { chatMessageCreate } from './chat/chat';
-export { courseCreate, courseUpdateCategory } from './course/course';
+export {
+  courseCreate,
+  courseMentoringUpdateCount,
+  courseUpdateCategory,
+} from './course/course';
 export {
   groupCreate,
   groupCreateClient,
