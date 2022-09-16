@@ -6,11 +6,13 @@ import {
 } from '~/common/enums/enums';
 import {
   CourseFilteringDto,
+  CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseUpdateCategoryRequestArguments,
+  CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
@@ -118,7 +120,7 @@ class Courses {
     courseId,
     menteeId,
     mentorId,
-  }: MenteesToMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
+  }: MenteesToMentorsRequestDto): Promise<MenteesToMentorsResponseDto> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
@@ -181,6 +183,43 @@ class Courses {
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.HAS_MENTOR_CHECK
       }`,
+    );
+  }
+
+  public getAllCoursesStudying(): Promise<CourseGetResponseDto[]> {
+    return this.#http.load<CourseGetResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.STUDYING}`,
+    );
+  }
+
+  public getAllCoursesMentoring({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetMentoringDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetMentoringDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        queryParams: {
+          count,
+          page,
+        },
+      },
+    );
+  }
+
+  public updateCoursesMentoring({
+    courseId,
+    studentsCount,
+  }: CourseUpdateMentoringDto): Promise<number> {
+    return this.#http.load<number>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ courseId, studentsCount }),
+      },
     );
   }
 }

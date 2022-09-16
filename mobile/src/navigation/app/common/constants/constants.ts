@@ -18,7 +18,7 @@ import { CoursesManagement } from '~/components/courses-management/courses-manag
 import { Interview } from '~/components/interview/interview';
 import { Interviews } from '~/components/interviews/interviews';
 import { Mentors } from '~/components/mentors/mentors';
-import { MyEducation } from '~/components/my-education/my-education';
+import { MyCourses } from '~/components/my-courses/my-courses';
 import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
@@ -63,12 +63,15 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     drawerGroup: 'Menu',
   },
   {
-    name: AppScreenName.MY_EDUCATION,
+    name: AppScreenName.MY_COURSES,
     icon: 'education',
-    component: MyEducation,
+    component: MyCourses,
     permissions: [],
     isAuthRequired: true,
     drawerGroup: 'Menu',
+    screenOptions: {
+      swipeEdgeWidth: 10,
+    },
   },
   {
     name: AppScreenName.INTERVIEWS,
@@ -91,6 +94,9 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     permissions: [PermissionKey.MANAGE_CATEGORIES],
     isAuthRequired: true,
     drawerGroup: 'Menu',
+    screenOptions: {
+      swipeEdgeWidth: 10,
+    },
   },
   {
     name: AppScreenName.CHAT,

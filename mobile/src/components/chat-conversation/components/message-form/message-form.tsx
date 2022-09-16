@@ -21,6 +21,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
     });
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
+  const hasError = Boolean(errors.message?.message);
 
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
@@ -49,7 +50,8 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
       <Pressable
         onPress={handleSubmit(handleSend)}
         hitSlop={hitSlop}
-        style={styles.button}
+        style={[styles.button, hasError && styles.disabledButton]}
+        disabled={hasError}
       >
         <Icon
           color={AppColor.BRAND.BLUE_100}

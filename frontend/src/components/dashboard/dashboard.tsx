@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
+import { dashboardActions, userDetailsActions } from 'store/actions';
 
 import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
@@ -25,6 +25,9 @@ const Dashboard: FC = () => {
   const hasUser = Boolean(user);
 
   useEffect(() => {
+    if (user) {
+      dispatch(userDetailsActions.getUserDetails());
+    }
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
