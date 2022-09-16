@@ -87,9 +87,10 @@ class Course {
         'url',
         'imageUrl',
         'courseCategoryId',
+        'category',
       )
       .distinct('courseId')
-      .withGraphJoined('[mentees, category, vendor]')
+      .withGraphJoined('[mentees, category.[price], vendor]')
       .where('menteeId', userId)
       .whereNotNull('mentorId')
       .castTo<CourseGetResponseDto[]>()
