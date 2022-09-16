@@ -23,6 +23,7 @@ export {
   CourseModuleScreenName,
   CourseScreenName,
   InterviewScreenName,
+  MyCoursesScreenName,
   RootScreenName,
 } from './navigation/navigation';
 export {
