@@ -81,7 +81,9 @@ const ChooseMentor: FC<Props> = ({
               />
             }
             ListHeaderComponent={(): ReactElement => (
-              <Text style={styles.title}>Choose a mentor</Text>
+              <Text style={styles.title}>
+                {mentors.length ? 'Choose a mentor' : ''}
+              </Text>
             )}
             ListEmptyComponent={(): ReactElement => (
               <Text style={styles.noMentors}>
