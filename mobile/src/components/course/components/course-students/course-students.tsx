@@ -42,7 +42,10 @@ const CourseStudents: FC = () => {
         data={mentees}
         keyExtractor={({ id }): string => id.toString()}
         renderItem={({ item: mentee }): ReactElement => (
-          <StudentCard mentee={mentee} onSelect={handleMenteeSelect} />
+          <StudentCard
+            mentee={mentee.userDetails}
+            onSelect={handleMenteeSelect}
+          />
         )}
         refreshControl={
           <RefreshControl
