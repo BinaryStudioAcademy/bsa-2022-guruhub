@@ -10,8 +10,13 @@ import styles from './styles.module.scss';
 const UserProfile: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { userDetails, dataStatus } = useAppSelector(
-    (state) => state.userDetails,
+  const { userDetails, dataStatus, user, avatarUrl } = useAppSelector(
+    (state) => ({
+      userDetails: state.userDetails.userDetails,
+      dataStatus: state.userDetails.dataStatus,
+      user: state.auth.user,
+      avatarUrl: state.userDetails.avatarUrl,
+    }),
   );
 
   useEffect(() => {
@@ -41,7 +46,7 @@ const UserProfile: FC = () => {
       <h1 className={styles.title}>Personal information</h1>
       <div className={styles.profileContainer}>
         <h2 className={styles.subtitle}>Profile</h2>
-        <AvatarWrapper />
+        <AvatarWrapper user={user} avatarUrl={avatarUrl} />
         <UserProfileForm
           userDetails={userDetails}
           onGetUserDetails={handleGetUserDetails}
