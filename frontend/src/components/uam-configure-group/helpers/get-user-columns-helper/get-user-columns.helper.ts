@@ -8,6 +8,7 @@ import {
   DateCell,
   UserActionCell,
 } from 'components/uam-configure-group/components/components';
+import { removeHashtagFromId } from 'helpers/helpers';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
@@ -26,8 +27,8 @@ const getUserColumns = ({
       Header: 'Select',
       accessor: ({ id }): GroupConfigureUsersTableActionsProps => ({
         name,
-        onToggle: () => onCheckboxToggle(id),
-        isChecked: selectedUserIds.includes(id),
+        onToggle: () => onCheckboxToggle(removeHashtagFromId(id)),
+        isChecked: selectedUserIds.includes(removeHashtagFromId(id)),
       }),
       Cell: UserActionCell,
       width: 90,

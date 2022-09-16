@@ -10,7 +10,7 @@ const getOtherApplicationsRows = (
       interview.interviewer?.userDetails?.fullName ?? 'Not set';
 
     return {
-      [OtherApplicationsTableAccessor.ID]: interview.id,
+      [OtherApplicationsTableAccessor.ID]: `#${interview.id}`,
       [OtherApplicationsTableAccessor.NAME]:
         interview.interviewee.userDetails.fullName,
       [OtherApplicationsTableAccessor.CATEGORY]: interview.courseCategory,

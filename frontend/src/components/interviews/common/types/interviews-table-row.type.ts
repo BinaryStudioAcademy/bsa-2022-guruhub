@@ -3,7 +3,7 @@ import { CategoryGetAllItemResponseDto } from 'common/types/types';
 import { InterviewStatus } from '../enums/enums';
 
 type InterviewsTableRow = {
-  id: number;
+  id: string;
   name: string;
   category: CategoryGetAllItemResponseDto;
   status: InterviewStatus;

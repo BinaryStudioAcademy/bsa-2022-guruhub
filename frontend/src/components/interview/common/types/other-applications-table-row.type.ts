@@ -2,7 +2,7 @@ import { InterviewStatus } from 'common/enums/enums';
 import { CategoryGetAllItemResponseDto } from 'common/types/types';
 
 type OtherApplicationsTableRow = {
-  id: number;
+  id: string;
   name: string;
   category: CategoryGetAllItemResponseDto;
   status: InterviewStatus;

@@ -10,7 +10,7 @@ const getInterviewsRows = (
       interview.interviewer?.userDetails?.fullName ?? 'Not assigned yet';
 
     return {
-      [InterviewsTableAccessor.ID]: interview.id,
+      [InterviewsTableAccessor.ID]: `#${interview.id}`,
       [InterviewsTableAccessor.NAME]:
         interview.interviewee.userDetails.fullName,
       [InterviewsTableAccessor.CATEGORY]: interview.courseCategory,
