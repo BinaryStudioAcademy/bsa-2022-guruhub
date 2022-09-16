@@ -3,9 +3,16 @@ import React, { FC } from 'react';
 import { AppColor } from '~/common/enums/enums';
 import { ChatMessageFormRequestDto } from '~/common/types/types';
 import { Icon, Input, Pressable, View } from '~/components/common/common';
-import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
+import {
+  useAppForm,
+  useCallback,
+  useEffect,
+  useFocusEffect,
+  useState,
+} from '~/hooks/hooks';
 import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
+import { ROWS_MAX_COUNT } from './common/constants/rows-max-count.constants';
 import { getDefaultMessagePayload } from './helpers/helpers';
 import { styles } from './styles';
 
@@ -14,11 +21,14 @@ type Props = {
 };
 
 const MessageForm: FC<Props> = ({ onSubmit }) => {
-  const { control, errors, handleSubmit, reset } =
+  const { control, errors, handleSubmit, reset, watch } =
     useAppForm<ChatMessageFormRequestDto>({
       defaultValues: getDefaultMessagePayload(),
       validationSchema: chatMessageCreate,
     });
+
+  const [messageChar, setMessageChar] = useState<string>();
+  const [rowsCount, setRowsCount] = useState<number>(1);
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
   const hasError = Boolean(errors.message?.message);
@@ -26,7 +36,16 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
     reset({ message: '' });
+    setRowsCount(1);
   };
+
+  useEffect(() => {
+    setMessageChar(watch.name);
+
+    if (messageChar === '\n' && rowsCount < ROWS_MAX_COUNT) {
+      setRowsCount(rowsCount + 1);
+    }
+  }, [messageChar]);
 
   useFocusEffect(
     useCallback(() => {
@@ -44,7 +63,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
           name="message"
           control={control}
           errors={errors}
-          rows={3}
+          rows={rowsCount}
         />
       </View>
       <Pressable

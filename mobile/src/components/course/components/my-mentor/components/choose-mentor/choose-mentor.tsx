@@ -3,7 +3,7 @@ import React, { FC, ReactElement } from 'react';
 import { AppColor } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import {
   FlatList,
@@ -20,7 +20,7 @@ import { MentorCard } from '../components';
 import { styles } from './styles';
 
 type Props = {
-  mentors: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
   course: CourseGetResponseDto | null;
   isLoading: boolean;
   onChangeMentor: (mentorId: number) => void;
@@ -71,7 +71,10 @@ const ChooseMentor: FC<Props> = ({
             data={mentors}
             keyExtractor={({ id }): string => id.toString()}
             renderItem={({ item: mentor }): ReactElement => (
-              <MentorCard mentor={mentor} onChoose={onChangeMentor} />
+              <MentorCard
+                mentor={mentor.userDetails}
+                onChoose={onChangeMentor}
+              />
             )}
             refreshControl={
               <RefreshControl

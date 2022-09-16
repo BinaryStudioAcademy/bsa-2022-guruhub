@@ -66,7 +66,7 @@ const addCourse = createAsyncThunk<
 });
 
 const getMentorsByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
