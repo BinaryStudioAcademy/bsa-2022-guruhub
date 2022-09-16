@@ -7,7 +7,7 @@
 .currentChatHeader {
   display: flex;
   align-items: center;
-  height: 94px;
+  min-height: 94px;
   padding-left: 51.35px;
   color: var(--typography-text-100-inverse);
   background: var(--background-gray-300);
