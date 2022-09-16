@@ -4,6 +4,7 @@ import {
   CourseModuleGetRequestParamsDto,
   CourseModulesGetAllItemResponseDto,
   CourseModulesGetAllRequestParamsDto,
+  NumericalValueContainer,
 } from '~/common/types/types';
 import { CourseModule as ModuleM } from '~/data/models/models';
 
@@ -63,6 +64,19 @@ class CourseModule {
       .castTo<CourseModulesGetAllItemResponseDto[]>();
 
     return modules ?? [];
+  }
+
+  public getAllCourseModulesCountByCourseId({
+    courseId,
+  }: CourseModulesGetAllRequestParamsDto): Promise<NumericalValueContainer> {
+    return this.#ModuleModel
+      .query()
+      .select()
+      .where({ courseId })
+      .count('* as value')
+      .first()
+      .castTo<NumericalValueContainer>()
+      .execute();
   }
 }
 

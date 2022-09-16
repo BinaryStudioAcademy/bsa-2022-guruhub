@@ -28,6 +28,7 @@ class CourseCategoryPrice {
     const courseCategoryPrice = await this.#CourseCategoryPriceModel
       .query()
       .findById(id)
+      .withGraphJoined('category')
       .castTo<CourseCategoryPriceGetAllItemResponseDto>();
 
     return courseCategoryPrice ?? null;

@@ -1,12 +1,7 @@
-import { AppRoute, DataStatus } from 'common/enums/enums';
+import { DataStatus } from 'common/enums/enums';
 import { FC, Token } from 'common/types/types';
 import { Button, Spinner } from 'components/common/common';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useNavigate,
-} from 'hooks/hooks';
+import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { billingActions } from 'store/actions';
 
 import { DEFAULT_REPLENISH_AMOUNTS, REPLENISH_PUBLIC_KEY } from './common';
@@ -14,19 +9,12 @@ import { ReplenishCardsList } from './components/components';
 import styles from './styles.module.scss';
 
 const Billing: FC = () => {
-  const { authDataStatus, user, billingDataStatus, userMoneyBalance } =
-    useAppSelector(({ auth, billing }) => ({
-      authDataStatus: auth.dataStatus,
-      user: auth.user,
+  const { billingDataStatus, userMoneyBalance } = useAppSelector(
+    ({ billing }) => ({
       billingDataStatus: billing.dataStatus,
       userMoneyBalance: billing.userMoneyBalance,
-    }));
-
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate(AppRoute.ROOT);
-  }
+    }),
+  );
 
   const dispatch = useAppDispatch();
 
@@ -35,9 +23,7 @@ const Billing: FC = () => {
   }, [dispatch]);
 
   const handleWithdraw = (): void => {
-    dispatch(
-      billingActions.withdraw({ usersCurrentBalance: userMoneyBalance }),
-    );
+    dispatch(billingActions.withdraw({ userCurrentBalance: userMoneyBalance }));
   };
 
   const handleReplenish = (
@@ -47,10 +33,7 @@ const Billing: FC = () => {
     dispatch(billingActions.replenish({ amountOfMoneyToReplenish, token }));
   };
 
-  if (
-    billingDataStatus === DataStatus.PENDING ||
-    authDataStatus === DataStatus.PENDING
-  ) {
+  if (billingDataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
 

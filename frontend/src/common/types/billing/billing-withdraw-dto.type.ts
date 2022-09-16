@@ -1,5 +1,5 @@
 type BillingWithdrawDto = {
-  usersCurrentBalance: number;
+  userCurrentBalance: number;
 };
 
 export { type BillingWithdrawDto };

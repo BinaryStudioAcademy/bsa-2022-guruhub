@@ -153,11 +153,7 @@ const App: FC = () => {
         />
         <Route
           path={AppRoute.BILLING}
-          element={
-            <AuthorizedWrapper>
-              <Billing />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedProtectedRoute component={<Billing />} />}
         />
         <Route
           path={AppRoute.CHATS}

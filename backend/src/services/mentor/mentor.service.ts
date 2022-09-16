@@ -164,12 +164,11 @@ class Mentor {
         (courseDto as CourseGetResponseDto).courseCategoryId,
       );
 
-    const courseModules = await this.#courseModuleService.getModulesByCourseId(
-      courseId,
-    );
+    const courseModulesCount =
+      await this.#courseModuleService.getCourseModulesCount(courseId);
 
     const rawPriceOfStudying =
-      courseModules.length *
+      courseModulesCount *
       (courseCategoryPriceDto as CourseCategoryPriceGetAllItemResponseDto)
         .price;
 

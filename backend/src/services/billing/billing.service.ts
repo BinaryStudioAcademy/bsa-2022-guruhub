@@ -19,10 +19,6 @@ import {
   userDetails as userDetailsServ,
 } from '~/services/services';
 
-const BILLING_CURRENCY = 'usd';
-const DEFAULT_STUDYING_PRICE_COEFFICIENT = 0.5;
-const NEW_USER_BALANCE_AFTER_WITHDRAW = 0;
-
 type Constructor = {
   secretKey: string;
   apiVersion: string;
@@ -39,6 +35,12 @@ class Billing {
   #userDetailsService: typeof userDetailsServ;
 
   #stripe: StripeApi;
+
+  private static BILLING_CURRENCY = 'usd';
+
+  private static DEFAULT_STUDYING_PRICE_COEFFICIENT = 0.5;
+
+  private static NEW_USER_BALANCE_AFTER_WITHDRAW = 0;
 
   public constructor({
     transactionService,
@@ -79,7 +81,7 @@ class Billing {
 
     return this.#userDetailsService.updateMoneyBalance(
       userId,
-      NEW_USER_BALANCE_AFTER_WITHDRAW,
+      Billing.NEW_USER_BALANCE_AFTER_WITHDRAW,
     );
   }
 
@@ -91,7 +93,7 @@ class Billing {
     const menteeBalance = await this.#userService.getByIdMoneyBalance(menteeId);
 
     const priceOfStudying =
-      rawPriceOfStudying * DEFAULT_STUDYING_PRICE_COEFFICIENT;
+      rawPriceOfStudying * Billing.DEFAULT_STUDYING_PRICE_COEFFICIENT;
 
     if (menteeBalance < priceOfStudying) {
       throw new BillingError({
@@ -132,7 +134,7 @@ class Billing {
       return this.#stripe.charges.create({
         source: token.id,
         amount: amount * PaymentUnit.CENTS_IN_ONE_DOLLAR,
-        currency: BILLING_CURRENCY,
+        currency: Billing.BILLING_CURRENCY,
       });
     } catch (err) {
       this.throwError(err);
@@ -145,7 +147,7 @@ class Billing {
     try {
       return this.#stripe.payouts.create({
         amount: amount * PaymentUnit.CENTS_IN_ONE_DOLLAR,
-        currency: BILLING_CURRENCY,
+        currency: Billing.BILLING_CURRENCY,
       });
     } catch (err) {
       this.throwError(err);

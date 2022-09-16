@@ -42,7 +42,7 @@ const replenish = createAsyncThunk<
 
 const withdraw = createAsyncThunk<number, BillingWithdrawDto, AsyncThunkConfig>(
   ActionType.WITHDRAW,
-  async ({ usersCurrentBalance }, { extra }) => {
+  async ({ userCurrentBalance: usersCurrentBalance }, { extra }) => {
     const { billingApi, notification } = extra;
 
     if (usersCurrentBalance >= MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW) {
