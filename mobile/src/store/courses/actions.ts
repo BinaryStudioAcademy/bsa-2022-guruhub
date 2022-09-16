@@ -79,6 +79,7 @@ const getMentorsByCourseId = createAsyncThunk<
     const availableMentors = mentors.filter(({ id }) => {
       return id !== mentor.id;
     });
+
     return availableMentors;
   }
 
