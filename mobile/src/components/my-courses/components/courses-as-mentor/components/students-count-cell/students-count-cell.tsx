@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
 import { AppColor } from '~/common/enums/enums';
-// import { CourseUpdateMentoringDto } from '~/common/types/types';
 import { Icon, Input, Pressable, View } from '~/components/common/common';
 import { CourseUpdateMentoringForm } from '~/components/my-courses/common/types/course-update-mentoring-form.type';
 import { useAppDispatch, useAppForm } from '~/hooks/hooks';
