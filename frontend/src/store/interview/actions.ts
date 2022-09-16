@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { NotificationMessage } from 'common/enums/enums';
 import {
   AsyncThunkConfig,
@@ -98,7 +98,10 @@ const getOtherByInterviewId = createAsyncThunk<
   },
 );
 
+const cleanInterview = createAction(ActionType.CLEAN_INTERVIEW);
+
 export {
+  cleanInterview,
   createNote,
   getInterview,
   getInterviewersByCategory,
