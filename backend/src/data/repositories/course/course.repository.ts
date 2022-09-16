@@ -210,41 +210,43 @@ class Course {
   ): Promise<UsersGetResponseDto[]> {
     const { mentorName } = filteringOpts ?? {};
 
-    const mentors = await this.#CourseModel
-      .query()
-      .where({ 'courses.id': courseId })
-      .andWhere((builder) => {
-        if (mentorName) {
-          builder.where('fullName', 'ilike', `%${mentorName}%`);
-        }
-      })
-      .whereIn('mentors.id', filteredMentorIds)
-      .select('mentors')
-      .withGraphJoined(
-        'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
-      )
-      .first()
-      .castTo<CourseAllMentorsDto>();
+    const { mentors } =
+      (await this.#CourseModel
+        .query()
+        .where({ 'courses.id': courseId })
+        .andWhere((builder) => {
+          if (mentorName) {
+            builder.where('fullName', 'ilike', `%${mentorName}%`);
+          }
+        })
+        .whereIn('mentors.id', filteredMentorIds)
+        .select('mentors')
+        .withGraphJoined(
+          'mentors(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+        )
+        .first()
+        .castTo<CourseAllMentorsDto>()) ?? {};
 
-    return mentors?.mentors ?? [];
+    return mentors ?? [];
   }
 
   public async getMenteesByCourseIdAndMentorId({
     courseId,
     mentorId,
   }: CourseGetMenteesByMentorRequestDto): Promise<UsersGetResponseDto[]> {
-    const mentees = await this.#CourseModel
-      .query()
-      .select('mentees')
-      .withGraphJoined(
-        'mentees(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
-      )
-      .where({ mentorId, courseId })
-      .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
-      .first()
-      .castTo<GetAllMenteesDto>();
+    const { mentees } =
+      (await this.#CourseModel
+        .query()
+        .select('mentees')
+        .withGraphJoined(
+          'mentees(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+        )
+        .where({ mentorId, courseId })
+        .andWhereNot('status', MenteesToMentorsStatus.COMPLETED)
+        .first()
+        .castTo<GetAllMenteesDto>()) ?? {};
 
-    return mentees?.mentees ?? [];
+    return mentees ?? [];
   }
 
   public async updateCategory(
