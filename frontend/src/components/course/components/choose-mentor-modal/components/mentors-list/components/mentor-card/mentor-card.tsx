@@ -1,11 +1,11 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
-import { FC, UserDetailsResponseDto } from 'common/types/types';
+import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  mentor: UserDetailsResponseDto;
+  mentor: UsersGetResponseDto;
   onClick: (mentorId: number) => void;
 };
 
@@ -19,14 +19,15 @@ const MentorCard: FC<Props> = ({ onClick, mentor }) => {
       <div className={styles.avatarWrapper}>
         <Image
           alt="mentor image"
-          src={mentor.avatar?.url ?? defaultUserAvatar}
+          src={mentor.userDetails.avatar?.url ?? defaultUserAvatar}
           width="200"
           height="100"
           classes={styles.avatar}
+          isCircular
         />
       </div>
       <div className={styles.infoContainer}>
-        <p className={styles.fullName}>{mentor.fullName}</p>
+        <p className={styles.fullName}>{mentor.userDetails.fullName}</p>
         <div className={styles.button}>
           <Button
             label="Choose"

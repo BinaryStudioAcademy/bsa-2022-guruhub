@@ -1,3 +1,4 @@
+import defaultAvatar from 'assets/img/avatar-default.svg';
 import { FC, InterviewNoteGetAllItemResponseDto } from 'common/types/types';
 
 import { InterviewNoteCard } from './components/components';
@@ -22,6 +23,7 @@ const InterviewNoteCardList: FC<Props> = ({ notes }) => {
           note={note}
           authorName={author.userDetails.fullName}
           postDate={createdAt}
+          authorAvatar={author.userDetails.avatar?.url ?? defaultAvatar}
         />
       ))}
     </div>

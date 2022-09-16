@@ -143,7 +143,7 @@ const CourseModule: FC = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className={styles.taskContainer}>
         {canManipulateTask && (
           <TaskManipulate
             onSendOnReview={handleSendOnReview}
