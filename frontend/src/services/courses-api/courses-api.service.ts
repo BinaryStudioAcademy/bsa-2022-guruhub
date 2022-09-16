@@ -19,7 +19,7 @@ import {
   EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -150,8 +150,8 @@ class CoursesApi {
   public getMentorsByCourseId({
     courseId,
     filteringOpts,
-  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
-    return this.#http.load<UserDetailsResponseDto[]>(
+  }: CourseGetMentorsRequestDto): Promise<UsersGetResponseDto[]> {
+    return this.#http.load<UsersGetResponseDto[]>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
       }`,
@@ -166,8 +166,8 @@ class CoursesApi {
 
   public getMenteesByCourseId(
     courseId: number,
-  ): Promise<UserDetailsResponseDto[]> {
-    return this.#http.load<UserDetailsResponseDto[]>(
+  ): Promise<UsersGetResponseDto[]> {
+    return this.#http.load<UsersGetResponseDto[]>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTEES
       }`,

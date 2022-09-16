@@ -8,11 +8,14 @@ const getInterviewsRows = (
   return interviews.map((interview): InterviewsTableRow => {
     const interviewerName =
       interview.interviewer?.userDetails?.fullName ?? 'Not assigned yet';
+    const intervieweeTelegram =
+      interview.interviewee.userDetails.telegramUsername ?? '';
 
     return {
       [InterviewsTableAccessor.ID]: interview.id,
       [InterviewsTableAccessor.NAME]:
         interview.interviewee.userDetails.fullName,
+      [InterviewsTableAccessor.TELEGRAM]: intervieweeTelegram,
       [InterviewsTableAccessor.CATEGORY]: interview.courseCategory,
       [InterviewsTableAccessor.STATUS]: interview.status,
       [InterviewsTableAccessor.INTERVIEWER]: interviewerName,

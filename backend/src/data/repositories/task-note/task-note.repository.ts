@@ -31,7 +31,7 @@ class TaskNote {
       .query()
       .where({ taskId })
       .withGraphFetched(
-        'author(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'author(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .orderBy('createdAt', SortOrder.DESC)
       .page(page, count)
@@ -52,7 +52,9 @@ class TaskNote {
     return this.#TaskNoteModel
       .query()
       .insert({ authorId, taskId, note, status })
-      .withGraphFetched('author(withoutPassword).[userDetails]')
+      .withGraphFetched(
+        'author(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
       .castTo<TaskNoteGetItemResponseDto>()
       .execute();
   }

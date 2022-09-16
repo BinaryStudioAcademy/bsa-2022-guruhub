@@ -11,4 +11,5 @@ export { groupByKey } from './object/object';
 export { checkHasPermission } from './permissions/permissions';
 export { getTextWithoutHTMLTags, sanitizeHTML } from './sanitize/sanitize';
 export { capitalize } from './strings/strings';
+export { getNameOf } from './typescript/typescript';
 export { getFormValidationResolver } from './validation/validation';
