@@ -158,10 +158,7 @@ const InterviewItem: FC<Props> = ({
             {!isEditMode && (
               <p className={styles.interviewValue}>
                 {interview?.interviewDate
-                  ? getFormattedDate(
-                      interview?.interviewDate,
-                      'HH:mm dd.MM.yyyy',
-                    )
+                  ? getFormattedDate(interview?.interviewDate, 'dd.MM.yyyy')
                   : 'Not set'}
               </p>
             )}
