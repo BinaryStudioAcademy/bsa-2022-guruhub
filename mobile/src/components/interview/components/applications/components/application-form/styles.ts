@@ -5,7 +5,7 @@ import { AppColor, AppFontFamily } from '~/common/enums/enums';
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: AppColor.BACKGROUND.GRAY_100,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 10,
     marginBottom: 25,
   },
