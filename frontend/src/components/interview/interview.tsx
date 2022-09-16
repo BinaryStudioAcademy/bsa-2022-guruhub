@@ -1,5 +1,8 @@
 import {
+  AppRoute,
   DataStatus,
+  NotificationMessage,
+  NotificationType,
   PaginationDefaultValue,
   PermissionKey,
 } from 'common/enums/enums';
@@ -19,7 +22,8 @@ import {
   useParams,
   useState,
 } from 'hooks/hooks';
-import { interviewActions } from 'store/actions';
+import { navigation } from 'services/services';
+import { appActions, interviewActions } from 'store/actions';
 
 import {
   HistorySection,
@@ -57,6 +61,15 @@ const Interview: FC = () => {
     permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
     userPermissions: (user as UserWithPermissions).permissions,
   });
+  const hasManageInterviewPermissions = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_INTERVIEW],
+    userPermissions: (user as UserWithPermissions).permissions,
+  });
+  const isInterviewerOrInterviewee =
+    (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
+      (user as UserWithPermissions).id ||
+    (interview as InterviewsGetAllItemResponseDto).interviewer?.id ===
+      (user as UserWithPermissions).id;
 
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
@@ -72,6 +85,19 @@ const Interview: FC = () => {
         interviewActions.getInterviewersByCategory({
           categoryId: (interview as InterviewsGetAllItemResponseDto)
             .courseCategory.id,
+        }),
+      );
+    }
+    const hasPermissionToAccessInterviewPage =
+      hasPermissionToSelectInterviewer ||
+      (hasManageInterviewPermissions && isInterviewerOrInterviewee);
+
+    if (!hasPermissionToAccessInterviewPage) {
+      navigation.push(AppRoute.SIGN_IN);
+      dispatch(
+        appActions.notify({
+          type: NotificationType.ERROR,
+          message: NotificationMessage.PERMISSION_DENIED,
         }),
       );
     }
