@@ -40,17 +40,17 @@ const Course: FC<Props> = ({ course }) => {
               height="100%"
             />
           </Link>
+          <div className={styles.categoryWrapper}>
+            <p className={styles.category}>
+              {(course.category as CourseCategoryWithPriceDto).name}
+            </p>
+          </div>
           <div>
             <h4 className={styles.title}>{course.title}</h4>
           </div>
         </div>
       </div>
       <div className={styles.footer}>
-        <div className={styles.categoryWrapper}>
-          <p className={styles.category}>
-            {(course.category as CourseCategoryWithPriceDto).name}
-          </p>
-        </div>
         <p className={styles.price}>
           ${(course.category as CourseCategoryWithPriceDto).price.price}/h
         </p>

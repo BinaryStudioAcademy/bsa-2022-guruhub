@@ -52,6 +52,9 @@
 }
 
 .category {
+  position: absolute;
+  bottom: 70px;
+  left: 10px;
   margin: 0;
   margin-top: 12px;
   padding: 5px 11px;
@@ -64,6 +67,9 @@
 }
 
 .price {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
   margin: 0;
   margin-top: 12px;
   color: var(--typography-text-100-inverse);
