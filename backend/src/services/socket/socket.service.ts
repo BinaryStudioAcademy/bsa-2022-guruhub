@@ -5,7 +5,6 @@ import { SocketEvent, SocketNamespace } from '~/common/enums/enums';
 import {
   ChatMessageGetAllItemResponseDto,
   Socket as SocketType,
-  SocketEmitArguments,
 } from '~/common/types/types';
 
 class Socket {
@@ -18,7 +17,7 @@ class Socket {
       .on(SocketEvent.CONNECTION, this.chatHandler);
   }
 
-  public chatHandler(socket: SocketType): void {
+  private chatHandler(socket: SocketType): void {
     socket.on(SocketEvent.CHAT_JOIN_ROOM, (roomId: string) => {
       socket.join(roomId);
     });
@@ -35,10 +34,6 @@ class Socket {
           .emit(SocketEvent.CHAT_ADD_MESSAGE, message);
       },
     );
-  }
-
-  public emit<T>({ args, event, roomId }: SocketEmitArguments<T>): void {
-    (this.#io as SocketServer).to(roomId).emit(event, args);
   }
 }
 

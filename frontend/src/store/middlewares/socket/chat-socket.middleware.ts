@@ -13,32 +13,36 @@ type SocketMiddlewareParams = {
 
 const chatSocketInstance = io(SocketNamespace.CHAT);
 
-const chatSocket: Middleware =
-  ({ dispatch }: SocketMiddlewareParams) =>
-  (next) =>
-  (action): void => {
-    if (chatsActions.joinRoom.match(action)) {
-      chatSocketInstance.emit(SocketEvent.CHAT_JOIN_ROOM, action.payload);
-      chatSocketInstance.on(
-        SocketEvent.CHAT_ADD_MESSAGE,
-        (message: ChatMessageGetAllItemResponseDto): void => {
-          dispatch(chatsActions.addMessage(message));
-          // PR Read Messages should be Merged
-          // dispatch(chatsActions.readMessages(message.chatId));
-        },
-      );
-    }
+const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParams) => {
+  chatSocketInstance.on(
+    SocketEvent.CHAT_ADD_MESSAGE,
+    (message: ChatMessageGetAllItemResponseDto): void => {
+      dispatch(chatsActions.addMessage(message));
+      // TODO:
+      // PR Read Messages should be Merged
+      // dispatch(chatsActions.readMessages(message.chatId));
+    },
+  );
 
-    if (chatsActions.leaveRoom.match(action)) {
-      chatSocketInstance.emit(SocketEvent.CHAT_LEAVE_ROOM, action.payload);
-      chatSocketInstance.off(SocketEvent.CHAT_ADD_MESSAGE);
-    }
+  return (next) =>
+    (action): void => {
+      if (chatsActions.joinRoom.match(action)) {
+        chatSocketInstance.emit(SocketEvent.CHAT_JOIN_ROOM, action.payload);
+      }
 
-    if (chatsActions.createMessage.fulfilled.match(action)) {
-      chatSocketInstance.emit(SocketEvent.CHAT_CREATE_MESSAGE, action.payload);
-    }
+      if (chatsActions.leaveRoom.match(action)) {
+        chatSocketInstance.emit(SocketEvent.CHAT_LEAVE_ROOM, action.payload);
+      }
 
-    return next(action);
-  };
+      if (chatsActions.createMessage.fulfilled.match(action)) {
+        chatSocketInstance.emit(
+          SocketEvent.CHAT_CREATE_MESSAGE,
+          action.payload,
+        );
+      }
+
+      return next(action);
+    };
+};
 
 export { chatSocket };
