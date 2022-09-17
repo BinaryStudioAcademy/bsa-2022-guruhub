@@ -10,7 +10,6 @@ import {
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
-import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
 import { ROWS_MAX_COUNT } from './common/constants/rows-max-count.constants';
 import { getDefaultMessagePayload } from './helpers/helpers';
@@ -24,7 +23,6 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const { control, errors, handleSubmit, reset, watch } =
     useAppForm<ChatMessageFormRequestDto>({
       defaultValues: getDefaultMessagePayload(),
-      validationSchema: chatMessageCreate,
     });
 
   const [messageChar, setMessageChar] = useState<string>();
@@ -50,7 +48,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   }, [messageChar]);
 
   useEffect(() => {
-    setIsDisabledButton(!watchMessage);
+    setIsDisabledButton(!watchMessage.trim());
   }, [watchMessage]);
 
   useFocusEffect(
