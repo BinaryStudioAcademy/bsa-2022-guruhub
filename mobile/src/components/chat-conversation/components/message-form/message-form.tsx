@@ -27,12 +27,11 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
 
   const [messageChar, setMessageChar] = useState<string>();
   const [rowsCount, setRowsCount] = useState<number>(1);
-  const [isDisabledButton, setIsDisabledButton] = useState<boolean>(true);
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
-  const hasError = Boolean(errors.message?.message) || isDisabledButton;
-  const watchMessage = watch('message');
-
+  const hasError = Boolean(errors.message?.message);
+  const messageFieldValue = watch('message');
+  const isButtonDisabled = !(hasError || Boolean(messageFieldValue.trim()));
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
     reset({ message: '' });
@@ -46,10 +45,6 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
       setRowsCount(rowsCount + 1);
     }
   }, [messageChar]);
-
-  useEffect(() => {
-    setIsDisabledButton(!watchMessage.trim());
-  }, [watchMessage]);
 
   useFocusEffect(
     useCallback(() => {
@@ -73,8 +68,8 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
       <Pressable
         onPress={handleSubmit(handleSend)}
         hitSlop={hitSlop}
-        style={[styles.button, hasError && styles.disabledButton]}
-        disabled={hasError}
+        style={[styles.button, isButtonDisabled && styles.disabledButton]}
+        disabled={!isButtonDisabled}
       >
         <Icon
           color={AppColor.BRAND.BLUE_100}
