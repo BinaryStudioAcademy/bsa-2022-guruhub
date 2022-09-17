@@ -5,6 +5,9 @@ enum ActionType {
   CHECK_HAS_UNREAD_MESSAGES = 'chats/check-has-unread-messages',
   CLEAN_HAS_UNREAD_MESSAGES = 'chats/clean-has-unread-messages',
   SET_HAS_UNREAD_MESSAGES = 'chats/set-has-unread-messages',
+  ADD_MESSAGE = 'chats/add-message',
+  JOIN_ROOM = 'chats/join-room',
+  LEAVE_ROOM = 'chats/leave-room',
 }
 
 export { ActionType };
