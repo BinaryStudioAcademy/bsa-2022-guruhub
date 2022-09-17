@@ -54,7 +54,9 @@ const Dashboard: FC = () => {
           onModalToggle={handleNewCourseModalToggle}
         />
       </div>
-      <CategoriesList items={categories} />
+      <div className={styles.categoriesWrapper}>
+        <CategoriesList items={categories} />
+      </div>
       {dataStatus === DataStatus.PENDING ? (
         <Spinner />
       ) : (
