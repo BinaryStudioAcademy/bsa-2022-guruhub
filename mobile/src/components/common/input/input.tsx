@@ -60,6 +60,7 @@ const Input = <T extends FormControlValues>({
         secureTextEntry={isSecure}
         numberOfLines={rows}
         multiline={hasRows}
+        autoCorrect={false}
         keyboardType={keyboardType}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
