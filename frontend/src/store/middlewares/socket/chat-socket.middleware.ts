@@ -4,14 +4,14 @@ import {
   AppDispatch,
   ChatMessageGetAllItemResponseDto,
 } from 'common/types/types';
-import { io } from 'socket.io-client';
+import { socket } from 'services/services';
 import { chatsActions } from 'store/actions';
 
 type SocketMiddlewareParams = {
   dispatch: AppDispatch;
 };
 
-const chatSocketInstance = io(SocketNamespace.CHAT);
+const chatSocketInstance = socket.getInstance(SocketNamespace.CHAT);
 
 const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParams) => {
   chatSocketInstance.on(

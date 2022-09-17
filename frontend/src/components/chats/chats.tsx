@@ -1,10 +1,10 @@
-import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
+import { DataStatus, SearchValue } from 'common/enums/enums';
 import {
   FC,
   UsersGetResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
-import { Navigate, Spinner } from 'components/common/common';
+import { Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -73,10 +73,6 @@ const Chats: FC = () => {
     authDataStatus === DataStatus.PENDING
   ) {
     return <Spinner />;
-  }
-
-  if (!user) {
-    return <Navigate to={AppRoute.ROOT} />;
   }
 
   return (
