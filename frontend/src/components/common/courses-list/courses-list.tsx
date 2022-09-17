@@ -17,11 +17,11 @@ const CoursesList: FC<Props> = ({
   }
 
   return (
-    <div className={styles.container}>
+    <ul className={styles.container}>
       {courses.map((course) => (
         <Course key={course.id} course={course} />
       ))}
-    </div>
+    </ul>
   );
 };
 

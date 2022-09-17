@@ -39,24 +39,22 @@ const Dashboard: FC = () => {
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.header}>
-          <h1 className={styles.headingText}>Courses</h1>
-          <div className={styles.buttonWrapper}>
-            <Button
-              label="+ Add new course"
-              btnColor="blue"
-              to={!hasUser ? AppRoute.SIGN_IN : null}
-              onClick={handleNewCourseModalToggle}
-            />
-          </div>
-          <AddCourseModal
-            isModalOpen={isNewCourseModalOpen}
-            onModalToggle={handleNewCourseModalToggle}
+      <div className={styles.header}>
+        <h1 className={styles.headingText}>Courses</h1>
+        <div className={styles.buttonWrapper}>
+          <Button
+            label="+ Add new course"
+            btnColor="blue"
+            to={!hasUser ? AppRoute.SIGN_IN : null}
+            onClick={handleNewCourseModalToggle}
           />
         </div>
-        <CategoriesList items={categories} />
+        <AddCourseModal
+          isModalOpen={isNewCourseModalOpen}
+          onModalToggle={handleNewCourseModalToggle}
+        />
       </div>
+      <CategoriesList items={categories} />
       {dataStatus === DataStatus.PENDING ? (
         <Spinner />
       ) : (
