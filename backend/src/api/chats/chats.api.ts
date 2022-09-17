@@ -9,7 +9,7 @@ import {
 import { chatMessage as chatMessageService } from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
-  chatMessageFiltering as сhatMessageFilteringValidationSchema,
+  chatMessageFiltering as chatMessageFilteringValidationSchema,
   chatMessageGetAllParams as chatMessageGetAllParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -26,7 +26,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: ChatsApiPath.ROOT,
     schema: {
-      querystring: сhatMessageFilteringValidationSchema,
+      querystring: chatMessageFilteringValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
@@ -92,6 +92,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { id: userId } = req.user;
       const { message, chatId, receiverId } = req.body;
+
       const newChatMessage = await chatMessageService.create({
         senderId: userId,
         receiverId,

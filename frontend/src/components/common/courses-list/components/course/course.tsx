@@ -16,46 +16,43 @@ type Props = {
 
 const Course: FC<Props> = ({ course }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.body}>
-        <div className={styles.vendor}>
-          <Image
-            src={`/${course.vendor.key}.svg`}
-            width="40"
-            height="13"
-            alt="vendor logo"
-          />
+    <li className={styles.container}>
+      <div className={styles.vendor}>
+        <Image
+          src={`/${course.vendor.key}.svg`}
+          width="40"
+          height="13"
+          alt="vendor logo"
+        />
+      </div>
+      <div className={styles.content}>
+        <Image
+          alt="course image"
+          src={course.imageUrl ?? defaultCourseImage}
+          width="100%"
+          height="100%"
+          className={styles.image}
+        />
+        <div className={styles.categoryWrapper}>
+          <p className={styles.category}>
+            {(course.category as CourseCategoryWithPriceDto).name}
+          </p>
         </div>
-        <div className={styles.content}>
-          <Link
-            to={generateDynamicPath(AppRoute.COURSES_$ID, {
-              courseId: course.id,
-            })}
-            className={styles.image}
-          >
-            <Image
-              alt="course image"
-              src={course.imageUrl ?? defaultCourseImage}
-              width="100%"
-              height="100%"
-            />
-          </Link>
-          <div className={styles.categoryWrapper}>
-            <p className={styles.category}>
-              {(course.category as CourseCategoryWithPriceDto).name}
-            </p>
-          </div>
-          <div>
-            <h4 className={styles.title}>{course.title}</h4>
-          </div>
-        </div>
+        <Link
+          to={generateDynamicPath(AppRoute.COURSES_$ID, {
+            courseId: course.id,
+          })}
+          className={styles.link}
+        >
+          <h4 className={styles.title}>{course.title}</h4>
+        </Link>
       </div>
       <div className={styles.footer}>
         <p className={styles.price}>
           ${(course.category as CourseCategoryWithPriceDto).price.price}/h
         </p>
       </div>
-    </div>
+    </li>
   );
 };
 

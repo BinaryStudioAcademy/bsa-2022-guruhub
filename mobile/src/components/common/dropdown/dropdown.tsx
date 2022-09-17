@@ -38,7 +38,7 @@ const Dropdown = <T extends FormControlValues>({
 
   return (
     <>
-      {label && <Text style={styles.title}>{label}</Text>}
+      {label && <Text style={styles.label}>{label}</Text>}
       <DropDownPicker
         open={open}
         value={value}
@@ -53,9 +53,10 @@ const Dropdown = <T extends FormControlValues>({
         placeholderStyle={styles.placeholderStyle}
         searchPlaceholder="Search..."
         autoScroll={true}
-        labelStyle={styles.labelStyle}
         searchable={true}
         listMode="MODAL"
+        style={styles.dropDown}
+        labelStyle={styles.dropDownLabel}
         dropDownContainerStyle={styles.dropDownContainerStyle}
         listParentContainerStyle={styles.listParentContainerStyle}
         searchContainerStyle={styles.searchContainerStyle}

@@ -126,6 +126,7 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export { type Socket } from './socket/socket';
 export { type StripeReplenishArgumentsDto } from './stripe/stripe';
 export {
   type TaskByIdRequestParamsDto,

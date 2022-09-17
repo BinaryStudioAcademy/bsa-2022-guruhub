@@ -257,7 +257,7 @@ const Course: FC = () => {
       />
       <div className={styles.info}>
         <div className={styles.headingWrapper}>
-          <h1>{course?.title}</h1>
+          <h1 className={styles.title}>{course?.title}</h1>
           {isCategoryEditAllowed && (
             <div className={styles.editButton}>
               <IconButton

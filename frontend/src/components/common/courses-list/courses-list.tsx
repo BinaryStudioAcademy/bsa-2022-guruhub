@@ -10,18 +10,18 @@ type Props = {
 
 const CoursesList: FC<Props> = ({
   courses,
-  placeholderText = 'There is no courses',
+  placeholderText = 'There are no courses',
 }) => {
   if (!courses.length) {
     return <p className={styles.placeholder}>{placeholderText}</p>;
   }
 
   return (
-    <div className={styles.container}>
+    <ul className={styles.container}>
       {courses.map((course) => (
         <Course key={course.id} course={course} />
       ))}
-    </div>
+    </ul>
   );
 };
 

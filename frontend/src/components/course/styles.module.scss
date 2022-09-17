@@ -16,12 +16,25 @@
   padding: 5px;
 }
 
+.title {
+  margin: 0 0 15px;
+}
+
+.categoryContainer {
+  display: flex;
+  flex-shrink: 0;
+  margin-bottom: 15px;
+}
+
 .info {
   margin-bottom: 20px;
 }
 
 .image {
+  display: block;
   width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   overflow: hidden;
   border-radius: 14px;
 }
@@ -42,12 +55,6 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-}
-
-.categoryContainer {
-  display: flex;
-  flex-shrink: 0;
-  margin-bottom: 10px;
 }
 
 .editButton {
