@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   buttonHide: {
     opacity: 0,
   },
-  selectWrapper: {
+  fieldWrapper: {
     minWidth: '100%',
     borderRadius: 8,
     borderWidth: 1,

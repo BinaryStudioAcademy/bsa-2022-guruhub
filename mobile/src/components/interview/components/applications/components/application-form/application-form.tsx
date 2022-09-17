@@ -136,7 +136,7 @@ const ApplicationForm: FC<Props> = ({
             {!isEditMode ? (
               <Text style={styles.content}>{interviewDate}</Text>
             ) : (
-              <View style={styles.selectWrapper}>
+              <View style={styles.fieldWrapper}>
                 <DatePicker
                   name="interviewDate"
                   control={control}
@@ -159,7 +159,7 @@ const ApplicationForm: FC<Props> = ({
                   'Not assigned yet'}
               </Text>
             ) : (
-              <View style={styles.selectWrapper}>
+              <View style={styles.fieldWrapper}>
                 <Dropdown
                   items={interviewersData}
                   control={control}
