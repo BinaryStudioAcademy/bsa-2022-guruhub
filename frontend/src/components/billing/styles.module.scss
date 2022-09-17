@@ -12,8 +12,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 85%;
+  width: 100%;
+  margin: 0 30px;
   padding: 20px;
   color: var(--typography-text-100-inverse);
-  border-bottom: 1px solid var(--typography-text-gray-200);
+  border-bottom: 2px solid var(--background-gray-200);
 }

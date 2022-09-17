@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import { PaymentUnit } from 'common/enums/enums';
 import { FC, Token } from 'common/types/types';
 import StripeCheckout from 'react-stripe-checkout';
@@ -17,7 +19,9 @@ const ReplenishCard: FC<Props> = ({ amount, onReplenish, replenishKey }) => {
 
   return (
     <div className={styles.replenishCardWrapper}>
-      <h1 className={styles.amount}>{amount}$</h1>
+      <div className={styles.price}>
+        <h1 className={styles.amount}>{amount}$</h1>
+      </div>
       <StripeCheckout
         stripeKey={replenishKey}
         label="Replenish"
