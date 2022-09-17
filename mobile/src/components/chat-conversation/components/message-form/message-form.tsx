@@ -29,10 +29,11 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
 
   const [messageChar, setMessageChar] = useState<string>();
   const [rowsCount, setRowsCount] = useState<number>(1);
-  const [disabledButtom, setDisabledButtom] = useState<boolean>(true);
+  const [isDisabledButton, setIsDisabledButton] = useState<boolean>(true);
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
-  const hasError = Boolean(errors.message?.message) || disabledButtom;
+  const hasError = Boolean(errors.message?.message) || isDisabledButton;
+  const watchMessage = watch('message');
 
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
@@ -49,12 +50,8 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   }, [messageChar]);
 
   useEffect(() => {
-    watch((value: { message: string }) => {
-      if (value.message) {
-        setDisabledButtom(false);
-      } else setDisabledButtom(true);
-    });
-  }, [watch]);
+    setIsDisabledButton(!watchMessage);
+  }, [watchMessage]);
 
   useFocusEffect(
     useCallback(() => {
