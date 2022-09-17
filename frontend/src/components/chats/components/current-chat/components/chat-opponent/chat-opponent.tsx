@@ -17,7 +17,7 @@ const ChatOpponent: FC<Props> = ({ name, avatar }) => {
         src={avatar}
         alt="chat avatar"
         isCircular
-        classes={styles.opponentAvatar}
+        className={styles.opponentAvatar}
       />
       <h4>{name}</h4>
     </div>

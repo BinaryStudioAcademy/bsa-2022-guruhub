@@ -83,7 +83,7 @@ const Header: FC = () => {
                     src={avatarUrl ?? defaultUserAvatar}
                     alt="user avatar"
                     isCircular
-                    classes={styles.img}
+                    className={styles.img}
                   />
                 </div>
               </button>
