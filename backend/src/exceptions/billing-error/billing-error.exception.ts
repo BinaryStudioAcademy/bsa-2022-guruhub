@@ -9,7 +9,7 @@ import {
 type Constructor = {
   message?: string;
   status?: number;
-  cause?: unknown;
+  cause?: Error | undefined;
 };
 
 class BillingError extends HttpError {

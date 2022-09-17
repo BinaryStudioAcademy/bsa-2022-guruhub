@@ -195,7 +195,7 @@ class Billing {
         status: err.statusCode,
       });
     }
-    throw new BillingError({ cause: err });
+    throw new BillingError({ cause: err as Error });
   }
 }
 
