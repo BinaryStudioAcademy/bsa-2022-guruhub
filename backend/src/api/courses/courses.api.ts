@@ -11,7 +11,7 @@ import {
   CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseCheckIsMentorRequestParamsDto,
   CourseCreateRequestDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetRequestParamsDto,
   CourseMentorsFilteringDto,
   CourseSelectMentorRequestDto,
@@ -57,7 +57,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     },
     async handler(
       req: FastifyRequest<{
-        Querystring: CourseFilteringDto;
+        Querystring: CourseFilteringWithPaginationDto;
       }>,
       rep,
     ) {
@@ -70,6 +70,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.STUDYING,
+    schema: { querystring: paginationValidationSchema },
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       res,

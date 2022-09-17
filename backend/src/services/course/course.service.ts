@@ -1,7 +1,7 @@
 import { CourseHost, ExceptionMessage, VendorKey } from '~/common/enums/enums';
 import {
   CourseCreateArgumentsDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentoringDto,
@@ -68,16 +68,16 @@ class Course {
   }
 
   public async getAllWithCategories(
-    filteringAndPagination: CourseFilteringDto,
+    filteringAndPagination: CourseFilteringWithPaginationDto,
   ): Promise<EntityPagination<CourseGetResponseDto>> {
     const { categoryKey, title, page, count } = filteringAndPagination;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
-    const ZERO_INDEXED_PAGE = page - 1;
+    const zeroIndexPage = page - 1;
 
     return this.#courseRepository.getAllWithCategories({
       categoryId,
       title,
-      page: ZERO_INDEXED_PAGE,
+      page: zeroIndexPage,
       count,
     });
   }

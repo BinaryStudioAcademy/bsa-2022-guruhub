@@ -6,7 +6,7 @@ import {
 } from 'common/enums/enums';
 import {
   CourseCheckIsMentorForMenteeRequestParamsDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
@@ -39,7 +39,7 @@ class CoursesApi {
   }
 
   public getAllWithCategories(opts: {
-    filtering: CourseFilteringDto;
+    filtering: CourseFilteringWithPaginationDto;
   }): Promise<EntityPagination<CourseGetResponseDto>> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,

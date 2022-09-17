@@ -22,7 +22,7 @@ export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
-  type CourseFilteringDto,
+  type CourseFilteringWithPaginationDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentoringDto,

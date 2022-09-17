@@ -4,7 +4,7 @@ import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
   CourseCreateRequestDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetResponseDto,
   EntityPagination,
 } from 'common/types/types';
@@ -13,7 +13,7 @@ import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
   EntityPagination<CourseGetResponseDto>,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   AsyncThunkConfig
 >(
   ActionType.GET_COURSES,

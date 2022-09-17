@@ -23,9 +23,9 @@ class Permission {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<PermissionsGetAllItemResponseDto>
   > {
-    const ZERO_INDEXED_PAGE = page - 1;
+    const zeroIndexPage = page - 1;
     const permissions = await this.#permissionRepository.getAll({
-      page: ZERO_INDEXED_PAGE,
+      page: zeroIndexPage,
       count,
     });
 

@@ -19,18 +19,16 @@ import {
 import styles from './styles.module.scss';
 
 const MyCourses: FC = () => {
-  const {
-    page: pageMentorCourses,
-    handlePageChange: handlePageChangeMentorCourses,
-  } = usePagination({
-    queryName: 'myMentoringCourses',
-  });
+  const { page: mentorCoursesPage, handlePageChange: handleMentorCoursesPage } =
+    usePagination({
+      queryName: 'mentorCoursesPage',
+    });
 
   const {
-    page: pageStudentCourses,
-    handlePageChange: handlePageChangeStudentCourses,
+    page: studentCoursesPage,
+    handlePageChange: handleStudentCoursesPage,
   } = usePagination({
-    queryName: 'myStudyingCourses',
+    queryName: 'studentCoursesPage',
   });
 
   const dispatch = useAppDispatch();
@@ -51,7 +49,7 @@ const MyCourses: FC = () => {
   useEffect(() => {
     dispatch(
       myCoursesActions.getCoursesStudying({
-        page: pageStudentCourses,
+        page: studentCoursesPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
@@ -60,20 +58,20 @@ const MyCourses: FC = () => {
   useEffect(() => {
     dispatch(
       myCoursesActions.getCoursesMentoring({
-        page: pageMentorCourses,
+        page: mentorCoursesPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [pageMentorCourses]);
+  }, [mentorCoursesPage]);
 
   useEffect(() => {
     dispatch(
       myCoursesActions.getCoursesStudying({
-        page: pageStudentCourses,
+        page: studentCoursesPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,
       }),
     );
-  }, [pageStudentCourses]);
+  }, [studentCoursesPage]);
 
   const handleEdit = (course: CourseUpdateMentoringDto): void => {
     dispatch(myCoursesActions.updateCoursesMentoring(course));
@@ -96,8 +94,8 @@ const MyCourses: FC = () => {
       <h1 className={styles.header}>My courses (as student)</h1>
       <CoursesList
         courses={coursesStudying}
-        currentPage={pageStudentCourses}
-        onPageChange={handlePageChangeStudentCourses}
+        currentPage={studentCoursesPage}
+        onPageChange={handleStudentCoursesPage}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         totalCount={totalCoursesStudying}
       />
@@ -106,8 +104,8 @@ const MyCourses: FC = () => {
         <Table
           data={data}
           columns={columns}
-          currentPage={pageMentorCourses}
-          onPageChange={handlePageChangeMentorCourses}
+          currentPage={mentorCoursesPage}
+          onPageChange={handleMentorCoursesPage}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT}
           totalCount={totalCoursesMentoring}
         />
