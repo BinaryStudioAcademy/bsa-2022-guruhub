@@ -19,6 +19,17 @@ class MenteesToMentors {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
   }
 
+  public getById(id: number): Promise<MenteesToMentorsResponseDto> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .findById(id)
+      .withGraphFetched(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
+      .castTo<MenteesToMentorsResponseDto>()
+      .execute();
+  }
+
   public create(
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {

@@ -1,0 +1,11 @@
+get:
+  summary: Get Money Balance
+  tags:
+    - billing
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: number
+            example: 100

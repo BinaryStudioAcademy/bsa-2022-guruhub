@@ -45,6 +45,15 @@ class CourseModule {
     return modules;
   }
 
+  public async getCourseModulesCount(courseId: number): Promise<number> {
+    const countDto =
+      await this.#moduleRepository.getAllCourseModulesCountByCourseId({
+        courseId,
+      });
+
+    return countDto.value;
+  }
+
   public async createModulesByCourseId(
     serviceCourseId: number,
     dbCourseId: number,

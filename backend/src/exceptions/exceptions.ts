@@ -1,4 +1,5 @@
 export { AuthError } from './auth-error/auth-error.exception';
+export { BillingError } from './billing-error/billing-error.exception';
 export { CoursesError } from './courses-error/courses-error.exception';
 export { CoursesModulesError } from './courses-module-error/course-modules-error.exception';
 export { CoursesToMentorsError } from './courses-to-mentors-error/courses-to-mentors-error.exception';

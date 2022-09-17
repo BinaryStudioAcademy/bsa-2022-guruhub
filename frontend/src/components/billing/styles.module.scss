@@ -1,0 +1,19 @@
+.billing {
+  width: 100%;
+  background: var(--background-gray-400);
+}
+
+.yourBalanceSectionWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.yourBalanceSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  padding: 20px;
+  color: var(--typography-text-100-inverse);
+  border-bottom: 1px solid var(--typography-text-gray-200);
+}

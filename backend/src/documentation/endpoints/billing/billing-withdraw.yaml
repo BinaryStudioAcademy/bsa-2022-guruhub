@@ -1,0 +1,11 @@
+post:
+  summary: Initialize Withdraw
+  tags:
+    - billing
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: number
+            example: 100
