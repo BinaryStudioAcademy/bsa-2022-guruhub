@@ -5,7 +5,7 @@ import { getNameOf } from '~/helpers/helpers';
 
 const billingReplenishParams = Joi.object({
   [getNameOf<BillingReplenishParamsDto>('amountOfMoneyToReplenish')]:
-    Joi.number().required(),
+    Joi.number().positive().required(),
   [getNameOf<BillingReplenishParamsDto>('token')]: Joi.object({
     id: Joi.string().required(),
   }).required(),
