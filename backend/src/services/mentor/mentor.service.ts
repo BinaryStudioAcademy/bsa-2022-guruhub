@@ -1,5 +1,7 @@
 import { ExceptionMessage } from '~/common/enums/enums';
 import {
+  CourseCategoryPriceGetAllItemResponseDto,
+  CourseGetResponseDto,
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   MenteesToMentorsRequestDto,
@@ -7,6 +9,9 @@ import {
 } from '~/common/types/types';
 import { MenteesToMentorsError } from '~/exceptions/exceptions';
 import {
+  billing as billingServ,
+  course as courseServ,
+  courseCategory as courseCategoryServ,
   courseModule as courseModuleServ,
   coursesToMentors as coursesToMentorsServ,
   menteesToMentors as menteesToMentorsServ,
@@ -14,30 +19,45 @@ import {
 } from '~/services/services';
 
 type Constructor = {
-  menteesToMentorsService: typeof menteesToMentorsServ;
+  billingService: typeof billingServ;
+  courseService: typeof courseServ;
   coursesToMentorsService: typeof coursesToMentorsServ;
   courseModuleService: typeof courseModuleServ;
+  courseCategoryService: typeof courseCategoryServ;
+  menteesToMentorsService: typeof menteesToMentorsServ;
   taskService: typeof taskServ;
 };
 
 class Mentor {
-  #menteesToMentorsService: typeof menteesToMentorsServ;
+  #billingService: typeof billingServ;
+
+  #courseService: typeof courseServ;
 
   #coursesToMentorsService: typeof coursesToMentorsServ;
 
   #courseModuleService: typeof courseModuleServ;
 
+  #courseCategoryService: typeof courseCategoryServ;
+
+  #menteesToMentorsService: typeof menteesToMentorsServ;
+
   #taskService: typeof taskServ;
 
   public constructor({
+    billingService,
     menteesToMentorsService,
+    courseService,
     coursesToMentorsService,
     courseModuleService,
+    courseCategoryService: courseCategoryPriceService,
     taskService,
   }: Constructor) {
+    this.#billingService = billingService;
     this.#menteesToMentorsService = menteesToMentorsService;
+    this.#courseService = courseService;
     this.#coursesToMentorsService = coursesToMentorsService;
     this.#courseModuleService = courseModuleService;
+    this.#courseCategoryService = courseCategoryPriceService;
     this.#taskService = taskService;
   }
 
@@ -56,6 +76,8 @@ class Mentor {
         message: ExceptionMessage.MENTOR_CANT_BE_STUDENT,
       });
     }
+
+    await this.payMentorService({ courseId, menteeId, mentorId });
 
     const menteeToMentor =
       await this.#menteesToMentorsService.createMenteesToMentors({
@@ -129,6 +151,32 @@ class Mentor {
     menteeToMentor: MenteesToMentorsRequestDto,
   ): Promise<boolean> {
     return this.#menteesToMentorsService.checkIsMentorForMentee(menteeToMentor);
+  }
+
+  private async payMentorService({
+    courseId,
+    menteeId,
+    mentorId,
+  }: MenteesToMentorsRequestDto): Promise<void> {
+    const courseDto = await this.#courseService.getById(courseId);
+    const courseCategoryPriceDto =
+      await this.#courseCategoryService.getPriceDtoByCategoryId(
+        (courseDto as CourseGetResponseDto).courseCategoryId,
+      );
+
+    const courseModulesCount =
+      await this.#courseModuleService.getCourseModulesCount(courseId);
+
+    const rawPriceOfStudying =
+      courseModulesCount *
+      (courseCategoryPriceDto as CourseCategoryPriceGetAllItemResponseDto)
+        .price;
+
+    await this.#billingService.initHoldStudentPayment({
+      menteeId,
+      mentorId,
+      rawPriceOfStudying,
+    });
   }
 }
 

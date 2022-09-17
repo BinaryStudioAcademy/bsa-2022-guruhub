@@ -1,6 +1,7 @@
 export {
   ApiPath,
   AuthApiPath,
+  BillingApiPath,
   CategoriesApiPath,
   ChatsApiPath,
   CourseModulesApiPath,
@@ -38,8 +39,10 @@ export {
 export { PermissionKey } from './permissions/permissions';
 export { SocketEvent, SocketNamespace } from './socket/socket';
 export { SortOrder } from './sort/sort';
+export { PaymentUnit } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
+export { TransactionStatus } from './transaction/transaction';
 export {
   UserAge,
   UserGender,

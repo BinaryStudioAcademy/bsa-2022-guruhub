@@ -17,6 +17,10 @@ class MenteesToMentors {
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
 
+  public getById(id: number): Promise<MenteesToMentorsResponseDto> {
+    return this.#menteesToMentorsRepository.getById(id);
+  }
+
   public async createMenteesToMentors(
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {

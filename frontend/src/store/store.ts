@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
   authApi,
+  billingApi,
   categoriesApi,
   chatsApi,
   courseModulesApi,
@@ -22,6 +23,7 @@ import { rootReducer } from './root-reducer';
 
 const extraArgument = {
   authApi,
+  billingApi,
   chatsApi,
   coursesApi,
   usersApi,

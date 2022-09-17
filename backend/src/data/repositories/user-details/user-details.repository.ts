@@ -1,4 +1,5 @@
 import {
+  NumericalValueContainer,
   UserDetailsResponseDto,
   UserDetailsUpdateInfoRequestDto,
 } from '~/common/types/types';
@@ -58,6 +59,21 @@ class UserDetails {
       .first()
       .withGraphFetched('avatar')
       .castTo<UserDetailsResponseDto>()
+      .execute();
+  }
+
+  public updateMoneyBalance(
+    userId: number,
+    newMoneyBalance: number,
+  ): Promise<NumericalValueContainer> {
+    return this.#UserDetailsModel
+      .query()
+      .findOne({ userId })
+      .patch({
+        moneyBalance: newMoneyBalance,
+      })
+      .returning(['moneyBalance as value'])
+      .castTo<NumericalValueContainer>()
       .execute();
   }
 

@@ -45,6 +45,15 @@ class CourseModule {
     return modules;
   }
 
+  public async getCourseModulesCount(courseId: number): Promise<number> {
+    const countDto =
+      await this.#moduleRepository.getAllCourseModulesCountByCourseId({
+        courseId,
+      });
+
+    return countDto.value;
+  }
+
   public async createModulesByCourseId(
     serviceCourseId: number,
     dbCourseId: number,
@@ -59,17 +68,15 @@ class CourseModule {
       });
     }
 
-    await Promise.all(
-      courseData.map((courseModule) => {
-        return this.create({
-          ...courseModule,
-          description: courseModule.description
-            ? sanitizeHTML(courseModule.description)
-            : null,
-          courseId: dbCourseId,
-        });
-      }),
-    );
+    for (const courseModule of courseData) {
+      await this.create({
+        ...courseModule,
+        description: courseModule.description
+          ? sanitizeHTML(courseModule.description)
+          : null,
+        courseId: dbCourseId,
+      });
+    }
   }
 
   public getById({

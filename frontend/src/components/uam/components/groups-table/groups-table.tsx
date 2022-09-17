@@ -1,6 +1,7 @@
 import { AppRoute, PaginationDefaultValue } from 'common/enums/enums';
-import { FC, GroupsItemResponseDto } from 'common/types/types';
+import { FC } from 'common/types/types';
 import { Button, Table } from 'components/common/common';
+import { GroupsTableRow } from 'components/uam/common/types/types';
 import {
   useAppDispatch,
   useAppSelector,
@@ -11,7 +12,7 @@ import {
 import { Column } from 'react-table';
 import { uamActions } from 'store/actions';
 
-import { getGroupsColumns, getGroupsRows } from './helpers/helpers';
+import { getGroupsColumns, getGroupTableData } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 const GroupsTable: FC = () => {
@@ -32,11 +33,13 @@ const GroupsTable: FC = () => {
     dispatch(uamActions.deleteGroup({ id: groupId }));
   };
 
-  const columns = useMemo<Column<GroupsItemResponseDto>[]>(() => {
+  const columns = useMemo<Column<GroupsTableRow>[]>(() => {
     return getGroupsColumns(handleGroupDelete);
   }, []);
 
-  const data: GroupsItemResponseDto[] = getGroupsRows(groups);
+  const groupsData = useMemo<GroupsTableRow[]>(() => {
+    return getGroupTableData(groups);
+  }, [groups]);
 
   return (
     <div className={styles.groupsTable}>
@@ -52,7 +55,7 @@ const GroupsTable: FC = () => {
         </div>
       </div>
       <Table
-        data={data}
+        data={groupsData}
         columns={columns}
         currentPage={page}
         onPageChange={handlePageChange}

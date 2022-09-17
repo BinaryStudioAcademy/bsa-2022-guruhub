@@ -1,13 +1,13 @@
 import { InterviewsTableAccessor } from 'components/interviews/common/enums/enums';
 import { InterviewsTableRow } from 'components/interviews/common/types/types';
-import { Column } from 'react-table';
-
 import {
   CategoryCell,
   DateCell,
   IdCell,
   StatusCell,
-} from '../../components/components';
+  TelegramCell,
+} from 'components/interviews/components/components';
+import { Column } from 'react-table';
 
 const getInterviewsColumns = (): Column<InterviewsTableRow>[] => {
   return [
@@ -22,6 +22,13 @@ const getInterviewsColumns = (): Column<InterviewsTableRow>[] => {
       accessor: InterviewsTableAccessor.NAME,
       width: 170,
       minWidth: 80,
+    },
+    {
+      Header: 'Telegram Contact',
+      accessor: InterviewsTableAccessor.TELEGRAM,
+      Cell: TelegramCell,
+      width: 200,
+      minWidth: 180,
     },
     {
       Header: 'Category',

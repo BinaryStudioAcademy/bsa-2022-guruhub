@@ -6,7 +6,7 @@ import {
 } from 'components/uam/common/types/types';
 import { Column } from 'react-table';
 
-import { ActionsCell, DateCell } from '../../components/components';
+import { ActionsCell, DateCell, IdCell } from '../../components/components';
 
 const getUsersColumns = (
   user: UserWithPermissions,
@@ -16,6 +16,7 @@ const getUsersColumns = (
     {
       Header: 'ID',
       accessor: UserTableAccessor.ID,
+      Cell: IdCell,
       width: 50,
     },
     {

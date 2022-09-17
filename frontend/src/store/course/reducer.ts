@@ -5,7 +5,6 @@ import {
   CourseGetResponseDto,
   CourseModulesGetAllItemResponseDto,
   TaskWithModuleResponseDto,
-  UserDetailsResponseDto,
   UsersGetResponseDto,
 } from 'common/types/types';
 
@@ -40,10 +39,10 @@ type State = {
   activeInterviewsCategoryIds: number[];
   isMentorBecomingEnabled: boolean;
   isMentorChoosingEnabled: boolean;
-  mentors: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
   mentor: UsersGetResponseDto | null;
   categories: CategoryGetAllItemResponseDto[];
-  menteesByCourseId: UserDetailsResponseDto[];
+  menteesByCourseId: UsersGetResponseDto[];
   menteesByCourseDataStatus: DataStatus;
   isMentor: boolean;
   mentorCheckDataStatus: DataStatus;
@@ -164,6 +163,9 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentorChoosingEnabled = false;
     state.isMentorBecomingEnabled = false;
     state.mentor = payload.mentor;
+  });
+  builder.addCase(chooseMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(changeMentor.pending, (state) => {

@@ -6,6 +6,7 @@ import {
 } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
+import { Billing } from 'components/billing/billing';
 import { Chats } from 'components/chats/chats';
 import {
   AuthorizedProtectedRoute,
@@ -104,11 +105,7 @@ const App: FC = () => {
         />
         <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}
-          element={
-            <AuthorizedWrapper>
-              <CourseModule />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedProtectedRoute component={<CourseModule />} />}
         />
         <Route
           path={AppRoute.INTERVIEW}
@@ -149,6 +146,10 @@ const App: FC = () => {
               <CourseModule />
             </AuthorizedWrapper>
           }
+        />
+        <Route
+          path={AppRoute.BILLING}
+          element={<AuthorizedProtectedRoute component={<Billing />} />}
         />
         <Route
           path={AppRoute.CHATS}
