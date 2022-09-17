@@ -9,7 +9,7 @@ import {
 type Constructor = {
   message?: string;
   status?: number;
-  cause?: Error | undefined;
+  cause?: unknown;
 };
 
 class BillingError extends HttpError {
@@ -18,9 +18,8 @@ class BillingError extends HttpError {
     status = HttpCode.BAD_REQUEST,
     cause,
   }: Constructor = {}) {
-    super({ message, status });
+    super({ message, status, cause });
     this.name = CustomExceptionName.BILLING_ERROR;
-    this.cause = cause;
   }
 }
 
