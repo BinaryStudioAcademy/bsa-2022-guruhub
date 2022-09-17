@@ -1,5 +1,6 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type BillingApiVersion,
   type BillingInitHoldStudentPaymentArgumentsDto,
   type BillingReplenishArgumentsDto,
   type BillingReplenishParamsDto,

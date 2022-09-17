@@ -6,6 +6,7 @@ import {
   TransactionStatus,
 } from '~/common/enums/enums';
 import {
+  BillingApiVersion,
   BillingInitHoldStudentPaymentArgumentsDto,
   BillingReplenishArgumentsDto,
   StripeReplenishArgumentsDto,
@@ -21,7 +22,7 @@ import {
 
 type Constructor = {
   secretKey: string;
-  apiVersion: '2022-08-01';
+  apiVersion: BillingApiVersion;
   transactionService: typeof transactionServ;
   userService: typeof userServ;
   userDetailsService: typeof userDetailsServ;
@@ -194,7 +195,7 @@ class Billing {
         status: err.statusCode,
       });
     }
-    throw new BillingError();
+    throw new BillingError({ cause: err });
   }
 }
 

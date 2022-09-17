@@ -1,5 +1,7 @@
 import { config } from 'dotenv';
 
+import { BillingApiVersion } from '~/common/types/types';
+
 import { AppEnvironment } from './app-environment.enum';
 
 config();
@@ -63,7 +65,7 @@ const ENV = {
   },
   STRIPE: {
     SECRET_KEY: STRIPE_SECRET_KEY as string,
-    API_VERSION: STRIPE_API_VERSION as '2022-08-01',
+    API_VERSION: STRIPE_API_VERSION as BillingApiVersion,
   },
 };
 
