@@ -56,6 +56,8 @@ const ChooseMentor: FC<Props> = ({
     handleMentorsLoad();
   }, [courseId, searchValue]);
 
+  const hasMentors = Boolean(mentors.length);
+
   return (
     <>
       <View style={styles.searchFieldContainer}>
@@ -82,7 +84,7 @@ const ChooseMentor: FC<Props> = ({
             }
             ListHeaderComponent={(): ReactElement => (
               <Text style={styles.title}>
-                {mentors.length ? 'Choose a mentor' : ''}
+                {hasMentors ? 'Choose a mentor' : ''}
               </Text>
             )}
             ListEmptyComponent={(): ReactElement => (
