@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { NotificationMessage, NotificationType } from '~/common/enums/enums';
 import {
   AsyncThunkConfig,
   EntityPagination,
@@ -15,6 +16,7 @@ import {
   InterviewsUpdateRequestParamsDto,
   InterviewUpdateRequestArgumentsDto,
 } from '~/common/types/types';
+import { app } from '~/store/actions';
 
 import { ActionType } from './common';
 
@@ -46,12 +48,21 @@ const updateInterview = createAsyncThunk<
   InterviewsGetAllItemResponseDto,
   InterviewUpdateRequestArgumentsDto,
   AsyncThunkConfig
->(ActionType.UPDATE_INTERVIEW, async (updateInterviewPayload, { extra }) => {
-  const { interviewsApi } = extra;
-  const interview = await interviewsApi.update(updateInterviewPayload);
+>(
+  ActionType.UPDATE_INTERVIEW,
+  async (updateInterviewPayload, { dispatch, extra }) => {
+    const { interviewsApi } = extra;
+    const interview = await interviewsApi.update(updateInterviewPayload);
+    dispatch(
+      app.notify({
+        type: NotificationType.SUCCESS,
+        message: NotificationMessage.INTERVIEW_UPDATE,
+      }),
+    );
 
-  return interview;
-});
+    return interview;
+  },
+);
 
 const getNotes = createAsyncThunk<
   InterviewNoteGetAllResponseDto,
