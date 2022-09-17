@@ -1,5 +1,7 @@
 import { config } from 'dotenv';
 
+import { BillingApiVersion } from '~/common/types/types';
+
 import { AppEnvironment } from './app-environment.enum';
 
 config();
@@ -22,6 +24,8 @@ const {
   AWS_SECRET_ACCESS_KEY,
   AWS_REGION,
   AWS_USERS_FILES_BUCKET_NAME,
+  STRIPE_SECRET_KEY,
+  STRIPE_API_VERSION,
 } = process.env;
 
 const ENV = {
@@ -58,6 +62,10 @@ const ENV = {
     SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY as string,
     REGION: AWS_REGION as string,
     USERS_FILES_BUCKET_NAME: AWS_USERS_FILES_BUCKET_NAME as string,
+  },
+  STRIPE: {
+    SECRET_KEY: STRIPE_SECRET_KEY as string,
+    API_VERSION: STRIPE_API_VERSION as BillingApiVersion,
   },
 };
 

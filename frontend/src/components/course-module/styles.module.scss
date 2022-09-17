@@ -18,6 +18,18 @@
   font-size: 24px;
 }
 
+.courseLink {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--typography-text-gray-200);
+  text-decoration: none;
+}
+
+.courseLinkIconWrapper {
+  color: var(--brand-blue-100);
+}
+
 .moduleNameContainer {
   display: flex;
   flex-grow: 1;
@@ -36,17 +48,6 @@
   color: var(--typography-text-gray-200);
   font-size: 14px;
   line-height: 20px;
-}
-
-.buttonWrapper {
-  display: flex;
-  flex-shrink: 1;
-  align-items: center;
-  color: var(--typography-text-gray-200);
-}
-
-.courseTitle {
-  margin-left: 15px;
 }
 
 .taskAbsenceTitle {

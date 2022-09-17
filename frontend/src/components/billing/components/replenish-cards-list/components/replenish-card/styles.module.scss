@@ -1,0 +1,12 @@
+.replenishCardWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border: 2px solid var(--typography-text-100-inverse);
+  border-radius: 20px;
+}
+
+.amount {
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+}

@@ -12,6 +12,7 @@ import {
 } from '~/plugins/plugins';
 import {
   auth,
+  billing,
   chatMessage,
   course,
   courseCategory,
@@ -27,6 +28,7 @@ import {
 } from '~/services/services';
 
 import { initAuthApi } from './auth/auth.api';
+import { initBillingApi } from './billing/billing.api';
 import { initCategoriesApi } from './categories/categories.api';
 import { initChatsApi } from './chats/chats.api';
 import { initCourseModulesApi } from './course-modules/course-modules.api';
@@ -141,6 +143,14 @@ const initApi: FastifyPluginAsync = async (fastify) => {
       task,
     },
     prefix: ApiPath.TASKS,
+  });
+
+  fastify.register(initBillingApi, {
+    services: {
+      billing,
+      user,
+    },
+    prefix: ApiPath.BILLING,
   });
 };
 

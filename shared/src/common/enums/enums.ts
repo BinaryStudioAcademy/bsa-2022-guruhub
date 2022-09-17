@@ -1,6 +1,7 @@
 export {
   ApiPath,
   AuthApiPath,
+  BillingApiPath,
   CategoriesApiPath,
   ChatsApiPath,
   CourseModulesApiPath,
@@ -37,8 +38,10 @@ export {
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
 export { SortOrder } from './sort/sort';
+export { PaymentUnit } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
+export { TransactionStatus } from './transaction/transaction';
 export {
   UserAge,
   UserGender,

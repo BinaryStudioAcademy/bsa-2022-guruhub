@@ -20,7 +20,6 @@ import {
   MenteesToMentorsResponseDto,
   TasksGetByCourseIdAndMenteeIdRequestDto,
   TaskWithModuleResponseDto,
-  UserDetailsResponseDto,
   UsersGetResponseDto,
   UserWithPermissions,
 } from '~/common/types/types';
@@ -258,7 +257,7 @@ const getMenteesMentor = createAsyncThunk<
 });
 
 const getMenteesByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTEES, async (payload, { extra }) => {

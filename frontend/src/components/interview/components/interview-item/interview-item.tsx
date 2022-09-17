@@ -7,7 +7,7 @@ import {
   SelectorOption,
   UserWithPermissions,
 } from 'common/types/types';
-import { Button, Datepicker, Select } from 'components/common/common';
+import { Button, Datepicker, Image, Select } from 'components/common/common';
 import {
   changeStringCase,
   generateTelegramLink,
@@ -56,6 +56,11 @@ const InterviewItem: FC<Props> = ({
   const camelCaseStatus = changeStringCase({
     caseType: StringCase.CAMEL_CASE,
     stringToChange: interview.status,
+  });
+
+  const categoryKeyNameKebabCase = changeStringCase({
+    stringToChange: interview.courseCategory.key,
+    caseType: StringCase.KEBAB_CASE,
   });
 
   const isInterviewee =
@@ -149,9 +154,19 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Type of course</p>
-            <p className={styles.courseCategory}>
-              {interview?.courseCategory.name}
-            </p>
+            <div className={styles.interviewCategory}>
+              <Image
+                width="30px"
+                height="30px"
+                src={`/category-icons/${categoryKeyNameKebabCase}.svg`}
+                alt={`${interview?.courseCategory.key} img`}
+                isCircular
+              />
+
+              <p className={styles.categoryName}>
+                {interview?.courseCategory.name}
+              </p>
+            </div>
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Date of interview</p>

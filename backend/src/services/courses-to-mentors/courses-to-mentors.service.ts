@@ -10,9 +10,9 @@ import {
   group as groupRep,
 } from '~/data/repositories/repositories';
 import { CoursesToMentorsError } from '~/exceptions/exceptions';
-import { 
+import {
   menteesToMentors as menteesToMentorsServ,
-  usersToGroups as usersToGroupsServ, 
+  usersToGroups as usersToGroupsServ,
 } from '~/services/services';
 
 type Constructor = {

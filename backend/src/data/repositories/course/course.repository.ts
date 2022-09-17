@@ -56,7 +56,7 @@ class Course {
         'courses.courseCategoryId',
         'courseCategories.id',
       )
-      .withGraphJoined('vendor')
+      .withGraphJoined('[vendor, category.[price]]')
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
 
@@ -98,9 +98,10 @@ class Course {
         'url',
         'imageUrl',
         'courseCategoryId',
+        'category',
       )
       .distinct('courseId')
-      .withGraphJoined('[mentees, category, vendor]')
+      .withGraphJoined('[mentees, category.[price], vendor]')
       .where('menteeId', userId)
       .whereNotNull('mentorId')
       .page(page, count)

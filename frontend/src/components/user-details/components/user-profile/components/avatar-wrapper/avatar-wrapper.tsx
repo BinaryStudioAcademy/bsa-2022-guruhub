@@ -53,7 +53,7 @@ const AvatarWrapper: FC<Props> = ({ user, avatarUrl }) => {
           height="136"
           src={selectedFile ? (newAvatar as string) : defaultAvatar}
           alt="user avatar"
-          classes={styles.profileImage}
+          className={styles.profileImage}
           isCircular
         />
       </div>

@@ -4,6 +4,7 @@ import {
   chatMessage as chatMessageRepository,
   course as courseRepository,
   courseCategory as courseCategoryRepository,
+  courseCategoryPrice as courseCategoryPriceRepository,
   courseModule as courseModuleRepository,
   coursesToMentors as coursesToMentorsRepository,
   file as fileRepository,
@@ -15,6 +16,7 @@ import {
   permission as permissionRepository,
   task as taskRepository,
   taskNote as taskNoteRepository,
+  transaction as transactionRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -23,6 +25,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { File } from './aws/file/file.service';
+import { Billing } from './billing/billing.service';
 import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
@@ -41,6 +44,7 @@ import { Permission } from './permission/permission.service';
 import { Task } from './task/task.service';
 import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
+import { Transaction } from './transaction/transaction.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
@@ -137,7 +141,10 @@ const edx = new Edx({
   clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
-const courseCategory = new CourseCategory({ courseCategoryRepository });
+const courseCategory = new CourseCategory({
+  courseCategoryRepository,
+  courseCategoryPriceRepository,
+});
 
 const courseModule = new CourseModule({
   moduleRepository: courseModuleRepository,
@@ -156,17 +163,33 @@ const course = new Course({
 
 const taskNote = new TaskNote({ taskNoteRepository });
 
+const transaction = new Transaction({ transactionRepository });
+
+const billing = new Billing({
+  secretKey: ENV.STRIPE.SECRET_KEY,
+  apiVersion: ENV.STRIPE.API_VERSION,
+  transactionService: transaction,
+  userService: user,
+  userDetailsService: userDetails,
+});
+
 const task = new Task({
   taskRepository,
   taskNoteService: taskNote,
+  billingService: billing,
   menteesToMentorsService: menteesToMentors,
+  userService: user,
+  userDetailsService: userDetails,
 });
 
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,
+  courseService: course,
   coursesToMentorsService: coursesToMentors,
   courseModuleService: courseModule,
+  courseCategoryService: courseCategory,
   taskService: task,
+  billingService: billing,
 });
 
 const chatMessage = new ChatMessage({
@@ -177,6 +200,7 @@ const chatMessage = new ChatMessage({
 
 export {
   auth,
+  billing,
   chatMessage,
   course,
   courseCategory,
@@ -196,6 +220,7 @@ export {
   task,
   taskNote,
   token,
+  transaction,
   udemy,
   user,
   userDetails,

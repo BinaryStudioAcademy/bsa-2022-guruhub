@@ -20,14 +20,20 @@ import { task as taskRep } from '~/data/repositories/repositories';
 import { TasksError } from '~/exceptions/exceptions';
 
 import {
+  billing as billingServ,
   menteesToMentors as menteesToMentorsServ,
   taskNote as taskNoteServ,
+  user as userServ,
+  userDetails as userDetailsServ,
 } from '../services';
 
 type Constructor = {
   taskRepository: typeof taskRep;
   taskNoteService: typeof taskNoteServ;
+  billingService: typeof billingServ;
   menteesToMentorsService: typeof menteesToMentorsServ;
+  userService: typeof userServ;
+  userDetailsService: typeof userDetailsServ;
 };
 
 class Task {
@@ -35,16 +41,28 @@ class Task {
 
   #taskNoteService: typeof taskNoteServ;
 
+  #billingService: typeof billingServ;
+
   #menteesToMentorsService: typeof menteesToMentorsServ;
+
+  #userService: typeof userServ;
+
+  #userDetailsService: typeof userDetailsServ;
 
   public constructor({
     taskRepository,
     taskNoteService,
+    billingService,
     menteesToMentorsService,
+    userService,
+    userDetailsService,
   }: Constructor) {
     this.#taskRepository = taskRepository;
     this.#taskNoteService = taskNoteService;
+    this.#billingService = billingService;
     this.#menteesToMentorsService = menteesToMentorsService;
+    this.#userService = userService;
+    this.#userDetailsService = userDetailsService;
   }
 
   public async manipulate({
@@ -88,6 +106,27 @@ class Task {
         id: task.menteesToMentorsId,
         status: MenteesToMentorsStatus.COMPLETED,
       });
+
+      const menteesToMentorDto = await this.#menteesToMentorsService.getById(
+        task.menteesToMentorsId,
+      );
+
+      const transactionToProcess =
+        await this.#billingService.getHoldTransactionBySenderAndReceiverId(
+          menteesToMentorDto.menteeId,
+          menteesToMentorDto.mentor.id,
+        );
+
+      const mentorToPayBalance = await this.#userService.getByIdMoneyBalance(
+        menteesToMentorDto.mentor.id,
+      );
+
+      await this.#userDetailsService.updateMoneyBalance(
+        menteesToMentorDto.mentor.id,
+        mentorToPayBalance + transactionToProcess.amount,
+      );
+
+      await this.#billingService.fulfillTransaction(transactionToProcess.id);
     }
 
     return newNote;

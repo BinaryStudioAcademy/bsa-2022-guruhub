@@ -22,7 +22,7 @@ const MentorCard: FC<Props> = ({ onClick, mentor }) => {
           src={mentor.userDetails.avatar?.url ?? defaultUserAvatar}
           width="200"
           height="100"
-          classes={styles.avatar}
+          className={styles.avatar}
           isCircular
         />
       </div>

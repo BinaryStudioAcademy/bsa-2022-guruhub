@@ -145,6 +145,12 @@ class User {
     };
   }
 
+  public async getByIdMoneyBalance(id: number): Promise<number> {
+    const balance = await this.#userRepository.getByIdMoneyBalance(id);
+
+    return balance.value;
+  }
+
   public async getByIds(ids: number[]): Promise<UsersBasicInfoDto[]> {
     const users = await this.#userRepository.getByIds(ids);
 

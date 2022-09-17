@@ -68,7 +68,7 @@ const Interview: FC = () => {
     return () => {
       dispatch(interviewActions.cleanInterview());
     };
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (!hasInterview) {

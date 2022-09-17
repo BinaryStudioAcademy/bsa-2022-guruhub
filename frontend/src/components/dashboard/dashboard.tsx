@@ -1,4 +1,8 @@
-import { DataStatus, PaginationDefaultValue } from 'common/enums/enums';
+import {
+  AppRoute,
+  DataStatus,
+  PaginationDefaultValue,
+} from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, CoursesList, Spinner } from 'components/common/common';
 import {
@@ -28,7 +32,8 @@ const Dashboard: FC = () => {
       totalCoursesCount: state.dashboard.totalCoursesCount,
     }));
 
-  const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+  const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
+    useState<boolean>(false);
   const hasUser = Boolean(user);
 
   useEffect(() => {
@@ -64,23 +69,22 @@ const Dashboard: FC = () => {
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.header}>
-          <h1 className={styles.headingText}>Courses</h1>
-          {hasUser && (
-            <div className={styles.buttonWrapper}>
-              <Button
-                label="+ Add new course"
-                btnColor="blue"
-                onClick={handleNewCourseModalToggle}
-              />
-            </div>
-          )}
-          <AddCourseModal
-            isModalOpen={isNewCourseModalOpen}
-            onModalToggle={handleNewCourseModalToggle}
+      <div className={styles.header}>
+        <h1 className={styles.headingText}>Courses</h1>
+        <div className={styles.buttonWrapper}>
+          <Button
+            label="+ Add new course"
+            btnColor="blue"
+            to={!hasUser ? AppRoute.SIGN_IN : null}
+            onClick={handleNewCourseModalToggle}
           />
         </div>
+        <AddCourseModal
+          isModalOpen={isNewCourseModalOpen}
+          onModalToggle={handleNewCourseModalToggle}
+        />
+      </div>
+      <div className={styles.categoriesWrapper}>
         <CategoriesList items={categories} />
       </div>
       {dataStatus === DataStatus.PENDING ? (
