@@ -16,7 +16,7 @@ import { useFormControl, useState } from '~/hooks/hooks';
 import { styles } from './styles';
 
 type Props<T> = {
-  label: string;
+  label?: string;
   name: FormControlPath<T>;
   control: FormControl<T>;
   errors: FormControlErrors<T>;
@@ -44,10 +44,21 @@ const DatePicker = <T extends FormControlValues>({
   const date = value ? getFormattedDate(value, 'dd.MM.yyyy') : datePlaceholder;
 
   const handleOnChange = (
-    _event: DateTimePickerEvent,
+    event: DateTimePickerEvent,
     selectedDate: Date | undefined,
   ): void => {
     setIsDatePickerShown(false);
+
+    if (event.type === 'dismissed') {
+      return;
+    }
+
+    if (event.type === 'neutralButtonPressed') {
+      onChange(null);
+
+      return;
+    }
+
     onChange(selectedDate);
   };
 
@@ -57,7 +68,7 @@ const DatePicker = <T extends FormControlValues>({
 
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      {Boolean(label) && <Text style={styles.label}>{label as string}</Text>}
       <Pressable style={styles.date} onPress={handleDatePickerOpen}>
         <Text style={styles.dateLabel}>{date}</Text>
       </Pressable>
@@ -68,6 +79,7 @@ const DatePicker = <T extends FormControlValues>({
           onChange={handleOnChange}
           maximumDate={maximumDate}
           minimumDate={minimumDate}
+          neutralButtonLabel="clear"
         />
       )}
       {Boolean(error) && <Text style={styles.error}>{error as string}</Text>}

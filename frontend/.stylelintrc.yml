@@ -4,3 +4,10 @@ extends:
 
 plugins:
   - stylelint-scss
+
+overrides:
+  - files:
+    - src/components/billing/components/replenish-cards-list/components/replenish-card/styles.scss
+    rules:
+      'declaration-no-important':
+        - null

@@ -31,6 +31,7 @@ const Message: FC<Props> = ({
             height="25px"
             src={messageAvatarUrl}
             alt="chat avatar"
+            isCircular
           />
         </div>
         <p className={styles.messageWrapper}>{content}</p>

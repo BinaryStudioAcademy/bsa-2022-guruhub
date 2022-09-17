@@ -94,6 +94,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { id: userId } = req.user;
       const { message, chatId, receiverId } = req.body;
+
       const newChatMessage = await chatMessageService.create({
         senderId: userId,
         receiverId,

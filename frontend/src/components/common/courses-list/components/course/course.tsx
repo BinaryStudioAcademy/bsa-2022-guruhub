@@ -1,6 +1,10 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
 import { AppRoute } from 'common/enums/enums';
-import { CourseGetResponseDto, FC } from 'common/types/types';
+import {
+  CourseCategoryWithPriceDto,
+  CourseGetResponseDto,
+  FC,
+} from 'common/types/types';
 import { Image, Link } from 'components/common/common';
 import { generateDynamicPath } from 'helpers/helpers';
 
@@ -12,7 +16,7 @@ type Props = {
 
 const Course: FC<Props> = ({ course }) => {
   return (
-    <div className={styles.container}>
+    <li className={styles.container}>
       <div className={styles.vendor}>
         <Image
           src={`/${course.vendor.key}.svg`}
@@ -22,24 +26,33 @@ const Course: FC<Props> = ({ course }) => {
         />
       </div>
       <div className={styles.content}>
+        <Image
+          alt="course image"
+          src={course.imageUrl ?? defaultCourseImage}
+          width="100%"
+          height="100%"
+          className={styles.image}
+        />
         <Link
           to={generateDynamicPath(AppRoute.COURSES_$ID, {
             courseId: course.id,
           })}
-          className={styles.image}
+          className={styles.link}
         >
-          <Image
-            alt="course image"
-            src={course.imageUrl ?? defaultCourseImage}
-            width="100%"
-            height="100%"
-          />
-        </Link>
-        <div>
           <h4 className={styles.title}>{course.title}</h4>
-        </div>
+        </Link>
       </div>
-    </div>
+      <div className={styles.footer}>
+        <div className={styles.categoryWrapper}>
+          <p className={styles.category}>
+            {(course.category as CourseCategoryWithPriceDto).name}
+          </p>
+        </div>
+        <p className={styles.price}>
+          ${(course.category as CourseCategoryWithPriceDto).price.price}/h
+        </p>
+      </div>
+    </li>
   );
 };
 

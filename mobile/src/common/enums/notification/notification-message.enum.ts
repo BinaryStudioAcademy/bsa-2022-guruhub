@@ -1,5 +1,6 @@
 enum NotificationMessage {
   INTERVIEW_CREATE_SUCCESS = 'Interview has been successfully created!',
+  INTERVIEW_UPDATE = 'Interview has been successfully updated!',
   MENTOR_ADD_SUCCESS = 'You have successfully became a mentor for this course!',
   GROUP_ADD_SUCCESS = 'Group has been successfully created!',
   GROUP_EDIT_SUCCESS = 'Group has been successfully updated!',
@@ -8,6 +9,8 @@ enum NotificationMessage {
   PROFILE_AVATAR_UPDATE = 'Profile avatar was successfully updated!',
   IMAGE_TO_BIG = 'Image size should be less than 1mb',
   INVALID_PHOTO_FORMAT = 'Supported formats: .PNG, .JPEG, .SVG`',
+  COURSES_MENTORING_UPDATE = 'Students count is successfully updated!',
+  MENTOR_CHOOSE = 'You have successfully chose a mentor for this course!',
 }
 
 export { NotificationMessage };

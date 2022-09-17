@@ -1,4 +1,4 @@
-import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
+import { DataStatus, SearchValue } from 'common/enums/enums';
 import {
   FC,
   UsersGetResponseDto,
@@ -9,7 +9,6 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useNavigate,
   useUserSearch,
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
@@ -38,12 +37,6 @@ const Chats: FC = () => {
     chatOpponent: chats.chatOpponent,
   }));
 
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate(AppRoute.ROOT);
-  }
-
   const dispatch = useAppDispatch();
 
   const handleChatMessagesLoad = (
@@ -62,6 +55,11 @@ const Chats: FC = () => {
   useEffect(() => {
     if (chatId) {
       dispatch(chatsActions.readMessages(chatId));
+      dispatch(chatsActions.joinRoom(chatId));
+
+      return () => {
+        dispatch(chatsActions.leaveRoom(chatId));
+      };
     }
   }, [chatId]);
 

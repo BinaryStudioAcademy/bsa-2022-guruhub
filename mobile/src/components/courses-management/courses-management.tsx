@@ -14,13 +14,14 @@ import {
   useAppNavigate,
   useAppSelector,
   useCallback,
+  useEffect,
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
 import { coursesActions, coursesManagementActions } from '~/store/actions';
 
 import { DEFAULT_PAGE_SIZE } from './common/constants/constants';
-import { ActionCell } from './components/action-cell/action-cell';
+import { ActionCell, TitleCell } from './components/components';
 import { CoursesManagementTable } from './courses-management-table/courses-management-table';
 import { styles } from './styles';
 
@@ -37,9 +38,25 @@ const CoursesManagement: FC = () => {
     navigation.navigate(AppScreenName.EDIT_COURSE);
   };
 
+  const handleTitlePress = (item: CourseGetResponseDto): void => {
+    dispatch(coursesActions.getCourse(item));
+    navigation.navigate(AppScreenName.COURSE);
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Courses',
+    });
+  }, []);
+
   const coursesRows = courses.map((item: CourseGetResponseDto) => {
     return {
-      title: item.title,
+      title: (
+        <TitleCell
+          title={item.title}
+          onPress={(): void => handleTitlePress(item)}
+        />
+      ),
       category: <CategoryCell category={item.category} />,
       action: <ActionCell onEdit={(): void => handleEditPress(item.id)} />,
     };
@@ -66,7 +83,7 @@ const CoursesManagement: FC = () => {
         <CoursesManagementTable tableData={coursesRows} />
         <View style={styles.paginationContainer}>
           <Pagination
-            totalCount={5}
+            totalCount={totalCoursesNumber}
             pageSize={DEFAULT_PAGE_SIZE}
             currentPage={page}
             onPageChange={handlePageChange}

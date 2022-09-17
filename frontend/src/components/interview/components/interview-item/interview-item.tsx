@@ -7,9 +7,10 @@ import {
   SelectorOption,
   UserWithPermissions,
 } from 'common/types/types';
-import { Button, Datepicker, Select } from 'components/common/common';
+import { Button, Datepicker, Image, Select } from 'components/common/common';
 import {
   changeStringCase,
+  generateTelegramLink,
   getFormattedDate,
   getNameOf,
   getValidClasses,
@@ -57,9 +58,18 @@ const InterviewItem: FC<Props> = ({
     stringToChange: interview.status,
   });
 
+  const categoryKeyNameKebabCase = changeStringCase({
+    stringToChange: interview.courseCategory.key,
+    caseType: StringCase.KEBAB_CASE,
+  });
+
   const isInterviewee =
     (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
     (user as UserWithPermissions).id;
+
+  const hasTelegram = Boolean(
+    interview?.interviewee.userDetails.telegramUsername,
+  );
 
   const { control, errors, handleSubmit } =
     useAppForm<InterviewsUpdateRequestDto>({
@@ -119,6 +129,24 @@ const InterviewItem: FC<Props> = ({
             </p>
           </div>
           <div className={styles.interviewRow}>
+            <p className={styles.header}>Telegram</p>
+            {hasTelegram ? (
+              <a
+                href={generateTelegramLink(
+                  interview.interviewee.userDetails.telegramUsername as string,
+                )}
+                className={getValidClasses(
+                  styles.interviewValue,
+                  styles.telegramLink,
+                )}
+              >
+                @{interview.interviewee.userDetails.telegramUsername}
+              </a>
+            ) : (
+              <p className={styles.interviewValue}>Not set</p>
+            )}
+          </div>
+          <div className={styles.interviewRow}>
             <p className={styles.header}>Email</p>
             <p className={styles.interviewValue}>
               {interview?.interviewee.email}
@@ -126,19 +154,26 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Type of course</p>
-            <p className={styles.courseCategory}>
-              {interview?.courseCategory.name}
-            </p>
+            <div className={styles.interviewCategory}>
+              <Image
+                width="30px"
+                height="30px"
+                src={`/category-icons/${categoryKeyNameKebabCase}.svg`}
+                alt={`${interview?.courseCategory.key} img`}
+                isCircular
+              />
+
+              <p className={styles.categoryName}>
+                {interview?.courseCategory.name}
+              </p>
+            </div>
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Date of interview</p>
             {!isEditMode && (
               <p className={styles.interviewValue}>
                 {interview?.interviewDate
-                  ? getFormattedDate(
-                      interview?.interviewDate,
-                      'HH:mm dd.MM.yyyy',
-                    )
+                  ? getFormattedDate(interview?.interviewDate, 'dd.MM.yyyy')
                   : 'Not set'}
               </p>
             )}

@@ -1,34 +1,90 @@
 .container {
   position: relative;
+  padding: 12px;
+  background-color: var(--background-gray-100);
+  border-radius: 16px;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-width: 255px;
-  padding: 12px;
   background-color: var(--background-gray-100);
   border-radius: 16px;
 }
 
 .image {
   height: 155px;
-  overflow: hidden;
+  margin: 0 0 25px;
+  line-height: 0;
   border-radius: 12px;
 }
 
 .title {
+  min-height: 45px;
+  margin: 0 0 15px;
   overflow: hidden;
   color: white;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+.link {
+  text-decoration: none;
+}
+
+.link::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+
+@supports (-webkit-line-clamp: 2) {
+  .title {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    /* stylelint-disable-next-line value-no-vendor-prefix */
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: initial;
+    text-overflow: ellipsis;
+  }
+}
+
 .vendor {
   position: absolute;
   top: 30px;
+  left: 0;
   padding: 8px 11px;
   background-color: var(--typography-text-100-inverse);
   border-radius: 0 12px 12px 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--typography-text-gray-200);
+}
+
+.categoryWrapper {
+  max-width: 50%;
+}
+
+.category {
+  margin: 0;
+  margin-top: 12px;
+  padding: 5px 11px;
+  overflow: hidden;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: var(--brand-yellow-200);
+  border-radius: 12.5px;
+}
+
+.price {
+  margin: 0;
+  margin-top: 12px;
+  color: var(--typography-text-100-inverse);
+  font-weight: 600;
 }

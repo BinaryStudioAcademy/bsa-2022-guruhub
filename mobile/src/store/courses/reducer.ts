@@ -4,7 +4,6 @@ import { DataStatus } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
   TaskWithModuleResponseDto,
-  UserDetailsResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
 
@@ -36,8 +35,8 @@ type State = {
   dataMentorStatus: DataStatus;
   courses: CourseGetResponseDto[];
   mentor: UsersGetResponseDto | null;
-  mentors: UserDetailsResponseDto[];
-  menteesByCourseId: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
+  menteesByCourseId: UsersGetResponseDto[];
   course: CourseGetResponseDto | null;
   isMentorBecomingVisible: boolean;
   isMentorChoosingEnabled: boolean;
@@ -143,9 +142,10 @@ const reducer = createReducer(initialState, (builder) => {
     state.mentors = [];
   });
 
-  builder.addCase(chooseMentor.fulfilled, (state) => {
+  builder.addCase(chooseMentor.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
     state.isMentorChoosingEnabled = false;
+    state.mentor = payload ? payload.mentor : null;
   });
 
   builder.addCase(updateIsMentorChoosingEnabled.pending, (state) => {

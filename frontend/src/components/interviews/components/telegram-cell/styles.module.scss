@@ -1,0 +1,13 @@
+.idLink {
+  color: var(--typography-text-gray-200);
+  text-decoration: none;
+}
+
+.idLink:hover {
+  color: var(--typography-text-100-inverse);
+}
+
+.placeholder {
+  margin: 0;
+  padding: 0;
+}

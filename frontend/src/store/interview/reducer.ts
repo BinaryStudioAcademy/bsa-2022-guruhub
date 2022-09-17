@@ -8,6 +8,7 @@ import {
 } from 'common/types/types';
 
 import {
+  cleanInterview,
   createNote,
   getInterview,
   getInterviewersByCategory,
@@ -98,6 +99,9 @@ const reducer = createReducer(initialState, (builder) => {
     state.dataStatus = DataStatus.REJECTED;
     state.otherInterviews = [];
     state.totalOtherInterviewsNumber = 0;
+  });
+  builder.addCase(cleanInterview, (state) => {
+    state.interview = null;
   });
 });
 

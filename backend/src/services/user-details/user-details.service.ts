@@ -50,6 +50,18 @@ class UserDetails {
     return userDetails ?? null;
   }
 
+  public async updateMoneyBalance(
+    userId: number,
+    newMoneyBalance: number,
+  ): Promise<number> {
+    const balance = await this.#userDetailsRepository.updateMoneyBalance(
+      userId,
+      newMoneyBalance,
+    );
+
+    return balance.value;
+  }
+
   public async create(
     userId: number,
     userDetailsUpdateInfoRequestDto: UserDetailsUpdateInfoRequestDto,

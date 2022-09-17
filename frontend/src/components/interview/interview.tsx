@@ -1,5 +1,8 @@
 import {
+  AppRoute,
   DataStatus,
+  NotificationMessage,
+  NotificationType,
   PaginationDefaultValue,
   PermissionKey,
 } from 'common/enums/enums';
@@ -19,7 +22,8 @@ import {
   useParams,
   useState,
 } from 'hooks/hooks';
-import { interviewActions } from 'store/actions';
+import { navigation } from 'services/services';
+import { appActions, interviewActions } from 'store/actions';
 
 import {
   HistorySection,
@@ -60,7 +64,11 @@ const Interview: FC = () => {
 
   useEffect(() => {
     dispatch(interviewActions.getInterview({ id: Number(id) }));
-  }, []);
+
+    return () => {
+      dispatch(interviewActions.cleanInterview());
+    };
+  }, [id]);
 
   useEffect(() => {
     if (!hasInterview) {
@@ -76,6 +84,29 @@ const Interview: FC = () => {
       );
     }
   }, [hasInterview]);
+
+  useEffect(() => {
+    if (interview) {
+      const isInterviewerOrInterviewee =
+        (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
+          (user as UserWithPermissions).id ||
+        (interview as InterviewsGetAllItemResponseDto).interviewer?.id ===
+          (user as UserWithPermissions).id;
+
+      const hasPermissionToAccessInterviewPage =
+        hasPermissionToSelectInterviewer || isInterviewerOrInterviewee;
+
+      if (!hasPermissionToAccessInterviewPage) {
+        navigation.push(AppRoute.SIGN_IN);
+        dispatch(
+          appActions.notify({
+            type: NotificationType.ERROR,
+            message: NotificationMessage.PERMISSION_DENIED,
+          }),
+        );
+      }
+    }
+  }, [interview]);
 
   const handleUpdateInterview = (payload: InterviewsUpdateRequestDto): void => {
     dispatch(interviewActions.updateInterview({ id: Number(id), payload }));

@@ -22,6 +22,7 @@ type Props<T extends FormControlValues> = {
   isSecure?: boolean;
   isSecurePadding?: boolean;
   rows?: number;
+  keyboardType?: 'default' | 'numeric';
 };
 
 const Input = <T extends FormControlValues>({
@@ -33,6 +34,7 @@ const Input = <T extends FormControlValues>({
   isSecure,
   isSecurePadding,
   rows,
+  keyboardType = 'default',
 }: Props<T>): ReactElement => {
   const { field } = useFormControl({ name, control });
 
@@ -58,6 +60,8 @@ const Input = <T extends FormControlValues>({
         secureTextEntry={isSecure}
         numberOfLines={rows}
         multiline={hasRows}
+        autoCorrect={false}
+        keyboardType={keyboardType}
       />
       {Boolean(error) && <Text style={styles.error}>{error}</Text>}
     </View>

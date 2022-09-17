@@ -1,7 +1,7 @@
 enum AppScreenName {
   COURSES = 'Courses',
   MENTORS = 'Mentors',
-  MY_EDUCATION = 'My Education',
+  MY_COURSES = 'My Courses',
   BILLING = 'Billing',
   SETTINGS = 'Settings',
   UAM = 'UAM',

@@ -44,7 +44,7 @@ const createMessage = createAsyncThunk<
   ChatMessageGetAllItemResponseDto,
   ChatMessageCreateRequestBodyDto,
   AsyncThunkConfig
->(ActionType.CREATE_MESSAGE, async (payload, { extra }) => {
+>(ActionType.CREATE_MESSAGE, async (payload, { extra, dispatch }) => {
   const { chatsApi } = extra;
   const { message, receiverId, chatId } = payload;
   const newMessage = await chatsApi.createChatMessage({
@@ -52,6 +52,8 @@ const createMessage = createAsyncThunk<
     receiverId,
     chatId,
   });
+
+  dispatch(addMessage(newMessage));
 
   return newMessage;
 });
@@ -84,11 +86,35 @@ const readMessages = createAsyncThunk<boolean, string, AsyncThunkConfig>(
   },
 );
 
+const addMessage = createAction(
+  ActionType.ADD_MESSAGE,
+  (message: ChatMessageGetAllItemResponseDto) => {
+    return {
+      payload: message,
+    };
+  },
+);
+
+const joinRoom = createAction(ActionType.JOIN_ROOM, (chatId: string) => {
+  return {
+    payload: chatId,
+  };
+});
+
+const leaveRoom = createAction(ActionType.LEAVE_ROOM, (chatId: string) => {
+  return {
+    payload: chatId,
+  };
+});
+
 export {
+  addMessage,
   checkHasUnreadMessages,
   createMessage,
   getLastMessages,
   getMessages,
+  joinRoom,
+  leaveRoom,
   readMessages,
   setHasUnreadMessages,
 };

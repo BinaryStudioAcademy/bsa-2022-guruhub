@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 10,
     paddingHorizontal: 15,
-    backgroundColor: AppColor.BACKGROUND.GRAY_100,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
     borderRadius: 6,
   },
   title: {

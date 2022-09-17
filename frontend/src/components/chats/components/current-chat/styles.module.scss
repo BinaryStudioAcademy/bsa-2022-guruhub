@@ -5,9 +5,10 @@
 }
 
 .currentChatHeader {
+  display: flex;
   align-items: center;
-  height: 60px;
-  padding-left: 51.35px;
+  min-height: 94px;
+  padding-left: 15px;
   color: var(--typography-text-100-inverse);
   background: var(--background-gray-300);
 }
@@ -15,7 +16,7 @@
 .currentChatContent {
   display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 0;
   overflow-y: auto;
   background: var(--background-gray-400);

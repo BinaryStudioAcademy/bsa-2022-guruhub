@@ -20,7 +20,7 @@ import {
   MenteesToMentorsResponseDto,
   TasksGetByCourseIdAndMenteeIdRequestDto,
   TaskWithModuleResponseDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
   UserWithPermissions,
 } from '~/common/types/types';
 import { app, interviewsActions } from '~/store/actions';
@@ -65,12 +65,23 @@ const addCourse = createAsyncThunk<
 });
 
 const getMentorsByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetMentorsRequestDto,
   AsyncThunkConfig
->(ActionType.GET_MENTORS, async (payload, { extra }) => {
+>(ActionType.GET_MENTORS, async (payload, { extra, getState }) => {
+  const {
+    courses: { mentor },
+  } = getState();
   const { coursesApi } = extra;
   const mentors = await coursesApi.getMentorsByCourseId(payload);
+
+  if (mentor) {
+    const availableMentors = mentors.filter(({ id }) => {
+      return id !== mentor.id;
+    });
+
+    return availableMentors;
+  }
 
   return mentors;
 });
@@ -164,7 +175,8 @@ const becomeMentor = createAsyncThunk<void, void, AsyncThunkConfig>(
         intervieweeUserId: user.id,
         categoryId: course.courseCategoryId,
       };
-      dispatch(interviewsActions.createInterview(payload));
+      await dispatch(interviewsActions.createInterview(payload)).unwrap();
+      dispatch(setBecomeMentorInvisible());
     }
   },
 );
@@ -187,7 +199,7 @@ const updateCategory = createAsyncThunk<
 });
 
 const chooseMentor = createAsyncThunk<
-  void,
+  MenteesToMentorsResponseDto,
   CourseSelectMentorRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.CHOOSE_A_MENTOR, async ({ id }, { extra, getState }) => {
@@ -195,15 +207,17 @@ const chooseMentor = createAsyncThunk<
     courses: { course },
     auth: { user },
   } = getState();
-  const { coursesApi } = extra;
+  const { coursesApi, notification } = extra;
 
-  await coursesApi.chooseMentor({
+  const menteeToMentor = await coursesApi.chooseMentor({
     courseId: (course as CourseGetResponseDto).id,
     menteeId: (user as UserWithPermissions).id,
     mentorId: id,
   });
 
-  return;
+  notification.success(NotificationMessage.MENTOR_CHOOSE);
+
+  return menteeToMentor;
 });
 
 const updateIsMentorChoosingEnabled = createAsyncThunk<
@@ -243,7 +257,7 @@ const getMenteesMentor = createAsyncThunk<
 });
 
 const getMenteesByCourseId = createAsyncThunk<
-  UserDetailsResponseDto[],
+  UsersGetResponseDto[],
   CourseGetRequestParamsDto,
   AsyncThunkConfig
 >(ActionType.GET_MENTEES, async (payload, { extra }) => {

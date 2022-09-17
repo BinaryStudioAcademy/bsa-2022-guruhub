@@ -1,6 +1,7 @@
 import { ENV } from 'common/enums/enums';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { BillingApi } from './billing-api/billing-api.service';
 import { CategoriesApi } from './categories-api/categories-api.service';
 import { ChatsApi } from './chats-api/chats-api.service';
 import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
@@ -12,6 +13,7 @@ import { MentorsApi } from './mentors-api/mentors-api.service';
 import { Navigation } from './navigation/navigation.service';
 import { Notification } from './notification/notification.service';
 import { PermissionsApi } from './permissions-api/permissions-api';
+import { Socket } from './socket/socket.service';
 import { Storage } from './storage/storage.service';
 import { TasksApi } from './tasks-api/tasks-api.service';
 import { UserDetailsApi } from './user-details-api/user-details-api.service';
@@ -80,8 +82,13 @@ const mentorsApi = new MentorsApi({ apiPrefix: ENV.API_PATH, http });
 
 const tasksApi = new TasksApi({ apiPrefix: ENV.API_PATH, http });
 
+const billingApi = new BillingApi({ apiPrefix: ENV.API_PATH, http });
+
+const socket = new Socket();
+
 export {
   authApi,
+  billingApi,
   categoriesApi,
   chatsApi,
   courseModulesApi,
@@ -92,6 +99,7 @@ export {
   navigation,
   notification,
   permissionsApi,
+  socket,
   storage,
   tasksApi,
   userDetailsApi,

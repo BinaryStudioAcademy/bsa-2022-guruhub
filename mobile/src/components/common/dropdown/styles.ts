@@ -3,19 +3,32 @@ import { StyleSheet } from 'react-native';
 import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
-  title: {
+  label: {
     fontFamily: AppFontFamily.INTER_500,
     fontSize: 14,
     lineHeight: 16,
     paddingBottom: 9,
     color: AppColor.TEXT.GRAY_100,
   },
-  placeholderStyle: {
-    color: 'white',
-    fontWeight: 'bold',
+  dropDown: {
+    minHeight: 45,
+    paddingHorizontal: 15,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: AppColor.BACKGROUND.GRAY_300,
   },
-  labelStyle: {
-    fontWeight: 'bold',
+  dropDownLabel: {
+    fontFamily: AppFontFamily.INTER_600,
+    fontSize: 15,
+    lineHeight: 24,
+    color: AppColor.TEXT.GRAY_100,
+  },
+  placeholderStyle: {
+    color: AppColor.TEXT.GRAY_200,
+    fontFamily: AppFontFamily.INTER_600,
+    fontSize: 15,
+    lineHeight: 24,
   },
   dropDownContainerStyle: {
     backgroundColor: 'white',
@@ -28,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
   },
   searchTextInputStyle: {
-    color: 'white',
+    color: AppColor.TEXT.GRAY_100,
   },
   error: {
     fontFamily: AppFontFamily.INTER_600,

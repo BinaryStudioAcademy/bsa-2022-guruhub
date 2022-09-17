@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     marginRight: 15,
+    borderRadius: 15,
   },
   name: {
     color: AppColor.TEXT.GRAY_100,

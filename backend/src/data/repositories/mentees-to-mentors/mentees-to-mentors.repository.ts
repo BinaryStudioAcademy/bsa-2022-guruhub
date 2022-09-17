@@ -19,6 +19,17 @@ class MenteesToMentors {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
   }
 
+  public getById(id: number): Promise<MenteesToMentorsResponseDto> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .findById(id)
+      .withGraphFetched(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
+      .castTo<MenteesToMentorsResponseDto>()
+      .execute();
+  }
+
   public create(
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {
@@ -32,7 +43,7 @@ class MenteesToMentors {
         menteeId,
       })
       .withGraphFetched(
-        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
@@ -55,7 +66,9 @@ class MenteesToMentors {
       })
       .returning('*')
       .first()
-      .withGraphFetched('mentor(withoutPassword).[userDetails]')
+      .withGraphFetched(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
   }
@@ -71,7 +84,7 @@ class MenteesToMentors {
       .andWhere({ menteeId })
       .andWhereNot({ status: MenteesToMentorsStatus.COMPLETED })
       .withGraphJoined(
-        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .castTo<MenteesToMentorsResponseDto>()
       .first();
@@ -122,7 +135,7 @@ class MenteesToMentors {
           .where('mentor:userDetails.fullName', 'ilike', `%${fullName}%`),
       )
       .withGraphJoined(
-        '[mentee(withoutPassword).[userDetails(withoutMoneyBalance)], mentor(withoutPassword).[userDetails(withoutMoneyBalance)]]',
+        '[mentee(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]], mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]]',
       )
       .execute();
   }
