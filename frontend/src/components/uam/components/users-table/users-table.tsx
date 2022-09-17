@@ -15,6 +15,8 @@ import { uamActions } from 'store/actions';
 import { getUsersColumns, getUserTableData } from './helpers/helpers';
 import styles from './styles.module.scss';
 
+const ONE_USER_COUNT = 1;
+
 const UsersTable: FC = () => {
   const { page, handlePageChange } = usePagination({ queryName: 'page' });
   const dispatch = useAppDispatch();
@@ -35,12 +37,18 @@ const UsersTable: FC = () => {
   }, [page, usersTotalCount]);
 
   const handleUserDelete = (userId: number): void => {
+    const hasOnlyOneUser = users.length === ONE_USER_COUNT;
     dispatch(uamActions.deleteUser({ id: userId }));
+
+    if (hasOnlyOneUser) {
+      const previousPage = page - 1;
+      handlePageChange(previousPage);
+    }
   };
 
   const columns = useMemo<Column<UsersTableRow>[]>(() => {
     return getUsersColumns(user as UserWithPermissions, handleUserDelete);
-  }, []);
+  }, [users, page]);
 
   const usersData = useMemo<UsersTableRow[]>(() => {
     return getUserTableData(users);
