@@ -1,4 +1,4 @@
-import { DataStatus } from 'common/enums/enums';
+import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, CoursesList, Spinner } from 'components/common/common';
 import {
@@ -21,7 +21,8 @@ const Dashboard: FC = () => {
     courses: state.dashboard.courses,
   }));
 
-  const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+  const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
+    useState<boolean>(false);
   const hasUser = Boolean(user);
 
   useEffect(() => {
@@ -41,15 +42,14 @@ const Dashboard: FC = () => {
       <div className={styles.headerWrapper}>
         <div className={styles.header}>
           <h1 className={styles.headingText}>Courses</h1>
-          {hasUser && (
-            <div className={styles.buttonWrapper}>
-              <Button
-                label="+ Add new course"
-                btnColor="blue"
-                onClick={handleNewCourseModalToggle}
-              />
-            </div>
-          )}
+          <div className={styles.buttonWrapper}>
+            <Button
+              label="+ Add new course"
+              btnColor="blue"
+              to={!hasUser ? AppRoute.SIGN_IN : null}
+              onClick={handleNewCourseModalToggle}
+            />
+          </div>
           <AddCourseModal
             isModalOpen={isNewCourseModalOpen}
             onModalToggle={handleNewCourseModalToggle}
