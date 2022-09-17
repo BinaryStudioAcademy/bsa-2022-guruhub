@@ -49,8 +49,8 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   }, [messageChar]);
 
   useEffect(() => {
-    watch(({ message }: { message: string }) => {
-      if (message) {
+    watch((value: { message: string }) => {
+      if (value.message) {
         setDisabledButtom(false);
       } else setDisabledButtom(true);
     });
