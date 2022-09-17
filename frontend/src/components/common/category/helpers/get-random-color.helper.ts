@@ -1,5 +1,5 @@
 const getRandomColor = (): string => {
-  const colors = ['yellow', 'blue', 'red', 'green', 'white', 'pink'];
+  const colors = ['#F6C648', '#2563EB', '#15BE4F', '#C565C7'];
 
   return colors[Math.floor(Math.random() * colors.length)];
 };
