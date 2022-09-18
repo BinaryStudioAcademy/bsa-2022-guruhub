@@ -30,7 +30,7 @@ class Socket {
       SocketEvent.CHAT_CREATE_MESSAGE,
       (message: ChatMessageGetAllItemResponseDto) => {
         socket.broadcast
-          .to(message.chatId)
+          .to(message.receiver.id.toString())
           .emit(SocketEvent.CHAT_ADD_MESSAGE, message);
       },
     );

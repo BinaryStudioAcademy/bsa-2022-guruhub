@@ -18,7 +18,6 @@ const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParams) => {
     SocketEvent.CHAT_ADD_MESSAGE,
     (message: ChatMessageGetAllItemResponseDto): void => {
       dispatch(chatsActions.addMessage(message));
-      dispatch(chatsActions.readMessages(message.chatId));
     },
   );
 
