@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
-import { ButtonVariant, PermissionKey } from '~/common/enums/enums';
+import {
+  ButtonVariant,
+  InterviewStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
@@ -10,11 +14,13 @@ import {
 import {
   Button,
   Category,
+  Chip,
   DatePicker,
   Dropdown,
   Text,
   View,
 } from '~/components/common/common';
+import { statusToColor } from '~/components/interviews/common/maps/maps';
 import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useEffect, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
@@ -170,6 +176,19 @@ const ApplicationForm: FC<Props> = ({
               </View>
             )}
           </View>
+        </View>
+      </View>
+      <View style={styles.rowData}>
+        <View style={styles.rowTitle}>
+          <Text style={styles.title}>Status</Text>
+        </View>
+        <View style={styles.rowContent}>
+          <Chip
+            text={interview.status}
+            color={
+              statusToColor[interview.status.toLowerCase() as InterviewStatus]
+            }
+          />
         </View>
       </View>
       {isEditMode && (
