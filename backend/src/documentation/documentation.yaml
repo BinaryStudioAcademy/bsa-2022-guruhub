@@ -51,6 +51,8 @@ paths:
     $ref: './endpoints/courses/course-check-has-mentor.yaml'
   /courses/:courseId/mentees/:menteeId/is-mentor-check:
     $ref: './endpoints/courses/course-check-is-mentor-for-mentee.yaml'
+  /courses/popular:
+    $ref: './endpoints/courses/courses-get-popular.yaml'
   # Courses Modules
   /courses/:courseId/modules:
     $ref: './endpoints/courses-modules/courses-modules-get-all-by-course-id.yaml'
@@ -74,7 +76,7 @@ paths:
   /interviews/interviewee/{intervieweeUserId}/categories:
     $ref: './endpoints/interviews/interviews-interviewee-get-pending-or-passed-category-ids.yaml'
   /interviews/interviewee/{intervieweeUserId}/active/categories:
-    $ref: './endpoints/interviews/interview-interviewee-get-active-category-ids.yaml'
+    $ref: './endpoints/interviews/interviews-interviewee-get-active-category-ids.yaml'
   # Mentors
   /mentors:
     $ref: './endpoints/mentors/mentors.yaml'
