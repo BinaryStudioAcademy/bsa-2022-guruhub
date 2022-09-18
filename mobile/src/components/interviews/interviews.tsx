@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  DataStatus,
+  InterviewStatus,
+} from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsUpdateRequestParamsDto,
@@ -51,7 +55,12 @@ const Interviews: FC = () => {
         id: <IdCell id={item.id} onPress={handleInterviewSelect} />,
         name: item.interviewee.userDetails.fullName,
         category: <CategoryCell category={item.courseCategory} />,
-        status: <Chip text={item.status} color={statusToColor[item.status]} />,
+        status: (
+          <Chip
+            text={item.status}
+            color={statusToColor[item.status.toLowerCase() as InterviewStatus]}
+          />
+        ),
         interviewer:
           item.interviewer?.userDetails.fullName ?? 'Not assigned yet',
         date: item.interviewDate

@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import {
+  AppScreenName,
+  InterviewStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
 import {
   InterviewsGetOtherItemResponseDto,
   InterviewsUpdateRequestParamsDto,
@@ -59,7 +63,12 @@ const OtherApplications: FC<Props> = ({
         />
       ),
       status: (
-        <Chip text={interview.status} color={statusToColor[interview.status]} />
+        <Chip
+          text={interview.status}
+          color={
+            statusToColor[interview.status.toLowerCase() as InterviewStatus]
+          }
+        />
       ),
       interviewer:
         interview.interviewer?.userDetails?.fullName ?? 'Not assigned yet',
