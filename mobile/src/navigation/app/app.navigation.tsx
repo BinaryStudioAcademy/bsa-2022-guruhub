@@ -39,6 +39,7 @@ const App: FC = () => {
       drawerContent={(props): JSX.Element => (
         <DrawerContent {...props} items={drawerItems} />
       )}
+      backBehavior="history"
     >
       {allowedScreens.map((screen) => {
         return (

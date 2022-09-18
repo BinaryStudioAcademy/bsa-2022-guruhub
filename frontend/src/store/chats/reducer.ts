@@ -7,10 +7,11 @@ import {
 } from 'common/types/types';
 
 import {
+  addMessage,
   checkHasUnreadMessages,
-  createMessage,
   getLastMessages,
   getMessages,
+  readMessages,
   setHasUnreadMessages,
 } from './actions';
 
@@ -64,22 +65,6 @@ const reducer = createReducer(initialState, (builder) => {
     state.currentChatMessagesDataStatus = DataStatus.REJECTED;
   });
 
-  builder.addCase(createMessage.fulfilled, (state, { payload }) => {
-    state.dataStatus = DataStatus.FULFILLED;
-    state.currentChatMessages = [...state.currentChatMessages, payload];
-    state.currentChatId = payload.chatId;
-    state.lastMessages = state.lastMessages.map((lastMessage) => {
-      if (lastMessage.chatId === payload.chatId) {
-        return payload;
-      }
-
-      return lastMessage;
-    });
-  });
-  builder.addCase(createMessage.rejected, (state) => {
-    state.dataStatus = DataStatus.REJECTED;
-  });
-
   builder.addCase(checkHasUnreadMessages.pending, (state) => {
     state.dataStatus = DataStatus.PENDING;
   });
@@ -92,6 +77,28 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(setHasUnreadMessages, (state, { payload }) => {
     state.hasUnreadMessages = payload;
+  });
+
+  builder.addCase(readMessages.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(readMessages.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.hasUnreadMessages = payload;
+  });
+  builder.addCase(readMessages.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(addMessage, (state, { payload }) => {
+    state.currentChatMessages = [...state.currentChatMessages, payload];
+    state.lastMessages = state.lastMessages.map((lastMessage) => {
+      if (lastMessage.chatId === payload.chatId) {
+        return payload;
+      }
+
+      return lastMessage;
+    });
   });
 });
 

@@ -9,7 +9,6 @@ import {
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
-import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
 import { ROWS_MAX_COUNT } from './common/constants/rows-max-count.constants';
 import { SendButton } from './components/components';
@@ -24,13 +23,14 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const { control, errors, handleSubmit, reset, watch } =
     useAppForm<ChatMessageFormRequestDto>({
       defaultValues: getDefaultMessagePayload(),
-      validationSchema: chatMessageCreate,
     });
 
   const [messageChar, setMessageChar] = useState<string>();
   const [rowsCount, setRowsCount] = useState<number>(1);
 
+  const messageFieldValue = watch('message');
   const hasError = Boolean(errors.message?.message);
+  const isButtonDisabled = hasError || Boolean(!messageFieldValue.trim());
 
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
@@ -65,7 +65,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
           rows={rowsCount}
         />
       </View>
-      <SendButton onPress={handleSubmit(handleSend)} isDisabled={hasError} />
+      <SendButton onPress={handleSubmit(handleSend)} isDisabled={isButtonDisabled} />
     </View>
   );
 };

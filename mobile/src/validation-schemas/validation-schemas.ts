@@ -1,4 +1,3 @@
-export { chatMessageCreate } from './chat/chat';
 export {
   courseCreate,
   courseMentoringUpdateCount,

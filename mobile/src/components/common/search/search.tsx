@@ -2,10 +2,6 @@ import React, { FC } from 'react';
 
 import { AppColor } from '~/common/enums/enums';
 import { Icon, View } from '~/components/common/common';
-import {
-  DEFAULT_SEARCH_PAYLOAD,
-  SEARCH_DELAY_MS,
-} from '~/components/common/search/common/constants';
 import { debounce } from '~/helpers/helpers';
 import {
   useAppForm,
@@ -15,7 +11,11 @@ import {
   useState,
 } from '~/hooks/hooks';
 
-import { SearchPayload } from './common/types';
+import {
+  DEFAULT_SEARCH_PAYLOAD,
+  SEARCH_DELAY_MS,
+} from './common/constants/constants';
+import { SearchPayload } from './common/types/types';
 import { SearchInput } from './components/components';
 import { styles } from './styles';
 

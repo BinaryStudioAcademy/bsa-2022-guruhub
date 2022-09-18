@@ -18,7 +18,7 @@ type Props = {
 const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
   const chatRef = useRef<SectionList>(null);
   const groupedByDateMessages = groupMessagesByDate(messages);
-  const renderMessages = Object.entries(groupedByDateMessages).map(
+  const messagesToRender = Object.entries(groupedByDateMessages).map(
     ([key, value]) => ({
       title: key,
       data: value,
@@ -26,11 +26,13 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
   );
 
   const scrollToDown = (): void => {
-    chatRef.current?.scrollToLocation({
-      animated: false,
-      itemIndex: 0,
-      sectionIndex: 0,
-    });
+    if (messagesToRender.length) {
+      chatRef.current?.scrollToLocation({
+        animated: false,
+        itemIndex: 0,
+        sectionIndex: 0,
+      });
+    }
   };
 
   useFocusEffect(
@@ -43,10 +45,10 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
     <View style={styles.container}>
       <SectionList
         ref={chatRef}
-        sections={renderMessages}
+        sections={messagesToRender}
         keyExtractor={({ id }): string => id.toString()}
-        renderItem={({ item: message }): ReactElement => (
-          <View style={styles.messageList}>
+        renderItem={({ item: message, index }): ReactElement => (
+          <View style={Boolean(index) && styles.messageSeparator}>
             <Message
               messageText={message.message}
               isUserMessageSender={message.sender.id === currentUserId}
@@ -72,8 +74,8 @@ const MessagesList: FC<Props> = ({ currentUserId, messages }) => {
           _item,
           index,
         ): { length: number; offset: number; index: number } => ({
-          length: renderMessages.length,
-          offset: renderMessages.length * index,
+          length: messagesToRender.length,
+          offset: messagesToRender.length * index,
           index,
         })}
       />

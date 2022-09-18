@@ -27,6 +27,7 @@ export { InterviewStatus } from './interview/interview';
 export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors';
 export { PaginationDefaultValue } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { SocketEvent, SocketNamespace } from './socket/socket';
 export { SortOrder } from './sort/sort';
 export { StringCase } from './string/string';
 export { PaymentUnit } from './stripe/stripe';

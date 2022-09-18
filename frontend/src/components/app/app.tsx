@@ -153,11 +153,7 @@ const App: FC = () => {
         />
         <Route
           path={AppRoute.CHATS}
-          element={
-            <AuthorizedWrapper>
-              <Chats />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedProtectedRoute component={<Chats />} />}
         />
         <Route
           path={AppRoute.COURSES_MANAGEMENT}

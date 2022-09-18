@@ -78,15 +78,14 @@ const DrawerContent: FC<Props> = ({ state, items }) => {
             onPress={handleBecomeMentor}
           />
         )}
-        {user && (
-          <View style={styles.singOutWrapper}>
-            <Pressable onPress={handleLogout}>
-              <Text style={styles.signOutLabel}>Sign Out</Text>
-            </Pressable>
-          </View>
-        )}
       </ScrollView>
-      {!user && (
+      {user ? (
+        <View style={styles.singOutWrapper}>
+          <Pressable onPress={handleLogout}>
+            <Text style={styles.signOutLabel}>Sign Out</Text>
+          </Pressable>
+        </View>
+      ) : (
         <View style={styles.signInWrapper}>
           <Link
             label="Sign in"

@@ -17,7 +17,6 @@ import { Courses } from '~/components/courses/courses';
 import { CoursesManagement } from '~/components/courses-management/courses-management';
 import { Interview } from '~/components/interview/interview';
 import { Interviews } from '~/components/interviews/interviews';
-import { Mentors } from '~/components/mentors/mentors';
 import { MyCourses } from '~/components/my-courses/my-courses';
 import { Settings } from '~/components/setting/setting';
 import { UAM } from '~/components/uam/uam';
@@ -52,14 +51,6 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     component: Courses,
     permissions: [],
     isAuthRequired: false,
-    drawerGroup: 'Menu',
-  },
-  {
-    name: AppScreenName.MENTORS,
-    icon: 'mentors',
-    component: Mentors,
-    permissions: [],
-    isAuthRequired: true,
     drawerGroup: 'Menu',
   },
   {

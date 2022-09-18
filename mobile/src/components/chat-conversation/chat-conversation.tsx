@@ -74,9 +74,7 @@ const ChatConversation: FC = () => {
           />
         )}
       </View>
-      <View>
-        {chatOpponent && <MessageForm onSubmit={handleMessageSubmit} />}
-      </View>
+      {chatOpponent && <MessageForm onSubmit={handleMessageSubmit} />}
     </View>
   );
 };
