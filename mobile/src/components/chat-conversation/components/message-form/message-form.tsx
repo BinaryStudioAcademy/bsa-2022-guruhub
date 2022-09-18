@@ -29,9 +29,10 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const [rowsCount, setRowsCount] = useState<number>(1);
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
-  const hasError = Boolean(errors.message?.message);
   const messageFieldValue = watch('message');
-  const isButtonDisabled = !(hasError || Boolean(messageFieldValue.trim()));
+  const hasError = Boolean(errors.message?.message);
+  const isButtonDisabled = hasError || Boolean(!messageFieldValue.trim());
+
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
     reset({ message: '' });
@@ -69,7 +70,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
         onPress={handleSubmit(handleSend)}
         hitSlop={hitSlop}
         style={[styles.button, isButtonDisabled && styles.disabledButton]}
-        disabled={!isButtonDisabled}
+        disabled={isButtonDisabled}
       >
         <Icon
           color={AppColor.BRAND.BLUE_100}
