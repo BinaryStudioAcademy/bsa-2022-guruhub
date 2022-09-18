@@ -33,7 +33,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
   if (!isInteractive) {
     return (
       <span
-        className={getValidClasses(styles.categorySpan, styles.colorClassName)}
+        className={getValidClasses(styles.categorySpan, styles[colorClassName])}
         onClick={handleClick}
       >
         <Image
@@ -51,8 +51,11 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
 
   return (
     <button
-      className={getValidClasses(styles.category, isActive && styles.selected)}
-      style={{ borderColor: colorClassName }}
+      className={getValidClasses(
+        styles.category,
+        styles[colorClassName],
+        isActive && styles.selected,
+      )}
       onClick={handleClick}
     >
       <Image

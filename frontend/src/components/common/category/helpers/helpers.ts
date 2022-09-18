@@ -1,1 +1,1 @@
-export { getRandomColorClassName } from './get-random-color.helper';
+export { getRandomColorClassName } from './get-random-color/get-random-color.helper';
