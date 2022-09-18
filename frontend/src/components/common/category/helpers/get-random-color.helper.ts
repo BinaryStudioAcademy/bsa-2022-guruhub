@@ -1,7 +1,7 @@
-const getRandomColor = (): string => {
-  const colors = ['#F6C648', '#2563EB', '#15BE4F', '#C565C7', '#FEEAAA'];
+const getRandomColorClassName = (): string => {
+  const colorsClasses = ['blue', 'pink', 'green', 'yellow', 'lightYellow'];
 
-  return colors[Math.floor(Math.random() * colors.length)];
+  return colorsClasses[Math.floor(Math.random() * colorsClasses.length)];
 };
 
-export { getRandomColor };
+export { getRandomColorClassName };

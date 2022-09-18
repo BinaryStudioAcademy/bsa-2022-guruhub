@@ -24,3 +24,23 @@
   color: black;
   background-color: #ffffff;
 }
+
+.blue {
+  border-color: var(--brand-blue-100);
+}
+
+.pink {
+  border-color: var(--brand-pink-100);
+}
+
+.green {
+  border-color: var(--border-brand-green-100);
+}
+
+.yellow {
+  border-color: var(--brand-yellow-200);
+}
+
+.lightYellow {
+  border-color: var(--brand-yellow-100);
+}

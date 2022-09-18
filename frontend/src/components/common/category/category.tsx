@@ -4,7 +4,7 @@ import { Image } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
 import { useMemo } from 'hooks/hooks';
 
-import { getRandomColor } from './helpers/helpers';
+import { getRandomColorClassName } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -22,8 +22,8 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
     caseType: StringCase.KEBAB_CASE,
   });
 
-  const color = useMemo(() => {
-    return getRandomColor();
+  const colorClassName = useMemo(() => {
+    return getRandomColorClassName();
   }, []);
 
   const handleClick = (): void => {
@@ -33,8 +33,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
   if (!isInteractive) {
     return (
       <span
-        className={getValidClasses(styles.categorySpan)}
-        style={{ borderColor: color }}
+        className={getValidClasses(styles.categorySpan, styles.colorClassName)}
         onClick={handleClick}
       >
         <Image
@@ -53,7 +52,7 @@ const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
   return (
     <button
       className={getValidClasses(styles.category, isActive && styles.selected)}
-      style={{ borderColor: color }}
+      style={{ borderColor: colorClassName }}
       onClick={handleClick}
     >
       <Image
