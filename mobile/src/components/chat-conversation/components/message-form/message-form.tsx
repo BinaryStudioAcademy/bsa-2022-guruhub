@@ -65,7 +65,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
           rows={rowsCount}
         />
       </View>
-      <SendButton onPress={handleSubmit(handleSend)} hasError={hasError} />
+      <SendButton onPress={handleSubmit(handleSend)} isDisabled={hasError} />
     </View>
   );
 };

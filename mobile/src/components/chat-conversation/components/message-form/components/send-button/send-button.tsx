@@ -7,17 +7,17 @@ import { styles } from './styles';
 
 type Props = {
   onPress: () => void;
-  hasError: boolean;
+  isDisabled: boolean;
 };
 
-const SendButton: FC<Props> = ({ onPress, hasError }) => {
+const SendButton: FC<Props> = ({ onPress, isDisabled }) => {
   return (
-    <View style={[styles.button, hasError && styles.disabledButton]}>
+    <View style={[styles.button, isDisabled && styles.disabledButton]}>
       <TouchableOpacity
         onPress={onPress}
         style={styles.iconShadow}
-        disabled={hasError}
-      ></TouchableOpacity>
+        disabled={isDisabled}
+      />
       <View style={styles.icon}>
         <Icon
           color={AppColor.BRAND.BLUE_100}
