@@ -76,9 +76,9 @@ const Course: FC = () => {
 
   const isUserAuthorized = Boolean(user);
 
-  const mentorOrStudentOutputAuthorized =
+  const hasAuthorizedConditions =
     isUserAuthorized && mentorCheckDataStatus === DataStatus.FULFILLED;
-  const mentorOrStudentOutputUnauthorized = !isUserAuthorized;
+  const hasUnauthorizedConditions = !isUserAuthorized;
 
   const [isUpdateCategoryModalOpen, setUpdateCategoryModalOpen] =
     useState<boolean>(false);
@@ -310,8 +310,7 @@ const Course: FC = () => {
         </div>
       </div>
 
-      {(mentorOrStudentOutputAuthorized ||
-        mentorOrStudentOutputUnauthorized) && (
+      {(hasAuthorizedConditions || hasUnauthorizedConditions) && (
         <div className={styles.additional}>
           {handleMentorOrStudentComponentOutput()}
         </div>
