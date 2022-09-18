@@ -1,5 +1,5 @@
 <resources>
-    <color name="bootsplash_background">#242636</color>
+    <color name="color_accent">#2563EB</color>
+    <color name="bootsplash_background">#1E1E2C</color>
     <color name="datetime_picker_accent">#242636</color>
-    <color name="datetime_picker_control_activated">#2563EB</color>
 </resources>

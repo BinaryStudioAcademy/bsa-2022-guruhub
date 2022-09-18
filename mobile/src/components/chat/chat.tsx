@@ -8,9 +8,7 @@ import {
   useAppNavigate,
   useAppSelector,
   useCallback,
-  useEffect,
   useFocusEffect,
-  useState,
 } from '~/hooks/hooks';
 import { chatActions } from '~/store/actions';
 
@@ -18,7 +16,6 @@ import { ConversationsList } from './components/components';
 import { styles } from './styles';
 
 const Chat: FC = () => {
-  const [searchValue, setSearchValue] = useState('');
   const { authDataStatus, chatDataStatus, lastMessages, user, emptyChats } =
     useAppSelector(({ auth, chat }) => ({
       authDataStatus: auth.dataStatus,
@@ -40,16 +37,12 @@ const Chat: FC = () => {
   };
 
   const handleSearch = (search: string): void => {
-    setSearchValue(search);
+    dispatch(chatActions.getLastMessages({ fullName: search }));
   };
 
   const handleAddChat = (): void => {
     navigation.navigate(AppScreenName.ALL_CHATS);
   };
-
-  useEffect(() => {
-    dispatch(chatActions.getLastMessages({ fullName: searchValue }));
-  }, [dispatch, searchValue]);
 
   useFocusEffect(
     useCallback(() => {
