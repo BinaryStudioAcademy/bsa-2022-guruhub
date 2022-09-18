@@ -29,11 +29,7 @@ async function up(knex: Knex): Promise<void> {
   await knex.schema.raw(`
     UPDATE interviews SET status = (CASE WHEN status = '${InterviewStatusUppercase.PENDING}' THEN '${InterviewStatus.PENDING}'
       WHEN status = '${InterviewStatusUppercase.IN_PROGRESS}' THEN '${InterviewStatus.IN_PROGRESS}'
-      WHEN status = '${InterviewStatusUppercase.COMPLETED}' THEN '${InterviewStatus.COMPLETED}'
-      WHEN status = '${InterviewStatusUppercase.REJECTED}' THEN '${InterviewStatus.REJECTED}'
-      WHEN status = '${InterviewStatusUppercase.NEW}' THEN '${InterviewStatus.NEW}'
-      WHEN status = '${InterviewStatusUppercase.CANCELED}' THEN '${InterviewStatus.CANCELED}'
-      ELSE status
+      ELSE LOWER(status)
   END);`);
 
   await knex.schema.raw(`
@@ -52,11 +48,7 @@ async function down(knex: Knex): Promise<void> {
   await knex.schema.raw(`
     UPDATE interviews SET status = (CASE WHEN status = '${InterviewStatus.PENDING}' THEN '${InterviewStatusUppercase.PENDING}'
       WHEN status = '${InterviewStatus.IN_PROGRESS}' THEN '${InterviewStatusUppercase.IN_PROGRESS}'
-      WHEN status = '${InterviewStatus.COMPLETED}' THEN '${InterviewStatusUppercase.COMPLETED}'
-      WHEN status = '${InterviewStatus.REJECTED}' THEN '${InterviewStatusUppercase.REJECTED}'
-      WHEN status = '${InterviewStatus.NEW}' THEN '${InterviewStatusUppercase.NEW}'
-      WHEN status = '${InterviewStatus.CANCELED}' THEN '${InterviewStatusUppercase.CANCELED}'
-      ELSE status
+      ELSE INITCAP(status)
   END);`);
 }
 
