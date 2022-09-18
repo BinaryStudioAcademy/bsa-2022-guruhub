@@ -37,8 +37,13 @@ const UsersTable: FC = () => {
   }, [page, usersTotalCount]);
 
   const handleUserDelete = (userId: number): void => {
+    dispatch(uamActions.deleteUser({ id: userId }))
+      .unwrap()
+      .then(handlePageChangeOnDelete);
+  };
+
+  const handlePageChangeOnDelete = (): void => {
     const hasOnlyOneUser = users.length === ONE_USER_COUNT;
-    dispatch(uamActions.deleteUser({ id: userId }));
 
     if (hasOnlyOneUser) {
       const previousPage = page - 1;
