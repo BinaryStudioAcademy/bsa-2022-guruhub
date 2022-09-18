@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: AppColor.BACKGROUND.GRAY_300,
   },
-  dropDownLabel: {
+  textStyle: {
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 15,
     lineHeight: 24,
@@ -53,9 +53,6 @@ const styles = StyleSheet.create({
   },
   listItemLabelStyle: {
     fontFamily: AppFontFamily.INTER_500,
-    fontSize: 15,
-    lineHeight: 24,
-    color: AppColor.TEXT.GRAY_100,
   },
   error: {
     fontFamily: AppFontFamily.INTER_600,
