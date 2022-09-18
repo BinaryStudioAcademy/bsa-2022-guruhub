@@ -1,10 +1,10 @@
 enum InterviewStatus {
-  PENDING = 'Pending',
-  IN_PROGRESS = 'In Progress',
-  COMPLETED = 'Completed',
-  REJECTED = 'Rejected',
-  NEW = 'New',
-  CANCELED = 'Canceled',
+  PENDING = 'pending',
+  IN_PROGRESS = 'in-progress',
+  COMPLETED = 'completed',
+  REJECTED = 'rejected',
+  NEW = 'new',
+  CANCELED = 'canceled',
 }
 
 export { InterviewStatus };
