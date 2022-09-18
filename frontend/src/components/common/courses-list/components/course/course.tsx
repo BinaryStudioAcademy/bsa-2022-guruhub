@@ -34,6 +34,14 @@ const Course: FC<Props> = ({ course }) => {
           className={styles.image}
         />
         <div className={styles.categoryWrapper}>
+          <Image
+            width="25px"
+            height="25px"
+            src={`/category-icons/${course.category?.key}.svg`}
+            alt={`${course.category?.key} img`}
+            isCircular
+            className={styles.categoryIcon}
+          />
           <p className={styles.category}>
             {(course.category as CourseCategoryWithPriceDto).name}
           </p>
