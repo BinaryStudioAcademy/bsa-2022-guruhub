@@ -33,6 +33,18 @@ const Course: FC<Props> = ({ course }) => {
           height="100%"
           className={styles.image}
         />
+        <div className={styles.categoryWrapper}>
+          <Image
+            width="25px"
+            height="25px"
+            src={`/category-icons/${course.category?.key}.svg`}
+            alt={`${course.category?.key} img`}
+            isCircular
+          />
+          <p className={styles.category}>
+            {(course.category as CourseCategoryWithPriceDto).name}
+          </p>
+        </div>
         <Link
           to={generateDynamicPath(AppRoute.COURSES_$ID, {
             courseId: course.id,
@@ -43,11 +55,6 @@ const Course: FC<Props> = ({ course }) => {
         </Link>
       </div>
       <div className={styles.footer}>
-        <div className={styles.categoryWrapper}>
-          <p className={styles.category}>
-            {(course.category as CourseCategoryWithPriceDto).name}
-          </p>
-        </div>
         <p className={styles.price}>
           ${(course.category as CourseCategoryWithPriceDto).price.price}/h
         </p>
