@@ -54,6 +54,7 @@ const Chats: FC = () => {
 
   useEffect(() => {
     if (chatId) {
+      dispatch(chatsActions.readMessages(chatId));
       dispatch(chatsActions.joinRoom(chatId));
 
       return () => {

@@ -11,6 +11,7 @@ import {
   checkHasUnreadMessages,
   getLastMessages,
   getMessages,
+  readMessages,
   setHasUnreadMessages,
 } from './actions';
 
@@ -76,6 +77,17 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(setHasUnreadMessages, (state, { payload }) => {
     state.hasUnreadMessages = payload;
+  });
+
+  builder.addCase(readMessages.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(readMessages.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.hasUnreadMessages = payload;
+  });
+  builder.addCase(readMessages.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
   });
 
   builder.addCase(addMessage, (state, { payload }) => {

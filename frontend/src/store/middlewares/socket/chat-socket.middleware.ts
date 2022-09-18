@@ -18,9 +18,7 @@ const chatSocket: Middleware = ({ dispatch }: SocketMiddlewareParams) => {
     SocketEvent.CHAT_ADD_MESSAGE,
     (message: ChatMessageGetAllItemResponseDto): void => {
       dispatch(chatsActions.addMessage(message));
-      // TODO:
-      // PR Read Messages should be Merged
-      // dispatch(chatsActions.readMessages(message.chatId));
+      dispatch(chatsActions.readMessages(message.chatId));
     },
   );
 
