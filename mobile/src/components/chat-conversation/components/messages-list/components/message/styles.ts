@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 15,
     justifyContent: 'flex-end',
+    maxWidth: '100%',
   },
   messageOpponent: {
     justifyContent: 'flex-start',
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     backgroundColor: AppColor.BACKGROUND.GRAY_200,
     marginBottom: 5,
+    marginRight: 43,
   },
   opponentMessageAvatar: {
     width: 28,

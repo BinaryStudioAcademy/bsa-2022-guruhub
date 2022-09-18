@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 
-import { AppColor } from '~/common/enums/enums';
 import { ChatMessageFormRequestDto } from '~/common/types/types';
-import { Icon, Input, Pressable, View } from '~/components/common/common';
+import { Input, View } from '~/components/common/common';
 import {
   useAppForm,
   useCallback,
@@ -13,6 +12,7 @@ import {
 import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
 import { ROWS_MAX_COUNT } from './common/constants/rows-max-count.constants';
+import { SendButton } from './components/components';
 import { getDefaultMessagePayload } from './helpers/helpers';
 import { styles } from './styles';
 
@@ -30,7 +30,6 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const [messageChar, setMessageChar] = useState<string>();
   const [rowsCount, setRowsCount] = useState<number>(1);
 
-  const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
   const hasError = Boolean(errors.message?.message);
 
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
@@ -66,19 +65,7 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
           rows={rowsCount}
         />
       </View>
-      <Pressable
-        onPress={handleSubmit(handleSend)}
-        hitSlop={hitSlop}
-        style={[styles.button, hasError && styles.disabledButton]}
-        disabled={hasError}
-      >
-        <Icon
-          color={AppColor.BRAND.BLUE_100}
-          width={25}
-          height={25}
-          name="send"
-        />
-      </Pressable>
+      <SendButton onPress={handleSubmit(handleSend)} hasError={hasError} />
     </View>
   );
 };
