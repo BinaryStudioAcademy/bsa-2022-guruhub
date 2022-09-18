@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { TouchableOpacity } from 'react-native';
 
 import { AppColor } from '~/common/enums/enums';
-import { Icon, View } from '~/components/common/common';
+import { Icon, TouchableOpacity, View } from '~/components/common/common';
 
 import { styles } from './styles';
 
