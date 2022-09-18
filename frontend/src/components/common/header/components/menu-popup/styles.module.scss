@@ -18,6 +18,7 @@
   list-style: none;
   background-color: var(--background-gray-300);
   border-radius: 6px;
+  box-shadow: 0 5px 10px 12px var(--background-gray-400);
 }
 
 .li {
@@ -27,4 +28,8 @@
 .buttonWrapper {
   max-width: 93px;
   margin: 0 auto;
+}
+
+.buttonWrapper a:hover:not(.button-icon:hover) {
+  background-color: transparent;
 }

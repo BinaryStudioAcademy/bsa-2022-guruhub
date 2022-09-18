@@ -1,4 +1,6 @@
 import { ReactComponent as BillingIcon } from 'assets/icons/billing.svg';
+import { ReactComponent as CaretDownIcon } from 'assets/icons/caret-down.svg';
+import { ReactComponent as CaretUpIcon } from 'assets/icons/caret-up.svg';
 import { ReactComponent as ChatIcon } from 'assets/icons/chat.svg';
 import { ReactComponent as ChatUnreadIcon } from 'assets/icons/chat-unread.svg';
 import { ReactComponent as CourseIcon } from 'assets/icons/course.svg';
@@ -38,6 +40,8 @@ const iconNameToIcon: Record<IconName, FC<SVGProps<SVGSVGElement>>> = {
   chatUnread: ChatUnreadIcon,
   showPass: ShowPassIcon,
   hidePass: HidePassIcon,
+  caretDown: CaretDownIcon,
+  caretUp: CaretUpIcon,
 };
 
 type Props = {

@@ -15,6 +15,8 @@ type IconName =
   | 'chat'
   | 'chatUnread'
   | 'hidePass'
-  | 'showPass';
+  | 'showPass'
+  | 'caretDown'
+  | 'caretUp';
 
 export { type IconName };
