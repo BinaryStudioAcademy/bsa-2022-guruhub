@@ -57,11 +57,12 @@ const Dropdown = <T extends FormControlValues>({
         listMode="MODAL"
         style={styles.dropDown}
         labelStyle={styles.dropDownLabel}
-        dropDownContainerStyle={styles.dropDownContainerStyle}
-        listParentContainerStyle={styles.listParentContainerStyle}
+        modalContentContainerStyle={styles.modalContentContainerStyle}
         searchContainerStyle={styles.searchContainerStyle}
         searchTextInputStyle={styles.searchTextInputStyle}
-        searchPlaceholderTextColor="white"
+        searchPlaceholderTextColor={styles.placeholderStyle.color}
+        listItemContainerStyle={styles.listItemContainerStyle}
+        listItemLabelStyle={styles.listItemLabelStyle}
       />
       {Boolean(error) && <Text style={styles.error}>{placeholder}</Text>}
     </>
