@@ -27,8 +27,7 @@ enum ColumnName {
 
 async function up(knex: Knex): Promise<void> {
   await knex.schema.raw(`
-    UPDATE interviews SET status = (CASE WHEN status = '${InterviewStatusUppercase.PENDING}' THEN '${InterviewStatus.PENDING}'
-      WHEN status = '${InterviewStatusUppercase.IN_PROGRESS}' THEN '${InterviewStatus.IN_PROGRESS}'
+    UPDATE interviews SET status = (CASE WHEN status = '${InterviewStatusUppercase.IN_PROGRESS}' THEN '${InterviewStatus.IN_PROGRESS}'
       ELSE LOWER(status)
   END);`);
 
@@ -46,8 +45,7 @@ async function down(knex: Knex): Promise<void> {
   `);
 
   await knex.schema.raw(`
-    UPDATE interviews SET status = (CASE WHEN status = '${InterviewStatus.PENDING}' THEN '${InterviewStatusUppercase.PENDING}'
-      WHEN status = '${InterviewStatus.IN_PROGRESS}' THEN '${InterviewStatusUppercase.IN_PROGRESS}'
+    UPDATE interviews SET status = (CASE WHEN status = '${InterviewStatus.IN_PROGRESS}' THEN '${InterviewStatusUppercase.IN_PROGRESS}'
       ELSE INITCAP(status)
   END);`);
 }
