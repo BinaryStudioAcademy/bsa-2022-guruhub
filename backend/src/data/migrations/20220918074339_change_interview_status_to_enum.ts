@@ -29,9 +29,9 @@ async function up(knex: Knex): Promise<void> {
   await knex.schema.raw(`
     ALTER TABLE "${TABLE_NAME}"
     ADD CONSTRAINT "${ColumnName.STATUS_CHECK_CONSTRAINT}"
-    CHECK (${ColumnName.STATUS} IN ('${Object.values(InterviewStatus)
+    CHECK (${ColumnName.STATUS} IN (${Object.values(InterviewStatus)
     .map((status) => `'${status}'`)
-    .join(', ')}'))
+    .join(', ')}))
   `);
 }
 
