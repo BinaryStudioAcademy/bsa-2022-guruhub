@@ -10,7 +10,6 @@ import {
   useFocusEffect,
   useState,
 } from '~/hooks/hooks';
-import { chatMessageCreate } from '~/validation-schemas/validation-schemas';
 
 import { ROWS_MAX_COUNT } from './common/constants/rows-max-count.constants';
 import { getDefaultMessagePayload } from './helpers/helpers';
@@ -24,14 +23,15 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const { control, errors, handleSubmit, reset, watch } =
     useAppForm<ChatMessageFormRequestDto>({
       defaultValues: getDefaultMessagePayload(),
-      validationSchema: chatMessageCreate,
     });
 
   const [messageChar, setMessageChar] = useState<string>();
   const [rowsCount, setRowsCount] = useState<number>(1);
 
   const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
+  const messageFieldValue = watch('message');
   const hasError = Boolean(errors.message?.message);
+  const isButtonDisabled = hasError || Boolean(!messageFieldValue.trim());
 
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
     onSubmit(payload);
@@ -69,8 +69,8 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
       <Pressable
         onPress={handleSubmit(handleSend)}
         hitSlop={hitSlop}
-        style={[styles.button, hasError && styles.disabledButton]}
-        disabled={hasError}
+        style={[styles.button, isButtonDisabled && styles.disabledButton]}
+        disabled={isButtonDisabled}
       >
         <Icon
           color={AppColor.BRAND.BLUE_100}
