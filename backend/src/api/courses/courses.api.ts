@@ -362,6 +362,16 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       rep.status(HttpCode.OK).send(isMentorForMentee);
     },
   });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: CoursesApiPath.POPULAR,
+    async handler(_req, rep) {
+      const courses = await courseService.getPopular();
+
+      rep.status(HttpCode.OK).send(courses);
+    },
+  });
 };
 
 export { initCoursesApi };

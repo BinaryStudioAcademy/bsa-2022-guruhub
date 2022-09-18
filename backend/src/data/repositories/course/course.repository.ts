@@ -24,6 +24,8 @@ type Constructor = {
 class Course {
   #CourseModel: typeof CourseM;
 
+  private static MAX_COUNT_POPULAR_COURSES = 10;
+
   public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
   }
@@ -263,6 +265,20 @@ class Course {
       .findById(courseId)
       .withGraphJoined('[vendor, category]')
       .castTo<CourseGetResponseDto>()
+      .execute();
+  }
+
+  public getPopular(): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select(
+        '*',
+        this.#CourseModel.relatedQuery('mentees').count().as('menteesCount'),
+      )
+      .orderBy('menteesCount', 'desc')
+      .limit(Course.MAX_COUNT_POPULAR_COURSES)
+      .withGraphJoined('[category.[price], vendor]')
+      .castTo<CourseGetResponseDto[]>()
       .execute();
   }
 }

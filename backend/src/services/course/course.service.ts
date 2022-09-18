@@ -291,6 +291,10 @@ class Course {
   ): Promise<CourseGetResponseDto> {
     return this.#courseRepository.updateCategory(courseId, newCategoryId);
   }
+
+  public getPopular(): Promise<CourseGetResponseDto[]> {
+    return this.#courseRepository.getPopular();
+  }
 }
 
 export { Course };
