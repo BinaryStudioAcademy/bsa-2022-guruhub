@@ -10,12 +10,7 @@ enum InterviewStatus {
 }
 
 enum InterviewStatusUppercase {
-  PENDING = 'Pending',
   IN_PROGRESS = 'In Progress',
-  COMPLETED = 'Completed',
-  REJECTED = 'Rejected',
-  NEW = 'New',
-  CANCELED = 'Canceled',
 }
 
 const TABLE_NAME = 'interviews';
