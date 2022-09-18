@@ -73,9 +73,9 @@
   display: flex;
   align-items: center;
   max-width: 50%;
-  padding: 3px;
-  background-color: var(--brand-yellow-200);
-  border-radius: 12.5px;
+  padding: 0 5px;
+  background-color: var(--typography-text-100-inverse);
+  border-radius: 25px;
 }
 
 .category {
@@ -85,12 +85,6 @@
   font-weight: 600;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.categoryIcon {
-  padding: 1px;
-  border: 1px solid var(--typography-text-100-inverse);
-  border-radius: 50%;
 }
 
 .price {
