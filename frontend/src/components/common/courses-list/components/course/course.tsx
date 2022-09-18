@@ -1,12 +1,12 @@
 import defaultCourseImage from 'assets/img/default-course-image.jpeg';
-import { AppRoute } from 'common/enums/enums';
+import { AppRoute, StringCase } from 'common/enums/enums';
 import {
   CourseCategoryWithPriceDto,
   CourseGetResponseDto,
   FC,
 } from 'common/types/types';
 import { Image, Link } from 'components/common/common';
-import { generateDynamicPath } from 'helpers/helpers';
+import { changeStringCase, generateDynamicPath } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -15,6 +15,11 @@ type Props = {
 };
 
 const Course: FC<Props> = ({ course }) => {
+  const keyNameKebabCase = changeStringCase({
+    stringToChange: course.category?.key as string,
+    caseType: StringCase.KEBAB_CASE,
+  });
+
   return (
     <li className={styles.container}>
       <div className={styles.vendor}>
@@ -37,7 +42,7 @@ const Course: FC<Props> = ({ course }) => {
           <Image
             width="25px"
             height="25px"
-            src={`/category-icons/${course.category?.key}.svg`}
+            src={`/category-icons/${keyNameKebabCase}.svg`}
             alt={`${course.category?.key} img`}
             isCircular
           />
