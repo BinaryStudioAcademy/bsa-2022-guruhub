@@ -133,7 +133,7 @@ const InterviewItem: FC<Props> = ({
             </p>
           </div>
           <div className={styles.interviewRow}>
-            <p className={styles.header}>Telegram</p>
+            <p className={styles.header}>Telegram Username</p>
             {hasTelegram ? (
               <a
                 href={generateTelegramLink(
