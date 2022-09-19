@@ -108,7 +108,7 @@ class Course {
       .select('courses.id', 'title', 'studentsCount')
       .withGraphJoined('mentors')
       .where('userId', userId)
-      .orderBy('id', 'asc')
+      .orderBy('id', SortOrder.ASC)
       .page(page, count)
       .castTo<Page<CourseM & CourseGetMentoringDto>>();
 
