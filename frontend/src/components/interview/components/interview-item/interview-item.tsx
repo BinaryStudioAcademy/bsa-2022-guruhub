@@ -67,6 +67,10 @@ const InterviewItem: FC<Props> = ({
     (interview as InterviewsGetAllItemResponseDto).interviewee.id ===
     (user as UserWithPermissions).id;
 
+  const isInterviewer =
+    (interview as InterviewsGetAllItemResponseDto).interviewer?.id ===
+    (user as UserWithPermissions).id;
+
   const hasTelegram = Boolean(
     interview?.interviewee.userDetails.telegramUsername,
   );
@@ -190,7 +194,9 @@ const InterviewItem: FC<Props> = ({
           </div>
           <div className={styles.interviewRow}>
             <p className={styles.header}>Interviewer</p>
-            {isEditMode && hasPermissionToSelectInterviewer ? (
+            {isEditMode &&
+            hasPermissionToSelectInterviewer &&
+            !isInterviewer ? (
               <Select
                 options={interviewersOptions}
                 name={getNameOf<InterviewsUpdateRequestDto>(
