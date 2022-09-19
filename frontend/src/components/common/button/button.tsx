@@ -17,7 +17,6 @@ type Props = {
   iconName?: IconName;
   iconColor?: 'blue' | 'gray';
   onFileSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  className?: string;
 };
 
 const Button: FC<Props> = ({
@@ -31,7 +30,6 @@ const Button: FC<Props> = ({
   iconName,
   iconColor = 'gray',
   onFileSelect,
-  className,
 }) => {
   const isLink = Boolean(to);
   const hasIcon = Boolean(iconName);
@@ -66,7 +64,6 @@ const Button: FC<Props> = ({
           hasIcon && styles.iconButton,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],
-          className,
         )}
       >
         {getContent()}
@@ -83,7 +80,6 @@ const Button: FC<Props> = ({
           styles.button,
           styles[`button-${btnColor}`],
           styles[`button-${btnType}`],
-          className,
         )}
       >
         <input
@@ -103,7 +99,6 @@ const Button: FC<Props> = ({
         styles.button,
         styles[`button-${btnColor}`],
         styles[`button-${btnType}`],
-        className,
       )}
       onClick={onClick}
     >
