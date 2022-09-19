@@ -1,1 +1,1 @@
-export { type CarouselResponsiveBreakpoints } from './carousel-responsive-prop.type';
+export { type ResponsiveType } from 'react-multi-carousel';

@@ -1,6 +1,6 @@
-import { CarouselResponsiveBreakpoints } from 'common/types/types';
+import { ResponsiveType } from 'common/types/types';
 
-const carouselResponsiveBreakpoints: CarouselResponsiveBreakpoints = {
+const carouselResponsiveBreakpoints: ResponsiveType = {
   desktop: {
     breakpoint: { max: 3000, min: 1480 },
     items: 5,
