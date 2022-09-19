@@ -30,6 +30,12 @@ class Transaction {
     );
   }
 
+  public getByUserIdTransactions(
+    userId: number,
+  ): Promise<TransactionGetAllItemResponseDto[]> {
+    return this.#transactionRepository.getByUserIdTransactions(userId);
+  }
+
   public create(
     transactionCreateBody: TransactionCreateArgumentsDto,
   ): Promise<TransactionGetAllItemResponseDto> {

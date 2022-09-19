@@ -86,6 +86,12 @@ class Billing {
     );
   }
 
+  public getByUserIdTransactions(
+    userId: number,
+  ): Promise<TransactionGetAllItemResponseDto[]> {
+    return this.#transactionService.getByUserIdTransactions(userId);
+  }
+
   public async initHoldStudentPayment({
     menteeId,
     mentorId,

@@ -1,4 +1,4 @@
-import { TransactionStatus } from '~/common/enums/enums';
+import { SortOrder, TransactionStatus } from '~/common/enums/enums';
 import {
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
@@ -26,6 +26,21 @@ class Transaction {
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )
       .castTo<TransactionGetAllItemResponseDto>()
+      .execute();
+  }
+
+  public getByUserIdTransactions(
+    userId: number,
+  ): Promise<TransactionGetAllItemResponseDto[]> {
+    return this.#TransactionModel
+      .query()
+      .where('senderId', userId)
+      .orWhere('receiverId', userId)
+      .withGraphJoined(
+        '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
+      )
+      .orderBy('createdAt', SortOrder.DESC)
+      .castTo<TransactionGetAllItemResponseDto[]>()
       .execute();
   }
 

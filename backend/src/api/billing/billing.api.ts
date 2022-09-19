@@ -30,6 +30,17 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   });
 
   fastify.route({
+    method: HttpMethod.GET,
+    url: BillingApiPath.TRANSACTIONS,
+    async handler(req, rep) {
+      const { id } = req.user;
+      const userTransactions = await billingService.getByUserIdTransactions(id);
+
+      return rep.status(HttpCode.OK).send(userTransactions);
+    },
+  });
+
+  fastify.route({
     method: HttpMethod.PATCH,
     url: BillingApiPath.REPLENISH,
     schema: { body: billingReplenishParamsValidationSchema },
