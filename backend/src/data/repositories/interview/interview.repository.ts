@@ -184,6 +184,20 @@ class Interview {
     return Boolean(menteeToMentor);
   }
 
+  public async checkIsInterviewerOnInterview(interview: {
+    interviewId: number;
+    interviewerUserId: number;
+  }): Promise<boolean> {
+    const { interviewId, interviewerUserId } = interview;
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.RECORD_EXISTS_CHECK)
+      .where({ id: interviewId, interviewerUserId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
   public update(
     id: number,
     interviewUpdateInfoRequestDto:

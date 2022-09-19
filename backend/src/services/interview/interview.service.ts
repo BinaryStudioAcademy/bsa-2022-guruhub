@@ -166,12 +166,20 @@ class Interview {
     return this.#interviewRepository.checkIsIntervieweeOnInterview(interview);
   }
 
+  public checkIsInterviewerOnInterview(interview: {
+    interviewId: number;
+    interviewerUserId: number;
+  }): Promise<boolean> {
+    return this.#interviewRepository.checkIsInterviewerOnInterview(interview);
+  }
+
   public async update(data: {
     id: number;
     user: UserWithPermissions;
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, user, interviewUpdateInfoRequestDto } = data;
+    const { status, interviewDate } = interviewUpdateInfoRequestDto;
 
     const isInterviewee = await this.checkIsIntervieweeOnInterview({
       interviewId: id,
@@ -185,6 +193,20 @@ class Interview {
       });
     }
 
+    const isInterviewer = await this.checkIsInterviewerOnInterview({
+      interviewId: id,
+      interviewerUserId: user.id,
+    });
+
+    if (isInterviewer) {
+      const interview = await this.updateWithoutInterviewer({
+        id,
+        interviewUpdateInfoRequestDto: { status, interviewDate },
+      });
+
+      return interview;
+    }
+
     const interview = await this.#interviewRepository.update(
       id,
       interviewUpdateInfoRequestDto,
@@ -193,18 +215,13 @@ class Interview {
     return interview;
   }
 
-  public async updateWithoutInterviewer(data: {
+  public updateWithoutInterviewer(data: {
     id: number;
     interviewUpdateInfoRequestDto: InterviewsUpdateWithoutInterviewerRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, interviewUpdateInfoRequestDto } = data;
 
-    const interview = await this.#interviewRepository.update(
-      id,
-      interviewUpdateInfoRequestDto,
-    );
-
-    return interview;
+    return this.#interviewRepository.update(id, interviewUpdateInfoRequestDto);
   }
 
   public getAllNotes(
