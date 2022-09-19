@@ -18,7 +18,7 @@ const COURSES_SCREENS: NavigationItem[] = [
     name: CoursesScreenName.COURSES,
     component: Courses,
     permissions: [],
-    isAuthRequired: true,
+    isAuthRequired: false,
     options: { headerShown: false },
   },
   {

@@ -170,7 +170,7 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     name: AppScreenName.COURSE,
     component: Course,
     permissions: [],
-    isAuthRequired: true,
+    isAuthRequired: false,
   },
   {
     name: AppScreenName.COURSE_MODULE,
