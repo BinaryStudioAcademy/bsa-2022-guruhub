@@ -24,6 +24,20 @@ scripts:
       APP_HOST = $APP_HOST
       APP_SCHEME = $APP_SCHEME
       EOF
+  - &set_up_android_updated_build_number
+    name: Set up updated build number
+    script: |
+      LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal)
+      if [ -z LATEST_BUILD_NUMBER ]; then
+        UPDATED_BUILD_NUMBER=$BUILD_NUMBER
+      else
+        UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
+      fi
+
+      echo $UPDATED_BUILD_NUMBER > "$FCI_BUILD_DIR/mobile/android/app/versionCode"
+      VERSION_NAME_PATH=$FCI_BUILD_DIR/mobile/android/app/versionName
+      UPDATED_VERSION_NAME=$(cat $VERSION_NAME_PATH | awk -F. -v PATCH_NUMBER=$UPDATED_BUILD_NUMBER -v OFS=. '{$NF = PATCH_NUMBER ; print}')
+      echo $UPDATED_VERSION_NAME > $VERSION_NAME_PATH
 workflows:
   react-native-android:
     name: React Native Android App
@@ -58,13 +72,7 @@ workflows:
       - *set-env-vars
       - name: Build Android release
         script: |
-          LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal)
-          if [ -z LATEST_BUILD_NUMBER ]; then
-            UPDATED_BUILD_NUMBER=$BUILD_NUMBER
-          else
-            UPDATED_BUILD_NUMBER=$(($LATEST_GOOGLE_PLAY_BUILD_NUMBER + 1))
-          fi
-          cd android && ./gradlew bundleRelease -PversionCode=$UPDATED_BUILD_NUMBER -PversionName=1.0.$UPDATED_BUILD_NUMBER
+          cd android && ./gradlew clean bundleRelease
     artifacts:
       - android/app/build/outputs/**/*.aab
     publishing:
