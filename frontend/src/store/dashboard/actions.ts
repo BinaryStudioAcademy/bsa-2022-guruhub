@@ -6,13 +6,13 @@ import {
   CourseCreateRequestDto,
   CourseFilteringWithPaginationDto,
   CourseGetResponseDto,
-  EntityPagination,
+  CourseOnThePageResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
-  EntityPagination<CourseGetResponseDto>,
+  CourseOnThePageResponseDto,
   CourseFilteringWithPaginationDto,
   AsyncThunkConfig
 >(
@@ -23,7 +23,10 @@ const getCourses = createAsyncThunk<
       filtering: { title, categoryKey, page, count },
     });
 
-    return courses;
+    return {
+      results: courses,
+      page,
+    };
   },
 );
 

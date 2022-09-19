@@ -48,15 +48,6 @@ const MyCourses: FC = () => {
 
   useEffect(() => {
     dispatch(
-      myCoursesActions.getCoursesStudying({
-        page: studentCoursesPage,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
-      }),
-    );
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(
       myCoursesActions.getCoursesMentoring({
         page: mentorCoursesPage,
         count: PaginationDefaultValue.DEFAULT_COUNT,

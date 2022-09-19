@@ -23,29 +23,27 @@ const Dashboard: FC = () => {
     queryName: 'dashboardPage',
   });
 
-  const { user, categories, dataStatus, courses, totalCoursesCount } =
-    useAppSelector((state) => ({
-      user: state.auth.user,
-      categories: state.dashboard.categories,
-      dataStatus: state.dashboard.dataStatus,
-      courses: state.dashboard.courses,
-      totalCoursesCount: state.dashboard.totalCoursesCount,
-    }));
+  const {
+    user,
+    categories,
+    dataStatus,
+    courses,
+    totalCoursesCount,
+    isPaginationClicked,
+  } = useAppSelector((state) => ({
+    user: state.auth.user,
+    categories: state.dashboard.categories,
+    dataStatus: state.dashboard.dataStatus,
+    courses: state.dashboard.courses,
+    totalCoursesCount: state.dashboard.totalCoursesCount,
+    isPaginationClicked: state.dashboard.isPaginationClicked,
+  }));
 
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
     useState<boolean>(false);
   const hasUser = Boolean(user);
 
   useEffect(() => {
-    dispatch(
-      dashboardActions.getCourses({
-        title: '',
-        categoryKey: '',
-        page,
-        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
-      }),
-    );
-
     if (user) {
       dispatch(userDetailsActions.getUserDetails());
     }
@@ -92,7 +90,9 @@ const Dashboard: FC = () => {
       ) : (
         <CoursesList
           courses={courses}
-          currentPage={page}
+          currentPage={
+            isPaginationClicked ? page : PaginationDefaultValue.DEFAULT_PAGE
+          }
           onPageChange={handlePageChange}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_10}
           totalCount={totalCoursesCount}
