@@ -24,8 +24,8 @@ scripts:
       APP_HOST = $APP_HOST
       APP_SCHEME = $APP_SCHEME
       EOF
-  - &set_up_android_updated_build_number
-    name: Set up updated build number
+  - &set_up_android_updated_versions
+    name: Set up updated build number and provide correct versioning
     script: |
       LATEST_GOOGLE_PLAY_BUILD_NUMBER=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal)
       if [ -z LATEST_BUILD_NUMBER ]; then
