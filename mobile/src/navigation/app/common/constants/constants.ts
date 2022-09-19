@@ -11,9 +11,6 @@ import { Chat } from '~/components/chat/chat';
 import { EmptyChats } from '~/components/chat/components/components';
 import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
 import { EditCourse } from '~/components/course/components/components';
-import { Task } from '~/components/course-module/components/components';
-import { AddCourse } from '~/components/courses/components/components';
-import { Courses } from '~/components/courses/courses';
 import { CoursesManagement } from '~/components/courses-management/courses-management';
 import { Interview } from '~/components/interview/interview';
 import { Interviews } from '~/components/interviews/interviews';
@@ -23,6 +20,7 @@ import { UAM } from '~/components/uam/uam';
 import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
 import { Course } from '~/navigation/course/course.navigation';
 import { CourseModule } from '~/navigation/course-module/course-module.navigation';
+import { Courses } from '~/navigation/courses/courses.navigation';
 
 import { DrawerNavigationItem } from '../types/types';
 
@@ -145,30 +143,6 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     },
   },
   {
-    name: AppScreenName.ADD_COURSE,
-    component: AddCourse,
-    permissions: [],
-    isAuthRequired: true,
-  },
-  {
-    name: AppScreenName.COURSE,
-    component: Course,
-    permissions: [],
-    isAuthRequired: false,
-  },
-  {
-    name: AppScreenName.COURSE_MODULE,
-    component: CourseModule,
-    permissions: [],
-    isAuthRequired: true,
-  },
-  {
-    name: AppScreenName.TASK,
-    component: Task,
-    permissions: [],
-    isAuthRequired: true,
-  },
-  {
     name: AppScreenName.INTERVIEW,
     component: Interview,
     permissions: [
@@ -189,6 +163,18 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
   {
     name: AppScreenName.ALL_CHATS,
     component: EmptyChats,
+    permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.COURSE,
+    component: Course,
+    permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: AppScreenName.COURSE_MODULE,
+    component: CourseModule,
     permissions: [],
     isAuthRequired: true,
   },

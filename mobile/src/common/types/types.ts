@@ -89,6 +89,7 @@ export {
   type AuthNavigationParamList,
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
+  type CoursesNavigationParamList,
   type InterviewNavigationParamList,
   type MyCoursesNavigationParamList,
   type NavigationItem,

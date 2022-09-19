@@ -43,6 +43,9 @@ const AddCourse: FC = () => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={navigation.goBack} />,
     });
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
   }, []);
 
   useFocusEffect(

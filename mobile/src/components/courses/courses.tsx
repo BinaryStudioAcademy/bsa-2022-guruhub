@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useRef } from 'react';
 
-import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
+import { AppColor, CoursesScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetRequestParamsDto } from '~/common/types/courses/courses';
 import { CourseFilteringDto } from '~/common/types/types';
 import {
@@ -61,7 +61,7 @@ const Courses: FC = (): ReactElement => {
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(CoursesScreenName.COURSE);
   };
 
   const handleRefresh = (): void => {
@@ -69,7 +69,7 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleAddCourse = (): void => {
-    navigation.navigate(AppScreenName.ADD_COURSE);
+    navigation.navigate(CoursesScreenName.ADD_COURSE);
   };
 
   const handleSearch = (search: string): void => {
@@ -98,6 +98,9 @@ const Courses: FC = (): ReactElement => {
 
   useFocusEffect(
     useCallback(() => {
+      navigation.getParent()?.setOptions({
+        headerShown: true,
+      });
       dispatch(categoryActions.getAllWithCourses());
       handleCoursesLoad();
 

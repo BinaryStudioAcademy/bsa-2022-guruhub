@@ -63,6 +63,9 @@ const Course: FC = () => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={handleLeaveCourseScreen} />,
     });
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
   }, []);
 
   useEffect(() => {

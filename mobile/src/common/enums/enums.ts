@@ -22,6 +22,7 @@ export {
   AuthScreenName,
   CourseModuleScreenName,
   CourseScreenName,
+  CoursesScreenName,
   InterviewScreenName,
   MyCoursesScreenName,
   RootScreenName,

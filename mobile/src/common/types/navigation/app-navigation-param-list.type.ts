@@ -8,7 +8,6 @@ type AppNavigationParamList = {
   [AppScreenName.UAM]: undefined;
   [AppScreenName.UAM_GROUPS_CREATE]: undefined;
   [AppScreenName.UAM_GROUPS_EDIT]: undefined;
-  [AppScreenName.ADD_COURSE]: undefined;
   [AppScreenName.COURSE]: undefined;
   [AppScreenName.EDIT_COURSE]: undefined;
   [AppScreenName.INTERVIEWS]: undefined;
@@ -18,7 +17,6 @@ type AppNavigationParamList = {
   [AppScreenName.ALL_CHATS]: undefined;
   [AppScreenName.CONVERSATION]: undefined;
   [AppScreenName.COURSE_MANAGEMENT]: undefined;
-  [AppScreenName.TASK]: undefined;
 };
 
 export { type AppNavigationParamList };
