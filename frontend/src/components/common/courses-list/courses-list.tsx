@@ -24,15 +24,15 @@ const CoursesList: FC<Props> = ({
 
   return (
     <ul className={styles.container}>
-      {courses.map((course) => (
-        <Course
-          key={course.id}
-          course={course}
-          isPopular={popularCourses.some(
-            (popularCourse) => popularCourse.id === course.id,
-          )}
-        />
-      ))}
+      {courses.map((course) => {
+        const isPopularCourse = popularCourses.some(
+          (popularCourse) => popularCourse.id === course.id,
+        );
+
+        return (
+          <Course key={course.id} course={course} isPopular={isPopularCourse} />
+        );
+      })}
     </ul>
   );
 };
