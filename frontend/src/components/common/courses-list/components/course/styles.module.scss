@@ -89,10 +89,24 @@
 
 .price {
   display: flex;
+  flex: 1;
   justify-content: flex-end;
   width: 100%;
   margin: 0;
   margin-top: 12px;
   color: var(--typography-text-100-inverse);
   font-weight: 600;
+}
+
+.bestChoiceWrapper {
+  flex: 1;
+  margin: 0;
+  margin-top: 12px;
+}
+
+.bestChoice {
+  padding: 5px 11px;
+  font-weight: 600;
+  background-color: var(--brand-yellow-200);
+  border-radius: 12.5px;
 }

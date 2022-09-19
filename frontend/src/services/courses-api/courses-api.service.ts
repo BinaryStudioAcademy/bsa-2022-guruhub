@@ -269,6 +269,15 @@ class CoursesApi {
       }/${menteeId}${CoursesApiPath.IS_MENTOR_CHECK}`,
     );
   }
+
+  public getPopular(): Promise<CourseGetResponseDto[]> {
+    return this.#http.load<CourseGetResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.POPULAR}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
 }
 
 export { CoursesApi };

@@ -275,6 +275,7 @@ class Course {
         '*',
         this.#CourseModel.relatedQuery('mentees').count().as('menteesCount'),
       )
+      .whereNotNull('category')
       .orderBy('menteesCount', 'desc')
       .limit(Course.MAX_COUNT_POPULAR_COURSES)
       .withGraphJoined('[category.[price], vendor]')
