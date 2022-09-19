@@ -5,6 +5,7 @@ import {
   UserWithPermissions,
 } from 'common/types/types';
 import { Spinner } from 'components/common/common';
+import { debounce } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
@@ -16,6 +17,8 @@ import { chatsActions } from 'store/actions';
 import { ChatsList, CurrentChat, SearchUser } from './components/components';
 import styles from './styles.module.scss';
 
+const READ_MESSAGES_DELAY_MS = 500;
+
 const Chats: FC = () => {
   const {
     authDataStatus,
@@ -26,6 +29,7 @@ const Chats: FC = () => {
     chatOpponent,
     emptyChats,
     fetchLastMessagesDataStatus,
+    currentChatMessages,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
     user: auth.user,
@@ -35,6 +39,7 @@ const Chats: FC = () => {
     emptyChats: chats.emptyChats,
     chatId: chats.currentChatId,
     chatOpponent: chats.chatOpponent,
+    currentChatMessages: chats.currentChatMessages,
   }));
 
   const dispatch = useAppDispatch();
@@ -52,16 +57,26 @@ const Chats: FC = () => {
     dispatch(chatsActions.getLastMessages({ fullName: '' }));
   }, [dispatch]);
 
-  useEffect(() => {
+  const handleReadMessages = (): void => {
     if (chatId) {
       dispatch(chatsActions.readMessages(chatId));
-      dispatch(chatsActions.joinRoom(chatId));
+    }
+  };
+
+  const debounceHandleReadMessages = debounce(
+    handleReadMessages,
+    READ_MESSAGES_DELAY_MS,
+  );
+
+  useEffect(() => {
+    if (chatId) {
+      debounceHandleReadMessages();
 
       return () => {
-        dispatch(chatsActions.leaveRoom(chatId));
+        debounceHandleReadMessages.clear();
       };
     }
-  }, [chatId]);
+  }, [chatId, currentChatMessages]);
 
   const { handleSearchPerform, searchParams } = useUserSearch();
 
