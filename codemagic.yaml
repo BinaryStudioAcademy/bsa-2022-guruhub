@@ -70,6 +70,7 @@ workflows:
       - *set_android_sdk
       - *set_up_keys
       - *set-env-vars
+      - *set_up_android_updated_versions
       - name: Build Android release
         script: |
           cd android && ./gradlew clean bundleRelease
