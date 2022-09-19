@@ -74,7 +74,7 @@ paths:
   /interviews/interviewee/{intervieweeUserId}/categories:
     $ref: './endpoints/interviews/interviews-interviewee-get-pending-or-passed-category-ids.yaml'
   /interviews/interviewee/{intervieweeUserId}/active/categories:
-    $ref: './endpoints/interviews/interview-interviewee-get-active-category-ids.yaml'
+    $ref: './endpoints/interviews/interviews-interviewee-get-active-category-ids.yaml'
   # Mentors
   /mentors:
     $ref: './endpoints/mentors/mentors.yaml'
