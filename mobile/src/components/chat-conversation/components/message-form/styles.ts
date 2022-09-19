@@ -12,13 +12,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
   },
-  button: {
-    paddingRight: 10,
-    alignSelf: 'center',
-  },
-  disabledButton: {
-    opacity: 0.5,
-  },
 });
 
 export { styles };
