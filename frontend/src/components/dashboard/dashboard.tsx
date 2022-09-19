@@ -1,19 +1,15 @@
-import { DataStatus } from 'common/enums/enums';
+import { AppRoute, DataStatus } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button, Spinner } from 'components/common/common';
+import { Button, CoursesList, Spinner } from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions } from 'store/actions';
+import { dashboardActions, userDetailsActions } from 'store/actions';
 
-import {
-  AddCourseModal,
-  CategoriesList,
-  CoursesList,
-} from './components/components';
+import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
@@ -25,10 +21,14 @@ const Dashboard: FC = () => {
     courses: state.dashboard.courses,
   }));
 
-  const [isNewCourseModalOpen, setIsNewCourseModalOpen] = useState(false);
+  const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
+    useState<boolean>(false);
   const hasUser = Boolean(user);
 
   useEffect(() => {
+    if (user) {
+      dispatch(userDetailsActions.getUserDetails());
+    }
     dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
@@ -39,23 +39,22 @@ const Dashboard: FC = () => {
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.header}>
-          <h1 className={styles.headingText}>Courses</h1>
-          {hasUser && (
-            <div className={styles.buttonWrapper}>
-              <Button
-                label="+ Add new course"
-                btnColor="blue"
-                onClick={handleNewCourseModalToggle}
-              />
-            </div>
-          )}
-          <AddCourseModal
-            isModalOpen={isNewCourseModalOpen}
-            onModalToggle={handleNewCourseModalToggle}
+      <div className={styles.header}>
+        <h1 className={styles.headingText}>Courses</h1>
+        <div className={styles.buttonWrapper}>
+          <Button
+            label="+ Add new course"
+            btnColor="blue"
+            to={!hasUser ? AppRoute.SIGN_IN : null}
+            onClick={handleNewCourseModalToggle}
           />
         </div>
+        <AddCourseModal
+          isModalOpen={isNewCourseModalOpen}
+          onModalToggle={handleNewCourseModalToggle}
+        />
+      </div>
+      <div className={styles.categoriesWrapper}>
         <CategoriesList items={categories} />
       </div>
       {dataStatus === DataStatus.PENDING ? (

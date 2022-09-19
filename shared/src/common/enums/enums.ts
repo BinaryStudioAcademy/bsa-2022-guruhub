@@ -1,6 +1,7 @@
 export {
   ApiPath,
   AuthApiPath,
+  BillingApiPath,
   CategoriesApiPath,
   ChatsApiPath,
   CourseModulesApiPath,
@@ -15,7 +16,7 @@ export {
 } from './api/api';
 export { StringCase } from './case/case';
 export { ChatMessageStatus, ChatValidationMessage } from './chat/chat';
-export { CourseValidationMessage } from './course/course';
+export { CourseValidationMessage, CourseValidationRule } from './course/course';
 export { CustomExceptionName, ExceptionMessage } from './exceptions/exceptions';
 export { ContentType } from './file/file';
 export { GroupValidationMessage, GroupValidationRule } from './group/group';
@@ -36,9 +37,12 @@ export {
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
+export { SocketEvent, SocketNamespace } from './socket/socket';
 export { SortOrder } from './sort/sort';
+export { PaymentUnit } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
+export { TransactionStatus } from './transaction/transaction';
 export {
   UserAge,
   UserGender,

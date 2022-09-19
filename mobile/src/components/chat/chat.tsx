@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 
 import { AppScreenName, DataStatus } from '~/common/enums/enums';
-import { UserWithPermissions } from '~/common/types/types';
-import { Spinner, View } from '~/components/common/common';
+import { UsersGetResponseDto, UserWithPermissions } from '~/common/types/types';
+import { FAB, Search, Spinner, View } from '~/components/common/common';
 import {
   useAppDispatch,
   useAppNavigate,
   useAppSelector,
-  useEffect,
+  useCallback,
+  useFocusEffect,
 } from '~/hooks/hooks';
 import { chatActions } from '~/store/actions';
 
@@ -15,42 +16,64 @@ import { ConversationsList } from './components/components';
 import { styles } from './styles';
 
 const Chat: FC = () => {
-  const { authDataStatus, chatDataStatus, lastMessages, user } = useAppSelector(
-    ({ auth, chat }) => ({
+  const { authDataStatus, chatDataStatus, lastMessages, user, emptyChats } =
+    useAppSelector(({ auth, chat }) => ({
       authDataStatus: auth.dataStatus,
       user: auth.user,
       chatDataStatus: chat.dataStatus,
       lastMessages: chat.lastMessages,
-    }),
-  );
+      emptyChats: chat.emptyChats,
+    }));
 
   const dispatch = useAppDispatch();
   const navigation = useAppNavigate();
 
-  const handleChatMessagesLoad = (chatId: string): void => {
-    dispatch(chatActions.getMessages({ id: chatId }));
+  const handleChatMessagesLoad = (
+    chatId: string,
+    chatOpponent: UsersGetResponseDto,
+  ): void => {
+    dispatch(chatActions.getMessages({ id: chatId, chatOpponent }));
     navigation.navigate(AppScreenName.CONVERSATION);
   };
 
-  useEffect(() => {
-    dispatch(chatActions.getLastMessages({ fullName: '' }));
-  }, [dispatch]);
+  const handleSearch = (search: string): void => {
+    dispatch(chatActions.getLastMessages({ fullName: search }));
+  };
 
-  if (
-    chatDataStatus === DataStatus.PENDING ||
-    authDataStatus === DataStatus.PENDING
-  ) {
+  const handleAddChat = (): void => {
+    navigation.navigate(AppScreenName.ALL_CHATS);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(chatActions.getLastMessages({ fullName: '' }));
+    }, []),
+  );
+
+  if (authDataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
   }
 
   return (
-    <View style={styles.container}>
-      <ConversationsList
-        chatsItems={lastMessages}
-        currentUserId={(user as UserWithPermissions).id}
-        onChatMessagesLoad={handleChatMessagesLoad}
-      />
-    </View>
+    <>
+      <View style={styles.searchFieldContainer}>
+        <Search onSearch={handleSearch} />
+      </View>
+      {chatDataStatus === DataStatus.PENDING ? (
+        <View style={styles.spinnerContainer}>
+          <Spinner isOverflow />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <ConversationsList
+            chatsItems={lastMessages}
+            currentUserId={(user as UserWithPermissions).id}
+            onChatMessagesLoad={handleChatMessagesLoad}
+          />
+        </View>
+      )}
+      {Boolean(emptyChats.length) && <FAB onPress={handleAddChat} />}
+    </>
   );
 };
 

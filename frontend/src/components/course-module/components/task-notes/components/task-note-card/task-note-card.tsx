@@ -25,7 +25,7 @@ const TaskNoteCard: FC<Props> = ({ note, author, createdAt, status }) => {
           <Image
             width="30px"
             height="30px"
-            src={defaultAvatar}
+            src={author.userDetails.avatar?.url ?? defaultAvatar}
             alt="Author avatar"
             isCircular
           />

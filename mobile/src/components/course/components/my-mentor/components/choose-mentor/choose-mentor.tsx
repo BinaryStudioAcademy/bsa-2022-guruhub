@@ -3,7 +3,7 @@ import React, { FC, ReactElement } from 'react';
 import { AppColor } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from '~/common/types/types';
 import {
   FlatList,
@@ -16,24 +16,25 @@ import {
 import { useAppDispatch, useEffect, useState } from '~/hooks/hooks';
 import { coursesActions } from '~/store/actions';
 
-import { MentorCard } from './components/components';
+import { MentorCard } from '../components';
 import { styles } from './styles';
 
 type Props = {
-  mentors: UserDetailsResponseDto[];
+  mentors: UsersGetResponseDto[];
   course: CourseGetResponseDto | null;
   isLoading: boolean;
+  onChangeMentor: (mentorId: number) => void;
 };
 
-const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
+const ChooseMentor: FC<Props> = ({
+  mentors,
+  course,
+  isLoading,
+  onChangeMentor,
+}) => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useAppDispatch();
-
   const courseId = course?.id;
-
-  const handleChooseButton = (mentorId: number): void => {
-    dispatch(coursesActions.chooseMentor({ id: mentorId }));
-  };
 
   const handleSearch = (search: string): void => {
     setSearchValue(search);
@@ -41,6 +42,7 @@ const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
 
   const handleMentorsLoad = (): void => {
     if (courseId) {
+      dispatch(coursesActions.updateIsMentorChoosingEnabled(courseId));
       dispatch(
         coursesActions.getMentorsByCourseId({
           courseId: courseId,
@@ -51,9 +53,10 @@ const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
   };
 
   useEffect(() => {
-    dispatch(coursesActions.updateisMentorChoosingEnabled());
     handleMentorsLoad();
   }, [courseId, searchValue]);
+
+  const hasMentors = Boolean(mentors.length);
 
   return (
     <>
@@ -70,7 +73,10 @@ const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
             data={mentors}
             keyExtractor={({ id }): string => id.toString()}
             renderItem={({ item: mentor }): ReactElement => (
-              <MentorCard mentor={mentor} onChoose={handleChooseButton} />
+              <MentorCard
+                mentor={mentor.userDetails}
+                onChoose={onChangeMentor}
+              />
             )}
             refreshControl={
               <RefreshControl
@@ -80,7 +86,9 @@ const ChooseMentor: FC<Props> = ({ mentors, course, isLoading }) => {
               />
             }
             ListHeaderComponent={(): ReactElement => (
-              <Text style={styles.title}>Choose a mentor</Text>
+              <Text style={styles.title}>
+                {hasMentors ? 'Choose a mentor' : ''}
+              </Text>
             )}
             ListEmptyComponent={(): ReactElement => (
               <Text style={styles.noMentors}>

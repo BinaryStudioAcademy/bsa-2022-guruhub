@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, AppFontFamily } from '~/common/enums/enums';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   title: {
-    marginBottom: 15,
     marginLeft: 16,
     fontSize: 20,
     color: 'white',
@@ -22,9 +21,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   noMentors: {
-    marginLeft: 15,
-    fontSize: 16,
-    color: 'white',
+    fontSize: 24,
+    fontFamily: AppFontFamily.INTER_400_ITALIC,
+    color: AppColor.TEXT.GRAY_200,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    marginTop: 150,
   },
   spinnerContainer: {
     flex: 1,

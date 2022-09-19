@@ -1,5 +1,12 @@
 export { type WhiteRoute } from './api/api';
 export {
+  type BillingApiVersion,
+  type BillingInitHoldStudentPaymentArgumentsDto,
+  type BillingReplenishArgumentsDto,
+  type BillingReplenishParamsDto,
+  type BillingReplenishToken,
+} from './billing/billing';
+export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,
   type ChatMessageCreateRequestBodyDto,
@@ -13,9 +20,14 @@ export {
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
   type ChatMessageGetEmptyChatsRequestDto,
+  type ChatMessageReadParams,
 } from './chat-message/chat-message';
-export { IdContainer } from './common/common';
 export {
+  type IdContainer,
+  type NumericalValueContainer,
+} from './common/common';
+export {
+  type CourseAllMentorsDto,
   type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCheckIsMentorRequestParamsDto,
   type CourseCreateArgumentsDto,
@@ -24,6 +36,7 @@ export {
   type CourseFilteringDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -31,7 +44,9 @@ export {
   type CourseSelectMentorRequestDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type CourseUpdateRequestParamsDto,
+  type GetAllMenteesDto,
 } from './course/course';
 export {
   type CategoryGetAllItemResponseDto,
@@ -39,6 +54,10 @@ export {
   type CourseCategoryGetByIdRequestParamsDto,
   type CourseCategoryGetResponseDto,
 } from './course-category/course-category';
+export {
+  type CourseCategoryPriceGetAllItemResponseDto,
+  type CourseCategoryPriceGetAllResponseDto,
+} from './course-category-price/course-category-price';
 export {
   type CourseModuleCreateArgumentsDto,
   type CourseModuleGetByIdResponseDto,
@@ -109,6 +128,8 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export { type Socket } from './socket/socket';
+export { type StripeReplenishArgumentsDto } from './stripe/stripe';
 export {
   type TaskByIdRequestParamsDto,
   type TaskCreateRequestDto,
@@ -127,6 +148,11 @@ export {
 } from './task-note/task-note';
 export { type TokenPayload } from './token/token';
 export {
+  type TransactionCreateArgumentsDto,
+  type TransactionGetAllItemResponseDto,
+  type TransactionUpdateStatusDto,
+} from './transaction/transaction';
+export {
   type UdemyCourseGetResponseDto,
   type UdemyCoursesGetResponseDto,
   type UdemyModuleGetResponseDto,
@@ -134,6 +160,7 @@ export {
 } from './udemy/udemy';
 export {
   type EntityPaginationRequestQueryDto,
+  type UserCountRequestDto,
   type UsersBasicInfoDto,
   type UsersByEmailResponseDto,
   type UsersDeleteRequestParamsDto,

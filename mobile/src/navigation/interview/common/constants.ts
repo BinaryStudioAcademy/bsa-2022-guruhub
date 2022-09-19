@@ -1,6 +1,15 @@
 import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 
-import { AppColor, AppFontFamily } from '~/common/enums/enums';
+import {
+  AppColor,
+  AppFontFamily,
+  InterviewScreenName,
+} from '~/common/enums/enums';
+import { NavigationItem } from '~/common/types/types';
+import {
+  Applications,
+  Notes,
+} from '~/components/interview/components/components';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
@@ -21,4 +30,19 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-export { SCREEN_OPTIONS };
+const INTERVIEW_TAB_ITEMS: NavigationItem[] = [
+  {
+    name: InterviewScreenName.APPLICATIONS,
+    component: Applications,
+    permissions: [],
+    isAuthRequired: true,
+  },
+  {
+    name: InterviewScreenName.NOTES,
+    component: Notes,
+    permissions: [],
+    isAuthRequired: true,
+  },
+];
+
+export { INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS };

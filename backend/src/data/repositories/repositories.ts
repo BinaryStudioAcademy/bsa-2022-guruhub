@@ -2,6 +2,7 @@ import {
   ChatMessage as ChatMessageModel,
   Course as CourseModel,
   CourseCategory as CourseCategoryModel,
+  CourseCategoryPrice as CourseCategoryPriceModel,
   CourseModule as CourseModuleModel,
   CoursesToMentors as CoursesToMentorsModel,
   File as FileModel,
@@ -13,6 +14,7 @@ import {
   Permission as PermissionModel,
   Task as TaskModel,
   TaskNote as TaskNoteModel,
+  Transaction as TransactionModel,
   User as UserModel,
   UserDetails as UserDetailsModel,
   UsersToGroups as UsersToGroupsModel,
@@ -22,6 +24,7 @@ import {
 import { ChatMessage } from './chat-message/chat-message.repository';
 import { Course } from './course/course.repository';
 import { CourseCategory } from './course-category/course-category.repository';
+import { CourseCategoryPrice } from './course-category-price/course-category-price.repository';
 import { CourseModule } from './course-module/course-module.repository';
 import { CoursesToMentors } from './courses-to-mentors/courses-to-mentors.repository';
 import { File } from './file/file.repository';
@@ -33,6 +36,7 @@ import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.reposi
 import { Permission } from './permission/permission.repository';
 import { Task } from './task/task.repository';
 import { TaskNote } from './task-note/task-note.repository';
+import { Transaction } from './transaction/transaction.repository';
 import { User } from './user/user.repository';
 import { UserDetails } from './user-details/user-details.repository';
 import { UsersToGroups } from './users-to-groups/users-to-groups.repository';
@@ -72,6 +76,10 @@ const vendor = new Vendor({ VendorModel });
 
 const courseCategory = new CourseCategory({ CourseCategoryModel });
 
+const courseCategoryPrice = new CourseCategoryPrice({
+  CourseCategoryPriceModel,
+});
+
 const interview = new Interview({ InterviewModel });
 
 const interviewNote = new InterviewNote({
@@ -92,10 +100,13 @@ const task = new Task({ TaskModel });
 
 const taskNote = new TaskNote({ TaskNoteModel });
 
+const transaction = new Transaction({ TransactionModel });
+
 export {
   chatMessage,
   course,
   courseCategory,
+  courseCategoryPrice,
   courseModule,
   coursesToMentors,
   file,
@@ -107,6 +118,7 @@ export {
   permission,
   task,
   taskNote,
+  transaction,
   user,
   userDetails,
   usersToGroups,

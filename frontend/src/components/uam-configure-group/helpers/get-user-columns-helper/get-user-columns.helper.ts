@@ -8,6 +8,7 @@ import {
   DateCell,
   UserActionCell,
 } from 'components/uam-configure-group/components/components';
+import { IdCell } from 'components/uam-configure-group/components/users-table/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
@@ -30,28 +31,31 @@ const getUserColumns = ({
         isChecked: selectedUserIds.includes(id),
       }),
       Cell: UserActionCell,
-      width: 50,
+      width: 90,
+      minWidth: 90,
     },
     {
       Header: 'Name',
       accessor: UserTableAccessor.FULL_NAME,
-      width: 200,
+      minWidth: 90,
     },
     {
       Header: 'Email',
       accessor: UserTableAccessor.EMAIL,
-      width: 200,
+      minWidth: 80,
     },
     {
       Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
       Cell: DateCell,
-      width: 200,
+      minWidth: 100,
     },
     {
       Header: 'User ID',
       accessor: UserTableAccessor.ID,
+      Cell: IdCell,
       width: 110,
+      minWidth: 110,
     },
   ];
 };

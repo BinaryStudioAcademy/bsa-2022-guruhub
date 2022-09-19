@@ -17,6 +17,10 @@ class MenteesToMentors {
     this.#menteesToMentorsRepository = menteesToMentorsRepository;
   }
 
+  public getById(id: number): Promise<MenteesToMentorsResponseDto> {
+    return this.#menteesToMentorsRepository.getById(id);
+  }
+
   public async createMenteesToMentors(
     menteesToMentors: MenteesToMentorsRequestDto,
   ): Promise<MenteesToMentorsResponseDto> {
@@ -44,6 +48,10 @@ class MenteesToMentors {
     menteeId: number;
   }): Promise<boolean> {
     return this.#menteesToMentorsRepository.checkIsMentee(menteesToMentors);
+  }
+
+  public checkIsMenteeForAnyCourse(userId: number): Promise<boolean> {
+    return this.#menteesToMentorsRepository.checkIsMenteeForAnyCourse(userId);
   }
 
   public getUncompletedByCourseIdAndMenteeId(menteesToMentors: {

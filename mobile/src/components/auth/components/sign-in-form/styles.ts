@@ -11,13 +11,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
   },
-  inputWrapper: {
-    marginBottom: 15,
-  },
   buttonWrapper: {
     width: 215,
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: 25,
   },
   linkWrapper: {
     textAlign: 'center',

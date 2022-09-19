@@ -11,6 +11,7 @@ export {
   UsersApiPath,
 } from './api/api';
 export { DataStatus, ENV, StorageKey } from './app/app';
+export { ChatValidationMessage, ChatValidationRule } from './chat/chat';
 export { CoursesApiPath } from './courses/courses';
 export { CustomExceptionName, ExceptionMessage } from './exeptions/exeptions';
 export { ContentType } from './file/file';
@@ -22,6 +23,7 @@ export {
   CourseModuleScreenName,
   CourseScreenName,
   InterviewScreenName,
+  MyCoursesScreenName,
   RootScreenName,
 } from './navigation/navigation';
 export {

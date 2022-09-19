@@ -1,8 +1,10 @@
 .status {
   display: inline-block;
   width: 100px;
+  height: fit-content;
   color: var(--typography-text-100-inverse);
   text-align: center;
+  text-transform: capitalize;
   border-radius: 16px;
 }
 

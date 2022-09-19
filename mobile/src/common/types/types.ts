@@ -12,10 +12,14 @@ export {
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
+  type ChatMessageFormRequestDto,
   type ChatMessageGetAllItemResponseDto,
   type ChatMessageGetAllLastResponseDto,
+  type ChatMessageGetAllLastWithEmptyChatsDto,
+  type ChatMessageGetAllMessagesFromChatDto,
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
+  type ChatMessageGetEmptyChatDto,
 } from './chat/chat';
 export {
   type CourseModuleGetByIdResponseDto,
@@ -27,12 +31,14 @@ export {
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type MenteesToMentorsRequestDto,
 } from './courses/courses';
 export {
@@ -84,6 +90,7 @@ export {
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type InterviewNavigationParamList,
+  type MyCoursesNavigationParamList,
   type NavigationItem,
   type NavigationScreenProps,
   type RootNavigationParamList,
@@ -102,7 +109,10 @@ export {
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,
+  type TaskGetByMenteeIdCourseIdModuleIdRequestDto,
   type TaskGetItemReponseDto,
+  type TasksGetByCourseIdAndMenteeIdRequestDto,
+  type TaskWithModuleResponseDto,
 } from './task/task';
 export {
   type TaskNoteFormRequestDto,

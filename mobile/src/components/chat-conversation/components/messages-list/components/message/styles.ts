@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
   },
   message: {
     flexDirection: 'row',
-    marginBottom: 15,
     justifyContent: 'flex-end',
+    maxWidth: '100%',
   },
   messageOpponent: {
+    paddingRight: 48,
     justifyContent: 'flex-start',
   },
   opponentMessageText: {
@@ -32,15 +33,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     backgroundColor: AppColor.BACKGROUND.GRAY_200,
     marginBottom: 5,
-  },
-  textWrapper: {
-    flex: 1,
+    marginRight: 43,
   },
   opponentMessageAvatar: {
-    width: 28,
-    height: 28,
+    width: 32,
+    height: 32,
     borderRadius: 14,
-    marginRight: 15,
+    marginRight: 16,
   },
   userMessageTime: {
     fontFamily: AppFontFamily.INTER_400,

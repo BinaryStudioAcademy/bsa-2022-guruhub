@@ -2,6 +2,7 @@ export { ControllerHook } from './controller-hook.enum';
 export {
   ApiPath,
   AuthApiPath,
+  BillingApiPath,
   CategoriesApiPath,
   ChatsApiPath,
   CourseModulesApiPath,

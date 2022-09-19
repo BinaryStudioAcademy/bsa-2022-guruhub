@@ -5,6 +5,8 @@ enum ActionType {
   GET_NOTES = 'course-modules/get-notes',
   MANIPULATE_TASK_NOTE = 'course-modules/manipulate-task-note',
   CLEAR_MODULES = 'course-modules/clear-modules',
+  CHECK_IS_MENTOR = 'course-modules/check-is-mentor',
+  CLEAR_MENTOR = 'course-modules/clear-mentor',
 }
 
 export { ActionType };

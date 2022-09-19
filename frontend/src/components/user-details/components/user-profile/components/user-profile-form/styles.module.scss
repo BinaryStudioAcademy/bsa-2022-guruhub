@@ -7,7 +7,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   align-items: center;
   margin-bottom: 10px;
   column-gap: 30px;
@@ -53,16 +53,27 @@
 }
 
 .formInput {
+  width: 100%;
   background: var(--background-gray-200);
 }
 
 .fieldWrapper {
-  max-width: 240px;
+  width: 100%;
+  max-width: 250px;
   margin-bottom: auto;
+}
+
+.fieldWrapper input {
+  width: 100%;
 }
 
 .formSelect div[class$='-control'] {
   background: var(--background-gray-200);
+}
+
+.formSelect [class$='-option']::first-letter,
+.formSelect [class$='-singleValue']::first-letter {
+  text-transform: capitalize;
 }
 
 .formSelect label {

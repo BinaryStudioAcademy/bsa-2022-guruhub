@@ -5,12 +5,14 @@ import {
   ChatMessageCreateRequestBodyDto,
   ChatMessageFilteringDto,
   ChatMessageGetAllRequestParamsDto,
+  ChatMessageReadParams,
 } from '~/common/types/types';
 import { chatMessage as chatMessageService } from '~/services/services';
 import {
   chatMessageCreateArguments as chatMessageCreateArgumentsValidationSchema,
-  chatMessageFiltering as сhatMessageFilteringValidationSchema,
+  chatMessageFiltering as chatMessageFilteringValidationSchema,
   chatMessageGetAllParams as chatMessageGetAllParamsValidationSchema,
+  chatMessageReadParams as chatMessageReadParamsValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
 type Options = {
@@ -26,7 +28,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     method: HttpMethod.GET,
     url: ChatsApiPath.ROOT,
     schema: {
-      querystring: сhatMessageFilteringValidationSchema,
+      querystring: chatMessageFilteringValidationSchema,
     },
     async handler(
       req: FastifyRequest<{
@@ -92,6 +94,7 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     ) {
       const { id: userId } = req.user;
       const { message, chatId, receiverId } = req.body;
+
       const newChatMessage = await chatMessageService.create({
         senderId: userId,
         receiverId,
@@ -114,6 +117,23 @@ const initChatsApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       );
 
       return rep.status(HttpCode.OK).send(hasUnreadMessages);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PATCH,
+    url: ChatsApiPath.$ID_READ,
+    schema: { params: chatMessageReadParamsValidationSchema },
+    async handler(req: FastifyRequest<{ Params: ChatMessageReadParams }>, rep) {
+      const { id } = req.params;
+      const { id: userId } = req.user;
+
+      const hasUnreadMessages = await chatMessageService.readMessages(
+        userId,
+        id,
+      );
+
+      rep.status(HttpCode.OK).send(hasUnreadMessages);
     },
   });
 };

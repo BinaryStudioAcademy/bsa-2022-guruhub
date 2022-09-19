@@ -5,7 +5,7 @@ import {
   TaskNoteFormRequestDto,
   TaskNoteManipulateRequestBodyDto,
 } from 'common/types/types';
-import { Content, IconButton, Spinner } from 'components/common/common';
+import { Content, Icon, Spinner } from 'components/common/common';
 import { generateDynamicPath } from 'helpers/helpers';
 import {
   useAppDispatch,
@@ -13,6 +13,7 @@ import {
   useEffect,
   useParams,
 } from 'hooks/hooks';
+import { Link } from 'react-router-dom';
 import { courseModuleActions } from 'store/actions';
 
 import { TaskManipulate, TaskNotes } from './components/components';
@@ -121,17 +122,12 @@ const CourseModule: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div className={styles.buttonWrapper}>
-          <div>
-            <IconButton
-              label="back"
-              iconName="leftArrow"
-              to={backRoute as AppRoute}
-              iconColor="blue"
-            />
-          </div>
-          <p className={styles.courseTitle}>{courseModule?.courseTitle}</p>
-        </div>
+        <Link className={styles.courseLink} to={backRoute as AppRoute}>
+          <span className={styles.courseLinkIconWrapper}>
+            <Icon name="leftArrow" />
+          </span>
+          {courseModule?.courseTitle}
+        </Link>
         <h1 className={styles.courseName}>{courseModule?.courseTitle}</h1>
         <div className={styles.moduleNameContainer}>
           <div className={styles.moduleNameContent}>
@@ -142,9 +138,8 @@ const CourseModule: FC = () => {
             />
           </div>
         </div>
-        <Content html={courseModule?.description ?? ''} />
       </div>
-      <div>
+      <div className={styles.taskContainer}>
         {canManipulateTask && (
           <TaskManipulate
             onSendOnReview={handleSendOnReview}

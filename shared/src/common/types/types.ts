@@ -1,4 +1,8 @@
 export {
+  type BillingReplenishParamsDto,
+  type BillingReplenishToken,
+} from './billing/billing';
+export {
   type ChatGetAllMessagesRequestDto,
   type ChatGetLastMessagesRequestDto,
   type ChatMessageCreateRequestBodyDto,
@@ -11,6 +15,7 @@ export {
   type ChatMessageGetAllRequestParamsDto,
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
+  type ChatMessageReadParams,
 } from './chat-message/chat-message';
 export {
   type CourseCheckIsMentorForMenteeRequestParamsDto,
@@ -18,6 +23,7 @@ export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
@@ -25,6 +31,7 @@ export {
   type CourseSelectMentorRequestDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestDto,
+  type CourseUpdateMentoringDto,
   type CourseUpdateRequestParamsDto,
 } from './course/course';
 export {
@@ -32,7 +39,12 @@ export {
   type CategoryGetAllResponseDto,
   type CourseCategoryGetByIdRequestParamsDto,
   type CourseCategoryGetResponseDto,
+  type CourseCategoryWithPriceDto,
 } from './course-category/course-category';
+export {
+  type CourseCategoryPriceGetAllItemResponseDto,
+  type CourseCategoryPriceGetAllResponseDto,
+} from './course-category-price/course-category-price';
 export {
   type CourseModuleGetByIdResponseDto,
   type CourseModuleGetRequestParamsDto,
@@ -108,6 +120,11 @@ export {
   type TaskNoteGetItemResponseDto,
   type TaskNoteManipulateRequestBodyDto,
 } from './task-note/task-note';
+export {
+  type TransactionCreateArgumentsDto,
+  type TransactionGetAllItemResponseDto,
+  type TransactionUpdateStatusDto,
+} from './transaction/transaction';
 export {
   type UdemyCourseGetResponseDto,
   type UdemyCoursesGetResponseDto,

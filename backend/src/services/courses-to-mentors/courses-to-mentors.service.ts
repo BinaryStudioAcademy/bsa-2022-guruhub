@@ -1,20 +1,25 @@
-import { ProtectedGroupKey } from '~/common/enums/enums';
+import { ExceptionMessage, ProtectedGroupKey } from '~/common/enums/enums';
 import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
+  CourseUpdateMentoringDto,
   GroupsItemResponseDto,
 } from '~/common/types/types';
-import { coursesToMentors as coursesToMentorsRep } from '~/data/repositories/repositories';
+import {
+  coursesToMentors as coursesToMentorsRep,
+  group as groupRep,
+} from '~/data/repositories/repositories';
 import { CoursesToMentorsError } from '~/exceptions/exceptions';
 import {
-  group as groupServ,
+  menteesToMentors as menteesToMentorsServ,
   usersToGroups as usersToGroupsServ,
 } from '~/services/services';
 
 type Constructor = {
   coursesToMentorsRepository: typeof coursesToMentorsRep;
   usersToGroupsService: typeof usersToGroupsServ;
-  groupService: typeof groupServ;
+  menteesToMentorsService: typeof menteesToMentorsServ;
+  groupRepository: typeof groupRep;
 };
 
 class CoursesToMentors {
@@ -22,16 +27,20 @@ class CoursesToMentors {
 
   #usersToGroupsService: typeof usersToGroupsServ;
 
-  #groupService: typeof groupServ;
+  #groupRepository: typeof groupRep;
+
+  #menteesToMentorsService: typeof menteesToMentorsServ;
 
   public constructor({
     coursesToMentorsRepository,
     usersToGroupsService,
-    groupService,
+    menteesToMentorsService,
+    groupRepository,
   }: Constructor) {
     this.#coursesToMentorsRepository = coursesToMentorsRepository;
     this.#usersToGroupsService = usersToGroupsService;
-    this.#groupService = groupService;
+    this.#groupRepository = groupRepository;
+    this.#menteesToMentorsService = menteesToMentorsService;
   }
 
   public async createMentorToCourse({
@@ -47,7 +56,18 @@ class CoursesToMentors {
       throw new CoursesToMentorsError();
     }
 
-    const mentorsGroup = (await this.#groupService.getByKey(
+    const isMentee = await this.#menteesToMentorsService.checkIsMentee({
+      courseId,
+      menteeId: userId,
+    });
+
+    if (isMentee) {
+      throw new CoursesToMentorsError({
+        message: ExceptionMessage.STUDENT_CANT_BE_MENTOR,
+      });
+    }
+
+    const mentorsGroup = (await this.#groupRepository.getByKey(
       ProtectedGroupKey.MENTORS,
     )) as GroupsItemResponseDto;
 
@@ -62,6 +82,13 @@ class CoursesToMentors {
     });
   }
 
+  public updateStudentsCount(
+    userId: number,
+    data: CourseUpdateMentoringDto,
+  ): Promise<number> {
+    return this.#coursesToMentorsRepository.updateStudentsCount(userId, data);
+  }
+
   public checkIsMentor({
     courseId,
     userId,
@@ -70,6 +97,10 @@ class CoursesToMentors {
       courseId,
       userId,
     });
+  }
+
+  public checkIsMentorForAnyCourse(userId: number): Promise<boolean> {
+    return this.#coursesToMentorsRepository.checkIsMentorForAnyCourse(userId);
   }
 }
 

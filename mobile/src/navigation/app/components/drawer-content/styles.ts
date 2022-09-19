@@ -21,21 +21,25 @@ const styles = StyleSheet.create({
   },
   listBorder: {
     width: '60%',
-    height: 2,
+    height: 1,
     marginLeft: 40,
-    marginBottom: 15,
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
+    backgroundColor: 'rgba(255,255,255, .12)',
   },
   signInWrapper: {
     padding: 30,
   },
-  signInText: {
-    padding: 30,
+  singOutWrapper: {
+    alignSelf: 'center',
+    paddingHorizontal: 30,
+    marginBottom: 30,
+  },
+  signOutLabel: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.BRAND.BLUE_100,
-    fontSize: 18,
-    lineHeight: 24,
+    fontSize: 16,
+    lineHeight: 20,
     textAlign: 'center',
+    padding: 5,
   },
 });
 

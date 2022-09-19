@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
   authApi,
+  billingApi,
   categoriesApi,
   chatsApi,
   courseModulesApi,
@@ -17,11 +18,12 @@ import {
   usersApi,
 } from 'services/services';
 
-import { handleError } from './middlewares/middlewares';
+import { chatSocket, handleError } from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
 const extraArgument = {
   authApi,
+  billingApi,
   chatsApi,
   coursesApi,
   usersApi,
@@ -43,7 +45,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       thunk: { extraArgument },
-    }).concat(handleError);
+    }).concat([handleError, chatSocket]);
   },
 });
 

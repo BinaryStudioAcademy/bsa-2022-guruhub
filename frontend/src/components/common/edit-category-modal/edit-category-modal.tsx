@@ -45,7 +45,10 @@ const EditCategoryModal: FC<Props> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onModalToggle} title="Select new category">
-      <form onSubmit={handleSubmit(onEditCategorySubmit)}>
+      <form
+        onSubmit={handleSubmit(onEditCategorySubmit)}
+        className={styles.formWrapper}
+      >
         <div>
           <Select
             options={categoriesOptions}

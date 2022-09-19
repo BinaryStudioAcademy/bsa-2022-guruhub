@@ -71,6 +71,15 @@ class ChatsApi {
       },
     );
   }
+
+  public readMessages(chatId: string): Promise<boolean> {
+    return this.#http.load<boolean>(
+      `${this.#apiPrefix}${ApiPath.CHATS}/${chatId}${ChatsApiPath.READ}`,
+      {
+        method: HttpMethod.PATCH,
+      },
+    );
+  }
 }
 
 export { ChatsApi };

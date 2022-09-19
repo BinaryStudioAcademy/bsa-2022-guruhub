@@ -51,12 +51,12 @@
   line-height: 19px;
 }
 
-.courseCategory {
-  width: fit-content;
-  padding: 6px 10px;
-  font-size: 12px;
-  background: var(--brand-green-100);
-  border-radius: 16px;
+.telegramLink {
+  text-decoration: none;
+}
+
+.telegramLink:hover {
+  color: var(--typography-text-100-inverse);
 }
 
 .buttonsWrapper {
@@ -99,9 +99,21 @@
   padding: 2px 10px;
   color: var(--typography-text-100-inverse);
   text-align: center;
+  text-transform: capitalize;
   border-radius: 15px;
 }
 
 .buttonWrapper {
   max-width: 93px;
+}
+
+.interviewCategory {
+  display: flex;
+  align-items: center;
+}
+
+.categoryName {
+  margin-left: 5px;
+  color: var(--typography-text-gray-200);
+  font-weight: 600;
 }

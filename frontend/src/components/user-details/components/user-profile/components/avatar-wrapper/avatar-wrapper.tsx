@@ -1,31 +1,30 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { FC, UserWithPermissions } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useState,
-} from 'hooks/hooks';
+import { useAppDispatch, useEffect, useState } from 'hooks/hooks';
 import React from 'react';
 import { userDetailsActions } from 'store/actions';
 
 import styles from './styles.module.scss';
 
-const AvatarWrapper: FC = () => {
-  const { user, userDetails } = useAppSelector((state) => ({
-    user: state.auth.user,
-    userDetails: state.userDetails.userDetails,
-  }));
+type Props = {
+  user: UserWithPermissions | null;
+  avatarUrl: string | null;
+};
+
+const AvatarWrapper: FC<Props> = ({ user, avatarUrl }) => {
   const dispatch = useAppDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const defaultAvatar = avatarUrl ?? defaultUserAvatar;
+  const newAvatar = selectedFile ? URL.createObjectURL(selectedFile) : null;
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const [file = null] = e.target.files ?? [];
     setSelectedFile(file);
   };
 
-  useEffect(() => {
+  const handleAvatarUpdate = (): void => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append('file', selectedFile);
@@ -36,7 +35,15 @@ const AvatarWrapper: FC = () => {
         }),
       );
     }
-  }, [selectedFile]);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (newAvatar) {
+        URL.revokeObjectURL(newAvatar);
+      }
+    };
+  }, [newAvatar]);
 
   return (
     <div className={styles.flex}>
@@ -44,8 +51,9 @@ const AvatarWrapper: FC = () => {
         <Image
           width="136"
           height="136"
-          src={userDetails?.avatar?.url ?? defaultUserAvatar}
+          src={selectedFile ? (newAvatar as string) : defaultAvatar}
           alt="user avatar"
+          className={styles.profileImage}
           isCircular
         />
       </div>
@@ -53,11 +61,15 @@ const AvatarWrapper: FC = () => {
         <Button
           type="button"
           btnColor="blue"
-          label="Update File"
+          label="Choose File"
           btnType="upload"
           onFileSelect={handleFileSelect}
         />
-        <Button btnColor="blue" label="Save" />
+        <Button
+          btnColor="blue"
+          label="Save changes"
+          onClick={handleAvatarUpdate}
+        />
       </div>
     </div>
   );

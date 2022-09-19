@@ -1,7 +1,9 @@
+export { billingReplenishParams } from './billing/billing';
 export {
   chatMessageCreateArguments,
   chatMessageFiltering,
   chatMessageGetAllParams,
+  chatMessageReadParams,
 } from './chat-message/chat-message';
 export {
   courseCheckIsMentorForStudentParams,
@@ -9,6 +11,7 @@ export {
   courseCreate,
   courseFiltering,
   courseGetParams,
+  courseMentoringUpdateCount,
   courseMentorsFiltering,
   courseUpdateByIdParams,
   courseUpdateCategory,

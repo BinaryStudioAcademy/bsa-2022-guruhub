@@ -29,7 +29,7 @@ workflows:
     name: React Native Android App
     working_directory: mobile
     max_build_duration: 120
-    instance_type: mac_mini
+    instance_type: mac_mini_m1
     environment:
       node: 16.15.0
       npm: 8.11.0

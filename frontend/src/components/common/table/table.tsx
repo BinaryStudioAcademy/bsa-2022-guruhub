@@ -1,8 +1,17 @@
 import { Pagination } from 'components/common/common';
 import { ReactElement, useMemo } from 'react';
-import { Column, useResizeColumns, useTable } from 'react-table';
+import {
+  Column,
+  TableCellProps,
+  TableHeaderProps,
+  useFlexLayout,
+  useResizeColumns,
+  useTable,
+} from 'react-table';
 
 import styles from './styles.module.scss';
+
+type OnPageChangeHandler = (newPage: number) => void;
 
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
@@ -10,7 +19,7 @@ type Props<Data extends Record<string, unknown>> = {
   totalCount?: number;
   pageSize?: number;
   currentPage?: number;
-  onPageChange?: (newPage: number) => void;
+  onPageChange?: OnPageChangeHandler;
   placeholder?: string;
 };
 
@@ -38,68 +47,88 @@ const Table = <Data extends Record<string, unknown>>({
       data,
       defaultColumn,
     },
+    useFlexLayout,
     useResizeColumns,
   );
+
+  const getStyles = (
+    props: Partial<TableHeaderProps> | Partial<TableCellProps>,
+  ): (Partial<TableHeaderProps> | Partial<TableCellProps>)[] => [
+    props,
+    {
+      style: {
+        display: 'flex',
+      },
+    },
+  ];
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
   const hasData = Boolean(data.length);
-  const hasPagination = totalCount && pageSize && currentPage && onPageChange;
-
-  if (!hasData) {
-    return <p className={styles.placeholder}>{placeholder}</p>;
-  }
+  const hasPagination = Boolean(
+    totalCount && pageSize && currentPage && onPageChange,
+  );
 
   return (
     <>
-      <table {...getTableProps()} className={styles.table}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className={styles.tableHeadRowHeader}
-                >
-                  {column.render('Header')}
-                  <div
-                    {...column.getResizerProps()}
-                    className={styles.resizer}
-                  />
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      width={cell.column.width}
-                      className={styles.tableBodyRowData}
-                    >
-                      {cell.render('Cell')}
-                    </td>
-                  );
-                })}
+      <div className={styles.tableWrapper}>
+        <table {...getTableProps()} className={styles.table}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps(getStyles)}
+                    className={styles.tableHeadRowHeader}
+                  >
+                    {column.render('Header')}
+                    <div
+                      {...column.getResizerProps()}
+                      className={styles.resizer}
+                    />
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {hasPagination && (
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {!hasData && (
+              <tr className={styles.placeholder}>
+                <td>
+                  <p>{placeholder}</p>
+                </td>
+              </tr>
+            )}
+
+            {rows.map((row) => {
+              prepareRow(row);
+
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps(getStyles)}
+                        width={cell.column.width}
+                        className={styles.tableBodyRowData}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      {hasPagination && hasData && (
         <Pagination
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-          pageSize={pageSize}
-          totalCount={totalCount}
+          currentPage={currentPage as number}
+          onPageChange={onPageChange as OnPageChangeHandler}
+          pageSize={pageSize as number}
+          totalCount={totalCount as number}
         />
       )}
     </>

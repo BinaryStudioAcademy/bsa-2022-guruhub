@@ -6,7 +6,7 @@ import {
 } from 'components/uam/common/types/types';
 import { Column } from 'react-table';
 
-import { ActionsCell, DateCell } from '../../components/components';
+import { ActionsCell, DateCell, IdCell } from '../../components/components';
 
 const getUsersColumns = (
   user: UserWithPermissions,
@@ -16,23 +16,24 @@ const getUsersColumns = (
     {
       Header: 'ID',
       accessor: UserTableAccessor.ID,
+      Cell: IdCell,
       width: 50,
     },
     {
       Header: 'Full name',
       accessor: UserTableAccessor.FULL_NAME,
-      width: 300,
+      minWidth: 125,
     },
     {
       Header: 'Email',
       accessor: UserTableAccessor.EMAIL,
-      width: 300,
+      minWidth: 80,
     },
     {
       Header: 'Created',
       accessor: UserTableAccessor.CREATED_AT,
       Cell: DateCell,
-      width: 300,
+      minWidth: 100,
     },
     {
       Header: 'Actions',
@@ -42,7 +43,8 @@ const getUsersColumns = (
         isCurrentSignedUser: user.id === id,
       }),
       Cell: ActionsCell,
-      width: 50,
+      width: 120,
+      minWidth: 80,
     },
   ];
 };

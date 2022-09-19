@@ -4,6 +4,7 @@ import {
   chatMessage as chatMessageRepository,
   course as courseRepository,
   courseCategory as courseCategoryRepository,
+  courseCategoryPrice as courseCategoryPriceRepository,
   courseModule as courseModuleRepository,
   coursesToMentors as coursesToMentorsRepository,
   file as fileRepository,
@@ -15,6 +16,7 @@ import {
   permission as permissionRepository,
   task as taskRepository,
   taskNote as taskNoteRepository,
+  transaction as transactionRepository,
   user as userRepository,
   userDetails as userDetailsRepository,
   usersToGroups as usersToGroupsRepository,
@@ -23,6 +25,7 @@ import {
 
 import { Auth } from './auth/auth.service';
 import { File } from './aws/file/file.service';
+import { Billing } from './billing/billing.service';
 import { ChatMessage } from './chat-message/chat-message.service';
 import { Course } from './course/course.service';
 import { CourseCategory } from './course-category/course-category.service';
@@ -38,9 +41,11 @@ import { InterviewNote } from './interview-note/interview-note.service';
 import { MenteesToMentors } from './mentees-to-mentors/mentees-to-mentors.service';
 import { Mentor } from './mentor/mentor.service';
 import { Permission } from './permission/permission.service';
+import { Socket } from './socket/socket.service';
 import { Task } from './task/task.service';
 import { TaskNote } from './task-note/task-note.service';
 import { Token } from './token/token.service';
+import { Transaction } from './transaction/transaction.service';
 import { Udemy } from './udemy/udemy.service';
 import { User } from './user/user.service';
 import { UserDetails } from './user-details/user-details.service';
@@ -66,10 +71,35 @@ const userDetails = new UserDetails({
   avatarBucketName: ENV.AWS.USERS_FILES_BUCKET_NAME,
 });
 
+const usersToGroups = new UsersToGroups({
+  usersToGroupsRepository,
+});
+
+const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
+
+const coursesToMentors = new CoursesToMentors({
+  coursesToMentorsRepository,
+  groupRepository: groupsRepository,
+  usersToGroupsService: usersToGroups,
+  menteesToMentorsService: menteesToMentors,
+});
+
+const interviewNote = new InterviewNote({
+  interviewNoteRepository,
+});
+
+const interview = new Interview({
+  interviewRepository,
+  interviewNoteService: interviewNote,
+});
+
 const user = new User({
   userRepository,
   encryptService: encrypt,
   userDetailsService: userDetails,
+  coursesToMentorsService: coursesToMentors,
+  menteesToMentorsService: menteesToMentors,
+  interviewService: interview,
 });
 
 const auth = new Auth({
@@ -84,10 +114,6 @@ const permission = new Permission({
 
 const groupsToPermissions = new GroupsToPermissions({
   groupsToPermissionsRepository,
-});
-
-const usersToGroups = new UsersToGroups({
-  usersToGroupsRepository,
 });
 
 const group = new Group({
@@ -116,7 +142,10 @@ const edx = new Edx({
   clientSecret: ENV.EDX.CLIENT_SECRET,
 });
 
-const courseCategory = new CourseCategory({ courseCategoryRepository });
+const courseCategory = new CourseCategory({
+  courseCategoryRepository,
+  courseCategoryPriceRepository,
+});
 
 const courseModule = new CourseModule({
   moduleRepository: courseModuleRepository,
@@ -130,38 +159,38 @@ const course = new Course({
   udemyService: udemy,
   edxService: edx,
   courseCategoryService: courseCategory,
+  coursesToMentorsService: coursesToMentors,
 });
-
-const interviewNote = new InterviewNote({
-  interviewNoteRepository,
-});
-
-const interview = new Interview({
-  interviewRepository,
-  interviewNoteService: interviewNote,
-});
-
-const coursesToMentors = new CoursesToMentors({
-  coursesToMentorsRepository,
-  groupService: group,
-  usersToGroupsService: usersToGroups,
-});
-
-const menteesToMentors = new MenteesToMentors({ menteesToMentorsRepository });
 
 const taskNote = new TaskNote({ taskNoteRepository });
+
+const transaction = new Transaction({ transactionRepository });
+
+const billing = new Billing({
+  secretKey: ENV.STRIPE.SECRET_KEY,
+  apiVersion: ENV.STRIPE.API_VERSION,
+  transactionService: transaction,
+  userService: user,
+  userDetailsService: userDetails,
+});
 
 const task = new Task({
   taskRepository,
   taskNoteService: taskNote,
+  billingService: billing,
   menteesToMentorsService: menteesToMentors,
+  userService: user,
+  userDetailsService: userDetails,
 });
 
 const mentor = new Mentor({
   menteesToMentorsService: menteesToMentors,
+  courseService: course,
   coursesToMentorsService: coursesToMentors,
   courseModuleService: courseModule,
+  courseCategoryService: courseCategory,
   taskService: task,
+  billingService: billing,
 });
 
 const chatMessage = new ChatMessage({
@@ -170,8 +199,11 @@ const chatMessage = new ChatMessage({
   userRepository,
 });
 
+const socket = new Socket();
+
 export {
   auth,
+  billing,
   chatMessage,
   course,
   courseCategory,
@@ -188,9 +220,11 @@ export {
   menteesToMentors,
   mentor,
   permission,
+  socket,
   task,
   taskNote,
   token,
+  transaction,
   udemy,
   user,
   userDetails,

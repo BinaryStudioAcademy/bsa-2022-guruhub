@@ -1,4 +1,6 @@
 .table {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   padding: 15px;
   background: var(--background-gray-300);
@@ -32,6 +34,7 @@
 .tableHeadRowHeader,
 .tableBodyRowData {
   position: relative;
+  margin: auto;
   padding: 20px;
 }
 
@@ -40,17 +43,27 @@
 }
 
 .placeholder {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
   color: var(--typography-text-gray-200);
   font-weight: 600;
   font-size: 18px;
-  text-align: center;
 }
 
 .resizer {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: var(--z-index-level-one);
   display: inline-block;
   width: 20px;
   height: 100%;
+  transform: translateX(50%);
+}
+
+.tableWrapper {
+  display: grid;
+  width: 100%;
+  overflow-x: scroll;
 }

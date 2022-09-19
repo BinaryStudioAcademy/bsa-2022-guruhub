@@ -13,10 +13,21 @@ type Constructor = {
 class MenteesToMentors {
   #MenteesToMentorsModel: typeof MenteesToMentorsM;
 
-  private static SELECT_NO_COLUMNS = 1;
+  private static RECORD_EXISTS_CHECK = 1;
 
   public constructor({ MenteesToMentorsModel }: Constructor) {
     this.#MenteesToMentorsModel = MenteesToMentorsModel;
+  }
+
+  public getById(id: number): Promise<MenteesToMentorsResponseDto> {
+    return this.#MenteesToMentorsModel
+      .query()
+      .findById(id)
+      .withGraphFetched(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+      )
+      .castTo<MenteesToMentorsResponseDto>()
+      .execute();
   }
 
   public create(
@@ -32,7 +43,7 @@ class MenteesToMentors {
         menteeId,
       })
       .withGraphFetched(
-        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
@@ -55,7 +66,9 @@ class MenteesToMentors {
       })
       .returning('*')
       .first()
-      .withGraphFetched('mentor(withoutPassword).[userDetails]')
+      .withGraphFetched(
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
+      )
       .castTo<MenteesToMentorsResponseDto>()
       .execute();
   }
@@ -71,7 +84,7 @@ class MenteesToMentors {
       .andWhere({ menteeId })
       .andWhereNot({ status: MenteesToMentorsStatus.COMPLETED })
       .withGraphJoined(
-        'mentor(withoutPassword).[userDetails(withoutMoneyBalance)]',
+        'mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]',
       )
       .castTo<MenteesToMentorsResponseDto>()
       .first();
@@ -86,9 +99,19 @@ class MenteesToMentors {
     const { courseId, menteeId } = getMenteesToMentors;
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(MenteesToMentors.SELECT_NO_COLUMNS)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
+      .first();
+
+    return Boolean(menteeToMentor);
+  }
+
+  public async checkIsMenteeForAnyCourse(menteeId: number): Promise<boolean> {
+    const menteeToMentor = await this.#MenteesToMentorsModel
+      .query()
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
+      .where({ menteeId })
       .first();
 
     return Boolean(menteeToMentor);
@@ -112,7 +135,7 @@ class MenteesToMentors {
           .where('mentor:userDetails.fullName', 'ilike', `%${fullName}%`),
       )
       .withGraphJoined(
-        '[mentee(withoutPassword).[userDetails(withoutMoneyBalance)], mentor(withoutPassword).[userDetails(withoutMoneyBalance)]]',
+        '[mentee(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]], mentor(withoutPassword).[userDetails(withoutMoneyBalance).[avatar]]]',
       )
       .execute();
   }
@@ -135,7 +158,7 @@ class MenteesToMentors {
   }: MenteesToMentorsRequestDto): Promise<boolean> {
     const menteeToMentor = await this.#MenteesToMentorsModel
       .query()
-      .select(MenteesToMentors.SELECT_NO_COLUMNS)
+      .select(MenteesToMentors.RECORD_EXISTS_CHECK)
       .where({ courseId })
       .andWhere({ menteeId })
       .andWhere({ mentorId })

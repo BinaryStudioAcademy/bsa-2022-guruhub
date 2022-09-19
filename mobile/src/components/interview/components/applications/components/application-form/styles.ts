@@ -54,6 +54,12 @@ const styles = StyleSheet.create({
   buttonHide: {
     opacity: 0,
   },
+  fieldWrapper: {
+    minWidth: '100%',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: AppColor.TEXT.GRAY_200,
+  },
 });
 
 export { styles };

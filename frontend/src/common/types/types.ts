@@ -1,5 +1,9 @@
 export { type AppDispatch, AsyncThunkConfig, RootState } from './app/app';
 export {
+  type BillingReplenishParamsDto,
+  type BillingWithdrawDto,
+} from './billing/billing';
+export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
   type ChatMessageGetAllItemResponseDto,
@@ -15,16 +19,19 @@ export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
   type CourseGetMenteesByMentorRequestDto,
+  type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
   type CourseMentorsFilteringDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
+  type CourseUpdateMentoringDto,
 } from './course/course';
 export {
   type CategoryGetAllItemResponseDto,
   type CategoryGetAllResponseDto,
+  type CourseCategoryWithPriceDto,
   type CourseUpdateCategoryRequestDto,
 } from './course-category/course-category';
 export {
@@ -101,6 +108,7 @@ export {
   type URLSearchParamsInit,
 } from './react/react';
 export { type SettingsMenuItem } from './settings-menu/settings-menu';
+export { type Token } from './stripe-checkout/stripe-checkout';
 export {
   type TaskByIdRequestParamsDto,
   type TaskGetByMenteeIdAndModuleId,

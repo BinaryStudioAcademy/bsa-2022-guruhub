@@ -3,6 +3,7 @@ import { Page } from 'objection';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
+  NumericalValueContainer,
   UsersByEmailResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
@@ -79,6 +80,16 @@ class User {
       .findByIds(ids)
       .withGraphJoined('userDetails.[avatar]')
       .castTo<UsersGetResponseDto[]>()
+      .execute();
+  }
+
+  public getByIdMoneyBalance(id: number): Promise<NumericalValueContainer> {
+    return this.#UserModel
+      .query()
+      .select('userDetails.moneyBalance as value')
+      .findById(id)
+      .withGraphJoined('userDetails')
+      .castTo<NumericalValueContainer>()
       .execute();
   }
 

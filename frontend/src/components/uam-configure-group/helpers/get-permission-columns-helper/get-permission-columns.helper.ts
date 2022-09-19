@@ -5,6 +5,7 @@ import {
   PermissionsTableRow,
 } from 'components/uam-configure-group/common/types/types';
 import { PermissionsActionsCell } from 'components/uam-configure-group/components/components';
+import { IdCell } from 'components/uam-configure-group/components/permissions-table/components/components';
 import { Column } from 'react-table';
 
 type UseFormRegisterEntities = {
@@ -27,17 +28,22 @@ const getPermissionsColumns = ({
         isChecked: selectedPermissionIds.includes(id),
       }),
       Cell: PermissionsActionsCell,
-      width: 50,
+      width: 90,
+      minWidth: 90,
     },
     {
       Header: 'Policy name',
       accessor: PermissionTableAccessor.NAME,
       width: 500,
+      minWidth: 150,
+      maxWidth: 600,
     },
     {
       Header: 'Policy ID',
       accessor: PermissionTableAccessor.ID,
-      width: 110,
+      Cell: IdCell,
+      width: 115,
+      minWidth: 115,
     },
   ];
 };

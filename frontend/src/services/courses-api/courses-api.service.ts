@@ -7,17 +7,19 @@ import {
 import {
   CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseFilteringDto,
+  CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
   CourseModulesGetAllRequestParamsDto,
   CourseModulesGetAllResponseDto,
   CourseUpdateCategoryRequestArguments,
+  CourseUpdateMentoringDto,
   EntityPagination,
   EntityPaginationRequestQueryDto,
   MenteesToMentorsRequestDto,
   MenteesToMentorsResponseDto,
-  UserDetailsResponseDto,
+  UsersGetResponseDto,
 } from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
@@ -47,6 +49,47 @@ class CoursesApi {
           title: opts.filtering.title,
           categoryKey: opts.filtering.categoryKey,
         },
+      },
+    );
+  }
+
+  public getAllCoursesStudying(): Promise<CourseGetResponseDto[]> {
+    return this.#http.load<CourseGetResponseDto[]>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.STUDYING}`,
+      {
+        method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getAllCoursesMentoring({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetMentoringDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetMentoringDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
+      },
+    );
+  }
+
+  public updateCoursesMentoring({
+    courseId,
+    studentsCount,
+  }: CourseUpdateMentoringDto): Promise<number> {
+    return this.#http.load<number>(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.MENTORING}`,
+      {
+        method: HttpMethod.PATCH,
+        contentType: ContentType.JSON,
+        payload: JSON.stringify({ courseId, studentsCount }),
       },
     );
   }
@@ -107,8 +150,8 @@ class CoursesApi {
   public getMentorsByCourseId({
     courseId,
     filteringOpts,
-  }: CourseGetMentorsRequestDto): Promise<UserDetailsResponseDto[]> {
-    return this.#http.load<UserDetailsResponseDto[]>(
+  }: CourseGetMentorsRequestDto): Promise<UsersGetResponseDto[]> {
+    return this.#http.load<UsersGetResponseDto[]>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTORS
       }`,
@@ -123,8 +166,8 @@ class CoursesApi {
 
   public getMenteesByCourseId(
     courseId: number,
-  ): Promise<UserDetailsResponseDto[]> {
-    return this.#http.load<UserDetailsResponseDto[]>(
+  ): Promise<UsersGetResponseDto[]> {
+    return this.#http.load<UsersGetResponseDto[]>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.ROOT}${courseId}${
         CoursesApiPath.MENTEES
       }`,

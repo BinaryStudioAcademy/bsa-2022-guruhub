@@ -7,7 +7,7 @@ import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 
 import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
-import { DrawerNavigationItem } from './common/types/drawer-navigation-item.type';
+import { DrawerNavigationItem } from './common/types/types';
 import { DrawerContent } from './components/components';
 
 const Drawer = createDrawerNavigator<AppNavigationParamList>();
@@ -17,7 +17,7 @@ const App: FC = () => {
 
   const userPermissions = user?.permissions ?? [];
 
-  const allowedScreens = useMemo(() => {
+  const allowedScreens: DrawerNavigationItem[] = useMemo(() => {
     const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
 
     const permittedScreens = getPermittedScreens(
@@ -39,6 +39,7 @@ const App: FC = () => {
       drawerContent={(props): JSX.Element => (
         <DrawerContent {...props} items={drawerItems} />
       )}
+      backBehavior="history"
     >
       {allowedScreens.map((screen) => {
         return (
@@ -46,6 +47,7 @@ const App: FC = () => {
             key={screen.name}
             name={screen.name as AppScreenName}
             component={screen.component}
+            options={screen.screenOptions}
           />
         );
       })}

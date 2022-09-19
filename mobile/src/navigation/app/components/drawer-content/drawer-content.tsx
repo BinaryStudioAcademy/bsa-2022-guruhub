@@ -10,18 +10,20 @@ import {
 import {
   Image,
   Link,
+  Pressable,
   SafeAreaView,
   ScrollView,
+  Text,
   View,
 } from '~/components/common/common';
 import { getImageUri, groupByKey } from '~/helpers/helpers';
-import { useAppDispatch, useAppSelector } from '~/hooks/hooks';
+import { useAppDispatch, useAppNavigate, useAppSelector } from '~/hooks/hooks';
 import { DrawerNavigationItem } from '~/navigation/app/common/types/types';
 import {
   BecomeMentor,
   DrawerList,
 } from '~/navigation/app/components/components';
-import { coursesActions } from '~/store/actions';
+import { authActions, coursesActions } from '~/store/actions';
 
 import { styles } from './styles';
 
@@ -31,6 +33,7 @@ type Props = DrawerContentComponentProps & {
 
 const DrawerContent: FC<Props> = ({ state, items }) => {
   const dispatch = useAppDispatch();
+  const navigation = useAppNavigate();
   const focusedRouteName = state.routes[state.index].name as AppScreenName;
 
   const { user, isMentorBecomingVisible, dataBecomeMentorStatus } =
@@ -42,6 +45,13 @@ const DrawerContent: FC<Props> = ({ state, items }) => {
 
   const handleBecomeMentor = (): void => {
     dispatch(coursesActions.becomeMentor());
+  };
+
+  const handleLogout = async (): Promise<void> => {
+    await dispatch(authActions.signOut());
+    navigation.navigate(RootScreenName.AUTH, {
+      screen: AuthScreenName.SIGN_IN,
+    });
   };
 
   const itemGroups = groupByKey(items, 'drawerGroup');
@@ -69,7 +79,13 @@ const DrawerContent: FC<Props> = ({ state, items }) => {
           />
         )}
       </ScrollView>
-      {!user && (
+      {user ? (
+        <View style={styles.singOutWrapper}>
+          <Pressable onPress={handleLogout}>
+            <Text style={styles.signOutLabel}>Sign Out</Text>
+          </Pressable>
+        </View>
+      ) : (
         <View style={styles.signInWrapper}>
           <Link
             label="Sign in"

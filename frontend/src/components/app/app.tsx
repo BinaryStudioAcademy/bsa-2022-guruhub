@@ -6,6 +6,7 @@ import {
 } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Auth } from 'components/auth/auth';
+import { Billing } from 'components/billing/billing';
 import { Chats } from 'components/chats/chats';
 import {
   AuthorizedProtectedRoute,
@@ -20,13 +21,14 @@ import { CoursesManagement } from 'components/courses-management/courses-managem
 import { Dashboard } from 'components/dashboard/dashboard';
 import { Interview } from 'components/interview/interview';
 import { Interviews } from 'components/interviews/interviews';
+import { MyCourses } from 'components/my-courses/my-courses';
 import { NotFound } from 'components/not-found/not-found';
 import { UAM } from 'components/uam/uam';
 import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-group';
 import { UserDetails } from 'components/user-details/user-details';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
-import { authActions } from 'store/actions';
+import { authActions, chatsActions } from 'store/actions';
 
 const App: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
@@ -34,6 +36,16 @@ const App: FC = () => {
 
   const hasUser = Boolean(user);
   const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
+
+  useEffect(() => {
+    if (user) {
+      dispatch(chatsActions.joinRoom(user.id.toString()));
+
+      return () => {
+        dispatch(chatsActions.leaveRoom(user.id.toString()));
+      };
+    }
+  }, [user]);
 
   useEffect(() => {
     if (hasToken) {
@@ -98,12 +110,12 @@ const App: FC = () => {
           element={<AuthorizedProtectedRoute component={<UserDetails />} />}
         />
         <Route
+          path={AppRoute.MY_COURSES}
+          element={<AuthorizedProtectedRoute component={<MyCourses />} />}
+        />
+        <Route
           path={AppRoute.COURSES_$ID_MODULES_$ID}
-          element={
-            <AuthorizedWrapper>
-              <CourseModule />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedProtectedRoute component={<CourseModule />} />}
         />
         <Route
           path={AppRoute.INTERVIEW}
@@ -146,12 +158,12 @@ const App: FC = () => {
           }
         />
         <Route
+          path={AppRoute.BILLING}
+          element={<AuthorizedProtectedRoute component={<Billing />} />}
+        />
+        <Route
           path={AppRoute.CHATS}
-          element={
-            <AuthorizedWrapper>
-              <Chats />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedProtectedRoute component={<Chats />} />}
         />
         <Route
           path={AppRoute.COURSES_MANAGEMENT}

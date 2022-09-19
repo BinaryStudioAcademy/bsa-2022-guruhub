@@ -4,7 +4,7 @@ import { Image } from 'components/common/common';
 import { changeStringCase, getValidClasses } from 'helpers/helpers';
 import { useMemo } from 'hooks/hooks';
 
-import { getRandomColor } from './helpers/helpers';
+import { getRandomColorClassName } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -15,23 +15,47 @@ type Props = {
 };
 
 const Category: FC<Props> = ({ keyName, name, isActive, onClick }) => {
+  const isInteractive = Boolean(onClick);
+
   const keyNameKebabCase = changeStringCase({
     stringToChange: keyName,
     caseType: StringCase.KEBAB_CASE,
   });
 
-  const color = useMemo(() => {
-    return getRandomColor();
+  const colorClassName = useMemo(() => {
+    return getRandomColorClassName();
   }, []);
 
   const handleClick = (): void => {
     onClick?.(keyName);
   };
 
+  if (!isInteractive) {
+    return (
+      <span
+        className={getValidClasses(styles.categorySpan, styles[colorClassName])}
+        onClick={handleClick}
+      >
+        <Image
+          width="30px"
+          height="30px"
+          src={`/category-icons/${keyNameKebabCase}.svg`}
+          alt={`${keyName} img`}
+          isCircular
+        />
+
+        <p className={styles.categoryName}>{name}</p>
+      </span>
+    );
+  }
+
   return (
     <button
-      className={getValidClasses(styles.category, isActive && styles.selected)}
-      style={{ borderColor: color }}
+      className={getValidClasses(
+        styles.category,
+        styles[colorClassName],
+        isActive && styles.selected,
+      )}
       onClick={handleClick}
     >
       <Image
