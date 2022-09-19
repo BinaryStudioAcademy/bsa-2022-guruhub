@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 
-import {
-  ButtonVariant,
-  InterviewStatus,
-  PermissionKey,
-} from '~/common/enums/enums';
+import { ButtonVariant, PermissionKey } from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
@@ -26,6 +22,10 @@ import { useAppForm, useEffect, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { ButtonsSection } from './components/components';
+import {
+  getInterviewersOptions,
+  getInterviewStatusOptions,
+} from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -59,15 +59,9 @@ const ApplicationForm: FC<Props> = ({
     ? getFormattedDate(interview.interviewDate, 'dd.MM.yyyy')
     : 'Not assigned yet';
 
-  const interviewersData = interviewers.map((interviewer) => ({
-    label: interviewer.interviewer.userDetails.fullName,
-    value: interviewer.interviewer.id,
-  }));
+  const interviewersData = getInterviewersOptions(interviewers);
 
-  const interviewStatus = Object.values(InterviewStatus).map((status) => ({
-    label: status,
-    value: status,
-  }));
+  const interviewStatus = getInterviewStatusOptions();
 
   const canEditInterviewPermission = checkHasPermission({
     permissionKeys: [
