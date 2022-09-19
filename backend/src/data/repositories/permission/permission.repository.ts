@@ -1,3 +1,4 @@
+import { SortOrder } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -19,7 +20,10 @@ class Permission {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<PermissionM>> {
-    const result = await this.#PermissionModel.query().page(page, count);
+    const result = await this.#PermissionModel
+      .query()
+      .orderBy('id', SortOrder.ASC)
+      .page(page, count);
 
     return {
       items: result.results,

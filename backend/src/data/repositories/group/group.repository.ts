@@ -1,3 +1,4 @@
+import { SortOrder } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -43,7 +44,10 @@ class Group {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
-    const result = await this.#GroupModel.query().page(page, count);
+    const result = await this.#GroupModel
+      .query()
+      .orderBy('id', SortOrder.ASC)
+      .page(page, count);
 
     return {
       items: result.results,
