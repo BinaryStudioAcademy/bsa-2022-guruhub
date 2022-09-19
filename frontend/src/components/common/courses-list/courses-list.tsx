@@ -22,7 +22,11 @@ const CoursesList: FC<Props> = ({
   onPageChange,
 }) => {
   if (!courses.length) {
-    return <p className={styles.placeholder}>{placeholderText}</p>;
+    return (
+      <div className={styles.placeholderContainer}>
+        <p className={styles.placeholder}>{placeholderText}</p>
+      </div>
+    );
   }
 
   return (

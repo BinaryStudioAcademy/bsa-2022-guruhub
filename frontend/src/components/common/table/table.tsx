@@ -11,13 +11,15 @@ import {
 
 import styles from './styles.module.scss';
 
+type OnPageChangeHandler = (newPage: number) => void;
+
 type Props<Data extends Record<string, unknown>> = {
   columns: Column<Data>[];
   data: readonly Data[];
   totalCount?: number;
   pageSize?: number;
   currentPage?: number;
-  onPageChange?: (newPage: number) => void;
+  onPageChange?: OnPageChangeHandler;
   placeholder?: string;
 };
 
@@ -64,11 +66,9 @@ const Table = <Data extends Record<string, unknown>>({
     tableInstance;
 
   const hasData = Boolean(data.length);
-  const hasPagination = totalCount && pageSize && currentPage && onPageChange;
-
-  if (!hasData) {
-    return <p className={styles.placeholder}>{placeholder}</p>;
-  }
+  const hasPagination = Boolean(
+    totalCount && pageSize && currentPage && onPageChange,
+  );
 
   return (
     <>
@@ -93,6 +93,14 @@ const Table = <Data extends Record<string, unknown>>({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
+            {!hasData && (
+              <tr className={styles.placeholder}>
+                <td>
+                  <p>{placeholder}</p>
+                </td>
+              </tr>
+            )}
+
             {rows.map((row) => {
               prepareRow(row);
 
@@ -115,12 +123,12 @@ const Table = <Data extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
-      {hasPagination && (
+      {hasPagination && hasData && (
         <Pagination
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-          pageSize={pageSize}
-          totalCount={totalCount}
+          currentPage={currentPage as number}
+          onPageChange={onPageChange as OnPageChangeHandler}
+          pageSize={pageSize as number}
+          totalCount={totalCount as number}
         />
       )}
     </>

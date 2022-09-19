@@ -1,4 +1,4 @@
-import { SearchPayload } from './types';
+import { SearchPayload } from '../types/types';
 
 const DEFAULT_SEARCH_PAYLOAD: SearchPayload = {
   search: '',

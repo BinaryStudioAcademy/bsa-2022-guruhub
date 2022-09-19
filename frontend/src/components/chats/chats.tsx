@@ -1,21 +1,23 @@
-import { AppRoute, DataStatus, SearchValue } from 'common/enums/enums';
+import { DataStatus, SearchValue } from 'common/enums/enums';
 import {
   FC,
   UsersGetResponseDto,
   UserWithPermissions,
 } from 'common/types/types';
 import { Spinner } from 'components/common/common';
+import { debounce } from 'helpers/helpers';
 import {
   useAppDispatch,
   useAppSelector,
   useEffect,
-  useNavigate,
   useUserSearch,
 } from 'hooks/hooks';
 import { chatsActions } from 'store/actions';
 
 import { ChatsList, CurrentChat, SearchUser } from './components/components';
 import styles from './styles.module.scss';
+
+const READ_MESSAGES_DELAY_MS = 500;
 
 const Chats: FC = () => {
   const {
@@ -27,6 +29,7 @@ const Chats: FC = () => {
     chatOpponent,
     emptyChats,
     fetchLastMessagesDataStatus,
+    currentChatMessages,
   } = useAppSelector(({ auth, chats }) => ({
     authDataStatus: auth.dataStatus,
     user: auth.user,
@@ -36,13 +39,8 @@ const Chats: FC = () => {
     emptyChats: chats.emptyChats,
     chatId: chats.currentChatId,
     chatOpponent: chats.chatOpponent,
+    currentChatMessages: chats.currentChatMessages,
   }));
-
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate(AppRoute.ROOT);
-  }
 
   const dispatch = useAppDispatch();
 
@@ -58,6 +56,27 @@ const Chats: FC = () => {
   useEffect(() => {
     dispatch(chatsActions.getLastMessages({ fullName: '' }));
   }, [dispatch]);
+
+  const handleReadMessages = (): void => {
+    if (chatId) {
+      dispatch(chatsActions.readMessages(chatId));
+    }
+  };
+
+  const debounceHandleReadMessages = debounce(
+    handleReadMessages,
+    READ_MESSAGES_DELAY_MS,
+  );
+
+  useEffect(() => {
+    if (chatId) {
+      debounceHandleReadMessages();
+
+      return () => {
+        debounceHandleReadMessages.clear();
+      };
+    }
+  }, [chatId, currentChatMessages]);
 
   const { handleSearchPerform, searchParams } = useUserSearch();
 

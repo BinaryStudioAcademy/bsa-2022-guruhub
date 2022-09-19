@@ -8,6 +8,7 @@ import { Model } from 'objection';
 
 import { initApi } from '~/api/api';
 import { ENV, FileSizeBytesValue } from '~/common/enums/enums';
+import { socket as socketService } from '~/services/services';
 
 import knexConfig from '../knexfile';
 
@@ -18,6 +19,8 @@ const app = Fastify({
     },
   },
 });
+
+socketService.initializeIo(app.server);
 
 Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
 
@@ -34,10 +37,12 @@ app.register(initApi, {
 });
 
 const staticPath = path.join(__dirname, '../public');
+
 app.register(fastifyStatic, {
   root: staticPath,
   prefix: '/',
 });
+
 app.setNotFoundHandler((_req, res) => {
   res.sendFile('index.html', staticPath);
 });

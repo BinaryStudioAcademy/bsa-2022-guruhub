@@ -67,22 +67,30 @@
 }
 
 .categoryWrapper {
+  position: absolute;
+  bottom: 145px;
+  left: 25px;
+  display: flex;
+  align-items: center;
   max-width: 50%;
+  padding: 0 5px;
+  background-color: var(--typography-text-100-inverse);
+  border-radius: 25px;
 }
 
 .category {
   margin: 0;
-  margin-top: 12px;
-  padding: 5px 11px;
+  padding: 5px;
   overflow: hidden;
   font-weight: 600;
   white-space: nowrap;
   text-overflow: ellipsis;
-  background-color: var(--brand-yellow-200);
-  border-radius: 12.5px;
 }
 
 .price {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
   margin: 0;
   margin-top: 12px;
   color: var(--typography-text-100-inverse);

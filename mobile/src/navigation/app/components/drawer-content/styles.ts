@@ -21,10 +21,9 @@ const styles = StyleSheet.create({
   },
   listBorder: {
     width: '60%',
-    height: 2,
+    height: 1,
     marginLeft: 40,
-    marginBottom: 15,
-    backgroundColor: AppColor.BACKGROUND.GRAY_400,
+    backgroundColor: 'rgba(255,255,255, .12)',
   },
   signInWrapper: {
     padding: 30,

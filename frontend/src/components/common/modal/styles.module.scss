@@ -30,6 +30,7 @@
 
 .mainContent {
   display: flex;
+  flex: 1;
   flex-direction: column;
   height: 100%;
   padding: 40px;
@@ -39,4 +40,10 @@
 .modalTitle {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.childrenSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }

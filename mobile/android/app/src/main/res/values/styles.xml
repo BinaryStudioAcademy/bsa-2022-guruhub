@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
         <item name="android:datePickerDialogTheme">@style/datePickerTheme</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
     <style name="BootTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/bootsplash_background</item>
@@ -13,6 +14,6 @@
     </style>
     <style name="datePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/datetime_picker_accent</item>
-        <item name="colorControlActivated">@color/datetime_picker_control_activated</item>
+        <item name="colorControlActivated">@color/color_accent</item>
     </style>
 </resources>

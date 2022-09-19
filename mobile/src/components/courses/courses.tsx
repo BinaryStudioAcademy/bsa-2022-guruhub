@@ -20,7 +20,6 @@ import {
   useCallback,
   useEffect,
   useFocusEffect,
-  useState,
 } from '~/hooks/hooks';
 import { categoryActions, coursesActions } from '~/store/actions';
 
@@ -28,9 +27,6 @@ import { CategoryList } from './components/category-list/category-list';
 import { styles } from './styles';
 
 const Courses: FC = (): ReactElement => {
-  const [searchValue, setSearchValue] = useState('');
-  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
-
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
@@ -72,45 +68,42 @@ const Courses: FC = (): ReactElement => {
     handleCoursesLoad();
   };
 
-  const handleLoadMoreCourses = (): void => {
-    //add fetch
-  };
-
   const handleAddCourse = (): void => {
     navigation.navigate(AppScreenName.ADD_COURSE);
   };
 
   const handleSearch = (search: string): void => {
-    setSearchValue(search);
+    filter.current.title = search;
+
+    handleCoursesLoad();
   };
 
   const handleCategorySelect = (id: number): void => {
-    const newActiveCategoryId = activeCategoryId !== id ? id : null;
-
-    setActiveCategoryId(newActiveCategoryId);
-  };
-
-  useEffect(() => {
-    if (activeCategoryId) {
-      dispatch(categoryActions.getCategoryById({ id: activeCategoryId }));
+    if (id !== courseCategory?.id) {
+      dispatch(categoryActions.getCategoryById({ id }));
     } else {
       dispatch(categoryActions.clearCategory());
     }
-  }, [activeCategoryId]);
+  };
 
   useEffect(() => {
-    filter.current.categoryKey = courseCategory?.key ?? '';
-    filter.current.title = searchValue;
+    const activeCategoryKey = courseCategory?.key ?? '';
 
-    dispatch(coursesActions.getCourses(filter.current));
-  }, [courseCategory, searchValue]);
+    if (filter.current.categoryKey !== activeCategoryKey) {
+      filter.current.categoryKey = activeCategoryKey;
+
+      handleCoursesLoad();
+    }
+  }, [courseCategory?.key]);
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(categoryActions.clearCategory());
       dispatch(categoryActions.getAllWithCourses());
       handleCoursesLoad();
-      setActiveCategoryId(null);
+
+      return () => {
+        dispatch(categoryActions.clearCategory());
+      };
     }, []),
   );
 
@@ -122,7 +115,7 @@ const Courses: FC = (): ReactElement => {
       <CategoryList
         items={categories}
         handleSelect={handleCategorySelect}
-        activeCategoryId={activeCategoryId}
+        activeCategoryId={courseCategory?.id ?? null}
       />
       <View style={styles.container}>
         {isLoading ? (
@@ -143,7 +136,6 @@ const Courses: FC = (): ReactElement => {
                 onRefresh={handleRefresh}
               />
             }
-            onEndReached={handleLoadMoreCourses}
             onEndReachedThreshold={0.1}
             ListEmptyComponent={(): ReactElement => (
               <Text style={styles.noCourses}>No courses found</Text>

@@ -20,6 +20,7 @@ export {
   type ChatMessageGetAllResponseDto,
   type ChatMessageGetEmptyChatDto,
   type ChatMessageGetEmptyChatsRequestDto,
+  type ChatMessageReadParams,
 } from './chat-message/chat-message';
 export {
   type IdContainer,
@@ -126,6 +127,7 @@ export {
   type PermissionsGetAllItemResponseDto,
   type PermissionsGetAllResponseDto,
 } from './permission/permission';
+export { type Socket } from './socket/socket';
 export { type StripeReplenishArgumentsDto } from './stripe/stripe';
 export {
   type TaskByIdRequestParamsDto,

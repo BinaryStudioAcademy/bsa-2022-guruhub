@@ -28,7 +28,7 @@ import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-
 import { UserDetails } from 'components/user-details/user-details';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
-import { authActions } from 'store/actions';
+import { authActions, chatsActions } from 'store/actions';
 
 const App: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
@@ -36,6 +36,16 @@ const App: FC = () => {
 
   const hasUser = Boolean(user);
   const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
+
+  useEffect(() => {
+    if (user) {
+      dispatch(chatsActions.joinRoom(user.id.toString()));
+
+      return () => {
+        dispatch(chatsActions.leaveRoom(user.id.toString()));
+      };
+    }
+  }, [user]);
 
   useEffect(() => {
     if (hasToken) {
@@ -153,11 +163,7 @@ const App: FC = () => {
         />
         <Route
           path={AppRoute.CHATS}
-          element={
-            <AuthorizedWrapper>
-              <Chats />
-            </AuthorizedWrapper>
-          }
+          element={<AuthorizedProtectedRoute component={<Chats />} />}
         />
         <Route
           path={AppRoute.COURSES_MANAGEMENT}
