@@ -43,7 +43,10 @@ class Group {
     page,
     count,
   }: EntityPaginationRequestQueryDto): Promise<EntityPagination<GroupM>> {
-    const result = await this.#GroupModel.query().page(page, count);
+    const result = await this.#GroupModel
+      .query()
+      .orderBy('id', 'asc')
+      .page(page, count);
 
     return {
       items: result.results,

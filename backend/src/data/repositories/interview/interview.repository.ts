@@ -37,6 +37,7 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
+      .orderBy('id', 'asc')
       .offset(elementsToSkip)
       .limit(count)
       .castTo<InterviewsGetAllItemResponseDto[]>();
@@ -222,6 +223,7 @@ class Interview {
       .withGraphJoined(
         'interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]',
       )
+      .orderBy('id', 'asc')
       .limit(count)
       .offset(ELEMENTS_TO_SKIP)
       .castTo<InterviewsGetOtherItemResponseDto[]>();

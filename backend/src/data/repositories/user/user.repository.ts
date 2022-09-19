@@ -30,6 +30,7 @@ class User {
       .query()
       .select()
       .withGraphJoined('userDetails(withoutMoneyBalance)')
+      .orderBy('id', 'asc')
       .page(page, count)
       .castTo<Page<UserM & UsersGetResponseDto>>();
 
