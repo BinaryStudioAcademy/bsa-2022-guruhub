@@ -1,5 +1,6 @@
 import { Page } from 'objection';
 
+import { SortOrder } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -30,6 +31,7 @@ class User {
       .query()
       .select()
       .withGraphJoined('userDetails(withoutMoneyBalance)')
+      .orderBy('id', SortOrder.ASC)
       .page(page, count)
       .castTo<Page<UserM & UsersGetResponseDto>>();
 
