@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 
-import {
-  ButtonVariant,
-  InterviewStatus,
-  PermissionKey,
-} from '~/common/enums/enums';
+import { ButtonVariant, PermissionKey } from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
@@ -185,9 +181,7 @@ const ApplicationForm: FC<Props> = ({
         <View style={styles.rowContent}>
           <Chip
             text={interview.status}
-            color={
-              statusToColor[interview.status.toLowerCase() as InterviewStatus]
-            }
+            color={statusToColor[interview.status]}
           />
         </View>
       </View>
