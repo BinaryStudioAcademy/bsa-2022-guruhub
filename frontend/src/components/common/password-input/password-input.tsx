@@ -39,11 +39,12 @@ const PasswordInput: FC<Props> = ({
         errors={errors}
         placeholder={placeholder}
       />
-      <div className={styles.passwordIcon}>
+      <div className={styles.passwordIconContainer}>
         <IconButton
           label={isPasswordHidden ? 'Show password' : 'Hide password'}
           iconName={isPasswordHidden ? 'showPass' : 'hidePass'}
           onClick={handleClick}
+          className={styles.passwordIcon}
         />
       </div>
     </div>

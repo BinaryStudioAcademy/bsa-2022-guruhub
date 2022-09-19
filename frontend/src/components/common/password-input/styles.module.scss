@@ -2,12 +2,17 @@
   position: relative;
 }
 
-.passwordIcon {
+.passwordIconContainer {
   position: absolute;
-  top: 18px;
-  right: 5px;
+  top: 31px;
+  right: 9px;
 }
 
-.passwordIcon:hover {
+.passwordIconContainer:hover {
   cursor: pointer;
+}
+
+.passwordIcon {
+  min-width: 30px;
+  padding: 5px;
 }
