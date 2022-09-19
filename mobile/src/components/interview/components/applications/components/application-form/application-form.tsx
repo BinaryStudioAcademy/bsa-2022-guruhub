@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
-import { ButtonVariant, PermissionKey } from '~/common/enums/enums';
+import {
+  ButtonVariant,
+  InterviewStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsGetInterviewerResponseDto,
@@ -58,6 +62,11 @@ const ApplicationForm: FC<Props> = ({
   const interviewersData = interviewers.map((interviewer) => ({
     label: interviewer.interviewer.userDetails.fullName,
     value: interviewer.interviewer.id,
+  }));
+
+  const interviewStatus = Object.values(InterviewStatus).map((status) => ({
+    label: status,
+    value: status,
   }));
 
   const canEditInterviewPermission = checkHasPermission({
@@ -179,10 +188,22 @@ const ApplicationForm: FC<Props> = ({
           <Text style={styles.title}>Status</Text>
         </View>
         <View style={styles.rowContent}>
-          <Chip
-            text={interview.status}
-            color={statusToColor[interview.status]}
-          />
+          {!isEditMode ? (
+            <Chip
+              text={interview.status}
+              color={statusToColor[interview.status]}
+            />
+          ) : (
+            <View style={styles.fieldWrapper}>
+              <Dropdown
+                items={interviewStatus}
+                control={control}
+                errors={errors}
+                name="status"
+                placeholder="Select status"
+              />
+            </View>
+          )}
         </View>
       </View>
       {isEditMode && (
