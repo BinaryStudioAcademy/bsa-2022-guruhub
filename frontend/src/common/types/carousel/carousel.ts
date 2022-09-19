@@ -1,1 +1,1 @@
-export { type ResponsiveType } from 'react-multi-carousel';
+export { type ResponsiveType as CarouselResponsiveType } from 'react-multi-carousel';

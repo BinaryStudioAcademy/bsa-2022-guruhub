@@ -51,7 +51,7 @@ const Dashboard: FC = () => {
     <div className={styles.container}>
       <div className={styles.carouselWrapper}>
         <h1>Most Popular</h1>
-        <Carousel responsive={carouselResponsiveBreakpoints}>
+        <Carousel responsive={carouselResponsiveBreakpoints} hasArrows>
           {popularCourses.map((popularCourse) => (
             <div className={styles.carouselElement} key={popularCourse.id}>
               <Course course={popularCourse} />

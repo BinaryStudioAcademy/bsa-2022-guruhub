@@ -1,16 +1,17 @@
 import 'react-multi-carousel/lib/styles.css';
 import './styles.scss';
 
-import { FC, ResponsiveType } from 'common/types/types';
+import { CarouselResponsiveType, FC } from 'common/types/types';
 import MultiCarousel from 'react-multi-carousel';
 
 type Props = {
-  responsive: ResponsiveType;
+  responsive: CarouselResponsiveType;
+  hasArrows?: boolean;
 };
 
-const Carousel: FC<Props> = ({ children, responsive }) => {
+const Carousel: FC<Props> = ({ children, responsive, hasArrows = false }) => {
   return (
-    <MultiCarousel arrows responsive={responsive}>
+    <MultiCarousel arrows={hasArrows} responsive={responsive}>
       {children}
     </MultiCarousel>
   );
