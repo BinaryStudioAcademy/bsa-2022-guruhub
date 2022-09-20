@@ -20,8 +20,6 @@ const useCourseSearch = (): UseCourseSearchResult => {
 
     if (value) {
       searchParams.set(name, value);
-      // searchParams.set('page', '1');
-      // setSearchParams(searchParams);
     }
 
     searchParams.set('page', '1');
