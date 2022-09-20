@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
   },
 
   error: {
+    height: '100%',
+    paddingVertical: 10,
     borderLeftColor: AppColor.SUPPORT.ERROR_RED_100,
     backgroundColor: '#FBDDDD',
   },
@@ -24,6 +26,8 @@ const styles = StyleSheet.create({
   },
 
   info: {
+    height: '100%',
+    paddingVertical: 10,
     borderLeftColor: AppColor.SUPPORT.INFO_BLUE_100,
     backgroundColor: '#D5E6FB',
   },
@@ -33,6 +37,8 @@ const styles = StyleSheet.create({
   },
 
   success: {
+    height: '100%',
+    paddingVertical: 10,
     borderLeftColor: AppColor.BRAND.GREEN_100,
     backgroundColor: '#E2F5EA',
   },
