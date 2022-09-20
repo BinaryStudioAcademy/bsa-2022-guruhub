@@ -53,6 +53,18 @@ const styles = StyleSheet.create({
   [`button${ButtonVariant.CANCEL}Label`]: {
     color: AppColor.TEXT.GRAY_100,
   },
+  [`button${ButtonVariant.CARD}`]: {
+    color: AppColor.BRAND.BLUE_100,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    height: 75,
+  },
+  [`button${ButtonVariant.CARD}Label`]: {
+    color: AppColor.TEXT.GRAY_100,
+    fontSize: 24,
+  },
 });
 
 export { styles };
