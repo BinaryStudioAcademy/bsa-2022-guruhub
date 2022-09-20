@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import defaultCourseImage from '~/assets/images/avatar-default.png';
+import { ButtonVariant } from '~/common/enums/enums';
 import { UserDetailsResponseDto } from '~/common/types/types';
 import { Button, Image, Text, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
@@ -33,11 +34,14 @@ const MentorCard: FC<Props> = ({
         />
       </View>
       <View style={styles.fullNameContainer}>
-        <View style={styles.circle} />
         <Text style={styles.fullName}>{mentor.fullName}</Text>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button label={buttonLabel} onPress={handleChoose} />
+      <View>
+        <Button
+          variant={ButtonVariant.CARD}
+          label={buttonLabel}
+          onPress={handleChoose}
+        />
       </View>
     </View>
   );
