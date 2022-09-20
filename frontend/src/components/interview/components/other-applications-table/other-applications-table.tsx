@@ -16,6 +16,7 @@ type Props = {
   page: number;
   onPageChange: (page: number) => void;
   totalOtherInterviewsNumber: number;
+  hasPermission: boolean;
 };
 
 const OtherApplicationsTable: FC<Props> = ({
@@ -23,9 +24,10 @@ const OtherApplicationsTable: FC<Props> = ({
   page,
   onPageChange,
   totalOtherInterviewsNumber,
+  hasPermission,
 }) => {
   const columns = useMemo<Column<OtherApplicationsTableRow>[]>(() => {
-    return getOtherApplicationsColumns();
+    return getOtherApplicationsColumns(hasPermission);
   }, []);
 
   const data = useMemo<OtherApplicationsTableRow[]>(() => {

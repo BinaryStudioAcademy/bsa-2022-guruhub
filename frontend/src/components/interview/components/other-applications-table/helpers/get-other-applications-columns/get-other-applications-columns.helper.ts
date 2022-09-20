@@ -1,5 +1,8 @@
 import { OtherApplicationsTableAccessor } from 'components/interview/common/enums/enums';
-import { OtherApplicationsTableRow } from 'components/interview/common/types/types';
+import {
+  OtherApplicationsCellProps,
+  OtherApplicationsTableRow,
+} from 'components/interview/common/types/types';
 import { Column } from 'react-table';
 
 import {
@@ -9,11 +12,18 @@ import {
   StatusCell,
 } from '../../components/components';
 
-const getOtherApplicationsColumns = (): Column<OtherApplicationsTableRow>[] => {
+const getOtherApplicationsColumns = (
+  hasPermission: boolean,
+): Column<OtherApplicationsTableRow>[] => {
   return [
     {
       Header: 'ID',
-      accessor: OtherApplicationsTableAccessor.ID,
+      accessor: ({
+        id,
+      }: OtherApplicationsTableRow): OtherApplicationsCellProps => ({
+        id,
+        hasPermission,
+      }),
       Cell: IdCell,
       width: 50,
     },
