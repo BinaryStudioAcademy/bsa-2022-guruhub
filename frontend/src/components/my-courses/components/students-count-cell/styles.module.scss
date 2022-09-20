@@ -7,3 +7,11 @@
 .inputStyled {
   border: 1px solid var(--brand-blue-100);
 }
+
+.container span:first-child {
+  height: 0;
+}
+
+.container label {
+  gap: 0;
+}
