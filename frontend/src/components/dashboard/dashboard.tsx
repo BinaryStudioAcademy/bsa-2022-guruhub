@@ -10,6 +10,7 @@ import {
   useAppSelector,
   useEffect,
   usePagination,
+  useSearchParams,
   useState,
 } from 'hooks/hooks';
 import { dashboardActions, userDetailsActions } from 'store/actions';
@@ -19,25 +20,24 @@ import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { page, handlePageChange } = usePagination({
-    queryName: 'dashboardPage',
+  const { handlePageChange } = usePagination({
+    queryName: 'page',
   });
 
-  const {
-    user,
-    categories,
-    dataStatus,
-    courses,
-    totalCoursesCount,
-    isPaginationClicked,
-  } = useAppSelector((state) => ({
-    user: state.auth.user,
-    categories: state.dashboard.categories,
-    dataStatus: state.dashboard.dataStatus,
-    courses: state.dashboard.courses,
-    totalCoursesCount: state.dashboard.totalCoursesCount,
-    isPaginationClicked: state.dashboard.isPaginationClicked,
-  }));
+  const [searchParams] = useSearchParams();
+
+  const title = searchParams.get('title');
+  const category = searchParams.get('category');
+  const pageFromParams = searchParams.get('page');
+
+  const { user, categories, dataStatus, courses, totalCoursesCount } =
+    useAppSelector((state) => ({
+      user: state.auth.user,
+      categories: state.dashboard.categories,
+      dataStatus: state.dashboard.dataStatus,
+      courses: state.dashboard.courses,
+      totalCoursesCount: state.dashboard.totalCoursesCount,
+    }));
 
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
     useState<boolean>(false);
@@ -53,13 +53,15 @@ const Dashboard: FC = () => {
   useEffect(() => {
     dispatch(
       dashboardActions.getCourses({
-        title: '',
-        categoryKey: '',
-        page,
-        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
+        title: title ?? '',
+        categoryKey: category ?? '',
+        page: pageFromParams
+          ? Number(pageFromParams)
+          : PaginationDefaultValue.DEFAULT_PAGE,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_20,
       }),
     );
-  }, [page]);
+  }, [pageFromParams]);
 
   const handleNewCourseModalToggle = (): void => {
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
@@ -91,10 +93,12 @@ const Dashboard: FC = () => {
         <CoursesList
           courses={courses}
           currentPage={
-            isPaginationClicked ? page : PaginationDefaultValue.DEFAULT_PAGE
+            pageFromParams
+              ? Number(pageFromParams)
+              : PaginationDefaultValue.DEFAULT_PAGE
           }
           onPageChange={handlePageChange}
-          pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_10}
+          pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_20}
           totalCount={totalCoursesCount}
         />
       )}

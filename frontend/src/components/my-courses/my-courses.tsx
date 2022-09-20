@@ -59,7 +59,7 @@ const MyCourses: FC = () => {
     dispatch(
       myCoursesActions.getCoursesStudying({
         page: studentCoursesPage,
-        count: PaginationDefaultValue.DEFAULT_COUNT,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_8,
       }),
     );
   }, [studentCoursesPage]);
@@ -87,7 +87,7 @@ const MyCourses: FC = () => {
         courses={coursesStudying}
         currentPage={studentCoursesPage}
         onPageChange={handleStudentCoursesPage}
-        pageSize={PaginationDefaultValue.DEFAULT_COUNT}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_8}
         totalCount={totalCoursesStudying}
       />
       <h1 className={styles.header}>My courses (as mentor)</h1>

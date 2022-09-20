@@ -15,7 +15,7 @@ type Props = {
 
 const CoursesList: FC<Props> = ({
   courses,
-  placeholderText = 'There is no courses',
+  placeholderText = 'There are no courses',
   totalCount,
   pageSize,
   currentPage,

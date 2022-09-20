@@ -24,7 +24,7 @@ import {
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
-import { checkHasPermission } from '~/helpers/helpers';
+import { changePaginationPage, checkHasPermission } from '~/helpers/helpers';
 
 import { interviewNote as interviewNoteServ } from '../services';
 
@@ -54,7 +54,7 @@ class Interview {
       permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
       userPermissions: permissions,
     });
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = changePaginationPage(page);
 
     if (!hasInterviewsPermission) {
       return this.getByUserId({
@@ -252,7 +252,7 @@ class Interview {
     }
 
     const intervieweeUserId = interview.interviewee.id;
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = changePaginationPage(page);
 
     return this.#interviewRepository.getOtherByInterviewId({
       interviewId,

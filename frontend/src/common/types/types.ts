@@ -24,7 +24,6 @@ export {
   type CourseGetRequestParamsDto,
   type CourseGetResponseDto,
   type CourseMentorsFilteringDto,
-  type CourseOnThePageResponseDto,
   type CourseSelectMentorRequestParamsDto,
   type CourseUpdateCategoryRequestArguments,
   type CourseUpdateMentoringDto,

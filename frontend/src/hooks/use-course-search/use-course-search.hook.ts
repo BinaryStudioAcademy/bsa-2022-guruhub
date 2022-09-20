@@ -20,8 +20,12 @@ const useCourseSearch = (): UseCourseSearchResult => {
 
     if (value) {
       searchParams.set(name, value);
-      setSearchParams(searchParams);
+      // searchParams.set('page', '1');
+      // setSearchParams(searchParams);
     }
+
+    searchParams.set('page', '1');
+    setSearchParams(searchParams);
 
     const category = searchParams.get(SearchValue.CATEGORY) ?? '';
     const title = searchParams.get(SearchValue.TITLE) ?? '';
@@ -31,7 +35,7 @@ const useCourseSearch = (): UseCourseSearchResult => {
         title,
         categoryKey: category,
         page: PaginationDefaultValue.DEFAULT_PAGE,
-        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_8,
       }),
     );
   };

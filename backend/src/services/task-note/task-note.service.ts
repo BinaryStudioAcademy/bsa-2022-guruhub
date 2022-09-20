@@ -5,7 +5,7 @@ import {
   TaskNoteGetItemResponseDto,
 } from '~/common/types/types';
 import { taskNote as taskNoteRep } from '~/data/repositories/repositories';
-import { sanitizeHTML } from '~/helpers/helpers';
+import { changePaginationPage, sanitizeHTML } from '~/helpers/helpers';
 
 type Constructor = {
   taskNoteRepository: typeof taskNoteRep;
@@ -25,7 +25,7 @@ class TaskNote {
   }: TaskNoteGetAllArgumentsDto): Promise<
     EntityPagination<TaskNoteGetItemResponseDto>
   > {
-    const zeroIndexedPage = page - 1;
+    const zeroIndexedPage = changePaginationPage(page);
 
     return this.#taskNoteRepository.getAll({
       count,

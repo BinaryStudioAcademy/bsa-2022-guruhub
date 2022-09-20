@@ -13,7 +13,7 @@ import {
 } from '~/common/types/types';
 import { group as groupsRep } from '~/data/repositories/repositories';
 import { GroupsError } from '~/exceptions/exceptions';
-import { changeStringCase } from '~/helpers/helpers';
+import { changePaginationPage, changeStringCase } from '~/helpers/helpers';
 import {
   groupsToPermissions as groupsToPermissionsServ,
   permission as permissionServ,
@@ -76,7 +76,7 @@ class Group {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<GroupsItemResponseDto>
   > {
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = changePaginationPage(page);
     const result = await this.#groupsRepository.getAll({
       page: zeroIndexPage,
       count,

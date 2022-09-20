@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { DataStatus, PaginationDefaultValue } from 'common/enums/enums';
+import { DataStatus } from 'common/enums/enums';
 import {
   CategoryGetAllItemResponseDto,
   CourseGetResponseDto,
@@ -12,7 +12,6 @@ type State = {
   categories: CategoryGetAllItemResponseDto[];
   courses: CourseGetResponseDto[];
   totalCoursesCount: number;
-  isPaginationClicked: boolean;
 };
 
 const initialState: State = {
@@ -20,7 +19,6 @@ const initialState: State = {
   categories: [],
   courses: [],
   totalCoursesCount: 0,
-  isPaginationClicked: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -29,11 +27,10 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses = payload.results.items;
-    state.totalCoursesCount = payload.results.total;
-    state.isPaginationClicked =
-      payload.page !== PaginationDefaultValue.DEFAULT_PAGE;
+    state.courses = payload.items;
+    state.totalCoursesCount = payload.total;
   });
+
   builder.addCase(getCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
