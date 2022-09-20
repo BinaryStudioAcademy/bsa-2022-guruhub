@@ -5,41 +5,33 @@ import { AppColor } from '~/common/enums/enums';
 const styles = StyleSheet.create({
   container: {
     marginVertical: 16,
-    backgroundColor: AppColor.BACKGROUND.GRAY_100,
-    borderRadius: 12,
-    marginHorizontal: 20,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    borderRadius: 50,
+    marginHorizontal: 50,
     overflow: 'hidden',
   },
   avatar: {
-    height: '100%',
-    resizeMode: 'contain',
+    height: 200,
+    width: 200,
+    resizeMode: 'cover',
+    borderRadius: 100,
   },
   avatarContainer: {
-    backgroundColor: '#CECCCD',
-    width: '100%',
-    height: 255,
+    marginVertical: 16,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    justifyContent: 'center',
+    height: 200,
+    alignItems: 'center',
   },
   fullName: {
-    color: 'white',
-    fontSize: 16,
+    color: AppColor.TEXT.GRAY_100,
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: '600',
   },
   fullNameContainer: {
     marginVertical: 20,
-    marginLeft: 21,
-    flexDirection: 'row',
     alignItems: 'center',
-  },
-  circle: {
-    marginRight: 6,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: AppColor.SUPPORT.INFO_BLUE_100,
-  },
-  buttonContainer: {
-    marginBottom: 26,
-    width: 210,
-    alignSelf: 'center',
   },
 });
 

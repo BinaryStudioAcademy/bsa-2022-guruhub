@@ -10,16 +10,22 @@ import {
 import {
   Button,
   Category,
+  Chip,
   DatePicker,
   Dropdown,
   Text,
   View,
 } from '~/components/common/common';
+import { statusToColor } from '~/components/interviews/common/maps/maps';
 import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useEffect, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { ButtonsSection } from './components/components';
+import {
+  getInterviewersOptions,
+  getInterviewStatusOptions,
+} from './helpers/helpers';
 import { styles } from './styles';
 
 type Props = {
@@ -53,10 +59,9 @@ const ApplicationForm: FC<Props> = ({
     ? getFormattedDate(interview.interviewDate, 'dd.MM.yyyy')
     : 'Not assigned yet';
 
-  const interviewersData = interviewers.map((interviewer) => ({
-    label: interviewer.interviewer.userDetails.fullName,
-    value: interviewer.interviewer.id,
-  }));
+  const interviewersData = getInterviewersOptions(interviewers);
+
+  const interviewStatus = getInterviewStatusOptions();
 
   const canEditInterviewPermission = checkHasPermission({
     permissionKeys: [
@@ -170,6 +175,29 @@ const ApplicationForm: FC<Props> = ({
               </View>
             )}
           </View>
+        </View>
+      </View>
+      <View style={styles.rowData}>
+        <View style={styles.rowTitle}>
+          <Text style={styles.title}>Status</Text>
+        </View>
+        <View style={styles.rowContent}>
+          {!isEditMode ? (
+            <Chip
+              text={interview.status}
+              color={statusToColor[interview.status]}
+            />
+          ) : (
+            <View style={styles.fieldWrapper}>
+              <Dropdown
+                items={interviewStatus}
+                control={control}
+                errors={errors}
+                name="status"
+                placeholder="Select status"
+              />
+            </View>
+          )}
         </View>
       </View>
       {isEditMode && (
