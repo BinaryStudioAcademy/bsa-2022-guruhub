@@ -38,6 +38,7 @@ export {
   interviewGetInterviewersByCategory,
   interviewUpdate,
   interviewUpdateParams,
+  interviewUpdateWithoutInterviewer,
 } from './interview/interview';
 export {
   interviewNotesCreateArguments,

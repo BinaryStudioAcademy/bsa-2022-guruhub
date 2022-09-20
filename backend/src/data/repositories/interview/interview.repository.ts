@@ -1,4 +1,4 @@
-import { InterviewStatus } from '~/common/enums/enums';
+import { InterviewStatus, SortOrder } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -9,6 +9,8 @@ import {
   InterviewsGetInterviewerResponseDto,
   InterviewsGetOtherItemResponseDto,
   InterviewsGetOtherRequestArgumentsDto,
+  InterviewsUpdateRequestDto,
+  InterviewsUpdateWithoutInterviewerRequestDto,
 } from '~/common/types/types';
 import { Interview as InterviewM } from '~/data/models/models';
 
@@ -37,6 +39,7 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
+      .orderBy('id', SortOrder.ASC)
       .offset(elementsToSkip)
       .limit(count)
       .castTo<InterviewsGetAllItemResponseDto[]>();
@@ -182,18 +185,30 @@ class Interview {
     return Boolean(menteeToMentor);
   }
 
-  public update(interview: {
-    id: number;
-    interviewerUserId: number | null;
-    status: InterviewStatus;
-    interviewDate: string | null;
-  }): Promise<InterviewsByIdResponseDto> {
-    const { id, interviewerUserId, status, interviewDate } = interview;
+  public async checkIsInterviewerOnInterview(interview: {
+    interviewId: number;
+    interviewerUserId: number;
+  }): Promise<boolean> {
+    const { interviewId, interviewerUserId } = interview;
+    const menteeToMentor = await this.#InterviewModel
+      .query()
+      .select(Interview.RECORD_EXISTS_CHECK)
+      .where({ id: interviewId, interviewerUserId })
+      .first();
 
+    return Boolean(menteeToMentor);
+  }
+
+  public update(
+    id: number,
+    interviewUpdateInfoRequestDto:
+      | InterviewsUpdateRequestDto
+      | InterviewsUpdateWithoutInterviewerRequestDto,
+  ): Promise<InterviewsByIdResponseDto> {
     return this.#InterviewModel
       .query()
       .select()
-      .patchAndFetchById(id, { interviewerUserId, status, interviewDate })
+      .patchAndFetchById(id, interviewUpdateInfoRequestDto)
       .withGraphFetched(
         '[courseCategory, interviewee(withoutPassword).[userDetails(withoutMoneyBalance)], interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]]',
       )
@@ -222,6 +237,7 @@ class Interview {
       .withGraphJoined(
         'interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]',
       )
+      .orderBy('id', SortOrder.ASC)
       .limit(count)
       .offset(ELEMENTS_TO_SKIP)
       .castTo<InterviewsGetOtherItemResponseDto[]>();

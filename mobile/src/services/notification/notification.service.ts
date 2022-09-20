@@ -9,7 +9,7 @@ class Notification {
     this.showNotification({
       type: NotificationType.ERROR,
       title: 'Error',
-      message,
+      message: message ?? 'Unknown error occurred.',
     });
   }
 
@@ -17,7 +17,7 @@ class Notification {
     this.showNotification({
       type: NotificationType.INFO,
       title: 'Information',
-      message,
+      message: message ?? 'Message is missing.',
     });
   }
 
@@ -25,7 +25,7 @@ class Notification {
     this.showNotification({
       type: NotificationType.SUCCESS,
       title: 'Success',
-      message,
+      message: message ?? 'Request completed successfully.',
     });
   }
 
