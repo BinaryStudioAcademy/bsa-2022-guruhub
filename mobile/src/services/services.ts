@@ -4,6 +4,7 @@ import { ENV } from '~/common/enums/enums';
 import { MentorsApi } from '~/services/mentors-api/mentors-api.service';
 
 import { AuthApi } from './auth-api/auth-api.service';
+import { BillingApi } from './billing-api/billing-api.service';
 import { CategoriesApi } from './categories-api/categories-api.service';
 import { ChatApi } from './chat-api/chat-api.service';
 import { CourseModulesApi } from './course-modules-api/course-modules-api.service';
@@ -83,8 +84,14 @@ const chatApi = new ChatApi({
   http,
 });
 
+const billingApi = new BillingApi({
+  apiPrefix: ENV.APP.API_PATH,
+  http,
+});
+
 export {
   authApi,
+  billingApi,
   categoriesApi,
   chatApi,
   courseModulesApi,
