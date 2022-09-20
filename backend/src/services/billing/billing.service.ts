@@ -98,7 +98,7 @@ class Billing {
 
     if (menteeBalance < priceOfStudying) {
       const requiredBalance = ` You need to add $${Math.round(
-        priceOfStudying,
+        priceOfStudying - menteeBalance,
       )} to your balance.`;
 
       throw new BillingError({
