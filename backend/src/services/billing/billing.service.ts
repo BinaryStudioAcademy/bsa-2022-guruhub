@@ -9,6 +9,8 @@ import {
   BillingApiVersion,
   BillingInitHoldStudentPaymentArgumentsDto,
   BillingReplenishArgumentsDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   StripeReplenishArgumentsDto,
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
@@ -88,8 +90,9 @@ class Billing {
 
   public getByUserIdTransactions(
     userId: number,
-  ): Promise<TransactionGetAllItemResponseDto[]> {
-    return this.#transactionService.getByUserIdTransactions(userId);
+    pagination: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {
+    return this.#transactionService.getByUserIdTransactions(userId, pagination);
   }
 
   public async initHoldStudentPayment({

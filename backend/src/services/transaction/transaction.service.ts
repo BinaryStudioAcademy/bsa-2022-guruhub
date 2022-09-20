@@ -1,4 +1,6 @@
 import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
   TransactionUpdateStatusDto,
@@ -32,8 +34,14 @@ class Transaction {
 
   public getByUserIdTransactions(
     userId: number,
-  ): Promise<TransactionGetAllItemResponseDto[]> {
-    return this.#transactionRepository.getByUserIdTransactions(userId);
+    { count, page }: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {
+    const zeroIndexPage = page - 1;
+
+    return this.#transactionRepository.getByUserIdTransactions(userId, {
+      count,
+      page: zeroIndexPage,
+    });
   }
 
   public create(

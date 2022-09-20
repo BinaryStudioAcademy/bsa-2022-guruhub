@@ -1,0 +1,18 @@
+.status {
+  display: inline-block;
+  width: 100%;
+  max-width: 150px;
+  height: fit-content;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+  text-transform: capitalize;
+  border-radius: 15px;
+}
+
+.income {
+  background-color: var(--brand-yellow-300);
+}
+
+.spending {
+  background-color: var(--brand-red-100);
+}

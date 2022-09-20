@@ -1,5 +1,9 @@
+import { Page } from 'objection';
+
 import { SortOrder, TransactionStatus } from '~/common/enums/enums';
 import {
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
   TransactionUpdateStatusDto,
@@ -29,10 +33,13 @@ class Transaction {
       .execute();
   }
 
-  public getByUserIdTransactions(
+  public async getByUserIdTransactions(
     userId: number,
-  ): Promise<TransactionGetAllItemResponseDto[]> {
-    return this.#TransactionModel
+    pagination: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {
+    const { count, page } = pagination;
+
+    const { results, total } = await this.#TransactionModel
       .query()
       .where('senderId', userId)
       .orWhere('receiverId', userId)
@@ -40,8 +47,14 @@ class Transaction {
         '[sender(withoutPassword).[userDetails], receiver(withoutPassword).[userDetails]]',
       )
       .orderBy('createdAt', SortOrder.DESC)
-      .castTo<TransactionGetAllItemResponseDto[]>()
+      .page(page, count)
+      .castTo<Page<TransactionM & TransactionGetAllItemResponseDto>>()
       .execute();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public getHoldBySenderAndReceiverId(

@@ -1,7 +1,15 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { BillingApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
-import { BillingReplenishParamsDto } from '~/common/types/types';
+import {
+  BillingApiPath,
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import {
+  BillingReplenishParamsDto,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import {
   billing as billingService,
   user as userService,
@@ -32,11 +40,24 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: BillingApiPath.TRANSACTIONS,
-    async handler(req, rep) {
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
       const { id } = req.user;
-      const userTransactions = await billingService.getByUserIdTransactions(id);
+      const {
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+      const userTransactions = await billingService.getByUserIdTransactions(
+        id,
+        {
+          count,
+          page,
+        },
+      );
 
-      return rep.status(HttpCode.OK).send(userTransactions);
+      return res.status(HttpCode.OK).send(userTransactions);
     },
   });
 

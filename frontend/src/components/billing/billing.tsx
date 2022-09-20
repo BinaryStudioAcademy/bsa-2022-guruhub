@@ -1,22 +1,49 @@
-import { DataStatus } from 'common/enums/enums';
-import { FC, Token } from 'common/types/types';
+import { DataStatus, PaginationDefaultValue } from 'common/enums/enums';
+import { FC, Token, UserWithPermissions } from 'common/types/types';
 import { Button, Spinner } from 'components/common/common';
-import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEffect,
+  usePagination,
+} from 'hooks/hooks';
 import { billingActions } from 'store/actions';
 
-import { DEFAULT_REPLENISH_AMOUNTS, REPLENISH_PUBLIC_KEY } from './common';
-import { ReplenishCardsList } from './components/components';
+import {
+  DEFAULT_REPLENISH_AMOUNTS,
+  REPLENISH_PUBLIC_KEY,
+} from './common/common';
+import { ReplenishCardsList, TransactionsTable } from './components/components';
 import styles from './styles.module.scss';
 
 const Billing: FC = () => {
-  const { billingDataStatus, userMoneyBalance } = useAppSelector(
-    ({ billing }) => ({
-      billingDataStatus: billing.dataStatus,
-      userMoneyBalance: billing.userMoneyBalance,
-    }),
-  );
+  const {
+    billingDataStatus,
+    userMoneyBalance,
+    transactions,
+    totalTransactionsNumber,
+    user,
+  } = useAppSelector(({ billing, auth }) => ({
+    billingDataStatus: billing.dataStatus,
+    userMoneyBalance: billing.userMoneyBalance,
+    transactions: billing.transactions,
+    totalTransactionsNumber: billing.totalTransactionsNumber,
+    user: auth.user,
+  }));
+  const { page, handlePageChange } = usePagination({
+    queryName: 'billingsPage',
+  });
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      billingActions.getUserTransactions({
+        page,
+        count: PaginationDefaultValue.DEFAULT_COUNT,
+      }),
+    );
+  }, [page]);
 
   useEffect(() => {
     dispatch(billingActions.getUserWithMoneyBalance());
@@ -55,6 +82,13 @@ const Billing: FC = () => {
         replenishKey={REPLENISH_PUBLIC_KEY}
         replenishingPricesDtos={DEFAULT_REPLENISH_AMOUNTS}
         onReplenish={handleReplenish}
+      />
+      <TransactionsTable
+        transactions={transactions}
+        page={page}
+        handlePageChange={handlePageChange}
+        totalTransactionsNumber={totalTransactionsNumber}
+        userId={(user as UserWithPermissions).id}
       />
     </div>
   );
