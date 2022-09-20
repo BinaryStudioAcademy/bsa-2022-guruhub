@@ -22,7 +22,7 @@ import styles from './styles.module.scss';
 const CourseModule: FC = () => {
   const { courseId, moduleId, studentId } = useParams();
   const isMentorView = Boolean(studentId);
-  const { dataStatus, courseModule, notes, task, isMentor, user } =
+  const { dataStatus, courseModule, notes, task, isMentor, user, hasMentor } =
     useAppSelector((state) => ({
       dataStatus: state.courseModule.dataStatus,
       courseModule: state.courseModule.courseModule,
@@ -30,6 +30,7 @@ const CourseModule: FC = () => {
       task: state.courseModule.task,
       isMentor: state.courseModule.isMentor,
       user: state.auth.user,
+      hasMentor: state.courseModule.hasMentor,
     }));
   const dispatch = useAppDispatch();
 
@@ -44,6 +45,7 @@ const CourseModule: FC = () => {
 
   useEffect(() => {
     dispatch(courseModuleActions.checkIsMentor(Number(courseId)));
+    dispatch(courseModuleActions.checkHasMentor(Number(courseId)));
   }, [courseId]);
 
   useEffect(() => {
@@ -114,7 +116,8 @@ const CourseModule: FC = () => {
         courseId: courseId as string,
       });
 
-  const canSeeTaskAbsencePlaceholder = !task && !isMentorView && !isMentor;
+  const canSeeTaskAbsencePlaceholder =
+    !task && !isMentorView && !isMentor && hasMentor;
 
   const canManipulateTask =
     user && task && task.status !== TaskStatus.COMPLETED;
