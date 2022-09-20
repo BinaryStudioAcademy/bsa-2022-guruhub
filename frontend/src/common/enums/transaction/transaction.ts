@@ -1,1 +1,4 @@
-export { TransactionStatus } from 'guruhub-shared/common/enums/enums';
+export {
+  TransactionStatus,
+  TransactionType,
+} from 'guruhub-shared/common/enums/enums';

@@ -14,7 +14,10 @@ import {
   billing as billingService,
   user as userService,
 } from '~/services/services';
-import { billingReplenishParams as billingReplenishParamsValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  billingReplenishParams as billingReplenishParamsValidationSchema,
+  pagination as paginationValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -40,6 +43,7 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: BillingApiPath.TRANSACTIONS,
+    schema: { querystring: paginationValidationSchema },
     async handler(
       req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
       res,

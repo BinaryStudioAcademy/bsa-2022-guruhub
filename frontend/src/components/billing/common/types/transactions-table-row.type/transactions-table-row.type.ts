@@ -1,7 +1,7 @@
-import { TransactionStatus } from 'common/enums/enums';
+import { TransactionStatus, TransactionType } from 'common/enums/enums';
 
 type TransactionsTableRow = {
-  type: 'Spending' | 'Income';
+  type: TransactionType;
   price: number;
   status: TransactionStatus;
   date: string;

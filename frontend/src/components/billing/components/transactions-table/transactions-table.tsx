@@ -30,10 +30,9 @@ const TransactionsTable: FC<Props> = ({
     return getTransactionsColumns();
   }, []);
 
-  const data: TransactionsTableRow[] = getTransactionsRows(
-    transactions,
-    userId,
-  );
+  const data = useMemo<TransactionsTableRow[]>(() => {
+    return getTransactionsRows(transactions, userId);
+  }, [transactions, userId]);
 
   return (
     <div className={styles.table}>
