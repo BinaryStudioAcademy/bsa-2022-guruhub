@@ -33,7 +33,7 @@ const useCourseSearch = (): UseCourseSearchResult => {
         title,
         categoryKey: category,
         page: PaginationDefaultValue.DEFAULT_PAGE,
-        count: PaginationDefaultValue.DEFAULT_COUNT_BY_8,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_20,
       }),
     );
   };
