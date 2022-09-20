@@ -27,7 +27,7 @@ const StudentsCountCell: FC<
 
   return (
     <div className={styles.container}>
-      <form onBlur={handleSubmit(onEdit)}>
+      <form className={styles.form} onBlur={handleSubmit(onEdit)}>
         <Input
           control={control}
           errors={errors}
