@@ -93,7 +93,7 @@ const Header: FC = () => {
                     <Icon
                       name={isMenuPopupVisible ? 'caretUp' : 'caretDown'}
                       className={styles.caretIcon}
-                    ></Icon>
+                    />
                   </div>
                 </button>
               </div>
