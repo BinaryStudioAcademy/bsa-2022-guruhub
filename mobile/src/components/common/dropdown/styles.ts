@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: AppColor.BACKGROUND.GRAY_300,
   },
-  dropDownLabel: {
+  textStyle: {
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 15,
     lineHeight: 24,
@@ -30,18 +30,29 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
   },
-  dropDownContainerStyle: {
-    backgroundColor: 'white',
-    height: 100,
-  },
-  listParentContainerStyle: {
-    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+  modalContentContainerStyle: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   searchContainerStyle: {
-    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   searchTextInputStyle: {
+    fontFamily: AppFontFamily.INTER_600,
+    fontSize: 15,
+    lineHeight: 24,
     color: AppColor.TEXT.GRAY_100,
+    paddingHorizontal: 15,
+    backgroundColor: AppColor.BACKGROUND.GRAY_300,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: AppColor.BACKGROUND.GRAY_300,
+  },
+  listItemContainerStyle: {
+    backgroundColor: AppColor.BACKGROUND.GRAY_400,
+    paddingHorizontal: 15,
+  },
+  listItemLabelStyle: {
+    fontFamily: AppFontFamily.INTER_500,
   },
   error: {
     fontFamily: AppFontFamily.INTER_600,

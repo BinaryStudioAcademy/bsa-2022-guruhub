@@ -82,6 +82,7 @@ export {
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
+  type InterviewsUpdateWithoutInterviewerRequestDto,
 } from './interview/interview';
 export {
   type InterviewNoteCreateRequestDto,

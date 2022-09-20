@@ -18,6 +18,7 @@ import {
   InterviewsGetInterviewersByCategoryRequestDto,
   InterviewsUpdateRequestDto,
   InterviewsUpdateRequestParamsDto,
+  InterviewsUpdateWithoutInterviewerRequestDto,
 } from '~/common/types/types';
 import { checkHasPermissions } from '~/hooks/hooks';
 import { interview as interviewService } from '~/services/services';
@@ -31,6 +32,7 @@ import {
   interviewNotesGetAllParams as interviewNotesGetAllParamsValidationSchema,
   interviewUpdate as interviewUpdateValidationSchema,
   interviewUpdateParams as interviewUpdateParamsValidationSchema,
+  interviewUpdateWithoutInterviewer as interviewUpdateWithoutInterviewerValidationSchema,
   pagination as paginationValidationSchema,
 } from '~/validation-schemas/validation-schemas';
 
@@ -98,11 +100,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       body: interviewUpdateValidationSchema,
       params: interviewUpdateParamsValidationSchema,
     },
-    preHandler: checkHasPermissions(
-      'oneOf',
-      PermissionKey.MANAGE_INTERVIEWS,
-      PermissionKey.MANAGE_INTERVIEW,
-    ),
+    preHandler: checkHasPermissions('oneOf', PermissionKey.MANAGE_INTERVIEWS),
     async handler(
       req: FastifyRequest<{
         Body: InterviewsUpdateRequestDto;
@@ -114,6 +112,34 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
         id: req.params.id,
         interviewUpdateInfoRequestDto: req.body,
         user: req.user,
+      });
+
+      return rep.status(HttpCode.OK).send(interview);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.PUT,
+    url: InterviewsApiPath.$ID_UPDATE_WITHOUT_INTERVIEWER,
+    schema: {
+      body: interviewUpdateWithoutInterviewerValidationSchema,
+      params: interviewUpdateParamsValidationSchema,
+    },
+    preHandler: checkHasPermissions(
+      'oneOf',
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
+    ),
+    async handler(
+      req: FastifyRequest<{
+        Body: InterviewsUpdateWithoutInterviewerRequestDto;
+        Params: InterviewsUpdateRequestParamsDto;
+      }>,
+      rep,
+    ) {
+      const interview = await interviewService.updateWithoutInterviewer({
+        id: req.params.id,
+        interviewUpdateInfoRequestDto: req.body,
       });
 
       return rep.status(HttpCode.OK).send(interview);
