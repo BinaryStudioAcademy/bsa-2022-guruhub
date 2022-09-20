@@ -1,0 +1,26 @@
+put:
+  summary: Update interview without interviewer
+  tags:
+    - interviews
+  parameters:
+    - in: path
+      name: ID
+      schema:
+        type: integer
+      required: true
+      description: interview unique ID
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/interviews/interview-update-without-interviewer-request-dto.yaml'
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/interviews/interview-response-dto.yaml'
+
+  security:
+    - bearerAuth: []
