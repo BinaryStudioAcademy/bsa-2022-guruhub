@@ -18,6 +18,7 @@ enum CoursesApiPath {
   MENTORING = '/mentoring',
   STUDYING = '/studying',
   $ID_MENTEES_$ID_IS_MENTOR_CHECK = '/:courseId/mentees/:menteeId/is-mentor-check',
+  POPULAR = '/popular',
 }
 
 export { CoursesApiPath };

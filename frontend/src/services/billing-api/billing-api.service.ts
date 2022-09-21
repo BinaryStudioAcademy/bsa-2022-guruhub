@@ -1,6 +1,11 @@
 import { BillingApiPath } from 'common/enums/api/api';
 import { ApiPath, ContentType, HttpMethod } from 'common/enums/enums';
-import { BillingReplenishParamsDto } from 'common/types/types';
+import {
+  BillingReplenishParamsDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  TransactionGetAllItemResponseDto,
+} from 'common/types/types';
 import { Http } from 'services/http/http.service';
 
 type Constructor = {
@@ -23,6 +28,24 @@ class BillingApi {
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.BALANCE}`,
       {
         method: HttpMethod.GET,
+      },
+    );
+  }
+
+  public getUserTransactions({
+    page,
+    count,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<TransactionGetAllItemResponseDto>
+  > {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.TRANSACTIONS}`,
+      {
+        method: HttpMethod.GET,
+        queryString: {
+          page,
+          count,
+        },
       },
     );
   }

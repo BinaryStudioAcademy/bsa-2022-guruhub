@@ -1,12 +1,23 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { BillingApiPath, HttpCode, HttpMethod } from '~/common/enums/enums';
-import { BillingReplenishParamsDto } from '~/common/types/types';
+import {
+  BillingApiPath,
+  HttpCode,
+  HttpMethod,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import {
+  BillingReplenishParamsDto,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import {
   billing as billingService,
   user as userService,
 } from '~/services/services';
-import { billingReplenishParams as billingReplenishParamsValidationSchema } from '~/validation-schemas/validation-schemas';
+import {
+  billingReplenishParams as billingReplenishParamsValidationSchema,
+  pagination as paginationValidationSchema,
+} from '~/validation-schemas/validation-schemas';
 
 type Options = {
   services: {
@@ -26,6 +37,31 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       const userBalance = await userService.getByIdMoneyBalance(id);
 
       return rep.status(HttpCode.OK).send(userBalance);
+    },
+  });
+
+  fastify.route({
+    method: HttpMethod.GET,
+    url: BillingApiPath.TRANSACTIONS,
+    schema: { querystring: paginationValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const { id } = req.user;
+      const {
+        count = PaginationDefaultValue.DEFAULT_COUNT,
+        page = PaginationDefaultValue.DEFAULT_PAGE,
+      } = req.query;
+      const userTransactions = await billingService.getTransactionsByUserId(
+        id,
+        {
+          count,
+          page,
+        },
+      );
+
+      return res.status(HttpCode.OK).send(userTransactions);
     },
   });
 

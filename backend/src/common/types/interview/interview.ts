@@ -15,4 +15,5 @@ export {
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
+  type InterviewsUpdateWithoutInterviewerRequestDto,
 } from 'guruhub-shared/common/types/types';

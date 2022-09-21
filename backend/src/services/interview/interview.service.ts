@@ -19,11 +19,15 @@ import {
   InterviewsGetOtherRequestDto,
   InterviewsResponseDto,
   InterviewsUpdateRequestDto,
+  InterviewsUpdateWithoutInterviewerRequestDto,
   UserWithPermissions,
 } from '~/common/types/types';
 import { interview as interviewRep } from '~/data/repositories/repositories';
 import { InterviewsError } from '~/exceptions/exceptions';
-import { checkHasPermission } from '~/helpers/helpers';
+import {
+  checkHasPermission,
+  convertPageToZeroIndexed,
+} from '~/helpers/helpers';
 
 import { interviewNote as interviewNoteServ } from '../services';
 
@@ -53,7 +57,7 @@ class Interview {
       permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
       userPermissions: permissions,
     });
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
 
     if (!hasInterviewsPermission) {
       return this.getByUserId({
@@ -165,14 +169,20 @@ class Interview {
     return this.#interviewRepository.checkIsIntervieweeOnInterview(interview);
   }
 
+  public checkIsInterviewerOnInterview(interview: {
+    interviewId: number;
+    interviewerUserId: number;
+  }): Promise<boolean> {
+    return this.#interviewRepository.checkIsInterviewerOnInterview(interview);
+  }
+
   public async update(data: {
     id: number;
     user: UserWithPermissions;
     interviewUpdateInfoRequestDto: InterviewsUpdateRequestDto;
   }): Promise<InterviewsByIdResponseDto> {
     const { id, user, interviewUpdateInfoRequestDto } = data;
-    const { interviewerUserId, status, interviewDate } =
-      interviewUpdateInfoRequestDto;
+    const { status, interviewDate } = interviewUpdateInfoRequestDto;
 
     const isInterviewee = await this.checkIsIntervieweeOnInterview({
       interviewId: id,
@@ -186,14 +196,35 @@ class Interview {
       });
     }
 
-    const interview = await this.#interviewRepository.update({
-      id,
-      interviewerUserId,
-      status,
-      interviewDate,
+    const isInterviewer = await this.checkIsInterviewerOnInterview({
+      interviewId: id,
+      interviewerUserId: user.id,
     });
 
+    if (isInterviewer) {
+      const interview = await this.updateWithoutInterviewer({
+        id,
+        interviewUpdateInfoRequestDto: { status, interviewDate },
+      });
+
+      return interview;
+    }
+
+    const interview = await this.#interviewRepository.update(
+      id,
+      interviewUpdateInfoRequestDto,
+    );
+
     return interview;
+  }
+
+  public updateWithoutInterviewer(data: {
+    id: number;
+    interviewUpdateInfoRequestDto: InterviewsUpdateWithoutInterviewerRequestDto;
+  }): Promise<InterviewsByIdResponseDto> {
+    const { id, interviewUpdateInfoRequestDto } = data;
+
+    return this.#interviewRepository.update(id, interviewUpdateInfoRequestDto);
   }
 
   public getAllNotes(
@@ -224,7 +255,7 @@ class Interview {
     }
 
     const intervieweeUserId = interview.interviewee.id;
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
 
     return this.#interviewRepository.getOtherByInterviewId({
       interviewId,

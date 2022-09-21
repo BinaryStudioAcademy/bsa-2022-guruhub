@@ -33,7 +33,7 @@ export {
   type CourseCreateArgumentsDto,
   type CourseCreateRequestArgumentsDto,
   type CourseCreateRequestDto,
-  type CourseFilteringDto,
+  type CourseFilteringWithPaginationDto,
   type CourseGetByIdAndVendorKeyArgumentsDto,
   type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentoringDto,
@@ -106,6 +106,7 @@ export {
   type InterviewsResponseDto,
   type InterviewsUpdateRequestDto,
   type InterviewsUpdateRequestParamsDto,
+  type InterviewsUpdateWithoutInterviewerRequestDto,
 } from './interview/interview';
 export {
   type InterviewNoteCreateRequestArgumentsDto,

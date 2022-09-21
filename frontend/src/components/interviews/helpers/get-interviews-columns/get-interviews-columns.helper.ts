@@ -24,11 +24,11 @@ const getInterviewsColumns = (): Column<InterviewsTableRow>[] => {
       minWidth: 80,
     },
     {
-      Header: 'Telegram Contact',
+      Header: 'Telegram Username',
       accessor: InterviewsTableAccessor.TELEGRAM,
       Cell: TelegramCell,
-      width: 200,
-      minWidth: 180,
+      width: 220,
+      minWidth: 214,
     },
     {
       Header: 'Category',

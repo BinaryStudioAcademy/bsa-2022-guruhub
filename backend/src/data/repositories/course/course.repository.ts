@@ -26,18 +26,23 @@ class Course {
 
   private static CATEGORY_ID_COLUMN_NAME = 'course_category_id';
 
+  private static MAX_COUNT_POPULAR_COURSES = 10;
+
   public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
   }
 
-  public getAllWithCategories(filteringOpts: {
+  public async getAllWithCategories(filteringAndPaginationOpts: {
     categoryId: number | null;
     title: string;
-  }): Promise<CourseGetResponseDto[]> {
-    const { categoryId, title } = filteringOpts ?? {};
+    page: number;
+    count: number;
+  }): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { categoryId, title } = filteringAndPaginationOpts ?? {};
+    const { page, count } = filteringAndPaginationOpts;
     const normalizedTitle = title.replaceAll('\\', '\\\\');
 
-    return this.#CourseModel
+    const { results, total } = await this.#CourseModel
       .query()
       .select('*')
       .where((builder) => {
@@ -57,8 +62,14 @@ class Course {
       )
       .withGraphJoined('[vendor, category.[price]]')
       .orderBy('courses.createdAt', SortOrder.DESC)
-      .castTo<CourseGetResponseDto[]>()
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>()
       .execute();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public async getAll({
@@ -82,10 +93,11 @@ class Course {
     };
   }
 
-  public getAllCoursesStudying(
+  public async getAllCoursesStudying(
     userId: number,
-  ): Promise<CourseGetResponseDto[]> {
-    return this.#CourseModel
+    { count, page }: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { results, total } = await this.#CourseModel
       .query()
       .select(
         'courses.id',
@@ -101,8 +113,14 @@ class Course {
       .where('menteeId', userId)
       .whereNotNull('mentorId')
       .orderBy('id', SortOrder.ASC)
-      .castTo<CourseGetResponseDto[]>()
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>()
       .execute();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public async getAllCoursesMentoring(
@@ -270,6 +288,21 @@ class Course {
       .findById(courseId)
       .withGraphJoined('[vendor, category]')
       .castTo<CourseGetResponseDto>()
+      .execute();
+  }
+
+  public getPopular(): Promise<CourseGetResponseDto[]> {
+    return this.#CourseModel
+      .query()
+      .select(
+        '*',
+        this.#CourseModel.relatedQuery('mentees').count().as('menteesCount'),
+      )
+      .whereNotNull('category')
+      .orderBy('menteesCount', SortOrder.DESC)
+      .limit(Course.MAX_COUNT_POPULAR_COURSES)
+      .withGraphJoined('[category.[price], vendor]')
+      .castTo<CourseGetResponseDto[]>()
       .execute();
   }
 }
