@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { ButtonVariant, DataStatus, UamScreenName } from '~/common/enums/enums';
 import { ScrollView, Spinner, View } from '~/components/common/common';
-import { useAppNavigate, useAppSelector } from '~/hooks/hooks';
+import { useAppNavigate, useAppSelector, useEffect } from '~/hooks/hooks';
 
 import { Button } from '../common/common';
 import { GroupsTable } from './groups-table/groups-table';

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import defaultCourseImage from '~/assets/images/avatar-default.png';
-import { CourseScreenName } from '~/common/enums/enums';
+import { CourseTabsName } from '~/common/enums/enums';
 import { UserDetailsResponseDto } from '~/common/types/types';
 import { Image, Pressable, Text, View } from '~/components/common/common';
 import { getImageUri } from '~/helpers/helpers';
@@ -19,7 +19,7 @@ const StudentCard: FC<Props> = ({ mentee, onSelect }) => {
 
   const handleSelect = (): void => {
     onSelect(mentee.id);
-    navigation.navigate(CourseScreenName.ABOUT);
+    navigation.navigate(CourseTabsName.ABOUT);
   };
 
   return (

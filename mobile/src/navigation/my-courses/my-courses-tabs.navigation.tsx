@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 
 import { MyCoursesScreenName } from '~/common/enums/enums';
 import { MyCoursesNavigationParamList } from '~/common/types/types';
@@ -8,7 +8,7 @@ import {
   CoursesAsMentor,
   CoursesAsStudent,
 } from '~/components/my-courses/components/components';
-import { useAppNavigate, useFocusEffect } from '~/hooks/hooks';
+import { useAppNavigate, useCallback, useFocusEffect } from '~/hooks/hooks';
 
 import { TAB_OPTIONS } from './common/constants/constants';
 import { styles } from './styles';
