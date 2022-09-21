@@ -1,9 +1,9 @@
-import { UamScreenName } from '~/common/enums/enums';
+import { UAMScreenName } from '~/common/enums/enums';
 
-type UamNavigationParamList = {
-  [UamScreenName.UAM]: undefined;
-  [UamScreenName.UAM_GROUPS_CREATE]: undefined;
-  [UamScreenName.UAM_GROUPS_EDIT]: undefined;
+type UAMNavigationParamList = {
+  [UAMScreenName.UAM]: undefined;
+  [UAMScreenName.UAM_GROUPS_CREATE]: undefined;
+  [UAMScreenName.UAM_GROUPS_EDIT]: undefined;
 };
 
-export { type UamNavigationParamList };
+export { type UAMNavigationParamList };

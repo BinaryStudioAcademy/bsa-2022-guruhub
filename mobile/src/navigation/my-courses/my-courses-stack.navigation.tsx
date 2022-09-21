@@ -3,13 +3,13 @@ import React, { FC } from 'react';
 
 import { CoursesScreenName } from '~/common/enums/enums';
 import {
-  CoursesNavigationItem,
   CoursesNavigationParamList,
+  NavigationItem,
 } from '~/common/types/types';
 import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 
-import { COURSES_SCREENS, SCREEN_OPTIONS } from './common/constants/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const MyCourses: FC = () => {
   const NativeStack = createNativeStackNavigator<CoursesNavigationParamList>();
@@ -17,8 +17,8 @@ const MyCourses: FC = () => {
 
   const userPermissions = user?.permissions ?? [];
 
-  const allowedScreens: CoursesNavigationItem[] = useMemo(() => {
-    const screensByAuth = getScreensByAuth(COURSES_SCREENS, Boolean(user));
+  const allowedScreens: NavigationItem[] = useMemo(() => {
+    const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
 
     const permittedScreens = getPermittedScreens(
       screensByAuth,
@@ -39,7 +39,6 @@ const MyCourses: FC = () => {
             key={screen.name}
             name={screen.name as CoursesScreenName}
             component={screen.component}
-            options={screen.options}
           />
         );
       })}

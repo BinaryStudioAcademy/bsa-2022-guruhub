@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ButtonVariant, DataStatus, UamScreenName } from '~/common/enums/enums';
+import { ButtonVariant, DataStatus, UAMScreenName } from '~/common/enums/enums';
 import { ScrollView, Spinner, View } from '~/components/common/common';
 import { useAppNavigate, useAppSelector, useEffect } from '~/hooks/hooks';
 
@@ -19,7 +19,7 @@ const UAM: FC = () => {
   const areGroupsLoading = groupsDataStatus === DataStatus.PENDING;
 
   const handleGroupCreate = (): void => {
-    navigate.navigate(UamScreenName.UAM_GROUPS_CREATE);
+    navigate.navigate(UAMScreenName.UAM_GROUPS_CREATE);
   };
 
   useEffect(() => {

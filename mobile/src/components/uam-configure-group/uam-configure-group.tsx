@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   DataStatus,
   PaginationDefaultValue,
-  UamScreenName,
+  UAMScreenName,
 } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
@@ -50,7 +50,7 @@ const UAMConfigureGroup: FC = () => {
     (state) => state.uamGroupCreation,
   );
 
-  const isGroupEdit = name === UamScreenName.UAM_GROUPS_EDIT && group;
+  const isGroupEdit = name === UAMScreenName.UAM_GROUPS_EDIT && group;
   const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
@@ -114,14 +114,14 @@ const UAMConfigureGroup: FC = () => {
         }),
       ).unwrap();
     }
-    navigation.navigate(UamScreenName.UAM);
+    navigation.navigate(UAMScreenName.UAM);
   };
 
   const handleBack = async (): Promise<void> => {
     if (group) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
-    navigation.navigate(UamScreenName.UAM);
+    navigation.navigate(UAMScreenName.UAM);
   };
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import {
-  InterviewScreenName,
+  InterviewsScreenName,
   PaginationDefaultValue,
 } from '~/common/enums/enums';
 import {
@@ -47,7 +47,7 @@ const OtherApplications: FC<Props> = ({
     id: InterviewsUpdateRequestParamsDto,
   ): void => {
     dispatch(interviewActions.getInterview(id));
-    navigation.navigate(InterviewScreenName.INTERVIEW);
+    navigation.navigate(InterviewsScreenName.INTERVIEW);
   };
 
   const otherInterviewsColumns = getOtherInterviewsColumns();

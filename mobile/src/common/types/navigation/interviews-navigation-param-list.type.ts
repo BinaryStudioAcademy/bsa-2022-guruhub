@@ -1,8 +1,8 @@
-import { InterviewScreenName } from '~/common/enums/enums';
+import { InterviewsScreenName } from '~/common/enums/enums';
 
 type InterviewsNavigationParamList = {
-  [InterviewScreenName.INTERVIEW]: undefined;
-  [InterviewScreenName.INTERVIEWS]: undefined;
+  [InterviewsScreenName.INTERVIEW]: undefined;
+  [InterviewsScreenName.INTERVIEWS]: undefined;
 };
 
 export { type InterviewsNavigationParamList };

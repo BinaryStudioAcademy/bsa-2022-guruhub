@@ -4,7 +4,7 @@ import {
   CoursesManagementScreenName,
   PermissionKey,
 } from '~/common/enums/enums';
-import { CoursesNavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import { EditCourse } from '~/components/course/components/components';
 import { CoursesManagement } from '~/components/courses-management/courses-management';
 import { Course } from '~/navigation/course/course-stack.navigation';
@@ -14,7 +14,7 @@ const SCREEN_OPTIONS: NativeStackNavigationOptions = {
   headerShown: false,
 };
 
-const COURSES_MANAGEMENT_SCREENS: CoursesNavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: CoursesManagementScreenName.COURSE_MANAGEMENT,
     component: CoursesManagement,
@@ -35,4 +35,4 @@ const COURSES_MANAGEMENT_SCREENS: CoursesNavigationItem[] = [
   },
 ];
 
-export { COURSES_MANAGEMENT_SCREENS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

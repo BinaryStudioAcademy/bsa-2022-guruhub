@@ -91,18 +91,17 @@ export {
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
   type CoursesManagementNavigationParamList,
-  type CoursesNavigationItem,
   type CoursesNavigationParamList,
   type CourseTabNavigationParamList,
+  type InterviewNavigationParamList,
   type InterviewsNavigationParamList,
-  type InterviewTabNavigationParamList,
   type MyCoursesNavigationParamList,
   type NavigationItem,
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
   type TabNavigationItem,
-  type UamNavigationParamList,
+  type UAMNavigationParamList,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
 export {

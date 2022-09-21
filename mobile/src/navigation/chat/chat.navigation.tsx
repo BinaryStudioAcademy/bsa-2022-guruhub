@@ -5,7 +5,7 @@ import { ChatScreenName } from '~/common/enums/enums';
 import { ChatNavigationParamList } from '~/common/types/types';
 import { useAppNavigate, useCallback, useFocusEffect } from '~/hooks/hooks';
 
-import { CHAT_SCREENS, SCREEN_OPTIONS } from './common/constants/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const Chat: FC = () => {
   const NativeStack = createNativeStackNavigator<ChatNavigationParamList>();
@@ -21,13 +21,12 @@ const Chat: FC = () => {
 
   return (
     <NativeStack.Navigator screenOptions={SCREEN_OPTIONS}>
-      {CHAT_SCREENS.map((screen) => {
+      {NAVIGATION_ITEMS.map((screen) => {
         return (
           <NativeStack.Screen
             key={screen.name}
             name={screen.name as ChatScreenName}
             component={screen.component}
-            options={screen.options}
           />
         );
       })}

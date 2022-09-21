@@ -1,6 +1,6 @@
 enum InterviewScreenName {
-  INTERVIEW = 'Interview',
-  INTERVIEWS = 'Interviews',
+  APPLICATIONS = 'Applications',
+  NOTES = 'Notes',
 }
 
 export { InterviewScreenName };

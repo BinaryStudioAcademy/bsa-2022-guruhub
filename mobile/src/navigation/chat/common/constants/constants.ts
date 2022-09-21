@@ -1,7 +1,7 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
 import { ChatScreenName } from '~/common/enums/enums';
-import { CoursesNavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import { Chat } from '~/components/chat/chat';
 import { EmptyChats } from '~/components/chat/components/components';
 import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
@@ -11,7 +11,7 @@ const SCREEN_OPTIONS: NativeStackNavigationOptions = {
   headerShown: false,
 };
 
-const CHAT_SCREENS: CoursesNavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: ChatScreenName.CHAT,
     component: Chat,
@@ -32,4 +32,4 @@ const CHAT_SCREENS: CoursesNavigationItem[] = [
   },
 ];
 
-export { CHAT_SCREENS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

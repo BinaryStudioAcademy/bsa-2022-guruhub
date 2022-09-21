@@ -5,10 +5,10 @@ import {
   AppColor,
   AppFontFamily,
   InterviewScreenName,
-  InterviewTabScreenName,
+  InterviewsScreenName,
   PermissionKey,
 } from '~/common/enums/enums';
-import { CoursesNavigationItem, NavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import {
   Applications,
   Notes,
@@ -43,22 +43,22 @@ const TAB_OPTIONS: MaterialTopTabNavigationOptions = {
 
 const INTERVIEW_TAB_ITEMS: NavigationItem[] = [
   {
-    name: InterviewTabScreenName.APPLICATIONS,
+    name: InterviewScreenName.APPLICATIONS,
     component: Applications,
     permissions: [],
     isAuthRequired: true,
   },
   {
-    name: InterviewTabScreenName.NOTES,
+    name: InterviewScreenName.NOTES,
     component: Notes,
     permissions: [],
     isAuthRequired: true,
   },
 ];
 
-const INTERVIEW_SCREENS: CoursesNavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
-    name: InterviewScreenName.INTERVIEWS,
+    name: InterviewsScreenName.INTERVIEWS,
     component: Interviews,
     isAuthRequired: true,
     permissions: [
@@ -67,11 +67,11 @@ const INTERVIEW_SCREENS: CoursesNavigationItem[] = [
     ],
   },
   {
-    name: InterviewScreenName.INTERVIEW,
+    name: InterviewsScreenName.INTERVIEW,
     component: InterviewTabs,
     isAuthRequired: true,
     permissions: [],
   },
 ];
 
-export { INTERVIEW_SCREENS, INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS, TAB_OPTIONS };
+export { INTERVIEW_TAB_ITEMS, NAVIGATION_ITEMS, SCREEN_OPTIONS, TAB_OPTIONS };

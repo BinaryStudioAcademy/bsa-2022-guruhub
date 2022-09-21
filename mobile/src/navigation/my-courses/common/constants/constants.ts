@@ -6,7 +6,7 @@ import {
   AppFontFamily,
   MyCoursesScreenName,
 } from '~/common/enums/enums';
-import { CoursesNavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import { Course } from '~/navigation/course/course-stack.navigation';
 import { MyCoursesTabs } from '~/navigation/my-courses/my-courses-tabs.navigation';
 
@@ -34,7 +34,7 @@ const TAB_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const COURSES_SCREENS: CoursesNavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: MyCoursesScreenName.MY_COURSES,
     component: MyCoursesTabs,
@@ -49,4 +49,4 @@ const COURSES_SCREENS: CoursesNavigationItem[] = [
   },
 ];
 
-export { COURSES_SCREENS, SCREEN_OPTIONS, TAB_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS, TAB_OPTIONS };

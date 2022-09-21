@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { DataStatus, InterviewScreenName } from '~/common/enums/enums';
+import { DataStatus, InterviewsScreenName } from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsUpdateRequestParamsDto,
@@ -42,7 +42,7 @@ const Interviews: FC = () => {
     id: InterviewsUpdateRequestParamsDto,
   ): void => {
     dispatch(interviewActions.getInterview(id));
-    navigation.navigate(InterviewScreenName.INTERVIEW);
+    navigation.navigate(InterviewsScreenName.INTERVIEW);
   };
 
   const interviewsRows = interviews.map(

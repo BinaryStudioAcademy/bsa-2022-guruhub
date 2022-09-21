@@ -1,15 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
 
-import { InterviewScreenName } from '~/common/enums/enums';
+import { InterviewsScreenName } from '~/common/enums/enums';
 import {
-  CoursesNavigationItem,
   InterviewsNavigationParamList,
+  NavigationItem,
 } from '~/common/types/types';
 import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
 
-import { INTERVIEW_SCREENS, SCREEN_OPTIONS } from './common/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants';
 
 const Interviews: FC = () => {
   const NativeStack =
@@ -19,8 +19,8 @@ const Interviews: FC = () => {
 
   const userPermissions = user?.permissions ?? [];
 
-  const allowedScreens: CoursesNavigationItem[] = useMemo(() => {
-    const screensByAuth = getScreensByAuth(INTERVIEW_SCREENS, Boolean(user));
+  const allowedScreens: NavigationItem[] = useMemo(() => {
+    const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
 
     const permittedScreens = getPermittedScreens(
       screensByAuth,
@@ -36,9 +36,8 @@ const Interviews: FC = () => {
         return (
           <NativeStack.Screen
             key={screen.name}
-            name={screen.name as InterviewScreenName}
+            name={screen.name as InterviewsScreenName}
             component={screen.component}
-            options={screen.options}
           />
         );
       })}

@@ -7,7 +7,7 @@ import {
   CourseTabsName,
   PermissionKey,
 } from '~/common/enums/enums';
-import { CoursesNavigationItem } from '~/common/types/types';
+import { NavigationItem } from '~/common/types/types';
 import {
   CourseStudents,
   EditCourse,
@@ -37,7 +37,7 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const COURSE_TAB_ITEMS: CoursesNavigationItem[] = [
+const COURSE_TAB_ITEMS: NavigationItem[] = [
   {
     name: CourseTabsName.ABOUT,
     component: Course,
@@ -58,7 +58,7 @@ const COURSE_TAB_ITEMS: CoursesNavigationItem[] = [
   },
 ];
 
-const COURSE_SCREEN_ITEMS: CoursesNavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: CourseScreenName.COURSE,
     component: CourseTabs,
@@ -79,4 +79,4 @@ const COURSE_SCREEN_ITEMS: CoursesNavigationItem[] = [
   },
 ];
 
-export { COURSE_SCREEN_ITEMS, COURSE_TAB_ITEMS, SCREEN_OPTIONS };
+export { COURSE_TAB_ITEMS, NAVIGATION_ITEMS, SCREEN_OPTIONS };

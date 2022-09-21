@@ -27,10 +27,10 @@ export {
   CoursesScreenName,
   CourseTabsName,
   InterviewScreenName,
-  InterviewTabScreenName,
+  InterviewsScreenName,
   MyCoursesScreenName,
   RootScreenName,
-  UamScreenName,
+  UAMScreenName,
 } from './navigation/navigation';
 export {
   NotificationMessage,

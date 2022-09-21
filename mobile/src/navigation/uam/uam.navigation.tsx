@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
 
-import { UamScreenName } from '~/common/enums/enums';
-import { UamNavigationParamList } from '~/common/types/types';
+import { UAMScreenName } from '~/common/enums/enums';
+import { UAMNavigationParamList } from '~/common/types/types';
 import { useAppNavigate, useCallback, useFocusEffect } from '~/hooks/hooks';
 
-import { SCREEN_OPTIONS, UAM_SCREENS } from './common/constants/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const UAM: FC = () => {
-  const NativeStack = createNativeStackNavigator<UamNavigationParamList>();
+  const NativeStack = createNativeStackNavigator<UAMNavigationParamList>();
   const navigation = useAppNavigate();
 
   useFocusEffect(
@@ -21,13 +21,12 @@ const UAM: FC = () => {
 
   return (
     <NativeStack.Navigator screenOptions={SCREEN_OPTIONS}>
-      {UAM_SCREENS.map((screen) => {
+      {NAVIGATION_ITEMS.map((screen) => {
         return (
           <NativeStack.Screen
             key={screen.name}
-            name={screen.name as UamScreenName}
+            name={screen.name as UAMScreenName}
             component={screen.component}
-            options={screen.options}
           />
         );
       })}
