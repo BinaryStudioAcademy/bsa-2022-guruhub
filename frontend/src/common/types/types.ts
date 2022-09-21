@@ -123,6 +123,7 @@ export {
   type TaskNoteManipulateRequestBodyDto,
   type TaskNoteManipulateRequestDto,
 } from './task-note/task-note';
+export { type TransactionGetAllItemResponseDto } from './transaction/transaction';
 export {
   type CSSObjectWithLabel,
   type GroupBase,
