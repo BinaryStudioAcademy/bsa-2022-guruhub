@@ -28,18 +28,15 @@ const Conversation: FC<Props> = ({
   onPress,
 }) => {
   const messageStart = messageSenderId === currentUserId ? 'You: ' : '';
-  const messageRows = lastMessage && lastMessage.split('\n');
-  const messageEnd =
-    messageRows &&
-    (messageRows.length > 1 ||
-      messageRows[0].length > OPPONENT_MESSAGE_SHORT_LENGTH)
-      ? '...'
-      : '';
-
-  const messageShortView =
-    messageRows && `${messageRows[0].slice(0, OPPONENT_MESSAGE_SHORT_LENGTH)}`;
-
-  const chatLastMessage = `${messageStart}${messageShortView}${messageEnd}`;
+  const messageRows = lastMessage?.split('\n');
+  const messageFirstRow = messageRows?.length ? messageRows[0] : '';
+  const isMessageCut =
+    (messageRows && messageRows.length > 1) ||
+    messageFirstRow.length > OPPONENT_MESSAGE_SHORT_LENGTH;
+  const message = `${messageStart}${messageFirstRow.slice(
+    0,
+    OPPONENT_MESSAGE_SHORT_LENGTH,
+  )}${isMessageCut ? '...' : ''}`;
 
   const messageDate =
     lastMessageDate && getFormattedDate(lastMessageDate, 'HH:mm');
@@ -65,7 +62,7 @@ const Conversation: FC<Props> = ({
           {chatOpponent.userDetails.fullName}
         </Text>
         {lastMessageDate && (
-          <Text style={styles.opponentMessage}>{chatLastMessage}</Text>
+          <Text style={styles.opponentMessage}>{message}</Text>
         )}
       </View>
       {messageDate && <Text style={styles.date}>{messageDate}</Text>}
