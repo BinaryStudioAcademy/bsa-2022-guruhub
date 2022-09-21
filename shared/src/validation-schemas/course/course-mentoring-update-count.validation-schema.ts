@@ -15,6 +15,7 @@ const courseMentoringUpdateCount = Joi.object({
     .integer()
     .min(CourseValidationRule.STUDENTS_COUNT_MIN_NUMBER)
     .required()
+    .label('Students count')
     .messages({
       'number.min': CourseValidationMessage.INVALID_STUDENTS_COUNT_NUMBER,
     }),
