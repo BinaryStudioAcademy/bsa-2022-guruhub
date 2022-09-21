@@ -63,8 +63,7 @@ class Course {
       .withGraphJoined('[vendor, category.[price]]')
       .orderBy('courses.createdAt', SortOrder.DESC)
       .page(page, count)
-      .castTo<Page<CourseM & CourseGetResponseDto>>()
-      .execute();
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
 
     return {
       items: results,
