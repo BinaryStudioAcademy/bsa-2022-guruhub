@@ -11,12 +11,14 @@ type Props = {
 };
 
 const IdCell: FC<Props> = ({ id, onPress }) => {
+  const hitSlop = { top: 10, bottom: 10, left: 10, right: 10 };
+
   const handlePress = (): void => {
     onPress({ id });
   };
 
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable hitSlop={hitSlop} onPress={handlePress}>
       <Text style={styles.id}>{id.toString()}</Text>
     </Pressable>
   );

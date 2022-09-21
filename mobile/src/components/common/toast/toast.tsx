@@ -17,6 +17,7 @@ const toastConfig: ToastConfig = {
       style={styles.success}
       text1Style={styles.text1}
       text2Style={[styles.text2, styles.successText2]}
+      text2NumberOfLines={5}
     />
   ),
 
@@ -26,6 +27,7 @@ const toastConfig: ToastConfig = {
       style={styles.error}
       text1Style={styles.text1}
       text2Style={[styles.text2, styles.errorText2]}
+      text2NumberOfLines={5}
     />
   ),
 
@@ -35,6 +37,7 @@ const toastConfig: ToastConfig = {
       style={styles.info}
       text1Style={styles.text1}
       text2Style={[styles.text2, styles.infoText2]}
+      text2NumberOfLines={5}
     />
   ),
 };
