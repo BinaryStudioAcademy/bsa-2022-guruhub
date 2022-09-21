@@ -106,8 +106,12 @@ class Billing {
       rawPriceOfStudying * Billing.DEFAULT_STUDYING_PRICE_COEFFICIENT;
 
     if (menteeBalance < priceOfStudying) {
+      const requiredBalance = `You need to add $${Math.round(
+        priceOfStudying - menteeBalance,
+      )} to your balance.`;
+
       throw new BillingError({
-        message: ExceptionMessage.NOT_ENOUGH_FUNDS_TO_PAY_FOR_MENTORS_SERVICES,
+        message: `${ExceptionMessage.NOT_ENOUGH_FUNDS_TO_PAY_FOR_MENTORS_SERVICES} ${requiredBalance}`,
       });
     }
 

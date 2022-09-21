@@ -34,6 +34,7 @@ export { MenteesToMentorsStatus } from './mentees-to-mentors/mentees-to-mentors'
 export { MentorValidationMessage } from './mentor/mentor';
 export {
   PaginationDefaultValue,
+  PaginationValidationMessage,
   PaginationValidationRule,
 } from './pagination/pagination';
 export { PermissionKey } from './permissions/permissions';
