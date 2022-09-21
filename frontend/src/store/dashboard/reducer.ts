@@ -17,6 +17,7 @@ type State = {
   categories: CategoryGetAllItemResponseDto[];
   courses: CourseGetResponseDto[];
   popularCourses: CourseGetResponseDto[];
+  totalCoursesCount: number;
 };
 
 const initialState: State = {
@@ -24,6 +25,7 @@ const initialState: State = {
   categories: [],
   courses: [],
   popularCourses: [],
+  totalCoursesCount: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -32,8 +34,10 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses = payload;
+    state.courses = payload.items;
+    state.totalCoursesCount = payload.total;
   });
+
   builder.addCase(getCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });

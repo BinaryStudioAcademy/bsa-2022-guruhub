@@ -30,14 +30,17 @@ class Course {
     this.#CourseModel = CourseModel;
   }
 
-  public getAllWithCategories(filteringOpts: {
+  public async getAllWithCategories(filteringAndPaginationOpts: {
     categoryId: number | null;
     title: string;
-  }): Promise<CourseGetResponseDto[]> {
-    const { categoryId, title } = filteringOpts ?? {};
+    page: number;
+    count: number;
+  }): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { categoryId, title } = filteringAndPaginationOpts ?? {};
+    const { page, count } = filteringAndPaginationOpts;
     const normalizedTitle = title.replaceAll('\\', '\\\\');
 
-    return this.#CourseModel
+    const { results, total } = await this.#CourseModel
       .query()
       .select('*')
       .where((builder) => {
@@ -56,8 +59,13 @@ class Course {
         'courseCategories.id',
       )
       .withGraphJoined('[vendor, category.[price]]')
-      .castTo<CourseGetResponseDto[]>()
-      .execute();
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public async getAll({
@@ -79,10 +87,11 @@ class Course {
     };
   }
 
-  public getAllCoursesStudying(
+  public async getAllCoursesStudying(
     userId: number,
-  ): Promise<CourseGetResponseDto[]> {
-    return this.#CourseModel
+    { count, page }: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { results, total } = await this.#CourseModel
       .query()
       .select(
         'courses.id',
@@ -97,8 +106,14 @@ class Course {
       .withGraphJoined('[mentees, category.[price], vendor]')
       .where('menteeId', userId)
       .whereNotNull('mentorId')
-      .castTo<CourseGetResponseDto[]>()
+      .page(page, count)
+      .castTo<Page<CourseM & CourseGetResponseDto>>()
       .execute();
+
+    return {
+      items: results,
+      total,
+    };
   }
 
   public async getAllCoursesMentoring(

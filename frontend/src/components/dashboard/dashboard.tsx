@@ -1,4 +1,9 @@
-import { AppRoute, DataStatus } from 'common/enums/enums';
+import {
+  AppRoute,
+  DataStatus,
+  PaginationDefaultValue,
+  SearchValue,
+} from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import {
   Button,
@@ -11,6 +16,8 @@ import {
   useAppDispatch,
   useAppSelector,
   useEffect,
+  usePagination,
+  useSearchParams,
   useState,
 } from 'hooks/hooks';
 import { dashboardActions, userDetailsActions } from 'store/actions';
@@ -21,14 +28,33 @@ import styles from './styles.module.scss';
 
 const Dashboard: FC = () => {
   const dispatch = useAppDispatch();
-  const { user, categories, dataStatus, courses, popularCourses } =
-    useAppSelector((state) => ({
-      user: state.auth.user,
-      categories: state.dashboard.categories,
-      dataStatus: state.dashboard.dataStatus,
-      courses: state.dashboard.courses,
-      popularCourses: state.dashboard.popularCourses,
-    }));
+  const { handlePageChange } = usePagination({
+    queryName: 'page',
+  });
+
+  const [searchParams] = useSearchParams();
+
+  const title = searchParams.get(SearchValue.TITLE);
+  const category = searchParams.get(SearchValue.CATEGORY);
+  const pageFromParams = searchParams.get(SearchValue.PAGE)
+    ? Number(searchParams.get(SearchValue.PAGE))
+    : PaginationDefaultValue.DEFAULT_PAGE;
+
+  const {
+    user,
+    categories,
+    dataStatus,
+    courses,
+    totalCoursesCount,
+    popularCourses,
+  } = useAppSelector((state) => ({
+    user: state.auth.user,
+    categories: state.dashboard.categories,
+    dataStatus: state.dashboard.dataStatus,
+    courses: state.dashboard.courses,
+    popularCourses: state.dashboard.popularCourses,
+    totalCoursesCount: state.dashboard.totalCoursesCount,
+  }));
 
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
     useState<boolean>(false);
@@ -38,10 +64,20 @@ const Dashboard: FC = () => {
     if (user) {
       dispatch(userDetailsActions.getUserDetails());
     }
-    dispatch(dashboardActions.getCourses({ title: '', categoryKey: '' }));
     dispatch(dashboardActions.getPopularCourses());
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      dashboardActions.getCourses({
+        title: title ?? '',
+        categoryKey: category ?? '',
+        page: pageFromParams,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_20,
+      }),
+    );
+  }, [pageFromParams]);
 
   const handleNewCourseModalToggle = (): void => {
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
@@ -81,7 +117,13 @@ const Dashboard: FC = () => {
         {dataStatus === DataStatus.PENDING ? (
           <Spinner />
         ) : (
-          <CoursesList courses={courses} popularCourses={popularCourses} />
+          <CoursesList
+            courses={courses}
+            currentPage={pageFromParams}
+            onPageChange={handlePageChange}
+            pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_20}
+            totalCount={totalCoursesCount}
+          />
         )}
       </div>
     </div>

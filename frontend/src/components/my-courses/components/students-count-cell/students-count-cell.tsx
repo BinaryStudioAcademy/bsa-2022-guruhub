@@ -7,6 +7,7 @@ import {
 import { getNameOf } from 'helpers/helpers';
 import { useAppForm } from 'hooks/hooks';
 import { CellProps } from 'react-table';
+import { courseMentoringUpdateCount as courseMentoringUpdateCountValidationSchema } from 'validation-schemas/validation-schemas';
 
 import styles from './styles.module.scss';
 
@@ -19,11 +20,14 @@ const StudentsCountCell: FC<
         studentsCount: course.studentsCount,
         courseId: course.courseId,
       },
+      validationSchema: courseMentoringUpdateCountValidationSchema.options({
+        errors: { wrap: { label: false } },
+      }),
     });
 
   return (
     <div className={styles.container}>
-      <form onBlur={handleSubmit(onEdit)}>
+      <form className={styles.form} onBlur={handleSubmit(onEdit)}>
         <Input
           control={control}
           errors={errors}

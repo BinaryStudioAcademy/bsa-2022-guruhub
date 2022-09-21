@@ -18,7 +18,7 @@ export {
 export {
   type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCreateRequestDto,
-  type CourseFilteringDto,
+  type CourseFilteringWithPaginationDto,
   type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,

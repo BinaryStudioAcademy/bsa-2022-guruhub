@@ -11,7 +11,7 @@ import {
   CourseCheckIsMentorForMenteeRequestParamsDto,
   CourseCheckIsMentorRequestParamsDto,
   CourseCreateRequestDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetRequestParamsDto,
   CourseMentorsFilteringDto,
   CourseSelectMentorRequestDto,
@@ -57,15 +57,11 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
     },
     async handler(
       req: FastifyRequest<{
-        Querystring: CourseFilteringDto;
+        Querystring: CourseFilteringWithPaginationDto;
       }>,
       rep,
     ) {
-      const { categoryKey, title } = req.query;
-      const courses = await courseService.getAllWithCategories({
-        categoryKey,
-        title,
-      });
+      const courses = await courseService.getAllWithCategories(req.query);
 
       return rep.status(HttpCode.OK).send(courses);
     },
@@ -74,8 +70,15 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
   fastify.route({
     method: HttpMethod.GET,
     url: CoursesApiPath.STUDYING,
-    async handler(req, res) {
-      const courses = await courseService.getAllCoursesStudying(req.user.id);
+    schema: { querystring: paginationValidationSchema },
+    async handler(
+      req: FastifyRequest<{ Querystring: EntityPaginationRequestQueryDto }>,
+      res,
+    ) {
+      const courses = await courseService.getAllCoursesStudying(
+        req.user.id,
+        req.query,
+      );
 
       return res.status(HttpCode.OK).send(courses);
     },
@@ -128,7 +131,7 @@ const initCoursesApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
       res,
     ) {
       const {
-        count = PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        count = PaginationDefaultValue.DEFAULT_COUNT_BY_10,
         page = PaginationDefaultValue.DEFAULT_PAGE,
       } = req.query;
       const courseWithCategories = await courseService.getAll({

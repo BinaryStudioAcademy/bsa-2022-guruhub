@@ -18,12 +18,11 @@
   font-size: 24px;
 }
 
-.courseLink {
+.courseTitleContainer {
   display: flex;
   align-items: center;
   gap: 5px;
   color: var(--typography-text-gray-200);
-  text-decoration: none;
 }
 
 .courseLinkIconWrapper {

@@ -106,7 +106,19 @@ const checkIsMentorForMentee = createAsyncThunk<
   },
 );
 
+const checkHasMentor = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+  ActionType.CHECK_HAS_MENTOR,
+  async (courseId, { extra }) => {
+    const { coursesApi } = extra;
+
+    const hasMentor = await coursesApi.checkHasMentor({ courseId });
+
+    return hasMentor;
+  },
+);
+
 export {
+  checkHasMentor,
   checkIsMentor,
   checkIsMentorForMentee,
   createNote,
