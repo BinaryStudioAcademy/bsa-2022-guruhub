@@ -127,6 +127,11 @@ const Interview: FC = () => {
     setIsInputOpen((prev) => !prev);
   };
 
+  const hasPermissionToOtherApplications = checkHasPermission({
+    permissionKeys: [PermissionKey.MANAGE_INTERVIEWS],
+    userPermissions: (user as UserWithPermissions).permissions,
+  });
+
   if (dataStatus === DataStatus.PENDING) {
     return <Spinner />;
   }
@@ -157,6 +162,7 @@ const Interview: FC = () => {
           page={page}
           onPageChange={handlePageChange}
           totalOtherInterviewsNumber={totalOtherInterviewsNumber}
+          hasPermission={hasPermissionToOtherApplications}
         />
       </div>
       <HistorySection
