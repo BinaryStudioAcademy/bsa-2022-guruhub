@@ -23,6 +23,7 @@ export { ProtectedRoute } from './protected-route/protected-route';
 export { Select } from './select/select';
 export { Spinner } from './spinner/spinner';
 export { Table } from './table/table';
+export { Textarea } from './textarea/textarea';
 export { Toast } from './toast/toast';
 export { ErrorMessage } from '@hookform/error-message';
 export { Navigate, Route, Routes } from 'react-router-dom';

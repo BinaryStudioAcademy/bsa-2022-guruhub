@@ -17,6 +17,7 @@ type Props = {
 };
 
 const INITIAL_TEXT_AREA_ROWS = 1;
+const MAX_TEXT_AREA_ROWS = 8;
 
 const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
   const dispatch = useAppDispatch();
@@ -49,6 +50,7 @@ const MessageForm: FC<Props> = ({ chatId, chatOpponentId }) => {
         name={getNameOf<ChatMessageCreateRequestBodyDto>('message')}
         label="Chat message"
         rows={INITIAL_TEXT_AREA_ROWS}
+        maxRows={MAX_TEXT_AREA_ROWS}
         hasVisuallyHiddenLabel
       />
       <div className={styles.sendButtonWrapper}>

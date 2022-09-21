@@ -4,7 +4,7 @@ import {
   FormControlErrors,
   FormControlPath,
 } from 'common/types/types';
-import { ErrorMessage } from 'components/common/common';
+import { ErrorMessage, Textarea } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
 import { useFormControl } from 'hooks/hooks';
 
@@ -20,6 +20,7 @@ type Props = {
   hasVisuallyHiddenLabel?: boolean;
   inputClassName?: string;
   rows?: number;
+  maxRows?: number;
 };
 
 const Input: FC<Props> = ({
@@ -32,16 +33,18 @@ const Input: FC<Props> = ({
   hasVisuallyHiddenLabel = false,
   inputClassName = '',
   rows,
+  maxRows,
 }) => {
   const { field } = useFormControl({ name, control });
 
   const inputArea = rows ? (
-    <textarea
-      {...field}
+    <Textarea
+      field={field}
       name={name}
       placeholder={placeholder}
-      className={getValidClasses(styles.input, inputClassName)}
+      classes={getValidClasses(styles.input, inputClassName)}
       rows={rows}
+      maxRows={maxRows}
     />
   ) : (
     <input
