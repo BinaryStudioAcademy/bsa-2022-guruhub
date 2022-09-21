@@ -125,12 +125,15 @@ const CourseModule: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Link className={styles.courseLink} to={backRoute as AppRoute}>
-          <span className={styles.courseLinkIconWrapper}>
-            <Icon name="leftArrow" />
-          </span>
+        <div className={styles.courseTitleContainer}>
+          <Link className={styles.courseLink} to={backRoute as AppRoute}>
+            <span className={styles.courseLinkIconWrapper}>
+              <Icon name="leftArrow" />
+            </span>
+          </Link>
           {courseModule?.courseTitle}
-        </Link>
+        </div>
+
         <h1 className={styles.courseName}>{courseModule?.courseTitle}</h1>
         <div className={styles.moduleNameContainer}>
           <div className={styles.moduleNameContent}>
