@@ -14,7 +14,7 @@ import styles from './styles.module.scss';
 type Props = {
   transactions: TransactionGetAllItemResponseDto[];
   page: number;
-  handlePageChange: (newPage: number) => void;
+  onPageChange: (newPage: number) => void;
   userId: number;
   totalTransactionsNumber: number;
 };
@@ -22,7 +22,7 @@ type Props = {
 const TransactionsTable: FC<Props> = ({
   transactions,
   page,
-  handlePageChange,
+  onPageChange,
   userId,
   totalTransactionsNumber,
 }) => {
@@ -40,7 +40,7 @@ const TransactionsTable: FC<Props> = ({
         data={data}
         columns={columns}
         currentPage={page}
-        onPageChange={handlePageChange}
+        onPageChange={onPageChange}
         pageSize={PaginationDefaultValue.DEFAULT_COUNT}
         totalCount={totalTransactionsNumber}
       />

@@ -86,7 +86,7 @@ const Billing: FC = () => {
       <TransactionsTable
         transactions={transactions}
         page={page}
-        handlePageChange={handlePageChange}
+        onPageChange={handlePageChange}
         totalTransactionsNumber={totalTransactionsNumber}
         userId={(user as UserWithPermissions).id}
       />
