@@ -28,7 +28,9 @@ const Dashboard: FC = () => {
 
   const title = searchParams.get('title');
   const category = searchParams.get('category');
-  const pageFromParams = searchParams.get('page');
+  const pageFromParams = searchParams.get('page')
+    ? Number(searchParams.get('page'))
+    : PaginationDefaultValue.DEFAULT_PAGE;
 
   const { user, categories, dataStatus, courses, totalCoursesCount } =
     useAppSelector((state) => ({
@@ -55,9 +57,7 @@ const Dashboard: FC = () => {
       dashboardActions.getCourses({
         title: title ?? '',
         categoryKey: category ?? '',
-        page: pageFromParams
-          ? Number(pageFromParams)
-          : PaginationDefaultValue.DEFAULT_PAGE,
+        page: pageFromParams,
         count: PaginationDefaultValue.DEFAULT_COUNT_BY_20,
       }),
     );
@@ -92,11 +92,7 @@ const Dashboard: FC = () => {
       ) : (
         <CoursesList
           courses={courses}
-          currentPage={
-            pageFromParams
-              ? Number(pageFromParams)
-              : PaginationDefaultValue.DEFAULT_PAGE
-          }
+          currentPage={pageFromParams}
           onPageChange={handlePageChange}
           pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_20}
           totalCount={totalCoursesCount}

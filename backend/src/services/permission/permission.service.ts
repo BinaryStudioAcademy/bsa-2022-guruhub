@@ -5,7 +5,7 @@ import {
   PermissionsGetAllResponseDto,
 } from '~/common/types/types';
 import { permission as permissionRep } from '~/data/repositories/repositories';
-import { changePaginationPage } from '~/helpers/helpers';
+import { convertPageToZeroIndexed } from '~/helpers/helpers';
 
 type Constructor = {
   permissionRepository: typeof permissionRep;
@@ -24,7 +24,7 @@ class Permission {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<PermissionsGetAllItemResponseDto>
   > {
-    const zeroIndexPage = changePaginationPage(page);
+    const zeroIndexPage = convertPageToZeroIndexed(page);
     const permissions = await this.#permissionRepository.getAll({
       page: zeroIndexPage,
       count,
