@@ -9,6 +9,8 @@ import {
   BillingApiVersion,
   BillingInitHoldStudentPaymentArgumentsDto,
   BillingReplenishArgumentsDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
   StripeReplenishArgumentsDto,
   TransactionCreateArgumentsDto,
   TransactionGetAllItemResponseDto,
@@ -86,6 +88,13 @@ class Billing {
     );
   }
 
+  public getTransactionsByUserId(
+    userId: number,
+    pagination: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {
+    return this.#transactionService.getTransactionsByUserId(userId, pagination);
+  }
+
   public async initHoldStudentPayment({
     menteeId,
     mentorId,
@@ -97,8 +106,12 @@ class Billing {
       rawPriceOfStudying * Billing.DEFAULT_STUDYING_PRICE_COEFFICIENT;
 
     if (menteeBalance < priceOfStudying) {
+      const requiredBalance = `You need to add $${Math.round(
+        priceOfStudying - menteeBalance,
+      )} to your balance.`;
+
       throw new BillingError({
-        message: ExceptionMessage.NOT_ENOUGH_FUNDS_TO_PAY_FOR_MENTORS_SERVICES,
+        message: `${ExceptionMessage.NOT_ENOUGH_FUNDS_TO_PAY_FOR_MENTORS_SERVICES} ${requiredBalance}`,
       });
     }
 

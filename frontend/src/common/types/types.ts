@@ -3,6 +3,7 @@ export {
   type BillingReplenishParamsDto,
   type BillingWithdrawDto,
 } from './billing/billing';
+export { type CarouselResponsiveType } from './carousel/carousel';
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
@@ -17,7 +18,7 @@ export {
 export {
   type CourseCheckIsMentorForMenteeRequestParamsDto,
   type CourseCreateRequestDto,
-  type CourseFilteringDto,
+  type CourseFilteringWithPaginationDto,
   type CourseGetMenteesByMentorRequestDto,
   type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
@@ -123,6 +124,7 @@ export {
   type TaskNoteManipulateRequestBodyDto,
   type TaskNoteManipulateRequestDto,
 } from './task-note/task-note';
+export { type TransactionGetAllItemResponseDto } from './transaction/transaction';
 export {
   type CSSObjectWithLabel,
   type GroupBase,

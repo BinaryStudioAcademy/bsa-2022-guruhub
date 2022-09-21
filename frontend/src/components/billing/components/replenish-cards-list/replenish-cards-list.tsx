@@ -1,5 +1,5 @@
 import { FC } from 'common/types/types';
-import { ReplenishAmount } from 'components/billing/types/types';
+import { ReplenishAmount } from 'components/billing/common/types/types';
 import { Token } from 'react-stripe-checkout';
 
 import { ReplenishCard } from './components/components';

@@ -1,0 +1,27 @@
+get:
+  summary: Get Transactions
+  tags:
+    - billing
+  parameters:
+    - in: query
+      name: page
+      schema:
+        type: integer
+        minimum: 1
+      default: 1
+      required: false
+      description: The number of page to be returned
+    - in: query
+      name: count
+      schema:
+        type: integer
+        minimum: 1
+      default: 10
+      required: false
+      description: The number of transactions to be returned for request
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/billing/billing-get-all-transactions-response-dto.yaml'

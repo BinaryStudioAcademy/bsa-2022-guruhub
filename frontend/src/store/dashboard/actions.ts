@@ -4,24 +4,28 @@ import {
   AsyncThunkConfig,
   CategoryGetAllResponseDto,
   CourseCreateRequestDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetResponseDto,
+  EntityPagination,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
-  CourseGetResponseDto[],
-  CourseFilteringDto,
+  EntityPagination<CourseGetResponseDto>,
+  CourseFilteringWithPaginationDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
-  const { coursesApi } = extra;
-  const courses = await coursesApi.getAllWithCategories({
-    filtering: { title, categoryKey },
-  });
+>(
+  ActionType.GET_COURSES,
+  async ({ title, categoryKey, page, count }, { extra }) => {
+    const { coursesApi } = extra;
+    const courses = await coursesApi.getAllWithCategories({
+      filtering: { title, categoryKey, page, count },
+    });
 
-  return courses;
-});
+    return courses;
+  },
+);
 
 const getCategories = createAsyncThunk<
   CategoryGetAllResponseDto,
@@ -47,4 +51,16 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse, getCategories, getCourses };
+const getPopularCourses = createAsyncThunk<
+  CourseGetResponseDto[],
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_POPULAR_COURSES, async (_, { extra }) => {
+  const { coursesApi } = extra;
+
+  const popularCourses = await coursesApi.getPopular();
+
+  return popularCourses;
+});
+
+export { addCourse, getCategories, getCourses, getPopularCourses };

@@ -4,11 +4,28 @@ import {
   AsyncThunkConfig,
   BillingReplenishParamsDto,
   BillingWithdrawDto,
+  EntityPagination,
+  EntityPaginationRequestQueryDto,
+  TransactionGetAllItemResponseDto,
 } from 'common/types/types';
 
 import { ActionType } from './common';
 
 const MINIMAL_AMOUNT_OF_MONEY_TO_WITHDRAW = 1;
+
+const getUserTransactions = createAsyncThunk<
+  EntityPagination<TransactionGetAllItemResponseDto>,
+  EntityPaginationRequestQueryDto,
+  AsyncThunkConfig
+>(ActionType.GET_TRANSACTIONS, async ({ page, count }, { extra }) => {
+  const { billingApi } = extra;
+  const userTransactions = await billingApi.getUserTransactions({
+    page,
+    count,
+  });
+
+  return userTransactions;
+});
 
 const getUserWithMoneyBalance = createAsyncThunk<
   number,
@@ -58,4 +75,4 @@ const withdraw = createAsyncThunk<number, BillingWithdrawDto, AsyncThunkConfig>(
   },
 );
 
-export { getUserWithMoneyBalance, replenish, withdraw };
+export { getUserTransactions, getUserWithMoneyBalance, replenish, withdraw };

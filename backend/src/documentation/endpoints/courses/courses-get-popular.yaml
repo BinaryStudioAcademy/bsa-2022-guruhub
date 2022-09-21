@@ -1,0 +1,10 @@
+get:
+  summary: Get the most popular courses
+  tags:
+    - courses
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/courses/courses-get-popular.yaml'
