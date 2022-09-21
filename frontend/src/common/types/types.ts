@@ -3,6 +3,7 @@ export {
   type BillingReplenishParamsDto,
   type BillingWithdrawDto,
 } from './billing/billing';
+export { type CarouselResponsiveType } from './carousel/carousel';
 export {
   type ChatMessageCreateRequestBodyDto,
   type ChatMessageFilteringDto,
