@@ -2,8 +2,18 @@
   display: flex;
   align-items: baseline;
   gap: 10px;
+  width: 100%;
+}
+
+.container .form {
+  width: 100%;
+  max-width: 280px;
 }
 
 .inputStyled {
   border: 1px solid var(--brand-blue-100);
+}
+
+.container label {
+  gap: 0;
 }

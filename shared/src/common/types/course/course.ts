@@ -2,6 +2,7 @@ export { type CourseCheckIsMentorForMenteeRequestParamsDto } from './course-chec
 export { type CourseCheckIsMentorRequestParamsDto } from './course-check-is-mentor-request-params-dto.type';
 export { type CourseCreateRequestDto } from './course-create-request-dto.type';
 export { type CourseFilteringDto } from './course-filtering-dto.type';
+export { type CourseFilteringWithPaginationDto } from './course-filtering-with-pagination-dto.type';
 export { type CourseGetMenteesByMentorRequestDto } from './course-get-mentees-by-mentor-request-dto.type';
 export { type CourseGetMentoringDto } from './course-get-mentoring-dto.type';
 export { type CourseGetMentorsRequestDto } from './course-get-mentors-request-dto.type';

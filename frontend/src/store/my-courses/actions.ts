@@ -12,12 +12,15 @@ import {
 import { ActionType } from './common';
 
 const getCoursesStudying = createAsyncThunk<
-  CourseGetResponseDto[],
-  void,
+  EntityPagination<CourseGetResponseDto>,
+  EntityPaginationRequestQueryDto,
   AsyncThunkConfig
->(ActionType.GET_STUDYING_COURSES, async (_, { extra }) => {
+>(ActionType.GET_STUDYING_COURSES, async ({ count, page }, { extra }) => {
   const { coursesApi } = extra;
-  const coursesStudying = await coursesApi.getAllCoursesStudying();
+  const coursesStudying = await coursesApi.getAllCoursesStudying({
+    count,
+    page,
+  });
 
   return coursesStudying;
 });

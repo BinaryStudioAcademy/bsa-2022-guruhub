@@ -11,6 +11,7 @@ import {
 } from '~/common/types/types';
 import { user as userRep } from '~/data/repositories/repositories';
 import { UsersError } from '~/exceptions/exceptions';
+import { convertPageToZeroIndexed } from '~/helpers/helpers';
 import { Encrypt } from '~/services/encrypt/encrypt.service';
 import {
   coursesToMentors as coursesToMentorsServ,
@@ -63,7 +64,7 @@ class User {
   }: EntityPaginationRequestQueryDto): Promise<
     EntityPagination<UsersGetResponseDto>
   > {
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
     const result = await this.#userRepository.getAll({
       page: zeroIndexPage,
       count,

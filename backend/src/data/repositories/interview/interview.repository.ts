@@ -1,4 +1,4 @@
-import { InterviewStatus } from '~/common/enums/enums';
+import { InterviewStatus, SortOrder } from '~/common/enums/enums';
 import {
   EntityPagination,
   EntityPaginationRequestQueryDto,
@@ -39,6 +39,7 @@ class Interview {
       .withGraphJoined(
         '[courseCategory, interviewee(withoutPassword).[userDetails], interviewer(withoutPassword).[userDetails]]',
       )
+      .orderBy('id', SortOrder.ASC)
       .offset(elementsToSkip)
       .limit(count)
       .castTo<InterviewsGetAllItemResponseDto[]>();
@@ -236,6 +237,7 @@ class Interview {
       .withGraphJoined(
         'interviewer(withoutPassword).[userDetails(withoutMoneyBalance)]',
       )
+      .orderBy('id', SortOrder.ASC)
       .limit(count)
       .offset(ELEMENTS_TO_SKIP)
       .castTo<InterviewsGetOtherItemResponseDto[]>();

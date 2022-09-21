@@ -65,7 +65,10 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
           rows={rowsCount}
         />
       </View>
-      <SendButton onPress={handleSubmit(handleSend)} isDisabled={isButtonDisabled} />
+      <SendButton
+        onPress={handleSubmit(handleSend)}
+        isDisabled={isButtonDisabled}
+      />
     </View>
   );
 };
