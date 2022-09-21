@@ -21,9 +21,6 @@ class BillingApi {
   public getUserMoneyBalance(): Promise<number> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.BILLING}${BillingApiPath.BALANCE}`,
-      {
-        method: HttpMethod.GET,
-      },
     );
   }
 
