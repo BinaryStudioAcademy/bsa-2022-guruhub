@@ -88,14 +88,6 @@ const Header: FC = () => {
                     />
                   </div>
                 </button>
-                <button onClick={handlePopupOpen} className={styles.button}>
-                  <div className={styles.caretImage}>
-                    <Icon
-                      name={isMenuPopupVisible ? 'caretUp' : 'caretDown'}
-                      className={styles.caretIcon}
-                    />
-                  </div>
-                </button>
               </div>
             ) : (
               <div className={styles.buttonsWrapper}>
