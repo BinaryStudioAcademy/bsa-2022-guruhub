@@ -6,6 +6,8 @@ import {
 import { FC } from 'react';
 import { CellProps } from 'react-table';
 
+import styles from './styles.module.scss';
+
 const ActionsCell: FC<CellProps<UsersTableRow, UsersTableActionsProps>> = ({
   value: { id, onDelete, isCurrentSignedUser },
 }) => {
@@ -14,7 +16,7 @@ const ActionsCell: FC<CellProps<UsersTableRow, UsersTableActionsProps>> = ({
   };
 
   return (
-    <div>
+    <div className={styles.buttonWrapper}>
       {!isCurrentSignedUser && (
         <IconButton
           iconName="delete"
