@@ -1,7 +1,7 @@
 import { CourseHost, ExceptionMessage, VendorKey } from '~/common/enums/enums';
 import {
   CourseCreateArgumentsDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetByIdAndVendorKeyArgumentsDto,
   CourseGetMenteesByMentorRequestDto,
   CourseGetMentoringDto,
@@ -14,7 +14,7 @@ import {
 } from '~/common/types/types';
 import { course as courseRep } from '~/data/repositories/repositories';
 import { CoursesError } from '~/exceptions/exceptions';
-import { sanitizeHTML } from '~/helpers/helpers';
+import { convertPageToZeroIndexed, sanitizeHTML } from '~/helpers/helpers';
 import {
   courseCategory as courseCategoryServ,
   courseModule as courseModuleServ,
@@ -68,14 +68,17 @@ class Course {
   }
 
   public async getAllWithCategories(
-    filteringOpts: CourseFilteringDto,
-  ): Promise<CourseGetResponseDto[]> {
-    const { categoryKey, title } = filteringOpts;
+    filteringAndPagination: CourseFilteringWithPaginationDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { categoryKey, title, page, count } = filteringAndPagination;
     const categoryId = await this.getCategoryIdByKey(categoryKey);
+    const zeroIndexPage = convertPageToZeroIndexed(page);
 
     return this.#courseRepository.getAllWithCategories({
       categoryId,
       title,
+      page: zeroIndexPage,
+      count,
     });
   }
 
@@ -84,7 +87,7 @@ class Course {
   ): Promise<EntityPagination<CourseGetResponseDto>> {
     const { page, count } = args;
 
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
 
     return this.#courseRepository.getAll({
       page: zeroIndexPage,
@@ -94,8 +97,15 @@ class Course {
 
   public getAllCoursesStudying(
     userId: number,
-  ): Promise<CourseGetResponseDto[]> {
-    return this.#courseRepository.getAllCoursesStudying(userId);
+    pagination: EntityPaginationRequestQueryDto,
+  ): Promise<EntityPagination<CourseGetResponseDto>> {
+    const { page, count } = pagination;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
+
+    return this.#courseRepository.getAllCoursesStudying(userId, {
+      count,
+      page: zeroIndexPage,
+    });
   }
 
   public getAllCoursesMentoring(
@@ -103,7 +113,7 @@ class Course {
     pagination: EntityPaginationRequestQueryDto,
   ): Promise<EntityPagination<CourseGetMentoringDto>> {
     const { page, count } = pagination;
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
 
     return this.#courseRepository.getAllCoursesMentoring(userId, {
       count,
