@@ -26,8 +26,6 @@ const ReplenishCard: FC<Props> = ({ amount, onReplenish, replenishKey }) => {
         stripeKey={replenishKey}
         label="Replenish"
         name="Pay with credit card"
-        billingAddress
-        shippingAddress
         amount={amount * PaymentUnit.CENTS_IN_ONE_DOLLAR}
         description={`Your total is ${amount}`}
         token={handleReplenish}
