@@ -7,6 +7,7 @@ import {
 } from 'common/types/types';
 
 import {
+  checkHasMentor,
   checkIsMentor,
   createNote,
   getById,
@@ -21,6 +22,7 @@ type State = {
   notes: TaskNoteGetItemResponseDto[];
   totalNotesNumber: number;
   isMentor: boolean;
+  hasMentor: boolean;
 };
 
 const initialState: State = {
@@ -30,6 +32,7 @@ const initialState: State = {
   notes: [],
   totalNotesNumber: 0,
   isMentor: false,
+  hasMentor: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -81,6 +84,17 @@ const reducer = createReducer(initialState, (builder) => {
     state.isMentor = payload;
   });
   builder.addCase(checkIsMentor.rejected, (state) => {
+    state.dataStatus = DataStatus.REJECTED;
+  });
+
+  builder.addCase(checkHasMentor.pending, (state) => {
+    state.dataStatus = DataStatus.PENDING;
+  });
+  builder.addCase(checkHasMentor.fulfilled, (state, { payload }) => {
+    state.dataStatus = DataStatus.FULFILLED;
+    state.hasMentor = payload;
+  });
+  builder.addCase(checkHasMentor.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
   });
 });
