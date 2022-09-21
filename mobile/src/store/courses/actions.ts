@@ -330,7 +330,6 @@ const getTasksByCourseIdAndMenteeId = createAsyncThunk<
 
 const clearMentor = createAction(ActionType.CLEAR_MENTOR);
 const clearTasks = createAction(ActionType.CLEAR_TASKS);
-const clearCourses = createAction(ActionType.CLEAR_COURSES);
 
 const addCurrentMenteeId = createAction<number>(
   ActionType.ADD_CURRENT_MENTEE_ID,
@@ -344,7 +343,6 @@ export {
   changeMentor,
   checkIsMentor,
   chooseMentor,
-  clearCourses,
   clearCurrentMenteeId,
   clearMentor,
   clearTasks,

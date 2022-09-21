@@ -92,7 +92,6 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleRefresh = (): void => {
-    dispatch(coursesActions.clearCourses());
     handleCoursesLoad();
   };
 
@@ -103,7 +102,6 @@ const Courses: FC = (): ReactElement => {
   const handleFilters = (search: string): void => {
     filter.current.title = search;
     filter.current.count = PaginationDefaultValue.DEFAULT_COUNT_BY_20;
-    dispatch(coursesActions.clearCourses());
     handleCoursesLoad();
   };
 

@@ -14,7 +14,6 @@ import {
   changeMentor,
   checkIsMentor,
   chooseMentor,
-  clearCourses,
   clearCurrentMenteeId,
   clearMentor,
   clearTasks,
@@ -226,10 +225,6 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(clearCurrentMenteeId, (state) => {
     state.menteeId = null;
-  });
-
-  builder.addCase(clearCourses, (state) => {
-    state.courses = [];
   });
 });
 
