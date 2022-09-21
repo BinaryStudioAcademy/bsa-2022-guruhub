@@ -33,7 +33,7 @@ class Transaction {
       .execute();
   }
 
-  public async getByUserIdTransactions(
+  public async getTransactionsByUserId(
     userId: number,
     pagination: EntityPaginationRequestQueryDto,
   ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {

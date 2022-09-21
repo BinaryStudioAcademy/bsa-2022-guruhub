@@ -53,7 +53,7 @@ const initBillingApi: FastifyPluginAsync<Options> = async (fastify, opts) => {
         count = PaginationDefaultValue.DEFAULT_COUNT,
         page = PaginationDefaultValue.DEFAULT_PAGE,
       } = req.query;
-      const userTransactions = await billingService.getByUserIdTransactions(
+      const userTransactions = await billingService.getTransactionsByUserId(
         id,
         {
           count,

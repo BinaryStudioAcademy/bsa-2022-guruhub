@@ -6,6 +6,7 @@ import {
   TransactionUpdateStatusDto,
 } from '~/common/types/types';
 import { transaction as transactionRep } from '~/data/repositories/repositories';
+import { convertPageToZeroIndexed } from '~/helpers/helpers';
 
 type Constructor = {
   transactionRepository: typeof transactionRep;
@@ -32,13 +33,13 @@ class Transaction {
     );
   }
 
-  public getByUserIdTransactions(
+  public getTransactionsByUserId(
     userId: number,
     { count, page }: EntityPaginationRequestQueryDto,
   ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {
-    const zeroIndexPage = page - 1;
+    const zeroIndexPage = convertPageToZeroIndexed(page);
 
-    return this.#transactionRepository.getByUserIdTransactions(userId, {
+    return this.#transactionRepository.getTransactionsByUserId(userId, {
       count,
       page: zeroIndexPage,
     });

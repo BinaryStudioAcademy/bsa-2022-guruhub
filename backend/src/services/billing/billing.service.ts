@@ -88,11 +88,11 @@ class Billing {
     );
   }
 
-  public getByUserIdTransactions(
+  public getTransactionsByUserId(
     userId: number,
     pagination: EntityPaginationRequestQueryDto,
   ): Promise<EntityPagination<TransactionGetAllItemResponseDto>> {
-    return this.#transactionService.getByUserIdTransactions(userId, pagination);
+    return this.#transactionService.getTransactionsByUserId(userId, pagination);
   }
 
   public async initHoldStudentPayment({
