@@ -22,7 +22,10 @@ const useCourseSearch = (): UseCourseSearchResult => {
       searchParams.set(name, value);
     }
 
-    searchParams.set('page', `${PaginationDefaultValue.DEFAULT_PAGE}`);
+    searchParams.set(
+      SearchValue.PAGE,
+      `${PaginationDefaultValue.DEFAULT_PAGE}`,
+    );
     setSearchParams(searchParams);
 
     const category = searchParams.get(SearchValue.CATEGORY) ?? '';

@@ -2,6 +2,7 @@ import {
   AppRoute,
   DataStatus,
   PaginationDefaultValue,
+  SearchValue,
 } from 'common/enums/enums';
 import { FC } from 'common/types/types';
 import { Button, CoursesList, Spinner } from 'components/common/common';
@@ -26,10 +27,10 @@ const Dashboard: FC = () => {
 
   const [searchParams] = useSearchParams();
 
-  const title = searchParams.get('title');
-  const category = searchParams.get('category');
-  const pageFromParams = searchParams.get('page')
-    ? Number(searchParams.get('page'))
+  const title = searchParams.get(SearchValue.TITLE);
+  const category = searchParams.get(SearchValue.CATEGORY);
+  const pageFromParams = searchParams.get(SearchValue.PAGE)
+    ? Number(searchParams.get(SearchValue.PAGE))
     : PaginationDefaultValue.DEFAULT_PAGE;
 
   const { user, categories, dataStatus, courses, totalCoursesCount } =
