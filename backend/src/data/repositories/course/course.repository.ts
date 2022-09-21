@@ -24,6 +24,8 @@ type Constructor = {
 class Course {
   #CourseModel: typeof CourseM;
 
+  private static CATEGORY_ID_COLUMN_NAME = 'course_category_id';
+
   public constructor({ CourseModel }: Constructor) {
     this.#CourseModel = CourseModel;
   }
@@ -54,6 +56,7 @@ class Course {
         'courseCategories.id',
       )
       .withGraphJoined('[vendor, category.[price]]')
+      .orderBy('courses.createdAt', SortOrder.DESC)
       .castTo<CourseGetResponseDto[]>()
       .execute();
   }
@@ -67,7 +70,9 @@ class Course {
     const { results, total } = await this.#CourseModel
       .query()
       .withGraphJoined('category')
-      .orderBy('courseCategoryId', SortOrder.DESC)
+      .orderByRaw(
+        `${Course.CATEGORY_ID_COLUMN_NAME} ${SortOrder.ASC} NULLS FIRST`,
+      )
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
 
@@ -95,6 +100,7 @@ class Course {
       .withGraphJoined('[mentees, category.[price], vendor]')
       .where('menteeId', userId)
       .whereNotNull('mentorId')
+      .orderBy('id', SortOrder.ASC)
       .castTo<CourseGetResponseDto[]>()
       .execute();
   }
