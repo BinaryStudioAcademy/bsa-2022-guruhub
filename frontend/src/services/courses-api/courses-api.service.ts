@@ -6,7 +6,7 @@ import {
 } from 'common/enums/enums';
 import {
   CourseCheckIsMentorForMenteeRequestParamsDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
@@ -39,8 +39,8 @@ class CoursesApi {
   }
 
   public getAllWithCategories(opts: {
-    filtering: CourseFilteringDto;
-  }): Promise<CourseGetResponseDto[]> {
+    filtering: CourseFilteringWithPaginationDto;
+  }): Promise<EntityPagination<CourseGetResponseDto>> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
@@ -48,16 +48,27 @@ class CoursesApi {
         queryString: {
           title: opts.filtering.title,
           categoryKey: opts.filtering.categoryKey,
+          page: opts.filtering.page,
+          count: opts.filtering.count,
         },
       },
     );
   }
 
-  public getAllCoursesStudying(): Promise<CourseGetResponseDto[]> {
-    return this.#http.load<CourseGetResponseDto[]>(
+  public getAllCoursesStudying({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.STUDYING}`,
       {
         method: HttpMethod.GET,
+        queryString: {
+          count,
+          page,
+        },
       },
     );
   }

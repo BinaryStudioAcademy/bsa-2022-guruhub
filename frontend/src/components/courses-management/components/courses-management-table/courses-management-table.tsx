@@ -45,7 +45,7 @@ const CoursesManagementTable: FC = () => {
     dispatch(
       coursesManagementActions.getCourses({
         page,
-        count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
       }),
     );
     dispatch(coursesManagementActions.getCategories());
@@ -55,7 +55,7 @@ const CoursesManagementTable: FC = () => {
     dispatch(
       coursesManagementActions.getCourses({
         page,
-        count: PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT,
+        count: PaginationDefaultValue.DEFAULT_COUNT_BY_10,
       }),
     );
   }, [page]);
@@ -93,7 +93,7 @@ const CoursesManagementTable: FC = () => {
         columns={columns}
         currentPage={page}
         onPageChange={handlePageChange}
-        pageSize={PaginationDefaultValue.DEFAULT_COURSE_CATEGORIES_COUNT}
+        pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_10}
         totalCount={totalCoursesNumber}
       />
       {activeCourse && (
