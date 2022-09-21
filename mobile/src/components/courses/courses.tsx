@@ -1,14 +1,20 @@
 import React, { FC, ReactElement, useRef } from 'react';
 
-import { AppColor, AppScreenName, DataStatus } from '~/common/enums/enums';
-import { CourseGetRequestParamsDto } from '~/common/types/courses/courses';
-import { CourseFilteringDto } from '~/common/types/types';
+import {
+  AppColor,
+  AppScreenName,
+  DataStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import {
+  CourseFilteringWithPaginationDto,
+  CourseGetRequestParamsDto,
+} from '~/common/types/courses/courses';
 import {
   FAB,
   FlatList,
   RefreshControl,
   Search,
-  Spinner,
   Text,
   View,
 } from '~/components/common/common';
@@ -37,10 +43,12 @@ const Courses: FC = (): ReactElement => {
     categories,
     courseCategory,
     categoryDataStatus,
+    totalCoursesNumber,
   } = useAppSelector(({ courses, categories, auth }) => ({
     user: auth.user,
     courses: courses.courses,
     dataStatus: courses.dataStatus,
+    totalCoursesNumber: courses.totalCoursesNumber,
     categories: categories.categories,
     courseCategory: categories.courseCategory,
     categoryDataStatus: categories.dataStatus,
@@ -50,13 +58,32 @@ const Courses: FC = (): ReactElement => {
     dataStatus === DataStatus.PENDING ||
     categoryDataStatus === DataStatus.PENDING;
 
-  const filter = useRef<CourseFilteringDto>({
+  const filter = useRef<CourseFilteringWithPaginationDto>({
     title: '',
     categoryKey: '',
+    page: PaginationDefaultValue.DEFAULT_PAGE,
+    count: PaginationDefaultValue.DEFAULT_COUNT_BY_20,
   });
 
   const handleCoursesLoad = (): void => {
-    dispatch(coursesActions.getCourses(filter.current));
+    dispatch(
+      coursesActions.getCourses({
+        title: filter.current.title ?? '',
+        categoryKey: filter.current.categoryKey ?? '',
+        page: filter.current.page,
+        count: filter.current.count,
+      }),
+    );
+  };
+
+  const handleLoadMore = (): void => {
+    const isExistMoreCourses = totalCoursesNumber > filter.current.count;
+
+    if (isExistMoreCourses) {
+      filter.current.count =
+        filter.current.count + PaginationDefaultValue.DEFAULT_COUNT_BY_20;
+      handleCoursesLoad();
+    }
   };
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
@@ -65,6 +92,7 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleRefresh = (): void => {
+    dispatch(coursesActions.clearCourses());
     handleCoursesLoad();
   };
 
@@ -72,9 +100,10 @@ const Courses: FC = (): ReactElement => {
     navigation.navigate(AppScreenName.ADD_COURSE);
   };
 
-  const handleSearch = (search: string): void => {
+  const handleFilters = (search: string): void => {
     filter.current.title = search;
-
+    filter.current.count = PaginationDefaultValue.DEFAULT_COUNT_BY_20;
+    dispatch(coursesActions.clearCourses());
     handleCoursesLoad();
   };
 
@@ -91,8 +120,7 @@ const Courses: FC = (): ReactElement => {
 
     if (filter.current.categoryKey !== activeCategoryKey) {
       filter.current.categoryKey = activeCategoryKey;
-
-      handleCoursesLoad();
+      handleFilters('');
     }
   }, [courseCategory?.key]);
 
@@ -110,7 +138,7 @@ const Courses: FC = (): ReactElement => {
   return (
     <>
       <View style={styles.searchFieldContainer}>
-        <Search onSearch={handleSearch} />
+        <Search onSearch={handleFilters} />
       </View>
       <CategoryList
         items={categories}
@@ -118,31 +146,26 @@ const Courses: FC = (): ReactElement => {
         activeCategoryId={courseCategory?.id ?? null}
       />
       <View style={styles.container}>
-        {isLoading ? (
-          <View style={styles.spinnerContainer}>
-            <Spinner isOverflow />
-          </View>
-        ) : (
-          <FlatList
-            data={courses}
-            keyExtractor={({ id }): string => id.toString()}
-            renderItem={({ item: course }): ReactElement => (
-              <CourseCard course={course} onCoursePress={handleCourseCard} />
-            )}
-            refreshControl={
-              <RefreshControl
-                colors={[AppColor.BRAND.BLUE_100]}
-                refreshing={false}
-                onRefresh={handleRefresh}
-              />
-            }
-            onEndReachedThreshold={0.1}
-            ListEmptyComponent={(): ReactElement => (
-              <Text style={styles.noCourses}>No courses found</Text>
-            )}
-          />
-        )}
-
+        <FlatList
+          data={courses}
+          keyExtractor={({ id }, index): string => id.toString() + index}
+          renderItem={({ item: course }): ReactElement => (
+            <CourseCard course={course} onCoursePress={handleCourseCard} />
+          )}
+          refreshControl={
+            <RefreshControl
+              colors={[AppColor.BRAND.BLUE_100]}
+              refreshing={isLoading}
+              onRefresh={handleRefresh}
+            />
+          }
+          onEndReachedThreshold={0.5}
+          ListEmptyComponent={(): ReactElement => (
+            <Text style={styles.noCourses}>No courses found</Text>
+          )}
+          onEndReached={handleLoadMore}
+          refreshing={true}
+        />
         {user && <FAB onPress={handleAddCourse} />}
       </View>
     </>

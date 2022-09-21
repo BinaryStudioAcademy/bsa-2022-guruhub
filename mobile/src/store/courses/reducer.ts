@@ -14,6 +14,7 @@ import {
   changeMentor,
   checkIsMentor,
   chooseMentor,
+  clearCourses,
   clearCurrentMenteeId,
   clearMentor,
   clearTasks,
@@ -71,7 +72,8 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(getCourses.fulfilled, (state, { payload }) => {
     state.dataStatus = DataStatus.FULFILLED;
-    state.courses = payload;
+    state.totalCoursesNumber = payload.total;
+    state.courses = payload.items;
   });
   builder.addCase(getCourses.rejected, (state) => {
     state.dataStatus = DataStatus.REJECTED;
@@ -224,6 +226,10 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(clearCurrentMenteeId, (state) => {
     state.menteeId = null;
+  });
+
+  builder.addCase(clearCourses, (state) => {
+    state.courses = [];
   });
 });
 

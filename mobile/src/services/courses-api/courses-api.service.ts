@@ -6,6 +6,7 @@ import {
 } from '~/common/enums/enums';
 import {
   CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
@@ -37,18 +38,20 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAllWithCategories({
-    page,
-    count,
-  }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<CourseGetResponseDto>
-  > {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}`, {
-      queryParams: {
-        count,
-        page,
+  public getAllWithCategories(opts: {
+    filtering: CourseFilteringWithPaginationDto;
+  }): Promise<EntityPagination<CourseGetResponseDto>> {
+    return this.#http.load(
+      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
+      {
+        queryParams: {
+          title: opts.filtering.title,
+          categoryKey: opts.filtering.categoryKey,
+          page: opts.filtering.page,
+          count: opts.filtering.count,
+        },
       },
-    });
+    );
   }
 
   public getAll(options: {
