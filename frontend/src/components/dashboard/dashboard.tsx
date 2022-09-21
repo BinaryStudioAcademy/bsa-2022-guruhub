@@ -123,6 +123,7 @@ const Dashboard: FC = () => {
             onPageChange={handlePageChange}
             pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_20}
             totalCount={totalCoursesCount}
+            popularCourses={popularCourses}
           />
         )}
       </div>
