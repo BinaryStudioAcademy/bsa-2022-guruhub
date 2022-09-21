@@ -49,9 +49,14 @@ const EditCourse: FC = () => {
   };
 
   useEffect(() => {
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={goBack} />,
+      headerShown: true,
     });
+
     dispatch(coursesManagementActions.getCategories());
   }, []);
 

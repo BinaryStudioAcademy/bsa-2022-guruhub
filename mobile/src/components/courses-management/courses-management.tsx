@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { CourseScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetResponseDto } from '~/common/types/types';
 import {
   CategoryCell,
@@ -14,7 +14,6 @@ import {
   useAppNavigate,
   useAppSelector,
   useCallback,
-  useEffect,
   useFocusEffect,
   usePagination,
 } from '~/hooks/hooks';
@@ -35,19 +34,21 @@ const CoursesManagement: FC = () => {
 
   const handleEditPress = (courseId: number): void => {
     dispatch(coursesActions.getCourse({ id: courseId }));
-    navigation.navigate(AppScreenName.EDIT_COURSE);
+    navigation.navigate(CourseScreenName.EDIT_COURSE);
   };
 
   const handleTitlePress = (item: CourseGetResponseDto): void => {
     dispatch(coursesActions.getCourse(item));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(CourseScreenName.COURSE);
   };
 
-  useEffect(() => {
-    navigation.setOptions({
-      title: 'Courses',
-    });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        headerShown: true,
+      });
+    }, []),
+  );
 
   const coursesRows = courses.map((item: CourseGetResponseDto) => {
     return {

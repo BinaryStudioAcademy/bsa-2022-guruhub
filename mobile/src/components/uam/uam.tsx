@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
-import { AppScreenName, ButtonVariant, DataStatus } from '~/common/enums/enums';
+import { ButtonVariant, DataStatus, UamScreenName } from '~/common/enums/enums';
 import { ScrollView, Spinner, View } from '~/components/common/common';
 import { useAppNavigate, useAppSelector } from '~/hooks/hooks';
 
@@ -19,8 +19,14 @@ const UAM: FC = () => {
   const areGroupsLoading = groupsDataStatus === DataStatus.PENDING;
 
   const handleGroupCreate = (): void => {
-    navigate.navigate(AppScreenName.UAM_GROUPS_CREATE);
+    navigate.navigate(UamScreenName.UAM_GROUPS_CREATE);
   };
+
+  useEffect(() => {
+    navigate.getParent()?.setOptions({
+      headerShown: true,
+    });
+  });
 
   return (
     <>

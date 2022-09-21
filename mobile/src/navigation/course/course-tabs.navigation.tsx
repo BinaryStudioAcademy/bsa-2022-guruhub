@@ -2,8 +2,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React, { FC } from 'react';
 
 import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
-import { CourseScreenName } from '~/common/enums/enums';
-import { CourseNavigationParamList } from '~/common/types/types';
+import { CourseTabsName } from '~/common/enums/enums';
+import { CourseTabNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
 import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import {
@@ -19,9 +19,9 @@ import { courseModulesActions, coursesActions } from '~/store/actions';
 
 import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
-const Tab = createMaterialTopTabNavigator<CourseNavigationParamList>();
+const Tab = createMaterialTopTabNavigator<CourseTabNavigationParamList>();
 
-const Course: FC = () => {
+const CourseTabs: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
@@ -44,8 +44,8 @@ const Course: FC = () => {
     );
 
     const screenNameToFilter = isMentor
-      ? CourseScreenName.MY_MENTOR
-      : CourseScreenName.MY_STUDENTS;
+      ? CourseTabsName.MY_MENTOR
+      : CourseTabsName.MY_STUDENTS;
 
     return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
   }, [userPermissions, isMentor, user]);
@@ -62,6 +62,7 @@ const Course: FC = () => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={handleLeaveCourseScreen} />,
+      headerShown: true,
     });
     navigation.getParent()?.setOptions({
       headerShown: false,
@@ -93,13 +94,13 @@ const Course: FC = () => {
   return (
     <Tab.Navigator
       screenOptions={SCREEN_OPTIONS}
-      initialRouteName={CourseScreenName.ABOUT}
+      initialRouteName={CourseTabsName.ABOUT}
     >
       {allowedScreens.map((screen) => {
         return (
           <Tab.Screen
             key={screen.name}
-            name={screen.name as CourseScreenName}
+            name={screen.name as CourseTabsName}
             component={screen.component}
             options={{
               tabBarStyle: { display: isTabsShown ? 'flex' : 'none' },
@@ -111,4 +112,4 @@ const Course: FC = () => {
   );
 };
 
-export { Course };
+export { CourseTabs };

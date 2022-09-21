@@ -20,12 +20,17 @@ export { InterviewStatus } from './interviews/interview-status.enum';
 export {
   AppScreenName,
   AuthScreenName,
+  ChatScreenName,
   CourseModuleScreenName,
   CourseScreenName,
+  CoursesManagementScreenName,
   CoursesScreenName,
+  CourseTabsName,
   InterviewScreenName,
+  InterviewTabScreenName,
   MyCoursesScreenName,
   RootScreenName,
+  UamScreenName,
 } from './navigation/navigation';
 export {
   NotificationMessage,

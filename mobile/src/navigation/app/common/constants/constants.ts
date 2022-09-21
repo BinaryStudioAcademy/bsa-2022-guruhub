@@ -7,20 +7,13 @@ import {
   PermissionKey,
 } from '~/common/enums/enums';
 import { Billing } from '~/components/billing/billing';
-import { Chat } from '~/components/chat/chat';
-import { EmptyChats } from '~/components/chat/components/components';
-import { ChatConversation } from '~/components/chat-conversation/chat-conversation';
-import { EditCourse } from '~/components/course/components/components';
-import { CoursesManagement } from '~/components/courses-management/courses-management';
-import { Interview } from '~/components/interview/interview';
-import { Interviews } from '~/components/interviews/interviews';
-import { MyCourses } from '~/components/my-courses/my-courses';
 import { Settings } from '~/components/setting/setting';
-import { UAM } from '~/components/uam/uam';
-import { UAMConfigureGroup } from '~/components/uam-configure-group/uam-configure-group';
-import { Course } from '~/navigation/course/course.navigation';
-import { CourseModule } from '~/navigation/course-module/course-module.navigation';
+import { Chat } from '~/navigation/chat/chat.navigation';
 import { Courses } from '~/navigation/courses/courses.navigation';
+import { CoursesManagement } from '~/navigation/courses-management/courses-management.navigation';
+import { Interviews } from '~/navigation/interview/interview-stack.navigation';
+import { MyCourses } from '~/navigation/my-courses/my-courses-stack.navigation';
+import { UAM } from '~/navigation/uam/uam.navigation';
 
 import { DrawerNavigationItem } from '../types/types';
 
@@ -121,68 +114,6 @@ const NAVIGATION_ITEMS: DrawerNavigationItem[] = [
     screenOptions: {
       swipeEdgeWidth: 10,
     },
-  },
-  {
-    name: AppScreenName.UAM_GROUPS_CREATE,
-    icon: 'uam',
-    component: UAMConfigureGroup,
-    permissions: [PermissionKey.MANAGE_UAM],
-    isAuthRequired: true,
-    screenOptions: {
-      swipeEdgeWidth: 10,
-    },
-  },
-  {
-    name: AppScreenName.UAM_GROUPS_EDIT,
-    icon: 'uam',
-    component: UAMConfigureGroup,
-    permissions: [PermissionKey.MANAGE_UAM],
-    isAuthRequired: true,
-    screenOptions: {
-      swipeEdgeWidth: 10,
-    },
-  },
-  {
-    name: AppScreenName.INTERVIEW,
-    component: Interview,
-    permissions: [
-      PermissionKey.MANAGE_INTERVIEW,
-      PermissionKey.MANAGE_INTERVIEWS,
-    ],
-    isAuthRequired: true,
-    screenOptions: {
-      swipeEdgeWidth: 10,
-    },
-  },
-  {
-    name: AppScreenName.CONVERSATION,
-    component: ChatConversation,
-    permissions: [],
-    isAuthRequired: true,
-  },
-  {
-    name: AppScreenName.ALL_CHATS,
-    component: EmptyChats,
-    permissions: [],
-    isAuthRequired: true,
-  },
-  {
-    name: AppScreenName.COURSE,
-    component: Course,
-    permissions: [],
-    isAuthRequired: false,
-  },
-  {
-    name: AppScreenName.COURSE_MODULE,
-    component: CourseModule,
-    permissions: [],
-    isAuthRequired: true,
-  },
-  {
-    name: AppScreenName.EDIT_COURSE,
-    component: EditCourse,
-    permissions: [PermissionKey.MANAGE_CATEGORIES],
-    isAuthRequired: true,
   },
 ];
 

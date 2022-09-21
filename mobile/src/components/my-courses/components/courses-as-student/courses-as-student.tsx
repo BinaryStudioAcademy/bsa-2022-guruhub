@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { CourseScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetRequestParamsDto } from '~/common/types/types';
 import { FlatList, Spinner, Text, View } from '~/components/common/common';
 import { CourseCard } from '~/components/course-card/course-card';
@@ -27,7 +27,7 @@ const CoursesAsStudent: FC = () => {
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(CourseScreenName.COURSE);
   };
 
   useEffect(() => {

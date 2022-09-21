@@ -4,13 +4,19 @@ import {
   AppColor,
   AppFontFamily,
   CourseScreenName,
+  CourseTabsName,
+  PermissionKey,
 } from '~/common/enums/enums';
-import { NavigationItem } from '~/common/types/types';
+import { CoursesNavigationItem } from '~/common/types/types';
 import {
   CourseStudents,
+  EditCourse,
   MyMentor,
 } from '~/components/course/components/components';
 import { Course } from '~/components/course/course';
+import { CourseModule } from '~/navigation/course-module/course-module.navigation';
+
+import { CourseTabs } from '../../course-tabs.navigation';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
@@ -31,25 +37,46 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const COURSE_TAB_ITEMS: NavigationItem[] = [
+const COURSE_TAB_ITEMS: CoursesNavigationItem[] = [
   {
-    name: CourseScreenName.ABOUT,
+    name: CourseTabsName.ABOUT,
     component: Course,
     permissions: [],
     isAuthRequired: false,
   },
   {
-    name: CourseScreenName.MY_MENTOR,
+    name: CourseTabsName.MY_MENTOR,
     component: MyMentor,
     permissions: [],
     isAuthRequired: true,
   },
   {
-    name: CourseScreenName.MY_STUDENTS,
+    name: CourseTabsName.MY_STUDENTS,
     component: CourseStudents,
     permissions: [],
     isAuthRequired: true,
   },
 ];
 
-export { COURSE_TAB_ITEMS, SCREEN_OPTIONS };
+const COURSE_SCREEN_ITEMS: CoursesNavigationItem[] = [
+  {
+    name: CourseScreenName.COURSE,
+    component: CourseTabs,
+    permissions: [],
+    isAuthRequired: false,
+  },
+  {
+    name: CourseScreenName.EDIT_COURSE,
+    component: EditCourse,
+    permissions: [PermissionKey.MANAGE_CATEGORIES],
+    isAuthRequired: true,
+  },
+  {
+    name: CourseScreenName.COURSE_MODULE,
+    component: CourseModule,
+    permissions: [],
+    isAuthRequired: true,
+  },
+];
+
+export { COURSE_SCREEN_ITEMS, COURSE_TAB_ITEMS, SCREEN_OPTIONS };

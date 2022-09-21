@@ -1,17 +1,28 @@
 import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
 import {
   AppColor,
   AppFontFamily,
   InterviewScreenName,
+  InterviewTabScreenName,
+  PermissionKey,
 } from '~/common/enums/enums';
-import { NavigationItem } from '~/common/types/types';
+import { CoursesNavigationItem, NavigationItem } from '~/common/types/types';
 import {
   Applications,
   Notes,
 } from '~/components/interview/components/components';
+import { Interviews } from '~/components/interviews/interviews';
 
-const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
+import { InterviewTabs } from '../interview-tab.navigation';
+
+const SCREEN_OPTIONS: NativeStackNavigationOptions = {
+  headerTitleAlign: 'center',
+  headerShown: false,
+};
+
+const TAB_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 14,
@@ -32,17 +43,35 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
 
 const INTERVIEW_TAB_ITEMS: NavigationItem[] = [
   {
-    name: InterviewScreenName.APPLICATIONS,
+    name: InterviewTabScreenName.APPLICATIONS,
     component: Applications,
     permissions: [],
     isAuthRequired: true,
   },
   {
-    name: InterviewScreenName.NOTES,
+    name: InterviewTabScreenName.NOTES,
     component: Notes,
     permissions: [],
     isAuthRequired: true,
   },
 ];
 
-export { INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS };
+const INTERVIEW_SCREENS: CoursesNavigationItem[] = [
+  {
+    name: InterviewScreenName.INTERVIEWS,
+    component: Interviews,
+    isAuthRequired: true,
+    permissions: [
+      PermissionKey.MANAGE_INTERVIEW,
+      PermissionKey.MANAGE_INTERVIEWS,
+    ],
+  },
+  {
+    name: InterviewScreenName.INTERVIEW,
+    component: InterviewTabs,
+    isAuthRequired: true,
+    permissions: [],
+  },
+];
+
+export { INTERVIEW_SCREENS, INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS, TAB_OPTIONS };

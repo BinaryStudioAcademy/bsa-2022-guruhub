@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 
 import { CoursesScreenName } from '~/common/enums/enums';
 import {
+  CoursesNavigationItem,
   CoursesNavigationParamList,
-  NavigationItem,
 } from '~/common/types/types';
 import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import { useAppSelector, useMemo } from '~/hooks/hooks';
@@ -18,7 +18,7 @@ const Courses: FC = () => {
 
   const userPermissions = user?.permissions ?? [];
 
-  const allowedScreens: NavigationItem[] = useMemo(() => {
+  const allowedScreens: CoursesNavigationItem[] = useMemo(() => {
     const screensByAuth = getScreensByAuth(COURSES_SCREENS, Boolean(user));
 
     const permittedScreens = getPermittedScreens(
