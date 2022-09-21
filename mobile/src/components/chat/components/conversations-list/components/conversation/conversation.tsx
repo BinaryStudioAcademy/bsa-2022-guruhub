@@ -28,9 +28,18 @@ const Conversation: FC<Props> = ({
   onPress,
 }) => {
   const messageStart = messageSenderId === currentUserId ? 'You: ' : '';
+  const messageRows = lastMessage && lastMessage.split('\n');
+  const messageEnd =
+    messageRows &&
+    (messageRows.length > 1 ||
+      messageRows[0].length > OPPONENT_MESSAGE_SHORT_LENGTH)
+      ? '...'
+      : '';
+
   const messageShortView =
-    lastMessage && `${lastMessage.slice(0, OPPONENT_MESSAGE_SHORT_LENGTH)}...`;
-  const chatLastMessage = `${messageStart}${messageShortView}`;
+    messageRows && `${messageRows[0].slice(0, OPPONENT_MESSAGE_SHORT_LENGTH)}`;
+
+  const chatLastMessage = `${messageStart}${messageShortView}${messageEnd}`;
 
   const messageDate =
     lastMessageDate && getFormattedDate(lastMessageDate, 'HH:mm');
