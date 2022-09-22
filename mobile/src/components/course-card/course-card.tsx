@@ -37,10 +37,10 @@ const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
           style={styles.courseImage}
           source={{ uri: imageUrl ?? getImageUri(defaultCourseImage) }}
         />
-        {course.category && (
+        {Boolean(course.category) && (
           <CategoryLabel
-            name={course.category.name}
-            keyName={course.category.key}
+            name={course.category?.name ?? ''}
+            keyName={course.category?.key ?? ''}
           />
         )}
       </View>
