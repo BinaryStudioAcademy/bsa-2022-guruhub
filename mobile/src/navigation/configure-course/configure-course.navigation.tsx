@@ -1,11 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
 
-import { CourseScreenName } from '~/common/enums/enums';
-import {
-  CourseNavigationParamList,
-  NavigationItem,
-} from '~/common/types/types';
+import { ConfigureCourseScreenName } from '~/common/enums/enums';
+import { ConfigureCourseParamList, NavigationItem } from '~/common/types/types';
 import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
 import {
   useAppNavigate,
@@ -17,7 +14,7 @@ import {
 import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const ConfigureCourse: FC = () => {
-  const NativeStack = createNativeStackNavigator<CourseNavigationParamList>();
+  const NativeStack = createNativeStackNavigator<ConfigureCourseParamList>();
   const navigation = useAppNavigate();
 
   const { user } = useAppSelector((state) => state.auth);
@@ -47,7 +44,7 @@ const ConfigureCourse: FC = () => {
         return (
           <NativeStack.Screen
             key={screen.name}
-            name={screen.name as CourseScreenName}
+            name={screen.name as ConfigureCourseScreenName}
             component={screen.component}
           />
         );

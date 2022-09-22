@@ -1,9 +1,9 @@
-import { CourseScreenName } from '~/common/enums/enums';
+import { CourseScreenName } from '~/common/enums/navigation/course-screen-name.enum';
 
 type CourseNavigationParamList = {
-  [CourseScreenName.EDIT_COURSE]: undefined;
-  [CourseScreenName.COURSE]: undefined;
-  [CourseScreenName.COURSE_MODULE]: undefined;
+  [CourseScreenName.ABOUT]: undefined;
+  [CourseScreenName.MY_MENTOR]: undefined;
+  [CourseScreenName.MY_STUDENTS]: undefined;
 };
 
 export { type CourseNavigationParamList };

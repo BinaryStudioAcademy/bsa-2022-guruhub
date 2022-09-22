@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 
 import {
-  CoursesScreenName,
+  ConfigureCourseScreenName,
   DataStatus,
   PermissionKey,
 } from '~/common/enums/enums';
@@ -61,7 +61,7 @@ const Course: FC = () => {
   const taskIsLoading = tasksDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
-    navigation.navigate(CoursesScreenName.EDIT_COURSE);
+    navigation.navigate(ConfigureCourseScreenName.EDIT_COURSE);
   };
 
   const hasEditCategoryPermission = checkHasPermission({
@@ -118,7 +118,7 @@ const Course: FC = () => {
 
   const handleModulePress = (courseId: number, moduleId: number): void => {
     dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
-    navigation.navigate(CoursesScreenName.COURSE_MODULE);
+    navigation.navigate(ConfigureCourseScreenName.COURSE_MODULE);
   };
 
   if (taskIsLoading || courseIsLoading) {

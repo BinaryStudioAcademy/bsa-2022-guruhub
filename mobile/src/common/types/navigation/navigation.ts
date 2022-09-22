@@ -1,14 +1,15 @@
 export { type AppNavigationParamList } from './app-navigation-param-list.type';
 export { type AuthNavigationParamList } from './auth-navigation-param-list.type';
 export { type ChatNavigationParamList } from './chat-navigation-param-list.type';
+export { type ConfigureCourseParamList } from './configure-course-navigation-param-list.type';
 export { type CourseModuleNavigationParamList } from './course-module-navigation-param-list.type';
 export { type CourseNavigationParamList } from './course-navigation-param-list.type';
-export { type CourseTabNavigationParamList } from './course-tab-navigation-param-list.type';
 export { type CoursesManagementNavigationParamList } from './courses-management-navigation-param-list.type';
 export { type CoursesNavigationParamList } from './courses-navigation-param-list.type';
 export { type InterviewNavigationParamList } from './interview-navigation-param-list.type';
 export { type InterviewsNavigationParamList } from './interviews-navigation-param-list.type';
 export { type MyCoursesNavigationParamList } from './my-courses-navigation-param-list.type';
+export { type MyCoursesResultsNavigationParamList } from './my-courses-results-navigation-param-list.type';
 export { type NavigationItem } from './navigation-item.type';
 export { type NavigationScreenProps } from './navigation-screen-props.type';
 export { type RootNavigationParamList } from './root-navigation-param-list.type';

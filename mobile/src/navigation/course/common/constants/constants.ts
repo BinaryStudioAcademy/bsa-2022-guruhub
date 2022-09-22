@@ -1,6 +1,10 @@
 import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 
-import { AppColor, AppFontFamily, CourseTabsName } from '~/common/enums/enums';
+import {
+  AppColor,
+  AppFontFamily,
+  CourseScreenName,
+} from '~/common/enums/enums';
 import { NavigationItem } from '~/common/types/types';
 import {
   CourseStudents,
@@ -29,19 +33,19 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
 
 const NAVIGATION_ITEMS: NavigationItem[] = [
   {
-    name: CourseTabsName.ABOUT,
+    name: CourseScreenName.ABOUT,
     component: Course,
     permissions: [],
     isAuthRequired: false,
   },
   {
-    name: CourseTabsName.MY_MENTOR,
+    name: CourseScreenName.MY_MENTOR,
     component: MyMentor,
     permissions: [],
     isAuthRequired: true,
   },
   {
-    name: CourseTabsName.MY_STUDENTS,
+    name: CourseScreenName.MY_STUDENTS,
     component: CourseStudents,
     permissions: [],
     isAuthRequired: true,

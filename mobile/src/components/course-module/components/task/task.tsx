@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { CourseTabsName, DataStatus, TaskStatus } from '~/common/enums/enums';
+import { CourseScreenName, DataStatus, TaskStatus } from '~/common/enums/enums';
 import {
   TaskGetItemReponseDto,
   TaskNoteFormRequestDto,
@@ -81,7 +81,7 @@ const Task: FC = () => {
         headerLeft: () => (
           <BackButton
             onPress={(): void =>
-              navigation.navigate(CourseTabsName.MY_STUDENTS)
+              navigation.navigate(CourseScreenName.MY_STUDENTS)
             }
           />
         ),

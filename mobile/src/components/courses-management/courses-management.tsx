@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { CourseScreenName, DataStatus } from '~/common/enums/enums';
+import { CoursesManagementScreenName, DataStatus } from '~/common/enums/enums';
 import { CourseGetResponseDto } from '~/common/types/types';
 import {
   CategoryCell,
@@ -34,12 +34,12 @@ const CoursesManagement: FC = () => {
 
   const handleEditPress = (courseId: number): void => {
     dispatch(coursesActions.getCourse({ id: courseId }));
-    navigation.navigate(CourseScreenName.EDIT_COURSE);
+    navigation.navigate(CoursesManagementScreenName.EDIT_COURSE);
   };
 
   const handleTitlePress = (item: CourseGetResponseDto): void => {
     dispatch(coursesActions.getCourse(item));
-    navigation.navigate(CourseScreenName.COURSE);
+    navigation.navigate(CoursesManagementScreenName.COURSE);
   };
 
   useFocusEffect(

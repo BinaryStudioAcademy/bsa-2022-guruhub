@@ -1,6 +1,6 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
-import { CourseScreenName, PermissionKey } from '~/common/enums/enums';
+import { ConfigureCourseScreenName, PermissionKey } from '~/common/enums/enums';
 import { NavigationItem } from '~/common/types/types';
 import { EditCourse } from '~/components/course/components/components';
 import { Course } from '~/navigation/course/course.navigation';
@@ -12,19 +12,19 @@ const SCREEN_OPTIONS: NativeStackNavigationOptions = {
 
 const NAVIGATION_ITEMS: NavigationItem[] = [
   {
-    name: CourseScreenName.COURSE,
+    name: ConfigureCourseScreenName.COURSE,
     component: Course,
     permissions: [],
     isAuthRequired: false,
   },
   {
-    name: CourseScreenName.EDIT_COURSE,
+    name: ConfigureCourseScreenName.EDIT_COURSE,
     component: EditCourse,
     permissions: [PermissionKey.MANAGE_CATEGORIES],
     isAuthRequired: true,
   },
   {
-    name: CourseScreenName.COURSE_MODULE,
+    name: ConfigureCourseScreenName.COURSE_MODULE,
     component: CourseModule,
     permissions: [],
     isAuthRequired: true,
