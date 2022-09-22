@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 0,
     borderBottomRightRadius: 50,
     borderBottomLeftRadius: 50,
-    height: 75,
   },
   [`button${ButtonVariant.CARD}Label`]: {
     color: AppColor.TEXT.GRAY_100,
