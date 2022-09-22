@@ -18,7 +18,10 @@ const getAllWithCategories = createAsyncThunk<
   ActionType.GET_COURSES_WITH_CATEGORIES,
   async ({ count, page }, { extra }) => {
     const { coursesApi } = extra;
-    const courses = await coursesApi.getAllWithCategories({ page, count });
+    const courses = await coursesApi.getAll({
+      count,
+      page,
+    });
 
     return courses;
   },

@@ -1,7 +1,14 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
-import { CourseGetRequestParamsDto } from '~/common/types/types';
+import {
+  AppScreenName,
+  DataStatus,
+  PaginationDefaultValue,
+} from '~/common/enums/enums';
+import {
+  CourseGetRequestParamsDto,
+  EntityPaginationRequestQueryDto,
+} from '~/common/types/types';
 import { FlatList, Spinner, Text, View } from '~/components/common/common';
 import { CourseCard } from '~/components/course-card/course-card';
 import {
@@ -9,6 +16,7 @@ import {
   useAppNavigate,
   useAppSelector,
   useEffect,
+  useRef,
 } from '~/hooks/hooks';
 import { coursesActions, myCoursesActions } from '~/store/actions';
 
@@ -18,20 +26,46 @@ const CoursesAsStudent: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { courses, dataStatus } = useAppSelector(({ myCourses }) => ({
-    courses: myCourses.coursesStudying,
-    dataStatus: myCourses.dataStatus,
-  }));
+  const { courses, dataStatus, totalCoursesStudying } = useAppSelector(
+    ({ myCourses }) => ({
+      courses: myCourses.coursesStudying,
+      dataStatus: myCourses.dataStatus,
+      totalCoursesStudying: myCourses.totalCoursesStudying,
+    }),
+  );
+
+  const filter = useRef<EntityPaginationRequestQueryDto>({
+    page: PaginationDefaultValue.DEFAULT_PAGE,
+    count: PaginationDefaultValue.DEFAULT_COUNT_BY_20,
+  });
 
   const isLoading = dataStatus === DataStatus.PENDING;
+
+  const handleCoursesLoad = (): void => {
+    dispatch(
+      myCoursesActions.getCoursesStudying({
+        page: filter.current.page,
+        count: filter.current.count,
+      }),
+    );
+  };
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
     navigation.navigate(AppScreenName.COURSE);
   };
 
+  const handleLoadMore = (): void => {
+    const isExistMoreCourses = totalCoursesStudying > filter.current.count;
+
+    if (isExistMoreCourses) {
+      filter.current.count += PaginationDefaultValue.DEFAULT_COUNT_BY_20;
+      handleCoursesLoad();
+    }
+  };
+
   useEffect(() => {
-    dispatch(myCoursesActions.getCoursesStudying());
+    handleCoursesLoad();
   }, [dispatch]);
 
   if (isLoading) {
@@ -49,6 +83,7 @@ const CoursesAsStudent: FC = () => {
         ListEmptyComponent={(): ReactElement => (
           <Text style={styles.noCourses}>No courses found</Text>
         )}
+        onEndReached={handleLoadMore}
       />
     </View>
   );

@@ -4,6 +4,7 @@ enum ActionType {
   CHANGE_A_MENTOR = 'courses/change-a-mentor',
   CHECK_IS_MENTOR = 'courses/check-is-a-mentor',
   CLEAR_MENTOR = 'courses/clear-mentor',
+  CLEAR_COURSES = 'courses/clear-courses',
   CREATE_MENTOR = 'courses/create-mentor',
   GET_COURSES = 'courses/get-courses',
   GET_COURSE = 'courses/get-course',
