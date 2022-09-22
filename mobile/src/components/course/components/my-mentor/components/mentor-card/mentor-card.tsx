@@ -38,7 +38,6 @@ const MentorCard: FC<Props> = ({
       </View>
       <View>
         <Button
-          size="small"
           variant={ButtonVariant.CARD}
           label={buttonLabel}
           onPress={handleChoose}
