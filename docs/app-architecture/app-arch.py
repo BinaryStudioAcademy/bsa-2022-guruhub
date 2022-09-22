@@ -27,7 +27,6 @@ with Diagram('Guruhub', direction='LR', filename='app-arch', curvestyle='ortho')
         ec2 = EC2('EC2')
         node_js = Nodejs('Node.js')
 
-
     mobile >> route53
     desktop >> route53
 
