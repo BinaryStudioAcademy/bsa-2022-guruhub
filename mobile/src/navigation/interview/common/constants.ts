@@ -15,7 +15,7 @@ import {
 } from '~/components/interview/components/components';
 import { Interviews } from '~/components/interviews/interviews';
 
-import { InterviewTabs } from '../interview-tab.navigation';
+import { Interview } from '../interview.navigation';
 
 const SCREEN_OPTIONS: NativeStackNavigationOptions = {
   headerTitleAlign: 'center',
@@ -68,7 +68,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
   },
   {
     name: InterviewsScreenName.INTERVIEW,
-    component: InterviewTabs,
+    component: Interview,
     isAuthRequired: true,
     permissions: [],
   },

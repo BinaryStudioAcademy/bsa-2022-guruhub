@@ -15,7 +15,7 @@ import { styles } from './styles';
 
 const Tab = createMaterialTopTabNavigator<MyCoursesNavigationParamList>();
 
-const MyCoursesTabs: FC = () => {
+const MyCourses: FC = () => {
   const navigation = useAppNavigate();
 
   useFocusEffect(
@@ -42,4 +42,4 @@ const MyCoursesTabs: FC = () => {
   );
 };
 
-export { MyCoursesTabs };
+export { MyCourses };

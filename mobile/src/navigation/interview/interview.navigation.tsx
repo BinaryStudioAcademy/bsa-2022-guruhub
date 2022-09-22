@@ -12,7 +12,7 @@ import { styles } from './styles';
 
 const Tab = createMaterialTopTabNavigator<InterviewNavigationParamList>();
 
-const InterviewTabs: FC = () => {
+const Interview: FC = () => {
   const isTabsShown = INTERVIEW_TAB_ITEMS.length > MIN_SCREENS_COUNT_FOR_TABS;
   const navigation = useAppNavigate();
 
@@ -44,4 +44,4 @@ const InterviewTabs: FC = () => {
   );
 };
 
-export { InterviewTabs };
+export { Interview };

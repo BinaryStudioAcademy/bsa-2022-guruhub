@@ -16,7 +16,7 @@ import {
 import { Course } from '~/components/course/course';
 import { CourseModule } from '~/navigation/course-module/course-module.navigation';
 
-import { CourseTabs } from '../../course-tabs.navigation';
+import { Course as CourseTabs } from '../../course.navigation';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {

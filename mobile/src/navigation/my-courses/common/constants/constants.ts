@@ -8,7 +8,7 @@ import {
 } from '~/common/enums/enums';
 import { NavigationItem } from '~/common/types/types';
 import { Course } from '~/navigation/course/course-stack.navigation';
-import { MyCoursesTabs } from '~/navigation/my-courses/my-courses-tabs.navigation';
+import { MyCourses } from '~/navigation/my-courses/my-courses.navigation';
 
 const SCREEN_OPTIONS: NativeStackNavigationOptions = {
   headerTitleAlign: 'center',
@@ -37,7 +37,7 @@ const TAB_OPTIONS: MaterialTopTabNavigationOptions = {
 const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: MyCoursesScreenName.MY_COURSES,
-    component: MyCoursesTabs,
+    component: MyCourses,
     permissions: [],
     isAuthRequired: false,
   },

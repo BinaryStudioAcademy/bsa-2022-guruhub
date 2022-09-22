@@ -21,7 +21,7 @@ import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseTabNavigationParamList>();
 
-const CourseTabs: FC = () => {
+const Course: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
@@ -112,4 +112,4 @@ const CourseTabs: FC = () => {
   );
 };
 
-export { CourseTabs };
+export { Course };
