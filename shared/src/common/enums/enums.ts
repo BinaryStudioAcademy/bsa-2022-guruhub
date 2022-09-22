@@ -43,7 +43,7 @@ export { SortOrder } from './sort/sort';
 export { PaymentUnit } from './stripe/stripe';
 export { TaskStatus } from './task/task';
 export { TaskNoteValidationMessage } from './task-note/task-note';
-export { TransactionStatus } from './transaction/transaction';
+export { TransactionStatus, TransactionType } from './transaction/transaction';
 export {
   UserAge,
   UserGender,

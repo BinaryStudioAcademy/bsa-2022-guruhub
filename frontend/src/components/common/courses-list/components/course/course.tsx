@@ -12,16 +12,17 @@ import styles from './styles.module.scss';
 
 type Props = {
   course: CourseGetResponseDto;
+  isPopular?: boolean;
 };
 
-const Course: FC<Props> = ({ course }) => {
+const Course: FC<Props> = ({ course, isPopular = false }) => {
   const keyNameKebabCase = changeStringCase({
     stringToChange: course.category?.key as string,
     caseType: StringCase.KEBAB_CASE,
   });
 
   return (
-    <li className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.vendor}>
         <Image
           src={`/${course.vendor.key}.svg`}
@@ -60,11 +61,16 @@ const Course: FC<Props> = ({ course }) => {
         </Link>
       </div>
       <div className={styles.footer}>
+        {isPopular && (
+          <p className={styles.bestChoiceWrapper}>
+            <span className={styles.bestChoice}>Best Choice</span>
+          </p>
+        )}
         <p className={styles.price}>
           ${(course.category as CourseCategoryWithPriceDto).price.price}/h
         </p>
       </div>
-    </li>
+    </div>
   );
 };
 

@@ -1,0 +1,26 @@
+.status {
+  display: inline-block;
+  width: 100%;
+  max-width: 170px;
+  height: fit-content;
+  color: var(--typography-text-100-inverse);
+  text-align: center;
+  text-transform: capitalize;
+  border-radius: 15px;
+}
+
+.rejected {
+  background-color: var(--brand-purple-100);
+}
+
+.fulfilled {
+  background-color: var(--brand-green-100);
+}
+
+.pending {
+  background-color: var(--brand-blue-200);
+}
+
+.hold {
+  background-color: var(--brand-pink-200);
+}

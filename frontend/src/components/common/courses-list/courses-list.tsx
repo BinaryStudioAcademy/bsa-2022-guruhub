@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 type Props = {
   courses: CourseGetResponseDto[];
   placeholderText?: string;
+  popularCourses?: CourseGetResponseDto[];
   totalCount: number;
   pageSize: number;
   currentPage: number;
@@ -16,6 +17,7 @@ type Props = {
 const CoursesList: FC<Props> = ({
   courses,
   placeholderText = 'There are no courses',
+  popularCourses = [],
   totalCount,
   pageSize,
   currentPage,
@@ -32,9 +34,19 @@ const CoursesList: FC<Props> = ({
   return (
     <>
       <div className={styles.container}>
-        {courses.map((course) => (
-          <Course key={course.id} course={course} />
-        ))}
+        {courses.map((course) => {
+          const isPopularCourse = popularCourses.some(
+            (popularCourse) => popularCourse.id === course.id,
+          );
+
+          return (
+            <Course
+              key={course.id}
+              course={course}
+              isPopular={isPopularCourse}
+            />
+          );
+        })}
       </div>
       <Pagination
         currentPage={currentPage}

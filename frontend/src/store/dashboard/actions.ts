@@ -51,4 +51,16 @@ const addCourse = createAsyncThunk<
   return course;
 });
 
-export { addCourse, getCategories, getCourses };
+const getPopularCourses = createAsyncThunk<
+  CourseGetResponseDto[],
+  void,
+  AsyncThunkConfig
+>(ActionType.GET_POPULAR_COURSES, async (_, { extra }) => {
+  const { coursesApi } = extra;
+
+  const popularCourses = await coursesApi.getPopular();
+
+  return popularCourses;
+});
+
+export { addCourse, getCategories, getCourses, getPopularCourses };

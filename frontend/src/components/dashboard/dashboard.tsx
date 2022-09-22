@@ -5,7 +5,13 @@ import {
   SearchValue,
 } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button, CoursesList, Spinner } from 'components/common/common';
+import {
+  Button,
+  Carousel,
+  Course,
+  CoursesList,
+  Spinner,
+} from 'components/common/common';
 import {
   useAppDispatch,
   useAppSelector,
@@ -16,6 +22,7 @@ import {
 } from 'hooks/hooks';
 import { dashboardActions, userDetailsActions } from 'store/actions';
 
+import { carouselResponsiveBreakpoints } from './common';
 import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
 
@@ -33,14 +40,21 @@ const Dashboard: FC = () => {
     ? Number(searchParams.get(SearchValue.PAGE))
     : PaginationDefaultValue.DEFAULT_PAGE;
 
-  const { user, categories, dataStatus, courses, totalCoursesCount } =
-    useAppSelector((state) => ({
-      user: state.auth.user,
-      categories: state.dashboard.categories,
-      dataStatus: state.dashboard.dataStatus,
-      courses: state.dashboard.courses,
-      totalCoursesCount: state.dashboard.totalCoursesCount,
-    }));
+  const {
+    user,
+    categories,
+    dataStatus,
+    courses,
+    totalCoursesCount,
+    popularCourses,
+  } = useAppSelector((state) => ({
+    user: state.auth.user,
+    categories: state.dashboard.categories,
+    dataStatus: state.dashboard.dataStatus,
+    courses: state.dashboard.courses,
+    popularCourses: state.dashboard.popularCourses,
+    totalCoursesCount: state.dashboard.totalCoursesCount,
+  }));
 
   const [isNewCourseModalOpen, setIsNewCourseModalOpen] =
     useState<boolean>(false);
@@ -50,6 +64,7 @@ const Dashboard: FC = () => {
     if (user) {
       dispatch(userDetailsActions.getUserDetails());
     }
+    dispatch(dashboardActions.getPopularCourses());
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);
 
@@ -69,36 +84,49 @@ const Dashboard: FC = () => {
   };
 
   return (
-    <div className={styles.dashboard}>
-      <div className={styles.header}>
-        <h1 className={styles.headingText}>Courses</h1>
-        <div className={styles.buttonWrapper}>
-          <Button
-            label="+ Add new course"
-            btnColor="blue"
-            to={!hasUser ? AppRoute.SIGN_IN : null}
-            onClick={handleNewCourseModalToggle}
+    <div className={styles.container}>
+      <div className={styles.carouselWrapper}>
+        <h1>Most Popular</h1>
+        <Carousel responsive={carouselResponsiveBreakpoints} hasArrows>
+          {popularCourses.map((popularCourse) => (
+            <div className={styles.carouselElement} key={popularCourse.id}>
+              <Course course={popularCourse} />
+            </div>
+          ))}
+        </Carousel>
+      </div>
+      <div className={styles.dashboard}>
+        <div className={styles.header}>
+          <h1 className={styles.headingText}>Courses</h1>
+          <div className={styles.buttonWrapper}>
+            <Button
+              label="+ Add new course"
+              btnColor="blue"
+              to={!hasUser ? AppRoute.SIGN_IN : null}
+              onClick={handleNewCourseModalToggle}
+            />
+          </div>
+          <AddCourseModal
+            isModalOpen={isNewCourseModalOpen}
+            onModalToggle={handleNewCourseModalToggle}
           />
         </div>
-        <AddCourseModal
-          isModalOpen={isNewCourseModalOpen}
-          onModalToggle={handleNewCourseModalToggle}
-        />
+        <div className={styles.categoriesWrapper}>
+          <CategoriesList items={categories} />
+        </div>
+        {dataStatus === DataStatus.PENDING ? (
+          <Spinner />
+        ) : (
+          <CoursesList
+            courses={courses}
+            currentPage={pageFromParams}
+            onPageChange={handlePageChange}
+            pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_20}
+            totalCount={totalCoursesCount}
+            popularCourses={popularCourses}
+          />
+        )}
       </div>
-      <div className={styles.categoriesWrapper}>
-        <CategoriesList items={categories} />
-      </div>
-      {dataStatus === DataStatus.PENDING ? (
-        <Spinner />
-      ) : (
-        <CoursesList
-          courses={courses}
-          currentPage={pageFromParams}
-          onPageChange={handlePageChange}
-          pageSize={PaginationDefaultValue.DEFAULT_COUNT_BY_20}
-          totalCount={totalCoursesCount}
-        />
-      )}
     </div>
   );
 };
