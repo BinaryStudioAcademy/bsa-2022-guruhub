@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useRef } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import {
   AppColor,
@@ -26,6 +26,7 @@ import {
   useCallback,
   useEffect,
   useFocusEffect,
+  useRef,
 } from '~/hooks/hooks';
 import { categoryActions, coursesActions } from '~/store/actions';
 

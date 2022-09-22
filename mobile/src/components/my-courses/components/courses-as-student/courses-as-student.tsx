@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useRef } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import {
   AppScreenName,
@@ -16,6 +16,7 @@ import {
   useAppNavigate,
   useAppSelector,
   useEffect,
+  useRef,
 } from '~/hooks/hooks';
 import { coursesActions, myCoursesActions } from '~/store/actions';
 
