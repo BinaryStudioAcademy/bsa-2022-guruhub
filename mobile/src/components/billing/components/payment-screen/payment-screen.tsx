@@ -1,13 +1,12 @@
-import { CardField, useStripe } from '@stripe/stripe-react-native';
+import { useStripe } from '@stripe/stripe-react-native';
 import React, { FC } from 'react';
 
-import { AppColor } from '~/common/enums/enums';
 import { BillingReplenishToken } from '~/common/types/types';
 import { ReplenishAmount } from '~/components/billing/types/types';
 import { Button, ScrollView, Text, View } from '~/components/common/common';
 import { useState } from '~/hooks/hooks';
 
-import { ReplenishCard } from './components/components';
+import { PaymentCard, ReplenishCard } from './components/components';
 import { styles } from './styles';
 
 type Props = {
@@ -32,9 +31,9 @@ const PaymentScreen: FC<Props> = ({
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
 
   const handleReplenishCardChoose = (cardId: number): void => {
-    const selectedCard = selectedCardId !== cardId ? cardId : null;
+    const newSelectedCardId = selectedCardId !== cardId ? cardId : null;
 
-    setSelectedCardId(selectedCard);
+    setSelectedCardId(newSelectedCardId);
   };
 
   const handlePayPress = async (): Promise<void> => {
@@ -75,30 +74,7 @@ const PaymentScreen: FC<Props> = ({
           );
         })}
       </View>
-      {selectedCardId && (
-        <View style={styles.container}>
-          <CardField
-            postalCodeEnabled={false}
-            placeholders={{
-              number: '4242 4242 4242 4242',
-            }}
-            cardStyle={{
-              backgroundColor: AppColor.BACKGROUND.GRAY_200,
-              textColor: AppColor.TEXT.GRAY_100,
-              placeholderColor: AppColor.BRAND.BLUE_100,
-              borderRadius: 8,
-            }}
-            style={{
-              width: '100%',
-              height: 50,
-              marginBottom: 30,
-            }}
-          />
-          <View style={styles.buttonWrapper}>
-            <Button onPress={handlePayPress} label="Pay" />
-          </View>
-        </View>
-      )}
+      {selectedCardId && <PaymentCard onPayPress={handlePayPress} />}
     </ScrollView>
   );
 };

@@ -35,7 +35,7 @@ const replenish = createAsyncThunk<
       token,
     });
 
-    notification.success(NotificationMessage.SUCCESSFULL_REPLENISH);
+    notification.success(NotificationMessage.SUCCESSFUL_REPLENISH);
 
     return userDetailsWithMoneyBalance;
   },

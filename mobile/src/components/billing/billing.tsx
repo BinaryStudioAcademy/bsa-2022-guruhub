@@ -36,7 +36,7 @@ const Billing: FC = () => {
 
   useEffect(() => {
     dispatch(billingActions.getUserWithMoneyBalance());
-  }, [dispatch]);
+  }, []);
 
   if (billingDataStatus === DataStatus.PENDING) {
     return <Spinner isOverflow />;
