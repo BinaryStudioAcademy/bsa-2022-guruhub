@@ -1,6 +1,6 @@
 .billing {
   width: 100%;
-  padding: 20px 30px;
+  padding: 20px;
   background: var(--background-gray-400);
 }
 
@@ -14,8 +14,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin: 0 20px;
-  padding: 20px;
+  padding: 20px 0;
   color: var(--typography-text-100-inverse);
   border-bottom: 2px solid var(--background-gray-200);
 }
