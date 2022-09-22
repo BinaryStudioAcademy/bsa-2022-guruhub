@@ -1,22 +1,12 @@
 import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 
-import {
-  AppColor,
-  AppFontFamily,
-  CourseScreenName,
-  CourseTabsName,
-  PermissionKey,
-} from '~/common/enums/enums';
+import { AppColor, AppFontFamily, CourseTabsName } from '~/common/enums/enums';
 import { NavigationItem } from '~/common/types/types';
 import {
   CourseStudents,
-  EditCourse,
   MyMentor,
 } from '~/components/course/components/components';
 import { Course } from '~/components/course/course';
-import { CourseModule } from '~/navigation/course-module/course-module.navigation';
-
-import { Course as CourseTabs } from '../../course.navigation';
 
 const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarLabelStyle: {
@@ -37,7 +27,7 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const COURSE_TAB_ITEMS: NavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: CourseTabsName.ABOUT,
     component: Course,
@@ -58,25 +48,4 @@ const COURSE_TAB_ITEMS: NavigationItem[] = [
   },
 ];
 
-const NAVIGATION_ITEMS: NavigationItem[] = [
-  {
-    name: CourseScreenName.COURSE,
-    component: CourseTabs,
-    permissions: [],
-    isAuthRequired: false,
-  },
-  {
-    name: CourseScreenName.EDIT_COURSE,
-    component: EditCourse,
-    permissions: [PermissionKey.MANAGE_CATEGORIES],
-    isAuthRequired: true,
-  },
-  {
-    name: CourseScreenName.COURSE_MODULE,
-    component: CourseModule,
-    permissions: [],
-    isAuthRequired: true,
-  },
-];
-
-export { COURSE_TAB_ITEMS, NAVIGATION_ITEMS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

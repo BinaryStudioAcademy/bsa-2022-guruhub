@@ -1,44 +1,48 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
 
-import { MyCoursesScreenName } from '~/common/enums/enums';
-import { MyCoursesNavigationParamList } from '~/common/types/types';
-import { View } from '~/components/common/common';
+import { CoursesScreenName } from '~/common/enums/enums';
 import {
-  CoursesAsMentor,
-  CoursesAsStudent,
-} from '~/components/my-courses/components/components';
-import { useAppNavigate, useCallback, useFocusEffect } from '~/hooks/hooks';
+  CoursesNavigationParamList,
+  NavigationItem,
+} from '~/common/types/types';
+import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
+import { useAppSelector, useMemo } from '~/hooks/hooks';
 
-import { TAB_OPTIONS } from './common/constants/constants';
-import { styles } from './styles';
-
-const Tab = createMaterialTopTabNavigator<MyCoursesNavigationParamList>();
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const MyCourses: FC = () => {
-  const navigation = useAppNavigate();
+  const NativeStack = createNativeStackNavigator<CoursesNavigationParamList>();
+  const { user } = useAppSelector((state) => state.auth);
 
-  useFocusEffect(
-    useCallback(() => {
-      navigation.getParent()?.setOptions({
-        headerShown: true,
-      });
-    }, []),
-  );
+  const userPermissions = user?.permissions ?? [];
+
+  const allowedScreens: NavigationItem[] = useMemo(() => {
+    const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
+
+    const permittedScreens = getPermittedScreens(
+      screensByAuth,
+      userPermissions,
+    );
+
+    return permittedScreens;
+  }, [user, userPermissions]);
 
   return (
-    <View style={styles.container}>
-      <Tab.Navigator screenOptions={TAB_OPTIONS}>
-        <Tab.Screen
-          name={MyCoursesScreenName.STUDENT}
-          component={CoursesAsStudent}
-        />
-        <Tab.Screen
-          name={MyCoursesScreenName.MENTOR}
-          component={CoursesAsMentor}
-        />
-      </Tab.Navigator>
-    </View>
+    <NativeStack.Navigator
+      screenOptions={SCREEN_OPTIONS}
+      initialRouteName={CoursesScreenName.COURSES}
+    >
+      {allowedScreens.map((screen) => {
+        return (
+          <NativeStack.Screen
+            key={screen.name}
+            name={screen.name as CoursesScreenName}
+            component={screen.component}
+          />
+        );
+      })}
+    </NativeStack.Navigator>
   );
 };
 

@@ -1,37 +1,13 @@
-import { MaterialTopTabNavigationOptions } from '@react-navigation/material-top-tabs';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
-import {
-  AppColor,
-  AppFontFamily,
-  MyCoursesScreenName,
-} from '~/common/enums/enums';
+import { MyCoursesScreenName } from '~/common/enums/enums';
 import { NavigationItem } from '~/common/types/types';
-import { Course } from '~/navigation/course/course-stack.navigation';
-import { MyCourses } from '~/navigation/my-courses/my-courses.navigation';
+import { ConfigureCourse } from '~/navigation/configure-course/configure-course.navigation';
+import { MyCourses } from '~/navigation/my-courses-results/my-courses-results.navigation';
 
 const SCREEN_OPTIONS: NativeStackNavigationOptions = {
   headerTitleAlign: 'center',
   headerShown: false,
-};
-
-const TAB_OPTIONS: MaterialTopTabNavigationOptions = {
-  tabBarLabelStyle: {
-    fontFamily: AppFontFamily.INTER_600,
-    fontSize: 14,
-    lineHeight: 16,
-    letterSpacing: 0.5,
-    textTransform: 'none',
-  },
-  tabBarStyle: {
-    backgroundColor: AppColor.BACKGROUND.GRAY_300,
-  },
-  tabBarIndicatorStyle: {
-    backgroundColor: AppColor.BRAND.BLUE_100,
-  },
-  swipeEnabled: false,
-  tabBarActiveTintColor: AppColor.TEXT.GRAY_100,
-  tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
 const NAVIGATION_ITEMS: NavigationItem[] = [
@@ -43,10 +19,10 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
   },
   {
     name: MyCoursesScreenName.COURSE,
-    component: Course,
+    component: ConfigureCourse,
     permissions: [],
     isAuthRequired: false,
   },
 ];
 
-export { NAVIGATION_ITEMS, SCREEN_OPTIONS, TAB_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

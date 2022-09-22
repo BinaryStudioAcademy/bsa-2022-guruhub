@@ -24,7 +24,7 @@ const Courses: FC = () => {
     );
 
     return permittedScreens;
-  }, [user]);
+  }, [user, userPermissions]);
 
   return (
     <NativeStack.Navigator

@@ -1,18 +1,25 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
 
-import { CoursesScreenName } from '~/common/enums/enums';
+import { CourseScreenName } from '~/common/enums/enums';
 import {
-  CoursesNavigationParamList,
+  CourseNavigationParamList,
   NavigationItem,
 } from '~/common/types/types';
 import { getPermittedScreens, getScreensByAuth } from '~/helpers/helpers';
-import { useAppSelector, useMemo } from '~/hooks/hooks';
+import {
+  useAppNavigate,
+  useAppSelector,
+  useEffect,
+  useMemo,
+} from '~/hooks/hooks';
 
 import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
-const MyCourses: FC = () => {
-  const NativeStack = createNativeStackNavigator<CoursesNavigationParamList>();
+const ConfigureCourse: FC = () => {
+  const NativeStack = createNativeStackNavigator<CourseNavigationParamList>();
+  const navigation = useAppNavigate();
+
   const { user } = useAppSelector((state) => state.auth);
 
   const userPermissions = user?.permissions ?? [];
@@ -26,18 +33,21 @@ const MyCourses: FC = () => {
     );
 
     return permittedScreens;
-  }, [user]);
+  }, [user, userPermissions]);
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
   return (
-    <NativeStack.Navigator
-      screenOptions={SCREEN_OPTIONS}
-      initialRouteName={CoursesScreenName.COURSES}
-    >
+    <NativeStack.Navigator screenOptions={SCREEN_OPTIONS}>
       {allowedScreens.map((screen) => {
         return (
           <NativeStack.Screen
             key={screen.name}
-            name={screen.name as CoursesScreenName}
+            name={screen.name as CourseScreenName}
             component={screen.component}
           />
         );
@@ -46,4 +56,4 @@ const MyCourses: FC = () => {
   );
 };
 
-export { MyCourses };
+export { ConfigureCourse };

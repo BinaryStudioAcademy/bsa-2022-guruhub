@@ -12,7 +12,7 @@ import { Chat } from '~/navigation/chat/chat.navigation';
 import { Courses } from '~/navigation/courses/courses.navigation';
 import { CoursesManagement } from '~/navigation/courses-management/courses-management.navigation';
 import { Interviews } from '~/navigation/interviews/interviews.navigation';
-import { MyCourses } from '~/navigation/my-courses/my-courses-stack.navigation';
+import { MyCourses } from '~/navigation/my-courses/my-courses.navigation';
 import { UAM } from '~/navigation/uam/uam.navigation';
 
 import { DrawerNavigationItem } from '../types/types';

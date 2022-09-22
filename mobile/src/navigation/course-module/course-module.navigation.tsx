@@ -51,6 +51,9 @@ const CourseModule: FC = () => {
   const isTabsShown = screensToRender.length > MIN_SCREENS_COUNT_FOR_TABS;
 
   useEffect(() => {
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={handleGoBack} />,
     });

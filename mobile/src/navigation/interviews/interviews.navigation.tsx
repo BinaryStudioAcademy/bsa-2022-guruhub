@@ -28,7 +28,7 @@ const Interviews: FC = () => {
     );
 
     return permittedScreens;
-  }, [user]);
+  }, [user, userPermissions]);
 
   return (
     <NativeStack.Navigator screenOptions={SCREEN_OPTIONS}>

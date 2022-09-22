@@ -7,7 +7,7 @@ import {
 import { NavigationItem } from '~/common/types/types';
 import { EditCourse } from '~/components/course/components/components';
 import { CoursesManagement } from '~/components/courses-management/courses-management';
-import { Course } from '~/navigation/course/course-stack.navigation';
+import { ConfigureCourse } from '~/navigation/configure-course/configure-course.navigation';
 
 const SCREEN_OPTIONS: NativeStackNavigationOptions = {
   headerTitleAlign: 'center',
@@ -29,7 +29,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
   },
   {
     name: CoursesManagementScreenName.COURSE,
-    component: Course,
+    component: ConfigureCourse,
     permissions: [],
     isAuthRequired: false,
   },

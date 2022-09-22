@@ -17,7 +17,7 @@ import {
 } from '~/hooks/hooks';
 import { courseModulesActions, coursesActions } from '~/store/actions';
 
-import { COURSE_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
 const Tab = createMaterialTopTabNavigator<CourseTabNavigationParamList>();
 
@@ -37,7 +37,7 @@ const Course: FC = () => {
   const userPermissions = user?.permissions ?? [];
 
   const allowedScreens = useMemo(() => {
-    const screensByAuth = getScreensByAuth(COURSE_TAB_ITEMS, Boolean(user));
+    const screensByAuth = getScreensByAuth(NAVIGATION_ITEMS, Boolean(user));
     const permittedScreens = getPermittedScreens(
       screensByAuth,
       userPermissions,
