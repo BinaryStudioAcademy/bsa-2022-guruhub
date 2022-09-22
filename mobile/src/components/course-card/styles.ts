@@ -27,7 +27,19 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     fontFamily: AppFontFamily.INTER_600,
     fontSize: 16,
-    color: 'white',
+    color: AppColor.TEXT.GRAY_100,
+  },
+  priceWrapper: {
+    paddingVertical: 8,
+    borderTopWidth: 2,
+    borderTopColor: AppColor.BACKGROUND.GRAY_200,
+    marginTop: 15,
+  },
+  price: {
+    fontFamily: AppFontFamily.INTER_600,
+    color: AppColor.TEXT.GRAY_100,
+    fontSize: 16,
+    alignSelf: 'flex-end',
   },
 });
 

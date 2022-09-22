@@ -6,7 +6,10 @@ import {
   CourseGetResponseDto,
 } from '~/common/types/courses/courses';
 import { Image, Pressable, Text, View } from '~/components/common/common';
-import { VendorLabel } from '~/components/course-card/components/components';
+import {
+  CategoryLabel,
+  VendorLabel,
+} from '~/components/course-card/components/components';
 import { getImageUri } from '~/helpers/helpers';
 
 import { styles } from './styles';
@@ -22,6 +25,10 @@ const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
 
   const handlePostExpand = (): void => onCoursePress({ id });
 
+  const coursePriceCurrency = course.category?.price ? '$' : '';
+  const coursePriceAmount = course.category?.price.price ?? '';
+  const coursePrice = `${coursePriceCurrency}${coursePriceAmount}/h`;
+
   return (
     <Pressable onPress={handlePostExpand} style={styles.container}>
       {vendorKey && <VendorLabel vendorKey={vendorKey} />}
@@ -30,9 +37,18 @@ const CourseCard: FC<Props> = ({ course, onCoursePress }): ReactElement => {
           style={styles.courseImage}
           source={{ uri: imageUrl ?? getImageUri(defaultCourseImage) }}
         />
+        {course.category && (
+          <CategoryLabel
+            name={course.category.name}
+            keyName={course.category.key}
+          />
+        )}
       </View>
       <View style={styles.innerContainer}>
         <Text style={styles.title}>{title}</Text>
+      </View>
+      <View style={styles.priceWrapper}>
+        <Text style={styles.price}>{coursePrice}</Text>
       </View>
     </Pressable>
   );
