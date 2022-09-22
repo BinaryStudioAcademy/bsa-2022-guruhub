@@ -7,7 +7,7 @@ import {
 import {
   AsyncThunkConfig,
   CourseCreateRequestDto,
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
   CourseGetResponseDto,
@@ -15,6 +15,7 @@ import {
   CoursesToMentorsRequestDto,
   CoursesToMentorsResponseDto,
   CourseUpdateCategoryRequestArguments,
+  EntityPagination,
   GetMentorRequestParamsDto,
   InterviewsCreateRequestBodyDto,
   MenteesToMentorsResponseDto,
@@ -28,17 +29,20 @@ import { app, interviewsActions } from '~/store/actions';
 import { ActionType } from './common';
 
 const getCourses = createAsyncThunk<
-  CourseGetResponseDto[],
-  CourseFilteringDto,
+  EntityPagination<CourseGetResponseDto>,
+  CourseFilteringWithPaginationDto,
   AsyncThunkConfig
->(ActionType.GET_COURSES, async ({ title, categoryKey }, { extra }) => {
-  const { coursesApi } = extra;
-  const courses = await coursesApi.getAll({
-    filtering: { title, categoryKey },
-  });
+>(
+  ActionType.GET_COURSES,
+  async ({ title, categoryKey, page, count }, { extra }) => {
+    const { coursesApi } = extra;
+    const courses = await coursesApi.getAllWithCategories({
+      filtering: { title, categoryKey, page, count },
+    });
 
-  return courses;
-});
+    return courses;
+  },
+);
 
 const getCourse = createAsyncThunk<
   CourseGetResponseDto,
@@ -326,6 +330,7 @@ const getTasksByCourseIdAndMenteeId = createAsyncThunk<
 
 const clearMentor = createAction(ActionType.CLEAR_MENTOR);
 const clearTasks = createAction(ActionType.CLEAR_TASKS);
+
 const addCurrentMenteeId = createAction<number>(
   ActionType.ADD_CURRENT_MENTEE_ID,
 );

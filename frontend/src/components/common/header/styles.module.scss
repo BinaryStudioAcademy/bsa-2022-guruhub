@@ -43,6 +43,17 @@
   cursor: pointer;
 }
 
+.popupWrapper {
+  z-index: var(--z-index-level-six);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popupWrapper:hover {
+  cursor: pointer;
+}
+
 .imageWrapper {
   position: relative;
   width: 100%;
@@ -73,8 +84,4 @@
 
 .chatLogoWrapper {
   margin-top: 7px;
-}
-
-.chatIcon:hover path {
-  fill: white;
 }

@@ -31,6 +31,7 @@ export {
 export {
   type CourseCreateRequestDto,
   type CourseFilteringDto,
+  type CourseFilteringWithPaginationDto,
   type CourseGetMentoringDto,
   type CourseGetMentorsRequestDto,
   type CourseGetRequestParamsDto,
