@@ -80,8 +80,7 @@ const Courses: FC = (): ReactElement => {
     const isExistMoreCourses = totalCoursesNumber > filter.current.count;
 
     if (isExistMoreCourses) {
-      filter.current.count =
-        filter.current.count + PaginationDefaultValue.DEFAULT_COUNT_BY_20;
+      filter.current.count += PaginationDefaultValue.DEFAULT_COUNT_BY_20;
       handleCoursesLoad();
     }
   };

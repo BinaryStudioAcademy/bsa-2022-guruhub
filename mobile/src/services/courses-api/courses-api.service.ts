@@ -5,7 +5,6 @@ import {
   HttpMethod,
 } from '~/common/enums/enums';
 import {
-  CourseFilteringDto,
   CourseFilteringWithPaginationDto,
   CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
@@ -54,15 +53,19 @@ class Courses {
     );
   }
 
-  public getAll(options: {
-    filtering: CourseFilteringDto;
-  }): Promise<CourseGetResponseDto[]> {
-    return this.#http.load(
-      `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
+  public getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}`,
       {
+        method: HttpMethod.GET,
         queryParams: {
-          title: options.filtering.title,
-          categoryKey: options.filtering.categoryKey,
+          count,
+          page,
         },
       },
     );
@@ -189,9 +192,20 @@ class Courses {
     );
   }
 
-  public getAllCoursesStudying(): Promise<CourseGetResponseDto[]> {
-    return this.#http.load<CourseGetResponseDto[]>(
+  public getAllCoursesStudying({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.STUDYING}`,
+      {
+        queryParams: {
+          count,
+          page,
+        },
+      },
     );
   }
 
