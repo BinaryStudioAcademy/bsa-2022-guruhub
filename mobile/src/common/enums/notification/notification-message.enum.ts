@@ -11,6 +11,9 @@ enum NotificationMessage {
   INVALID_PHOTO_FORMAT = 'Supported formats: .PNG, .JPEG, .SVG`',
   COURSES_MENTORING_UPDATE = 'Students count is successfully updated!',
   MENTOR_CHOOSE = 'You have successfully chose a mentor for this course!',
+  NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You need to have at least 1$ to withdraw your funds.',
+  SUCCESSFUL_REPLENISH = 'You have successfully replenished your balance.',
+  SUCCESSFUL_WITHDRAW_START = 'Withdrawing process has successfully started. You need to wait when your bank transfers your funds on your count.',
 }
 
 export { NotificationMessage };

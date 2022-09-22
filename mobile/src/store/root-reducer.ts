@@ -1,4 +1,5 @@
 import { reducer as auth } from './auth/reducer';
+import { reducer as billing } from './billing/reducer';
 import { reducer as categories } from './categories/reducer';
 import { reducer as chat } from './chat/reducer';
 import { reducer as courseModules } from './course-modules/reducer';
@@ -14,6 +15,7 @@ import { reducer as userDetails } from './user-details/reducer';
 
 const rootReducer = {
   auth,
+  billing,
   uam,
   uamGroupEdit,
   uamGroupCreation,

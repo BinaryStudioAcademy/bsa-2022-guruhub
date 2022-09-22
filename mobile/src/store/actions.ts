@@ -1,5 +1,6 @@
 export * as app from './app/actions';
 export * as authActions from './auth/actions';
+export * as billingActions from './billing/actions';
 export * as categoryActions from './categories/actions';
 export * as chatActions from './chat/actions';
 export * as courseModulesActions from './course-modules/actions';

@@ -4,6 +4,11 @@ export {
   type RootState,
 } from './app/app';
 export {
+  type BillingReplenishParamsDto,
+  type BillingReplenishToken,
+  type BillingWithdrawDto,
+} from './billing/billing';
+export {
   type CategoryGetAllItemResponseDto,
   type CategoryGetAllResponseDto,
   type CourseCategoryGetByIdRequestParamsDto,
