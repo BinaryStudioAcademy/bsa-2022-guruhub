@@ -75,18 +75,20 @@ const Header: FC = () => {
           )}
           <div className={styles.userWrapper}>
             {hasUser ? (
-              <button onClick={handlePopupOpen} className={styles.button}>
-                <div className={styles.imageWrapper}>
-                  <Image
-                    width="50"
-                    height="50"
-                    src={avatarUrl ?? defaultUserAvatar}
-                    alt="user avatar"
-                    isCircular
-                    className={styles.img}
-                  />
-                </div>
-              </button>
+              <div className={styles.popupWrapper}>
+                <button onClick={handlePopupOpen} className={styles.button}>
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      width="50"
+                      height="50"
+                      src={avatarUrl ?? defaultUserAvatar}
+                      alt="user avatar"
+                      isCircular
+                      className={styles.img}
+                    />
+                  </div>
+                </button>
+              </div>
             ) : (
               <div className={styles.buttonsWrapper}>
                 <Button label="Sign In" btnColor="gray" to={AppRoute.SIGN_IN} />

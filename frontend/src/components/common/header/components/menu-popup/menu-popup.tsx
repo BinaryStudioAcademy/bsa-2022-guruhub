@@ -1,6 +1,6 @@
 import { AppRoute } from 'common/enums/enums';
 import { FC } from 'common/types/types';
-import { Button } from 'components/common/common';
+import { Button, Icon } from 'components/common/common';
 import { useAppDispatch, useHandleClickOutside, useRef } from 'hooks/hooks';
 import { authActions } from 'store/actions';
 
@@ -27,6 +27,9 @@ const Popup: FC<Props> = ({ onClose }) => {
     <div className={styles.popup}>
       <div className={styles.wrapper} ref={popupRef}>
         <ul className={styles.ul}>
+          <li className={styles.caretImage}>
+            <Icon name="caretUp" className={styles.caretIcon} />
+          </li>
           <li className={styles.li}>
             <div className={styles.buttonWrapper}>
               <Button label="Profile" to={AppRoute.PROFILE} />
