@@ -13,7 +13,6 @@ const Courses: FC = () => {
   const NativeStack = createNativeStackNavigator<CoursesNavigationParamList>();
 
   const { user } = useAppSelector((state) => state.auth);
-
   const userPermissions = user?.permissions ?? [];
 
   const allowedScreens: CoursesNavigationItem[] = useMemo(() => {
