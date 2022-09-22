@@ -48,8 +48,6 @@ const PaymentScreen: FC<Props> = ({
     if (createdToken && amountOfMoneyToReplenish) {
       onReplenish(amountOfMoneyToReplenish.value, createdToken);
     }
-
-    return;
   };
 
   return (
