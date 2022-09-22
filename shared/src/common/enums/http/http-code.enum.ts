@@ -7,6 +7,7 @@ enum HttpCode {
   INTERNAL_SERVER_ERROR = 500,
   NO_CONTENT = 204,
   FORBIDDEN = 403,
+  CONFLICT = 409,
 }
 
 export { HttpCode };
