@@ -78,7 +78,9 @@ class Course {
     const { results, total } = await this.#CourseModel
       .query()
       .withGraphJoined('category')
-      .orderByRaw(`course_category_id ${SortOrder.ASC} NULLS FIRST`)
+      .orderByRaw(`:column: ${SortOrder.ASC} NULLS FIRST`, {
+        column: 'courseCategoryId',
+      })
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
 
