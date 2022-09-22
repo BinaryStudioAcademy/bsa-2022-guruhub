@@ -4,9 +4,9 @@ import {
   FormControlErrors,
   FormControlPath,
 } from 'common/types/types';
-import { ErrorMessage, Textarea } from 'components/common/common';
+import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
-import { useFormControl } from 'hooks/hooks';
+import { useFormControl, useState } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -36,15 +36,32 @@ const Input: FC<Props> = ({
   maxRows,
 }) => {
   const { field } = useFormControl({ name, control });
+  const [textValue, setTextValue] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setTextValue(e.target.value);
+
+    if (maxRows) {
+      e.target.rows = rows as number;
+      const lineHeight = window.getComputedStyle(e.target).lineHeight;
+      const lineHeightValue = Number(
+        (lineHeight.match(/\d+/) as Array<string>)[0],
+      );
+      const currentRows = Math.floor(e.target.scrollHeight / lineHeightValue);
+      const newRowCount = currentRows < maxRows ? currentRows : maxRows;
+      e.target.rows = newRowCount;
+    }
+  };
 
   const inputArea = rows ? (
-    <Textarea
-      field={field}
+    <textarea
+      {...field}
       name={name}
       placeholder={placeholder}
-      classes={getValidClasses(styles.input, inputClassName)}
+      className={getValidClasses(styles.input, inputClassName)}
       rows={rows}
-      maxRows={maxRows}
+      value={textValue}
+      onChange={handleChange}
     />
   ) : (
     <input
