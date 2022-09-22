@@ -28,8 +28,7 @@ const Conversation: FC<Props> = ({
   onPress,
 }) => {
   const messageStart = messageSenderId === currentUserId ? 'You: ' : '';
-  const messageText = lastMessage ? lastMessage : '';
-  const message = `${messageStart}${messageText}`;
+  const message = `${messageStart}${lastMessage ?? ''}`;
 
   const messageDate =
     lastMessageDate && getFormattedDate(lastMessageDate, 'HH:mm');
