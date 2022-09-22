@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
+  messageWrapper: {
+    flex: 1,
+  },
   avatar: {
     width: 40,
     height: 40,
@@ -36,6 +39,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 14,
     color: AppColor.TEXT.GRAY_200,
+    marginLeft: 10,
   },
 });
 
