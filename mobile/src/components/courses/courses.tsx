@@ -20,6 +20,7 @@ import {
   useCallback,
   useEffect,
   useFocusEffect,
+  useState,
 } from '~/hooks/hooks';
 import { categoryActions, coursesActions } from '~/store/actions';
 
@@ -45,6 +46,9 @@ const Courses: FC = (): ReactElement => {
     courseCategory: categories.courseCategory,
     categoryDataStatus: categories.dataStatus,
   }));
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    null,
+  );
 
   const isLoading =
     dataStatus === DataStatus.PENDING ||
@@ -86,15 +90,30 @@ const Courses: FC = (): ReactElement => {
     }
   };
 
+  const handleCategorySelectUnauthorized = (id: number): void => {
+    const selectedId = id === selectedCategoryId ? null : id;
+
+    setSelectedCategoryId(selectedId);
+  };
+
+  const handleCategorySelectMethod = user
+    ? handleCategorySelect
+    : handleCategorySelectUnauthorized;
+
   useEffect(() => {
-    const activeCategoryKey = courseCategory?.key ?? '';
+    const activeCategoryKeyUnauthorized =
+      categories.find((category) => category.id === selectedCategoryId)?.key ??
+      '';
+    const activeCategoryKey = user
+      ? courseCategory?.key ?? ''
+      : activeCategoryKeyUnauthorized;
 
     if (filter.current.categoryKey !== activeCategoryKey) {
       filter.current.categoryKey = activeCategoryKey;
 
       handleCoursesLoad();
     }
-  }, [courseCategory?.key]);
+  }, [courseCategory?.key, user, selectedCategoryId]);
 
   useFocusEffect(
     useCallback(() => {
@@ -103,6 +122,7 @@ const Courses: FC = (): ReactElement => {
 
       return () => {
         dispatch(categoryActions.clearCategory());
+        setSelectedCategoryId(null);
       };
     }, []),
   );
@@ -114,8 +134,8 @@ const Courses: FC = (): ReactElement => {
       </View>
       <CategoryList
         items={categories}
-        handleSelect={handleCategorySelect}
-        activeCategoryId={courseCategory?.id ?? null}
+        handleSelect={handleCategorySelectMethod}
+        activeCategoryId={courseCategory?.id ?? selectedCategoryId}
       />
       <View style={styles.container}>
         {isLoading ? (
