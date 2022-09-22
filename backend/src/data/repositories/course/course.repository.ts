@@ -24,8 +24,6 @@ type Constructor = {
 class Course {
   #CourseModel: typeof CourseM;
 
-  private static CATEGORY_ID_COLUMN_NAME = 'course_category_id';
-
   private static MAX_COUNT_POPULAR_COURSES = 10;
 
   public constructor({ CourseModel }: Constructor) {
@@ -80,9 +78,7 @@ class Course {
     const { results, total } = await this.#CourseModel
       .query()
       .withGraphJoined('category')
-      .orderByRaw(
-        `${Course.CATEGORY_ID_COLUMN_NAME} ${SortOrder.ASC} NULLS FIRST`,
-      )
+      .orderByRaw(`course_category_id ${SortOrder.ASC} NULLS FIRST`)
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
 
