@@ -10,6 +10,8 @@ type Props = {
 };
 
 const MyMentor: FC<Props> = ({ mentor, onMentorChange }) => {
+  const hasTelegram = Boolean(mentor.userDetails.telegramUsername);
+
   return (
     <div>
       <h2>My Mentor</h2>
@@ -25,6 +27,11 @@ const MyMentor: FC<Props> = ({ mentor, onMentorChange }) => {
           <div className={styles.mentorData}>
             <p className={styles.mentorName}>{mentor.userDetails.fullName}</p>
             <p className={styles.mentorContacts}>{mentor.email}</p>
+            {hasTelegram && (
+              <p className={styles.mentorContacts}>
+                {mentor.userDetails.telegramUsername}
+              </p>
+            )}
           </div>
         </div>
         <div className={styles.changeMentor}>
