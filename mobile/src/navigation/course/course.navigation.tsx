@@ -15,7 +15,11 @@ import {
   useFocusEffect,
   useMemo,
 } from '~/hooks/hooks';
-import { courseModulesActions, coursesActions } from '~/store/actions';
+import {
+  courseModulesActions,
+  coursesActions,
+  interviewActions,
+} from '~/store/actions';
 
 import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants/constants';
 
@@ -25,12 +29,13 @@ const Course: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { user, course, isMentor, mentors } = useAppSelector(
-    ({ auth, courses }) => ({
+  const { user, course, isMentor, mentors, interviewers } = useAppSelector(
+    ({ auth, courses, interview }) => ({
       user: auth.user,
       course: courses.course,
       mentors: courses.mentors,
       isMentor: courses.isMentor,
+      interviewers: interview.interviewers,
     }),
   );
 
@@ -42,13 +47,24 @@ const Course: FC = () => {
       screensByAuth,
       userPermissions,
     );
+    const hasInterview = Boolean(
+      interviewers.filter(({ interviewer }) => interviewer.id === user?.id)
+        .length,
+    );
+    const isShowMyMentorTabs = hasInterview && CourseScreenName.MY_MENTOR;
 
     const screenNameToFilter = isMentor
       ? CourseScreenName.MY_MENTOR
       : CourseScreenName.MY_STUDENTS;
 
-    return permittedScreens.filter(({ name }) => name !== screenNameToFilter);
-  }, [userPermissions, isMentor, user]);
+    return permittedScreens.filter(
+      ({ name }) =>
+        ![screenNameToFilter, isShowMyMentorTabs].includes(
+          name as CourseScreenName,
+        ),
+    );
+  }, [userPermissions, isMentor, user, interviewers]);
+
   const isTabsShown = allowedScreens.length > MIN_SCREENS_COUNT_FOR_TABS;
 
   const handleLeaveCourseScreen = (): void => {
@@ -72,6 +88,14 @@ const Course: FC = () => {
   useEffect(() => {
     if (course) {
       dispatch(coursesActions.checkIsMentor({ id: course.id }));
+
+      if (course?.category) {
+        dispatch(
+          interviewActions.getInterviewersByCategory({
+            categoryId: course?.category?.id,
+          }),
+        );
+      }
     }
   }, [course]);
 
