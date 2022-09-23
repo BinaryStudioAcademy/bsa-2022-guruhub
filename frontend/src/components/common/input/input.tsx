@@ -6,7 +6,7 @@ import {
 } from 'common/types/types';
 import { ErrorMessage } from 'components/common/common';
 import { getValidClasses } from 'helpers/helpers';
-import { useFormControl, useState } from 'hooks/hooks';
+import { useFormControl } from 'hooks/hooks';
 
 import styles from './styles.module.scss';
 
@@ -36,15 +36,14 @@ const Input: FC<Props> = ({
   maxRows,
 }) => {
   const { field } = useFormControl({ name, control });
-  const [textValue, setTextValue] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setTextValue(e.target.value);
+    field.onChange(e);
 
     if (maxRows) {
       e.target.rows = rows as number;
       const lineHeight = window.getComputedStyle(e.target).lineHeight;
-      const lineHeightValue = Number(
+      const lineHeightValue = parseInt(
         (lineHeight.match(/\d+/) as Array<string>)[0],
       );
       const currentRows = Math.floor(e.target.scrollHeight / lineHeightValue);
@@ -60,7 +59,6 @@ const Input: FC<Props> = ({
       placeholder={placeholder}
       className={getValidClasses(styles.input, inputClassName)}
       rows={rows}
-      value={textValue}
       onChange={handleChange}
     />
   ) : (
