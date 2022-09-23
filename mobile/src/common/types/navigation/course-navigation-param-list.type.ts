@@ -1,4 +1,4 @@
-import { CourseScreenName } from '~/common/enums/navigation/course-screen-name.enum';
+import { CourseScreenName } from '~/common/enums/enums';
 
 type CourseNavigationParamList = {
   [CourseScreenName.ABOUT]: undefined;
