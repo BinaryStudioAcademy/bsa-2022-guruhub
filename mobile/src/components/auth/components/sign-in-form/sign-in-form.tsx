@@ -11,7 +11,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { useAppForm } from '~/hooks/hooks';
+import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 import { userSignIn as userSignInValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { DEFAULT_SIGN_IN_PAYLOAD } from './common/constants';
@@ -22,10 +22,22 @@ type Props = {
 };
 
 const SignInForm: FC<Props> = ({ onSubmit }) => {
-  const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
-    defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
-    validationSchema: userSignInValidationSchema,
-  });
+  const { control, reset, errors, handleSubmit } =
+    useAppForm<UserSignInRequestDto>({
+      defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
+      validationSchema: userSignInValidationSchema,
+    });
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        reset({
+          email: '',
+          password: '',
+        });
+      };
+    }, []),
+  );
 
   return (
     <>
