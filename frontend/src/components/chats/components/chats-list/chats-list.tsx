@@ -9,6 +9,7 @@ import { Spinner } from 'components/common/common';
 import { getFormattedDate } from 'helpers/helpers';
 
 import { Chat } from './components/components';
+import { sortChatsByDate } from './helpers/helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -35,6 +36,8 @@ const ChatsList: FC<Props> = ({
     return <Spinner />;
   }
 
+  const sortedChats = sortChatsByDate(chatsItems);
+
   return (
     <div className={styles.listWrapper}>
       <h3 className={styles.messagesTitle}>Messages</h3>
@@ -44,7 +47,7 @@ const ChatsList: FC<Props> = ({
         </h4>
       ) : (
         <ul className={styles.chatsList}>
-          {chatsItems.map((chat) => {
+          {sortedChats.map((chat) => {
             const chatOpponent: UsersGetResponseDto =
               chat.sender.id === currentUserId ? chat.receiver : chat.sender;
 
