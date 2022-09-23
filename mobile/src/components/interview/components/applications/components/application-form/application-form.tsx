@@ -9,7 +9,6 @@ import {
 } from '~/common/types/types';
 import {
   Button,
-  Category,
   Chip,
   DatePicker,
   Dropdown,
@@ -21,7 +20,7 @@ import { checkHasPermission, getFormattedDate } from '~/helpers/helpers';
 import { useAppForm, useEffect, useState } from '~/hooks/hooks';
 import { interviewUpdate as interviewUpdateValidationSchema } from '~/validation-schemas/validation-schemas';
 
-import { ButtonsSection } from './components/components';
+import { ButtonsSection, CourseCategory } from './components/components';
 import {
   getInterviewersOptions,
   getInterviewStatusOptions,
@@ -127,7 +126,7 @@ const ApplicationForm: FC<Props> = ({
             <Text style={styles.title}>Category</Text>
           </View>
           <View style={styles.rowContent}>
-            <Category
+            <CourseCategory
               keyName={interview.courseCategory.key ?? 'unknown'}
               name={interview.courseCategory.name ?? 'Unknown'}
             />
