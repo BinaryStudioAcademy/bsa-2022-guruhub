@@ -117,7 +117,7 @@ const Task: FC = () => {
   }
 
   if (!task) {
-    return <Text style={styles.noTask}>Task does't exist</Text>;
+    return <Text style={styles.noTask}>No tasks yet</Text>;
   }
 
   return (
