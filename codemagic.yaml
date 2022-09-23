@@ -23,6 +23,7 @@ scripts:
       API_ORIGIN_URL = $API_ORIGIN_URL
       APP_HOST = $APP_HOST
       APP_SCHEME = $APP_SCHEME
+      STRIPE_PUBLIC_KEY = $STRIPE_PUBLIC_KEY
       EOF
   - &set_up_android_updated_versions
     name: Set up updated build number and provide correct versioning
