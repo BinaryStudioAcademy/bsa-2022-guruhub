@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     color: AppColor.TEXT.GRAY_200,
     textAlign: 'center',
     paddingHorizontal: 20,
-    marginTop: 150,
+    marginTop: 170,
   },
   paginationContainer: {
     paddingTop: 16,
