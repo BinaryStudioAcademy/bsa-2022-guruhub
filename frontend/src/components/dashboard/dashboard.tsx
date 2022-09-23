@@ -22,7 +22,10 @@ import {
 } from 'hooks/hooks';
 import { dashboardActions, userDetailsActions } from 'store/actions';
 
-import { carouselResponsiveBreakpoints } from './common';
+import {
+  carouselResponsiveBreakpoints,
+  carouselResponsiveBreakpointsWithoutSidebar,
+} from './common';
 import { AddCourseModal, CategoriesList } from './components/components';
 import styles from './styles.module.scss';
 
@@ -83,11 +86,15 @@ const Dashboard: FC = () => {
     setIsNewCourseModalOpen(!isNewCourseModalOpen);
   };
 
+  const carouselBreakpoints = user
+    ? carouselResponsiveBreakpoints
+    : carouselResponsiveBreakpointsWithoutSidebar;
+
   return (
     <div className={styles.container}>
       <div className={styles.carouselWrapper}>
         <h1>Most Popular</h1>
-        <Carousel responsive={carouselResponsiveBreakpoints} hasArrows>
+        <Carousel responsive={carouselBreakpoints} hasArrows>
           {popularCourses.map((popularCourse) => (
             <div className={styles.carouselElement} key={popularCourse.id}>
               <Course course={popularCourse} />
