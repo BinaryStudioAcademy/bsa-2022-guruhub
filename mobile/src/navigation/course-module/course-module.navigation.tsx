@@ -2,7 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React, { FC } from 'react';
 
 import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
-import { AppScreenName, CourseModuleScreenName } from '~/common/enums/enums';
+import { CourseModuleScreenName } from '~/common/enums/enums';
 import { CourseModuleNavigationParamList } from '~/common/types/types';
 import { BackButton } from '~/components/common/common';
 import {
@@ -42,7 +42,7 @@ const CourseModule: FC = () => {
       );
       dispatch(courseModulesActions.getCourseModules({ courseId: course.id }));
     }
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.goBack();
   };
 
   const screensToRender = MODULE_TAB_ITEMS.filter(
@@ -51,8 +51,11 @@ const CourseModule: FC = () => {
   const isTabsShown = screensToRender.length > MIN_SCREENS_COUNT_FOR_TABS;
 
   useEffect(() => {
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
     navigation.setOptions({
-      headerLeft: () => <BackButton onPress={(): void => handleGoBack()} />,
+      headerLeft: () => <BackButton onPress={handleGoBack} />,
     });
   }, []);
 

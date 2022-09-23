@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { DataStatus, MyCoursesScreenName } from '~/common/enums/enums';
 import {
   CourseGetMentoringDto,
   CourseGetRequestParamsDto,
@@ -58,7 +58,7 @@ const CoursesAsMentor: FC = () => {
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(MyCoursesScreenName.COURSE);
   };
 
   useFocusEffect(

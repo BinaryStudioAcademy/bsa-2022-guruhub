@@ -1,6 +1,10 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppScreenName, DataStatus, PermissionKey } from '~/common/enums/enums';
+import {
+  ConfigureCourseScreenName,
+  DataStatus,
+  PermissionKey,
+} from '~/common/enums/enums';
 import {
   FlatList,
   Pressable,
@@ -57,7 +61,7 @@ const Course: FC = () => {
   const taskIsLoading = tasksDataStatus === DataStatus.PENDING;
 
   const handleEditModeToggle = (): void => {
-    navigation.navigate(AppScreenName.EDIT_COURSE);
+    navigation.navigate(ConfigureCourseScreenName.EDIT_COURSE);
   };
 
   const hasEditCategoryPermission = checkHasPermission({
@@ -114,7 +118,7 @@ const Course: FC = () => {
 
   const handleModulePress = (courseId: number, moduleId: number): void => {
     dispatch(courseModulesActions.getModuleById({ courseId, moduleId }));
-    navigation.navigate(AppScreenName.COURSE_MODULE);
+    navigation.navigate(ConfigureCourseScreenName.COURSE_MODULE);
   };
 
   if (taskIsLoading || courseIsLoading) {

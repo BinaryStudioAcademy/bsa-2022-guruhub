@@ -1,8 +1,8 @@
 import React, { FC, ReactElement } from 'react';
 
 import {
-  AppScreenName,
   DataStatus,
+  MyCoursesScreenName,
   PaginationDefaultValue,
 } from '~/common/enums/enums';
 import {
@@ -52,7 +52,7 @@ const CoursesAsStudent: FC = () => {
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(MyCoursesScreenName.COURSE);
   };
 
   const handleLoadMore = (): void => {

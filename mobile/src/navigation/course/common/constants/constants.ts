@@ -31,7 +31,7 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const COURSE_TAB_ITEMS: NavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: CourseScreenName.ABOUT,
     component: Course,
@@ -52,4 +52,4 @@ const COURSE_TAB_ITEMS: NavigationItem[] = [
   },
 ];
 
-export { COURSE_TAB_ITEMS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

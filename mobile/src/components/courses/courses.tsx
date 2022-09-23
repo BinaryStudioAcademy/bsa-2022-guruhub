@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 
 import {
   AppColor,
-  AppScreenName,
+  CoursesScreenName,
   DataStatus,
   PaginationDefaultValue,
 } from '~/common/enums/enums';
@@ -88,7 +88,7 @@ const Courses: FC = (): ReactElement => {
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(CoursesScreenName.COURSE);
   };
 
   const handleRefresh = (): void => {
@@ -96,7 +96,7 @@ const Courses: FC = (): ReactElement => {
   };
 
   const handleAddCourse = (): void => {
-    navigation.navigate(AppScreenName.ADD_COURSE);
+    navigation.navigate(CoursesScreenName.ADD_COURSE);
   };
 
   const handleFilters = (search: string): void => {
@@ -124,6 +124,9 @@ const Courses: FC = (): ReactElement => {
 
   useFocusEffect(
     useCallback(() => {
+      navigation.getParent()?.setOptions({
+        headerShown: true,
+      });
       dispatch(categoryActions.getAllWithCourses());
       handleCoursesLoad();
 

@@ -93,15 +93,22 @@ export {
 export {
   type AppNavigationParamList,
   type AuthNavigationParamList,
+  type ChatNavigationParamList,
+  type ConfigureCourseParamList,
   type CourseModuleNavigationParamList,
   type CourseNavigationParamList,
+  type CoursesManagementNavigationParamList,
+  type CoursesNavigationParamList,
   type InterviewNavigationParamList,
+  type InterviewsNavigationParamList,
   type MyCoursesNavigationParamList,
+  type MyCoursesResultsNavigationParamList,
   type NavigationItem,
   type NavigationScreenProps,
   type RootNavigationParamList,
   type RootNavigationScreenProps,
   type TabNavigationItem,
+  type UAMNavigationParamList,
 } from './navigation/navigation';
 export { type NotificationPayload } from './notification/notification';
 export {

@@ -1,23 +1,35 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { MIN_SCREENS_COUNT_FOR_TABS } from '~/common/constants/constants';
 import { InterviewScreenName } from '~/common/enums/enums';
 import { InterviewNavigationParamList } from '~/common/types/types';
-import { View } from '~/components/common/common';
+import { BackButton, View } from '~/components/common/common';
+import { useAppNavigate } from '~/hooks/hooks';
 
-import { INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS } from './common/constants';
+import { NAVIGATION_ITEMS, SCREEN_OPTIONS } from './common/constants';
 import { styles } from './styles';
 
 const Tab = createMaterialTopTabNavigator<InterviewNavigationParamList>();
 
 const Interview: FC = () => {
-  const isTabsShown = INTERVIEW_TAB_ITEMS.length > MIN_SCREENS_COUNT_FOR_TABS;
+  const isTabsShown = NAVIGATION_ITEMS.length > MIN_SCREENS_COUNT_FOR_TABS;
+  const navigation = useAppNavigate();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackButton onPress={navigation.goBack} />,
+      headerShown: true,
+    });
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
       <Tab.Navigator screenOptions={SCREEN_OPTIONS}>
-        {INTERVIEW_TAB_ITEMS.map((screen) => (
+        {NAVIGATION_ITEMS.map((screen) => (
           <Tab.Screen
             key={screen.name}
             name={screen.name as InterviewScreenName}
