@@ -10,6 +10,7 @@ enum NotificationMessage {
   IMAGE_TO_BIG = 'Image size should be less than 1mb',
   INVALID_PHOTO_FORMAT = 'Supported formats: .PNG, .JPEG, .SVG`',
   COURSES_MENTORING_UPDATE = 'Students count is successfully updated!',
+  COURSE_ADD = 'Course has been successfully added!',
   MENTOR_CHOOSE = 'You have successfully chose a mentor for this course!',
   NOT_ENOUGH_FUNDS_TO_WITHDRAW = 'You need to have at least 1$ to withdraw your funds.',
   SUCCESSFUL_REPLENISH = 'You have successfully replenished your balance.',

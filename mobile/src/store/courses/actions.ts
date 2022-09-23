@@ -60,10 +60,16 @@ const addCourse = createAsyncThunk<
   CourseGetResponseDto,
   CourseCreateRequestDto,
   AsyncThunkConfig
->(ActionType.ADD_COURSE, async (payload, { extra }) => {
+>(ActionType.ADD_COURSE, async (payload, { extra, dispatch }) => {
   const { coursesApi } = extra;
   const { url } = payload;
   const course = await coursesApi.create(url);
+  dispatch(
+    app.notify({
+      type: NotificationType.SUCCESS,
+      message: NotificationMessage.COURSE_ADD,
+    }),
+  );
 
   return course;
 });

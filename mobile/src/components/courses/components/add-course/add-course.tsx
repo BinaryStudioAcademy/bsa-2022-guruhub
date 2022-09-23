@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName } from '~/common/enums/enums';
+import { CoursesScreenName } from '~/common/enums/enums';
 import { CourseCreateRequestDto } from '~/common/types/types';
 import {
   BackButton,
@@ -36,7 +36,7 @@ const AddCourse: FC = () => {
     payload: CourseCreateRequestDto,
   ): Promise<void> => {
     await dispatch(coursesActions.addCourse(payload)).unwrap();
-    navigation.navigate(AppScreenName.COURSES);
+    navigation.navigate(CoursesScreenName.COURSES);
   };
 
   useEffect(() => {
