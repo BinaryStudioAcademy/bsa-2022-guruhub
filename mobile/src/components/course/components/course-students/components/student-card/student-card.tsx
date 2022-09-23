@@ -18,7 +18,7 @@ const StudentCard: FC<Props> = ({ mentee, onSelect }) => {
   const navigation = useAppNavigate();
 
   const handleSelect = (): void => {
-    onSelect(mentee.id);
+    onSelect(mentee.userId);
     navigation.navigate(CourseScreenName.ABOUT);
   };
 
