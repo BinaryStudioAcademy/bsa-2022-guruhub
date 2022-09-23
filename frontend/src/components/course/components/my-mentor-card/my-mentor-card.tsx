@@ -29,7 +29,7 @@ const MyMentor: FC<Props> = ({ mentor, onMentorChange }) => {
             <p className={styles.mentorContacts}>{mentor.email}</p>
             {hasTelegram && (
               <p className={styles.mentorContacts}>
-                {mentor.userDetails.telegramUsername}
+                @{mentor.userDetails.telegramUsername}
               </p>
             )}
           </div>

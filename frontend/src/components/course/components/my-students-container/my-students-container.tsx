@@ -41,7 +41,7 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
                 <p className={styles.contacts}>{email}</p>
                 {userDetails.telegramUsername && (
                   <p className={styles.contacts}>
-                    {userDetails.telegramUsername}
+                    @{userDetails.telegramUsername}
                   </p>
                 )}
               </div>
