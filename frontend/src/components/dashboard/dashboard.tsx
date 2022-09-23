@@ -20,7 +20,7 @@ import {
   useSearchParams,
   useState,
 } from 'hooks/hooks';
-import { dashboardActions, userDetailsActions } from 'store/actions';
+import { dashboardActions } from 'store/actions';
 
 import { carouselResponsiveBreakpoints } from './common';
 import { AddCourseModal, CategoriesList } from './components/components';
@@ -61,9 +61,6 @@ const Dashboard: FC = () => {
   const hasUser = Boolean(user);
 
   useEffect(() => {
-    if (user) {
-      dispatch(userDetailsActions.getUserDetails());
-    }
     dispatch(dashboardActions.getPopularCourses());
     dispatch(dashboardActions.getCategories());
   }, [dispatch]);

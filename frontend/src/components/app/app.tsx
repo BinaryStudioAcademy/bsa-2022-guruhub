@@ -28,7 +28,7 @@ import { UAMConfigureGroup } from 'components/uam-configure-group/uam-configure-
 import { UserDetails } from 'components/user-details/user-details';
 import { useAppDispatch, useAppSelector, useEffect } from 'hooks/hooks';
 import { storage } from 'services/services';
-import { authActions, chatsActions } from 'store/actions';
+import { authActions, chatsActions, userDetailsActions } from 'store/actions';
 
 const App: FC = () => {
   const { user, dataStatus } = useAppSelector((state) => state.auth);
@@ -39,6 +39,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (user) {
+      dispatch(userDetailsActions.getUserDetails());
       dispatch(chatsActions.joinRoom(user.id.toString()));
 
       return () => {
