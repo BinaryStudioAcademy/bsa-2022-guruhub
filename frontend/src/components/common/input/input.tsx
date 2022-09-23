@@ -43,9 +43,7 @@ const Input: FC<Props> = ({
     if (maxRows) {
       e.target.rows = rows as number;
       const lineHeight = window.getComputedStyle(e.target).lineHeight;
-      const lineHeightValue = parseInt(
-        (lineHeight.match(/\d+/) as Array<string>)[0],
-      );
+      const lineHeightValue = parseInt(lineHeight);
       const currentRows = Math.floor(e.target.scrollHeight / lineHeightValue);
       const newRowCount = currentRows < maxRows ? currentRows : maxRows;
       e.target.rows = newRowCount;
