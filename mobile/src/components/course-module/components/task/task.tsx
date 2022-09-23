@@ -63,10 +63,10 @@ const Task: FC = () => {
   }, [task]);
 
   useEffect(() => {
-    if (user && moduleId) {
+    if (menteeId && moduleId) {
       dispatch(
         courseModulesActions.getTask({
-          menteeId: menteeId as number,
+          menteeId: menteeId,
           moduleId: moduleId,
         }),
       );
