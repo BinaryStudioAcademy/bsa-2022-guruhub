@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import defaultAvatar from '~/assets/images/avatar-default.png';
 import { ChatMessageFormRequestDto } from '~/common/types/types';
 import { BackButton, Image, View } from '~/components/common/common';
-import { getImageUri } from '~/helpers/helpers';
+import { debounce, getImageUri } from '~/helpers/helpers';
 import {
   useAppDispatch,
   useAppNavigate,
@@ -14,6 +14,8 @@ import { chatActions } from '~/store/actions';
 
 import { MessageForm, MessagesList } from './components/components';
 import { styles } from './styles';
+
+const READ_MESSAGES_DELAY_MS = 500;
 
 const ChatConversation: FC = () => {
   const { chatId, currentChatMessages, chatOpponent, currentUserId } =
@@ -60,6 +62,27 @@ const ChatConversation: FC = () => {
       );
     }
   };
+
+  const handleReadMessages = (): void => {
+    if (chatId && chatOpponent) {
+      dispatch(chatActions.getMessages({ id: chatId, chatOpponent }));
+    }
+  };
+
+  const debounceHandleReadMessages = debounce(
+    handleReadMessages,
+    READ_MESSAGES_DELAY_MS,
+  );
+
+  useEffect(() => {
+    if (chatId) {
+      debounceHandleReadMessages();
+
+      return () => {
+        debounceHandleReadMessages.clear();
+      };
+    }
+  }, [chatId, currentChatMessages]);
 
   const hasMessages = Boolean(currentChatMessages.length);
 
