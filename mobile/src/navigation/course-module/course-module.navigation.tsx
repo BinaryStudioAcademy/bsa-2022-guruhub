@@ -21,16 +21,17 @@ const CourseModule: FC = () => {
   const navigation = useAppNavigate();
   const dispatch = useAppDispatch();
 
-  const { isCourseMentor, isMenteeMentor, course, menteeId } = useAppSelector(
-    ({ courses, courseModules }) => ({
+  const { mentor, isCourseMentor, isMenteeMentor, course, menteeId } =
+    useAppSelector(({ courses, courseModules }) => ({
       course: courses.course,
       isCourseMentor: courses.isMentor,
       isMenteeMentor: courseModules.isMentor,
       menteeId: courses.menteeId,
-    }),
-  );
+      mentor: courses.mentor,
+    }));
 
-  const showTask = !isCourseMentor || isMenteeMentor;
+  const menteeHasMentor = Boolean(mentor);
+  const showTask = (!isCourseMentor || isMenteeMentor) && menteeHasMentor;
 
   const handleGoBack = (): void => {
     if (course && menteeId) {
