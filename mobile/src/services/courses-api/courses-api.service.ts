@@ -5,7 +5,7 @@ import {
   HttpMethod,
 } from '~/common/enums/enums';
 import {
-  CourseFilteringDto,
+  CourseFilteringWithPaginationDto,
   CourseGetMentoringDto,
   CourseGetMentorsRequestDto,
   CourseGetRequestParamsDto,
@@ -37,29 +37,35 @@ class Courses {
     this.#apiPrefix = apiPrefix;
   }
 
-  public getAllWithCategories({
-    page,
-    count,
-  }: EntityPaginationRequestQueryDto): Promise<
-    EntityPagination<CourseGetResponseDto>
-  > {
-    return this.#http.load(`${this.#apiPrefix}${ApiPath.COURSES}`, {
-      queryParams: {
-        count,
-        page,
-      },
-    });
-  }
-
-  public getAll(options: {
-    filtering: CourseFilteringDto;
-  }): Promise<CourseGetResponseDto[]> {
+  public getAllWithCategories(opts: {
+    filtering: CourseFilteringWithPaginationDto;
+  }): Promise<EntityPagination<CourseGetResponseDto>> {
     return this.#http.load(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.DASHBOARD}`,
       {
         queryParams: {
-          title: options.filtering.title,
-          categoryKey: options.filtering.categoryKey,
+          title: opts.filtering.title,
+          categoryKey: opts.filtering.categoryKey,
+          page: opts.filtering.page,
+          count: opts.filtering.count,
+        },
+      },
+    );
+  }
+
+  public getAll({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
+      `${this.#apiPrefix}${ApiPath.COURSES}`,
+      {
+        method: HttpMethod.GET,
+        queryParams: {
+          count,
+          page,
         },
       },
     );
@@ -186,9 +192,20 @@ class Courses {
     );
   }
 
-  public getAllCoursesStudying(): Promise<CourseGetResponseDto[]> {
-    return this.#http.load<CourseGetResponseDto[]>(
+  public getAllCoursesStudying({
+    count,
+    page,
+  }: EntityPaginationRequestQueryDto): Promise<
+    EntityPagination<CourseGetResponseDto>
+  > {
+    return this.#http.load<EntityPagination<CourseGetResponseDto>>(
       `${this.#apiPrefix}${ApiPath.COURSES}${CoursesApiPath.STUDYING}`,
+      {
+        queryParams: {
+          count,
+          page,
+        },
+      },
     );
   }
 

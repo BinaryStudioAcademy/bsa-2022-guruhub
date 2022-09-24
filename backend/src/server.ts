@@ -26,7 +26,7 @@ Model.knex(Knex(knexConfig[ENV.APP.NODE_ENV]));
 
 app.register(fastifyMultipart, {
   limits: {
-    fileSize: FileSizeBytesValue.ONE_MB,
+    fileSize: FileSizeBytesValue.FIVE_MB,
   },
   attachFieldsToBody: true,
   throwFileSizeLimit: false,

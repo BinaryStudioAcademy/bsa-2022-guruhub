@@ -24,6 +24,10 @@ const WHITE_ROUTES: WhiteRoute[] = [
     methods: [HttpMethod.GET],
   },
   {
+    route: `${ENV.API.V1_PREFIX}${ApiPath.CATEGORIES}${CoursesApiPath.$ID}`,
+    methods: [HttpMethod.GET],
+  },
+  {
     route: `${ENV.API.V1_PREFIX}${ApiPath.COURSES}${ApiPath.DASHBOARD}`,
     methods: [HttpMethod.GET],
   },

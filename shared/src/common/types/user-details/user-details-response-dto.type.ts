@@ -9,6 +9,7 @@ type UserDetailsResponseDto = {
   avatar: FileGetResponseDto | null;
   dateOfBirth: string | null;
   telegramUsername: string | null;
+  userId: number;
 };
 
 export { type UserDetailsResponseDto };

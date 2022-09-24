@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { ChatScreenName, DataStatus } from '~/common/enums/enums';
 import { UsersGetResponseDto, UserWithPermissions } from '~/common/types/types';
 import { FAB, Search, Spinner, View } from '~/components/common/common';
 import {
@@ -33,7 +33,7 @@ const Chat: FC = () => {
     chatOpponent: UsersGetResponseDto,
   ): void => {
     dispatch(chatActions.getMessages({ id: chatId, chatOpponent }));
-    navigation.navigate(AppScreenName.CONVERSATION);
+    navigation.navigate(ChatScreenName.CONVERSATION);
   };
 
   const handleSearch = (search: string): void => {
@@ -41,12 +41,15 @@ const Chat: FC = () => {
   };
 
   const handleAddChat = (): void => {
-    navigation.navigate(AppScreenName.ALL_CHATS);
+    navigation.navigate(ChatScreenName.ALL_CHATS);
   };
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(chatActions.getLastMessages({ fullName: '' }));
+      navigation.getParent()?.setOptions({
+        headerShown: true,
+      }),
+        dispatch(chatActions.getLastMessages({ fullName: '' }));
     }, []),
   );
 

@@ -24,27 +24,24 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   rowData: {
-    flexDirection: 'row',
     marginTop: 25,
   },
   rowTitle: {
-    flex: 2,
-    marginRight: 30,
+    marginBottom: 5,
   },
   title: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_100,
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 19,
   },
   rowContent: {
-    flex: 3,
     alignItems: 'flex-start',
   },
   content: {
     fontFamily: AppFontFamily.INTER_600,
     color: AppColor.TEXT.GRAY_200,
-    fontSize: 14,
+    fontSize: 15,
     lineHeight: 19,
   },
   buttonsWrapper: {

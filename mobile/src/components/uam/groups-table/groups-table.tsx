@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, PaginationDefaultValue } from '~/common/enums/enums';
+import { PaginationDefaultValue, UAMScreenName } from '~/common/enums/enums';
 import { Pagination, Table, Text, View } from '~/components/common/common';
 import { getFormattedDate } from '~/helpers/helpers';
 import {
@@ -31,7 +31,7 @@ const GroupsTable: FC = () => {
 
   const handleGroupsItemEdit = async (groupId: number): Promise<void> => {
     await dispatch(uamGroupEditActions.getGroupById({ id: groupId }));
-    navigation.navigate(AppScreenName.UAM_GROUPS_EDIT);
+    navigation.navigate(UAMScreenName.UAM_GROUPS_EDIT);
   };
 
   const groupsColumns = getGroupsColumns();

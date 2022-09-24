@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
+import { Text as UIText } from 'react-native';
 
 import defaultAvatar from '~/assets/images/avatar-default.png';
 import { UsersGetResponseDto } from '~/common/types/types';
-import { OPPONENT_MESSAGE_SHORT_LENGTH } from '~/components/chat/common/constants/constants';
 import { Image, Pressable, Text, View } from '~/components/common/common';
 import { getFormattedDate, getImageUri } from '~/helpers/helpers';
 
@@ -28,9 +28,7 @@ const Conversation: FC<Props> = ({
   onPress,
 }) => {
   const messageStart = messageSenderId === currentUserId ? 'You: ' : '';
-  const messageShortView =
-    lastMessage && `${lastMessage.slice(0, OPPONENT_MESSAGE_SHORT_LENGTH)}...`;
-  const chatLastMessage = `${messageStart}${messageShortView}`;
+  const message = `${messageStart}${lastMessage ?? ''}`;
 
   const messageDate =
     lastMessageDate && getFormattedDate(lastMessageDate, 'HH:mm');
@@ -51,12 +49,18 @@ const Conversation: FC<Props> = ({
           }}
         />
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={styles.messageWrapper}>
         <Text style={styles.opponentName}>
           {chatOpponent.userDetails.fullName}
         </Text>
         {lastMessageDate && (
-          <Text style={styles.opponentMessage}>{chatLastMessage}</Text>
+          <UIText
+            style={styles.opponentMessage}
+            ellipsizeMode="tail"
+            numberOfLines={1}
+          >
+            {message}
+          </UIText>
         )}
       </View>
       {messageDate && <Text style={styles.date}>{messageDate}</Text>}

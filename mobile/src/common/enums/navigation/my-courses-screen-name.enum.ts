@@ -1,6 +1,6 @@
 enum MyCoursesScreenName {
-  STUDENT = 'As student',
-  MENTOR = 'As mentor',
+  MY_COURSES = 'My courses',
+  COURSE = 'Course',
 }
 
 export { MyCoursesScreenName };

@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { DataStatus, MyCoursesScreenName } from '~/common/enums/enums';
 import {
   CourseGetMentoringDto,
   CourseGetRequestParamsDto,
 } from '~/common/types/types';
-import { Pagination, ScrollView, View } from '~/components/common/common';
+import { Pagination, ScrollView, Text, View } from '~/components/common/common';
 import { DEFAULT_PAGE_SIZE } from '~/components/my-courses/common/constants/constants';
 import {
   useAppDispatch,
@@ -38,6 +38,7 @@ const CoursesAsMentor: FC = () => {
   const { page, handlePageChange } = usePagination();
 
   const isLoading = dataStatus === DataStatus.PENDING;
+  const hasCourses = Boolean(courses.length);
 
   const myCoursesRows = courses.map((item: CourseGetMentoringDto) => {
     return {
@@ -58,7 +59,7 @@ const CoursesAsMentor: FC = () => {
 
   const handleCourseCard = (id: CourseGetRequestParamsDto): void => {
     dispatch(coursesActions.getCourse(id));
-    navigation.navigate(AppScreenName.COURSE);
+    navigation.navigate(MyCoursesScreenName.COURSE);
   };
 
   useFocusEffect(
@@ -71,6 +72,10 @@ const CoursesAsMentor: FC = () => {
       );
     }, [page, totalCoursesMentoring]),
   );
+
+  if (!hasCourses) {
+    return <Text style={styles.noCourses}>No courses found</Text>;
+  }
 
   return (
     <ScrollView>

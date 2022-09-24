@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 import {
-  AppScreenName,
   DataStatus,
   PaginationDefaultValue,
+  UAMScreenName,
 } from '~/common/enums/enums';
 import { GroupsUpdateRequestDto } from '~/common/types/types';
 import {
@@ -50,7 +50,7 @@ const UAMConfigureGroup: FC = () => {
     (state) => state.uamGroupCreation,
   );
 
-  const isGroupEdit = name === AppScreenName.UAM_GROUPS_EDIT && group;
+  const isGroupEdit = name === UAMScreenName.UAM_GROUPS_EDIT && group;
   const isGroupLoading = groupDataStatus === DataStatus.PENDING;
 
   const { page: usersPage, handlePageChange: handleUserPageChange } =
@@ -114,19 +114,23 @@ const UAMConfigureGroup: FC = () => {
         }),
       ).unwrap();
     }
-    navigation.navigate(AppScreenName.UAM);
+    navigation.navigate(UAMScreenName.UAM);
   };
 
   const handleBack = async (): Promise<void> => {
     if (group) {
       dispatch(uamGroupEditActions.cancelEdit);
     }
-    navigation.navigate(AppScreenName.UAM);
+    navigation.navigate(UAMScreenName.UAM);
   };
 
   useEffect(() => {
     navigation.setOptions({
+      headerShown: true,
       headerLeft: () => <BackButton onPress={handleBack} />,
+    });
+    navigation.getParent()?.setOptions({
+      headerShown: false,
     });
   }, []);
 

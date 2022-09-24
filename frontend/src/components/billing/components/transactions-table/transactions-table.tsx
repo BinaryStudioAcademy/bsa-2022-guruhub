@@ -36,6 +36,7 @@ const TransactionsTable: FC<Props> = ({
 
   return (
     <div className={styles.table}>
+      <h1 className={styles.transactionsHeader}>Transactions</h1>
       <Table
         data={data}
         columns={columns}

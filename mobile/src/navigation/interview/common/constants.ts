@@ -30,7 +30,7 @@ const SCREEN_OPTIONS: MaterialTopTabNavigationOptions = {
   tabBarInactiveTintColor: AppColor.TEXT.GRAY_200,
 };
 
-const INTERVIEW_TAB_ITEMS: NavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     name: InterviewScreenName.APPLICATIONS,
     component: Applications,
@@ -45,4 +45,4 @@ const INTERVIEW_TAB_ITEMS: NavigationItem[] = [
   },
 ];
 
-export { INTERVIEW_TAB_ITEMS, SCREEN_OPTIONS };
+export { NAVIGATION_ITEMS, SCREEN_OPTIONS };

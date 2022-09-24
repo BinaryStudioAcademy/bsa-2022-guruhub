@@ -2,6 +2,7 @@ enum ExceptionMessage {
   UNKNOWN_ERROR = 'Unknown error occurred.',
   BAD_CREDENTIALS = 'You have entered an invalid email or password.',
   UNAUTHORIZED_USER = 'Unauthorized user.',
+  EMAIL_IS_ALREADY_TAKEN = 'This email is already taken.',
   INVALID_GROUP_NAME = 'Group name is invalid.',
   INVALID_GROUP_PERMISSIONS = 'Group permissions are invalid.',
   INVALID_GROUP_USERS = 'Group users are invalid.',

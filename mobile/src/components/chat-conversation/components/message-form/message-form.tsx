@@ -33,7 +33,9 @@ const MessageForm: FC<Props> = ({ onSubmit }) => {
   const isButtonDisabled = hasError || Boolean(!messageFieldValue.trim());
 
   const handleSend = (payload: ChatMessageFormRequestDto): void => {
-    onSubmit(payload);
+    const message = payload.message.trim();
+
+    onSubmit({ message });
     reset({ message: '' });
     setRowsCount(1);
   };

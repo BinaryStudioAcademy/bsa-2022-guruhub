@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { AppScreenName, DataStatus } from '~/common/enums/enums';
+import { DataStatus, InterviewsScreenName } from '~/common/enums/enums';
 import {
   InterviewsGetAllItemResponseDto,
   InterviewsUpdateRequestParamsDto,
@@ -42,7 +42,7 @@ const Interviews: FC = () => {
     id: InterviewsUpdateRequestParamsDto,
   ): void => {
     dispatch(interviewActions.getInterview(id));
-    navigation.navigate(AppScreenName.INTERVIEW);
+    navigation.navigate(InterviewsScreenName.INTERVIEW);
   };
 
   const interviewsRows = interviews.map(
@@ -65,6 +65,9 @@ const Interviews: FC = () => {
 
   useFocusEffect(
     useCallback(() => {
+      navigation.getParent()?.setOptions({
+        headerShown: true,
+      });
       dispatch(
         interviewsActions.getInterviews({
           page,

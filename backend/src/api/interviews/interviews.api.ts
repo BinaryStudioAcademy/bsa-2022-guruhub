@@ -158,7 +158,7 @@ const initInterviewsApi: FastifyPluginAsync<Options> = async (
       const interview = await interviewService.create({
         categoryId,
         intervieweeUserId,
-        status: InterviewStatus.PENDING,
+        status: InterviewStatus.NEW,
       });
 
       rep.status(HttpCode.CREATED).send(interview);

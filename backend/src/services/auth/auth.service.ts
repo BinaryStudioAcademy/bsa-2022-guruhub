@@ -44,8 +44,8 @@ class Auth {
 
     if (userByEmail) {
       throw new AuthError({
-        message: ExceptionMessage.BAD_CREDENTIALS,
-        status: HttpCode.UNAUTHORIZED,
+        message: ExceptionMessage.EMAIL_IS_ALREADY_TAKEN,
+        status: HttpCode.CONFLICT,
       });
     }
 

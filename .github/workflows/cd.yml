@@ -15,6 +15,7 @@ on:
       - shared/**/*.*
       - .github/workflows/cd.yml
       - .ebextensions/**/*.*
+      - .platform/**/*.*
   workflow_dispatch:
 
 concurrency:

@@ -1,42 +1,23 @@
 import React, { FC } from 'react';
 
-import { CourseScreenName, DataStatus, TaskStatus } from '~/common/enums/enums';
+import { DataStatus, TaskStatus } from '~/common/enums/enums';
 import {
   TaskGetItemReponseDto,
   TaskNoteFormRequestDto,
   TaskNoteManipulateRequestBodyDto,
 } from '~/common/types/types';
-import {
-  BackButton,
-  ScrollView,
-  Spinner,
-  Text,
-  View,
-} from '~/components/common/common';
-import {
-  useAppDispatch,
-  useAppNavigate,
-  useAppRoute,
-  useAppSelector,
-  useEffect,
-} from '~/hooks/hooks';
+import { ScrollView, Spinner, Text, View } from '~/components/common/common';
+import { useAppDispatch, useAppSelector, useEffect } from '~/hooks/hooks';
 import { courseModulesActions } from '~/store/actions';
 
 import { TaskNotes } from './components/components';
 import { TaskMessageArea } from './components/task-manipulate/components/components';
 import { styles } from './styles';
 
-type Params = {
-  moduleId: number;
-  menteeId: number;
-};
-
 const Task: FC = () => {
   const dispatch = useAppDispatch();
-  const { params } = useAppRoute();
-  const navigation = useAppNavigate();
-  const { dataStatus, notes, task, isMentor, user, moduleId } = useAppSelector(
-    ({ courseModules, auth, courses }) => ({
+  const { dataStatus, notes, task, isMentor, user, moduleId, menteeId } =
+    useAppSelector(({ courseModules, auth, courses }) => ({
       dataStatus: courseModules.dataStatus,
       notes: courseModules.notes,
       task: courseModules.task,
@@ -44,8 +25,8 @@ const Task: FC = () => {
       user: auth.user,
       courseId: courseModules.module?.courseId,
       moduleId: courseModules.module?.id,
-    }),
-  );
+      menteeId: courses.menteeId,
+    }));
   const isLoading = dataStatus === DataStatus.PENDING;
   const showForm = user && task && task.status !== TaskStatus.COMPLETED;
 
@@ -76,36 +57,16 @@ const Task: FC = () => {
   };
 
   useEffect(() => {
-    if (params) {
-      navigation.setOptions({
-        headerLeft: () => (
-          <BackButton
-            onPress={(): void =>
-              navigation.navigate(CourseScreenName.MY_STUDENTS)
-            }
-          />
-        ),
-      });
-      dispatch(
-        courseModulesActions.getTask({
-          menteeId: (params as Params).menteeId,
-          moduleId: (params as Params).moduleId,
-        }),
-      );
-    }
-  }, [params]);
-
-  useEffect(() => {
     if (task) {
       dispatch(courseModulesActions.getNotes({ taskId: task.id }));
     }
   }, [task]);
 
   useEffect(() => {
-    if (user && moduleId) {
+    if (menteeId && moduleId) {
       dispatch(
         courseModulesActions.getTask({
-          menteeId: user.id,
+          menteeId: menteeId,
           moduleId: moduleId,
         }),
       );
@@ -117,7 +78,7 @@ const Task: FC = () => {
   }
 
   if (!task) {
-    return <Text style={styles.noTask}>Task does't exist</Text>;
+    return <Text style={styles.noTask}>No tasks yet</Text>;
   }
 
   return (

@@ -14,11 +14,12 @@ const styles = StyleSheet.create({
     lineHeight: 32,
   },
   noTask: {
-    padding: 20,
-    fontFamily: AppFontFamily.INTER_600,
-    color: AppColor.TEXT.GRAY_100,
-    fontSize: 20,
-    lineHeight: 32,
+    fontSize: 24,
+    fontFamily: AppFontFamily.INTER_400_ITALIC,
+    color: AppColor.TEXT.GRAY_200,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    marginTop: 150,
   },
 });
 

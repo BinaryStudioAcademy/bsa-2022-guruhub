@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppScreenName } from '~/common/enums/enums';
+import { ChatScreenName } from '~/common/enums/enums';
 import { UsersGetResponseDto, UserWithPermissions } from '~/common/types/types';
 import { BackButton, FlatList, View } from '~/components/common/common';
 import {
@@ -29,17 +29,21 @@ const EmptyChats: FC = () => {
     chatOpponent: UsersGetResponseDto,
   ): void => {
     dispatch(chatActions.getMessages({ id: chatId, chatOpponent }));
-    navigation.navigate(AppScreenName.CONVERSATION);
+    navigation.navigate(ChatScreenName.CONVERSATION);
   };
 
   useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <BackButton
-          onPress={(): void => navigation.navigate(AppScreenName.CHAT)}
-        />
-      ),
-    });
+    navigation.getParent()?.setOptions({
+      headerShown: false,
+    }),
+      navigation.setOptions({
+        headerShown: true,
+        headerLeft: () => (
+          <BackButton
+            onPress={(): void => navigation.navigate(ChatScreenName.CHAT)}
+          />
+        ),
+      });
   }, []);
 
   return (

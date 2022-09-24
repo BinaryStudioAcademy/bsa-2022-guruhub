@@ -59,6 +59,7 @@ class Course {
         'courseCategories.id',
       )
       .withGraphJoined('[vendor, category.[price]]')
+      .orderBy('courses.createdAt', SortOrder.DESC)
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
 
@@ -77,7 +78,9 @@ class Course {
     const { results, total } = await this.#CourseModel
       .query()
       .withGraphJoined('category')
-      .orderBy('courseCategoryId', SortOrder.DESC)
+      .orderByRaw(`:column: ${SortOrder.ASC} NULLS FIRST`, {
+        column: 'courseCategoryId',
+      })
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>();
 
@@ -106,6 +109,7 @@ class Course {
       .withGraphJoined('[mentees, category.[price], vendor]')
       .where('menteeId', userId)
       .whereNotNull('mentorId')
+      .orderBy('id', SortOrder.ASC)
       .page(page, count)
       .castTo<Page<CourseM & CourseGetResponseDto>>()
       .execute();
