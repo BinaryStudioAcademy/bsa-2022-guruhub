@@ -50,3 +50,12 @@
   color: var(--text-gray-200);
   font-size: 15px;
 }
+
+.telegramLink {
+  color: var(--text-gray-200);
+  text-decoration: none;
+}
+
+.telegramLink:hover {
+  color: var(--typography-text-100-inverse);
+}

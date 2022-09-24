@@ -2,7 +2,7 @@ import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Image, Link } from 'components/common/common';
-import { generateDynamicPath } from 'helpers/helpers';
+import { generateDynamicPath, generateTelegramLink } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -40,9 +40,12 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
                 <p className={styles.text}>{userDetails.fullName}</p>
                 <p className={styles.contacts}>{email}</p>
                 {userDetails.telegramUsername && (
-                  <p className={styles.contacts}>
+                  <a
+                    href={generateTelegramLink(userDetails.telegramUsername)}
+                    className={styles.telegramLink}
+                  >
                     @{userDetails.telegramUsername}
-                  </p>
+                  </a>
                 )}
               </div>
             </div>

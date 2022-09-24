@@ -1,6 +1,7 @@
 import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Button, Image } from 'components/common/common';
+import { generateTelegramLink } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -28,9 +29,14 @@ const MyMentor: FC<Props> = ({ mentor, onMentorChange }) => {
             <p className={styles.mentorName}>{mentor.userDetails.fullName}</p>
             <p className={styles.mentorContacts}>{mentor.email}</p>
             {hasTelegram && (
-              <p className={styles.mentorContacts}>
+              <a
+                href={generateTelegramLink(
+                  mentor.userDetails.telegramUsername as string,
+                )}
+                className={styles.telegramLink}
+              >
                 @{mentor.userDetails.telegramUsername}
-              </p>
+              </a>
             )}
           </div>
         </div>
