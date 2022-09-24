@@ -1,11 +1,12 @@
 import React, { FC, ReactElement } from 'react';
 
-import { AppColor } from '~/common/enums/enums';
+import { AppColor, ButtonVariant } from '~/common/enums/enums';
 import {
   CourseGetResponseDto,
   UsersGetResponseDto,
 } from '~/common/types/types';
 import {
+  Button,
   FlatList,
   RefreshControl,
   Search,
@@ -24,6 +25,8 @@ type Props = {
   course: CourseGetResponseDto | null;
   isLoading: boolean;
   onChangeMentor: (mentorId: number) => void;
+  currentMentor: UsersGetResponseDto | null;
+  onCancel: () => void;
 };
 
 const ChooseMentor: FC<Props> = ({
@@ -31,6 +34,8 @@ const ChooseMentor: FC<Props> = ({
   course,
   isLoading,
   onChangeMentor,
+  currentMentor,
+  onCancel,
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const dispatch = useAppDispatch();
@@ -86,9 +91,21 @@ const ChooseMentor: FC<Props> = ({
               />
             }
             ListHeaderComponent={(): ReactElement => (
-              <Text style={styles.title}>
-                {hasMentors ? 'Choose a mentor' : ''}
-              </Text>
+              <View style={styles.listHeader}>
+                <Text style={styles.title}>
+                  {hasMentors ? 'Choose a mentor' : ''}
+                </Text>
+                {currentMentor && (
+                  <View style={styles.cancelButton}>
+                    <Button
+                      label="Cancel"
+                      size="small"
+                      variant={ButtonVariant.CANCEL}
+                      onPress={onCancel}
+                    />
+                  </View>
+                )}
+              </View>
             )}
             ListEmptyComponent={(): ReactElement => (
               <Text style={styles.noMentors}>

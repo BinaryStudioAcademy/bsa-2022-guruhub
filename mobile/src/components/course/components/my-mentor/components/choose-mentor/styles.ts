@@ -37,6 +37,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+  listHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  cancelButton: {
+    marginRight: 20,
+  },
 });
 
 export { styles };
