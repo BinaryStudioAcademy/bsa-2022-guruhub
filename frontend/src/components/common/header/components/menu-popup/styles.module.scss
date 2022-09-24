@@ -30,7 +30,8 @@
   margin: 0 auto;
 }
 
-.buttonWrapper a:hover:not(.button-icon:hover) {
+.buttonWrapper a:hover:not(.button-icon:hover),
+.buttonWrapper button:hover:not(.button-icon:hover) {
   background-color: transparent;
 }
 
