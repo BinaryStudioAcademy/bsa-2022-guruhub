@@ -96,14 +96,12 @@ const ChooseMentor: FC<Props> = ({
                   {hasMentors ? 'Choose a mentor' : ''}
                 </Text>
                 {currentMentor && (
-                  <View style={styles.cancelButton}>
-                    <Button
-                      label="Cancel"
-                      size="small"
-                      variant={ButtonVariant.CANCEL}
-                      onPress={onCancel}
-                    />
-                  </View>
+                  <Button
+                    label="Cancel"
+                    size="small"
+                    variant={ButtonVariant.CANCEL}
+                    onPress={onCancel}
+                  />
                 )}
               </View>
             )}

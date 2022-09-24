@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   title: {
-    marginLeft: 16,
     fontSize: 20,
     color: 'white',
     textAlign: 'left',
@@ -41,9 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  cancelButton: {
-    marginRight: 20,
+    paddingHorizontal: 20,
   },
 });
 
