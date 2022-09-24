@@ -11,7 +11,7 @@ import {
   Text,
   View,
 } from '~/components/common/common';
-import { useAppForm } from '~/hooks/hooks';
+import { useAppForm, useCallback, useFocusEffect } from '~/hooks/hooks';
 import { userSignUp as userSignUpValidationSchema } from '~/validation-schemas/validation-schemas';
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from './common/constants';
@@ -22,10 +22,23 @@ type Props = {
 };
 
 const SignUpForm: FC<Props> = ({ onSubmit }) => {
-  const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
-    defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
-    validationSchema: userSignUpValidationSchema,
-  });
+  const { control, reset, errors, handleSubmit } =
+    useAppForm<UserSignUpRequestDto>({
+      defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
+      validationSchema: userSignUpValidationSchema,
+    });
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        reset({
+          fullName: '',
+          email: '',
+          password: '',
+        });
+      };
+    }, []),
+  );
 
   return (
     <>
