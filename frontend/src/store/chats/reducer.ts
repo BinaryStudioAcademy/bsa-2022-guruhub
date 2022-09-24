@@ -104,13 +104,31 @@ const reducer = createReducer(initialState, (builder) => {
 
   builder.addCase(createMessage.fulfilled, (state, { payload }) => {
     state.currentChatMessages = [...state.currentChatMessages, payload];
-    state.lastMessages = state.lastMessages.map((lastMessage) => {
-      if (lastMessage.chatId === payload.chatId) {
-        return payload;
-      }
 
-      return lastMessage;
-    });
+    const currentChatLastMessage = state.lastMessages.find(
+      (lastMessage) => lastMessage.chatId === payload.chatId,
+    );
+
+    if (currentChatLastMessage) {
+      state.lastMessages = state.lastMessages.map((lastMessage) => {
+        if (lastMessage.chatId === payload.chatId) {
+          return payload;
+        }
+
+        return lastMessage;
+      });
+    } else {
+      state.lastMessages = [...state.lastMessages, payload];
+      const notEmptyChat = state.emptyChats.find(
+        (emptyChat) => emptyChat.chatId === payload.chatId,
+      );
+
+      if (notEmptyChat) {
+        state.emptyChats = state.emptyChats.filter((emptyChat) => {
+          return emptyChat !== notEmptyChat;
+        });
+      }
+    }
   });
 });
 
