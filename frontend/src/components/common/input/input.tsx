@@ -20,6 +20,7 @@ type Props = {
   hasVisuallyHiddenLabel?: boolean;
   inputClassName?: string;
   rows?: number;
+  maxRows?: number;
 };
 
 const Input: FC<Props> = ({
@@ -32,8 +33,22 @@ const Input: FC<Props> = ({
   hasVisuallyHiddenLabel = false,
   inputClassName = '',
   rows,
+  maxRows,
 }) => {
   const { field } = useFormControl({ name, control });
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    field.onChange(e);
+
+    if (maxRows) {
+      e.target.rows = rows as number;
+      const lineHeight = window.getComputedStyle(e.target).lineHeight;
+      const lineHeightValue = parseInt(lineHeight);
+      const currentRows = Math.floor(e.target.scrollHeight / lineHeightValue);
+      const newRowCount = currentRows < maxRows ? currentRows : maxRows;
+      e.target.rows = newRowCount;
+    }
+  };
 
   const inputArea = rows ? (
     <textarea
@@ -42,6 +57,7 @@ const Input: FC<Props> = ({
       placeholder={placeholder}
       className={getValidClasses(styles.input, inputClassName)}
       rows={rows}
+      onChange={handleChange}
     />
   ) : (
     <input
