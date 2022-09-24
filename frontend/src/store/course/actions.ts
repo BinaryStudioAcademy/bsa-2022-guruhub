@@ -165,6 +165,8 @@ const cleanMentor = createAction(ActionType.CLEAN_MENTOR);
 
 const cleanMentors = createAction(ActionType.CLEAN_MENTORS);
 
+const cleanMentees = createAction(ActionType.CLEAN_MENTEES);
+
 const getMentorsByCourseId = createAsyncThunk<
   UsersGetResponseDto[],
   CourseGetMentorsRequestDto,
@@ -418,6 +420,7 @@ export {
   checkIsMentor,
   checkIsMentorForMentee,
   chooseMentor,
+  cleanMentees,
   cleanMentor,
   cleanMentors,
   createInterview,

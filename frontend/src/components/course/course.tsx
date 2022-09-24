@@ -167,6 +167,7 @@ const Course: FC = () => {
       dispatch(courseActions.disableMentorChoosing());
       dispatch(courseActions.cleanMentor());
       dispatch(courseActions.cleanMentors());
+      dispatch(courseActions.cleanMentees());
     };
   }, [dispatch, courseId, user]);
 
