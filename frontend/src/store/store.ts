@@ -18,7 +18,11 @@ import {
   usersApi,
 } from 'services/services';
 
-import { chatSocket, handleError } from './middlewares/middlewares';
+import {
+  chatSocket,
+  handleError,
+  handleUnauthorized,
+} from './middlewares/middlewares';
 import { rootReducer } from './root-reducer';
 
 const extraArgument = {
@@ -45,7 +49,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       thunk: { extraArgument },
-    }).concat([handleError, chatSocket]);
+    }).concat([handleUnauthorized, handleError, chatSocket]);
   },
 });
 
