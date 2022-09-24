@@ -31,4 +31,38 @@ const carouselResponsiveBreakpoints: CarouselResponsiveType = {
   },
 };
 
-export { carouselResponsiveBreakpoints };
+const carouselResponsiveBreakpointsWithoutSidebar: CarouselResponsiveType = {
+  desktop3XLarge: {
+    breakpoint: { max: 2530, min: 2220 },
+    items: 7,
+  },
+  desktop2XLarge: {
+    breakpoint: { max: 2220, min: 1910 },
+    items: 6,
+  },
+  desktopXLarge: {
+    breakpoint: { max: 1910, min: 1600 },
+    items: 5,
+  },
+  desktopLarge: {
+    breakpoint: { max: 1600, min: 1290 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 1290, min: 980 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 980, min: 670 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 670, min: 0 },
+    items: 1,
+  },
+};
+
+export {
+  carouselResponsiveBreakpoints,
+  carouselResponsiveBreakpointsWithoutSidebar,
+};
