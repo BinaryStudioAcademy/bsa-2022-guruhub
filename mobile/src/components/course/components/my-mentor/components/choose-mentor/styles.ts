@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColor.BACKGROUND.GRAY_400,
   },
   title: {
-    marginLeft: 16,
     fontSize: 20,
     color: 'white',
     textAlign: 'left',
@@ -36,6 +35,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     textAlign: 'center',
+  },
+  listHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
   },
 });
 

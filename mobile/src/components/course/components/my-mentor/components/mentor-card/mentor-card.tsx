@@ -20,7 +20,7 @@ const MentorCard: FC<Props> = ({
   buttonLabel = 'Choose',
 }) => {
   const handleChoose = (): void => {
-    onChoose(mentor.id);
+    onChoose(mentor.userId);
   };
 
   return (

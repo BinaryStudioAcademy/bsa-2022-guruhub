@@ -70,6 +70,8 @@ const MyMentor: FC = () => {
           mentors={mentors}
           isLoading={areMentorsLoading}
           onChangeMentor={handleChooseMentor}
+          currentMentor={mentor}
+          onCancel={handleMentorCardShownToggle}
         />
       )}
     </View>
