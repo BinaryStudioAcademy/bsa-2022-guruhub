@@ -2,7 +2,7 @@ import defaultUserAvatar from 'assets/img/avatar-default.svg';
 import { AppRoute } from 'common/enums/enums';
 import { FC, UsersGetResponseDto } from 'common/types/types';
 import { Image, Link } from 'components/common/common';
-import { generateDynamicPath } from 'helpers/helpers';
+import { generateDynamicPath, generateTelegramLink } from 'helpers/helpers';
 
 import styles from './styles.module.scss';
 
@@ -18,7 +18,7 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
     <div className={styles.studentsWrapper}>
       <h2 className={styles.studentsTitle}>My Students</h2>
       {hasMentees ? (
-        mentees.map(({ id, userDetails }) => (
+        mentees.map(({ id, userDetails, email }) => (
           <Link
             to={generateDynamicPath(AppRoute.STUDENTS_$ID_COURSES_$ID, {
               studentId: id,
@@ -29,14 +29,25 @@ const MyStudentsContainer: FC<Props> = ({ mentees, courseId }) => {
             <div className={styles.student}>
               <div className={styles.imageWrapper}>
                 <Image
-                  width="74"
-                  height="74"
+                  width="75"
+                  height="75"
                   src={userDetails.avatar?.url ?? defaultUserAvatar}
                   alt="user avatar"
                   isCircular
                 />
               </div>
-              <p className={styles.text}>{userDetails.fullName}</p>
+              <div className={styles.studentData}>
+                <p className={styles.text}>{userDetails.fullName}</p>
+                <p className={styles.contacts}>{email}</p>
+                {userDetails.telegramUsername && (
+                  <a
+                    href={generateTelegramLink(userDetails.telegramUsername)}
+                    className={styles.telegramLink}
+                  >
+                    @{userDetails.telegramUsername}
+                  </a>
+                )}
+              </div>
             </div>
           </Link>
         ))
