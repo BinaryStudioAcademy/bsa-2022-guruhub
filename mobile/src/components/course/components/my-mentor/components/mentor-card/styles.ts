@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 75,
   },
   avatarContainer: {
-    marginVertical: 16,
+    marginTop: 16,
     backgroundColor: AppColor.BACKGROUND.GRAY_300,
     height: 150,
     alignItems: 'center',

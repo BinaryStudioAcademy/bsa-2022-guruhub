@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   [`button${ButtonVariant.CARD}Label`]: {
     color: AppColor.TEXT.GRAY_100,
-    fontSize: 24,
+    fontSize: 20,
   },
 });
 
